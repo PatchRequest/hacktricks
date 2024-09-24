@@ -1,8 +1,8 @@
 # macOS Sandbox
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -19,9 +19,9 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 Το MacOS Sandbox (αρχικά ονομαζόταν Seatbelt) **περιορίζει τις εφαρμογές** που εκτελούνται μέσα στο sandbox στις **επιτρεπόμενες ενέργειες που καθορίζονται στο προφίλ Sandbox** με το οποίο εκτελείται η εφαρμογή. Αυτό βοηθά να διασφαλιστεί ότι **η εφαρμογή θα έχει πρόσβαση μόνο σε αναμενόμενους πόρους**.
 
-Οποιαδήποτε εφαρμογή με την **παροχή** **`com.apple.security.app-sandbox`** θα εκτελείται μέσα στο sandbox. **Οι δυαδικοί κωδικοί της Apple** εκτελούνται συνήθως μέσα σε ένα Sandbox και προκειμένου να δημοσιευτούν στο **App Store**, **αυτή η παροχή είναι υποχρεωτική**. Έτσι, οι περισσότερες εφαρμογές θα εκτελούνται μέσα στο sandbox.
+Οποιαδήποτε εφαρμογή με την **παροχή** **`com.apple.security.app-sandbox`** θα εκτελείται μέσα στο sandbox. **Οι δυαδικοί κωδικοί της Apple** εκτελούνται συνήθως μέσα σε ένα Sandbox, και όλες οι εφαρμογές από το **App Store έχουν αυτή την παροχή**. Έτσι, πολλές εφαρμογές θα εκτελούνται μέσα στο sandbox.
 
-Για να ελέγξει τι μπορεί ή δεν μπορεί να κάνει μια διαδικασία, το **Sandbox έχει hooks** σε όλες τις **syscalls** σε όλο τον πυρήνα. **Ανάλογα** με τις **παροχές** της εφαρμογής, το Sandbox θα **επιτρέπει** ορισμένες ενέργειες.
+Για να ελέγξει τι μπορεί ή δεν μπορεί να κάνει μια διαδικασία, το **Sandbox έχει hooks** σε σχεδόν οποιαδήποτε λειτουργία μπορεί να προσπαθήσει μια διαδικασία (συμπεριλαμβανομένων των περισσότερων syscalls) χρησιμοποιώντας **MACF**. Ωστόσο, **ανάλογα** με τις **παροχές** της εφαρμογής, το Sandbox μπορεί να είναι πιο επιεικές με τη διαδικασία.
 
 Ορισμένα σημαντικά στοιχεία του Sandbox είναι:
 
@@ -30,7 +30,9 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 * Ένας **daemon** που εκτελείται στο userland `/usr/libexec/sandboxd`
 * Οι **κοντέινερ** `~/Library/Containers`
 
-Μέσα στο φάκελο κοντέινερ μπορείτε να βρείτε **έναν φάκελο για κάθε εφαρμογή που εκτελείται sandboxed** με το όνομα του bundle id:
+### Containers
+
+Κάθε sandboxed εφαρμογή θα έχει το δικό της κοντέινερ στο `~/Library/Containers/{CFBundleIdentifier}` :
 ```bash
 ls -l ~/Library/Containers
 total 0
@@ -41,7 +43,7 @@ drwx------@ 4 username  staff  128 Mar 25 14:14 com.apple.Accessibility-Settings
 drwx------@ 4 username  staff  128 Mar 25 14:10 com.apple.ActionKit.BundledIntentHandler
 [...]
 ```
-Μέσα σε κάθε φάκελο bundle id μπορείτε να βρείτε το **plist** και τον **φάκελο Δεδομένων** της Εφαρμογής:
+Μέσα σε κάθε φάκελο bundle id μπορείτε να βρείτε το **plist** και τον **φάκελο Δεδομένων** της Εφαρμογής με μια δομή που μιμείται τον φάκελο Home:
 ```bash
 cd /Users/username/Library/Containers/com.apple.Safari
 ls -la
@@ -65,10 +67,13 @@ drwx------   2 username  staff    64 Mar 24 18:02 SystemData
 drwx------   2 username  staff    64 Mar 24 18:02 tmp
 ```
 {% hint style="danger" %}
-Σημειώστε ότι ακόμη και αν οι symlinks είναι εκεί για να "διαφύγουν" από το Sandbox και να αποκτήσουν πρόσβαση σε άλλους φακέλους, η εφαρμογή πρέπει να **έχει άδειες** για να τους προσπελάσει. Αυτές οι άδειες βρίσκονται μέσα στο **`.plist`**.
+Σημειώστε ότι ακόμη και αν τα symlinks είναι εκεί για να "διαφύγουν" από το Sandbox και να αποκτήσουν πρόσβαση σε άλλους φακέλους, η εφαρμογή πρέπει να **έχει άδειες** για να τους προσπελάσει. Αυτές οι άδειες βρίσκονται μέσα στο **`.plist`** στο `RedirectablePaths`.
 {% endhint %}
+
+Τα **`SandboxProfileData`** είναι τα συμπιεσμένα δεδομένα προφίλ sandbox CFData που έχουν διαφύγει σε B64.
 ```bash
-# Get permissions
+# Get container config
+## You need FDA to access the file, not even just root can read it
 plutil -convert xml1 .com.apple.containermanagerd.metadata.plist -o -
 
 # Binary sandbox profile
@@ -115,10 +120,10 @@ AAAhAboBAAAAAAgAAABZAO4B5AHjBMkEQAUPBSsGPwsgASABHgEgASABHwEf...
 [...]
 ```
 {% hint style="warning" %}
-Ό,τι δημιουργείται/τροποποιείται από μια εφαρμογή που είναι σε Sandbox θα αποκτήσει το **χαρακτηριστικό καραντίνας**. Αυτό θα αποτρέψει έναν χώρο sandbox ενεργοποιώντας τον Gatekeeper αν η εφαρμογή sandbox προσπαθήσει να εκτελέσει κάτι με **`open`**.
+Ό,τι δημιουργείται/τροποποιείται από μια εφαρμογή που είναι σε Sandbox θα αποκτήσει το **attribute καραντίνας**. Αυτό θα αποτρέψει έναν χώρο sandbox ενεργοποιώντας τον Gatekeeper αν η εφαρμογή sandbox προσπαθήσει να εκτελέσει κάτι με **`open`**.
 {% endhint %}
 
-### Sandbox Profiles
+## Sandbox Profiles
 
 Τα Sandbox profiles είναι αρχεία ρύθμισης που υποδεικνύουν τι θα είναι **επιτρεπτό/απαγορευμένο** σε αυτό το **Sandbox**. Χρησιμοποιεί τη **Γλώσσα Προφίλ Sandbox (SBPL)**, η οποία χρησιμοποιεί τη γλώσσα προγραμματισμού [**Scheme**](https://en.wikipedia.org/wiki/Scheme\_\(programming\_language\)).
 
@@ -141,13 +146,15 @@ AAAhAboBAAAAAAgAAABZAO4B5AHjBMkEQAUPBSsGPwsgASABHgEgASABHwEf...
 )
 ```
 {% hint style="success" %}
-Δείτε αυτήν την [**έρευνα**](https://reverse.put.as/2011/09/14/apple-sandbox-guide-v1-0/) **για να δείτε περισσότερες ενέργειες που θα μπορούσαν να επιτραπούν ή να απορριφθούν.**
+Δείτε αυτήν την [**έρευνα**](https://reverse.put.as/2011/09/14/apple-sandbox-guide-v1-0/) **για να ελέγξετε περισσότερες ενέργειες που θα μπορούσαν να επιτραπούν ή να απορριφθούν.**
+
+Σημειώστε ότι στην συμπιεσμένη έκδοση ενός προφίλ, το όνομα των λειτουργιών αντικαθίσταται από τις καταχωρήσεις τους σε έναν πίνακα που είναι γνωστός από το dylib και το kext, καθιστώντας την συμπιεσμένη έκδοση πιο σύντομη και πιο δύσκολη στην ανάγνωση.
 {% endhint %}
 
-Σημαντικές **υπηρεσίες συστήματος** εκτελούνται επίσης μέσα σε δικό τους προσαρμοσμένο **sandbox**, όπως η υπηρεσία `mdnsresponder`. Μπορείτε να δείτε αυτά τα προσαρμοσμένα **προφίλ sandbox** μέσα σε:
+Σημαντικές **υπηρεσίες συστήματος** εκτελούνται επίσης μέσα στο δικό τους προσαρμοσμένο **sandbox**, όπως η υπηρεσία `mdnsresponder`. Μπορείτε να δείτε αυτά τα προσαρμοσμένα **προφίλ sandbox** μέσα σε:
 
 * **`/usr/share/sandbox`**
-* **`/System/Library/Sandbox/Profiles`**&#x20;
+* **`/System/Library/Sandbox/Profiles`**
 * Άλλα προφίλ sandbox μπορούν να ελεγχθούν στο [https://github.com/s7ephen/OSX-Sandbox--Seatbelt--Profiles](https://github.com/s7ephen/OSX-Sandbox--Seatbelt--Profiles).
 
 Οι εφαρμογές του **App Store** χρησιμοποιούν το **προφίλ** **`/System/Library/Sandbox/Profiles/application.sb`**. Μπορείτε να ελέγξετε σε αυτό το προφίλ πώς οι εξουσιοδοτήσεις όπως **`com.apple.security.network.server`** επιτρέπουν σε μια διαδικασία να χρησιμοποιεί το δίκτυο.
@@ -217,44 +224,51 @@ log show --style syslog --predicate 'eventMessage contains[c] "sandbox"' --last 
 Παραδείγματα παρακάμψεων:
 
 * [https://lapcatsoftware.com/articles/sandbox-escape.html](https://lapcatsoftware.com/articles/sandbox-escape.html)
-* [https://desi-jarvis.medium.com/office365-macos-sandbox-escape-fcce4fa4123c](https://desi-jarvis.medium.com/office365-macos-sandbox-escape-fcce4fa4123c) (μπορούν να γράφουν αρχεία εκτός της απομόνωσης των οποίων το όνομα ξεκινά με `~$`).
+* [https://desi-jarvis.medium.com/office365-macos-sandbox-escape-fcce4fa4123c](https://desi-jarvis.medium.com/office365-macos-sandbox-escape-fcce4fa4123c) (μπορούν να γράψουν αρχεία εκτός της απομόνωσης των οποίων το όνομα ξεκινά με `~$`).
 
-### Προφίλ Απομόνωσης MacOS
+### Ιχνηλάτηση Απομόνωσης
 
-Το macOS αποθηκεύει τα προφίλ απομόνωσης συστήματος σε δύο τοποθεσίες: **/usr/share/sandbox/** και **/System/Library/Sandbox/Profiles**.
+#### Μέσω προφίλ
 
-Και αν μια εφαρμογή τρίτου μέρους φέρει την _**com.apple.security.app-sandbox**_ εξουσία, το σύστημα εφαρμόζει το προφίλ **/System/Library/Sandbox/Profiles/application.sb** σε αυτή τη διαδικασία.
+Είναι δυνατόν να ιχνηλατήσετε όλους τους ελέγχους που εκτελεί η απομόνωση κάθε φορά που ελέγχεται μια ενέργεια. Για αυτό, απλώς δημιουργήστε το παρακάτω προφίλ:
 
-### **Προφίλ Απομόνωσης iOS**
-
-Το προεπιλεγμένο προφίλ ονομάζεται **container** και δεν έχουμε την κειμενική αναπαράσταση SBPL. Στη μνήμη, αυτή η απομόνωση αναπαρίσταται ως δυαδικό δέντρο Επιτρέπει/Απαγορεύει για κάθε άδεια από την απομόνωση.
-
-### Debug & Παράκαμψη Απομόνωσης
-
-Στο macOS, σε αντίθεση με το iOS όπου οι διαδικασίες είναι απομονωμένες από την αρχή από τον πυρήνα, **οι διαδικασίες πρέπει να επιλέξουν να μπουν στην απομόνωση μόνες τους**. Αυτό σημαίνει ότι στο macOS, μια διαδικασία δεν περιορίζεται από την απομόνωση μέχρι να αποφασίσει ενεργά να εισέλθει σε αυτήν.
-
-Οι διαδικασίες απομονώνονται αυτόματα από το userland όταν ξεκινούν αν έχουν την εξουσία: `com.apple.security.app-sandbox`. Για μια λεπτομερή εξήγηση αυτής της διαδικασίας, ελέγξτε:
-
-{% content-ref url="macos-sandbox-debug-and-bypass/" %}
-[macos-sandbox-debug-and-bypass](macos-sandbox-debug-and-bypass/)
-{% endcontent-ref %}
-
-### **Έλεγχος Προνομίων PID**
-
-[**Σύμφωνα με αυτό**](https://www.youtube.com/watch?v=mG715HcDgO8\&t=3011s), το **`sandbox_check`** (είναι ένα `__mac_syscall`), μπορεί να ελέγξει **αν μια ενέργεια επιτρέπεται ή όχι** από την απομόνωση σε ένα συγκεκριμένο PID.
-
-Το [**εργαλείο sbtool**](http://newosxbook.com/src.jl?tree=listings\&file=sbtool.c) μπορεί να ελέγξει αν ένα PID μπορεί να εκτελέσει μια συγκεκριμένη ενέργεια:
-```bash
-sbtool <pid> mach #Check mac-ports (got from launchd with an api)
-sbtool <pid> file /tmp #Check file access
-sbtool <pid> inspect #Gives you an explaination of the sandbox profile
-sbtool <pid> all
+{% code title="trace.sb" %}
+```scheme
+(version 1)
+(trace /tmp/trace.out)
 ```
-### Custom SBPL in App Store apps
+{% endcode %}
 
-Μπορεί να είναι δυνατόν για τις εταιρείες να κάνουν τις εφαρμογές τους να τρέχουν **με προσαρμοσμένα προφίλ Sandbox** (αντί με το προεπιλεγμένο). Πρέπει να χρησιμοποιήσουν την εξουσιοδότηση **`com.apple.security.temporary-exception.sbpl`** που πρέπει να εγκριθεί από την Apple.
+Και μετά απλώς εκτελέστε κάτι χρησιμοποιώντας αυτό το προφίλ:
+```bash
+sandbox-exec -f /tmp/trace.sb /bin/ls
+```
+In `/tmp/trace.out` θα μπορείτε να δείτε κάθε έλεγχο sandbox που εκτελέστηκε κάθε φορά που κλήθηκε (οπότε, πολλά διπλότυπα).
 
-Είναι δυνατόν να ελεγχθεί ο ορισμός αυτής της εξουσιοδότησης στο **`/System/Library/Sandbox/Profiles/application.sb:`**
+Είναι επίσης δυνατό να παρακολουθήσετε το sandbox χρησιμοποιώντας την παράμετρο **`-t`**: `sandbox-exec -t /path/trace.out -p "(version 1)" /bin/ls`
+
+#### Μέσω API
+
+Η συνάρτηση `sandbox_set_trace_path` που εξάγεται από το `libsystem_sandbox.dylib` επιτρέπει να καθορίσετε ένα όνομα αρχείου καταγραφής όπου θα γράφονται οι έλεγχοι sandbox.\
+Είναι επίσης δυνατό να κάνετε κάτι παρόμοιο καλώντας `sandbox_vtrace_enable()` και στη συνέχεια να αποκτήσετε τα σφάλματα καταγραφής από το buffer καλώντας `sandbox_vtrace_report()`.
+
+### Επιθεώρηση Sandbox
+
+`libsandbox.dylib` εξάγει μια συνάρτηση που ονομάζεται sandbox\_inspect\_pid η οποία δίνει μια λίστα της κατάστασης sandbox μιας διαδικασίας (συμπεριλαμβανομένων των επεκτάσεων). Ωστόσο, μόνο οι δυαδικοί κωδικοί της πλατφόρμας μπορούν να χρησιμοποιήσουν αυτή τη συνάρτηση.
+
+### Προφίλ Sandbox MacOS & iOS
+
+Το MacOS αποθηκεύει τα προφίλ sandbox του συστήματος σε δύο τοποθεσίες: **/usr/share/sandbox/** και **/System/Library/Sandbox/Profiles**.
+
+Και αν μια εφαρμογή τρίτου μέρους φέρει την _**com.apple.security.app-sandbox**_ εξουσιοδότηση, το σύστημα εφαρμόζει το προφίλ **/System/Library/Sandbox/Profiles/application.sb** σε αυτή τη διαδικασία.
+
+Στο iOS, το προεπιλεγμένο προφίλ ονομάζεται **container** και δεν έχουμε την κειμενική αναπαράσταση SBPL. Στη μνήμη, αυτό το sandbox αναπαρίσταται ως δυαδικό δέντρο Allow/Deny για κάθε άδεια από το sandbox.
+
+### Προσαρμοσμένο SBPL σε εφαρμογές App Store
+
+Θα μπορούσε να είναι δυνατό για τις εταιρείες να κάνουν τις εφαρμογές τους να εκτελούνται **με προσαρμοσμένα προφίλ Sandbox** (αντί με το προεπιλεγμένο). Πρέπει να χρησιμοποιήσουν την εξουσιοδότηση **`com.apple.security.temporary-exception.sbpl`** η οποία πρέπει να εγκριθεί από την Apple.
+
+Είναι δυνατό να ελέγξετε τον ορισμό αυτής της εξουσιοδότησης στο **`/System/Library/Sandbox/Profiles/application.sb:`**
 ```scheme
 (sandbox-array-entitlement
 "com.apple.security.temporary-exception.sbpl"
@@ -262,19 +276,142 @@ sbtool <pid> all
 (let* ((port (open-input-string string)) (sbpl (read port)))
 (with-transparent-redirection (eval sbpl)))))
 ```
-Αυτό θα **εκτελέσει τη συμβολοσειρά μετά από αυτή την εξουσιοδότηση** ως προφίλ Sandbox.
+Αυτό θα **eval την αλφαριθμητική μετά από αυτή την εξουσιοδότηση** ως προφίλ Sandbox.
+
+### Συγκέντρωση & αποσυμπίεση ενός προφίλ Sandbox
+
+Το **`sandbox-exec`** εργαλείο χρησιμοποιεί τις συναρτήσεις `sandbox_compile_*` από το `libsandbox.dylib`. Οι κύριες συναρτήσεις που εξάγονται είναι: `sandbox_compile_file` (αναμένει μια διαδρομή αρχείου, παράμετρος `-f`), `sandbox_compile_string` (αναμένει μια αλφαριθμητική, παράμετρος `-p`), `sandbox_compile_name` (αναμένει ένα όνομα κοντέινερ, παράμετρος `-n`), `sandbox_compile_entitlements` (αναμένει plist εξουσιοδοτήσεων).
+
+Αυτή η αντίστροφη και [**ανοιχτού κώδικα έκδοση του εργαλείου sandbox-exec**](https://newosxbook.com/src.jl?tree=listings\&file=/sandbox\_exec.c) επιτρέπει στο **`sandbox-exec`** να γράφει σε ένα αρχείο το συγκεντρωμένο προφίλ sandbox.
+
+Επιπλέον, για να περιορίσει μια διαδικασία μέσα σε ένα κοντέινερ, μπορεί να καλέσει `sandbox_spawnattrs_set[container/profilename]` και να περάσει ένα κοντέινερ ή προϋπάρχον προφίλ.
+
+## Debug & Παράκαμψη Sandbox
+
+Στο macOS, σε αντίθεση με το iOS όπου οι διαδικασίες είναι sandboxed από την αρχή από τον πυρήνα, **οι διαδικασίες πρέπει να επιλέξουν να μπουν στο sandbox μόνες τους**. Αυτό σημαίνει ότι στο macOS, μια διαδικασία δεν περιορίζεται από το sandbox μέχρι να αποφασίσει ενεργά να εισέλθει σε αυτό, αν και οι εφαρμογές του App Store είναι πάντα sandboxed.
+
+Οι διαδικασίες είναι αυτόματα sandboxed από το userland όταν ξεκινούν αν έχουν την εξουσιοδότηση: `com.apple.security.app-sandbox`. Για μια λεπτομερή εξήγηση αυτής της διαδικασίας, ελέγξτε:
+
+{% content-ref url="macos-sandbox-debug-and-bypass/" %}
+[macos-sandbox-debug-and-bypass](macos-sandbox-debug-and-bypass/)
+{% endcontent-ref %}
+
+## **Επεκτάσεις Sandbox**
+
+Οι επεκτάσεις επιτρέπουν να δοθούν περαιτέρω προνόμια σε ένα αντικείμενο και δίνονται καλώντας μία από τις συναρτήσεις:
+
+* `sandbox_issue_extension`
+* `sandbox_extension_issue_file[_with_new_type]`
+* `sandbox_extension_issue_mach`
+* `sandbox_extension_issue_iokit_user_client_class`
+* `sandbox_extension_issue_iokit_registry_rentry_class`
+* `sandbox_extension_issue_generic`
+* `sandbox_extension_issue_posix_ipc`
+
+Οι επεκτάσεις αποθηκεύονται στη δεύτερη υποδοχή ετικέτας MACF που είναι προσβάσιμη από τα διαπιστευτήρια της διαδικασίας. Το ακόλουθο **`sbtool`** μπορεί να έχει πρόσβαση σε αυτές τις πληροφορίες.
+
+Σημειώστε ότι οι επεκτάσεις συνήθως χορηγούνται από επιτρεπόμενες διαδικασίες, για παράδειγμα, το `tccd` θα χορηγήσει το token επέκτασης του `com.apple.tcc.kTCCServicePhotos` όταν μια διαδικασία προσπαθήσει να έχει πρόσβαση στις φωτογραφίες και επιτρεπόταν σε ένα μήνυμα XPC. Στη συνέχεια, η διαδικασία θα χρειαστεί να καταναλώσει το token επέκτασης ώστε να προστεθεί σε αυτήν.\
+Σημειώστε ότι τα tokens επεκτάσεων είναι μακροχρόνια δεκαεξαδικά που κωδικοποιούν τις χορηγούμενες άδειες. Ωστόσο, δεν έχουν τον επιτρεπόμενο PID σκληρά κωδικοποιημένο, πράγμα που σημαίνει ότι οποιαδήποτε διαδικασία με πρόσβαση στο token μπορεί να **καταναλωθεί από πολλές διαδικασίες**.
+
+Σημειώστε ότι οι επεκτάσεις σχετίζονται πολύ και με τις εξουσιοδοτήσεις, οπότε η κατοχή ορισμένων εξουσιοδοτήσεων μπορεί αυτόματα να χορηγήσει ορισμένες επεκτάσεις.
+
+### **Έλεγχος Προνομίων PID**
+
+[**Σύμφωνα με αυτό**](https://www.youtube.com/watch?v=mG715HcDgO8\&t=3011s), οι συναρτήσεις **`sandbox_check`** (είναι μια `__mac_syscall`), μπορούν να ελέγξουν **αν μια ενέργεια επιτρέπεται ή όχι** από το sandbox σε έναν συγκεκριμένο PID, audit token ή μοναδικό ID.
+
+Το [**εργαλείο sbtool**](http://newosxbook.com/src.jl?tree=listings\&file=sbtool.c) (βρείτε το [συγκεντρωμένο εδώ](https://newosxbook.com/articles/hitsb.html)) μπορεί να ελέγξει αν ένας PID μπορεί να εκτελέσει ορισμένες ενέργειες:
+```bash
+sbtool <pid> mach #Check mac-ports (got from launchd with an api)
+sbtool <pid> file /tmp #Check file access
+sbtool <pid> inspect #Gives you an explanation of the sandbox profile and extensions
+sbtool <pid> all
+```
+### \[un]suspend
+
+Είναι επίσης δυνατό να αναστείλετε και να αναιρέσετε την αναστολή του sandbox χρησιμοποιώντας τις συναρτήσεις `sandbox_suspend` και `sandbox_unsuspend` από το `libsystem_sandbox.dylib`.
+
+Σημειώστε ότι για να καλέσετε τη συνάρτηση αναστολής ελέγχονται ορισμένα δικαιώματα προκειμένου να εξουσιοδοτηθεί ο καλών να την καλέσει όπως:
+
+* com.apple.private.security.sandbox-manager
+* com.apple.security.print
+* com.apple.security.temporary-exception.audio-unit-host
+
+## mac\_syscall
+
+Αυτή η κλήση συστήματος (#381) αναμένει ένα string ως πρώτο επιχείρημα που θα υποδείξει το module που θα εκτελεστεί, και στη συνέχεια έναν κωδικό ως δεύτερο επιχείρημα που θα υποδείξει τη συνάρτηση που θα εκτελεστεί. Στη συνέχεια, το τρίτο επιχείρημα θα εξαρτάται από τη συνάρτηση που εκτελείται.
+
+Η συνάρτηση `___sandbox_ms` καλεί τη `mac_syscall` υποδεικνύοντας στο πρώτο επιχείρημα `"Sandbox"` ακριβώς όπως η `___sandbox_msp` είναι μια περιτύλιξη της `mac_set_proc` (#387). Στη συνέχεια, μερικοί από τους υποστηριζόμενους κωδικούς από την `___sandbox_ms` μπορούν να βρεθούν σε αυτόν τον πίνακα:
+
+* **set\_profile (#0)**: Εφαρμόστε ένα συμπιεσμένο ή ονομασμένο προφίλ σε μια διαδικασία.
+* **platform\_policy (#1)**: Επιβάλλετε ελέγχους πολιτικής συγκεκριμένους για την πλατφόρμα (διαφέρει μεταξύ macOS και iOS).
+* **check\_sandbox (#2)**: Εκτελέστε έναν χειροκίνητο έλεγχο μιας συγκεκριμένης λειτουργίας sandbox.
+* **note (#3)**: Προσθέτει μια σημείωση σε ένα Sandbox
+* **container (#4)**: Συνδέστε μια σημείωση σε ένα sandbox, συνήθως για αποσφαλμάτωση ή αναγνώριση.
+* **extension\_issue (#5)**: Δημιουργήστε μια νέα επέκταση για μια διαδικασία.
+* **extension\_consume (#6)**: Καταναλώστε μια δεδομένη επέκταση.
+* **extension\_release (#7)**: Απελευθερώστε τη μνήμη που σχετίζεται με μια καταναλωθείσα επέκταση.
+* **extension\_update\_file (#8)**: Τροποποιήστε παραμέτρους μιας υπάρχουσας επέκτασης αρχείου εντός του sandbox.
+* **extension\_twiddle (#9)**: Ρυθμίστε ή τροποποιήστε μια υπάρχουσα επέκταση αρχείου (π.χ., TextEdit, rtf, rtfd).
+* **suspend (#10)**: Αναστείλετε προσωρινά όλους τους ελέγχους sandbox (απαιτεί κατάλληλα δικαιώματα).
+* **unsuspend (#11)**: Επαναλάβετε όλους τους προηγουμένως ανασταλμένους ελέγχους sandbox.
+* **passthrough\_access (#12)**: Επιτρέψτε άμεση πρόσβαση passthrough σε μια πηγή, παρακάμπτοντας τους ελέγχους sandbox.
+* **set\_container\_path (#13)**: (μόνο iOS) Ορίστε μια διαδρομή container για μια ομάδα εφαρμογών ή ID υπογραφής.
+* **container\_map (#14)**: (μόνο iOS) Ανακτήστε μια διαδρομή container από το `containermanagerd`.
+* **sandbox\_user\_state\_item\_buffer\_send (#15)**: (iOS 10+) Ορίστε μεταδεδομένα λειτουργίας χρήστη στο sandbox.
+* **inspect (#16)**: Παρέχετε πληροφορίες αποσφαλμάτωσης σχετικά με μια διαδικασία που είναι sandboxed.
+* **dump (#18)**: (macOS 11) Εκτυπώστε το τρέχον προφίλ ενός sandbox για ανάλυση.
+* **vtrace (#19)**: Ιχνηλατήστε τις λειτουργίες sandbox για παρακολούθηση ή αποσφαλμάτωση.
+* **builtin\_profile\_deactivate (#20)**: (macOS < 11) Απενεργοποιήστε τα ονομασμένα προφίλ (π.χ., `pe_i_can_has_debugger`).
+* **check\_bulk (#21)**: Εκτελέστε πολλές λειτουργίες `sandbox_check` σε μία μόνο κλήση.
+* **reference\_retain\_by\_audit\_token (#28)**: Δημιουργήστε μια αναφορά για ένα audit token για χρήση σε ελέγχους sandbox.
+* **reference\_release (#29)**: Απελευθερώστε μια προηγουμένως διατηρημένη αναφορά audit token.
+* **rootless\_allows\_task\_for\_pid (#30)**: Επαληθεύστε εάν επιτρέπεται το `task_for_pid` (παρόμοιο με τους ελέγχους `csr`).
+* **rootless\_whitelist\_push (#31)**: (macOS) Εφαρμόστε ένα αρχείο manifest System Integrity Protection (SIP).
+* **rootless\_whitelist\_check (preflight) (#32)**: Ελέγξτε το αρχείο manifest SIP πριν από την εκτέλεση.
+* **rootless\_protected\_volume (#33)**: (macOS) Εφαρμόστε SIP προστασίες σε έναν δίσκο ή διαμέρισμα.
+* **rootless\_mkdir\_protected (#34)**: Εφαρμόστε SIP/DataVault προστασία σε μια διαδικασία δημιουργίας καταλόγου.
+
+## Sandbox.kext
+
+Σημειώστε ότι στο iOS η επέκταση πυρήνα περιέχει **σκληρά κωδικοποιημένα όλα τα προφίλ** μέσα στο τμήμα `__TEXT.__const` για να αποφευχθεί η τροποποίησή τους. Ακολουθούν μερικές ενδιαφέρουσες συναρτήσεις από την επέκταση πυρήνα:
+
+* **`hook_policy_init`**: Συνδέει το `mpo_policy_init` και καλείται μετά το `mac_policy_register`. Εκτελεί τις περισσότερες από τις αρχικοποιήσεις του Sandbox. Επίσης, αρχικοποιεί το SIP.
+* **`hook_policy_initbsd`**: Ρυθμίζει τη διεπαφή sysctl καταχωρώντας `security.mac.sandbox.sentinel`, `security.mac.sandbox.audio_active` και `security.mac.sandbox.debug_mode` (αν έχει εκκινήσει με `PE_i_can_has_debugger`).
+* **`hook_policy_syscall`**: Καλείται από τη `mac_syscall` με "Sandbox" ως πρώτο επιχείρημα και κωδικό που υποδεικνύει τη λειτουργία στο δεύτερο. Χρησιμοποιείται ένα switch για να βρεθεί ο κωδικός που θα εκτελεστεί σύμφωνα με τον ζητούμενο κωδικό.
+
+### MACF Hooks
+
+**`Sandbox.kext`** χρησιμοποιεί περισσότερους από εκατό hooks μέσω MACF. Οι περισσότεροι από τους hooks θα ελέγξουν απλώς ορισμένες τυπικές περιπτώσεις που επιτρέπουν την εκτέλεση της ενέργειας, αν όχι, θα καλέσουν **`cred_sb_evalutate`** με τα **διαπιστευτήρια** από το MACF και έναν αριθμό που αντιστοιχεί στην **λειτουργία** που θα εκτελεστεί και ένα **buffer** για την έξοδο.
+
+Ένα καλό παράδειγμα αυτού είναι η συνάρτηση **`_mpo_file_check_mmap`** που συνδέει το **`mmap`** και η οποία θα αρχίσει να ελέγχει αν η νέα μνήμη θα είναι εγγράψιμη (και αν όχι να επιτρέψει την εκτέλεση), στη συνέχεια θα ελέγξει αν χρησιμοποιείται για την κοινή μνήμη dyld και αν ναι θα επιτρέψει την εκτέλεση, και τελικά θα καλέσει **`cred_sb_evalutate`** για να εκτελέσει περαιτέρω ελέγχους επιτρεπόμενης πρόσβασης.
+
+Επιπλέον, από τους εκατοντάδες hooks που χρησιμοποιεί το Sandbox, υπάρχουν 3 που είναι ιδιαίτερα ενδιαφέροντα:
+
+* `mpo_proc_check_for`: Εφαρμόζει το προφίλ αν χρειάζεται και αν δεν έχει εφαρμοστεί προηγουμένως
+* `mpo_vnode_check_exec`: Καλείται όταν μια διαδικασία φορτώνει το σχετικό δυαδικό, στη συνέχεια εκτελείται έλεγχος προφίλ και επίσης έλεγχος που απαγορεύει τις εκτελέσεις SUID/SGID.
+* `mpo_cred_label_update_execve`: Αυτό καλείται όταν ανατίθεται η ετικέτα. Αυτό είναι το πιο χρονοβόρο καθώς καλείται όταν το δυαδικό έχει φορτωθεί πλήρως αλλά δεν έχει εκτελεστεί ακόμη. Θα εκτελέσει ενέργειες όπως η δημιουργία του αντικειμένου sandbox, η σύνδεση της δομής sandbox στα διαπιστευτήρια kauth, η αφαίρεση πρόσβασης σε mach ports...
+
+Σημειώστε ότι **`cred_sb_evalutate`** είναι μια περιτύλιξη πάνω από **`sb_evaluate`** και αυτή η συνάρτηση παίρνει τα διαπιστευτήρια που περνιούνται και στη συνέχεια εκτελεί την αξιολόγηση χρησιμοποιώντας τη συνάρτηση **`eval`** που συνήθως αξιολογεί το **προφίλ πλατφόρμας** το οποίο εφαρμόζεται από προεπιλογή σε όλες τις διαδικασίες και στη συνέχεια το **συγκεκριμένο προφίλ διαδικασίας**. Σημειώστε ότι το προφίλ πλατφόρμας είναι ένα από τα κύρια συστατικά του **SIP** στο macOS.
+
+## Sandboxd
+
+Το Sandbox έχει επίσης έναν daemon χρήστη που εκτελείται εκθέτοντας την υπηρεσία XPC Mach `com.apple.sandboxd` και δεσμεύοντας την ειδική θύρα 14 (`HOST_SEATBELT_PORT`) την οποία χρησιμοποιεί η επέκταση πυρήνα για να επικοινωνήσει μαζί της. Εκθέτει ορισμένες συναρτήσεις χρησιμοποιώντας MIG.
+
+## References
+
+* [**\*OS Internals Volume III**](https://newosxbook.com/home.html)
 
 {% hint style="success" %}
-Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Υποστήριξη HackTricks</summary>
+<summary>Support HackTricks</summary>
 
-* Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
-* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
