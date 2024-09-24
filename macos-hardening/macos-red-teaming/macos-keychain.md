@@ -1,31 +1,33 @@
 # macOS Keychain
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprenda e pratique Hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprenda e pratique Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
+* **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}
 
+## Principais Keychains
 
-## Main Keychains
+* O **Keychain do Usuário** (`~/Library/Keychains/login.keychain-db`), que é usado para armazenar **credenciais específicas do usuário** como senhas de aplicativos, senhas da internet, certificados gerados pelo usuário, senhas de rede e chaves públicas/privadas geradas pelo usuário.
+* O **Keychain do Sistema** (`/Library/Keychains/System.keychain`), que armazena **credenciais de sistema** como senhas de WiFi, certificados raiz do sistema, chaves privadas do sistema e senhas de aplicativos do sistema.
+* É possível encontrar outros componentes como certificados em `/System/Library/Keychains/*`
+* No **iOS** há apenas um **Keychain** localizado em `/private/var/Keychains/`. Esta pasta também contém bancos de dados para o `TrustStore`, autoridades de certificados (`caissuercache`) e entradas OSCP (`ocspache`).
+* Os aplicativos serão restritos no keychain apenas à sua área privada com base em seu identificador de aplicativo.
 
-* O **User Keychain** (`~/Library/Keychains/login.keycahin-db`), que é usado para armazenar **credenciais específicas do usuário** como senhas de aplicativos, senhas da internet, certificados gerados pelo usuário, senhas de rede e chaves públicas/privadas geradas pelo usuário.
-* O **System Keychain** (`/Library/Keychains/System.keychain`), que armazena **credenciais de sistema** como senhas de WiFi, certificados raiz do sistema, chaves privadas do sistema e senhas de aplicativos do sistema.
+### Acesso ao Keychain de Senhas
 
-### Password Keychain Access
+Esses arquivos, embora não tenham proteção inerente e possam ser **baixados**, são criptografados e requerem a **senha em texto simples do usuário para serem descriptografados**. Uma ferramenta como [**Chainbreaker**](https://github.com/n0fate/chainbreaker) pode ser usada para descriptografia.
 
-Esses arquivos, embora não tenham proteção inerente e possam ser **baixados**, são criptografados e requerem a **senha em texto claro do usuário para serem descriptografados**. Uma ferramenta como [**Chainbreaker**](https://github.com/n0fate/chainbreaker) pode ser usada para descriptografia.
-
-## Keychain Entries Protections
+## Proteções de Entradas do Keychain
 
 ### ACLs
 
@@ -47,7 +49,7 @@ Além disso, a entrada pode conter a chave **`ACLAuthorizationPartitionID`,** qu
 * Se o **apple** for especificado, então o aplicativo precisa ser **assinado** pela **Apple**.
 * Se o **cdhash** for indicado, então o **aplicativo** deve ter o **cdhash** específico.
 
-### Creating a Keychain Entry
+### Criando uma Entrada no Keychain
 
 Quando uma **nova** **entrada** é criada usando **`Keychain Access.app`**, as seguintes regras se aplicam:
 
@@ -65,7 +67,7 @@ Quando um **aplicativo cria uma entrada no keychain**, as regras são um pouco d
 * Nenhum aplicativo pode alterar as ACLs.
 * O **partitionID** é definido como **`teamid:[teamID aqui]`**.
 
-## Accessing the Keychain
+## Acessando o Keychain
 
 ### `security`
 ```bash
@@ -88,9 +90,11 @@ security dump-keychain ~/Library/Keychains/login.keychain-db
 
 {% hint style="success" %}
 A **enumeração e extração** do keychain de segredos que **não gerarão um prompt** pode ser feita com a ferramenta [**LockSmith**](https://github.com/its-a-feature/LockSmith)
+
+Outros endpoints da API podem ser encontrados no código-fonte de [**SecKeyChain.h**](https://opensource.apple.com/source/libsecurity\_keychain/libsecurity\_keychain-55017/lib/SecKeychain.h.auto.html).
 {% endhint %}
 
-Liste e obtenha **informações** sobre cada entrada do keychain:
+Liste e obtenha **informações** sobre cada entrada do keychain usando o **Security Framework** ou você também pode verificar a ferramenta cli de código aberto da Apple [**security**](https://opensource.apple.com/source/Security/Security-59306.61.1/SecurityTool/macOS/security.c.auto.html)**.** Alguns exemplos de API:
 
 * A API **`SecItemCopyMatching`** fornece informações sobre cada entrada e há alguns atributos que você pode definir ao usá-la:
 * **`kSecReturnData`**: Se verdadeiro, tentará descriptografar os dados (defina como falso para evitar possíveis pop-ups)
@@ -116,9 +120,9 @@ Exporte os dados:
 E estes são os **requisitos** para poder **exportar um segredo sem um prompt**:
 
 * Se **1+ aplicativos confiáveis** listados:
-* Necessita das **autorizações** apropriadas (**`Nil`**, ou ser **parte** da lista de aplicativos permitidos na autorização para acessar as informações secretas)
+* Necessita das **autorizações** apropriadas (**`Nil`**, ou ser **parte** da lista permitida de aplicativos na autorização para acessar as informações secretas)
 * Necessita que a assinatura de código corresponda ao **PartitionID**
-* Necessita que a assinatura de código corresponda à de um **aplicativo confiável** (ou ser membro do grupo KeychainAccessGroup correto)
+* Necessita que a assinatura de código corresponda à de um **aplicativo confiável** (ou ser membro do grupo correto KeychainAccessGroup)
 * Se **todos os aplicativos confiáveis**:
 * Necessita das **autorizações** apropriadas
 * Necessita que a assinatura de código corresponda ao **PartitionID**
@@ -132,14 +136,13 @@ Se **apple** estiver indicado no **partitionID**, você poderia acessá-lo com *
 
 ### Dois atributos adicionais
 
-* **Invisible**: É um sinalizador booleano para **ocultar** a entrada do aplicativo **UI** do Keychain
-* **General**: É para armazenar **metadados** (portanto, NÃO É CRIPTOGRAFADO)
+* **Invisible**: É um sinalizador booleano para **ocultar** a entrada do aplicativo **UI** Keychain
+* **General**: É para armazenar **metadados** (então NÃO está CRIPTOGRAFADO)
 * A Microsoft estava armazenando em texto claro todos os tokens de atualização para acessar endpoints sensíveis.
 
 ## Referências
 
 * [**#OBTS v5.0: "Lock Picking the macOS Keychain" - Cody Thomas**](https://www.youtube.com/watch?v=jKE1ZW33JpY)
-
 
 {% hint style="success" %}
 Aprenda e pratique Hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -151,7 +154,7 @@ Aprenda e pratique Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt=""
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}
