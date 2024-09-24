@@ -1,8 +1,8 @@
 # macOS SIP
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,17 +15,16 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-
 ## **Informations de base**
 
-**La Protection de l'Intégrité du Système (SIP)** dans macOS est un mécanisme conçu pour empêcher même les utilisateurs les plus privilégiés de faire des modifications non autorisées dans des dossiers système clés. Cette fonctionnalité joue un rôle crucial dans le maintien de l'intégrité du système en restreignant des actions telles que l'ajout, la modification ou la suppression de fichiers dans des zones protégées. Les principaux dossiers protégés par le SIP incluent :
+**La protection de l'intégrité du système (SIP)** dans macOS est un mécanisme conçu pour empêcher même les utilisateurs les plus privilégiés de faire des modifications non autorisées dans des dossiers système clés. Cette fonctionnalité joue un rôle crucial dans le maintien de l'intégrité du système en restreignant des actions telles que l'ajout, la modification ou la suppression de fichiers dans des zones protégées. Les principaux dossiers protégés par le SIP incluent :
 
 * **/System**
 * **/bin**
 * **/sbin**
 * **/usr**
 
-Les règles qui régissent le comportement du SIP sont définies dans le fichier de configuration situé à **`/System/Library/Sandbox/rootless.conf`**. Dans ce fichier, les chemins qui sont précédés d'un astérisque (\*) sont désignés comme des exceptions aux restrictions SIP autrement strictes.
+Les règles qui régissent le comportement du SIP sont définies dans le fichier de configuration situé à **`/System/Library/Sandbox/rootless.conf`**. Dans ce fichier, les chemins qui sont précédés d'un astérisque (\*) sont désignés comme des exceptions aux restrictions strictes du SIP.
 
 Considérez l'exemple ci-dessous :
 ```javascript
@@ -52,6 +51,10 @@ Ici, le drapeau **`restricted`** indique que le répertoire `/usr/libexec` est p
 
 De plus, si un fichier contient l'attribut **`com.apple.rootless`** en tant qu'**attribut étendu**, ce fichier sera également **protégé par SIP**.
 
+{% hint style="success" %}
+Notez que le hook **Sandbox** **`hook_vnode_check_setextattr`** empêche toute tentative de modification de l'attribut étendu **`com.apple.rootless`.**
+{% endhint %}
+
 **SIP limite également d'autres actions root** telles que :
 
 * Charger des extensions de noyau non fiables
@@ -59,11 +62,11 @@ De plus, si un fichier contient l'attribut **`com.apple.rootless`** en tant qu'*
 * Modifier les variables NVRAM
 * Autoriser le débogage du noyau
 
-Les options sont maintenues dans la variable nvram en tant que bitflag (`csr-active-config` sur Intel et `lp-sip0` est lu à partir de l'arbre de périphériques démarré pour ARM). Vous pouvez trouver les drapeaux dans le code source de XNU dans `csr.sh` :
+Les options sont maintenues dans la variable nvram en tant que bitflag (`csr-active-config` sur Intel et `lp-sip0` est lu à partir de l'arbre de périphériques démarré pour ARM). Vous pouvez trouver les drapeaux dans le code source XNU dans `csr.sh` :
 
 <figure><img src="../../../.gitbook/assets/image (1192).png" alt=""><figcaption></figcaption></figure>
 
-### Statut de SIP
+### Statut SIP
 
 Vous pouvez vérifier si SIP est activé sur votre système avec la commande suivante :
 ```bash
@@ -81,9 +84,23 @@ csrutil enable --without debug
 
 * **Interdit le chargement des extensions de noyau non signées** (kexts), garantissant que seules les extensions vérifiées interagissent avec le noyau du système.
 * **Empêche le débogage** des processus système macOS, protégeant les composants essentiels du système contre l'accès et la modification non autorisés.
-* **Inhibe des outils** comme dtrace d'inspecter les processus système, protégeant ainsi davantage l'intégrité du fonctionnement du système.
+* **Inhibe les outils** comme dtrace d'inspecter les processus système, protégeant ainsi davantage l'intégrité du fonctionnement du système.
 
 [**En savoir plus sur les informations SIP dans cette présentation**](https://www.slideshare.net/i0n1c/syscan360-stefan-esser-os-x-el-capitan-sinking-the-ship)**.**
+
+### **Attributions liées à SIP**
+
+* `com.apple.rootless.xpc.bootstrap`: Contrôler launchd
+* `com.apple.rootless.install[.heritable]`: Accéder au système de fichiers
+* `com.apple.rootless.kext-management`: `kext_request`
+* `com.apple.rootless.datavault.controller`: Gérer UF\_DATAVAULT
+* `com.apple.rootless.xpc.bootstrap`: Capacités de configuration XPC
+* `com.apple.rootless.xpc.effective-root`: Root via launchd XPC
+* `com.apple.rootless.restricted-block-devices`: Accès aux périphériques de bloc bruts
+* `com.apple.rootless.internal.installer-equivalent`: Accès illimité au système de fichiers
+* `com.apple.rootless.restricted-nvram-variables[.heritable]`: Accès complet à NVRAM
+* `com.apple.rootless.storage.label`: Modifier les fichiers restreints par com.apple.rootless xattr avec l'étiquette correspondante
+* `com.apple.rootless.volume.VM.label`: Maintenir l'échange VM sur le volume
 
 ## Contournements de SIP
 
@@ -110,7 +127,7 @@ L'attribution **`com.apple.rootless.install.heritable`** permet de contourner SI
 
 #### [CVE-2019-8561](https://objective-see.org/blog/blog\_0x42.html) <a href="#cve" id="cve"></a>
 
-Il a été découvert qu'il était possible de **échanger le paquet d'installation après que le système ait vérifié sa signature** de code et ensuite, le système installerait le paquet malveillant au lieu de l'original. Comme ces actions étaient effectuées par **`system_installd`**, cela permettrait de contourner SIP.
+Il a été découvert qu'il était possible de **changer le paquet d'installation après que le système ait vérifié sa signature** de code et ensuite, le système installerait le paquet malveillant au lieu de l'original. Comme ces actions étaient effectuées par **`system_installd`**, cela permettrait de contourner SIP.
 
 #### [CVE-2020–9854](https://objective-see.org/blog/blog\_0x4D.html) <a href="#cve-unauthd-chain" id="cve-unauthd-chain"></a>
 
@@ -122,7 +139,7 @@ Si un paquet était installé à partir d'une image montée ou d'un disque exter
 
 Le démon **`system_installd`** installera des paquets qui ont été signés par **Apple**.
 
-Les chercheurs ont découvert que lors de l'installation d'un paquet signé par Apple (fichier .pkg), **`system_installd`** **exécute** tous les **scripts post-installation** inclus dans le paquet. Ces scripts sont exécutés par le shell par défaut, **`zsh`**, qui exécute automatiquement des commandes à partir du fichier **`/etc/zshenv`**, s'il existe, même en mode non interactif. Ce comportement pourrait être exploité par des attaquants : en créant un fichier `/etc/zshenv` malveillant et en attendant que **`system_installd` invoque `zsh`**, ils pourraient effectuer des opérations arbitraires sur l'appareil.
+Les chercheurs ont découvert que lors de l'installation d'un paquet signé par Apple (.pkg), **`system_installd`** **exécute** tous les **scripts post-installation** inclus dans le paquet. Ces scripts sont exécutés par le shell par défaut, **`zsh`**, qui exécute automatiquement des commandes à partir du fichier **`/etc/zshenv`**, s'il existe, même en mode non interactif. Ce comportement pourrait être exploité par des attaquants : en créant un fichier `/etc/zshenv` malveillant et en attendant que **`system_installd` invoque `zsh`**, ils pourraient effectuer des opérations arbitraires sur l'appareil.
 
 De plus, il a été découvert que **`/etc/zshenv` pourrait être utilisé comme une technique d'attaque générale**, pas seulement pour un contournement de SIP. Chaque profil utilisateur a un fichier `~/.zshenv`, qui se comporte de la même manière que `/etc/zshenv` mais ne nécessite pas de permissions root. Ce fichier pourrait être utilisé comme un mécanisme de persistance, se déclenchant chaque fois que `zsh` démarre, ou comme un mécanisme d'élévation de privilèges. Si un utilisateur admin s'élève à root en utilisant `sudo -s` ou `sudo <commande>`, le fichier `~/.zshenv` serait déclenché, élevant effectivement à root.
 
@@ -132,7 +149,7 @@ Dans [**CVE-2022-22583**](https://perception-point.io/blog/technical-analysis-cv
 
 #### [fsck\_cs utility](https://www.theregister.com/2016/03/30/apple\_os\_x\_rootless/)
 
-Une vulnérabilité a été identifiée où **`fsck_cs`** a été induit en erreur pour corrompre un fichier crucial, en raison de sa capacité à suivre des **liens symboliques**. Plus précisément, les attaquants ont créé un lien de _`/dev/diskX`_ vers le fichier `/System/Library/Extensions/AppleKextExcludeList.kext/Contents/Info.plist`. L'exécution de **`fsck_cs`** sur _`/dev/diskX`_ a conduit à la corruption de `Info.plist`. L'intégrité de ce fichier est vitale pour le SIP (Protection de l'Intégrité du Système) du système d'exploitation, qui contrôle le chargement des extensions de noyau. Une fois corrompu, la capacité de SIP à gérer les exclusions de noyau est compromise.
+Une vulnérabilité a été identifiée où **`fsck_cs`** a été induit en erreur pour corrompre un fichier crucial, en raison de sa capacité à suivre **liens symboliques**. Plus précisément, les attaquants ont créé un lien de _`/dev/diskX`_ vers le fichier `/System/Library/Extensions/AppleKextExcludeList.kext/Contents/Info.plist`. L'exécution de **`fsck_cs`** sur _`/dev/diskX`_ a conduit à la corruption de `Info.plist`. L'intégrité de ce fichier est vitale pour le SIP (Protection de l'Intégrité du Système) du système d'exploitation, qui contrôle le chargement des extensions de noyau. Une fois corrompu, la capacité de SIP à gérer les exclusions de noyau est compromise.
 
 Les commandes pour exploiter cette vulnérabilité sont :
 ```bash
@@ -141,7 +158,7 @@ fsck_cs /dev/diskX 1>&-
 touch /Library/Extensions/
 reboot
 ```
-L'exploitation de cette vulnérabilité a de graves implications. Le fichier `Info.plist`, normalement responsable de la gestion des autorisations pour les extensions du noyau, devient inefficace. Cela inclut l'incapacité de mettre sur liste noire certaines extensions, telles que `AppleHWAccess.kext`. Par conséquent, avec le mécanisme de contrôle de SIP hors service, cette extension peut être chargée, accordant un accès en lecture et en écriture non autorisé à la RAM du système.
+L'exploitation de cette vulnérabilité a de graves implications. Le fichier `Info.plist`, normalement responsable de la gestion des autorisations pour les extensions du noyau, devient inefficace. Cela inclut l'incapacité de mettre sur liste noire certaines extensions, telles que `AppleHWAccess.kext`. Par conséquent, avec le mécanisme de contrôle de SIP hors service, cette extension peut être chargée, accordant un accès en lecture et écriture non autorisé à la RAM du système.
 
 #### [Monter sur des dossiers protégés par SIP](https://www.slideshare.net/i0n1c/syscan360-stefan-esser-os-x-el-capitan-sinking-the-ship)
 
@@ -182,13 +199,13 @@ et il était possible de créer un symlink dans `${SHARED_SUPPORT_PATH}/SharedSu
 L'attribution **`com.apple.rootless.install`** permet de contourner SIP
 {% endhint %}
 
-L'attribution `com.apple.rootless.install` est connue pour contourner la Protection d'Intégrité du Système (SIP) sur macOS. Cela a été notamment mentionné en relation avec [**CVE-2022-26712**](https://jhftss.github.io/CVE-2022-26712-The-POC-For-SIP-Bypass-Is-Even-Tweetable/).
+L'attribution `com.apple.rootless.install` est connue pour contourner la Protection de l'Intégrité du Système (SIP) sur macOS. Cela a été notamment mentionné en relation avec [**CVE-2022-26712**](https://jhftss.github.io/CVE-2022-26712-The-POC-For-SIP-Bypass-Is-Even-Tweetable/).
 
 Dans ce cas spécifique, le service XPC du système situé à `/System/Library/PrivateFrameworks/ShoveService.framework/Versions/A/XPCServices/SystemShoveService.xpc` possède cette attribution. Cela permet au processus associé de contourner les contraintes SIP. De plus, ce service présente notamment une méthode qui permet le déplacement de fichiers sans appliquer de mesures de sécurité.
 
 ## Instantanés de Système Scellés
 
-Les Instantanés de Système Scellés sont une fonctionnalité introduite par Apple dans **macOS Big Sur (macOS 11)** dans le cadre de son mécanisme de **Protection d'Intégrité du Système (SIP)** pour fournir une couche de sécurité et de stabilité supplémentaire. Ils sont essentiellement des versions en lecture seule du volume système.
+Les Instantanés de Système Scellés sont une fonctionnalité introduite par Apple dans **macOS Big Sur (macOS 11)** dans le cadre de son mécanisme de **Protection de l'Intégrité du Système (SIP)** pour fournir une couche de sécurité et de stabilité supplémentaire. Ils sont essentiellement des versions en lecture seule du volume système.
 
 Voici un aperçu plus détaillé :
 
@@ -254,17 +271,16 @@ mount
 /dev/disk3s1s1 on / (apfs, sealed, local, read-only, journaled)
 ```
 {% hint style="success" %}
-Apprenez et pratiquez le hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Formation Expert Red Team AWS (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Formation Expert Red Team GCP (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le hacking AWS :<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Formation Expert Red Team AWS (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le hacking GCP : <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Formation Expert Red Team GCP (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Soutenir HackTricks</summary>
 
-* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop)!
+* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
 * **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}
-</details>
