@@ -15,15 +15,17 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 </details>
 {% endhint %}
 
-
 ## Main Keychains
 
-* **ユーザーキーチェーン** (`~/Library/Keychains/login.keycahin-db`) は、アプリケーションパスワード、インターネットパスワード、ユーザー生成証明書、ネットワークパスワード、ユーザー生成の公開/秘密鍵などの**ユーザー固有の資格情報**を保存するために使用されます。
+* **ユーザーキーチェーン** (`~/Library/Keychains/login.keychain-db`) は、アプリケーションパスワード、インターネットパスワード、ユーザー生成証明書、ネットワークパスワード、ユーザー生成の公開/秘密鍵などの**ユーザー固有の資格情報**を保存するために使用されます。
 * **システムキーチェーン** (`/Library/Keychains/System.keychain`) は、WiFiパスワード、システムルート証明書、システムプライベートキー、システムアプリケーションパスワードなどの**システム全体の資格情報**を保存します。
+* `/System/Library/Keychains/*` には、証明書などの他のコンポーネントを見つけることができます。
+* **iOS** には、`/private/var/Keychains/` に1つの**キーチェーン**があります。このフォルダーには、`TrustStore`、証明書機関（`caissuercache`）、およびOSCPエントリ（`ocspache`）のデータベースも含まれています。
+* アプリは、アプリケーション識別子に基づいて、キーチェーン内のプライベートエリアのみに制限されます。
 
 ### Password Keychain Access
 
-これらのファイルは、固有の保護がなく、**ダウンロード**可能ですが、暗号化されており、**復号化するためにユーザーの平文パスワードが必要**です。復号化には[**Chainbreaker**](https://github.com/n0fate/chainbreaker)のようなツールが使用できます。
+これらのファイルは、固有の保護がなく、**ダウンロード**可能ですが、暗号化されており、**復号化するためにユーザーの平文パスワードが必要**です。復号化には、[**Chainbreaker**](https://github.com/n0fate/chainbreaker)のようなツールが使用できます。
 
 ## Keychain Entries Protections
 
@@ -32,7 +34,7 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 キーチェーン内の各エントリは、さまざまなアクションを実行できる人を規定する**アクセス制御リスト（ACL）**によって管理されています。これには以下が含まれます：
 
 * **ACLAuhtorizationExportClear**: 秘密のクリアテキストを取得することを許可します。
-* **ACLAuhtorizationExportWrapped**: 他の提供されたパスワードで暗号化されたクリアテキストを取得することを許可します。
+* **ACLAuhtorizationExportWrapped**: 別の提供されたパスワードで暗号化されたクリアテキストを取得することを許可します。
 * **ACLAuhtorizationAny**: すべてのアクションを実行することを許可します。
 
 ACLは、これらのアクションをプロンプトなしで実行できる**信頼されたアプリケーションのリスト**を伴います。これには以下が含まれます：
@@ -45,7 +47,7 @@ ACLは、これらのアクションをプロンプトなしで実行できる**
 
 * **teamid**が指定されている場合、**プロンプトなしで**エントリの値に**アクセスする**には、使用されるアプリケーションが**同じteamid**を持っている必要があります。
 * **apple**が指定されている場合、アプリは**Apple**によって**署名**されている必要があります。
-* **cdhash**が示されている場合、**アプリ**は特定の**cdhash**を持っている必要があります。
+* **cdhash**が指定されている場合、**アプリ**は特定の**cdhash**を持っている必要があります。
 
 ### Creating a Keychain Entry
 
@@ -57,7 +59,7 @@ ACLは、これらのアクションをプロンプトなしで実行できる**
 * アプリはACLを変更できません。
 * **partitionID**は**`apple`**に設定されます。
 
-アプリケーションがキーチェーンにエントリを作成する場合、ルールは少し異なります：
+**アプリケーションがキーチェーンにエントリを作成する**場合、ルールは少し異なります：
 
 * すべてのアプリが暗号化できます。
 * **作成アプリケーション**（または明示的に追加された他のアプリ）のみがエクスポート/復号化できます（ユーザーにプロンプトなしで）。
@@ -87,28 +89,30 @@ security dump-keychain ~/Library/Keychains/login.keychain-db
 ### APIs
 
 {% hint style="success" %}
-**キーチェーンの列挙と秘密のダンプ**は、**プロンプトを生成しない**もので、ツール[**LockSmith**](https://github.com/its-a-feature/LockSmith)を使用して行うことができます。
+**キーチェーンの列挙と秘密のダンプ**は、**プロンプトを生成しない**ものについては、ツール[**LockSmith**](https://github.com/its-a-feature/LockSmith)を使用して行うことができます。
+
+他のAPIエンドポイントは、[**SecKeyChain.h**](https://opensource.apple.com/source/libsecurity\_keychain/libsecurity\_keychain-55017/lib/SecKeychain.h.auto.html)のソースコードで見つけることができます。
 {% endhint %}
 
-各キーチェーンエントリについて**情報**をリストし取得します：
+**Security Framework**を使用して各キーチェーンエントリの**情報**をリストおよび取得することができます。また、AppleのオープンソースCLIツール[**security**](https://opensource.apple.com/source/Security/Security-59306.61.1/SecurityTool/macOS/security.c.auto.html)**も確認できます。** 一部のAPIの例：
 
-* API **`SecItemCopyMatching`**は各エントリについての情報を提供し、使用時に設定できる属性があります：
+* API **`SecItemCopyMatching`**は各エントリに関する情報を提供し、使用時に設定できる属性があります：
 * **`kSecReturnData`**：真の場合、データの復号を試みます（ポップアップを避けるために偽に設定）
 * **`kSecReturnRef`**：キーチェーンアイテムへの参照も取得します（後でポップアップなしで復号できることがわかった場合は真に設定）
-* **`kSecReturnAttributes`**：エントリに関するメタデータを取得します
+* **`kSecReturnAttributes`**：エントリに関するメタデータを取得
 * **`kSecMatchLimit`**：返す結果の数
-* **`kSecClass`**：どの種類のキーチェーンエントリか
+* **`kSecClass`**：キーチェーンエントリの種類
 
-各エントリの**ACL**を取得します：
+各エントリの**ACL**を取得：
 
-* API **`SecAccessCopyACLList`**を使用すると、**キーチェーンアイテムのACL**を取得でき、各リストには以下のACL（`ACLAuhtorizationExportClear`など）が含まれます：
+* API **`SecAccessCopyACLList`**を使用すると、**キーチェーンアイテムのACL**を取得でき、各リストには以下が含まれます：
 * 説明
 * **信頼されたアプリケーションリスト**。これには以下が含まれる可能性があります：
 * アプリ：/Applications/Slack.app
 * バイナリ：/usr/libexec/airportd
 * グループ：group://AirPort
 
-データをエクスポートします：
+データをエクスポート：
 
 * API **`SecKeychainItemCopyContent`**はプレーンテキストを取得します
 * API **`SecItemExport`**はキーと証明書をエクスポートしますが、コンテンツを暗号化してエクスポートするためにパスワードを設定する必要があるかもしれません
@@ -140,7 +144,6 @@ security dump-keychain ~/Library/Keychains/login.keychain-db
 
 * [**#OBTS v5.0: "Lock Picking the macOS Keychain" - Cody Thomas**](https://www.youtube.com/watch?v=jKE1ZW33JpY)
 
-
 {% hint style="success" %}
 AWSハッキングを学び、練習する：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
 GCPハッキングを学び、練習する：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
@@ -150,8 +153,8 @@ GCPハッキングを学び、練習する：<img src="../../.gitbook/assets/grt
 <summary>HackTricksをサポートする</summary>
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter**で**フォロー**してください🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **ハッキングのトリックを共有するために、[**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
+* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter**で**フォロー**してください 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
 
 </details>
 {% endhint %}
