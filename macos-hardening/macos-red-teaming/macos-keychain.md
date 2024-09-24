@@ -15,11 +15,13 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 </details>
 {% endhint %}
 
-
 ## Main Keychains
 
-* Il **Keychain Utente** (`~/Library/Keychains/login.keycahin-db`), che viene utilizzato per memorizzare **credenziali specifiche dell'utente** come password delle applicazioni, password di internet, certificati generati dall'utente, password di rete e chiavi pubbliche/private generate dall'utente.
+* Il **Keychain Utente** (`~/Library/Keychains/login.keychain-db`), che viene utilizzato per memorizzare **credenziali specifiche dell'utente** come password delle applicazioni, password di internet, certificati generati dall'utente, password di rete e chiavi pubbliche/private generate dall'utente.
 * Il **Keychain di Sistema** (`/Library/Keychains/System.keychain`), che memorizza **credenziali a livello di sistema** come password WiFi, certificati root di sistema, chiavi private di sistema e password delle applicazioni di sistema.
+* È possibile trovare altri componenti come certificati in `/System/Library/Keychains/*`
+* In **iOS** c'è solo un **Keychain** situato in `/private/var/Keychains/`. Questa cartella contiene anche database per il `TrustStore`, autorità di certificazione (`caissuercache`) e voci OSCP (`ocspache`).
+* Le app saranno limitate nel keychain solo alla loro area privata in base al loro identificatore di applicazione.
 
 ### Password Keychain Access
 
@@ -29,13 +31,13 @@ Questi file, pur non avendo protezione intrinseca e potendo essere **scaricati**
 
 ### ACLs
 
-Ogni voce nel keychain è governata da **Access Control Lists (ACLs)** che stabiliscono chi può eseguire varie azioni sulla voce del keychain, inclusi:
+Ogni voce nel keychain è governata da **Access Control Lists (ACLs)** che determinano chi può eseguire varie azioni sulla voce del keychain, inclusi:
 
 * **ACLAuhtorizationExportClear**: Consente al titolare di ottenere il testo in chiaro del segreto.
 * **ACLAuhtorizationExportWrapped**: Consente al titolare di ottenere il testo in chiaro crittografato con un'altra password fornita.
 * **ACLAuhtorizationAny**: Consente al titolare di eseguire qualsiasi azione.
 
-Le ACL sono ulteriormente accompagnate da un **elenco di applicazioni fidate** che possono eseguire queste azioni senza richiesta. Questo potrebbe essere:
+Le ACL sono ulteriormente accompagnate da un **elenco di applicazioni fidate** che possono eseguire queste azioni senza richiedere conferma. Questo potrebbe essere:
 
 * **N`il`** (nessuna autorizzazione richiesta, **tutti sono fidati**)
 * Un **elenco vuoto** (**nessuno** è fidato)
@@ -52,7 +54,7 @@ Inoltre, la voce potrebbe contenere la chiave **`ACLAuthorizationPartitionID`,**
 Quando viene creata una **nuova** **voce** utilizzando **`Keychain Access.app`**, si applicano le seguenti regole:
 
 * Tutte le app possono crittografare.
-* **Nessuna app** può esportare/decrittografare (senza richiedere all'utente).
+* **Nessuna app** può esportare/decrittografare (senza richiedere conferma all'utente).
 * Tutte le app possono vedere il controllo di integrità.
 * Nessuna app può modificare le ACL.
 * Il **partitionID** è impostato su **`apple`**.
@@ -60,10 +62,10 @@ Quando viene creata una **nuova** **voce** utilizzando **`Keychain Access.app`**
 Quando un'**applicazione crea una voce nel keychain**, le regole sono leggermente diverse:
 
 * Tutte le app possono crittografare.
-* Solo l'**applicazione che crea** (o altre app esplicitamente aggiunte) può esportare/decrittografare (senza richiedere all'utente).
+* Solo l'**applicazione che crea** (o altre app esplicitamente aggiunte) può esportare/decrittografare (senza richiedere conferma all'utente).
 * Tutte le app possono vedere il controllo di integrità.
 * Nessuna app può modificare le ACL.
-* Il **partitionID** è impostato su **`teamid:[teamID here]`**.
+* Il **partitionID** è impostato su **`teamid:[teamID qui]`**.
 
 ## Accessing the Keychain
 
@@ -88,18 +90,20 @@ security dump-keychain ~/Library/Keychains/login.keychain-db
 
 {% hint style="success" %}
 L'**enumerazione e il dumping** del keychain di segreti che **non genereranno un prompt** possono essere effettuati con lo strumento [**LockSmith**](https://github.com/its-a-feature/LockSmith)
+
+Altri endpoint API possono essere trovati nel codice sorgente di [**SecKeyChain.h**](https://opensource.apple.com/source/libsecurity\_keychain/libsecurity\_keychain-55017/lib/SecKeychain.h.auto.html).
 {% endhint %}
 
-Elenca e ottieni **info** su ogni voce del keychain:
+Elenca e ottieni **info** su ciascun elemento del keychain utilizzando il **Security Framework** oppure puoi anche controllare lo strumento cli open source di Apple [**security**](https://opensource.apple.com/source/Security/Security-59306.61.1/SecurityTool/macOS/security.c.auto.html)**.** Alcuni esempi di API:
 
-* L'API **`SecItemCopyMatching`** fornisce informazioni su ogni voce e ci sono alcuni attributi che puoi impostare quando la usi:
-* **`kSecReturnData`**: Se vero, cercherà di decrittografare i dati (imposta su falso per evitare potenziali pop-up)
+* L'API **`SecItemCopyMatching`** fornisce informazioni su ciascun elemento e ci sono alcuni attributi che puoi impostare quando la utilizzi:
+* **`kSecReturnData`**: Se vero, tenterà di decrittografare i dati (imposta su falso per evitare potenziali pop-up)
 * **`kSecReturnRef`**: Ottieni anche un riferimento all'elemento del keychain (imposta su vero nel caso in cui successivamente vedi che puoi decrittografare senza pop-up)
-* **`kSecReturnAttributes`**: Ottieni metadati sulle voci
+* **`kSecReturnAttributes`**: Ottieni metadati sugli elementi
 * **`kSecMatchLimit`**: Quanti risultati restituire
-* **`kSecClass`**: Che tipo di voce del keychain
+* **`kSecClass`**: Che tipo di elemento del keychain
 
-Ottieni **ACL** di ogni voce:
+Ottieni gli **ACL** di ciascun elemento:
 
 * Con l'API **`SecAccessCopyACLList`** puoi ottenere l'**ACL per l'elemento del keychain**, e restituirà un elenco di ACL (come `ACLAuhtorizationExportClear` e gli altri precedentemente menzionati) dove ogni elenco ha:
 * Descrizione
@@ -127,19 +131,18 @@ E questi sono i **requisiti** per poter **esportare un segreto senza un prompt**
 {% hint style="danger" %}
 Pertanto, se c'è **1 applicazione elencata**, è necessario **iniettare codice in quell'applicazione**.
 
-Se **apple** è indicato nel **partitionID**, potresti accedervi con **`osascript`** quindi qualsiasi cosa che stia fidando tutte le applicazioni con apple nel partitionID. **`Python`** potrebbe essere utilizzato anche per questo.
+Se **apple** è indicato nel **partitionID**, potresti accedervi con **`osascript`** quindi qualsiasi cosa che stia fidando tutte le applicazioni con apple nel partitionID. **`Python`** potrebbe anche essere utilizzato per questo.
 {% endhint %}
 
 ### Due attributi aggiuntivi
 
-* **Invisible**: È un flag booleano per **nascondere** la voce dall'app Keychain **UI**
+* **Invisible**: È un flag booleano per **nascondere** l'elemento dall'app Keychain **UI**
 * **General**: Serve a memorizzare **metadati** (quindi NON È CRIPTATO)
 * Microsoft memorizzava in testo chiaro tutti i token di aggiornamento per accedere a endpoint sensibili.
 
-## Riferimenti
+## References
 
 * [**#OBTS v5.0: "Lock Picking the macOS Keychain" - Cody Thomas**](https://www.youtube.com/watch?v=jKE1ZW33JpY)
-
 
 {% hint style="success" %}
 Impara e pratica il hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
