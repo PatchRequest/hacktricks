@@ -1,8 +1,8 @@
 # macOS SIP
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -14,7 +14,6 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-
 
 ## **Información Básica**
 
@@ -41,25 +40,29 @@ Para verificar si un directorio o archivo está protegido por SIP, puedes usar e
 ls -lOd /usr/libexec/cups
 drwxr-xr-x  11 root  wheel  sunlnk 352 May 13 00:29 /usr/libexec/cups
 ```
-En este caso, el **`sunlnk`** flag significa que el directorio `/usr/libexec/cups` **no puede ser eliminado**, aunque se pueden crear, modificar o eliminar archivos dentro de él.
+En este caso, el **`sunlnk`** flag significa que el directorio `/usr/libexec/cups` **no puede ser eliminado**, aunque los archivos dentro de él pueden ser creados, modificados o eliminados.
 
 Por otro lado:
 ```bash
 ls -lOd /usr/libexec
 drwxr-xr-x  338 root  wheel  restricted 10816 May 13 00:29 /usr/libexec
 ```
-Aquí, la **`restricted`** flag indica que el directorio `/usr/libexec` está protegido por SIP. En un directorio protegido por SIP, no se pueden crear, modificar o eliminar archivos.
+Aquí, la **`restricted`** bandera indica que el directorio `/usr/libexec` está protegido por SIP. En un directorio protegido por SIP, no se pueden crear, modificar o eliminar archivos.
 
-Además, si un archivo contiene el atributo **`com.apple.rootless`** atributo extendido, ese archivo también estará **protegido por SIP**.
+Además, si un archivo contiene el atributo **`com.apple.rootless`** atributo **extendido**, ese archivo también estará **protegido por SIP**.
+
+{% hint style="success" %}
+Tenga en cuenta que el gancho **Sandbox** **`hook_vnode_check_setextattr`** previene cualquier intento de modificar el atributo extendido **`com.apple.rootless`.**
+{% endhint %}
 
 **SIP también limita otras acciones de root** como:
 
 * Cargar extensiones de kernel no confiables
 * Obtener puertos de tarea para procesos firmados por Apple
 * Modificar variables de NVRAM
-* Permitir la depuración del kernel
+* Permitir depuración del kernel
 
-Las opciones se mantienen en la variable nvram como un bitflag (`csr-active-config` en Intel y `lp-sip0` se lee del Device Tree arrancado para ARM). Puedes encontrar las flags en el código fuente de XNU en `csr.sh`:
+Las opciones se mantienen en la variable nvram como un bitflag (`csr-active-config` en Intel y `lp-sip0` se lee del Device Tree arrancado para ARM). Puedes encontrar las banderas en el código fuente de XNU en `csr.sh`:
 
 <figure><img src="../../../.gitbook/assets/image (1192).png" alt=""><figcaption></figcaption></figure>
 
@@ -85,7 +88,21 @@ csrutil enable --without debug
 
 [**Aprende más sobre la información de SIP en esta charla**](https://www.slideshare.net/i0n1c/syscan360-stefan-esser-os-x-el-capitan-sinking-the-ship)**.**
 
-## Bypass de SIP
+### **Derechos relacionados con SIP**
+
+* `com.apple.rootless.xpc.bootstrap`: Controlar launchd
+* `com.apple.rootless.install[.heritable]`: Acceso al sistema de archivos
+* `com.apple.rootless.kext-management`: `kext_request`
+* `com.apple.rootless.datavault.controller`: Gestionar UF\_DATAVAULT
+* `com.apple.rootless.xpc.bootstrap`: Capacidades de configuración de XPC
+* `com.apple.rootless.xpc.effective-root`: Root a través de launchd XPC
+* `com.apple.rootless.restricted-block-devices`: Acceso a dispositivos de bloque en bruto
+* `com.apple.rootless.internal.installer-equivalent`: Acceso sin restricciones al sistema de archivos
+* `com.apple.rootless.restricted-nvram-variables[.heritable]`: Acceso completo a NVRAM
+* `com.apple.rootless.storage.label`: Modificar archivos restringidos por com.apple.rootless xattr con la etiqueta correspondiente
+* `com.apple.rootless.volume.VM.label`: Mantener el intercambio de VM en el volumen
+
+## Bypasses de SIP
 
 Eludir SIP permite a un atacante:
 
@@ -100,12 +117,12 @@ Eludir SIP permite a un atacante:
 
 ### Archivo SIP Inexistente
 
-Una posible laguna es que si un archivo está especificado en **`rootless.conf` pero no existe actualmente**, se puede crear. El malware podría explotar esto para **establecer persistencia** en el sistema. Por ejemplo, un programa malicioso podría crear un archivo .plist en `/System/Library/LaunchDaemons` si está listado en `rootless.conf` pero no presente.
+Una posible laguna es que si un archivo está especificado en **`rootless.conf` pero no existe actualmente**, puede ser creado. El malware podría explotar esto para **establecer persistencia** en el sistema. Por ejemplo, un programa malicioso podría crear un archivo .plist en `/System/Library/LaunchDaemons` si está listado en `rootless.conf` pero no presente.
 
 ### com.apple.rootless.install.heritable
 
 {% hint style="danger" %}
-La concesión **`com.apple.rootless.install.heritable`** permite eludir SIP
+El derecho **`com.apple.rootless.install.heritable`** permite eludir SIP
 {% endhint %}
 
 #### [CVE-2019-8561](https://objective-see.org/blog/blog\_0x42.html) <a href="#cve" id="cve"></a>
@@ -118,13 +135,13 @@ Si un paquete se instalaba desde una imagen montada o un disco externo, el **ins
 
 #### CVE-2021-30892 - Shrootless
 
-[**Investigadores de esta publicación de blog**](https://www.microsoft.com/en-us/security/blog/2021/10/28/microsoft-finds-new-macos-vulnerability-shrootless-that-could-bypass-system-integrity-protection/) descubrieron una vulnerabilidad en el mecanismo de Protección de Integridad del Sistema (SIP) de macOS, denominada vulnerabilidad 'Shrootless'. Esta vulnerabilidad se centra en el demonio **`system_installd`**, que tiene una concesión, **`com.apple.rootless.install.heritable`**, que permite a cualquiera de sus procesos secundarios eludir las restricciones del sistema de archivos de SIP.
+[**Investigadores de esta publicación de blog**](https://www.microsoft.com/en-us/security/blog/2021/10/28/microsoft-finds-new-macos-vulnerability-shrootless-that-could-bypass-system-integrity-protection/) descubrieron una vulnerabilidad en el mecanismo de Protección de Integridad del Sistema (SIP) de macOS, denominada vulnerabilidad 'Shrootless'. Esta vulnerabilidad se centra en el demonio **`system_installd`**, que tiene un derecho, **`com.apple.rootless.install.heritable`**, que permite a cualquiera de sus procesos secundarios eludir las restricciones del sistema de archivos de SIP.
 
 El demonio **`system_installd`** instalará paquetes que han sido firmados por **Apple**.
 
-Los investigadores encontraron que durante la instalación de un paquete firmado por Apple (archivo .pkg), **`system_installd`** **ejecuta** cualquier **script post-instalación** incluido en el paquete. Estos scripts son ejecutados por el shell predeterminado, **`zsh`**, que automáticamente **ejecuta** comandos del archivo **`/etc/zshenv`**, si existe, incluso en modo no interactivo. Este comportamiento podría ser explotado por atacantes: al crear un archivo malicioso `/etc/zshenv` y esperar a que **`system_installd` invoque `zsh`**, podrían realizar operaciones arbitrarias en el dispositivo.
+Los investigadores encontraron que durante la instalación de un paquete firmado por Apple (archivo .pkg), **`system_installd`** **ejecuta** cualquier **script post-instalación** incluido en el paquete. Estos scripts son ejecutados por el shell predeterminado, **`zsh`**, que automáticamente **ejecuta** comandos del archivo **`/etc/zshenv`**, si existe, incluso en modo no interactivo. Este comportamiento podría ser explotado por atacantes: creando un archivo malicioso `/etc/zshenv` y esperando a que **`system_installd` invoque `zsh`**, podrían realizar operaciones arbitrarias en el dispositivo.
 
-Además, se descubrió que **`/etc/zshenv` podría ser utilizado como una técnica de ataque general**, no solo para un bypass de SIP. Cada perfil de usuario tiene un archivo `~/.zshenv`, que se comporta de la misma manera que `/etc/zshenv` pero no requiere permisos de root. Este archivo podría ser utilizado como un mecanismo de persistencia, activándose cada vez que se inicia `zsh`, o como un mecanismo de elevación de privilegios. Si un usuario administrador se eleva a root usando `sudo -s` o `sudo <comando>`, el archivo `~/.zshenv` se activaría, elevándose efectivamente a root.
+Además, se descubrió que **`/etc/zshenv` podría ser utilizado como una técnica de ataque general**, no solo para eludir SIP. Cada perfil de usuario tiene un archivo `~/.zshenv`, que se comporta de la misma manera que `/etc/zshenv` pero no requiere permisos de root. Este archivo podría ser utilizado como un mecanismo de persistencia, activándose cada vez que se inicia `zsh`, o como un mecanismo de elevación de privilegios. Si un usuario administrador se eleva a root usando `sudo -s` o `sudo <comando>`, el archivo `~/.zshenv` se activaría, elevándose efectivamente a root.
 
 #### [**CVE-2022-22583**](https://perception-point.io/blog/technical-analysis-cve-2022-22583/)
 
@@ -231,7 +248,7 @@ El comando **`diskutil apfs list`** lista los **detalles de los volúmenes APFS*
 </strong>[...]
 +-> Volumen disk3s5 281959B7-07A1-4940-BDDF-6419360F3327
 |   ---------------------------------------------------
-|   Disco de Volumen APFS (Rol):   disk3s5 (Data)
+|   Disco de Volumen APFS (Rol):   disk3s5 (Datos)
 |   Nombre:                      Macintosh HD - Data (Sin distinción de mayúsculas)
 <strong>    |   Punto de Montaje:               /System/Volumes/Data
 </strong><strong>    |   Capacidad Consumida:         412071784448 B (412.1 GB)
@@ -254,8 +271,8 @@ mount
 /dev/disk3s1s1 on / (apfs, sealed, local, read-only, journaled)
 ```
 {% hint style="success" %}
-Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprende y practica Hacking en AWS:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprende y practica Hacking en GCP: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -267,4 +284,3 @@ Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" d
 
 </details>
 {% endhint %}
-</details>
