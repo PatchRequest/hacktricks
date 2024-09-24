@@ -1,4 +1,4 @@
-# macOS Sleutelsak
+# macOS Sleutelhanger
 
 {% hint style="success" %}
 Leer & oefen AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -15,21 +15,23 @@ Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 </details>
 {% endhint %}
 
+## Hoof Sleutelhangers
 
-## Hoof Sleutelsakke
+* Die **Gebruiker Sleutelhanger** (`~/Library/Keychains/login.keychain-db`), wat gebruik word om **gebruiker-spesifieke akrediteer** soos toepassingswagwoorde, internetwagwoorde, gebruiker-gegenereerde sertifikate, netwerkwagwoorde, en gebruiker-gegenereerde publieke/privaat sleutels te stoor.
+* Die **Stelsel Sleutelhanger** (`/Library/Keychains/System.keychain`), wat **stelsel-wye akrediteer** soos WiFi wagwoorde, stelsel wortelsertifikate, stelsel privaat sleutels, en stelsel toepassingswagwoorde stoor.
+* Dit is moontlik om ander komponente soos sertifikate in `/System/Library/Keychains/*` te vind.
+* In **iOS** is daar slegs een **Sleutelhanger** geleë in `/private/var/Keychains/`. Hierdie gids bevat ook databasisse vir die `TrustStore`, sertifikaatowerhede (`caissuercache`) en OSCP inskrywings (`ocspache`).
+* Toepassings sal in die sleutelhanger beperk wees tot hul private area gebaseer op hul toepassingsidentifiseerder.
 
-* Die **Gebruiker Sleutelsak** (`~/Library/Keychains/login.keycahin-db`), wat gebruik word om **gebruiker-spesifieke akrediteer** soos toepassingswagwoorde, internetwagwoorde, gebruiker-gegenereerde sertifikate, netwerkwagwoorde, en gebruiker-gegenereerde publieke/privaat sleutels te stoor.
-* Die **Stelsel Sleutelsak** (`/Library/Keychains/System.keychain`), wat **stelsel-wye akrediteer** soos WiFi wagwoorde, stelsel wortelsertifikate, stelsel privaat sleutels, en stelsel toepassingswagwoorde stoor.
+### Wagwoord Sleutelhanger Toegang
 
-### Wagwoord Sleutelsak Toegang
+Hierdie lêers, terwyl hulle nie inherente beskerming het nie en **afgelaai** kan word, is versleuteld en vereis die **gebruiker se platte wagwoord om ontcijfer** te word. 'n Gereedskap soos [**Chainbreaker**](https://github.com/n0fate/chainbreaker) kan gebruik word vir ontcijfering.
 
-Hierdie lêers, terwyl hulle nie inherente beskerming het nie en **afgelaai** kan word, is versleuteld en vereis die **gebruiker se platte wagwoord om ontsleuteld** te word. 'n Gereedskap soos [**Chainbreaker**](https://github.com/n0fate/chainbreaker) kan gebruik word vir ontsleuteling.
-
-## Sleutelsak Inskrywings Beskerming
+## Sleutelhanger Inskrywings Beskerming
 
 ### ACLs
 
-Elke inskrywing in die sleutelsak word gereguleer deur **Toegang Beheer Lyste (ACLs)** wat bepaal wie verskillende aksies op die sleutelsak inskrywing kan uitvoer, insluitend:
+Elke inskrywing in die sleutelhanger word gereguleer deur **Toegang Beheer Lyste (ACLs)** wat bepaal wie verskillende aksies op die sleutelhanger inskrywing kan uitvoer, insluitend:
 
 * **ACLAuhtorizationExportClear**: Laat die houer toe om die duidelike teks van die geheim te verkry.
 * **ACLAuhtorizationExportWrapped**: Laat die houer toe om die duidelike teks wat met 'n ander verskafde wagwoord versleuteld is, te verkry.
@@ -43,29 +45,29 @@ Die ACLs word verder vergesel deur 'n **lys van vertroude toepassings** wat hier
 
 Ook kan die inskrywing die sleutel **`ACLAuthorizationPartitionID`** bevat, wat gebruik word om die **teamid, apple,** en **cdhash** te identifiseer.
 
-* As die **teamid** gespesifiseer is, dan om die **inskrywing** waarde **sonder** 'n **prompt** te **verkry** moet die gebruikte toepassing die **selfde teamid** hê.
+* As die **teamid** gespesifiseer is, dan om die **inskrywing** waarde **sonder** 'n **prompt** te **toegang**, moet die gebruikte toepassing die **selfde teamid** hê.
 * As die **apple** gespesifiseer is, dan moet die app **onderteken** wees deur **Apple**.
 * As die **cdhash** aangedui is, dan moet die **app** die spesifieke **cdhash** hê.
 
-### Skep 'n Sleutelsak Inskrywing
+### Skep 'n Sleutelhanger Inskrywing
 
 Wanneer 'n **nuwe** **inskrywing** geskep word met **`Keychain Access.app`**, geld die volgende reëls:
 
-* Alle apps kan versleutel.
-* **Geen apps** kan uitvoer/ontsleutel (sonder om die gebruiker te vra).
+* Alle apps kan versleuteld.
+* **Geen apps** kan uitvoer/ontcijfer (sonder om die gebruiker te vra).
 * Alle apps kan die integriteitskontrole sien.
 * Geen apps kan ACLs verander nie.
 * Die **partitionID** is gestel op **`apple`**.
 
-Wanneer 'n **toepassing 'n inskrywing in die sleutelsak skep**, is die reëls effens anders:
+Wanneer 'n **toepassing 'n inskrywing in die sleutelhanger skep**, is die reëls effens anders:
 
-* Alle apps kan versleutel.
-* Slegs die **skep-toepassing** (of enige ander apps wat eksplisiet bygevoeg is) kan uitvoer/ontsleutel (sonder om die gebruiker te vra).
+* Alle apps kan versleuteld.
+* Slegs die **skepende toepassing** (of enige ander apps wat eksplisiet bygevoeg is) kan uitvoer/ontcijfer (sonder om die gebruiker te vra).
 * Alle apps kan die integriteitskontrole sien.
 * Geen apps kan die ACLs verander nie.
 * Die **partitionID** is gestel op **`teamid:[teamID hier]`**.
 
-## Toegang tot die Sleutelsak
+## Toegang tot die Sleutelhanger
 
 ### `security`
 ```bash
@@ -88,9 +90,11 @@ security dump-keychain ~/Library/Keychains/login.keychain-db
 
 {% hint style="success" %}
 Die **keychain enumerasie en dumping** van geheime wat **nie 'n prompt sal genereer nie** kan gedoen word met die hulpmiddel [**LockSmith**](https://github.com/its-a-feature/LockSmith)
+
+Ander API eindpunte kan gevind word in [**SecKeyChain.h**](https://opensource.apple.com/source/libsecurity\_keychain/libsecurity\_keychain-55017/lib/SecKeychain.h.auto.html) bronkode.
 {% endhint %}
 
-Lys en kry **inligting** oor elke keychain inskrywing:
+Lys en kry **inligting** oor elke keychain inskrywing met die **Security Framework** of jy kan ook die Apple se oopbron cli hulpmiddel [**security**](https://opensource.apple.com/source/Security/Security-59306.61.1/SecurityTool/macOS/security.c.auto.html)**.** Sommige API voorbeelde:
 
 * Die API **`SecItemCopyMatching`** gee inligting oor elke inskrywing en daar is 'n paar eienskappe wat jy kan stel wanneer jy dit gebruik:
 * **`kSecReturnData`**: As waar, sal dit probeer om die data te ontsleutel (stel op vals om potensiële pop-ups te vermy)
@@ -116,30 +120,29 @@ Eksporteer die data:
 En dit is die **vereistes** om 'n **geheim sonder 'n prompt** te kan **eksporteer**:
 
 * As **1+ vertroude** apps gelys:
-* Nodig die toepaslike **autorisasies** (**`Nil`**, of wees **deel** van die toegelate lys van apps in die autorisasie om toegang tot die geheime inligting te verkry)
+* Nodig die toepaslike **autorisaties** (**`Nil`**, of wees **deel** van die toegelate lys van apps in die autorisasie om toegang tot die geheime inligting te verkry)
 * Nodig kodehandtekening om te pas by **PartitionID**
 * Nodig kodehandtekening om te pas by een **vertroude app** (of wees 'n lid van die regte KeychainAccessGroup)
 * As **alle toepassings vertrou**:
-* Nodig die toepaslike **autorisasies**
+* Nodig die toepaslike **autorisaties**
 * Nodig kodehandtekening om te pas by **PartitionID**
 * As **geen PartitionID**, dan is dit nie nodig nie
 
 {% hint style="danger" %}
 Daarom, as daar **1 toepassing gelys** is, moet jy **kode in daardie toepassing inspuit**.
 
-As **apple** aangedui word in die **partitionID**, kan jy dit met **`osascript`** benader, so enigiets wat alle toepassings met apple in die partitionID vertrou. **`Python`** kan ook hiervoor gebruik word.
+As **apple** aangedui word in die **partitionID**, kan jy dit met **`osascript`** benader, so enigiets wat al die toepassings met apple in die partitionID vertrou. **`Python`** kan ook hiervoor gebruik word.
 {% endhint %}
 
 ### Twee addisionele eienskappe
 
 * **Onsigbaar**: Dit is 'n booleaanse vlag om die inskrywing van die **UI** Keychain app te **versteek**
-* **Algemeen**: Dit is om **metadata** te stoor (so dit is NIE VERSPREID nie)
+* **Algemeen**: Dit is om **metadata** te stoor (so dit is NIE VERSPREKELD nie)
 * Microsoft het al die verfrissingstokens in platte teks gestoor om toegang tot sensitiewe eindpunte te verkry.
 
 ## References
 
 * [**#OBTS v5.0: "Lock Picking the macOS Keychain" - Cody Thomas**](https://www.youtube.com/watch?v=jKE1ZW33JpY)
-
 
 {% hint style="success" %}
 Leer & oefen AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -147,7 +150,7 @@ Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 
 <details>
 
-<summary>Ondersteun HackTricks</summary>
+<summary>Support HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
 * **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
