@@ -21,7 +21,7 @@ MacOS Sandbox (ilk olarak Seatbelt olarak adlandırılmıştır) **uygulamaları
 
 **`com.apple.security.app-sandbox`** **yetkisine** sahip herhangi bir uygulama sandbox içinde çalıştırılacaktır. **Apple ikili dosyaları** genellikle bir Sandbox içinde çalıştırılır ve **App Store'daki tüm uygulamalar bu yetkiye sahiptir**. Bu nedenle, birçok uygulama sandbox içinde çalıştırılacaktır.
 
-Bir sürecin ne yapabileceğini veya ne yapamayacağını kontrol etmek için **Sandbox,** bir sürecin denemesi durumunda neredeyse her işlemde **MACF** kullanarak **kancalara** sahiptir. Ancak, uygulamanın **yetkilerine** bağlı olarak Sandbox, süreçle daha hoşgörülü olabilir.
+Bir sürecin ne yapabileceğini veya ne yapamayacağını kontrol etmek için **Sandbox, bir sürecin denemesi durumunda neredeyse her işlemde** **MACF** kullanarak **kancalara** sahiptir. Ancak, uygulamanın **yetkilerine** bağlı olarak Sandbox, süreçle daha hoşgörülü olabilir.
 
 Sandbox'ın bazı önemli bileşenleri şunlardır:
 
@@ -146,12 +146,12 @@ Burada bir örnek bulabilirsiniz:
 )
 ```
 {% hint style="success" %}
-Bu [**araştırmayı**](https://reverse.put.as/2011/09/14/apple-sandbox-guide-v1-0/) **daha fazla izin verilen veya reddedilen eylemi kontrol etmek için inceleyin.**
+Bu [**araştırmayı**](https://reverse.put.as/2011/09/14/apple-sandbox-guide-v1-0/) **daha fazla izin verilebilecek veya reddedilebilecek eylemleri kontrol etmek için inceleyin.**
 
-Bir profilin derlenmiş versiyonunda, işlemlerin adları, derlenmiş versiyonu daha kısa ve okunması daha zor hale getiren dylib ve kext tarafından bilinen bir dizideki girişleriyle değiştirilir.
+Bir profilin derlenmiş versiyonunda, işlemlerin adları, derlenmiş versiyonu daha kısa ve okunması daha zor hale getiren dylib ve kext tarafından bilinen bir dizideki girişleriyle değiştirilmiştir.
 {% endhint %}
 
-Önemli **sistem hizmetleri** kendi özel **sandbox'larında** çalışır, örneğin `mdnsresponder` hizmeti. Bu özel **sandbox profillerini** şu dizinlerde görebilirsiniz:
+Önemli **sistem hizmetleri** kendi özel **sandbox**'larında çalışır, örneğin `mdnsresponder` hizmeti. Bu özel **sandbox profillerini** şu dizinlerde görebilirsiniz:
 
 * **`/usr/share/sandbox`**
 * **`/System/Library/Sandbox/Profiles`**
@@ -266,7 +266,7 @@ iOS'ta, varsayılan profil **container** olarak adlandırılır ve SBPL metin te
 
 ### App Store uygulamalarında Özel SBPL
 
-Şirketlerin uygulamalarını **özel Sandbox profilleri ile** çalıştırmaları mümkün olabilir (varsayılan olan yerine). Bunun için **`com.apple.security.temporary-exception.sbpl`** yetkisini kullanmaları gerekir; bu yetki Apple tarafından yetkilendirilmelidir.
+Şirketlerin uygulamalarını **özel Sandbox profilleri ile** çalıştırmaları mümkün olabilir (varsayılan olan yerine). Bunun için Apple tarafından yetkilendirilmesi gereken **`com.apple.security.temporary-exception.sbpl`** yetkisini kullanmaları gerekir.
 
 Bu yetkinin tanımını **`/System/Library/Sandbox/Profiles/application.sb:`** içinde kontrol etmek mümkündür.
 ```scheme
@@ -276,9 +276,9 @@ Bu yetkinin tanımını **`/System/Library/Sandbox/Profiles/application.sb:`** i
 (let* ((port (open-input-string string)) (sbpl (read port)))
 (with-transparent-redirection (eval sbpl)))))
 ```
-Bu, **bu yetki sonrasında dizeyi değerlendirir** bir Sandbox profili olarak.
+Bu, **bu yetki sonrasında dizeyi** bir Sandbox profili olarak **değerlendirecektir**.
 
-### Sandbox Profili Derleme ve Çözme
+### Sandbox Profilini Derleme ve Çözme
 
 **`sandbox-exec`** aracı, `libsandbox.dylib` içindeki `sandbox_compile_*` fonksiyonlarını kullanır. İhracat edilen ana fonksiyonlar şunlardır: `sandbox_compile_file` (bir dosya yolu bekler, parametre `-f`), `sandbox_compile_string` (bir dize bekler, parametre `-p`), `sandbox_compile_name` (bir konteyner adı bekler, parametre `-n`), `sandbox_compile_entitlements` (yetki plist'ini bekler).
 
@@ -288,7 +288,7 @@ Ayrıca, bir süreci bir konteyner içinde sınırlamak için `sandbox_spawnattr
 
 ## Sandbox'ı Hata Ayıklama ve Atlatma
 
-macOS'ta, süreçlerin başlangıçta çekirdek tarafından sandbox'a alındığı iOS'un aksine, **süreçlerin kendileri sandbox'a katılmayı seçmeleri gerekir**. Bu, macOS'ta bir sürecin, aktif olarak girmeye karar vermediği sürece sandbox tarafından kısıtlanmadığı anlamına gelir, ancak App Store uygulamaları her zaman sandbox'a alınır.
+macOS'ta, süreçlerin başlangıçta çekirdek tarafından sandbox'a alındığı iOS'un aksine, **süreçlerin kendilerinin sandbox'a katılmayı seçmesi gerekir**. Bu, macOS'ta bir sürecin, aktif olarak girmeye karar vermediği sürece sandbox tarafından kısıtlanmadığı anlamına gelir, ancak App Store uygulamaları her zaman sandbox'a alınır.
 
 Süreçler, `com.apple.security.app-sandbox` yetkisine sahip olduklarında kullanıcı alanından otomatik olarak Sandbox'a alınır. Bu sürecin ayrıntılı açıklaması için kontrol edin:
 
@@ -310,14 +310,14 @@ Uzantılar, bir nesneye daha fazla ayrıcalık vermeye olanak tanır ve bir fonk
 
 Uzantılar, süreç kimlik bilgileri üzerinden erişilebilen ikinci MACF etiket slotunda saklanır. Aşağıdaki **`sbtool`** bu bilgilere erişebilir.
 
-Uzantıların genellikle izin verilen süreçler tarafından verildiğini unutmayın; örneğin, `tccd`, bir sürecin fotoğraflara erişmeye çalıştığında ve bir XPC mesajında izin verildiğinde `com.apple.tcc.kTCCServicePhotos` uzantı token'ını verecektir. Ardından, sürecin uzantı token'ını tüketmesi gerekecek, böylece ona eklenir.\
+Uzantıların genellikle izin verilen süreçler tarafından verildiğini unutmayın; örneğin, `tccd`, bir süreç fotoğraflara erişmeye çalıştığında ve bir XPC mesajında izin verildiğinde `com.apple.tcc.kTCCServicePhotos` uzantı token'ını verecektir. Ardından, süreç uzantı token'ını tüketmesi gerekecektir, böylece ona eklenir.\
 Uzantı token'larının, verilen izinleri kodlayan uzun onaltılı sayılar olduğunu unutmayın. Ancak, izin verilen PID'yi sabit kodlamazlar, bu da token'a erişimi olan herhangi bir sürecin **birden fazla süreç tarafından tüketilebileceği** anlamına gelir.
 
 Uzantıların, yetkilerle de çok ilgili olduğunu unutmayın, bu nedenle belirli yetkilere sahip olmak, belirli uzantıları otomatik olarak verebilir.
 
-### **PID Ayrıcalıklarını Kontrol Et**
+### **PID Ayrıcalıklarını Kontrol Etme**
 
-[**Buna göre**](https://www.youtube.com/watch?v=mG715HcDgO8\&t=3011s), **`sandbox_check`** fonksiyonları (bir `__mac_syscall`), belirli bir PID, denetim token'ı veya benzersiz ID ile sandbox tarafından **bir işlemin izin verilip verilmediğini** kontrol edebilir.
+[**Buna göre**](https://www.youtube.com/watch?v=mG715HcDgO8\&t=3011s), **`sandbox_check`** fonksiyonları (bu bir `__mac_syscall`), belirli bir PID, denetim token'ı veya benzersiz ID ile sandbox tarafından **bir işlemin izin verilip verilmediğini** kontrol edebilir.
 
 [**sbtool aracı**](http://newosxbook.com/src.jl?tree=listings\&file=sbtool.c) (bunu [burada derlenmiş olarak bulabilirsiniz](https://newosxbook.com/articles/hitsb.html)), bir PID'nin belirli eylemleri gerçekleştirip gerçekleştiremeyeceğini kontrol edebilir:
 ```bash
@@ -330,7 +330,7 @@ sbtool <pid> all
 
 Sandbox'ı `libsystem_sandbox.dylib` içindeki `sandbox_suspend` ve `sandbox_unsuspend` fonksiyonları kullanarak askıya almak ve askıdan kaldırmak da mümkündür.
 
-Askıya alma fonksiyonunu çağırmak için bazı yetkilendirmelerin kontrol edildiğini unutmayın, bu da çağıranın onu çağırmasına izin verir:
+Askıya alma fonksiyonunu çağırmak için bazı yetkilendirmelerin kontrol edildiğini unutmayın:
 
 * com.apple.private.security.sandbox-manager
 * com.apple.security.print
@@ -340,58 +340,58 @@ Askıya alma fonksiyonunu çağırmak için bazı yetkilendirmelerin kontrol edi
 
 Bu sistem çağrısı (#381), çalıştırılacak modülü belirten bir dize birinci argümanını ve çalıştırılacak fonksiyonu belirten bir kodu ikinci argüman olarak bekler. Üçüncü argüman ise yürütülen fonksiyona bağlı olacaktır.
 
-`___sandbox_ms` çağrısı, birinci argümanda `"Sandbox"` belirterek `mac_syscall`'ı sarar, tıpkı `___sandbox_msp`'nin `mac_set_proc`'un (#387) bir sarmalayıcı olması gibi. Ardından, `___sandbox_ms` tarafından desteklenen bazı kodlar bu tabloda bulunabilir:
+`___sandbox_ms` çağrısı, birinci argümanda `"Sandbox"` belirterek `mac_syscall`'ı sarar, tıpkı `___sandbox_msp`'nin `mac_set_proc`'un (#387) bir sarmalayıcı olması gibi. `___sandbox_ms` tarafından desteklenen bazı kodlar bu tabloda bulunabilir:
 
-* **set\_profile (#0)**: Bir sürece derlenmiş veya adlandırılmış bir profil uygulayın.
-* **platform\_policy (#1)**: Platforma özgü politika kontrollerini zorlayın (macOS ve iOS arasında değişir).
-* **check\_sandbox (#2)**: Belirli bir sandbox işleminin manuel kontrolünü gerçekleştirin.
-* **note (#3)**: Bir Sandbox'a bir not ekler.
+* **set\_profile (#0)**: Bir sürece derlenmiş veya adlandırılmış bir profil uygular.
+* **platform\_policy (#1)**: Platforma özgü politika kontrollerini zorlar (macOS ve iOS arasında değişir).
+* **check\_sandbox (#2)**: Belirli bir sandbox işleminin manuel kontrolünü gerçekleştirir.
+* **note (#3)**: Bir Sandbox'a not ekler.
 * **container (#4)**: Genellikle hata ayıklama veya tanımlama için bir sandbox'a bir not ekler.
-* **extension\_issue (#5)**: Bir süreç için yeni bir uzantı oluşturun.
-* **extension\_consume (#6)**: Verilen bir uzantıyı tüketin.
-* **extension\_release (#7)**: Tüketilen bir uzantıya bağlı belleği serbest bırakın.
-* **extension\_update\_file (#8)**: Sandbox içindeki mevcut bir dosya uzantısının parametrelerini değiştirin.
-* **extension\_twiddle (#9)**: Mevcut bir dosya uzantısını ayarlayın veya değiştirin (örneğin, TextEdit, rtf, rtfd).
-* **suspend (#10)**: Tüm sandbox kontrollerini geçici olarak askıya alın (uygun yetkilendirmeler gerektirir).
-* **unsuspend (#11)**: Daha önce askıya alınan tüm sandbox kontrollerini yeniden başlatın.
-* **passthrough\_access (#12)**: Sandbox kontrollerini atlayarak bir kaynağa doğrudan geçiş erişimi sağlayın.
-* **set\_container\_path (#13)**: (sadece iOS) Bir uygulama grubu veya imza kimliği için bir konteyner yolu ayarlayın.
-* **container\_map (#14)**: (sadece iOS) `containermanagerd`'en bir konteyner yolu alın.
-* **sandbox\_user\_state\_item\_buffer\_send (#15)**: (iOS 10+) Sandbox'ta kullanıcı modu meta verilerini ayarlayın.
-* **inspect (#16)**: Sandbox'lanmış bir süreç hakkında hata ayıklama bilgisi sağlayın.
-* **dump (#18)**: (macOS 11) Analiz için bir sandbox'ın mevcut profilini dökün.
-* **vtrace (#19)**: İzleme veya hata ayıklama için sandbox işlemlerini izleyin.
-* **builtin\_profile\_deactivate (#20)**: (macOS < 11) Adlandırılmış profilleri devre dışı bırakın (örneğin, `pe_i_can_has_debugger`).
-* **check\_bulk (#21)**: Tek bir çağrıda birden fazla `sandbox_check` işlemi gerçekleştirin.
-* **reference\_retain\_by\_audit\_token (#28)**: Sandbox kontrollerinde kullanılmak üzere bir denetim belirteci için bir referans oluşturun.
-* **reference\_release (#29)**: Daha önce tutulan bir denetim belirteci referansını serbest bırakın.
-* **rootless\_allows\_task\_for\_pid (#30)**: `task_for_pid`'in izin verilip verilmediğini doğrulayın (benzer şekilde `csr` kontrolleri).
-* **rootless\_whitelist\_push (#31)**: (macOS) Bir Sistem Bütünlüğü Koruma (SIP) manifest dosyası uygulayın.
-* **rootless\_whitelist\_check (preflight) (#32)**: Yürütmeden önce SIP manifest dosyasını kontrol edin.
-* **rootless\_protected\_volume (#33)**: (macOS) Bir disk veya bölüme SIP korumaları uygulayın.
-* **rootless\_mkdir\_protected (#34)**: Bir dizin oluşturma işlemi için SIP/DataVault koruması uygulayın.
+* **extension\_issue (#5)**: Bir süreç için yeni bir uzantı oluşturur.
+* **extension\_consume (#6)**: Verilen bir uzantıyı tüketir.
+* **extension\_release (#7)**: Tüketilen bir uzantıya bağlı belleği serbest bırakır.
+* **extension\_update\_file (#8)**: Sandbox içindeki mevcut bir dosya uzantısının parametrelerini değiştirir.
+* **extension\_twiddle (#9)**: Mevcut bir dosya uzantısını ayarlar veya değiştirir (örneğin, TextEdit, rtf, rtfd).
+* **suspend (#10)**: Tüm sandbox kontrollerini geçici olarak askıya alır (uygun yetkilendirmeler gerektirir).
+* **unsuspend (#11)**: Daha önce askıya alınan tüm sandbox kontrollerini yeniden başlatır.
+* **passthrough\_access (#12)**: Sandbox kontrollerini atlayarak bir kaynağa doğrudan geçiş erişimi sağlar.
+* **set\_container\_path (#13)**: (sadece iOS) Bir uygulama grubu veya imza kimliği için bir konteyner yolu ayarlar.
+* **container\_map (#14)**: (sadece iOS) `containermanagerd`'en bir konteyner yolu alır.
+* **sandbox\_user\_state\_item\_buffer\_send (#15)**: (iOS 10+) Sandbox'ta kullanıcı modu meta verilerini ayarlar.
+* **inspect (#16)**: Sandbox'lanmış bir süreç hakkında hata ayıklama bilgisi sağlar.
+* **dump (#18)**: (macOS 11) Analiz için bir sandbox'ın mevcut profilini döker.
+* **vtrace (#19)**: İzleme veya hata ayıklama için sandbox işlemlerini izler.
+* **builtin\_profile\_deactivate (#20)**: (macOS < 11) Adlandırılmış profilleri devre dışı bırakır (örneğin, `pe_i_can_has_debugger`).
+* **check\_bulk (#21)**: Tek bir çağrıda birden fazla `sandbox_check` işlemi gerçekleştirir.
+* **reference\_retain\_by\_audit\_token (#28)**: Sandbox kontrollerinde kullanılmak üzere bir denetim belirteci için bir referans oluşturur.
+* **reference\_release (#29)**: Daha önce tutulan bir denetim belirteci referansını serbest bırakır.
+* **rootless\_allows\_task\_for\_pid (#30)**: `task_for_pid`'in izinli olup olmadığını doğrular (benzer şekilde `csr` kontrolleri).
+* **rootless\_whitelist\_push (#31)**: (macOS) Bir Sistem Bütünlüğü Koruma (SIP) manifest dosyası uygular.
+* **rootless\_whitelist\_check (preflight) (#32)**: Yürütmeden önce SIP manifest dosyasını kontrol eder.
+* **rootless\_protected\_volume (#33)**: (macOS) Bir disk veya bölüme SIP korumaları uygular.
+* **rootless\_mkdir\_protected (#34)**: Bir dizin oluşturma işlemi için SIP/DataVault koruması uygular.
 
 ## Sandbox.kext
 
-iOS'ta çekirdek uzantısının **tüm profilleri hardcoded** olarak `__TEXT.__const` segmentinde içerdiğini unutmayın, böylece bunların değiştirilmesi önlenir. Çekirdek uzantısından bazı ilginç fonksiyonlar şunlardır:
+iOS'ta çekirdek uzantısının **tüm profilleri hardcoded** olarak `__TEXT.__const` segmentinde içerdiğini unutmayın, böylece bunların değiştirilmesi engellenir. Çekirdek uzantısından bazı ilginç fonksiyonlar şunlardır:
 
-* **`hook_policy_init`**: `mpo_policy_init`'i bağlar ve `mac_policy_register`'dan sonra çağrılır. Sandbox'ın çoğu başlatmasını gerçekleştirir. Ayrıca SIP'yi de başlatır.
-* **`hook_policy_initbsd`**: `security.mac.sandbox.sentinel`, `security.mac.sandbox.audio_active` ve `security.mac.sandbox.debug_mode`'u kaydederek sysctl arayüzünü ayarlar (eğer `PE_i_can_has_debugger` ile boot edilmişse).
-* **`hook_policy_syscall`**: `mac_syscall` tarafından "Sandbox" birinci argüman olarak ve ikinci argümanda işlemi belirten kod ile çağrılır. İstenen koda göre çalıştırılacak kodu bulmak için bir switch kullanılır.
+* **`hook_policy_init`**: `mpo_policy_init`'i bağlar ve `mac_policy_register`'dan sonra çağrılır. Sandbox'ın çoğu başlangıç işlemlerini gerçekleştirir. Ayrıca SIP'yi de başlatır.
+* **`hook_policy_initbsd`**: `security.mac.sandbox.sentinel`, `security.mac.sandbox.audio_active` ve `security.mac.sandbox.debug_mode`'u kaydederek sysctl arayüzünü kurar (eğer `PE_i_can_has_debugger` ile boot edilmişse).
+* **`hook_policy_syscall`**: `mac_syscall` tarafından "Sandbox" birinci argüman olarak ve ikinci argümanda işlemi belirten bir kod ile çağrılır. İstenen koda göre çalıştırılacak kodu bulmak için bir switch kullanılır.
 
 ### MACF Hooks
 
-**`Sandbox.kext`** MACF aracılığıyla yüzden fazla hook kullanır. Çoğu hook, eğer izin verilmezse, işlemi gerçekleştirmeye izin veren bazı önemsiz durumları kontrol eder, aksi takdirde **`cred_sb_evalutate`**'yi MACF'den alınan **kimlik bilgileri** ve gerçekleştirilecek **işlem** ile ilgili bir sayı ve **çıktı** için bir **buffer** ile çağırır.
+**`Sandbox.kext`** MACF aracılığıyla yüzden fazla hook kullanır. Çoğu hook, eğer izin verilmezse işlemi gerçekleştirmeye izin veren bazı önemsiz durumları kontrol eder, aksi takdirde **`cred_sb_evalutate`**'yi MACF'den alınan **kimlik bilgileri** ve gerçekleştirilecek **işlem** ile ilgili bir sayı ve **çıktı** için bir **buffer** ile çağırır.
 
-Bunun iyi bir örneği, **`_mpo_file_check_mmap`** fonksiyonudur; bu fonksiyon **`mmap`**'i bağlar ve yeni belleğin yazılabilir olup olmadığını kontrol etmeye başlar (ve eğer değilse yürütmeye izin vermez), ardından bunun dyld paylaşılan önbelleği için kullanılıp kullanılmadığını kontrol eder ve eğer öyleyse yürütmeye izin verir, ve nihayetinde daha fazla izin kontrolü gerçekleştirmek için **`cred_sb_evalutate`**'yi çağırır.
+Bunun iyi bir örneği, **`_mpo_file_check_mmap`** fonksiyonudur; bu fonksiyon **`mmap`**'i bağlar ve yeni belleğin yazılabilir olup olmadığını kontrol etmeye başlar (ve eğer değilse yürütmeye izin vermez), ardından dyld paylaşılan önbelleği için kullanılıp kullanılmadığını kontrol eder ve eğer öyleyse yürütmeye izin verir, ve nihayetinde daha fazla izin kontrolü gerçekleştirmek için **`sb_evaluate_internal`**'i (veya sarmalayıcılarından birini) çağırır.
 
 Ayrıca, Sandbox'ın kullandığı yüzlerce hook arasında özellikle ilginç olan 3 tanesi vardır:
 
 * `mpo_proc_check_for`: Gerekirse profili uygular ve daha önce uygulanmadıysa.
-* `mpo_vnode_check_exec`: Bir süreç ilişkili ikili dosyayı yüklediğinde çağrılır, ardından bir profil kontrolü gerçekleştirilir ve ayrıca SUID/SGID yürütmelerini yasaklayan bir kontrol yapılır.
+* `mpo_vnode_check_exec`: Bir süreç ilişkili ikili dosyayı yüklediğinde çağrılır, ardından bir profil kontrolü gerçekleştirilir ve SUID/SGID yürütmelerini yasaklayan bir kontrol yapılır.
 * `mpo_cred_label_update_execve`: Etiket atandığında çağrılır. Bu, ikili dosya tamamen yüklendiğinde ancak henüz yürütülmediğinde çağrıldığı için en uzun olanıdır. Sandbox nesnesi oluşturma, kauth kimlik bilgilerine sandbox yapısını ekleme, mach portlarına erişimi kaldırma gibi işlemler gerçekleştirir...
 
-Unutmayın ki **`cred_sb_evalutate`**, **`sb_evaluate`**'nin bir sarmalayıcısıdır ve bu fonksiyon, geçirilen kimlik bilgilerini alır ve ardından genellikle tüm süreçlere varsayılan olarak uygulanan **platform profili** ve ardından **belirli süreç profili** kullanarak değerlendirme yapar. Platform profili, macOS'taki **SIP**'in ana bileşenlerinden biridir.
+**`_cred_sb_evalutate`**'nin **`sb_evaluate_internal`** üzerinde bir sarmalayıcı olduğunu unutmayın ve bu fonksiyon, geçirilen kimlik bilgilerini alır ve ardından genellikle tüm süreçlere varsayılan olarak uygulanan **platform profili** ve ardından **belirli süreç profili** kullanarak değerlendirme gerçekleştirir. Platform profili, macOS'taki **SIP**'nin ana bileşenlerinden biridir.
 
 ## Sandboxd
 
