@@ -1,8 +1,8 @@
 # Ochrony bezpieczeństwa macOS
 
 {% hint style="success" %}
-Ucz się i ćwicz Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Ucz się i ćwicz Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Ucz się i ćwicz Hacking AWS:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Ucz się i ćwicz Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -27,6 +27,10 @@ Więcej informacji w:
 
 ## Ograniczenia procesów
 
+### MACF
+
+
+
 ### SIP - Ochrona integralności systemu
 
 {% content-ref url="macos-sip.md" %}
@@ -43,7 +47,7 @@ MacOS Sandbox **ogranicza aplikacje** działające w piaskownicy do **dozwolonyc
 
 ### TCC - **Przejrzystość, Zgoda i Kontrola**
 
-**TCC (Przejrzystość, Zgoda i Kontrola)** to ramy zabezpieczeń. Zostały zaprojektowane, aby **zarządzać uprawnieniami** aplikacji, szczególnie regulując ich dostęp do wrażliwych funkcji. Obejmuje to elementy takie jak **usługi lokalizacji, kontakty, zdjęcia, mikrofon, kamera, dostęp do pełnego dysku**. TCC zapewnia, że aplikacje mogą uzyskać dostęp do tych funkcji tylko po uzyskaniu wyraźnej zgody użytkownika, co wzmacnia prywatność i kontrolę nad danymi osobowymi.
+**TCC (Przejrzystość, Zgoda i Kontrola)** to ramy zabezpieczeń. Zostały zaprojektowane, aby **zarządzać uprawnieniami** aplikacji, regulując ich dostęp do wrażliwych funkcji. Obejmuje to elementy takie jak **usługi lokalizacji, kontakty, zdjęcia, mikrofon, kamera, dostęp do pełnego dysku**. TCC zapewnia, że aplikacje mogą uzyskać dostęp do tych funkcji tylko po uzyskaniu wyraźnej zgody użytkownika, co wzmacnia prywatność i kontrolę nad danymi osobowymi.
 
 {% content-ref url="macos-tcc/" %}
 [macos-tcc](macos-tcc/)
@@ -65,8 +69,8 @@ Gdy złośliwe oprogramowanie zostanie wykryte na Macu (czy to przez XProtect, c
 
 Chociaż zarówno XProtect, jak i MRT są częścią środków zabezpieczeń macOS, pełnią różne funkcje:
 
-* **XProtect** jest narzędziem zapobiegawczym. **Sprawdza pliki w momencie ich pobierania** (za pośrednictwem niektórych aplikacji), a jeśli wykryje jakiekolwiek znane rodzaje złośliwego oprogramowania, **zapobiega otwarciu pliku**, tym samym zapobiegając zainfekowaniu systemu w pierwszej kolejności.
-* **MRT**, z drugiej strony, jest **narzędziem reaktywnym**. Działa po wykryciu złośliwego oprogramowania w systemie, mając na celu usunięcie szkodliwego oprogramowania, aby oczyścić system.
+* **XProtect** jest narzędziem zapobiegawczym. **Sprawdza pliki w momencie ich pobierania** (za pośrednictwem niektórych aplikacji), a jeśli wykryje jakiekolwiek znane rodzaje złośliwego oprogramowania, **zapobiega otwarciu pliku**, tym samym zapobiegając infekcji systemu przez złośliwe oprogramowanie.
+* **MRT**, z drugiej strony, jest **narzędziem reaktywnym**. Działa po wykryciu złośliwego oprogramowania w systemie, mając na celu usunięcie szkodliwego oprogramowania w celu oczyszczenia systemu.
 
 Aplikacja MRT znajduje się w **`/Library/Apple/System/Library/CoreServices/MRT.app`**
 
@@ -135,16 +139,17 @@ kill -SIGSTOP 1011
 ps -o state 1011
 T
 ```
-* **Błąd**: Jeśli **proces, który stworzył trwałość, istnieje szybko po nim**, demon spróbuje **uzyskać informacje** na jego temat, **nie powiedzie się** i **nie będzie w stanie wysłać zdarzenia** wskazującego, że nowa rzecz jest trwała.
+* **Błąd**: Jeśli **proces, który stworzył trwałość, istnieje szybko po nim**, demon spróbuje **uzyskać informacje** na jego temat, **nie powiedzie się** i **nie będzie w stanie wysłać zdarzenia** wskazującego, że nowa rzecz trwa.
 
 Referencje i **więcej informacji o BTM**:
 
 * [https://youtu.be/9hjUmT031tc?t=26481](https://youtu.be/9hjUmT031tc?t=26481)
 * [https://www.patreon.com/posts/new-developer-77420730?l=fr](https://www.patreon.com/posts/new-developer-77420730?l=fr)
 * [https://support.apple.com/en-gb/guide/deployment/depdca572563/web](https://support.apple.com/en-gb/guide/deployment/depdca572563/web)
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -156,4 +161,3 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-</details>
