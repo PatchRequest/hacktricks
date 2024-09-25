@@ -1,8 +1,8 @@
 # macOS Security Protections
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -27,6 +27,10 @@ Više informacija u:
 
 ## Processes Limitants
 
+### MACF
+
+
+
 ### SIP - System Integrity Protection
 
 {% content-ref url="macos-sip.md" %}
@@ -35,7 +39,7 @@ Više informacija u:
 
 ### Sandbox
 
-MacOS Sandbox **ograničava aplikacije** koje se izvršavaju unutar sandboxes na **dozvoljene radnje specificirane u Sandbox profilu** sa kojim aplikacija radi. Ovo pomaže da se osigura da **aplikacija pristupa samo očekivanim resursima**.
+MacOS Sandbox **ograničava aplikacije** koje se izvršavaju unutar sandboks-a na **dozvoljene radnje navedene u Sandbox profilu** sa kojim aplikacija radi. Ovo pomaže da se osigura da **aplikacija pristupa samo očekivanim resursima**.
 
 {% content-ref url="macos-sandbox/" %}
 [macos-sandbox](macos-sandbox/)
@@ -43,7 +47,7 @@ MacOS Sandbox **ograničava aplikacije** koje se izvršavaju unutar sandboxes na
 
 ### TCC - **Transparency, Consent, and Control**
 
-**TCC (Transparency, Consent, and Control)** je sigurnosni okvir. Dizajniran je da **upravlja dozvolama** aplikacija, posebno regulisanjem njihovog pristupa osetljivim funkcijama. Ovo uključuje elemente kao što su **usluge lokacije, kontakti, fotografije, mikrofon, kamera, pristupačnost i pristup celom disku**. TCC osigurava da aplikacije mogu pristupiti ovim funkcijama samo nakon dobijanja eksplicitne saglasnosti korisnika, čime se jača privatnost i kontrola nad ličnim podacima.
+**TCC (Transparency, Consent, and Control)** je sigurnosni okvir. Dizajniran je da **upravlja dozvolama** aplikacija, posebno regulisanjem njihovog pristupa osetljivim funkcijama. Ovo uključuje elemente kao što su **usluge lokacije, kontakti, fotografije, mikrofon, kamera, pristupačnost i pristup celom disku**. TCC osigurava da aplikacije mogu pristupiti ovim funkcijama samo nakon dobijanja izričitog pristanka korisnika, čime se jača privatnost i kontrola nad ličnim podacima.
 
 {% content-ref url="macos-tcc/" %}
 [macos-tcc](macos-tcc/)
@@ -51,7 +55,7 @@ MacOS Sandbox **ograničava aplikacije** koje se izvršavaju unutar sandboxes na
 
 ### Launch/Environment Constraints & Trust Cache
 
-Ograničenja pokretanja u macOS-u su sigurnosna funkcija koja **reguliše inicijaciju procesa** definišući **ko može pokrenuti** proces, **kako** i **odakle**. Uvedena u macOS Ventura, kategorizuju sistemske binarne datoteke u kategorije ograničenja unutar **trust cache**. Svaka izvršna binarna datoteka ima postavljena **pravila** za svoje **pokretanje**, uključujući **self**, **parent** i **responsible** ograničenja. Proširena na aplikacije trećih strana kao **Environment** Constraints u macOS Sonoma, ove funkcije pomažu u ublažavanju potencijalnih sistemskih eksploatacija regulisanjem uslova pokretanja procesa.
+Ograničenja pokretanja u macOS-u su sigurnosna funkcija koja **reguliše inicijaciju procesa** definišući **ko može pokrenuti** proces, **kako** i **odakle**. Uvedena u macOS Ventura, klasifikuju sistemske binarne datoteke u kategorije ograničenja unutar **trust cache**. Svaka izvršna binarna datoteka ima postavljena **pravila** za svoje **pokretanje**, uključujući **self**, **parent** i **responsible** ograničenja. Proširena na aplikacije trećih strana kao **Environment** Constraints u macOS Sonoma, ove funkcije pomažu u ublažavanju potencijalnih sistemskih eksploatacija regulisanjem uslova pokretanja procesa.
 
 {% content-ref url="macos-launch-environment-constraints.md" %}
 [macos-launch-environment-constraints.md](macos-launch-environment-constraints.md)
@@ -76,7 +80,7 @@ Aplikacija MRT se nalazi u **`/Library/Apple/System/Library/CoreServices/MRT.app
 
 <figure><img src="../../../.gitbook/assets/image (1183).png" alt=""><figcaption></figcaption></figure>
 
-Ovo se pokreće sa **daemon**-om lociranim u `/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Versions/A/Resources/backgroundtaskmanagementd` i **agentom** u `/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Support/BackgroundTaskManagementAgent.app`
+Ovo se pokreće sa **daemon-om** lociranim u `/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Versions/A/Resources/backgroundtaskmanagementd` i **agentom** u `/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Support/BackgroundTaskManagementAgent.app`
 
 Način na koji **`backgroundtaskmanagementd`** zna da je nešto instalirano u persistentnom folderu je **dobijanje FSEvents** i kreiranje nekih **handler-a** za njih.
 
@@ -112,11 +116,11 @@ xattr -rc dumpBTM # Remove quarantine attr
 ```
 Ove informacije se čuvaju u **`/private/var/db/com.apple.backgroundtaskmanagement/BackgroundItems-v4.btm`** i Terminalu je potrebna FDA.
 
-### Mešanje sa BTM
+### Manipulacija sa BTM
 
 Kada se pronađe nova perzistencija, događa se događaj tipa **`ES_EVENT_TYPE_NOTIFY_BTM_LAUNCH_ITEM_ADD`**. Dakle, bilo koji način da se **spreči** slanje ovog **događaja** ili da **agent ne obavesti** korisnika će pomoći napadaču da _**zaobiđe**_ BTM.
 
-* **Resetovanje baze podataka**: Pokretanje sledeće komande će resetovati bazu podataka (trebalo bi da je ponovo izgradi od nule), međutim, iz nekog razloga, nakon pokretanja ovoga, **nema novih perzistencija koje će biti obaveštene dok se sistem ne restartuje**.
+* **Resetovanje baze podataka**: Pokretanje sledeće komande će resetovati bazu podataka (trebalo bi da je ponovo izgradi od nule), međutim, iz nekog razloga, nakon pokretanja ovoga, **nema nove perzistencije koja će biti obaveštena dok se sistem ne restartuje**.
 * **root** je potreban.
 ```bash
 # Reset the database
@@ -142,9 +146,10 @@ Reference i **više informacija o BTM**:
 * [https://youtu.be/9hjUmT031tc?t=26481](https://youtu.be/9hjUmT031tc?t=26481)
 * [https://www.patreon.com/posts/new-developer-77420730?l=fr](https://www.patreon.com/posts/new-developer-77420730?l=fr)
 * [https://support.apple.com/en-gb/guide/deployment/depdca572563/web](https://support.apple.com/en-gb/guide/deployment/depdca572563/web)
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -156,4 +161,3 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-</details>
