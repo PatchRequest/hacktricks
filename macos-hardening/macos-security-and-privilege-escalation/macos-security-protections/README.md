@@ -1,8 +1,8 @@
 # macOS 安全保护
 
 {% hint style="success" %}
-学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习和实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -27,6 +27,10 @@ Gatekeeper 通常用于指代 **Quarantine + Gatekeeper + XProtect** 的组合�
 
 ## 进程限制
 
+### MACF
+
+
+
 ### SIP - 系统完整性保护
 
 {% content-ref url="macos-sip.md" %}
@@ -35,7 +39,7 @@ Gatekeeper 通常用于指代 **Quarantine + Gatekeeper + XProtect** 的组合�
 
 ### 沙盒
 
-macOS 沙盒 **限制应用程序** 在沙盒内运行时的 **允许操作**，这些操作在应用程序运行时的沙盒配置文件中指定。这有助于确保 **应用程序仅访问预期的资源**。
+macOS 沙盒 **限制应用程序** 在沙盒内运行时的 **允许操作**，这些操作由应用程序运行时的沙盒配置文件指定。这有助于确保 **应用程序仅访问预期的资源**。
 
 {% content-ref url="macos-sandbox/" %}
 [macos-sandbox](macos-sandbox/)
@@ -43,7 +47,7 @@ macOS 沙盒 **限制应用程序** 在沙盒内运行时的 **允许操作**，
 
 ### TCC - **透明性、同意和控制**
 
-**TCC（透明性、同意和控制）** 是一个安全框架。它旨在 **管理应用程序的权限**，特别是通过调节它们对敏感功能的访问。这包括 **位置服务、联系人、照片、麦克风、相机、无障碍和完全磁盘访问** 等元素。TCC 确保应用程序只能在获得用户明确同意后访问这些功能，从而增强对个人数据的隐私和控制。
+**TCC（透明性、同意和控制）** 是一个安全框架。它旨在 **管理应用程序的权限**，特别是通过调节它们对敏感功能的访问。这包括 **位置服务、联系人、照片、麦克风、相机、无障碍和完整磁盘访问** 等元素。TCC 确保应用程序在获得用户明确同意后才能访问这些功能，从而增强对个人数据的隐私和控制。
 
 {% content-ref url="macos-tcc/" %}
 [macos-tcc](macos-tcc/)
@@ -70,7 +74,7 @@ macOS 中的启动约束是一种安全功能，用于 **调节进程启动**，
 
 MRT 应用程序位于 **`/Library/Apple/System/Library/CoreServices/MRT.app`**
 
-## 后台任务管理
+## 背景任务管理
 
 **macOS** 现在 **提醒** 每次工具使用众所周知的 **技术来保持代码执行**（如登录项、守护进程等），以便用户更好地了解 **哪些软件在持续运行**。
 
@@ -80,7 +84,7 @@ MRT 应用程序位于 **`/Library/Apple/System/Library/CoreServices/MRT.app`**
 
 **`backgroundtaskmanagementd`** 知道某些东西安装在持久文件夹中的方式是通过 **获取 FSEvents** 并为这些事件创建一些 **处理程序**。
 
-此外，还有一个 plist 文件，包含 **众所周知的应用程序**，这些应用程序经常保持，由苹果维护，位于：`/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Versions/A/Resources/attributions.plist`
+此外，还有一个 plist 文件，包含 **众所周知的应用程序**，这些应用程序经常保持由苹果维护，位于：`/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Versions/A/Resources/attributions.plist`
 ```json
 [...]
 "us.zoom.ZoomDaemon" => {
@@ -114,9 +118,9 @@ xattr -rc dumpBTM # Remove quarantine attr
 
 ### 干扰 BTM
 
-当发现新的持久性时，会发生类型为 **`ES_EVENT_TYPE_NOTIFY_BTM_LAUNCH_ITEM_ADD`** 的事件。因此，任何 **防止** 此 **事件** 被发送或 **代理不提醒** 用户的方法都将帮助攻击者 _**绕过**_ BTM。
+当发现新的持久性时，会发生类型为 **`ES_EVENT_TYPE_NOTIFY_BTM_LAUNCH_ITEM_ADD`** 的事件。因此，任何 **防止** 此 **事件** 被发送或 **代理不警告** 用户的方法都将帮助攻击者 _**绕过**_ BTM。
 
-* **重置数据库**：运行以下命令将重置数据库（应该从头开始重建），但是，由于某种原因，运行此命令后，**在系统重启之前不会提醒任何新的持久性**。
+* **重置数据库**：运行以下命令将重置数据库（应该从头开始重建），但是，由于某种原因，在运行此命令后，**在系统重启之前不会警告任何新的持久性**。
 * 需要 **root** 权限。
 ```bash
 # Reset the database
@@ -142,9 +146,10 @@ T
 * [https://youtu.be/9hjUmT031tc?t=26481](https://youtu.be/9hjUmT031tc?t=26481)
 * [https://www.patreon.com/posts/new-developer-77420730?l=fr](https://www.patreon.com/posts/new-developer-77420730?l=fr)
 * [https://support.apple.com/en-gb/guide/deployment/depdca572563/web](https://support.apple.com/en-gb/guide/deployment/depdca572563/web)
+
 {% hint style="success" %}
-学习和实践AWS黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks培训AWS红队专家（ARTE）**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习和实践GCP黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks培训GCP红队专家（GRTE）**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践AWS黑客技术：<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks培训AWS红队专家（ARTE）**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践GCP黑客技术：<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks培训GCP红队专家（GRTE）**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -156,4 +161,3 @@ T
 
 </details>
 {% endhint %}
-</details>

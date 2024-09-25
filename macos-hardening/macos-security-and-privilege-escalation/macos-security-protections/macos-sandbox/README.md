@@ -43,7 +43,7 @@ drwx------@ 4 username  staff  128 Mar 25 14:14 com.apple.Accessibility-Settings
 drwx------@ 4 username  staff  128 Mar 25 14:10 com.apple.ActionKit.BundledIntentHandler
 [...]
 ```
-在每个 bundle id 文件夹内，您可以找到应用的 **plist** 和 **数据目录**，其结构模仿主目录：
+在每个 bundle id 文件夹内，您可以找到应用的 **plist** 和 **数据目录**，其结构模仿主文件夹：
 ```bash
 cd /Users/username/Library/Containers/com.apple.Safari
 ls -la
@@ -67,10 +67,10 @@ drwx------   2 username  staff    64 Mar 24 18:02 SystemData
 drwx------   2 username  staff    64 Mar 24 18:02 tmp
 ```
 {% hint style="danger" %}
-请注意，即使符号链接存在以“逃离”沙箱并访问其他文件夹，应用程序仍然需要**拥有权限**才能访问它们。这些权限在`RedirectablePaths`中的**`.plist`**内。
+请注意，即使符号链接存在以“逃离”沙盒并访问其他文件夹，应用程序仍然需要**拥有权限**才能访问它们。这些权限在`RedirectablePaths`中的**`.plist`**内。
 {% endhint %}
 
-**`SandboxProfileData`**是编译后的沙箱配置文件CFData，已转义为B64。
+**`SandboxProfileData`**是编译后的沙盒配置文件CFData，已转义为B64。
 ```bash
 # Get container config
 ## You need FDA to access the file, not even just root can read it
@@ -125,9 +125,9 @@ AAAhAboBAAAAAAgAAABZAO4B5AHjBMkEQAUPBSsGPwsgASABHgEgASABHwEf...
 
 ## 沙盒配置文件
 
-沙盒配置文件是指示在该**沙盒**中将被**允许/禁止**的内容的配置文件。它使用**沙盒配置文件语言（SBPL）**，该语言使用[**Scheme**](https://en.wikipedia.org/wiki/Scheme\_\(programming\_language\))编程语言。
+沙盒配置文件是指示在该**沙盒**中将被**允许/禁止**的配置文件。它使用**沙盒配置文件语言（SBPL）**，该语言使用[**Scheme**](https://en.wikipedia.org/wiki/Scheme\_\(programming\_language\))编程语言。
 
-在这里您可以找到一个示例：
+这里是一个示例：
 ```scheme
 (version 1) ; First you get the version
 
@@ -250,7 +250,7 @@ sandbox-exec -f /tmp/trace.sb /bin/ls
 #### 通过 API
 
 `libsystem_sandbox.dylib` 导出的函数 `sandbox_set_trace_path` 允许指定一个跟踪文件名，沙箱检查将写入该文件。\
-还可以通过调用 `sandbox_vtrace_enable()` 来执行类似操作，然后通过调用 `sandbox_vtrace_report()` 从缓冲区获取日志错误。
+还可以通过调用 `sandbox_vtrace_enable()` 来做类似的事情，然后通过调用 `sandbox_vtrace_report()` 从缓冲区获取日志错误。
 
 ### 沙箱检查
 
@@ -260,15 +260,15 @@ sandbox-exec -f /tmp/trace.sb /bin/ls
 
 MacOS 将系统沙箱配置文件存储在两个位置：**/usr/share/sandbox/** 和 **/System/Library/Sandbox/Profiles**。
 
-如果第三方应用程序携带 _**com.apple.security.app-sandbox**_ 权限，则系统将该配置文件 **/System/Library/Sandbox/Profiles/application.sb** 应用到该进程。
+如果第三方应用程序携带 _**com.apple.security.app-sandbox**_ 权限，则系统将 **/System/Library/Sandbox/Profiles/application.sb** 配置文件应用于该进程。
 
-在 iOS 中，默认配置文件称为 **container**，我们没有 SBPL 文本表示。在内存中，这个沙箱表示为每个权限的允许/拒绝二叉树。
+在 iOS 中，默认配置文件称为 **container**，我们没有 SBPL 文本表示。在内存中，这个沙箱被表示为每个权限的允许/拒绝二叉树。
 
 ### App Store 应用中的自定义 SBPL
 
-公司可能会使其应用程序 **使用自定义沙箱配置文件**（而不是默认配置文件）。他们需要使用权限 **`com.apple.security.temporary-exception.sbpl`**，该权限需要得到苹果的授权。
+公司可能会使其应用程序 **使用自定义沙箱配置文件**（而不是默认配置文件）。他们需要使用需要苹果授权的权限 **`com.apple.security.temporary-exception.sbpl`**。
 
-可以在 **`/System/Library/Sandbox/Profiles/application.sb:`** 中检查该权限的定义。
+可以在 **`/System/Library/Sandbox/Profiles/application.sb:`** 中检查此权限的定义。
 ```scheme
 (sandbox-array-entitlement
 "com.apple.security.temporary-exception.sbpl"
@@ -276,7 +276,7 @@ MacOS 将系统沙箱配置文件存储在两个位置：**/usr/share/sandbox/**
 (let* ((port (open-input-string string)) (sbpl (read port)))
 (with-transparent-redirection (eval sbpl)))))
 ```
-这将**在此权限后评估字符串**作为沙箱配置文件。
+这将**在此权限之后评估字符串**作为沙箱配置文件。
 
 ### 编译和反编译沙箱配置文件
 
@@ -288,9 +288,9 @@ MacOS 将系统沙箱配置文件存储在两个位置：**/usr/share/sandbox/**
 
 ## 调试和绕过沙箱
 
-在 macOS 上，与 iOS 不同，iOS 中的进程从一开始就由内核进行沙箱化，**进程必须自行选择进入沙箱**。这意味着在 macOS 上，进程在主动决定进入沙箱之前不会受到沙箱的限制，尽管 App Store 应用始终处于沙箱中。
+在 macOS 上，与 iOS 不同，iOS 中的进程从一开始就被内核沙箱化，**进程必须自行选择进入沙箱**。这意味着在 macOS 上，进程在主动决定进入沙箱之前不会受到沙箱的限制，尽管 App Store 应用始终是沙箱化的。
 
-如果进程具有权限 `com.apple.security.app-sandbox`，则它们在启动时会自动从用户空间进行沙箱化。有关此过程的详细说明，请查看：
+如果进程具有权限 `com.apple.security.app-sandbox`，则在启动时会自动从用户空间沙箱化。有关此过程的详细说明，请查看：
 
 {% content-ref url="macos-sandbox-debug-and-bypass/" %}
 [macos-sandbox-debug-and-bypass](macos-sandbox-debug-and-bypass/)
@@ -319,7 +319,7 @@ MacOS 将系统沙箱配置文件存储在两个位置：**/usr/share/sandbox/**
 
 [**根据这个**](https://www.youtube.com/watch?v=mG715HcDgO8\&t=3011s)，**`sandbox_check`** 函数（它是一个 `__mac_syscall`）可以检查**某个 PID、审计令牌或唯一 ID 是否允许某个操作**。
 
-[**工具 sbtool**](http://newosxbook.com/src.jl?tree=listings\&file=sbtool.c)（可以在[这里找到编译版本](https://newosxbook.com/articles/hitsb.html)）可以检查某个 PID 是否可以执行某些操作：
+[**工具 sbtool**](http://newosxbook.com/src.jl?tree=listings\&file=sbtool.c)（在这里找到[编译版本](https://newosxbook.com/articles/hitsb.html)）可以检查某个 PID 是否可以执行某些操作：
 ```bash
 sbtool <pid> mach #Check mac-ports (got from launchd with an api)
 sbtool <pid> file /tmp #Check file access
@@ -340,7 +340,7 @@ sbtool <pid> all
 
 此系统调用 (#381) 期望第一个参数为一个字符串，指示要运行的模块，然后第二个参数为一个代码，指示要运行的函数。第三个参数将取决于执行的函数。
 
-函数 `___sandbox_ms` 调用封装了 `mac_syscall`，在第一个参数中指示 `"Sandbox"`，就像 `___sandbox_msp` 是 `mac_set_proc` (#387) 的封装一样。然后，`___sandbox_ms` 支持的一些代码可以在此表中找到：
+函数 `___sandbox_ms` 调用封装了 `mac_syscall`，在第一个参数中指示 `"Sandbox"`，就像 `___sandbox_msp` 是 `mac_set_proc` (#387) 的封装一样。然后，`___sandbox_ms` 支持的一些代码可以在下表中找到：
 
 * **set\_profile (#0)**: 将编译或命名的配置文件应用于进程。
 * **platform\_policy (#1)**: 强制执行特定于平台的策略检查（在 macOS 和 iOS 之间有所不同）。
@@ -363,7 +363,7 @@ sbtool <pid> all
 * **vtrace (#19)**: 跟踪沙箱操作以进行监控或调试。
 * **builtin\_profile\_deactivate (#20)**: （macOS < 11）停用命名配置文件（例如，`pe_i_can_has_debugger`）。
 * **check\_bulk (#21)**: 在一次调用中执行多个 `sandbox_check` 操作。
-* **reference\_retain\_by\_audit\_token (#28)**: 创建审计令牌的引用，以便在沙箱检查中使用。
+* **reference\_retain\_by\_audit\_token (#28)**: 为审计令牌创建引用，以便在沙箱检查中使用。
 * **reference\_release (#29)**: 释放先前保留的审计令牌引用。
 * **rootless\_allows\_task\_for\_pid (#30)**: 验证是否允许 `task_for_pid`（类似于 `csr` 检查）。
 * **rootless\_whitelist\_push (#31)**: （macOS）应用系统完整性保护（SIP）清单文件。
@@ -381,21 +381,21 @@ sbtool <pid> all
 
 ### MACF Hooks
 
-**`Sandbox.kext`** 通过 MACF 使用了超过一百个钩子。大多数钩子将仅检查一些琐碎的情况，如果允许执行该操作，则会调用 **`cred_sb_evalutate`**，并传入来自 MACF 的 **凭据** 和一个对应于要执行的 **操作** 的数字，以及一个用于输出的 **缓冲区**。
+**`Sandbox.kext`** 通过 MACF 使用了超过一百个钩子。大多数钩子只会检查一些微不足道的情况，如果允许执行该操作，则会调用 **`cred_sb_evalutate`**，并传入来自 MACF 的 **凭据** 和一个对应于要执行的 **操作** 的数字，以及一个用于输出的 **缓冲区**。
 
-一个很好的例子是函数 **`_mpo_file_check_mmap`**，它挂钩了 **`mmap`**，并将开始检查新内存是否可写（如果不可写则允许执行），然后检查它是否用于 dyld 共享缓存，如果是，则允许执行，最后调用 **`cred_sb_evalutate`** 进行进一步的允许检查。
+一个很好的例子是函数 **`_mpo_file_check_mmap`**，它挂钩了 **`mmap`**，并将开始检查新内存是否可写（如果不可写则允许执行），然后检查它是否用于 dyld 共享缓存，如果是，则允许执行，最后调用 **`sb_evaluate_internal`**（或其一个封装）以执行进一步的允许检查。
 
-此外，在沙箱使用的数百个钩子中，有 3 个特别有趣：
+此外，在沙箱使用的数百个钩子中，有三个特别有趣：
 
 * `mpo_proc_check_for`: 如果需要并且之前未应用，则应用配置文件。
 * `mpo_vnode_check_exec`: 当进程加载相关二进制文件时调用，然后执行配置文件检查，并检查禁止 SUID/SGID 执行。
-* `mpo_cred_label_update_execve`: 当标签被分配时调用。这是最长的，因为它在二进制文件完全加载但尚未执行时调用。它将执行诸如创建沙箱对象、将沙箱结构附加到 kauth 凭据、移除对 mach 端口的访问等操作。
+* `mpo_cred_label_update_execve`: 当标签被分配时调用。这是最长的一个，因为它在二进制文件完全加载但尚未执行时调用。它将执行诸如创建沙箱对象、将沙箱结构附加到 kauth 凭据、移除对 mach 端口的访问等操作。
 
-请注意，**`cred_sb_evalutate`** 是 **`sb_evaluate`** 的封装，该函数获取传入的凭据，然后使用 **`eval`** 函数执行评估，该函数通常评估默认应用于所有进程的 **平台配置文件**，然后是 **特定进程配置文件**。请注意，平台配置文件是 **SIP** 在 macOS 中的主要组成部分之一。
+请注意 **`_cred_sb_evalutate`** 是 **`sb_evaluate_internal`** 的封装，该函数获取传入的凭据，然后使用 **`eval`** 函数执行评估，该函数通常评估默认应用于所有进程的 **平台配置文件**，然后是 **特定进程配置文件**。请注意，平台配置文件是 **SIP** 在 macOS 中的主要组成部分之一。
 
 ## Sandboxd
 
-沙箱还有一个用户守护进程，暴露了 XPC Mach 服务 `com.apple.sandboxd` 并绑定了内核扩展用于与之通信的特殊端口 14 (`HOST_SEATBELT_PORT`)。它使用 MIG 暴露了一些函数。
+沙箱还有一个用户守护进程，暴露了 XPC Mach 服务 `com.apple.sandboxd` 并绑定特殊端口 14 (`HOST_SEATBELT_PORT`)，内核扩展使用该端口与其通信。它通过 MIG 暴露了一些函数。
 
 ## References
 
