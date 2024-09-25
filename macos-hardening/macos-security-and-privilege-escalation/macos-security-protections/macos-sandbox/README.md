@@ -262,7 +262,7 @@ MacOS speichert System-Sandbox-Profile an zwei Orten: **/usr/share/sandbox/** un
 
 Und wenn eine Drittanbieteranwendung das _**com.apple.security.app-sandbox**_ Recht hat, wendet das System das **/System/Library/Sandbox/Profiles/application.sb** Profil auf diesen Prozess an.
 
-In iOS heißt das Standardprofil **container** und wir haben keine SBPL-Textdarstellung. Im Speicher wird diese Sandbox als Erlauben/Verweigern-Binärbaum für jede Berechtigung aus der Sandbox dargestellt.
+In iOS wird das Standardprofil **container** genannt und wir haben keine SBPL-Textdarstellung. Im Speicher wird diese Sandbox als Erlauben/Verweigern-Binärbaum für jede Berechtigung aus der Sandbox dargestellt.
 
 ### Benutzerdefinierte SBPL in App Store-Apps
 
@@ -308,9 +308,9 @@ Erweiterungen ermöglichen es, einem Objekt weitere Berechtigungen zu geben, und
 * `sandbox_extension_issue_generic`
 * `sandbox_extension_issue_posix_ipc`
 
-Die Erweiterungen werden im zweiten MACF-Label-Slot gespeichert, der über die Prozessanmeldeinformationen zugänglich ist. Das folgende **`sbtool`** kann auf diese Informationen zugreifen.
+Die Erweiterungen werden im zweiten MACF-Label-Slot gespeichert, der von den Prozessanmeldeinformationen zugänglich ist. Das folgende **`sbtool`** kann auf diese Informationen zugreifen.
 
-Beachten Sie, dass Erweiterungen normalerweise von erlaubten Prozessen gewährt werden. Zum Beispiel wird `tccd` das Erweiterungstoken von `com.apple.tcc.kTCCServicePhotos` gewähren, wenn ein Prozess versucht hat, auf die Fotos zuzugreifen und in einer XPC-Nachricht erlaubt wurde. Dann muss der Prozess das Erweiterungstoken konsumieren, damit es hinzugefügt wird.\
+Beachten Sie, dass Erweiterungen normalerweise von erlaubten Prozessen gewährt werden, zum Beispiel wird `tccd` das Erweiterungstoken von `com.apple.tcc.kTCCServicePhotos` gewähren, wenn ein Prozess versucht hat, auf die Fotos zuzugreifen und in einer XPC-Nachricht erlaubt wurde. Dann muss der Prozess das Erweiterungstoken konsumieren, damit es hinzugefügt wird.\
 Beachten Sie, dass die Erweiterungstoken lange Hexadezimalzahlen sind, die die gewährten Berechtigungen kodieren. Sie haben jedoch die erlaubte PID nicht fest codiert, was bedeutet, dass jeder Prozess mit Zugriff auf das Token **von mehreren Prozessen konsumiert werden kann**.
 
 Beachten Sie, dass Erweiterungen auch sehr mit Rechten verbunden sind, sodass das Vorhandensein bestimmter Rechte automatisch bestimmte Erweiterungen gewähren kann.
@@ -357,7 +357,7 @@ Der Funktionsaufruf `___sandbox_ms` umschließt `mac_syscall`, wobei im ersten A
 * **passthrough\_access (#12)**: Erlaubt direkten Passthrough-Zugriff auf eine Ressource, umgeht Sandbox-Prüfungen.
 * **set\_container\_path (#13)**: (nur iOS) Setzt einen Containerpfad für eine App-Gruppe oder eine Signatur-ID.
 * **container\_map (#14)**: (nur iOS) Ruft einen Containerpfad von `containermanagerd` ab.
-* **sandbox\_user\_state\_item\_buffer\_send (#15)**: (iOS 10+) Setzt Metadaten im Benutzermodus in der Sandbox.
+* **sandbox\_user\_state\_item\_buffer\_send (#15)**: (iOS 10+) Setzt Benutzermetadaten im Sandbox.
 * **inspect (#16)**: Bietet Debug-Informationen über einen sandboxed Prozess.
 * **dump (#18)**: (macOS 11) Dumpt das aktuelle Profil einer Sandbox zur Analyse.
 * **vtrace (#19)**: Verfolgt Sandbox-Operationen zur Überwachung oder Fehlersuche.
@@ -366,7 +366,7 @@ Der Funktionsaufruf `___sandbox_ms` umschließt `mac_syscall`, wobei im ersten A
 * **reference\_retain\_by\_audit\_token (#28)**: Erstellt eine Referenz für ein Audit-Token zur Verwendung in Sandbox-Prüfungen.
 * **reference\_release (#29)**: Gibt eine zuvor gehaltene Audit-Token-Referenz frei.
 * **rootless\_allows\_task\_for\_pid (#30)**: Überprüft, ob `task_for_pid` erlaubt ist (ähnlich wie `csr`-Prüfungen).
-* **rootless\_whitelist\_push (#31)**: (macOS) Wendet eine Manifestdatei für den Systemintegritätsschutz (SIP) an.
+* **rootless\_whitelist\_push (#31)**: (macOS) Wendet eine Systemintegritätsschutz (SIP) Manifestdatei an.
 * **rootless\_whitelist\_check (preflight) (#32)**: Überprüft die SIP-Manifestdatei vor der Ausführung.
 * **rootless\_protected\_volume (#33)**: (macOS) Wendet SIP-Schutz auf eine Festplatte oder Partition an.
 * **rootless\_mkdir\_protected (#34)**: Wendet SIP/DataVault-Schutz auf einen Verzeichnis-Erstellungsprozess an.
@@ -383,19 +383,19 @@ Beachten Sie, dass die Kernel-Erweiterung in iOS **alle Profile hardcodiert** im
 
 **`Sandbox.kext`** verwendet mehr als hundert Hooks über MACF. Die meisten Hooks überprüfen nur einige triviale Fälle, die es erlauben, die Aktion auszuführen; andernfalls rufen sie **`cred_sb_evalutate`** mit den **Anmeldeinformationen** von MACF und einer Nummer, die der **Operation** entspricht, die ausgeführt werden soll, sowie einem **Puffer** für die Ausgabe auf.
 
-Ein gutes Beispiel dafür ist die Funktion **`_mpo_file_check_mmap`**, die **`mmap`** hookt und die überprüft, ob der neue Speicher beschreibbar sein wird (und wenn nicht, die Ausführung erlaubt), dann überprüft, ob er für den dyld Shared Cache verwendet wird, und wenn ja, die Ausführung erlaubt, und schließlich wird **`cred_sb_evalutate`** aufgerufen, um weitere Erlaubnisprüfungen durchzuführen.
+Ein gutes Beispiel dafür ist die Funktion **`_mpo_file_check_mmap`**, die **`mmap`** hookt und die überprüft, ob der neue Speicher beschreibbar sein wird (und wenn nicht, die Ausführung erlaubt), dann wird überprüft, ob er für den dyld Shared Cache verwendet wird, und falls ja, wird die Ausführung erlaubt, und schließlich wird **`sb_evaluate_internal`** (oder einer seiner Wrapper) aufgerufen, um weitere Erlaubnisprüfungen durchzuführen.
 
-Darüber hinaus gibt es von den Hunderten von Hooks, die Sandbox verwendet, 3, die besonders interessant sind:
+Darüber hinaus gibt es unter den Hunderten von Hooks, die die Sandbox verwendet, 3, die besonders interessant sind:
 
 * `mpo_proc_check_for`: Es wendet das Profil an, wenn nötig, und wenn es zuvor nicht angewendet wurde.
 * `mpo_vnode_check_exec`: Wird aufgerufen, wenn ein Prozess die zugehörige Binärdatei lädt, dann wird eine Profilüberprüfung durchgeführt und auch eine Überprüfung, die SUID/SGID-Ausführungen verbietet.
 * `mpo_cred_label_update_execve`: Dies wird aufgerufen, wenn das Label zugewiesen wird. Dies ist der längste, da es aufgerufen wird, wenn die Binärdatei vollständig geladen ist, aber noch nicht ausgeführt wurde. Es führt Aktionen wie das Erstellen des Sandbox-Objekts, das Anhängen der Sandbox-Struktur an die kauth-Anmeldeinformationen und das Entfernen des Zugriffs auf Mach-Ports durch...
 
-Beachten Sie, dass **`cred_sb_evalutate`** ein Wrapper über **`sb_evaluate`** ist und diese Funktion die übergebenen Anmeldeinformationen erhält und dann die Bewertung unter Verwendung der **`eval`**-Funktion durchführt, die normalerweise das **Plattformprofil** bewertet, das standardmäßig auf alle Prozesse angewendet wird, und dann das **spezifische Prozessprofil**. Beachten Sie, dass das Plattformprofil eines der Hauptkomponenten von **SIP** in macOS ist.
+Beachten Sie, dass **`_cred_sb_evalutate`** ein Wrapper über **`sb_evaluate_internal`** ist und diese Funktion die übergebenen Anmeldeinformationen erhält und dann die Bewertung unter Verwendung der **`eval`**-Funktion durchführt, die normalerweise das **Plattformprofil** bewertet, das standardmäßig auf alle Prozesse angewendet wird, und dann das **spezifische Prozessprofil**. Beachten Sie, dass das Plattformprofil eines der Hauptkomponenten von **SIP** in macOS ist.
 
 ## Sandboxd
 
-Sandbox hat auch einen Benutzerdämon, der den XPC Mach-Dienst `com.apple.sandboxd` ausführt und den speziellen Port 14 (`HOST_SEATBELT_PORT`) bindet, den die Kernel-Erweiterung verwendet, um mit ihm zu kommunizieren. Es stellt einige Funktionen über MIG zur Verfügung.
+Die Sandbox hat auch einen Benutzerdämon, der den XPC Mach-Dienst `com.apple.sandboxd` bereitstellt und den speziellen Port 14 (`HOST_SEATBELT_PORT`) bindet, den die Kernel-Erweiterung zur Kommunikation mit ihm verwendet. Es stellt einige Funktionen über MIG bereit.
 
 ## References
 
