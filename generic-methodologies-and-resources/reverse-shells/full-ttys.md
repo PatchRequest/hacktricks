@@ -112,9 +112,15 @@ ssh -p 8888 127.0.0.1
 # Bidirectional file transfer
 sftp -P 8888 127.0.0.1
 ```
+## Penelope
+
+Η Penelope (https://github.com/brightio/penelope) αναβαθμίζει αυτόματα τα Linux reverse shells σε TTY, διαχειρίζεται το μέγεθος του τερματικού, καταγράφει τα πάντα και πολλά άλλα. Επίσης, παρέχει υποστήριξη readline για Windows shells.
+
+![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
+
 ## No TTY
 
-Αν για κάποιο λόγο δεν μπορείτε να αποκτήσετε ένα πλήρες TTY, μπορείτε **να αλληλεπιδράσετε με προγράμματα** που περιμένουν είσοδο από τον χρήστη. Στο παρακάτω παράδειγμα, ο κωδικός πρόσβασης περνάει στο `sudo` για να διαβάσει ένα αρχείο:
+Αν για κάποιο λόγο δεν μπορείτε να αποκτήσετε ένα πλήρες TTY, **μπορείτε ακόμα να αλληλεπιδράσετε με προγράμματα** που περιμένουν είσοδο από τον χρήστη. Στο παρακάτω παράδειγμα, ο κωδικός πρόσβασης περνάει στο `sudo` για να διαβάσει ένα αρχείο:
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
