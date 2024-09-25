@@ -1,8 +1,8 @@
 # macOS Security Protections
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -26,6 +26,10 @@ Gatekeeper зазвичай використовується для познач
 {% endcontent-ref %}
 
 ## Processes Limitants
+
+### MACF
+
+
 
 ### SIP - System Integrity Protection
 
@@ -51,7 +55,7 @@ MacOS Sandbox **обмежує програми**, що працюють все�
 
 ### Launch/Environment Constraints & Trust Cache
 
-Обмеження запуску в macOS є функцією безпеки для **регулювання ініціації процесів**, визначаючи **хто може запустити** процес, **як** і **звідки**. Введені в macOS Ventura, вони класифікують системні бінарні файли в категорії обмежень у **кеші довіри**. Кожен виконуваний бінар має встановлені **правила** для свого **запуску**, включаючи **сам**, **батьківський** та **відповідальний** обмеження. Розширені до сторонніх програм як **Environment** Constraints в macOS Sonoma, ці функції допомагають зменшити потенційні експлуатації системи, регулюючи умови запуску процесів.
+Обмеження запуску в macOS є функцією безпеки для **регулювання ініціації процесів**, визначаючи **хто може запустити** процес, **як** і **звідки**. Введені в macOS Ventura, вони класифікують системні двійкові файли в категорії обмежень у **кеші довіри**. Кожен виконуваний двійковий файл має встановлені **правила** для свого **запуску**, включаючи **себе**, **батька** та **відповідальні** обмеження. Розширені до сторонніх програм як **Environment** Constraints в macOS Sonoma, ці функції допомагають зменшити потенційні експлуатації системи, регулюючи умови запуску процесів.
 
 {% content-ref url="macos-launch-environment-constraints.md" %}
 [macos-launch-environment-constraints.md](macos-launch-environment-constraints.md)
@@ -61,7 +65,7 @@ MacOS Sandbox **обмежує програми**, що працюють все�
 
 Інструмент видалення шкідливих програм (MRT) є ще однією частиною інфраструктури безпеки macOS. Як випливає з назви, основна функція MRT полягає в **видаленні відомих шкідливих програм з заражених систем**.
 
-Коли шкідливе програмне забезпечення виявляється на Mac (або за допомогою XProtect, або іншим способом), MRT може бути використаний для автоматичного **видалення шкідливого програмного забезпечення**. MRT працює тихо у фоновому режимі і зазвичай запускається щоразу, коли система оновлюється або коли завантажується нове визначення шкідливого програмного забезпечення (схоже, що правила, які MRT має для виявлення шкідливого програмного забезпечення, знаходяться всередині бінару).
+Коли шкідливе програмне забезпечення виявляється на Mac (або за допомогою XProtect, або іншим способом), MRT може бути використано для автоматичного **видалення шкідливого програмного забезпечення**. MRT працює тихо у фоновому режимі і зазвичай запускається щоразу, коли система оновлюється або коли завантажується нове визначення шкідливого програмного забезпечення (схоже, що правила, які MRT має для виявлення шкідливого програмного забезпечення, знаходяться всередині двійкового файлу).
 
 Хоча як XProtect, так і MRT є частинами заходів безпеки macOS, вони виконують різні функції:
 
@@ -78,7 +82,7 @@ MacOS Sandbox **обмежує програми**, що працюють все�
 
 Це працює з **демоном**, розташованим у `/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Versions/A/Resources/backgroundtaskmanagementd`, і **агентом** у `/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Support/BackgroundTaskManagementAgent.app`
 
-Спосіб, яким **`backgroundtaskmanagementd`** дізнається, що щось встановлено в постійній папці, полягає в **отриманні FSEvents** і створенні деяких **обробників** для них.
+Спосіб, яким **`backgroundtaskmanagementd`** дізнається, що щось встановлено в постійну папку, полягає в **отриманні FSEvents** і створенні деяких **обробників** для них.
 
 Більше того, існує файл plist, який містить **добре відомі програми**, які часто зберігаються, що підтримується Apple, розташований у: `/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Versions/A/Resources/attributions.plist`
 ```json
@@ -142,9 +146,10 @@ T
 * [https://youtu.be/9hjUmT031tc?t=26481](https://youtu.be/9hjUmT031tc?t=26481)
 * [https://www.patreon.com/posts/new-developer-77420730?l=fr](https://www.patreon.com/posts/new-developer-77420730?l=fr)
 * [https://support.apple.com/en-gb/guide/deployment/depdca572563/web](https://support.apple.com/en-gb/guide/deployment/depdca572563/web)
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -156,4 +161,3 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-</details>
