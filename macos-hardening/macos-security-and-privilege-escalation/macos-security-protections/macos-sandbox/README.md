@@ -17,7 +17,7 @@ Learn & practice GCP Hacking: <img src="../../../../.gitbook/assets/grte.png" al
 
 ## Basic Information
 
-MacOS Sandbox (inizialmente chiamato Seatbelt) **limita le applicazioni** in esecuzione all'interno della sandbox alle **azioni consentite specificate nel profilo Sandbox** con cui l'app è in esecuzione. Questo aiuta a garantire che **l'applicazione accederà solo alle risorse previste**.
+MacOS Sandbox (inizialmente chiamato Seatbelt) **limita le applicazioni** che vengono eseguite all'interno della sandbox alle **azioni consentite specificate nel profilo Sandbox** con cui l'app è in esecuzione. Questo aiuta a garantire che **l'applicazione accederà solo alle risorse previste**.
 
 Qualsiasi app con l'**entitlement** **`com.apple.security.app-sandbox`** verrà eseguita all'interno della sandbox. **I binari Apple** vengono solitamente eseguiti all'interno di una Sandbox, e tutte le applicazioni dell'**App Store hanno quell'entitlement**. Quindi diverse applicazioni verranno eseguite all'interno della sandbox.
 
@@ -228,9 +228,9 @@ Esempi di bypass:
 
 ### Tracciamento del Sandbox
 
-#### Tramite profilo
+#### Via profilo
 
-È possibile tracciare tutti i controlli che il sandbox esegue ogni volta che viene verificata un'azione. Per farlo, crea semplicemente il seguente profilo:
+È possibile tracciare tutti i controlli che il sandbox esegue ogni volta che un'azione viene verificata. Per farlo, crea semplicemente il seguente profilo:
 
 {% code title="trace.sb" %}
 ```scheme
@@ -288,7 +288,7 @@ Inoltre, per confinare un processo all'interno di un contenitore, potrebbe chiam
 
 ## Debug e Bypass Sandbox
 
-Su macOS, a differenza di iOS dove i processi sono sandboxati fin dall'inizio dal kernel, **i processi devono optare per la sandbox da soli**. Ciò significa che su macOS, un processo non è limitato dalla sandbox fino a quando non decide attivamente di entrarvi, anche se le app dell'App Store sono sempre sandboxate.
+Su macOS, a differenza di iOS dove i processi sono sandboxati fin dall'inizio dal kernel, **i processi devono optare per la sandbox da soli**. Questo significa che su macOS, un processo non è limitato dalla sandbox fino a quando non decide attivamente di entrarci, anche se le app dell'App Store sono sempre sandboxate.
 
 I processi sono automaticamente sandboxati dal userland quando iniziano se hanno il diritto: `com.apple.security.app-sandbox`. Per una spiegazione dettagliata di questo processo controlla:
 
@@ -310,7 +310,7 @@ Le estensioni consentono di dare ulteriori privilegi a un oggetto e vengono atti
 
 Le estensioni sono memorizzate nel secondo slot di etichetta MACF accessibile dalle credenziali del processo. Il seguente **`sbtool`** può accedere a queste informazioni.
 
-Nota che le estensioni sono solitamente concesse dai processi autorizzati, ad esempio, `tccd` concederà il token di estensione di `com.apple.tcc.kTCCServicePhotos` quando un processo tenta di accedere alle foto ed è stato autorizzato in un messaggio XPC. Poi, il processo dovrà consumare il token di estensione affinché venga aggiunto ad esso.\
+Nota che le estensioni sono solitamente concesse dai processi autorizzati, ad esempio, `tccd` concederà il token di estensione di `com.apple.tcc.kTCCServicePhotos` quando un processo tenta di accedere alle foto ed è stato autorizzato in un messaggio XPC. Poi, il processo dovrà consumare il token di estensione affinché venga aggiunto a esso.\
 Nota che i token di estensione sono lunghi esadecimali che codificano i permessi concessi. Tuttavia, non hanno il PID autorizzato hardcoded, il che significa che qualsiasi processo con accesso al token potrebbe essere **consumato da più processi**.
 
 Nota che le estensioni sono molto correlate ai diritti, quindi avere determinati diritti potrebbe automaticamente concedere determinate estensioni.
@@ -355,8 +355,8 @@ La funzione `___sandbox_ms` chiama `mac_syscall` indicando nel primo argomento `
 * **suspend (#10)**: Sospende temporaneamente tutti i controlli del sandbox (richiede diritti appropriati).
 * **unsuspend (#11)**: Riprende tutti i controlli del sandbox precedentemente sospesi.
 * **passthrough\_access (#12)**: Consente l'accesso diretto a una risorsa, bypassando i controlli del sandbox.
-* **set\_container\_path (#13)**: (solo iOS) Imposta un percorso di contenitore per un gruppo di app o ID di firma.
-* **container\_map (#14)**: (solo iOS) Recupera un percorso di contenitore da `containermanagerd`.
+* **set\_container\_path (#13)**: (solo iOS) Imposta un percorso del contenitore per un gruppo di app o ID di firma.
+* **container\_map (#14)**: (solo iOS) Recupera un percorso del contenitore da `containermanagerd`.
 * **sandbox\_user\_state\_item\_buffer\_send (#15)**: (iOS 10+) Imposta i metadati in modalità utente nel sandbox.
 * **inspect (#16)**: Fornisce informazioni di debug su un processo sandboxed.
 * **dump (#18)**: (macOS 11) Dump del profilo attuale di un sandbox per analisi.
@@ -364,9 +364,9 @@ La funzione `___sandbox_ms` chiama `mac_syscall` indicando nel primo argomento `
 * **builtin\_profile\_deactivate (#20)**: (macOS < 11) Disattiva profili nominati (es. `pe_i_can_has_debugger`).
 * **check\_bulk (#21)**: Esegue più operazioni `sandbox_check` in una singola chiamata.
 * **reference\_retain\_by\_audit\_token (#28)**: Crea un riferimento per un token di audit da utilizzare nei controlli del sandbox.
-* **reference\_release (#29)**: Rilascia un riferimento di token di audit precedentemente mantenuto.
+* **reference\_release (#29)**: Rilascia un riferimento a un token di audit precedentemente mantenuto.
 * **rootless\_allows\_task\_for\_pid (#30)**: Verifica se `task_for_pid` è consentito (simile ai controlli `csr`).
-* **rootless\_whitelist\_push (#31)**: (macOS) Applica un file di manifest di Protezione Integrità di Sistema (SIP).
+* **rootless\_whitelist\_push (#31)**: (macOS) Applica un file di manifest di System Integrity Protection (SIP).
 * **rootless\_whitelist\_check (preflight) (#32)**: Controlla il file di manifest SIP prima dell'esecuzione.
 * **rootless\_protected\_volume (#33)**: (macOS) Applica protezioni SIP a un disco o partizione.
 * **rootless\_mkdir\_protected (#34)**: Applica protezione SIP/DataVault a un processo di creazione di directory.
@@ -383,7 +383,7 @@ Nota che in iOS l'estensione del kernel contiene **tutti i profili hardcoded** a
 
 **`Sandbox.kext`** utilizza più di un centinaio di hook tramite MACF. La maggior parte degli hook controllerà solo alcuni casi banali che consentono di eseguire l'azione, altrimenti chiameranno **`cred_sb_evalutate`** con le **credenziali** da MACF e un numero corrispondente all'**operazione** da eseguire e un **buffer** per l'output.
 
-Un buon esempio di ciò è la funzione **`_mpo_file_check_mmap`** che ha agganciato **`mmap`** e che inizierà a controllare se la nuova memoria sarà scrivibile (e se non lo è, consentirà l'esecuzione), poi controllerà se è utilizzata per la cache condivisa dyld e, se sì, consentirà l'esecuzione, e infine chiamerà **`cred_sb_evalutate`** per eseguire ulteriori controlli di autorizzazione.
+Un buon esempio di ciò è la funzione **`_mpo_file_check_mmap`** che ha agganciato **`mmap`** e che inizierà a controllare se la nuova memoria sarà scrivibile (e se non lo è, consentirà l'esecuzione), poi controllerà se è utilizzata per la cache condivisa dyld e, in tal caso, consentirà l'esecuzione, e infine chiamerà **`sb_evaluate_internal`** (o uno dei suoi wrapper) per eseguire ulteriori controlli di autorizzazione.
 
 Inoltre, tra i centinaia di hook utilizzati dal Sandbox, ce ne sono 3 in particolare che sono molto interessanti:
 
@@ -391,7 +391,7 @@ Inoltre, tra i centinaia di hook utilizzati dal Sandbox, ce ne sono 3 in partico
 * `mpo_vnode_check_exec`: Chiamato quando un processo carica il binario associato, quindi viene eseguito un controllo del profilo e anche un controllo che vieta le esecuzioni SUID/SGID.
 * `mpo_cred_label_update_execve`: Questo viene chiamato quando l'etichetta viene assegnata. Questo è il più lungo poiché viene chiamato quando il binario è completamente caricato ma non è ancora stato eseguito. Eseguirà azioni come la creazione dell'oggetto sandbox, l'attacco della struttura sandbox alle credenziali kauth, la rimozione dell'accesso alle porte mach...
 
-Nota che **`cred_sb_evalutate`** è un wrapper su **`sb_evaluate`** e questa funzione ottiene le credenziali passate e poi esegue la valutazione utilizzando la funzione **`eval`** che di solito valuta il **profilo della piattaforma** che è per impostazione predefinita applicato a tutti i processi e poi il **profilo del processo specifico**. Nota che il profilo della piattaforma è uno dei principali componenti di **SIP** in macOS.
+Nota che **`_cred_sb_evalutate`** è un wrapper su **`sb_evaluate_internal`** e questa funzione ottiene le credenziali passate e poi esegue la valutazione utilizzando la funzione **`eval`** che di solito valuta il **profilo della piattaforma** che è per impostazione predefinita applicato a tutti i processi e poi il **profilo del processo specifico**. Nota che il profilo della piattaforma è uno dei componenti principali di **SIP** in macOS.
 
 ## Sandboxd
 
