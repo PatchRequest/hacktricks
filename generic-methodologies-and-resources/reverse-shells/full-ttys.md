@@ -17,7 +17,7 @@ Impara e pratica il hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" dat
 
 ## Full TTY
 
-Nota che la shell impostata nella variabile `SHELL` **deve** essere **elencata all'interno** _**/etc/shells**_ o `Il valore per la variabile SHELL non è stato trovato nel file /etc/shells Questo incidente è stato segnalato`. Inoltre, nota che i prossimi snippet funzionano solo in bash. Se sei in zsh, cambia in bash prima di ottenere la shell eseguendo `bash`.
+Nota che la shell impostata nella variabile `SHELL` **deve** essere **elencata all'interno** _**/etc/shells**_ o `Il valore per la variabile SHELL non è stato trovato nel file /etc/shells Questo incidente è stato segnalato`. Inoltre, nota che i prossimi frammenti funzionano solo in bash. Se sei in zsh, cambia in bash prima di ottenere la shell eseguendo `bash`.
 
 #### Python
 
@@ -112,9 +112,15 @@ ssh -p 8888 127.0.0.1
 # Bidirectional file transfer
 sftp -P 8888 127.0.0.1
 ```
+## Penelope
+
+Penelope (https://github.com/brightio/penelope) aggiorna automaticamente le reverse shell Linux a TTY, gestisce la dimensione del terminale, registra tutto e molto altro. Inoltre, fornisce supporto per readline per le shell Windows.
+
+![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
+
 ## No TTY
 
-Se per qualche motivo non riesci a ottenere un TTY completo, **puoi comunque interagire con i programmi** che si aspettano un input dell'utente. Nell'esempio seguente, la password viene passata a `sudo` per leggere un file:
+Se per qualche motivo non riesci a ottenere un TTY completo, **puoi comunque interagire con i programmi** che si aspettano input dell'utente. Nell'esempio seguente, la password viene passata a `sudo` per leggere un file:
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
@@ -128,7 +134,7 @@ Impara e pratica il hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" dat
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
 * **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
+* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
 
 </details>
 {% endhint %}
