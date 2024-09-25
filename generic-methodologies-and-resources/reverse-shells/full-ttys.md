@@ -112,9 +112,15 @@ ssh -p 8888 127.0.0.1
 # Bidirectional file transfer
 sftp -P 8888 127.0.0.1
 ```
+## Penelope
+
+Penelope (https://github.com/brightio/penelope)는 리눅스 리버스 셸을 자동으로 TTY로 업그레이드하고, 터미널 크기를 처리하며, 모든 것을 기록하고 그 외에도 많은 기능을 제공합니다. 또한 Windows 셸에 대한 readline 지원을 제공합니다.
+
+![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
+
 ## No TTY
 
-어떤 이유로 전체 TTY를 얻을 수 없다면 **여전히 사용자 입력을 기대하는 프로그램과 상호작용할 수 있습니다**. 다음 예제에서 비밀번호는 파일을 읽기 위해 `sudo`에 전달됩니다:
+어떤 이유로 전체 TTY를 얻을 수 없는 경우에도 **여전히 사용자 입력을 기대하는 프로그램과 상호작용할 수 있습니다**. 다음 예제에서는 비밀번호가 `sudo`에 전달되어 파일을 읽습니다:
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
