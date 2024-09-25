@@ -112,6 +112,12 @@ ssh -p 8888 127.0.0.1
 # Bidirectional file transfer
 sftp -P 8888 127.0.0.1
 ```
+## Penelope
+
+Penelope (https://github.com/brightio/penelope) aktualisiert automatisch Linux-Reverse-Shells auf TTY, verwaltet die Terminalgröße, protokolliert alles und vieles mehr. Außerdem bietet es readline-Unterstützung für Windows-Shells.
+
+![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
+
 ## Kein TTY
 
 Wenn Sie aus irgendeinem Grund kein vollständiges TTY erhalten können, **können Sie dennoch mit Programmen interagieren**, die Benutzereingaben erwarten. Im folgenden Beispiel wird das Passwort an `sudo` übergeben, um eine Datei zu lesen:
