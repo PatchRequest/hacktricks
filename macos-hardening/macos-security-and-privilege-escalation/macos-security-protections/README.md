@@ -1,8 +1,8 @@
 # macOS Security Protections
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -17,7 +17,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## Gatekeeper
 
-Gatekeeper kwa kawaida hutumiwa kurejelea mchanganyiko wa **Quarantine + Gatekeeper + XProtect**, moduli 3 za usalama za macOS ambazo zitajaribu **kuzuia watumiaji kutekeleza programu mbaya zinazoweza kuwa hatari zilizopakuliwa**.
+Gatekeeper kwa kawaida hutumiwa kurejelea mchanganyiko wa **Quarantine + Gatekeeper + XProtect**, moduli 3 za usalama za macOS ambazo zitajaribu **kuzuia watumiaji kutekeleza programu mbaya zinazoweza kupakuliwa**.
 
 More information in:
 
@@ -27,6 +27,10 @@ More information in:
 
 ## Processes Limitants
 
+### MACF
+
+
+
 ### SIP - System Integrity Protection
 
 {% content-ref url="macos-sip.md" %}
@@ -35,7 +39,7 @@ More information in:
 
 ### Sandbox
 
-MacOS Sandbox **inapunguza programu** zinazotembea ndani ya sandbox kwa **vitendo vilivyokubaliwa vilivyobainishwa katika profaili ya Sandbox** ambayo programu inatumia. Hii husaidia kuhakikisha kwamba **programu itakuwa inapata rasilimali zinazotarajiwa tu**.
+MacOS Sandbox **inapunguza programu** zinazotembea ndani ya sandbox kwa **vitendo vilivyokubaliwa vilivyobainishwa katika profaili ya Sandbox** ambayo programu inatumia. Hii husaidia kuhakikisha kwamba **programu itakuwa ikipata rasilimali zinazotarajiwa tu**.
 
 {% content-ref url="macos-sandbox/" %}
 [macos-sandbox](macos-sandbox/)
@@ -65,22 +69,22 @@ Mara tu malware inapogundulika kwenye Mac (ama na XProtect au kwa njia nyingine)
 
 Ingawa XProtect na MRT ni sehemu ya hatua za usalama za macOS, zinafanya kazi tofauti:
 
-* **XProtect** ni zana ya kuzuia. Inafanya **kuangalia faili wakati zinapakuliwa** (kupitia programu fulani), na ikiwa inagundua aina zozote za malware zinazojulikana, in **azuia faili kufunguliwa**, hivyo kuzuia malware kuathiri mfumo wako kwa mara ya kwanza.
+* **XProtect** ni zana ya kuzuia. Inafanya **ukaguzi wa faili wakati zinapopakuliwa** (kupitia programu fulani), na ikiwa inagundua aina zozote za malware zinazojulikana, inazuia **faili kufunguliwa**, hivyo kuzuia malware kuathiri mfumo wako kwa mara ya kwanza.
 * **MRT**, kwa upande mwingine, ni **zana ya kujibu**. Inafanya kazi baada ya malware kugundulika kwenye mfumo, kwa lengo la kuondoa programu inayosababisha tatizo ili kusafisha mfumo.
 
 Programu ya MRT iko katika **`/Library/Apple/System/Library/CoreServices/MRT.app`**
 
 ## Background Tasks Management
 
-**macOS** sasa **inaarifu** kila wakati zana inapotumia **mbinu inayojulikana ya kudumisha utekelezaji wa msimbo** (kama vile Vitu vya Kuingia, Daemons...), hivyo mtumiaji anajua bora **ni programu gani inayoendelea**.
+**macOS** sasa **inaarifu** kila wakati zana inapotumia **mbinu inayojulikana ya kudumisha utekelezaji wa msimbo** (kama vile Vitu vya Kuingia, Daemons...), hivyo mtumiaji anajua vizuri **ni programu gani inayoendelea**.
 
 <figure><img src="../../../.gitbook/assets/image (1183).png" alt=""><figcaption></figcaption></figure>
 
 Hii inafanya kazi na **daemon** iliyoko katika `/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Versions/A/Resources/backgroundtaskmanagementd` na **agent** katika `/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Support/BackgroundTaskManagementAgent.app`
 
-Njia ambayo **`backgroundtaskmanagementd`** inajua kitu kimewekwa katika folda ya kudumu ni kwa **kupata FSEvents** na kuunda baadhi ya **wajibu** kwa ajili yao.
+Njia ambayo **`backgroundtaskmanagementd`** inajua kitu kimewekwa katika folda ya kudumu ni kwa **kupata FSEvents** na kuunda **wajibu** kwa ajili yao.
 
-Zaidi ya hayo, kuna faili ya plist ambayo ina **programu zinazojulikana** ambazo mara nyingi hufanya kazi kwa kudumu zinazoshughulikiwa na apple iliyoko katika: `/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Versions/A/Resources/attributions.plist`
+Zaidi ya hayo, kuna faili ya plist ambayo ina **programu zinazojulikana** ambazo mara kwa mara zinadumishwa na apple iliyoko katika: `/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Versions/A/Resources/attributions.plist`
 ```json
 [...]
 "us.zoom.ZoomDaemon" => {
@@ -114,7 +118,7 @@ Hii habari inahifadhiwa katika **`/private/var/db/com.apple.backgroundtaskmanage
 
 ### Kuingilia BTM
 
-Wakati uvumbuzi mpya wa kudumu unapatikana, tukio la aina **`ES_EVENT_TYPE_NOTIFY_BTM_LAUNCH_ITEM_ADD`** linatokea. Hivyo, njia yoyote ya **kuzuia** **tukio** hili kutumwa au **wakala kuonya** mtumiaji itasaidia mshambuliaji _**kuepuka**_ BTM.
+Wakati uvumbuzi mpya wa kudumu unapatikana, tukio la aina **`ES_EVENT_TYPE_NOTIFY_BTM_LAUNCH_ITEM_ADD`** linatokea. Hivyo, njia yoyote ya **kuzuia** tukio hili **kutumwa** au **wakala kuonya** mtumiaji itasaidia mshambuliaji _**kuepuka**_ BTM.
 
 * **Kurekebisha hifadhidata**: Kukimbia amri ifuatayo kutarekebisha hifadhidata (inapaswa kujenga upya kutoka mwanzo), hata hivyo, kwa sababu fulani, baada ya kukimbia hii, **hakuna uvumbuzi mpya utakaonyeshwa hadi mfumo upya uzinduliwe**.
 * **root** inahitajika.
@@ -122,7 +126,7 @@ Wakati uvumbuzi mpya wa kudumu unapatikana, tukio la aina **`ES_EVENT_TYPE_NOTIF
 # Reset the database
 sfltool resettbtm
 ```
-* **Stop the Agent**: Inawezekana kutuma ishara ya kusitisha kwa wakala ili **isiwe inamwonya mtumiaji** wakati ugunduzi mpya unapopatikana.
+* **Stop the Agent**: Inawezekana kutuma ishara ya kusitisha kwa wakala ili **isiwe inamwonya mtumiaji** wakati kugundua mpya kunapatikana.
 ```bash
 # Get PID
 pgrep BackgroundTaskManagementAgent
@@ -135,16 +139,17 @@ kill -SIGSTOP 1011
 ps -o state 1011
 T
 ```
-* **Bug**: Ikiwa **mchakato uliounda kudumu upo haraka baada yake**, daemon itajaribu **kupata taarifa** kuhusu hiyo, **itashindwa**, na **haitaweza kutuma tukio** linaloashiria kwamba kitu kipya kinadumu.
+* **Bug**: Ikiwa **mchakato ulioanzisha kudumu upo haraka baada yake**, daemon itajaribu **kupata taarifa** kuhusu hiyo, **itashindwa**, na **haitaweza kutuma tukio** linaloashiria kwamba kitu kipya kinadumu.
 
 Marejeo na **maelezo zaidi kuhusu BTM**:
 
 * [https://youtu.be/9hjUmT031tc?t=26481](https://youtu.be/9hjUmT031tc?t=26481)
 * [https://www.patreon.com/posts/new-developer-77420730?l=fr](https://www.patreon.com/posts/new-developer-77420730?l=fr)
 * [https://support.apple.com/en-gb/guide/deployment/depdca572563/web](https://support.apple.com/en-gb/guide/deployment/depdca572563/web)
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -156,4 +161,3 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-</details>
