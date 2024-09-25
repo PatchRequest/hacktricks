@@ -120,7 +120,7 @@ AAAhAboBAAAAAAgAAABZAO4B5AHjBMkEQAUPBSsGPwsgASABHgEgASABHwEf...
 [...]
 ```
 {% hint style="warning" %}
-Tudo criado/modificado por um aplicativo em Sandbox receberá o **atributo de quarentena**. Isso impedirá um espaço de sandbox ao acionar o Gatekeeper se o aplicativo sandbox tentar executar algo com **`open`**.
+Tudo criado/modificado por um aplicativo em Sandbox receberá o **atributo de quarentena**. Isso impedirá um espaço de sandbox ao acionar o Gatekeeper se o aplicativo em sandbox tentar executar algo com **`open`**.
 {% endhint %}
 
 ## Perfis de Sandbox
@@ -280,7 +280,7 @@ Isso irá **avaliar a string após esta concessão** como um perfil de Sandbox.
 
 ### Compilando e descompilando um Perfil de Sandbox
 
-A ferramenta **`sandbox-exec`** usa as funções `sandbox_compile_*` da `libsandbox.dylib`. As principais funções exportadas são: `sandbox_compile_file` (espera um caminho de arquivo, parâmetro `-f`), `sandbox_compile_string` (espera uma string, parâmetro `-p`), `sandbox_compile_name` (espera um nome de um contêiner, parâmetro `-n`), `sandbox_compile_entitlements` (espera um plist de concessões).
+A ferramenta **`sandbox-exec`** utiliza as funções `sandbox_compile_*` da `libsandbox.dylib`. As principais funções exportadas são: `sandbox_compile_file` (espera um caminho de arquivo, parâmetro `-f`), `sandbox_compile_string` (espera uma string, parâmetro `-p`), `sandbox_compile_name` (espera um nome de um contêiner, parâmetro `-n`), `sandbox_compile_entitlements` (espera um plist de concessões).
 
 Esta versão revertida e [**open source da ferramenta sandbox-exec**](https://newosxbook.com/src.jl?tree=listings\&file=/sandbox\_exec.c) permite que **`sandbox-exec`** escreva em um arquivo o perfil de sandbox compilado.
 
@@ -310,7 +310,7 @@ As extensões permitem conceder privilégios adicionais a um objeto e são conce
 
 As extensões são armazenadas no segundo slot de rótulo MACF acessível a partir das credenciais do processo. A seguinte **`sbtool`** pode acessar essas informações.
 
-Observe que as extensões geralmente são concedidas por processos permitidos, por exemplo, `tccd` concederá o token de extensão de `com.apple.tcc.kTCCServicePhotos` quando um processo tentar acessar as fotos e for permitido em uma mensagem XPC. Em seguida, o processo precisará consumir o token de extensão para que ele seja adicionado a ele.\
+Observe que as extensões geralmente são concedidas por processos permitidos, por exemplo, `tccd` concederá o token de extensão de `com.apple.tcc.kTCCServicePhotos` quando um processo tentar acessar as fotos e for permitido em uma mensagem XPC. Então, o processo precisará consumir o token de extensão para que ele seja adicionado a ele.\
 Observe que os tokens de extensão são longos hexadecimais que codificam as permissões concedidas. No entanto, eles não têm o PID permitido codificado, o que significa que qualquer processo com acesso ao token pode ser **consumido por múltiplos processos**.
 
 Observe que as extensões estão muito relacionadas às concessões também, então ter certas concessões pode automaticamente conceder certas extensões.
@@ -357,7 +357,7 @@ A chamada da função `___sandbox_ms` envolve `mac_syscall`, indicando no primei
 * **passthrough\_access (#12)**: Permite acesso direto a um recurso, ignorando as verificações da sandbox.
 * **set\_container\_path (#13)**: (apenas iOS) Define um caminho de contêiner para um grupo de aplicativos ou ID de assinatura.
 * **container\_map (#14)**: (apenas iOS) Recupera um caminho de contêiner do `containermanagerd`.
-* **sandbox\_user\_state\_item\_buffer\_send (#15)**: (iOS 10+) Define metadados de modo de usuário na sandbox.
+* **sandbox\_user\_state\_item\_buffer\_send (#15)**: (iOS 10+) Define metadados de modo usuário na sandbox.
 * **inspect (#16)**: Fornece informações de depuração sobre um processo em sandbox.
 * **dump (#18)**: (macOS 11) Despeja o perfil atual de uma sandbox para análise.
 * **vtrace (#19)**: Rastreia operações da sandbox para monitoramento ou depuração.
@@ -373,7 +373,7 @@ A chamada da função `___sandbox_ms` envolve `mac_syscall`, indicando no primei
 
 ## Sandbox.kext
 
-Note que no iOS a extensão do kernel contém **todos os perfis codificados** dentro do segmento `__TEXT.__const` para evitar que sejam modificados. As seguintes são algumas funções interessantes da extensão do kernel:
+Note que, no iOS, a extensão do kernel contém **todos os perfis codificados** dentro do segmento `__TEXT.__const` para evitar que sejam modificados. As seguintes são algumas funções interessantes da extensão do kernel:
 
 * **`hook_policy_init`**: Ele conecta `mpo_policy_init` e é chamado após `mac_policy_register`. Realiza a maioria das inicializações da Sandbox. Também inicializa o SIP.
 * **`hook_policy_initbsd`**: Configura a interface sysctl registrando `security.mac.sandbox.sentinel`, `security.mac.sandbox.audio_active` e `security.mac.sandbox.debug_mode` (se inicializado com `PE_i_can_has_debugger`).
@@ -381,17 +381,17 @@ Note que no iOS a extensão do kernel contém **todos os perfis codificados** de
 
 ### MACF Hooks
 
-**`Sandbox.kext`** usa mais de uma centena de hooks via MACF. A maioria dos hooks apenas verifica alguns casos triviais que permitem realizar a ação; se não, eles chamarão **`cred_sb_evalutate`** com as **credenciais** do MACF e um número correspondente à **operação** a ser realizada e um **buffer** para a saída.
+**`Sandbox.kext`** usa mais de uma centena de hooks via MACF. A maioria dos hooks apenas verifica alguns casos triviais que permitem realizar a ação; caso contrário, chamarão **`cred_sb_evalutate`** com as **credenciais** do MACF e um número correspondente à **operação** a ser realizada e um **buffer** para a saída.
 
-Um bom exemplo disso é a função **`_mpo_file_check_mmap`** que conecta **`mmap`** e que começará a verificar se a nova memória será gravável (e se não permitir a execução), então verificará se está sendo usada para o cache compartilhado do dyld e, se sim, permitirá a execução, e finalmente chamará **`cred_sb_evalutate`** para realizar verificações adicionais de permissão.
+Um bom exemplo disso é a função **`_mpo_file_check_mmap`** que conecta **`mmap`** e que começará a verificar se a nova memória será gravável (e se não, permitirá a execução), então verificará se está sendo usada para o cache compartilhado do dyld e, se sim, permitirá a execução, e finalmente chamará **`sb_evaluate_internal`** (ou um de seus wrappers) para realizar verificações adicionais de permissão.
 
-Além disso, entre os centenas de hooks que a Sandbox usa, há 3 em particular que são muito interessantes:
+Além disso, dentre os centenas de hooks que a Sandbox usa, há 3 em particular que são muito interessantes:
 
 * `mpo_proc_check_for`: Aplica o perfil se necessário e se não foi aplicado anteriormente.
 * `mpo_vnode_check_exec`: Chamado quando um processo carrega o binário associado, então uma verificação de perfil é realizada e também uma verificação que proíbe execuções SUID/SGID.
 * `mpo_cred_label_update_execve`: Isso é chamado quando o rótulo é atribuído. Este é o mais longo, pois é chamado quando o binário está totalmente carregado, mas ainda não foi executado. Ele realizará ações como criar o objeto sandbox, anexar a estrutura da sandbox às credenciais kauth, remover o acesso a portas mach...
 
-Note que **`cred_sb_evalutate`** é um wrapper sobre **`sb_evaluate`** e essa função obtém as credenciais passadas e então realiza a avaliação usando a função **`eval`** que geralmente avalia o **perfil da plataforma**, que por padrão é aplicado a todos os processos e então o **perfil específico do processo**. Note que o perfil da plataforma é um dos principais componentes do **SIP** no macOS.
+Note que **`_cred_sb_evalutate`** é um wrapper sobre **`sb_evaluate_internal`** e essa função obtém as credenciais passadas e então realiza a avaliação usando a função **`eval`** que geralmente avalia o **perfil da plataforma** que é, por padrão, aplicado a todos os processos e então o **perfil de processo específico**. Note que o perfil da plataforma é um dos principais componentes do **SIP** no macOS.
 
 ## Sandboxd
 
