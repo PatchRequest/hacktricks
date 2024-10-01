@@ -1,4 +1,4 @@
-# macOS Kernel Extensions
+# macOS Kernel Extensions & Debugging
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -15,11 +15,11 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 </details>
 {% endhint %}
 
-## Basic Information
+## Podstawowe informacje
 
 Rozszerzenia jądra (Kexts) to **pakiety** z rozszerzeniem **`.kext`**, które są **ładowane bezpośrednio do przestrzeni jądra macOS**, zapewniając dodatkową funkcjonalność głównemu systemowi operacyjnemu.
 
-### Requirements
+### Wymagania
 
 Oczywiście, jest to tak potężne, że **załadowanie rozszerzenia jądra** jest **skomplikowane**. Oto **wymagania**, które musi spełniać rozszerzenie jądra, aby mogło być załadowane:
 
@@ -27,13 +27,13 @@ Oczywiście, jest to tak potężne, że **załadowanie rozszerzenia jądra** jes
 
 <figure><img src="../../../.gitbook/assets/image (327).png" alt=""><figcaption></figcaption></figure>
 
-* Rozszerzenie jądra musi być **podpisane certyfikatem podpisywania kodu jądra**, który może być **przyznany tylko przez Apple**. Kto dokładnie przeanalizuje firmę i powody, dla których jest to potrzebne.
-* Rozszerzenie jądra musi być również **notaryzowane**, Apple będzie mogło sprawdzić je pod kątem złośliwego oprogramowania.
+* Rozszerzenie jądra musi być **podpisane certyfikatem podpisu kodu jądra**, który może być **przyznany tylko przez Apple**. Kto dokładnie przeanalizuje firmę i powody, dla których jest to potrzebne.
+* Rozszerzenie jądra musi być również **notyfikowane**, Apple będzie mogło sprawdzić je pod kątem złośliwego oprogramowania.
 * Następnie, użytkownik **root** jest tym, który może **załadować rozszerzenie jądra**, a pliki wewnątrz pakietu muszą **należeć do roota**.
-* Podczas procesu ładowania pakiet musi być przygotowany w **chronionej lokalizacji nie-root**: `/Library/StagedExtensions` (wymaga przyznania `com.apple.rootless.storage.KernelExtensionManagement`).
+* Podczas procesu ładowania, pakiet musi być przygotowany w **chronionej lokalizacji nie-root**: `/Library/StagedExtensions` (wymaga przyznania `com.apple.rootless.storage.KernelExtensionManagement`).
 * Na koniec, podczas próby załadowania, użytkownik [**otrzyma prośbę o potwierdzenie**](https://developer.apple.com/library/archive/technotes/tn2459/_index.html) i, jeśli zostanie zaakceptowana, komputer musi być **uruchomiony ponownie**, aby go załadować.
 
-### Loading process
+### Proces ładowania
 
 W Catalina wyglądało to tak: Interesujące jest to, że proces **weryfikacji** zachodzi w **userland**. Jednak tylko aplikacje z przyznaniem **`com.apple.private.security.kext-management`** mogą **zażądać od jądra załadowania rozszerzenia**: `kextcache`, `kextload`, `kextutil`, `kextd`, `syspolicyd`
 
@@ -47,7 +47,7 @@ W Catalina wyglądało to tak: Interesujące jest to, że proces **weryfikacji**
 
 Jeśli **`kextd`** nie jest dostępny, **`kextutil`** może przeprowadzić te same kontrole.
 
-### Enumeration (loaded kexts)
+### Enumeracja (załadowane kexty)
 ```bash
 # Get loaded kernel extensions
 kextstat
@@ -87,7 +87,7 @@ Zwykle składa się z następujących komponentów:
 * Zapobiega powtarzaniu niektórych aktualizacji
 * OPCJONALNE: Zwykle nie jest to znalezione
 
-Dekompresuj Kernelcache:
+Dekomprymuj Kernelcache:
 ```bash
 # img4tool (https://github.com/tihmstar/img4tool
 img4tool -e kernelcache.release.iphone14 -o kernelcache.release.iphone14.e
@@ -144,6 +144,10 @@ kextex_all kernelcache.release.iphone14.e
 # Check the extension for symbols
 nm -a binaries/com.apple.security.sandbox | wc -l
 ```
+## Debugging
+
+
+
 ## Referencje
 
 * [https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/](https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/)
@@ -159,7 +163,7 @@ Ucz się i ćwicz GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt=
 
 * Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
 * **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Podziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów github.
+* **Dziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów na githubie.
 
 </details>
 {% endhint %}
