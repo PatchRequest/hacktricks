@@ -1,4 +1,4 @@
-# macOS Kernel Extensions
+# macOS Kernel Extensions & Debugging
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -31,7 +31,7 @@ Les extensions de noyau (Kexts) sont des **paquets** avec une extension **`.kext
 * L'extension de noyau doit également être **notariée**, Apple pourra la vérifier pour détecter des logiciels malveillants.
 * Ensuite, l'utilisateur **root** est celui qui peut **charger l'extension de noyau** et les fichiers à l'intérieur du paquet doivent **appartenir à root**.
 * Pendant le processus de chargement, le paquet doit être préparé dans un **emplacement protégé non-root** : `/Library/StagedExtensions` (nécessite l'octroi `com.apple.rootless.storage.KernelExtensionManagement`).
-* Enfin, lors de la tentative de chargement, l'utilisateur [**recevra une demande de confirmation**](https://developer.apple.com/library/archive/technotes/tn2459/_index.html) et, si acceptée, l'ordinateur doit être **redémarré** pour le charger.
+* Enfin, lors de la tentative de chargement, l'utilisateur recevra une [**demande de confirmation**](https://developer.apple.com/library/archive/technotes/tn2459/_index.html) et, si acceptée, l'ordinateur doit être **redémarré** pour le charger.
 
 ### Loading process
 
@@ -76,16 +76,16 @@ Le format de fichier IMG4 est un format de conteneur utilisé par Apple dans ses
 
 Il est généralement composé des composants suivants :
 
-* **Payload (IM4P)** :
-* Souvent compressé (LZFSE4, LZSS, …)
-* Optionnellement chiffré
-* **Manifest (IM4M)** :
+* **Charge utile (IM4P)** :
+* Souvent compressée (LZFSE4, LZSS, …)
+* Optionnellement chiffrée
+* **Manifeste (IM4M)** :
 * Contient la signature
 * Dictionnaire clé/valeur supplémentaire
-* **Restore Info (IM4R)** :
+* **Informations de restauration (IM4R)** :
 * Également connu sous le nom d'APNonce
 * Empêche la répétition de certaines mises à jour
-* OPTIONNEL : Généralement, cela n'est pas trouvé
+* OPTIONNEL : Cela n'est généralement pas trouvé
 
 Décompressez le Kernelcache :
 ```bash
@@ -125,7 +125,7 @@ pyimg4 im4p extract -i kernelcache.release.iphone14 -o kernelcache.release.iphon
 ```bash
 img4tool -e kernelcache.release.iphone14 -o kernelcache.release.iphone14.e
 ```
-### Inspecting kernelcache
+### Inspecter le kernelcache
 
 Vérifiez si le kernelcache a des symboles avec
 ```bash
@@ -144,6 +144,10 @@ kextex_all kernelcache.release.iphone14.e
 # Check the extension for symbols
 nm -a binaries/com.apple.security.sandbox | wc -l
 ```
+## Débogage
+
+
+
 ## Références
 
 * [https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/](https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/)
