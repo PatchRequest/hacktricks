@@ -1,4 +1,4 @@
-# macOS Kernel Extensions
+# macOS Kernel Extensions & Debugging
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -17,13 +17,13 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 ## Basic Information
 
-Kernel extensies (Kexts) is **pakkette** met 'n **`.kext`** uitbreiding wat **direk in die macOS-kernruimte gelaai** word, wat bykomende funksionaliteit aan die hoofbedryfstelsel bied.
+Kernel extensies (Kexts) is **pakkette** met 'n **`.kext`** uitbreiding wat **direk in die macOS-kernruimte gelaai** word, wat addisionele funksionaliteit aan die hoofbedryfstelsel bied.
 
 ### Requirements
 
 Dit is duidelik dat dit so kragtig is dat dit **gekompliseerd is om 'n kernuitbreiding te laai**. Dit is die **vereistes** waaraan 'n kernuitbreiding moet voldoen om gelaai te word:
 
-* Wanneer **herstelmodus betree** word, moet kern **uitbreidings toegelaat** word om gelaai te word:
+* Wanneer **jy herstelmodus binnegaan**, moet kern **uitbreidings toegelaat word** om gelaai te word:
 
 <figure><img src="../../../.gitbook/assets/image (327).png" alt=""><figcaption></figcaption></figure>
 
@@ -31,17 +31,17 @@ Dit is duidelik dat dit so kragtig is dat dit **gekompliseerd is om 'n kernuitbr
 * Die kernuitbreiding moet ook **notarized** wees, Apple sal dit vir malware kan nagaan.
 * Dan is die **root** gebruiker die een wat die **kernuitbreiding kan laai** en die lêers binne die pakket moet **aan root behoort**.
 * Tydens die oplaadproses moet die pakket in 'n **beskermde nie-root ligging** voorberei word: `/Library/StagedExtensions` (vereis die `com.apple.rootless.storage.KernelExtensionManagement` grant).
-* Laastens, wanneer daar probeer word om dit te laai, sal die gebruiker [**'n bevestigingsversoek ontvang**](https://developer.apple.com/library/archive/technotes/tn2459/_index.html) en, indien aanvaar, moet die rekenaar **herbegin** word om dit te laai.
+* Laastens, wanneer daar probeer word om dit te laai, sal die gebruiker [**'n bevestigingsversoek ontvang**](https://developer.apple.com/library/archive/technotes/tn2459/_index.html) en, indien aanvaar, moet die rekenaar **herstart** word om dit te laai.
 
 ### Loading process
 
-In Catalina was dit soos volg: Dit is interessant om op te let dat die **verifikasie** proses in **gebruikersland** plaasvind. Dit is egter slegs toepassings met die **`com.apple.private.security.kext-management`** grant wat die **kern kan vra om 'n uitbreiding te laai**: `kextcache`, `kextload`, `kextutil`, `kextd`, `syspolicyd`
+In Catalina was dit soos volg: Dit is interessant om op te let dat die **verifikasie** proses in **userland** plaasvind. Dit is egter slegs toepassings met die **`com.apple.private.security.kext-management`** grant wat **die kern kan vra om 'n uitbreiding te laai**: `kextcache`, `kextload`, `kextutil`, `kextd`, `syspolicyd`
 
 1. **`kextutil`** cli **begin** die **verifikasie** proses om 'n uitbreiding te laai
 * Dit sal met **`kextd`** praat deur 'n **Mach-diens** te gebruik.
 2. **`kextd`** sal verskeie dinge nagaan, soos die **handtekening**
-* Dit sal met **`syspolicyd`** praat om te **kontroleer** of die uitbreiding gelaai kan word.
-3. **`syspolicyd`** sal die **gebruiker** **vra** as die uitbreiding nie voorheen gelaai is nie.
+* Dit sal met **`syspolicyd`** praat om te **kontroleer** of die uitbreiding **gelaai** kan word.
+3. **`syspolicyd`** sal die **gebruiker** **vra** of die uitbreiding nie voorheen gelaai is nie.
 * **`syspolicyd`** sal die resultaat aan **`kextd`** rapporteer
 4. **`kextd`** sal uiteindelik in staat wees om die **kern te sê om** die uitbreiding te laai
 
@@ -58,7 +58,7 @@ kextstat | grep " 22 " | cut -c2-5,50- | cut -d '(' -f1
 ## Kernelcache
 
 {% hint style="danger" %}
-Alhoewel die kernel uitbreidings verwag word om in `/System/Library/Extensions/` te wees, as jy na hierdie gids gaan, **sal jy geen binêre vind**. Dit is as gevolg van die **kernelcache** en om een `.kext` te reverseer, moet jy 'n manier vind om dit te verkry.
+Alhoewel die kernel uitbreidings verwag word om in `/System/Library/Extensions/` te wees, as jy na hierdie gids gaan, **sal jy geen binêre vind** nie. Dit is as gevolg van die **kernelcache** en om een `.kext` te reverseer, moet jy 'n manier vind om dit te verkry.
 {% endhint %}
 
 Die **kernelcache** is 'n **vooraf-gecompileerde en vooraf-gekoppelde weergawe van die XNU-kern**, saam met noodsaaklike toestel **drywers** en **kernel uitbreidings**. Dit word in 'n **gecomprimeerde** formaat gestoor en word tydens die opstartproses in geheue gedecomprimeer. Die kernelcache fasiliteer 'n **sneller opstarttyd** deur 'n gereed-om-te-loop weergawe van die kern en belangrike drywers beskikbaar te hê, wat die tyd en hulpbronne verminder wat andersins aan die dinamiese laai en koppeling van hierdie komponente tydens opstart bestee sou word.
@@ -107,11 +107,11 @@ nm -a ~/Downloads/Sandbox.kext/Contents/MacOS/Sandbox | wc -l
 ```
 * [**theapplewiki.com**](https://theapplewiki.com/wiki/Firmware/Mac/14.x)**,** [**ipsw.me**](https://ipsw.me/)**,** [**theiphonewiki.com**](https://www.theiphonewiki.com/)
 
-Soms vry Apple **kernelcache** met **symbols**. Jy kan 'n paar firmware met symbols aflaai deur die skakels op daardie bladsye te volg. Die firmwares sal die **kernelcache** saam met ander lêers bevat.
+Soms vry Apple **kernelcache** met **symbols**. Jy kan 'n paar firmware met symbols aflaai deur die skakels op daardie bladsye te volg. Die firmwares sal die **kernelcache** onder andere lêers bevat.
 
 Om die lêers te **onttrek**, begin deur die uitbreiding van `.ipsw` na `.zip` te verander en dit te **ontpak**.
 
-Na die ontrekking van die firmware sal jy 'n lêer soos: **`kernelcache.release.iphone14`** kry. Dit is in **IMG4** formaat, jy kan die interessante inligting onttrek met:
+Na die ontrekking van die firmware sal jy 'n lêer soos: **`kernelcache.release.iphone14`** kry. Dit is in **IMG4** formaat, jy kan die interessante inligting ontbloot met:
 
 [**pyimg4**](https://github.com/m1stadev/PyIMG4)**:** 
 
@@ -144,21 +144,25 @@ kextex_all kernelcache.release.iphone14.e
 # Check the extension for symbols
 nm -a binaries/com.apple.security.sandbox | wc -l
 ```
+## Debugging
+
+
+
 ## Verwysings
 
 * [https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/](https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/)
 * [https://www.youtube.com/watch?v=hGKOskSiaQo](https://www.youtube.com/watch?v=hGKOskSiaQo)
 
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Ondersteun HackTricks</summary>
 
-* Kyk na die [**subskripsieplanne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord-groep**](https://discord.gg/hRep4RUj7f) of die [**telegram-groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
