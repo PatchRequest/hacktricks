@@ -1,4 +1,4 @@
-# macOS Kernel Extensions
+# macOS Kernel Extensions & Debugging
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -17,7 +17,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 ## 基本情報
 
-カーネル拡張（Kext）は、**`.kext`** 拡張子を持つ **パッケージ** であり、**macOS カーネル空間に直接ロードされ**、主なオペレーティングシステムに追加機能を提供します。
+カーネル拡張（Kext）は、**`.kext`** 拡張子を持つ **パッケージ** であり、**macOS カーネル空間に直接ロードされ**、主要なオペレーティングシステムに追加機能を提供します。
 
 ### 要件
 
@@ -35,14 +35,14 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 ### ロードプロセス
 
-カタリナでは次のようでした：**検証** プロセスは **ユーザーランド** で発生することに注目することが興味深いです。しかし、**`com.apple.private.security.kext-management`** の付与を持つアプリケーションのみが **カーネルに拡張をロードするよう要求できます**：`kextcache`、`kextload`、`kextutil`、`kextd`、`syspolicyd`
+カタリナでは次のようでした：**検証** プロセスは **ユーザーランド** で発生することに注意することが興味深いです。しかし、**`com.apple.private.security.kext-management`** の付与を持つアプリケーションのみが **カーネルに拡張をロードするよう要求できます**：`kextcache`、`kextload`、`kextutil`、`kextd`、`syspolicyd`
 
-1. **`kextutil`** CLI **が** 拡張のロードのための **検証** プロセスを **開始します**
+1. **`kextutil`** CLI **が** **拡張のロードのための検証** プロセスを **開始します**
 * **`kextd`** に **Machサービス** を使用して送信します。
 2. **`kextd`** は、**署名** などのいくつかのことをチェックします
 * **`syspolicyd`** に **拡張がロードできるかどうかを確認します**。
 3. **`syspolicyd`** は、拡張が以前にロードされていない場合、**ユーザーにプロンプトを表示します**。
-* **`syspolicyd`** は結果を **`kextd`** に報告します
+* **`syspolicyd`** は **`kextd`** に結果を報告します
 4. **`kextd`** は最終的に **カーネルに拡張をロードするよう指示できます**
 
 もし **`kextd`** が利用できない場合、**`kextutil`** は同じチェックを実行できます。
@@ -72,7 +72,7 @@ iOS では **`/System/Library/Caches/com.apple.kernelcaches/kernelcache`** に�
 
 #### IMG4
 
-IMG4 ファイル形式は、Apple が iOS および macOS デバイスで **ファームウェア** コンポーネント（**kernelcache** など）を安全に **保存および検証** するために使用するコンテナ形式です。IMG4 形式にはヘッダーと、実際のペイロード（カーネルやブートローダーなど）、署名、および一連のマニフェストプロパティをカプセル化するいくつかのタグが含まれています。この形式は暗号的検証をサポートしており、デバイスがファームウェアコンポーネントを実行する前に、その真正性と整合性を確認できるようにします。
+IMG4 ファイル形式は、Apple が iOS および macOS デバイスで **ファームウェア** コンポーネント（**kernelcache** など）を安全に **保存および検証** するために使用するコンテナ形式です。IMG4 形式にはヘッダーと、実際のペイロード（カーネルやブートローダーなど）、署名、および一連のマニフェストプロパティをカプセル化するいくつかのタグが含まれています。この形式は暗号的検証をサポートしており、デバイスがファームウェアコンポーネントを実行する前に、その真正性と完全性を確認できるようにします。
 
 通常、次のコンポーネントで構成されています:
 
@@ -87,7 +87,7 @@ IMG4 ファイル形式は、Apple が iOS および macOS デバイスで **フ
 * 一部の更新の再生を防ぐ
 * OPTIONAL: 通常は見つからない
 
-カーネルキャッシュを解凍する:
+Kernelcache を解凍する:
 ```bash
 # img4tool (https://github.com/tihmstar/img4tool
 img4tool -e kernelcache.release.iphone14 -o kernelcache.release.iphone14.e
@@ -144,22 +144,26 @@ kextex_all kernelcache.release.iphone14.e
 # Check the extension for symbols
 nm -a binaries/com.apple.security.sandbox | wc -l
 ```
+## デバッグ
+
+
+
 ## 参考文献
 
 * [https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/](https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/)
 * [https://www.youtube.com/watch?v=hGKOskSiaQo](https://www.youtube.com/watch?v=hGKOskSiaQo)
 
 {% hint style="success" %}
-AWSハッキングを学び、実践する：<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-GCPハッキングを学び、実践する：<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>HackTricksをサポートする</summary>
+<summary>Support HackTricks</summary>
 
-* [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
-* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
