@@ -1,4 +1,4 @@
-# macOS Kernel Extensions
+# macOS Kernel Extensions & Debugging
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -30,17 +30,17 @@ Obviamente, esto es tan poderoso que es **complicado cargar una extensión del k
 * La extensión del kernel debe estar **firmada con un certificado de firma de código del kernel**, que solo puede ser **otorgado por Apple**. Quien revisará en detalle la empresa y las razones por las que se necesita.
 * La extensión del kernel también debe estar **notarizada**, Apple podrá verificarla en busca de malware.
 * Luego, el usuario **root** es quien puede **cargar la extensión del kernel** y los archivos dentro del paquete deben **pertenecer a root**.
-* Durante el proceso de carga, el paquete debe estar preparado en una **ubicación protegida no root**: `/Library/StagedExtensions` (requiere el otorgamiento `com.apple.rootless.storage.KernelExtensionManagement`).
+* Durante el proceso de carga, el paquete debe estar preparado en una **ubicación protegida no root**: `/Library/StagedExtensions` (requiere el permiso `com.apple.rootless.storage.KernelExtensionManagement`).
 * Finalmente, al intentar cargarla, el usuario [**recibirá una solicitud de confirmación**](https://developer.apple.com/library/archive/technotes/tn2459/_index.html) y, si se acepta, la computadora debe ser **reiniciada** para cargarla.
 
 ### Proceso de carga
 
-En Catalina fue así: Es interesante notar que el proceso de **verificación** ocurre en **userland**. Sin embargo, solo las aplicaciones con el otorgamiento **`com.apple.private.security.kext-management`** pueden **solicitar al kernel que cargue una extensión**: `kextcache`, `kextload`, `kextutil`, `kextd`, `syspolicyd`
+En Catalina fue así: Es interesante notar que el proceso de **verificación** ocurre en **userland**. Sin embargo, solo las aplicaciones con el permiso **`com.apple.private.security.kext-management`** pueden **solicitar al kernel que cargue una extensión**: `kextcache`, `kextload`, `kextutil`, `kextd`, `syspolicyd`
 
 1. **`kextutil`** cli **inicia** el proceso de **verificación** para cargar una extensión
 * Hablará con **`kextd`** enviando usando un **servicio Mach**.
 2. **`kextd`** verificará varias cosas, como la **firma**
-* Hablará con **`syspolicyd`** para **verificar** si la extensión puede ser **cargada**.
+* Hablará con **`syspolicyd`** para **comprobar** si la extensión puede ser **cargada**.
 3. **`syspolicyd`** **preguntará** al **usuario** si la extensión no ha sido cargada previamente.
 * **`syspolicyd`** informará el resultado a **`kextd`**
 4. **`kextd`** finalmente podrá **decirle al kernel que cargue** la extensión
@@ -72,13 +72,13 @@ En mi caso en macOS lo encontré en:
 
 #### IMG4
 
-El formato de archivo IMG4 es un formato contenedor utilizado por Apple en sus dispositivos iOS y macOS para **almacenar y verificar de manera segura** componentes de firmware (como **kernelcache**). El formato IMG4 incluye un encabezado y varias etiquetas que encapsulan diferentes piezas de datos, incluyendo la carga útil real (como un kernel o cargador de arranque), una firma y un conjunto de propiedades de manifiesto. El formato admite verificación criptográfica, permitiendo que el dispositivo confirme la autenticidad e integridad del componente de firmware antes de ejecutarlo.
+El formato de archivo IMG4 es un formato contenedor utilizado por Apple en sus dispositivos iOS y macOS para **almacenar y verificar de manera segura** componentes de firmware (como **kernelcache**). El formato IMG4 incluye un encabezado y varias etiquetas que encapsulan diferentes piezas de datos, incluyendo la carga útil real (como un kernel o cargador de arranque), una firma y un conjunto de propiedades de manifiesto. El formato admite verificación criptográfica, lo que permite al dispositivo confirmar la autenticidad e integridad del componente de firmware antes de ejecutarlo.
 
 Generalmente está compuesto por los siguientes componentes:
 
 * **Carga útil (IM4P)**:
-* A menudo comprimido (LZFSE4, LZSS, …)
-* Opcionalmente cifrado
+* A menudo comprimida (LZFSE4, LZSS, …)
+* Opcionalmente cifrada
 * **Manifiesto (IM4M)**:
 * Contiene firma
 * Diccionario adicional de clave/valor
@@ -144,22 +144,26 @@ kextex_all kernelcache.release.iphone14.e
 # Check the extension for symbols
 nm -a binaries/com.apple.security.sandbox | wc -l
 ```
+## Depuración
+
+
+
 ## Referencias
 
 * [https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/](https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/)
 * [https://www.youtube.com/watch?v=hGKOskSiaQo](https://www.youtube.com/watch?v=hGKOskSiaQo)
 
 {% hint style="success" %}
-Aprende y practica Hacking en AWS:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprende y practica Hacking en GCP: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Apoya a HackTricks</summary>
+<summary>Support HackTricks</summary>
 
-* Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
-* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositorios de github.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}

