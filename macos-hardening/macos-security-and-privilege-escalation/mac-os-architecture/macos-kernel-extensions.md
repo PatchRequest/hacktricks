@@ -1,4 +1,4 @@
-# macOS Kernel Extensions
+# macOS Kernel Extensions & Debugging
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -61,9 +61,9 @@ kextstat | grep " 22 " | cut -c2-5,50- | cut -d '(' -f1
 Αν και οι επεκτάσεις πυρήνα αναμένονται να βρίσκονται στο `/System/Library/Extensions/`, αν πάτε σε αυτόν τον φάκελο **δεν θα βρείτε κανένα δυαδικό αρχείο**. Αυτό οφείλεται στο **kernelcache** και για να αναστρέψετε ένα `.kext` πρέπει να βρείτε έναν τρόπο να το αποκτήσετε.
 {% endhint %}
 
-Το **kernelcache** είναι μια **προ-συγκεντρωμένη και προ-συνδεδεμένη έκδοση του πυρήνα XNU**, μαζί με βασικούς **οδηγούς** και **επικεφαλίδες πυρήνα**. Αποθηκεύεται σε **συμπιεσμένη** μορφή και αποσυμπιέζεται στη μνήμη κατά τη διαδικασία εκκίνησης. Το kernelcache διευκολύνει έναν **ταχύτερο χρόνο εκκίνησης** έχοντας μια έτοιμη προς εκτέλεση έκδοση του πυρήνα και κρίσιμων οδηγών διαθέσιμων, μειώνοντας τον χρόνο και τους πόρους που θα δαπανώνταν διαφορετικά για τη δυναμική φόρτωση και σύνδεση αυτών των στοιχείων κατά την εκκίνηση.
+Το **kernelcache** είναι μια **προ-συγκεντρωμένη και προ-συνδεδεμένη έκδοση του πυρήνα XNU**, μαζί με βασικούς **οδηγούς** και **επεκτάσεις πυρήνα**. Αποθηκεύεται σε **συμπιεσμένη** μορφή και αποσυμπιέζεται στη μνήμη κατά τη διαδικασία εκκίνησης. Το kernelcache διευκολύνει έναν **ταχύτερο χρόνο εκκίνησης** έχοντας μια έτοιμη προς εκτέλεση έκδοση του πυρήνα και κρίσιμων οδηγών διαθέσιμων, μειώνοντας τον χρόνο και τους πόρους που θα δαπανώνταν διαφορετικά για τη δυναμική φόρτωση και σύνδεση αυτών των στοιχείων κατά την εκκίνηση.
 
-### Τοπικό Kerlnelcache
+### Τοπικό Kernelcache
 
 Στο iOS βρίσκεται στο **`/System/Library/Caches/com.apple.kernelcaches/kernelcache`** στο macOS μπορείτε να το βρείτε με: **`find / -name "kernelcache" 2>/dev/null`** \
 Στην περίπτωσή μου στο macOS το βρήκα στο:
@@ -144,6 +144,10 @@ kextex_all kernelcache.release.iphone14.e
 # Check the extension for symbols
 nm -a binaries/com.apple.security.sandbox | wc -l
 ```
+## Debugging
+
+
+
 ## Αναφορές
 
 * [https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/](https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/)

