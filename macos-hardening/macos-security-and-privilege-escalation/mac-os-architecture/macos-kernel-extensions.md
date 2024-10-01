@@ -1,4 +1,4 @@
-# macOS Kernel Extensions
+# macOS Kernel Extensions & Debugging
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -15,39 +15,39 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 </details>
 {% endhint %}
 
-## Basic Information
+## Temel Bilgiler
 
 Kernel uzantıları (Kexts), **macOS çekirdek alanına doğrudan yüklenen** ve ana işletim sistemine ek işlevsellik sağlayan **`.kext`** uzantısına sahip **paketlerdir**.
 
-### Requirements
+### Gereksinimler
 
-Açıkça, bu kadar güçlü olduğu için **bir çekirdek uzantısını yüklemek karmaşıktır**. Bir çekirdek uzantısının yüklenebilmesi için karşılaması gereken **gereksinimler** şunlardır:
+Açıkça, bu kadar güçlü olduğu için **bir kernel uzantısını yüklemek karmaşıktır**. Bir kernel uzantısının yüklenebilmesi için karşılaması gereken **gereksinimler** şunlardır:
 
-* **Kurtarma moduna** girerken, çekirdek **uzantılarının yüklenmesine izin verilmelidir**:
+* **Kurtarma moduna** girerken, kernel **uzantılarının yüklenmesine izin verilmelidir**:
 
 <figure><img src="../../../.gitbook/assets/image (327).png" alt=""><figcaption></figcaption></figure>
 
-* Çekirdek uzantısı, yalnızca **Apple tarafından verilebilen** bir çekirdek kod imzalama sertifikası ile **imzalanmış olmalıdır**. Şirketin detaylı bir şekilde gözden geçireceği ve neden gerektiği.
-* Çekirdek uzantısı ayrıca **notarize** edilmelidir, Apple bunu kötü amaçlı yazılım için kontrol edebilecektir.
-* Ardından, **root** kullanıcısı **çekirdek uzantısını yükleyebilen** kişidir ve paket içindeki dosyalar **root'a ait olmalıdır**.
+* Kernel uzantısı, yalnızca **Apple tarafından verilebilen** bir kernel kod imzalama sertifikası ile **imzalanmış olmalıdır**. Şirketin detaylı bir şekilde gözden geçireceği ve neden gerektiği.
+* Kernel uzantısı ayrıca **notarize edilmelidir**, Apple bunun kötü amaçlı yazılım için kontrolünü yapabilecektir.
+* Ardından, **root** kullanıcısı kernel uzantısını **yükleyebilen** kişidir ve paket içindeki dosyalar **root'a ait olmalıdır**.
 * Yükleme sürecinde, paket **korumalı bir kök olmayan konumda** hazırlanmalıdır: `/Library/StagedExtensions` (bu, `com.apple.rootless.storage.KernelExtensionManagement` iznini gerektirir).
 * Son olarak, yüklemeye çalışırken, kullanıcı [**bir onay isteği alacaktır**](https://developer.apple.com/library/archive/technotes/tn2459/_index.html) ve kabul edilirse, bilgisayar **yeniden başlatılmalıdır**.
 
-### Loading process
+### Yükleme süreci
 
-Catalina'da böyleydi: **Doğrulama** sürecinin **kullanıcı alanında** gerçekleştiğini belirtmek ilginçtir. Ancak, yalnızca **`com.apple.private.security.kext-management`** iznine sahip uygulamalar **çekirdekten bir uzantı yüklemesini isteyebilir**: `kextcache`, `kextload`, `kextutil`, `kextd`, `syspolicyd`
+Catalina'da böyleydi: **Doğrulama** sürecinin **kullanıcı alanında** gerçekleştiğini belirtmek ilginçtir. Ancak, yalnızca **`com.apple.private.security.kext-management`** iznine sahip uygulamalar **kernel'den bir uzantıyı yüklemesini isteyebilir**: `kextcache`, `kextload`, `kextutil`, `kextd`, `syspolicyd`
 
-1. **`kextutil`** cli **bir uzantının yüklenmesi için doğrulama** sürecini **başlatır**
+1. **`kextutil`** cli **bir uzantının yüklenmesi için** **doğrulama** sürecini **başlatır**
 * **`kextd`** ile bir **Mach servisi** kullanarak iletişim kuracaktır.
 2. **`kextd`** birkaç şeyi kontrol edecektir, örneğin **imzayı**
 * Uzantının **yüklenip yüklenemeyeceğini kontrol etmek için** **`syspolicyd`** ile iletişim kuracaktır.
 3. **`syspolicyd`**, uzantı daha önce yüklenmemişse **kullanıcıya** **soracaktır**.
 * **`syspolicyd`**, sonucu **`kextd`**'ye bildirecektir.
-4. **`kextd`** nihayet **çekirdeğe uzantıyı yüklemesini** **söyleyebilecektir**.
+4. **`kextd`** nihayetinde **kernel'e uzantıyı yüklemesini** **söyleyebilecektir**.
 
 Eğer **`kextd`** mevcut değilse, **`kextutil`** aynı kontrolleri gerçekleştirebilir.
 
-### Enumeration (loaded kexts)
+### Sayım (yüklenmiş kextler)
 ```bash
 # Get loaded kernel extensions
 kextstat
@@ -58,7 +58,7 @@ kextstat | grep " 22 " | cut -c2-5,50- | cut -d '(' -f1
 ## Kernelcache
 
 {% hint style="danger" %}
-Kernel uzantılarının `/System/Library/Extensions/` içinde bulunması beklenmesine rağmen, bu klasöre giderseniz **hiçbir ikili dosya bulamayacaksınız**. Bunun nedeni **kernelcache**'dir ve bir `.kext` dosyasını tersine mühendislik yapmak için onu elde etmenin bir yolunu bulmanız gerekir.
+Kernel uzantılarının `/System/Library/Extensions/` içinde bulunması beklenmesine rağmen, bu klasöre giderseniz **hiçbir ikili dosya bulamayacaksınız**. Bunun nedeni **kernelcache**'dir ve bir `.kext`'i tersine mühendislik yapmak için onu elde etmenin bir yolunu bulmanız gerekir.
 {% endhint %}
 
 **Kernelcache**, **XNU çekirdeğinin önceden derlenmiş ve önceden bağlantılı bir versiyonu** ile birlikte temel cihaz **sürücüleri** ve **kernel uzantıları** içerir. **Sıkıştırılmış** bir formatta depolanır ve önyükleme süreci sırasında belleğe açılır. Kernelcache, çekirdeğin ve kritik sürücülerin çalışmaya hazır bir versiyonunu bulundurarak **daha hızlı bir önyükleme süresi** sağlar; bu, bu bileşenlerin dinamik olarak yüklenmesi ve bağlantı kurulması için harcanacak zaman ve kaynakları azaltır.
@@ -72,7 +72,7 @@ Benim durumumda macOS'ta şurada buldum:
 
 #### IMG4
 
-IMG4 dosya formatı, Apple tarafından iOS ve macOS cihazlarında **firmware** bileşenlerini güvenli bir şekilde **saklamak ve doğrulamak** için kullanılan bir konteyner formatıdır (örneğin **kernelcache**). IMG4 formatı, gerçek yük (örneğin bir çekirdek veya önyükleyici), bir imza ve bir dizi manifest özelliklerini kapsayan bir başlık ve birkaç etiket içerir. Format, cihazın firmware bileşeninin özgünlüğünü ve bütünlüğünü doğrulamasına olanak tanıyan kriptografik doğrulamayı destekler.
+IMG4 dosya formatı, Apple tarafından iOS ve macOS cihazlarında **firmware** bileşenlerini güvenli bir şekilde **saklamak ve doğrulamak** için kullanılan bir konteyner formatıdır (örneğin **kernelcache**). IMG4 formatı, gerçek yük (örneğin bir çekirdek veya önyükleyici), bir imza ve bir dizi manifest özelliklerini kapsayan başlık ve birkaç etiket içerir. Format, cihazın firmware bileşeninin özgünlüğünü ve bütünlüğünü doğrulamasına olanak tanıyan kriptografik doğrulamayı destekler.
 
 Genellikle aşağıdaki bileşenlerden oluşur:
 
@@ -84,7 +84,7 @@ Genellikle aşağıdaki bileşenlerden oluşur:
 * Ek Anahtar/Değer sözlüğü
 * **Restore Info (IM4R)**:
 * APNonce olarak da bilinir
-* Bazı güncellemelerin tekrar oynatılmasını engeller
+* Bazı güncellemelerin tekrar oynatılmasını önler
 * İSTEĞE BAĞLI: Genellikle bulunmaz
 
 Kernelcache'i açın:
@@ -144,6 +144,10 @@ kextex_all kernelcache.release.iphone14.e
 # Check the extension for symbols
 nm -a binaries/com.apple.security.sandbox | wc -l
 ```
+## Hata Ayıklama
+
+
+
 ## Referanslar
 
 * [https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/](https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/)
