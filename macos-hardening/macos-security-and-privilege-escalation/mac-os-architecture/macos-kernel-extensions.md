@@ -1,4 +1,4 @@
-# macOS Kernel Extensions
+# macOS Kernel Extensions & Debugging
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -61,7 +61,7 @@ kextstat | grep " 22 " | cut -c2-5,50- | cut -d '(' -f1
 Iako se očekuje da su kernel ekstenzije u `/System/Library/Extensions/`, ako odete u ovu fasciklu **nećete pronaći nijedan binarni** fajl. To je zbog **kernelcache** i da biste obrnuli jedan `.kext` potrebno je da pronađete način da ga dobijete.
 {% endhint %}
 
-**Kernelcache** je **prekompajlirana i prelinkovana verzija XNU kernela**, zajedno sa osnovnim uređajskim **drajverima** i **kernel ekstenzijama**. Čuva se u **kompresovanom** formatu i dekompresuje se u memoriju tokom procesa pokretanja. Kernelcache omogućava **brže vreme pokretanja** tako što ima spremnu verziju kernela i ključnih drajvera, smanjujući vreme i resurse koji bi inače bili potrošeni na dinamičko učitavanje i povezivanje ovih komponenti prilikom pokretanja.
+**Kernelcache** je **prekompajlirana i prelinkovana verzija XNU kernela**, zajedno sa osnovnim uređajskim **drajverima** i **kernel ekstenzijama**. Čuva se u **komprimovanom** formatu i dekompresuje se u memoriji tokom procesa pokretanja. Kernelcache omogućava **brže vreme pokretanja** tako što ima spremnu verziju kernela i ključnih drajvera, smanjujući vreme i resurse koji bi inače bili potrošeni na dinamičko učitavanje i povezivanje ovih komponenti prilikom pokretanja.
 
 ### Lokalni Kernelcache
 
@@ -72,12 +72,12 @@ U mom slučaju u macOS-u pronašao sam ga u:
 
 #### IMG4
 
-IMG4 format fajla je kontejnerski format koji koristi Apple u svojim iOS i macOS uređajima za sigurno **čuvanje i verifikaciju firmware** komponenti (kao što je **kernelcache**). IMG4 format uključuje zaglavlje i nekoliko oznaka koje obuhvataju različite delove podataka uključujući stvarni payload (kao što je kernel ili bootloader), potpis i skup manifest svojstava. Format podržava kriptografsku verifikaciju, omogućavajući uređaju da potvrdi autentičnost i integritet firmware komponente pre nego što je izvrši.
+IMG4 format fajla je kontejnerski format koji koristi Apple u svojim iOS i macOS uređajima za sigurno **čuvanje i verifikaciju firmware** komponenti (kao što je **kernelcache**). IMG4 format uključuje zaglavlje i nekoliko oznaka koje enkapsuliraju različite delove podataka uključujući stvarni payload (kao što je kernel ili bootloader), potpis i skup manifest svojstava. Format podržava kriptografsku verifikaciju, omogućavajući uređaju da potvrdi autentičnost i integritet firmware komponente pre nego što je izvrši.
 
 Obično se sastoji od sledećih komponenti:
 
 * **Payload (IM4P)**:
-* Često kompresovan (LZFSE4, LZSS, …)
+* Često komprimovan (LZFSE4, LZSS, …)
 * Opcionalno enkriptovan
 * **Manifest (IM4M)**:
 * Sadrži potpis
@@ -111,7 +111,7 @@ Ponekad Apple objavljuje **kernelcache** sa **simbolima**. Možete preuzeti neke
 
 Da **izvucite** datoteke, počnite tako što ćete promeniti ekstenziju sa `.ipsw` na `.zip` i **raspakovati** je.
 
-Nakon vađenja firmvera dobićete datoteku poput: **`kernelcache.release.iphone14`**. U **IMG4** formatu, možete izvući zanimljive informacije sa:
+Nakon vađenja firmvera dobićete datoteku poput: **`kernelcache.release.iphone14`**. U **IMG4** formatu, možete izvući zanimljive informacije pomoću:
 
 [**pyimg4**](https://github.com/m1stadev/PyIMG4)**:** 
 
@@ -144,6 +144,10 @@ kextex_all kernelcache.release.iphone14.e
 # Check the extension for symbols
 nm -a binaries/com.apple.security.sandbox | wc -l
 ```
+## Debugging
+
+
+
 ## Referencije
 
 * [https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/](https://www.makeuseof.com/how-to-enable-third-party-kernel-extensions-apple-silicon-mac/)
