@@ -27,7 +27,7 @@ Erhalte heute Zugang:
 
 Ein **öffentliches Schlüsselzertifikat** ist eine digitale ID, die in der Kryptographie verwendet wird, um zu beweisen, dass jemand einen öffentlichen Schlüssel besitzt. Es enthält die Details des Schlüssels, die Identität des Eigentümers (das Subjekt) und eine digitale Signatur von einer vertrauenswürdigen Autorität (dem Aussteller). Wenn die Software dem Aussteller vertraut und die Signatur gültig ist, ist eine sichere Kommunikation mit dem Eigentümer des Schlüssels möglich.
 
-Zertifikate werden hauptsächlich von [Zertifizierungsstellen](https://en.wikipedia.org/wiki/Certificate\_authority) (CAs) in einer [Public-Key-Infrastruktur](https://en.wikipedia.org/wiki/Public-key\_infrastructure) (PKI) ausgegeben. Eine andere Methode ist das [Web of Trust](https://en.wikipedia.org/wiki/Web\_of\_trust), bei dem Benutzer die Schlüssel des jeweils anderen direkt verifizieren. Das gängige Format für Zertifikate ist [X.509](https://en.wikipedia.org/wiki/X.509), das für spezifische Bedürfnisse gemäß RFC 5280 angepasst werden kann.
+Zertifikate werden hauptsächlich von [Zertifizierungsstellen](https://en.wikipedia.org/wiki/Certificate\_authority) (CAs) in einer [Public-Key-Infrastruktur](https://en.wikipedia.org/wiki/Public-key\_infrastructure) (PKI) ausgegeben. Eine andere Methode ist das [Web of Trust](https://en.wikipedia.org/wiki/Web\_of\_trust), bei dem Benutzer die Schlüssel einander direkt verifizieren. Das gängige Format für Zertifikate ist [X.509](https://en.wikipedia.org/wiki/X.509), das für spezifische Bedürfnisse gemäß RFC 5280 angepasst werden kann.
 
 ## x509 Gemeinsame Felder
 
@@ -43,17 +43,17 @@ In x509-Zertifikaten spielen mehrere **Felder** eine entscheidende Rolle bei der
 * **Distinguished Name (DN)** fasst die vollständige Subjektidentifikation zusammen.
 * **Aussteller** gibt an, wer das Zertifikat verifiziert und signiert hat, einschließlich ähnlicher Unterfelder wie das Subjekt für die CA.
 * **Gültigkeitszeitraum** wird durch die Zeitstempel **Not Before** und **Not After** markiert, um sicherzustellen, dass das Zertifikat nicht vor oder nach einem bestimmten Datum verwendet wird.
-* Der Abschnitt **Öffentlicher Schlüssel**, der für die Sicherheit des Zertifikats entscheidend ist, spezifiziert den Algorithmus, die Größe und andere technische Details des öffentlichen Schlüssels.
+* Der Abschnitt **Öffentlicher Schlüssel**, der entscheidend für die Sicherheit des Zertifikats ist, spezifiziert den Algorithmus, die Größe und andere technische Details des öffentlichen Schlüssels.
 * **x509v3-Erweiterungen** verbessern die Funktionalität des Zertifikats und spezifizieren **Key Usage**, **Extended Key Usage**, **Subject Alternative Name** und andere Eigenschaften, um die Anwendung des Zertifikats zu verfeinern.
 
 #### **Schlüsselverwendung und Erweiterungen**
 
-* **Key Usage** identifiziert die kryptografischen Anwendungen des öffentlichen Schlüssels, wie digitale Signatur oder Schlüsselausverschlüsselung.
+* **Key Usage** identifiziert kryptografische Anwendungen des öffentlichen Schlüssels, wie digitale Signatur oder Schlüsselausverschlüsselung.
 * **Extended Key Usage** schränkt die Anwendungsfälle des Zertifikats weiter ein, z.B. für die TLS-Serverauthentifizierung.
 * **Subject Alternative Name** und **Basic Constraint** definieren zusätzliche Hostnamen, die durch das Zertifikat abgedeckt sind, und ob es sich um ein CA- oder End-Entity-Zertifikat handelt.
 * Identifikatoren wie **Subject Key Identifier** und **Authority Key Identifier** gewährleisten die Einzigartigkeit und Rückverfolgbarkeit von Schlüsseln.
-* **Authority Information Access** und **CRL Distribution Points** bieten Wege zur Überprüfung der ausstellenden CA und zur Überprüfung des Widerrufstatus des Zertifikats.
-* **CT Precertificate SCTs** bieten Transparenzprotokolle, die für das öffentliche Vertrauen in das Zertifikat entscheidend sind.
+* **Authority Information Access** und **CRL Distribution Points** bieten Wege zur Überprüfung der ausstellenden CA und zur Überprüfung des Widerrufsstatus des Zertifikats.
+* **CT Precertificate SCTs** bieten Transparenzprotokolle, die entscheidend für das öffentliche Vertrauen in das Zertifikat sind.
 ```python
 # Example of accessing and using x509 certificate fields programmatically:
 from cryptography import x509
@@ -89,7 +89,7 @@ Zertifikatstransparenz hilft, zertifikatsbezogene Bedrohungen zu bekämpfen, ind
 
 #### **Zertifikatsprotokolle**
 
-Zertifikatsprotokolle sind öffentlich prüfbare, nur anhängbare Aufzeichnungen von Zertifikaten, die von Netzwerkdiensten verwaltet werden. Diese Protokolle bieten kryptografische Nachweise für Prüfungszwecke. Sowohl Ausstellungseinheiten als auch die Öffentlichkeit können Zertifikate in diese Protokolle einreichen oder sie zur Verifizierung abfragen. Während die genaue Anzahl der Protokollserver nicht festgelegt ist, wird erwartet, dass sie weltweit weniger als tausend beträgt. Diese Server können unabhängig von CAs, ISPs oder jeder interessierten Einheit verwaltet werden.
+Zertifikatsprotokolle sind öffentlich prüfbare, nur anhängbare Aufzeichnungen von Zertifikaten, die von Netzwerkdiensten verwaltet werden. Diese Protokolle bieten kryptografische Nachweise für Prüfungszwecke. Sowohl Ausstellungseinrichtungen als auch die Öffentlichkeit können Zertifikate in diese Protokolle einreichen oder sie zur Verifizierung abfragen. Während die genaue Anzahl der Protokollserver nicht festgelegt ist, wird erwartet, dass sie weltweit weniger als tausend beträgt. Diese Server können unabhängig von CAs, ISPs oder jeder interessierten Entität verwaltet werden.
 
 #### **Abfrage**
 
@@ -115,7 +115,7 @@ Es gibt verschiedene Formate zur Speicherung von Zertifikaten, jedes mit eigenen
 
 ### **P7B/PKCS#7-Format**
 
-* In Base64 ASCII gespeichert, mit Erweiterungen .p7b oder .p7c.
+* In Base64 ASCII gespeichert, mit den Erweiterungen .p7b oder .p7c.
 * Enthält nur Zertifikate und Kettenzertifikate, ohne den privaten Schlüssel.
 * Unterstützt von Microsoft Windows und Java Tomcat.
 
@@ -172,6 +172,25 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
 2. Konvertieren Sie CER und privaten Schlüssel in PFX
 ```bash
 openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile cacert.cer
+```
+* **ASN.1 (DER/PEM) Bearbeitung** (funktioniert mit Zertifikaten oder fast jeder anderen ASN.1 Struktur):
+1. Klone [asn1template](https://github.com/wllm-rbnt/asn1template/)
+```bash
+git clone https://github.com/wllm-rbnt/asn1template.git
+```
+2. Konvertieren von DER/PEM in das Generierungsformat von OpenSSL
+```bash
+asn1template/asn1template.pl certificatename.der > certificatename.tpl
+asn1template/asn1template.pl -p certificatename.pem > certificatename.tpl
+```
+3. Bearbeiten Sie certificatename.tpl gemäß Ihren Anforderungen
+```bash
+vim certificatename.tpl
+```
+4. Stellen Sie das modifizierte Zertifikat wieder her
+```bash
+openssl asn1parse -genconf certificatename.tpl -out certificatename_new.der
+openssl asn1parse -genconf certificatename.tpl -outform PEM -out certificatename_new.pem
 ```
 ***
 
