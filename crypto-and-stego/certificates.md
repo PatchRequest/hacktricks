@@ -1,8 +1,8 @@
 # 証明書
 
 {% hint style="success" %}
-AWSハッキングを学び、実践する:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCPハッキングを学び、実践する: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWSハッキングを学び、実践する：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -41,7 +41,7 @@ x509証明書では、いくつかの**フィールド**が証明書の有効性
 * **共通名（CN）**：証明書でカバーされるドメイン。
 * **国（C）**、**地域（L）**、**州または省（ST、S、またはP）**、**組織（O）**、および**組織単位（OU）**は、地理的および組織的な詳細を提供します。
 * **識別名（DN）**は、完全なサブジェクト識別をカプセル化します。
-* **発行者**は、証明書を検証し署名した者を示し、CAのサブジェクトと同様のサブフィールドを含みます。
+* **発行者**は、証明書を検証し署名した人物を示し、CAのサブジェクトと同様のサブフィールドを含みます。
 * **有効期間**は、**Not Before**および**Not After**のタイムスタンプで示され、証明書が特定の日付の前または後に使用されないことを保証します。
 * **公開鍵**セクションは、証明書のセキュリティにとって重要で、公開鍵のアルゴリズム、サイズ、およびその他の技術的詳細を指定します。
 * **x509v3拡張**は、証明書の機能を強化し、**鍵の使用**、**拡張鍵の使用**、**サブジェクト代替名**、および証明書の適用を微調整するためのその他のプロパティを指定します。
@@ -115,7 +115,7 @@ print(f"Public Key: {public_key}")
 
 ### **P7B/PKCS#7フォーマット**
 
-* Base64 ASCIIで保存され、拡張子は.p7bまたは.p7c。
+* Base64 ASCIIで保存され、拡張子は.p7bまたは.p7cです。
 * 秘密鍵を除く証明書とチェーン証明書のみを含みます。
 * Microsoft WindowsおよびJava Tomcatでサポートされています。
 
@@ -164,7 +164,7 @@ openssl pkcs12 -in certificatename.pfx -nocerts -nodes -out certificatename.pem
 ```bash
 openSSL pkcs8 -in certificatename.pem -topk8 -nocrypt -out certificatename.pk8
 ```
-* **P7B to PFX** には2つのコマンドが必要です：
+* **P7B to PFX** には、2つのコマンドが必要です：
 1. P7BをCERに変換する
 ```bash
 openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
@@ -172,6 +172,25 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
 2. CERとプライベートキーをPFXに変換する
 ```bash
 openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile cacert.cer
+```
+* **ASN.1 (DER/PEM) 編集** (証明書やほぼすべてのASN.1構造で動作します):
+1. [asn1template](https://github.com/wllm-rbnt/asn1template/) をクローンします。
+```bash
+git clone https://github.com/wllm-rbnt/asn1template.git
+```
+2. DER/PEMをOpenSSLの生成フォーマットに変換する
+```bash
+asn1template/asn1template.pl certificatename.der > certificatename.tpl
+asn1template/asn1template.pl -p certificatename.pem > certificatename.tpl
+```
+3. 要件に応じて certificatename.tpl を編集します。
+```bash
+vim certificatename.tpl
+```
+4. 修正された証明書を再構築する
+```bash
+openssl asn1parse -genconf certificatename.tpl -out certificatename_new.der
+openssl asn1parse -genconf certificatename.tpl -outform PEM -out certificatename_new.pem
 ```
 ***
 
@@ -193,7 +212,7 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
 * **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
-* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
+* **ハッキングトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のgithubリポジトリにPRを提出してください。**
 
 </details>
 {% endhint %}
