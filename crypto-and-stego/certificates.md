@@ -1,8 +1,8 @@
 # Sertifikalar
 
 {% hint style="success" %}
-AWS Hacking'i öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Eğitim AWS Kırmızı Takım Uzmanı (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Eğitim GCP Kırmızı Takım Uzmanı (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS Hacking'i öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -27,28 +27,28 @@ Bugün Erişim Alın:
 
 Bir **açık anahtar sertifikası**, birinin bir açık anahtara sahip olduğunu kanıtlamak için kriptografide kullanılan dijital bir kimliktir. Anahtarın detaylarını, sahibinin kimliğini (konu) ve güvenilir bir otoriteden (verici) dijital bir imzayı içerir. Yazılım vericiyi güvenilir bulursa ve imza geçerliyse, anahtarın sahibiyle güvenli iletişim mümkündür.
 
-Sertifikalar genellikle [sertifika otoriteleri](https://en.wikipedia.org/wiki/Certificate\_authority) (CA'lar) tarafından [açık anahtar altyapısı](https://en.wikipedia.org/wiki/Public-key\_infrastructure) (PKI) kurulumunda verilir. Diğer bir yöntem ise [güven ağı](https://en.wikipedia.org/wiki/Web\_of\_trust)dır; burada kullanıcılar birbirlerinin anahtarlarını doğrudan doğrular. Sertifikalar için yaygın format [X.509](https://en.wikipedia.org/wiki/X.509) olup, RFC 5280'de belirtildiği gibi belirli ihtiyaçlara uyarlanabilir.
+Sertifikalar genellikle [sertifika otoriteleri](https://en.wikipedia.org/wiki/Certificate\_authority) (CA'lar) tarafından [açık anahtar altyapısı](https://en.wikipedia.org/wiki/Public-key\_infrastructure) (PKI) kurulumunda verilir. Diğer bir yöntem ise kullanıcıların birbirlerinin anahtarlarını doğrudan doğruladığı [güven ağı](https://en.wikipedia.org/wiki/Web\_of\_trust)'dır. Sertifikalar için yaygın format [X.509](https://en.wikipedia.org/wiki/X.509)'dur ve RFC 5280'de belirtildiği gibi belirli ihtiyaçlara uyarlanabilir.
 
 ## x509 Ortak Alanlar
 
 ### **x509 Sertifikalarında Ortak Alanlar**
 
-x509 sertifikalarında, sertifikanın geçerliliğini ve güvenliğini sağlamak için birkaç **alan** kritik roller üstlenir. Bu alanların bir dökümü:
+x509 sertifikalarında, sertifikanın geçerliliğini ve güvenliğini sağlamak için birkaç **alan** kritik roller oynar. Bu alanların bir dökümü:
 
-* **Versiyon Numarası**, x509 formatının versiyonunu belirtir.
-* **Seri Numarası**, sertifikayı bir Sertifika Otoritesi (CA) sisteminde benzersiz olarak tanımlar, esasen iptal takibi için kullanılır.
-* **Konu** alanı, sertifikanın sahibini temsil eder; bu bir makine, birey veya organizasyon olabilir. Detaylı kimlik bilgilerini içerir:
-* **Ortak İsim (CN)**: Sertifika tarafından kapsanan alanlar.
-* **Ülke (C)**, **Yerleşim Yeri (L)**, **Eyalet veya İl (ST, S veya P)**, **Organizasyon (O)** ve **Organizasyon Birimi (OU)** coğrafi ve organizasyonel detaylar sağlar.
-* **Ayrıcalıklı İsim (DN)**, tam konu kimliğini kapsar.
-* **Verici**, sertifikayı doğrulayan ve imzalayan kişiyi detaylandırır; CA için konu ile benzer alt alanlar içerir.
+* **Sürüm Numarası**, x509 formatının sürümünü belirtir.
+* **Seri Numarası**, sertifikayı bir Sertifika Otoritesi (CA) sisteminde benzersiz olarak tanımlar, esasen iptal takibi için.
+* **Konu** alanı, sertifikanın sahibini temsil eder; bu bir makine, birey veya organizasyon olabilir. Aşağıdaki gibi detaylı kimlik bilgilerini içerir:
+* **Ortak Ad (CN)**: Sertifika tarafından kapsanan alanlar.
+* **Ülke (C)**, **Yer (L)**, **Eyalet veya İl (ST, S veya P)**, **Organizasyon (O)** ve **Organizasyon Birimi (OU)** coğrafi ve organizasyonel detaylar sağlar.
+* **Ayrıcalıklı Ad (DN)**, tam konu kimliğini kapsar.
+* **Verici**, sertifikayı kimlerin doğruladığını ve imzaladığını detaylandırır; CA için konu ile benzer alt alanlar içerir.
 * **Geçerlilik Süresi**, sertifikanın belirli bir tarihten önce veya sonra kullanılmadığını sağlamak için **Not Before** ve **Not After** zaman damgaları ile işaretlenir.
 * **Açık Anahtar** bölümü, sertifikanın güvenliği için kritik olup, açık anahtarın algoritmasını, boyutunu ve diğer teknik detaylarını belirtir.
 * **x509v3 uzantıları**, sertifikanın işlevselliğini artırır; **Anahtar Kullanımı**, **Genişletilmiş Anahtar Kullanımı**, **Konu Alternatif Adı** ve sertifikanın uygulamasını ince ayar yapmak için diğer özellikleri belirtir.
 
 #### **Anahtar Kullanımı ve Uzantılar**
 
-* **Anahtar Kullanımı**, açık anahtarın kriptografik uygulamalarını tanımlar; örneğin dijital imza veya anahtar şifreleme.
+* **Anahtar Kullanımı**, açık anahtarın dijital imza veya anahtar şifreleme gibi kriptografik uygulamalarını tanımlar.
 * **Genişletilmiş Anahtar Kullanımı**, sertifikanın kullanım durumlarını daha da daraltır; örneğin, TLS sunucu kimlik doğrulaması için.
 * **Konu Alternatif Adı** ve **Temel Kısıtlama**, sertifika tarafından kapsanan ek ana bilgisayar adlarını ve bunun bir CA veya son varlık sertifikası olup olmadığını tanımlar.
 * **Konu Anahtar Tanımlayıcı** ve **Otorite Anahtar Tanımlayıcı** gibi tanımlayıcılar, anahtarların benzersizliğini ve izlenebilirliğini sağlar.
@@ -81,9 +81,9 @@ print(f"Public Key: {public_key}")
 
 ### **Sertifika Şeffaflığı Nedir**
 
-Sertifika Şeffaflığı, SSL sertifikalarının verilmesi ve varlığının alan adı sahipleri, CA'lar ve kullanıcılar tarafından görünür olmasını sağlayarak sertifika ile ilgili tehditlerle mücadele etmeye yardımcı olur. Hedefleri şunlardır:
+Sertifika Şeffaflığı, SSL sertifikalarının verilmesi ve varlığının alan adı sahipleri, CA'lar ve kullanıcılar tarafından görünür olmasını sağlayarak sertifika ile ilgili tehditlerle mücadele etmeye yardımcı olur. Amaçları şunlardır:
 
-* CA'ların, alan adı sahibinin bilgisi olmadan bir alan için SSL sertifikası vermesini engellemek.
+* CA'ların, alan adı sahibinin bilgisi olmadan bir alan için SSL sertifikası vermesini önlemek.
 * Yanlış veya kötü niyetle verilmiş sertifikaların izlenmesi için açık bir denetim sistemi kurmak.
 * Kullanıcıları sahte sertifikalardan korumak.
 
@@ -127,7 +127,7 @@ Sertifikaları depolamak için farklı formatlar mevcuttur, her birinin kendi ku
 
 ### **Format Dönüştürme**
 
-**PEM dönüşümleri** uyumluluk için gereklidir:
+**PEM dönüşümleri**, uyumluluk için gereklidir:
 
 * **x509'dan PEM'e**
 ```bash
@@ -155,7 +155,7 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.pem
 ```bash
 openssl pkcs12 -in certificatename.pfx -out certificatename.pem
 ```
-* **PFX'ten PKCS#8'e** iki adım içerir:
+* **PFX to PKCS#8** iki adımdan oluşur:
 1. PFX'i PEM'e dönüştür
 ```bash
 openssl pkcs12 -in certificatename.pfx -nocerts -nodes -out certificatename.pem
@@ -172,6 +172,25 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
 2. CER ve Özel Anahtarı PFX'e Dönüştür
 ```bash
 openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile cacert.cer
+```
+* **ASN.1 (DER/PEM) düzenleme** (sertifikalar veya neredeyse herhangi bir ASN.1 yapısıyla çalışır):
+1. [asn1template](https://github.com/wllm-rbnt/asn1template/) klonlayın
+```bash
+git clone https://github.com/wllm-rbnt/asn1template.git
+```
+2. DER/PEM'i OpenSSL'in üretim formatına dönüştür
+```bash
+asn1template/asn1template.pl certificatename.der > certificatename.tpl
+asn1template/asn1template.pl -p certificatename.pem > certificatename.tpl
+```
+3. İhtiyaçlarınıza göre certificatename.tpl dosyasını düzenleyin.
+```bash
+vim certificatename.tpl
+```
+4. Değiştirilmiş sertifikayı yeniden oluşturun
+```bash
+openssl asn1parse -genconf certificatename.tpl -out certificatename_new.der
+openssl asn1parse -genconf certificatename.tpl -outform PEM -out certificatename_new.pem
 ```
 ***
 
@@ -192,7 +211,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" a
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'i takip edin.**
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'ı takip edin.**
 * **Hacking ipuçlarını paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
