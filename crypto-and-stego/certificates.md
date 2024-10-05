@@ -1,16 +1,16 @@
-# Certificats
+# Certificates
 
 {% hint style="success" %}
-Apprenez et pratiquez le hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Soutenir HackTricks</summary>
+<summary>Support HackTricks</summary>
 
-* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
@@ -18,26 +18,26 @@ Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt=
 <figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
 \
-Utilisez [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=certificates) pour créer et **automatiser des flux de travail** facilement grâce aux **outils communautaires les plus avancés** au monde.\
-Accédez dès aujourd'hui :
+Use [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=certificates) to easily build and **automate workflows** powered by the world's **most advanced** community tools.\
+Get Access Today:
 
 {% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=certificates" %}
 
-## Qu'est-ce qu'un certificat
+## What is a Certificate
 
-Un **certificat de clé publique** est une ID numérique utilisée en cryptographie pour prouver qu'une personne possède une clé publique. Il comprend les détails de la clé, l'identité du propriétaire (le sujet) et une signature numérique d'une autorité de confiance (l'émetteur). Si le logiciel fait confiance à l'émetteur et que la signature est valide, une communication sécurisée avec le propriétaire de la clé est possible.
+Un **certificat de clé publique** est une ID numérique utilisée en cryptographie pour prouver qu'une personne possède une clé publique. Il inclut les détails de la clé, l'identité du propriétaire (le sujet) et une signature numérique d'une autorité de confiance (l'émetteur). Si le logiciel fait confiance à l'émetteur et que la signature est valide, une communication sécurisée avec le propriétaire de la clé est possible.
 
-Les certificats sont principalement émis par des [autorités de certification](https://en.wikipedia.org/wiki/Certificate\_authority) (CA) dans une configuration d'[infrastructure à clé publique](https://en.wikipedia.org/wiki/Public-key\_infrastructure) (PKI). Une autre méthode est le [web de confiance](https://en.wikipedia.org/wiki/Web\_of\_trust), où les utilisateurs vérifient directement les clés des autres. Le format commun pour les certificats est [X.509](https://en.wikipedia.org/wiki/X.509), qui peut être adapté à des besoins spécifiques comme décrit dans la RFC 5280.
+Les certificats sont principalement émis par des [autorités de certification](https://en.wikipedia.org/wiki/Certificate\_authority) (CAs) dans une configuration d'[infrastructure à clé publique](https://en.wikipedia.org/wiki/Public-key\_infrastructure) (PKI). Une autre méthode est le [web de confiance](https://en.wikipedia.org/wiki/Web\_of\_trust), où les utilisateurs vérifient directement les clés des autres. Le format commun pour les certificats est [X.509](https://en.wikipedia.org/wiki/X.509), qui peut être adapté à des besoins spécifiques comme décrit dans la RFC 5280.
 
-## Champs communs x509
+## x509 Common Fields
 
-### **Champs communs dans les certificats x509**
+### **Common Fields in x509 Certificates**
 
 Dans les certificats x509, plusieurs **champs** jouent des rôles critiques pour garantir la validité et la sécurité du certificat. Voici un aperçu de ces champs :
 
 * **Numéro de version** signifie la version du format x509.
 * **Numéro de série** identifie de manière unique le certificat au sein du système d'une Autorité de Certification (CA), principalement pour le suivi des révocations.
-* Le champ **Sujet** représente le propriétaire du certificat, qui peut être une machine, un individu ou une organisation. Il comprend une identification détaillée telle que :
+* Le champ **Sujet** représente le propriétaire du certificat, qui peut être une machine, un individu ou une organisation. Il inclut une identification détaillée telle que :
 * **Nom commun (CN)** : Domaines couverts par le certificat.
 * **Pays (C)**, **Localité (L)**, **État ou Province (ST, S, ou P)**, **Organisation (O)**, et **Unité organisationnelle (OU)** fournissent des détails géographiques et organisationnels.
 * **Nom distinctif (DN)** encapsule l'identification complète du sujet.
@@ -46,7 +46,7 @@ Dans les certificats x509, plusieurs **champs** jouent des rôles critiques pour
 * La section **Clé publique**, cruciale pour la sécurité du certificat, spécifie l'algorithme, la taille et d'autres détails techniques de la clé publique.
 * Les **extensions x509v3** améliorent la fonctionnalité du certificat, spécifiant **Utilisation de la clé**, **Utilisation de clé étendue**, **Nom alternatif du sujet**, et d'autres propriétés pour affiner l'application du certificat.
 
-#### **Utilisation de la clé et extensions**
+#### **Key Usage and Extensions**
 
 * **Utilisation de la clé** identifie les applications cryptographiques de la clé publique, comme la signature numérique ou le chiffrement de clé.
 * **Utilisation de clé étendue** précise davantage les cas d'utilisation du certificat, par exemple, pour l'authentification de serveur TLS.
@@ -89,7 +89,7 @@ La transparence des certificats aide à lutter contre les menaces liées aux cer
 
 #### **Journaux de certificats**
 
-Les journaux de certificats sont des enregistrements audités publiquement, en mode ajout uniquement, de certificats, maintenus par des services réseau. Ces journaux fournissent des preuves cryptographiques à des fins d'audit. Les autorités d'émission et le public peuvent soumettre des certificats à ces journaux ou les interroger pour vérification. Bien que le nombre exact de serveurs de journaux ne soit pas fixe, on s'attend à ce qu'il soit inférieur à mille dans le monde. Ces serveurs peuvent être gérés indépendamment par des CA, des FAI ou toute entité intéressée.
+Les journaux de certificats sont des enregistrements audités publiquement, en mode ajout uniquement, de certificats, maintenus par des services réseau. Ces journaux fournissent des preuves cryptographiques à des fins d'audit. Les autorités d'émission et le public peuvent soumettre des certificats à ces journaux ou les interroger pour vérification. Bien que le nombre exact de serveurs de journaux ne soit pas fixe, il est prévu qu'il soit inférieur à mille dans le monde. Ces serveurs peuvent être gérés indépendamment par des CA, des FAI ou toute entité intéressée.
 
 #### **Interrogation**
 
@@ -173,13 +173,32 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
 ```bash
 openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile cacert.cer
 ```
+* **Édition ASN.1 (DER/PEM)** (fonctionne avec des certificats ou presque toute autre structure ASN.1) :
+1. Cloner [asn1template](https://github.com/wllm-rbnt/asn1template/)
+```bash
+git clone https://github.com/wllm-rbnt/asn1template.git
+```
+2. Convertir DER/PEM au format de génération d'OpenSSL
+```bash
+asn1template/asn1template.pl certificatename.der > certificatename.tpl
+asn1template/asn1template.pl -p certificatename.pem > certificatename.tpl
+```
+3. Modifiez certificatename.tpl selon vos besoins
+```bash
+vim certificatename.tpl
+```
+4. Reconstruire le certificat modifié
+```bash
+openssl asn1parse -genconf certificatename.tpl -out certificatename_new.der
+openssl asn1parse -genconf certificatename.tpl -outform PEM -out certificatename_new.pem
+```
 ***
 
 <figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
 \
 Utilisez [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=certificates) pour créer et **automatiser des workflows** facilement grâce aux **outils communautaires les plus avancés** au monde.\
-Obtenez l'accès aujourd'hui :
+Accédez dès aujourd'hui :
 
 {% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=certificates" %}
 
@@ -193,7 +212,7 @@ Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt=
 
 * Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
 * **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Partagez des astuces de hacking en soumettant des PR aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
+* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}
