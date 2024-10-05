@@ -27,7 +27,7 @@ Get Access Today:
 
 A **public key certificate**는 암호학에서 누군가가 공개 키를 소유하고 있음을 증명하는 디지털 ID입니다. 여기에는 키의 세부정보, 소유자의 신원(주체), 그리고 신뢰할 수 있는 기관(발급자)의 디지털 서명이 포함됩니다. 소프트웨어가 발급자를 신뢰하고 서명이 유효하면 키 소유자와의 안전한 통신이 가능합니다.
 
-인증서는 주로 [인증 기관](https://en.wikipedia.org/wiki/Certificate\_authority) (CAs)에 의해 [공개 키 인프라](https://en.wikipedia.org/wiki/Public-key\_infrastructure) (PKI) 설정에서 발급됩니다. 또 다른 방법은 [신뢰의 웹](https://en.wikipedia.org/wiki/Web\_of\_trust)으로, 사용자가 서로의 키를 직접 검증하는 방식입니다. 인증서의 일반적인 형식은 [X.509](https://en.wikipedia.org/wiki/X.509)이며, RFC 5280에 설명된 대로 특정 요구에 맞게 조정될 수 있습니다.
+인증서는 주로 [인증 기관](https://en.wikipedia.org/wiki/Certificate\_authority) (CAs)에서 [공개 키 인프라](https://en.wikipedia.org/wiki/Public-key\_infrastructure) (PKI) 설정으로 발급됩니다. 또 다른 방법은 [신뢰의 웹](https://en.wikipedia.org/wiki/Web\_of\_trust)으로, 사용자가 서로의 키를 직접 검증하는 방식입니다. 인증서의 일반적인 형식은 [X.509](https://en.wikipedia.org/wiki/X.509)이며, RFC 5280에 설명된 대로 특정 요구에 맞게 조정될 수 있습니다.
 
 ## x509 Common Fields
 
@@ -39,8 +39,8 @@ x509 인증서에서 여러 **필드**는 인증서의 유효성과 보안을 �
 * **Serial Number**는 인증서를 인증 기관(CA) 시스템 내에서 고유하게 식별하며, 주로 폐기 추적을 위해 사용됩니다.
 * **Subject** 필드는 인증서의 소유자를 나타내며, 이는 기계, 개인 또는 조직일 수 있습니다. 여기에는 다음과 같은 세부 식별 정보가 포함됩니다:
 * **Common Name (CN)**: 인증서가 적용되는 도메인.
-* **Country (C)**, **Locality (L)**, **State or Province (ST, S, 또는 P)**, **Organization (O)**, 및 **Organizational Unit (OU)**는 지리적 및 조직적 세부정보를 제공합니다.
-* **Distinguished Name (DN)**는 전체 주체 식별을 요약합니다.
+* **Country (C)**, **Locality (L)**, **State or Province (ST, S, or P)**, **Organization (O)**, 및 **Organizational Unit (OU)**는 지리적 및 조직적 세부정보를 제공합니다.
+* **Distinguished Name (DN)**는 전체 주체 식별을 캡슐화합니다.
 * **Issuer**는 인증서를 검증하고 서명한 사람을 나타내며, CA에 대한 주체와 유사한 하위 필드를 포함합니다.
 * **Validity Period**는 **Not Before** 및 **Not After** 타임스탬프로 표시되어 인증서가 특정 날짜 이전이나 이후에 사용되지 않도록 보장합니다.
 * **Public Key** 섹션은 인증서의 보안에 중요한 부분으로, 공개 키의 알고리즘, 크기 및 기타 기술적 세부정보를 지정합니다.
@@ -49,7 +49,7 @@ x509 인증서에서 여러 **필드**는 인증서의 유효성과 보안을 �
 #### **Key Usage and Extensions**
 
 * **Key Usage**는 공개 키의 암호화 응용 프로그램을 식별하며, 디지털 서명 또는 키 암호화와 같은 용도로 사용됩니다.
-* **Extended Key Usage**는 인증서의 사용 사례를 더욱 좁히며, 예를 들어 TLS 서버 인증을 위한 것입니다.
+* **Extended Key Usage**는 인증서의 사용 사례를 더욱 좁혀 TLS 서버 인증과 같은 특정 용도로 사용됩니다.
 * **Subject Alternative Name** 및 **Basic Constraint**는 인증서가 적용되는 추가 호스트 이름과 인증서가 CA인지 최종 엔티티 인증서인지를 정의합니다.
 * **Subject Key Identifier** 및 **Authority Key Identifier**와 같은 식별자는 키의 고유성과 추적 가능성을 보장합니다.
 * **Authority Information Access** 및 **CRL Distribution Points**는 발급 CA를 검증하고 인증서 폐기 상태를 확인하는 경로를 제공합니다.
@@ -172,6 +172,25 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
 2. CER 및 개인 키를 PFX로 변환하기
 ```bash
 openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile cacert.cer
+```
+* **ASN.1 (DER/PEM) 편집** (인증서 또는 거의 모든 다른 ASN.1 구조와 함께 작동):
+1. [asn1template](https://github.com/wllm-rbnt/asn1template/) 복제
+```bash
+git clone https://github.com/wllm-rbnt/asn1template.git
+```
+2. DER/PEM을 OpenSSL의 생성 형식으로 변환하기
+```bash
+asn1template/asn1template.pl certificatename.der > certificatename.tpl
+asn1template/asn1template.pl -p certificatename.pem > certificatename.tpl
+```
+3. 요구 사항에 따라 certificatename.tpl을 편집하십시오.
+```bash
+vim certificatename.tpl
+```
+4. 수정된 인증서 재구성
+```bash
+openssl asn1parse -genconf certificatename.tpl -out certificatename_new.der
+openssl asn1parse -genconf certificatename.tpl -outform PEM -out certificatename_new.pem
 ```
 ***
 
