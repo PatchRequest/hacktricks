@@ -6,7 +6,7 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Suporte ao HackTricks</summary>
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
@@ -51,7 +51,7 @@ Em certificados x509, vários **campos** desempenham papéis críticos na garant
 * **Uso de Chave** identifica aplicações criptográficas da chave pública, como assinatura digital ou criptografia de chave.
 * **Uso de Chave Estendida** restringe ainda mais os casos de uso do certificado, por exemplo, para autenticação de servidor TLS.
 * **Nome Alternativo do Sujeito** e **Restrição Básica** definem nomes de host adicionais cobertos pelo certificado e se é um certificado CA ou de entidade final, respectivamente.
-* Identificadores como **Identificador de Chave do Sujeito** e **Identificador de Chave da Autoridade** garantem unicidade e rastreabilidade das chaves.
+* Identificadores como **Identificador de Chave do Sujeito** e **Identificador de Chave da Autoridade** garantem a singularidade e rastreabilidade das chaves.
 * **Acesso à Informação da Autoridade** e **Pontos de Distribuição de CRL** fornecem caminhos para verificar a CA emissora e verificar o status de revogação do certificado.
 * **SCTs de Pré-certificado CT** oferecem logs de transparência, cruciais para a confiança pública no certificado.
 ```python
@@ -173,6 +173,25 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
 ```bash
 openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile cacert.cer
 ```
+* **Edição ASN.1 (DER/PEM)** (funciona com certificados ou quase qualquer outra estrutura ASN.1):
+1. Clone [asn1template](https://github.com/wllm-rbnt/asn1template/)
+```bash
+git clone https://github.com/wllm-rbnt/asn1template.git
+```
+2. Converter DER/PEM para o formato de geração do OpenSSL
+```bash
+asn1template/asn1template.pl certificatename.der > certificatename.tpl
+asn1template/asn1template.pl -p certificatename.pem > certificatename.tpl
+```
+3. Edite certificatename.tpl de acordo com suas necessidades
+```bash
+vim certificatename.tpl
+```
+4. Reconstrua o certificado modificado
+```bash
+openssl asn1parse -genconf certificatename.tpl -out certificatename_new.der
+openssl asn1parse -genconf certificatename.tpl -outform PEM -out certificatename_new.pem
+```
 ***
 
 <figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
@@ -193,7 +212,7 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para os** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
+* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
 
 </details>
 {% endhint %}
