@@ -39,7 +39,7 @@ En los certificados x509, varios **campos** juegan roles críticos en asegurar l
 * **Número de Serie** identifica de manera única el certificado dentro del sistema de una Autoridad de Certificación (CA), principalmente para el seguimiento de revocaciones.
 * El campo **Sujeto** representa al propietario del certificado, que podría ser una máquina, un individuo o una organización. Incluye identificación detallada como:
 * **Nombre Común (CN)**: Dominios cubiertos por el certificado.
-* **País (C)**, **Localidad (L)**, **Estado o Provincia (ST, S, o P)**, **Organización (O)** y **Unidad Organizativa (OU)** proporcionan detalles geográficos y organizativos.
+* **País (C)**, **Localidad (L)**, **Estado o Provincia (ST, S o P)**, **Organización (O)** y **Unidad Organizativa (OU)** proporcionan detalles geográficos y organizativos.
 * **Nombre Distinguido (DN)** encapsula la identificación completa del sujeto.
 * **Emisor** detalla quién verificó y firmó el certificado, incluyendo subcampos similares al Sujeto para la CA.
 * El **Período de Validez** está marcado por las marcas de tiempo **No Antes** y **No Después**, asegurando que el certificado no se use antes o después de una cierta fecha.
@@ -77,7 +77,7 @@ print(f"Public Key: {public_key}")
 ```
 ### **Diferencia entre OCSP y Puntos de Distribución CRL**
 
-**OCSP** (**RFC 2560**) implica que un cliente y un respondedor trabajen juntos para verificar si un certificado digital de clave pública ha sido revocado, sin necesidad de descargar el **CRL** completo. Este método es más eficiente que el **CRL** tradicional, que proporciona una lista de números de serie de certificados revocados pero requiere descargar un archivo potencialmente grande. Los CRL pueden incluir hasta 512 entradas. Más detalles están disponibles [aquí](https://www.arubanetworks.com/techdocs/ArubaOS%206\_3\_1\_Web\_Help/Content/ArubaFrameStyles/CertRevocation/About\_OCSP\_and\_CRL.htm).
+**OCSP** (**RFC 2560**) implica que un cliente y un respondedor trabajen juntos para verificar si un certificado digital de clave pública ha sido revocado, sin necesidad de descargar el **CRL** completo. Este método es más eficiente que el **CRL** tradicional, que proporciona una lista de números de serie de certificados revocados pero requiere descargar un archivo potencialmente grande. Los CRLs pueden incluir hasta 512 entradas. Más detalles están disponibles [aquí](https://www.arubanetworks.com/techdocs/ArubaOS%206\_3\_1\_Web\_Help/Content/ArubaFrameStyles/CertRevocation/About\_OCSP\_and\_CRL.htm).
 
 ### **Qué es la Transparencia de Certificados**
 
@@ -173,12 +173,31 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
 ```bash
 openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile cacert.cer
 ```
+* **Edición de ASN.1 (DER/PEM)** (funciona con certificados o casi cualquier otra estructura ASN.1):
+1. Clona [asn1template](https://github.com/wllm-rbnt/asn1template/)
+```bash
+git clone https://github.com/wllm-rbnt/asn1template.git
+```
+2. Convertir DER/PEM al formato de generación de OpenSSL
+```bash
+asn1template/asn1template.pl certificatename.der > certificatename.tpl
+asn1template/asn1template.pl -p certificatename.pem > certificatename.tpl
+```
+3. Edita certificatename.tpl de acuerdo a tus requisitos
+```bash
+vim certificatename.tpl
+```
+4. Reconstruir el certificado modificado
+```bash
+openssl asn1parse -genconf certificatename.tpl -out certificatename_new.der
+openssl asn1parse -genconf certificatename.tpl -outform PEM -out certificatename_new.pem
+```
 ***
 
 <figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
 \
-Usa [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=certificates) para construir y **automatizar flujos de trabajo** fácilmente, impulsados por las **herramientas comunitarias más avanzadas** del mundo.\
+Utiliza [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=certificates) para construir y **automatizar flujos de trabajo** fácilmente, impulsados por las herramientas comunitarias **más avanzadas** del mundo.\
 Obtén acceso hoy:
 
 {% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=certificates" %}
