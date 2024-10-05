@@ -40,7 +40,7 @@ In x509 sertifikate speel verskeie **velde** kritieke rolle in die versekerings 
 * Die **Onderwerp** veld verteenwoordig die sertifikaat se eienaar, wat 'n masjien, 'n individu, of 'n organisasie kan wees. Dit sluit gedetailleerde identifikasie in soos:
 * **Algemene Naam (CN)**: Domeine wat deur die sertifikaat gedek word.
 * **Land (C)**, **Plaaslikeheid (L)**, **Staat of Provinsie (ST, S, of P)**, **Organisasie (O)**, en **Organisatoriese Eenheid (OU)** verskaf geografiese en organisatoriese besonderhede.
-* **Gekennede Naam (DN)** sluit die volle onderwerp identifikasie in.
+* **Gekenneteerde Naam (DN)** sluit die volle onderwerp identifikasie in.
 * **Uitreiker** gee besonderhede oor wie die sertifikaat geverifieer en onderteken het, insluitend soortgelyke subvelde soos die Onderwerp vir die CA.
 * **Geldigheidsperiode** word gemerk deur **Nie Voor** en **Nie Na** tydstempels, wat verseker dat die sertifikaat nie voor of na 'n sekere datum gebruik word nie.
 * Die **Publieke Sleutel** afdeling, wat van kardinale belang is vir die sertifikaat se sekuriteit, spesifiseer die algoritme, grootte, en ander tegniese besonderhede van die publieke sleutel.
@@ -85,11 +85,11 @@ Sertifikaat Deursigtigheid help om sertifikaatverwante bedreigings te bekamp deu
 
 * Om te voorkom dat CA's SSL-sertifikate vir 'n domein uitreik sonder die domeineienaar se kennis.
 * Om 'n oop ouditstelsel te vestig vir die opsporing van per ongeluk of kwaadwillig uitgereikte sertifikate.
-* Om gebruikers te beskerm teen bedrogsertifikate.
+* Om gebruikers te beskerm teen bedrieglike sertifikate.
 
 #### **Sertifikaat Logs**
 
-Sertifikaat logs is publiek ouditbaar, byvoeging-alleen rekords van sertifikate, wat deur netwerkdienste onderhou word. Hierdie logs bied kriptografiese bewysstukke vir ouditdoeleindes. Beide uitreikowerhede en die publiek kan sertifikate aan hierdie logs indien of dit raadpleeg vir verifikasie. Terwyl die presiese aantal logbedieners nie vasgestel is nie, word verwag dat dit minder as 'n duisend wêreldwyd sal wees. Hierdie bedieners kan onafhanklik bestuur word deur CA's, ISP's, of enige belanghebbende entiteit.
+Sertifikaat logs is publiek ouditbaar, byvoeging-alleen rekords van sertifikate, wat deur netwerkdienste onderhou word. Hierdie logs bied kriptografiese bewysstukke vir ouditdoeleindes. Beide uitreikingsowerhede en die publiek kan sertifikate aan hierdie logs indien of dit raadpleeg vir verifikasie. Terwyl die presiese aantal logbedieners nie vasgestel is nie, word verwag dat dit minder as 'n duisend wêreldwyd sal wees. Hierdie bedieners kan onafhanklik bestuur word deur CA's, ISP's, of enige belangstellende entiteit.
 
 #### **Navraag**
 
@@ -121,7 +121,7 @@ Verskillende formate bestaan vir die stoor van sertifikate, elk met sy eie gebru
 
 ### **PFX/P12/PKCS#12 Formaat**
 
-* 'n Binaire formaat wat bedienersertifikate, tussenliggende sertifikate, en private sleutels in een lêer inkapsuleer.
+* 'n Binaire formaat wat bedienersertifikate, intermediêre sertifikate, en private sleutels in een lêer inkapsuleer.
 * Uitbreidings: .pfx, .p12.
 * Hoofsaaklik gebruik op Windows vir sertifikaat invoer en uitvoer.
 
@@ -172,6 +172,25 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
 2. Skakel CER en Privaat Sleutel na PFX om
 ```bash
 openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile cacert.cer
+```
+* **ASN.1 (DER/PEM) redigering** (werk met sertifikate of byna enige ander ASN.1 struktuur):
+1. Kloneer [asn1template](https://github.com/wllm-rbnt/asn1template/)
+```bash
+git clone https://github.com/wllm-rbnt/asn1template.git
+```
+2. Skakel DER/PEM na OpenSSL se generasieformaat om
+```bash
+asn1template/asn1template.pl certificatename.der > certificatename.tpl
+asn1template/asn1template.pl -p certificatename.pem > certificatename.tpl
+```
+3. Wysig certificatename.tpl volgens jou vereistes
+```bash
+vim certificatename.tpl
+```
+4. Bou die gewysigde sertifikaat weer op
+```bash
+openssl asn1parse -genconf certificatename.tpl -out certificatename_new.der
+openssl asn1parse -genconf certificatename.tpl -outform PEM -out certificatename_new.pem
 ```
 ***
 
