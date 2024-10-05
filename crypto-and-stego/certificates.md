@@ -25,7 +25,7 @@ Get Access Today:
 
 ## What is a Certificate
 
-**Cheti cha ufunguo wa umma** ni kitambulisho cha kidijitali kinachotumika katika cryptography kuthibitisha kwamba mtu anamiliki ufunguo wa umma. Inajumuisha maelezo ya ufunguo, kitambulisho cha mmiliki (mada), na saini ya kidijitali kutoka kwa mamlaka inayotegemewa (mtoaji). Ikiwa programu inategemea mtoaji na saini ni halali, mawasiliano salama na mmiliki wa ufunguo yanawezekana.
+**Cheti cha ufunguo wa umma** ni kitambulisho cha dijitali kinachotumika katika cryptography kuthibitisha kwamba mtu anamiliki ufunguo wa umma. Inajumuisha maelezo ya ufunguo, kitambulisho cha mmiliki (mada), na saini ya dijitali kutoka kwa mamlaka inayotegemewa (mtoaji). Ikiwa programu inategemea mtoaji na saini ni halali, mawasiliano salama na mmiliki wa ufunguo yanawezekana.
 
 Vyeti kwa kawaida vinatolewa na [mamlaka ya vyeti](https://en.wikipedia.org/wiki/Certificate\_authority) (CAs) katika muundo wa [miundombinu ya ufunguo wa umma](https://en.wikipedia.org/wiki/Public-key\_infrastructure) (PKI). Njia nyingine ni [mtandao wa kuaminiana](https://en.wikipedia.org/wiki/Web\_of\_trust), ambapo watumiaji wanathibitisha ufunguo wa kila mmoja moja kwa moja. Muundo wa kawaida wa vyeti ni [X.509](https://en.wikipedia.org/wiki/X.509), ambayo inaweza kubadilishwa kwa mahitaji maalum kama ilivyoelezwa katika RFC 5280.
 
@@ -37,23 +37,23 @@ Katika vyeti vya x509, sehemu kadhaa **zinacheza** majukumu muhimu katika kuhaki
 
 * **Nambari ya Toleo** inaashiria toleo la muundo wa x509.
 * **Nambari ya Mfululizo** inatambulisha cheti ndani ya mfumo wa Mamlaka ya Cheti (CA), hasa kwa ajili ya kufuatilia kufutwa.
-* Sehemu ya **Mada** inawakilisha mmiliki wa cheti, ambaye anaweza kuwa mashine, mtu binafsi, au shirika. Inajumuisha kitambulisho kilichoelezwa kwa undani kama:
+* Sehemu ya **Mada** inawakilisha mmiliki wa cheti, ambaye anaweza kuwa mashine, mtu binafsi, au shirika. Inajumuisha kitambulisho kilicho na maelezo kama:
 * **Jina la Kawaida (CN)**: Majina ya maeneo yanayofunikwa na cheti.
 * **Nchi (C)**, **Eneo (L)**, **Jimbo au Mkoa (ST, S, au P)**, **Shirika (O)**, na **Kitengo cha Shirika (OU)** vinatoa maelezo ya kijiografia na ya shirika.
-* **Jina Lililotambulika (DN)** linajumuisha kitambulisho kamili cha mada.
+* **Jina Lililoainishwa (DN)** linajumuisha kitambulisho kamili cha mada.
 * **Mtoaji** inaelezea nani alithibitisha na kusaini cheti, ikiwa ni pamoja na sehemu zinazofanana kama za Mada kwa CA.
 * **Muda wa Halali** umewekwa na alama za **Siyo Kabla** na **Siyo Baada**, kuhakikisha cheti hakitumiki kabla au baada ya tarehe fulani.
 * Sehemu ya **Ufunguo wa Umma**, muhimu kwa usalama wa cheti, inaelezea algorithimu, ukubwa, na maelezo mengine ya kiufundi ya ufunguo wa umma.
-* **x509v3 extensions** zinaongeza kazi ya cheti, zikielezea **Matumizi ya Ufunguo**, **Matumizi ya Ufunguo wa Kupanuliwa**, **Jina Alternatif la Mada**, na mali nyingine za kuboresha matumizi ya cheti.
+* **x509v3 extensions** zinaboresha kazi ya cheti, zikielezea **Matumizi ya Ufunguo**, **Matumizi ya Ufunguo wa Kupanua**, **Jina Alternatif la Mada**, na mali nyingine za kuboresha matumizi ya cheti.
 
-#### **Matumizi ya Ufunguo na Mipanuzi**
+#### **Matumizi ya Ufunguo na Upanuzi**
 
-* **Matumizi ya Ufunguo** yanatambulisha matumizi ya cryptographic ya ufunguo wa umma, kama saini ya kidijitali au ufunguo wa kuandika.
-* **Matumizi ya Ufunguo wa Kupanuliwa** yanapunguza zaidi matumizi ya cheti, kwa mfano, kwa uthibitisho wa seva ya TLS.
-* **Jina Alternatif la Mada** na **Kikomo cha Msingi** vin定义 majina mengine ya mwenyeji yanayofunikwa na cheti na ikiwa ni cheti cha CA au cheti cha mwisho, mtawalia.
-* Vitambulisho kama **Vitambulisho vya Ufunguo wa Mada** na **Vitambulisho vya Ufunguo wa Mamlaka** vinahakikisha upekee na ufuatiliaji wa funguo.
-* **Upatikanaji wa Taarifa za Mamlaka** na **Nukta za Usambazaji wa CRL** vinatoa njia za kuthibitisha CA inayotoa na kuangalia hali ya kufutwa kwa cheti.
-* **CT Precertificate SCTs** hutoa kumbukumbu za uwazi, muhimu kwa uaminifu wa umma katika cheti.
+* **Matumizi ya Ufunguo** yanatambulisha matumizi ya cryptographic ya ufunguo wa umma, kama saini ya dijitali au ufunguo wa kuandika.
+* **Matumizi ya Ufunguo wa Kupanua** yanapunguza zaidi matumizi ya cheti, kwa mfano, kwa uthibitisho wa seva ya TLS.
+* **Jina Alternatif la Mada** na **Kikomo cha Msingi** vin定义 maelezo ya ziada ya majina ya mwenyeji yanayofunikwa na cheti na ikiwa ni cheti cha CA au cheti cha mwisho, mtawalia.
+* Vitambulisho kama **Kitambulisho cha Ufunguo wa Mada** na **Kitambulisho cha Ufunguo wa Mamlaka** vinahakikisha upekee na ufuatiliaji wa funguo.
+* **Upatikanaji wa Taarifa za Mamlaka** na **Nukuu za Usambazaji wa CRL** vinatoa njia za kuthibitisha CA inayotoa na kuangalia hali ya kufutwa kwa cheti.
+* **CT Precertificate SCTs** vinatoa kumbukumbu za uwazi, muhimu kwa kuaminika kwa umma katika cheti.
 ```python
 # Example of accessing and using x509 certificate fields programmatically:
 from cryptography import x509
@@ -89,7 +89,7 @@ Uwazi wa Cheti husaidia kupambana na vitisho vinavyohusiana na vyeti kwa kuhakik
 
 #### **Makaratasi ya Vyeti**
 
-Makaratasi ya vyeti ni rekodi za vyeti zinazoweza kukaguliwa hadharani, zinazoongezwa tu, zinazoshughulikiwa na huduma za mtandao. Makaratasi haya yanatoa uthibitisho wa kijasusi kwa ajili ya ukaguzi. Mamlaka za utoaji na umma wanaweza kuwasilisha vyeti kwenye makaratasahaya au kuyatafuta kwa ajili ya uthibitisho. Ingawa idadi halisi ya seva za makaratasi si ya kudumu, inatarajiwa kuwa chini ya elfu moja duniani kote. Seva hizi zinaweza kusimamiwa kwa uhuru na CAs, ISPs, au shirika lolote linalovutiwa.
+Makaratasi ya vyeti ni rekodi za vyeti zinazoweza kukaguliwa hadharani, zinazoongezwa tu, zinazoshughulikiwa na huduma za mtandao. Makaratasi haya yanatoa uthibitisho wa kihesabu kwa ajili ya ukaguzi. Mamlaka za utoaji na umma wanaweza kuwasilisha vyeti kwenye makaratasahaya au kuyatafuta kwa ajili ya uthibitisho. Ingawa idadi halisi ya seva za makaratasi si ya kudumu, inatarajiwa kuwa chini ya elfu moja duniani kote. Seva hizi zinaweza kusimamiwa kwa uhuru na CAs, ISPs, au shirika lolote linalovutiwa.
 
 #### **Utafutaji**
 
@@ -99,29 +99,29 @@ Mifumo tofauti inapatikana kwa ajili ya kuhifadhi vyeti, kila moja ikiwa na matu
 
 ## **Mifumo**
 
-### **Muundo wa PEM**
+### **PEM Format**
 
-* Muundo unaotumika zaidi kwa vyeti.
+* Mfumo unaotumika zaidi kwa vyeti.
 * Unahitaji faili tofauti kwa vyeti na funguo za faragha, zilizowekwa katika Base64 ASCII.
 * Upanuzi wa kawaida: .cer, .crt, .pem, .key.
 * Kimsingi hutumiwa na Apache na seva zinazofanana.
 
-### **Muundo wa DER**
+### **DER Format**
 
-* Muundo wa binary wa vyeti.
+* Mfumo wa binary wa vyeti.
 * Huna taarifa za "BEGIN/END CERTIFICATE" zinazopatikana katika faili za PEM.
 * Upanuzi wa kawaida: .cer, .der.
 * Mara nyingi hutumiwa na majukwaa ya Java.
 
-### **Muundo wa P7B/PKCS#7**
+### **P7B/PKCS#7 Format**
 
 * Huhifadhiwa katika Base64 ASCII, ikiwa na upanuzi .p7b au .p7c.
 * Inajumuisha vyeti tu na vyeti vya mnyororo, ikiondoa funguo za faragha.
 * Inasaidiwa na Microsoft Windows na Java Tomcat.
 
-### **Muundo wa PFX/P12/PKCS#12**
+### **PFX/P12/PKCS#12 Format**
 
-* Muundo wa binary unaojumuisha vyeti vya seva, vyeti vya kati, na funguo za faragha katika faili moja.
+* Mfumo wa binary unaojumuisha vyeti vya seva, vyeti vya kati, na funguo za faragha katika faili moja.
 * Upanuzi: .pfx, .p12.
 * Kimsingi hutumiwa kwenye Windows kwa ajili ya kuagiza na kuuza vyeti.
 
@@ -164,7 +164,7 @@ openssl pkcs12 -in certificatename.pfx -nocerts -nodes -out certificatename.pem
 ```bash
 openSSL pkcs8 -in certificatename.pem -topk8 -nocrypt -out certificatename.pk8
 ```
-* **P7B hadi PFX** pia inahitaji amri mbili:
+* **P7B to PFX** pia inahitaji amri mbili:
 1. Geuza P7B kuwa CER
 ```bash
 openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
@@ -173,12 +173,31 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
 ```bash
 openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile cacert.cer
 ```
+* **ASN.1 (DER/PEM) editing** (inafanya kazi na vyeti au karibu muundo wowote wa ASN.1):
+1. Clone [asn1template](https://github.com/wllm-rbnt/asn1template/)
+```bash
+git clone https://github.com/wllm-rbnt/asn1template.git
+```
+2. Geuza DER/PEM kuwa muundo wa uzalishaji wa OpenSSL
+```bash
+asn1template/asn1template.pl certificatename.der > certificatename.tpl
+asn1template/asn1template.pl -p certificatename.pem > certificatename.tpl
+```
+3. Hariri certificatename.tpl kulingana na mahitaji yako
+```bash
+vim certificatename.tpl
+```
+4. Jenga upya cheti kilichobadilishwa
+```bash
+openssl asn1parse -genconf certificatename.tpl -out certificatename_new.der
+openssl asn1parse -genconf certificatename.tpl -outform PEM -out certificatename_new.pem
+```
 ***
 
 <figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
 \
-Tumia [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=certificates) kujenga na **kujiendesha** kazi kwa urahisi zikiwa na nguvu za zana za jamii **za kisasa zaidi** duniani.\
+Tumia [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=certificates) kujenga na **kujiendesha** kwa urahisi kazi zinazotumiwa na zana za jamii **zilizoendelea zaidi** duniani.\
 Pata Ufikiaji Leo:
 
 {% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=certificates" %}
