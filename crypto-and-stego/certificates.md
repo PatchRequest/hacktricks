@@ -9,8 +9,8 @@ Ucz się i ćwicz Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-
 <summary>Wsparcie dla HackTricks</summary>
 
 * Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
-* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Podziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów github.
+* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegram**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Podziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów na githubie.
 
 </details>
 {% endhint %}
@@ -37,23 +37,23 @@ W certyfikatach x509 kilka **pól** odgrywa kluczowe role w zapewnieniu ważnoś
 
 * **Numer wersji** oznacza wersję formatu x509.
 * **Numer seryjny** unikalnie identyfikuje certyfikat w systemie Władzy Certyfikacyjnej (CA), głównie do śledzenia unieważnień.
-* Pole **Subject** reprezentuje właściciela certyfikatu, którym może być maszyna, osoba lub organizacja. Zawiera szczegółową identyfikację, taką jak:
-* **Common Name (CN)**: Domeny objęte certyfikatem.
-* **Kraj (C)**, **Lokalizacja (L)**, **Stan lub Prowincja (ST, S lub P)**, **Organizacja (O)** i **Jednostka Organizacyjna (OU)** dostarczają szczegóły geograficzne i organizacyjne.
-* **Distinguished Name (DN)** obejmuje pełną identyfikację podmiotu.
-* **Issuer** szczegółowo opisuje, kto zweryfikował i podpisał certyfikat, w tym podobne podpola jak Subject dla CA.
-* **Okres ważności** oznaczony jest znacznikami **Not Before** i **Not After**, zapewniając, że certyfikat nie jest używany przed lub po określonej dacie.
-* Sekcja **Public Key**, kluczowa dla bezpieczeństwa certyfikatu, określa algorytm, rozmiar i inne szczegóły techniczne klucza publicznego.
-* **Rozszerzenia x509v3** zwiększają funkcjonalność certyfikatu, określając **Key Usage**, **Extended Key Usage**, **Subject Alternative Name** i inne właściwości, aby dostosować zastosowanie certyfikatu.
+* Pole **Temat** reprezentuje właściciela certyfikatu, którym może być maszyna, osoba lub organizacja. Zawiera szczegółową identyfikację, taką jak:
+* **Nazwa wspólna (CN)**: Domeny objęte certyfikatem.
+* **Kraj (C)**, **Lokalizacja (L)**, **Stan lub Prowincja (ST, S lub P)**, **Organizacja (O)** oraz **Jednostka organizacyjna (OU)** dostarczają szczegóły geograficzne i organizacyjne.
+* **Nazwa wyróżniająca (DN)** obejmuje pełną identyfikację tematu.
+* **Wydawca** podaje, kto zweryfikował i podpisał certyfikat, w tym podobne podpola jak w Temacie dla CA.
+* **Okres ważności** oznaczony jest znacznikami **Nie wcześniej niż** i **Nie później niż**, zapewniając, że certyfikat nie jest używany przed lub po określonej dacie.
+* Sekcja **Klucz publiczny**, kluczowa dla bezpieczeństwa certyfikatu, określa algorytm, rozmiar i inne szczegóły techniczne klucza publicznego.
+* **Rozszerzenia x509v3** zwiększają funkcjonalność certyfikatu, określając **Zastosowanie klucza**, **Rozszerzone zastosowanie klucza**, **Alternatywną nazwę tematu** i inne właściwości, aby dostosować zastosowanie certyfikatu.
 
-#### **Key Usage i rozszerzenia**
+#### **Zastosowanie klucza i rozszerzenia**
 
-* **Key Usage** identyfikuje kryptograficzne zastosowania klucza publicznego, takie jak podpis cyfrowy lub szyfrowanie klucza.
-* **Extended Key Usage** dodatkowo zawęża przypadki użycia certyfikatu, np. do uwierzytelniania serwera TLS.
-* **Subject Alternative Name** i **Basic Constraint** definiują dodatkowe nazwy hostów objęte certyfikatem oraz czy jest to certyfikat CA czy certyfikat końcowy.
-* Identyfikatory takie jak **Subject Key Identifier** i **Authority Key Identifier** zapewniają unikalność i śledzenie kluczy.
-* **Authority Information Access** i **CRL Distribution Points** dostarczają ścieżek do weryfikacji wydającej CA i sprawdzenia statusu unieważnienia certyfikatu.
-* **CT Precertificate SCTs** oferują dzienniki przejrzystości, kluczowe dla publicznego zaufania do certyfikatu.
+* **Zastosowanie klucza** identyfikuje kryptograficzne zastosowania klucza publicznego, takie jak podpis cyfrowy lub szyfrowanie klucza.
+* **Rozszerzone zastosowanie klucza** jeszcze bardziej zawęża przypadki użycia certyfikatu, np. do uwierzytelniania serwera TLS.
+* **Alternatywna nazwa tematu** i **Podstawowe ograniczenie** definiują dodatkowe nazwy hostów objęte certyfikatem oraz czy jest to certyfikat CA czy certyfikat końcowy.
+* Identyfikatory takie jak **Identyfikator klucza tematu** i **Identyfikator klucza autorytetu** zapewniają unikalność i możliwość śledzenia kluczy.
+* **Dostęp do informacji o autorytecie** i **Punkty dystrybucji CRL** dostarczają ścieżek do weryfikacji wydającej CA i sprawdzenia statusu unieważnienia certyfikatu.
+* **SCT certyfikatu CT** oferują dzienniki przejrzystości, kluczowe dla publicznego zaufania do certyfikatu.
 ```python
 # Example of accessing and using x509 certificate fields programmatically:
 from cryptography import x509
@@ -81,7 +81,7 @@ print(f"Public Key: {public_key}")
 
 ### **Czym jest przejrzystość certyfikatów**
 
-Przejrzystość certyfikatów pomaga w zwalczaniu zagrożeń związanych z certyfikatami, zapewniając, że wydanie i istnienie certyfikatów SSL są widoczne dla właścicieli domen, CA i użytkowników. Jej cele to:
+Przejrzystość certyfikatów pomaga w walce z zagrożeniami związanymi z certyfikatami, zapewniając, że wydanie i istnienie certyfikatów SSL są widoczne dla właścicieli domen, CAs i użytkowników. Jej cele to:
 
 * Zapobieganie wydawaniu certyfikatów SSL dla domeny bez wiedzy właściciela domeny.
 * Ustanowienie otwartego systemu audytowego do śledzenia błędnie lub złośliwie wydanych certyfikatów.
@@ -89,7 +89,7 @@ Przejrzystość certyfikatów pomaga w zwalczaniu zagrożeń związanych z certy
 
 #### **Logi certyfikatów**
 
-Logi certyfikatów to publicznie audytowalne, tylko do dopisywania rejestry certyfikatów, prowadzone przez usługi sieciowe. Logi te dostarczają dowodów kryptograficznych do celów audytowych. Zarówno organy wydające, jak i publiczność mogą przesyłać certyfikaty do tych logów lub zapytywać je w celu weryfikacji. Chociaż dokładna liczba serwerów logów nie jest ustalona, oczekuje się, że będzie ich mniej niż tysiąc na całym świecie. Serwery te mogą być zarządzane niezależnie przez CA, ISP lub jakąkolwiek zainteresowaną jednostkę.
+Logi certyfikatów to publicznie audytowalne, tylko do dopisywania rejestry certyfikatów, prowadzone przez usługi sieciowe. Logi te dostarczają dowodów kryptograficznych do celów audytowych. Zarówno władze wydające, jak i publiczność mogą przesyłać certyfikaty do tych logów lub zapytywać je w celu weryfikacji. Chociaż dokładna liczba serwerów logów nie jest ustalona, oczekuje się, że będzie ich mniej niż tysiąc na całym świecie. Serwery te mogą być zarządzane niezależnie przez CAs, ISP lub jakąkolwiek zainteresowaną stronę.
 
 #### **Zapytanie**
 
@@ -156,7 +156,7 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.pem
 openssl pkcs12 -in certificatename.pfx -out certificatename.pem
 ```
 * **PFX do PKCS#8** obejmuje dwa kroki:
-1. Konwersja PFX na PEM
+1. Konwersja PFX do PEM
 ```bash
 openssl pkcs12 -in certificatename.pfx -nocerts -nodes -out certificatename.pem
 ```
@@ -172,6 +172,25 @@ openssl pkcs7 -print_certs -in certificatename.p7b -out certificatename.cer
 2. Konwertuj CER i klucz prywatny na PFX
 ```bash
 openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile cacert.cer
+```
+* **Edycja ASN.1 (DER/PEM)** (działa z certyfikatami lub prawie każdą inną strukturą ASN.1):
+1. Sklonuj [asn1template](https://github.com/wllm-rbnt/asn1template/)
+```bash
+git clone https://github.com/wllm-rbnt/asn1template.git
+```
+2. Konwertuj DER/PEM na format generacji OpenSSL
+```bash
+asn1template/asn1template.pl certificatename.der > certificatename.tpl
+asn1template/asn1template.pl -p certificatename.pem > certificatename.tpl
+```
+3. Edytuj certificatename.tpl zgodnie z własnymi wymaganiami
+```bash
+vim certificatename.tpl
+```
+4. Odbuduj zmodyfikowany certyfikat
+```bash
+openssl asn1parse -genconf certificatename.tpl -out certificatename_new.der
+openssl asn1parse -genconf certificatename.tpl -outform PEM -out certificatename_new.pem
 ```
 ***
 
