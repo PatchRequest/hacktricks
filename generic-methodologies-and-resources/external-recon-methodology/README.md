@@ -17,11 +17,11 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 
 <figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-Se sei interessato a una **carriera nel hacking** e a hackare l'inhackabile - **stiamo assumendo!** (_è richiesta la conoscenza fluente della lingua polacca, scritta e parlata_).
+Se sei interessato a una **carriera nel hacking** e a hackare l'inhackabile - **stiamo assumendo!** (_è richiesta una buona conoscenza del polacco scritto e parlato_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
-## Scoperta degli asset
+## Scoperta delle risorse
 
 > Ti è stato detto che tutto ciò che appartiene a una certa azienda è all'interno dell'ambito, e vuoi capire cosa possiede effettivamente questa azienda.
 
@@ -85,7 +85,7 @@ Inoltre, potresti lanciare alcune [**scansioni delle porte**](../pentesting-netw
 
 _Please, nota che nelle seguenti tecniche proposte puoi anche trovare sottodomini e che queste informazioni non dovrebbero essere sottovalutate._
 
-Prima di tutto dovresti cercare il(i) **dominio(i) principale(i)** di ogni azienda. Ad esempio, per _Tesla Inc._ sarà _tesla.com_.
+Prima di tutto dovresti cercare il(i) **dominio(i) principale(i)** di ciascuna azienda. Ad esempio, per _Tesla Inc._ sarà _tesla.com_.
 
 ### **Reverse DNS**
 
@@ -141,7 +141,7 @@ python3 favihash.py -f https://target/favicon.ico -t targets.txt -s
 
 In parole semplici, favihash ci permetterà di scoprire domini che hanno lo stesso hash dell'icona favicon del nostro obiettivo.
 
-Inoltre, puoi anche cercare tecnologie utilizzando l'hash della favicon come spiegato in [**questo post del blog**](https://medium.com/@Asm0d3us/weaponizing-favicon-ico-for-bugbounties-osint-and-what-not-ace3c214e139). Ciò significa che se conosci l'**hash della favicon di una versione vulnerabile di una tecnologia web** puoi cercare in shodan e **trovare più luoghi vulnerabili**:
+Inoltre, puoi anche cercare tecnologie utilizzando l'hash della favicon come spiegato in [**questo post del blog**](https://medium.com/@Asm0d3us/weaponizing-favicon-ico-for-bugbounties-osint-and-what-not-ace3c214e139). Ciò significa che se conosci il **hash della favicon di una versione vulnerabile di una tecnologia web** puoi cercare in shodan e **trovare più luoghi vulnerabili**:
 ```bash
 shodan search org:"Target" http.favicon.hash:116323821 --fields ip_str,port --separator " " | awk '{print $1":"$2}'
 ```
@@ -180,7 +180,7 @@ You can use a web such as [https://dmarc.live/info/google.com](https://dmarc.liv
 
 Apparentemente è comune per le persone assegnare sottodomini a IP che appartengono a fornitori di cloud e a un certo punto **perdere quell'indirizzo IP ma dimenticare di rimuovere il record DNS**. Pertanto, semplicemente **creando una VM** in un cloud (come Digital Ocean) stai effettivamente **prendendo possesso di alcuni sottodomini**.
 
-[**Questo post**](https://kmsec.uk/blog/passive-takeover/) spiega una storia al riguardo e propone uno script che **crea una VM in DigitalOcean**, **ottiene** l'**IPv4** della nuova macchina e **cerca in Virustotal i record di sottodominio** che puntano ad essa.
+[**Questo post**](https://kmsec.uk/blog/passive-takeover/) spiega una storia al riguardo e propone uno script che **crea una VM in DigitalOcean**, **ottiene** l'**IPv4** della nuova macchina e **cerca in Virustotal i record di sottodomini** che puntano ad essa.
 
 ### **Other ways**
 
@@ -360,7 +360,7 @@ E anche IP di buoni risolutori DNS. Per generare un elenco di risolutori DNS aff
 
 Gli strumenti più raccomandati per il brute-force DNS sono:
 
-* [**massdns**](https://github.com/blechschmidt/massdns): Questo è stato il primo strumento che ha eseguito un efficace brute-force DNS. È molto veloce, tuttavia è soggetto a falsi positivi.
+* [**massdns**](https://github.com/blechschmidt/massdns): Questo è stato il primo strumento a eseguire un efficace brute-force DNS. È molto veloce, tuttavia è soggetto a falsi positivi.
 ```bash
 sed 's/$/.domain.com/' subdomains.txt > bf-subdomains.txt
 ./massdns -r resolvers.txt -w /tmp/results.txt bf-subdomains.txt
@@ -378,11 +378,11 @@ shuffledns -d example.com -list example-subdomains.txt -r resolvers.txt
 ```
 puredns bruteforce all.txt domain.com
 ```
-* [**aiodnsbrute**](https://github.com/blark/aiodnsbrute) utilizza asyncio per forzare in modo asincrono i nomi di dominio.
+* [**aiodnsbrute**](https://github.com/blark/aiodnsbrute) utilizza asyncio per forzare i nomi di dominio in modo asincrono.
 ```
 aiodnsbrute -r resolvers -w wordlist.txt -vv -t 1024 domain.com
 ```
-### Seconda Fase di Brute-Force DNS
+### Seconda fase di brute-force DNS
 
 Dopo aver trovato i sottodomini utilizzando fonti aperte e brute-forcing, puoi generare alterazioni dei sottodomini trovati per cercare di trovarne ancora di più. Diversi strumenti sono utili a questo scopo:
 
@@ -391,7 +391,7 @@ Dopo aver trovato i sottodomini utilizzando fonti aperte e brute-forcing, puoi g
 cat subdomains.txt | dnsgen -
 ```
 * [**goaltdns**](https://github.com/subfinder/goaltdns): Dati i domini e i sottodomini, genera permutazioni.
-* Puoi ottenere le permutazioni di goaltdns **wordlist** [**qui**](https://github.com/subfinder/goaltdns/blob/master/words.txt).
+* Puoi ottenere le permutazioni di goaltdns **wordlist** **qui** [**qui**](https://github.com/subfinder/goaltdns/blob/master/words.txt).
 ```bash
 goaltdns -l subdomains.txt -w /tmp/words-permutations.txt -o /tmp/final-words-s3.txt
 ```
@@ -420,7 +420,7 @@ python3 main.py adobe.com adobe adobe.rules
 make_brute_list.sh adobe.rules adobe.brute
 puredns resolve adobe.brute --write adobe.valid
 ```
-* [**subzuf**](https://github.com/elceef/subzuf)**:** _subzuf_ è un fuzzer di brute-force per sottodomini abbinato a un algoritmo guidato dalla risposta DNS immensamente semplice ma efficace. Utilizza un insieme di dati di input fornito, come una wordlist personalizzata o record DNS/TLS storici, per sintetizzare accuratamente nomi di dominio corrispondenti e ampliarli ulteriormente in un ciclo basato sulle informazioni raccolte durante la scansione DNS.
+* [**subzuf**](https://github.com/elceef/subzuf)**:** _subzuf_ è un fuzzer di brute-force per sottodomini abbinato a un algoritmo guidato dalla risposta DNS immensamente semplice ma efficace. Utilizza un insieme di dati di input fornito, come una wordlist personalizzata o record DNS/TLS storici, per sintetizzare accuratamente nomi di dominio corrispondenti e espanderli ulteriormente in un ciclo basato sulle informazioni raccolte durante la scansione DNS.
 ```
 echo www | subzuf facebook.com
 ```
@@ -473,7 +473,7 @@ Inoltre, poiché a questo punto conoscerai tutti i domini all'interno dell'ambit
 
 ### **Monitorizzazione**
 
-Puoi **monitorare** se vengono creati **nuovi subdomini** di un dominio monitorando i **Certificate Transparency** Logs [**sublert** ](https://github.com/yassineaboukir/sublert/blob/master/sublert.py).
+Puoi **monitorare** se vengono creati **nuovi subdomini** di un dominio monitorando i **Certificate Transparency** Logs [**sublert** ](https://github.com/yassineaboukir/sublert/blob/master/sublert.py)fa.
 
 ### **Cercare vulnerabilità**
 
@@ -488,7 +488,7 @@ _Tieni presente che a volte il subdominio è ospitato all'interno di un IP che n
 Nei passaggi iniziali potresti aver **trovato alcuni intervalli di IP, domini e subdomini**.\
 È tempo di **raccogliere tutti gli IP da quegli intervalli** e per i **domini/subdomini (query DNS).**
 
-Utilizzando i servizi delle seguenti **api gratuite**, puoi anche trovare **IP precedenti utilizzati da domini e subdomini**. Questi IP potrebbero ancora essere di proprietà del cliente (e potrebbero permetterti di trovare [**CloudFlare bypasses**](../../network-services-pentesting/pentesting-web/uncovering-cloudflare.md))
+Utilizzando i servizi delle seguenti **api gratuite** puoi anche trovare **IP precedenti utilizzati da domini e subdomini**. Questi IP potrebbero ancora essere di proprietà del cliente (e potrebbero permetterti di trovare [**CloudFlare bypasses**](../../network-services-pentesting/pentesting-web/uncovering-cloudflare.md))
 
 * [**https://securitytrails.com/**](https://securitytrails.com/)
 
@@ -504,7 +504,7 @@ Puoi anche controllare i domini che puntano a un indirizzo IP specifico utilizza
 
 > Abbiamo trovato tutte le aziende e i loro asset e conosciamo gli intervalli di IP, domini e subdomini all'interno dell'ambito. È tempo di cercare server web.
 
-Nei passaggi precedenti probabilmente hai già eseguito alcune **ricerche sugli IP e domini scoperti**, quindi potresti aver **già trovato tutti i possibili server web**. Tuttavia, se non lo hai fatto, ora vedremo alcuni **trucchi rapidi per cercare server web** all'interno dell'ambito.
+Nei passaggi precedenti probabilmente hai già eseguito alcune **ricerche sugli IP e domini scoperti**, quindi potresti aver **già trovato tutti i possibili server web**. Tuttavia, se non lo hai fatto, ora vedremo alcuni **trucchi veloci per cercare server web** all'interno dell'ambito.
 
 Si prega di notare che questo sarà **orientato alla scoperta di app web**, quindi dovresti **eseguire la scansione delle vulnerabilità** e **scansione delle porte** anche (**se consentito** dall'ambito).
 
@@ -524,7 +524,7 @@ Inoltre, potresti poi usare [**eyeballer**](https://github.com/BishopFox/eyeball
 
 ## Public Cloud Assets
 
-Per trovare potenziali asset cloud appartenenti a un'azienda dovresti **iniziare con un elenco di parole chiave che identificano quell'azienda**. Ad esempio, per una crypto di un'azienda crypto potresti usare parole come: `"crypto", "wallet", "dao", "<domain_name>", <"subdomain_names">`.
+Per trovare potenziali asset cloud appartenenti a un'azienda dovresti **iniziare con un elenco di parole chiave che identificano quell'azienda**. Ad esempio, per una crypto per un'azienda crypto potresti usare parole come: `"crypto", "wallet", "dao", "<domain_name>", <"subdomain_names">`.
 
 Avrai anche bisogno di wordlist di **parole comuni usate nei bucket**:
 
@@ -631,7 +631,7 @@ Quindi hai già:
 3. Trovato tutti i **domini** appartenenti alle aziende
 4. Trovato tutti i **sottodomini** dei domini (qualche takeover di sottodominio?)
 5. Trovato tutti gli **IP** (da e **non da CDN**) all'interno dell'ambito.
-6. Trovato tutti i **server web** e fatto uno **screenshot** di essi (qualcosa di strano che valga un'analisi più approfondita?)
+6. Trovato tutti i **server web** e fatto uno **screenshot** di essi (c'è qualcosa di strano che merita un'analisi più approfondita?)
 7. Trovato tutti i **potenziali asset cloud pubblici** appartenenti all'azienda.
 8. **Email**, **perdite di credenziali** e **perdite di segreti** che potrebbero darti una **grande vittoria molto facilmente**.
 9. **Pentesting di tutti i siti web che hai trovato**
