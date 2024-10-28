@@ -14,22 +14,14 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
 ## Basic Information
 
-**Seccomp**, wat staan vir Secure Computing mode, is 'n sekuriteitskenmerk van die **Linux-kern wat ontwerp is om stelsels oproepe te filter**. Dit beperk prosesse tot 'n beperkte stel stelsels oproepe (`exit()`, `sigreturn()`, `read()`, en `write()` vir reeds-geopende lêer beskrywings). As 'n proses probeer om enigiets anders aan te roep, word dit deur die kern beëindig met SIGKILL of SIGSYS. Hierdie meganisme virtualiseer nie hulpbronne nie, maar isoleer die proses daarvan.
+**Seccomp**, wat staan vir Secure Computing mode, is 'n sekuriteitskenmerk van die **Linux-kern wat ontwerp is om stelsels aanroep te filter**. Dit beperk prosesse tot 'n beperkte stel stelsels aanroep (`exit()`, `sigreturn()`, `read()`, en `write()` vir reeds-geopende lêer beskrywings). As 'n proses probeer om enigiets anders aan te roep, word dit deur die kern beëindig met SIGKILL of SIGSYS. Hierdie meganisme virtualiseer nie hulpbronne nie, maar isoleer die proses daarvan.
 
-Daar is twee maniere om seccomp te aktiveer: deur die `prctl(2)` stelsels oproep met `PR_SET_SECCOMP`, of vir Linux-kerns 3.17 en hoër, die `seccomp(2)` stelsels oproep. Die ouer metode om seccomp in te skakel deur na `/proc/self/seccomp` te skryf, is verouderd ten gunste van `prctl()`.
+Daar is twee maniere om seccomp te aktiveer: deur die `prctl(2)` stelsels aanroep met `PR_SET_SECCOMP`, of vir Linux-kerns 3.17 en hoër, die `seccomp(2)` stelsels aanroep. Die ouer metode om seccomp in te skakel deur na `/proc/self/seccomp` te skryf, is verouderd ten gunste van `prctl()`.
 
-'n Verbetering, **seccomp-bpf**, voeg die vermoë by om stelsels oproepe te filter met 'n aanpasbare beleid, met behulp van Berkeley Packet Filter (BPF) reëls. Hierdie uitbreiding word benut deur sagteware soos OpenSSH, vsftpd, en die Chrome/Chromium-browsers op Chrome OS en Linux vir buigsame en doeltreffende syscall-filtering, wat 'n alternatief bied vir die nou nie-ondersteunde systrace vir Linux.
+'n Verbetering, **seccomp-bpf**, voeg die vermoë by om stelsels aanroep te filter met 'n aanpasbare beleid, met behulp van Berkeley Packet Filter (BPF) reëls. Hierdie uitbreiding word benut deur sagteware soos OpenSSH, vsftpd, en die Chrome/Chromium-browsers op Chrome OS en Linux vir buigsame en doeltreffende syscall-filtering, wat 'n alternatief bied vir die nou nie-ondersteunde systrace vir Linux.
 
 ### **Original/Strict Mode**
 
@@ -71,7 +63,7 @@ printf("You will not see this message--the process will be killed first\n");
 
 ### Seccomp-bpf
 
-Hierdie modus laat **filtrering van stelsels oproepe toe met 'n konfigureerbare beleid** wat geïmplementeer is met behulp van Berkeley Packet Filter reëls.
+Hierdie modus laat **filtrering van stelselskille toe met 'n konfigureerbare beleid** wat geïmplementeer is met behulp van Berkeley Packet Filter-reëls.
 
 {% code title="seccomp_bpf.c" %}
 ```c
@@ -125,22 +117,22 @@ printf("this process is %d\n", getpid());
 
 ## Seccomp in Docker
 
-**Seccomp-bpf** word deur **Docker** ondersteun om die **syscalls** van die houers te beperk, wat effektief die oppervlakarea verminder. Jy kan die **syscalls wat geblokkeer** word **per standaard** vind in [https://docs.docker.com/engine/security/seccomp/](https://docs.docker.com/engine/security/seccomp/) en die **standaard seccomp-profiel** kan hier gevind word [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).\
-Jy kan 'n docker-houer met 'n **verskillende seccomp** beleid uitvoer met:
+**Seccomp-bpf** word deur **Docker** ondersteun om die **syscalls** van die houers te beperk, wat effektief die oppervlakarea verminder. Jy kan die **syscalls wat geblokkeer** is **per standaard** vind in [https://docs.docker.com/engine/security/seccomp/](https://docs.docker.com/engine/security/seccomp/) en die **standaard seccomp-profiel** kan hier gevind word [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).\
+Jy kan 'n docker-houer met 'n **ander seccomp** beleid uitvoer met:
 ```bash
 docker run --rm \
 -it \
 --security-opt seccomp=/path/to/seccomp/profile.json \
 hello-world
 ```
-As jy byvoorbeeld 'n container wil **verbied** om 'n **syscall** soos `uname` uit te voer, kan jy die standaardprofiel aflaai van [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json) en net die **`uname` string uit die lys **verwyder.\
-As jy wil seker maak dat **'n sekere binêre nie binne 'n docker container werk nie**, kan jy strace gebruik om die syscalls wat die binêre gebruik, op te lys en hulle dan te verbied.\
+As jy byvoorbeeld wil **verbied** dat 'n houer sekere **syscall** soos `uname` uitvoer, kan jy die standaardprofiel aflaai van [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json) en net die **`uname` string uit die lys **verwyder.\
+As jy seker wil maak dat **'n sekere binêre nie binne 'n docker-houer werk nie**, kan jy strace gebruik om die syscalls wat die binêre gebruik, op te lys en hulle dan verbied.\
 In die volgende voorbeeld word die **syscalls** van `uname` ontdek:
 ```bash
 docker run -it --security-opt seccomp=default.json modified-ubuntu strace uname
 ```
 {% hint style="info" %}
-As jy **Docker net gebruik om 'n toepassing te begin**, kan jy dit **profiel** met **`strace`** en **net die syscalls toelaat** wat dit benodig
+As jy **Docker net gebruik om 'n toepassing te begin**, kan jy dit **profiel** met **`strace`** en **net die syscalls** toelaat wat dit benodig
 {% endhint %}
 
 ### Voorbeeld Seccomp-beleid
@@ -159,45 +151,29 @@ Om die Seccomp-funksie te illustreer, kom ons skep 'n Seccomp-profiel wat die �
 ]
 }
 ```
-In die bogenoemde profiel het ons die standaard aksie op "toelaat" gestel en 'n swartlys geskep om "chmod" te deaktiveer. Om meer veilig te wees, kan ons die standaard aksie op "drop" stel en 'n witlys skep om stelsels oproepe selektief te aktiveer.\
+In die bogenoemde profiel het ons die standaard aksie op "toelaat" gestel en 'n swartlys geskep om "chmod" te deaktiveer. Om veiliger te wees, kan ons die standaard aksie op "verwerp" stel en 'n witlys skep om stelsels oproepe selektief te aktiveer.\
 Die volgende uitvoer toon die "chmod" oproep wat 'n fout teruggee omdat dit in die seccomp profiel gedeaktiveer is.
 ```bash
 $ docker run --rm -it --security-opt seccomp:/home/smakam14/seccomp/profile.json busybox chmod 400 /etc/hosts
 chmod: /etc/hosts: Operation not permitted
 ```
-Volgende uitvoer toon die “docker inspect” wat die profiel vertoon:
+Die volgende uitvoer toon die “docker inspect” wat die profiel vertoon:
 ```json
 "SecurityOpt": [
 "seccomp:{\"defaultAction\":\"SCMP_ACT_ALLOW\",\"syscalls\":[{\"name\":\"chmod\",\"action\":\"SCMP_ACT_ERRNO\"}]}"
+]
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Ondersteun HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
 </details>
 {% endhint %}
