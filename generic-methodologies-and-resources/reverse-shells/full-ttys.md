@@ -17,7 +17,7 @@ Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 
 ## Full TTY
 
-Beachten Sie, dass die Shell, die Sie in der `SHELL`-Variablen festlegen, **in** _**/etc/shells**_ **aufgelistet sein muss** oder `Der Wert für die SHELL-Variable wurde in der /etc/shells-Datei nicht gefunden. Dieser Vorfall wurde gemeldet`. Beachten Sie auch, dass die nächsten Snippets nur in bash funktionieren. Wenn Sie sich in einer zsh befinden, wechseln Sie zu bash, bevor Sie die Shell erhalten, indem Sie `bash` ausführen.
+Beachten Sie, dass die Shell, die Sie in der `SHELL`-Variablen festlegen, **in** _**/etc/shells**_ **aufgelistet sein muss** oder `Der Wert für die SHELL-Variable wurde in der /etc/shells-Datei nicht gefunden. Dieser Vorfall wurde gemeldet`. Beachten Sie auch, dass die nächsten Snippets nur in bash funktionieren. Wenn Sie sich in einer zsh befinden, wechseln Sie zu bash, bevor Sie die Shell durch Ausführen von `bash` erhalten.
 
 #### Python
 
@@ -30,7 +30,7 @@ python3 -c 'import pty; pty.spawn("/bin/bash")'
 {% endcode %}
 
 {% hint style="info" %}
-Sie können die **Anzahl** der **Zeilen** und **Spalten** mit **`stty -a`** abrufen.
+Sie können die **Anzahl** der **Zeilen** und **Spalten** durch Ausführen von **`stty -a`** erhalten.
 {% endhint %}
 
 #### script
@@ -114,7 +114,7 @@ sftp -P 8888 127.0.0.1
 ```
 ## Penelope
 
-Penelope (https://github.com/brightio/penelope) aktualisiert automatisch Linux-Reverse-Shells auf TTY, verwaltet die Terminalgröße, protokolliert alles und vieles mehr. Außerdem bietet es readline-Unterstützung für Windows-Shells.
+[Penelope](https://github.com/brightio/penelope) aktualisiert automatisch Linux-Reverse-Shells auf TTY, verwaltet die Terminalgröße, protokolliert alles und vieles mehr. Außerdem bietet es readline-Unterstützung für Windows-Shells.
 
 ![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
 
