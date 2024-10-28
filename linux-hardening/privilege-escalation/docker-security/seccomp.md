@@ -14,14 +14,6 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
 ## Basic Information
 
@@ -29,7 +21,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 Il existe deux façons d'activer seccomp : via l'appel système `prctl(2)` avec `PR_SET_SECCOMP`, ou pour les noyaux Linux 3.17 et supérieurs, l'appel système `seccomp(2)`. L'ancienne méthode d'activation de seccomp en écrivant dans `/proc/self/seccomp` a été dépréciée au profit de `prctl()`.
 
-Une amélioration, **seccomp-bpf**, ajoute la capacité de filtrer les appels système avec une politique personnalisable, utilisant des règles de Berkeley Packet Filter (BPF). Cette extension est exploitée par des logiciels tels qu'OpenSSH, vsftpd, et les navigateurs Chrome/Chromium sur Chrome OS et Linux pour un filtrage des appels système flexible et efficace, offrant une alternative à l'ancien systrace pour Linux.
+Une amélioration, **seccomp-bpf**, ajoute la capacité de filtrer les appels système avec une politique personnalisable, en utilisant des règles de Berkeley Packet Filter (BPF). Cette extension est exploitée par des logiciels tels qu'OpenSSH, vsftpd, et les navigateurs Chrome/Chromium sur Chrome OS et Linux pour un filtrage des appels système flexible et efficace, offrant une alternative à l'ancien systrace désormais non pris en charge pour Linux.
 
 ### **Original/Strict Mode**
 
@@ -71,7 +63,7 @@ printf("You will not see this message--the process will be killed first\n");
 
 ### Seccomp-bpf
 
-Ce mode permet **le filtrage des appels système à l'aide d'une politique configurable** mise en œuvre à l'aide de règles de filtre de paquets Berkeley.
+Ce mode permet **le filtrage des appels système à l'aide d'une politique configurable** mise en œuvre à l'aide de règles de Berkeley Packet Filter.
 
 {% code title="seccomp_bpf.c" %}
 ```c
@@ -169,35 +161,19 @@ Le résultat suivant montre le “docker inspect” affichant le profil :
 ```json
 "SecurityOpt": [
 "seccomp:{\"defaultAction\":\"SCMP_ACT_ALLOW\",\"syscalls\":[{\"name\":\"chmod\",\"action\":\"SCMP_ACT_ERRNO\"}]}"
+]
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Formation Expert Red Team AWS (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Formation Expert Red Team GCP (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Soutenir HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
 </details>
 {% endhint %}
