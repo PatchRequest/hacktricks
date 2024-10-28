@@ -14,14 +14,6 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
 ## Basic Information
 
@@ -29,11 +21,11 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 Seccomp를 활성화하는 방법은 두 가지가 있습니다: `PR_SET_SECCOMP`와 함께 `prctl(2)` 시스템 호출을 사용하거나, Linux 커널 3.17 이상에서는 `seccomp(2)` 시스템 호출을 사용합니다. `/proc/self/seccomp`에 쓰는 오래된 방법은 `prctl()`을 선호하여 더 이상 사용되지 않습니다.
 
-**seccomp-bpf**라는 향상된 기능은 Berkeley Packet Filter(BPF) 규칙을 사용하여 사용자 정의 정책으로 시스템 호출을 필터링할 수 있는 기능을 추가합니다. 이 확장은 OpenSSH, vsftpd 및 Chrome OS와 Linux의 Chrome/Chromium 브라우저와 같은 소프트웨어에서 유연하고 효율적인 시스템 호출 필터링을 위해 활용되며, 이제 지원되지 않는 Linux의 systrace에 대한 대안을 제공합니다.
+향상된 기능인 **seccomp-bpf**는 Berkeley Packet Filter(BPF) 규칙을 사용하여 사용자 정의 정책으로 시스템 호출을 필터링할 수 있는 기능을 추가합니다. 이 확장은 OpenSSH, vsftpd 및 Chrome OS와 Linux의 Chrome/Chromium 브라우저와 같은 소프트웨어에서 유연하고 효율적인 시스템 호출 필터링을 위해 활용되며, 이제 지원되지 않는 Linux의 systrace에 대한 대안을 제공합니다.
 
 ### **Original/Strict Mode**
 
-이 모드에서 Seccomp는 **오직 시스템 호출** `exit()`, `sigreturn()`, `read()` 및 이미 열린 파일 설명자에 대한 `write()`만 허용합니다. 다른 시스템 호출이 이루어지면 프로세스는 SIGKILL로 종료됩니다.
+이 모드에서 Seccomp는 **오직 syscalls** `exit()`, `sigreturn()`, `read()` 및 이미 열린 파일 설명자에 대한 `write()`만 허용합니다. 다른 syscalls가 발생하면 프로세스는 SIGKILL로 종료됩니다.
 
 {% code title="seccomp_strict.c" %}
 ```c
@@ -71,7 +63,7 @@ printf("You will not see this message--the process will be killed first\n");
 
 ### Seccomp-bpf
 
-이 모드는 **버클리 패킷 필터 규칙을 사용하여 구현된 구성 가능한 정책을 사용하여 시스템 호출을 필터링**할 수 있게 해줍니다.
+이 모드는 **버클리 패킷 필터 규칙을 사용하여 구현된 구성 가능한 정책을 사용하여 시스템 호출을 필터링하는 것을 허용합니다.**
 
 {% code title="seccomp_bpf.c" %}
 ```c
@@ -126,14 +118,14 @@ printf("this process is %d\n", getpid());
 ## Docker에서의 Seccomp
 
 **Seccomp-bpf**는 **Docker**에서 **syscalls**를 제한하여 컨테이너의 공격 표면을 효과적으로 줄이는 데 지원됩니다. 기본적으로 차단된 **syscalls**는 [https://docs.docker.com/engine/security/seccomp/](https://docs.docker.com/engine/security/seccomp/)에서 확인할 수 있으며, **기본 seccomp 프로필**은 여기에서 확인할 수 있습니다 [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).\
-다른 **seccomp** 정책으로 도커 컨테이너를 실행하려면:
+다른 **seccomp** 정책으로 도커 컨테이너를 실행할 수 있습니다:
 ```bash
 docker run --rm \
 -it \
 --security-opt seccomp=/path/to/seccomp/profile.json \
 hello-world
 ```
-만약 예를 들어 **금지**하고 싶은 **syscall**이 `uname`인 컨테이너가 있다면, [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json)에서 기본 프로파일을 다운로드하고 **목록에서 `uname` 문자열을 제거하면 됩니다**.\
+만약 예를 들어 **금지**하고 싶은 **syscall**이 `uname`인 컨테이너가 있다면, [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json)에서 기본 프로필을 다운로드하고 **목록에서 `uname` 문자열을 제거하면 됩니다**.\
 **어떤 바이너리가 도커 컨테이너 내에서 작동하지 않도록** 하려면 strace를 사용하여 바이너리가 사용하는 syscalls를 나열한 다음 이를 금지할 수 있습니다.\
 다음 예제에서는 `uname`의 **syscalls**가 발견됩니다:
 ```bash
@@ -147,7 +139,7 @@ docker run -it --security-opt seccomp=default.json modified-ubuntu strace uname
 
 [여기에서 예제](https://sreeninet.wordpress.com/2016/03/06/docker-security-part-2docker-engine/) 
 
-Seccomp 기능을 설명하기 위해, 아래와 같이 “chmod” 시스템 호출을 비활성화하는 Seccomp 프로파일을 생성해 보겠습니다.
+Seccomp 기능을 설명하기 위해, 아래와 같이 "chmod" 시스템 호출을 비활성화하는 Seccomp 프로파일을 생성해 보겠습니다.
 ```json
 {
 "defaultAction": "SCMP_ACT_ALLOW",
@@ -169,35 +161,19 @@ chmod: /etc/hosts: Operation not permitted
 ```json
 "SecurityOpt": [
 "seccomp:{\"defaultAction\":\"SCMP_ACT_ALLOW\",\"syscalls\":[{\"name\":\"chmod\",\"action\":\"SCMP_ACT_ERRNO\"}]}"
+]
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS 해킹 배우기 및 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>HackTricks 지원하기</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
+* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
+* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 트릭을 공유하세요.**
 
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
 </details>
 {% endhint %}
