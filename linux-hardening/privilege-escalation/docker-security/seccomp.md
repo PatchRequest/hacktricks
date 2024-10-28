@@ -14,26 +14,18 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
 ## Basic Information
 
-**Seccomp**, inamaanisha Hali ya Usalama wa Kompyuta, ni kipengele cha usalama cha **kernel ya Linux kilichoundwa kuchuja wito wa mfumo**. Inapunguza michakato kwa seti ndogo ya wito wa mfumo (`exit()`, `sigreturn()`, `read()`, na `write()` kwa waandishi wa faili waliofunguliwa tayari). Ikiwa mchakato unajaribu kuita chochote kingine, unakatishwa na kernel kwa kutumia SIGKILL au SIGSYS. Mekanism hii haisimamishi rasilimali lakini inatenga mchakato kutoka kwao.
+**Seccomp**, inamaanisha Hali ya Usalama wa Kompyuta, ni kipengele cha usalama cha **kernel ya Linux kilichoundwa kuchuja wito wa mfumo**. Inapunguza michakato kwa seti ndogo ya wito wa mfumo (`exit()`, `sigreturn()`, `read()`, na `write()` kwa waandishi wa faili waliofunguliwa tayari). Ikiwa mchakato unajaribu kuita chochote kingine, unauawa na kernel kwa kutumia SIGKILL au SIGSYS. Mekanism hii haisimami rasilimali lakini inatenga mchakato kutoka kwao.
 
-Kuna njia mbili za kuanzisha seccomp: kupitia wito wa mfumo `prctl(2)` na `PR_SET_SECCOMP`, au kwa kernel za Linux 3.17 na juu, wito wa mfumo `seccomp(2)`. Njia ya zamani ya kuwezesha seccomp kwa kuandika kwenye `/proc/self/seccomp` imeondolewa kwa ajili ya `prctl()`.
+Kuna njia mbili za kuanzisha seccomp: kupitia wito wa mfumo `prctl(2)` na `PR_SET_SECCOMP`, au kwa kernel za Linux 3.17 na zaidi, wito wa mfumo `seccomp(2)`. Njia ya zamani ya kuwezesha seccomp kwa kuandika kwenye `/proc/self/seccomp` imeondolewa kwa ajili ya `prctl()`.
 
-Kuongeza, **seccomp-bpf**, kunatoa uwezo wa kuchuja wito wa mfumo kwa sera inayoweza kubadilishwa, kwa kutumia sheria za Berkeley Packet Filter (BPF). Kupanua hii inatumika na programu kama OpenSSH, vsftpd, na vivinjari vya Chrome/Chromium kwenye Chrome OS na Linux kwa kuchuja syscall kwa njia rahisi na yenye ufanisi, ikitoa mbadala kwa systrace ambayo sasa haipati msaada kwa Linux.
+Boresha, **seccomp-bpf**, inaongeza uwezo wa kuchuja wito wa mfumo kwa sera inayoweza kubadilishwa, ikitumia sheria za Berkeley Packet Filter (BPF). Kupanua hii inatumika na programu kama OpenSSH, vsftpd, na vivinjari vya Chrome/Chromium kwenye Chrome OS na Linux kwa kuchuja wito wa mfumo kwa njia rahisi na yenye ufanisi, ikitoa mbadala kwa systrace ambayo sasa haisaidiwi kwa Linux.
 
 ### **Original/Strict Mode**
 
-Katika hali hii Seccomp **inaruhusu tu syscalls** `exit()`, `sigreturn()`, `read()` na `write()` kwa waandishi wa faili waliofunguliwa tayari. Ikiwa syscall nyingine yoyote inafanywa, mchakato unauawa kwa kutumia SIGKILL
+Katika hali hii Seccomp **inaruhusu tu wito wa mfumo** `exit()`, `sigreturn()`, `read()` na `write()` kwa waandishi wa faili waliofunguliwa tayari. Ikiwa wito mwingine wowote wa mfumo unafanywa, mchakato unauawa kwa kutumia SIGKILL
 
 {% code title="seccomp_strict.c" %}
 ```c
@@ -125,7 +117,7 @@ printf("this process is %d\n", getpid());
 
 ## Seccomp katika Docker
 
-**Seccomp-bpf** inasaidiwa na **Docker** ili kupunguza **syscalls** kutoka kwa kontena kwa ufanisi kupunguza eneo la uso. Unaweza kupata **syscalls zilizozuiwa** kwa **default** katika [https://docs.docker.com/engine/security/seccomp/](https://docs.docker.com/engine/security/seccomp/) na **profil ya seccomp ya default** inaweza kupatikana hapa [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).\
+**Seccomp-bpf** inasaidiwa na **Docker** ili kupunguza **syscalls** kutoka kwa kontena, hivyo kupunguza eneo la hatari. Unaweza kupata **syscalls zilizozuiwa** kwa **kawaida** katika [https://docs.docker.com/engine/security/seccomp/](https://docs.docker.com/engine/security/seccomp/) na **profili ya seccomp ya kawaida** inaweza kupatikana hapa [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).\
 Unaweza kuendesha kontena la docker na sera ya **seccomp** tofauti kwa:
 ```bash
 docker run --rm \
@@ -140,7 +132,7 @@ Katika mfano ufuatao **syscalls** za `uname` zinagunduliwa:
 docker run -it --security-opt seccomp=default.json modified-ubuntu strace uname
 ```
 {% hint style="info" %}
-Ikiwa unatumia **Docker kuzindua programu tu**, unaweza **kuunda profaili** nayo **`strace`** na **kuruhusu tu syscalls** inazohitaji
+Ikiwa unatumia **Docker kuzindua programu tu**, unaweza **kuunda profaili** yake kwa **`strace`** na **kuruhusu tu syscalls** inazohitaji
 {% endhint %}
 
 ### Mfano wa sera ya Seccomp
@@ -165,39 +157,23 @@ Matokeo yafuatayo yanaonyesha wito wa "chmod" ukirudisha kosa kwa sababu umezimw
 $ docker run --rm -it --security-opt seccomp:/home/smakam14/seccomp/profile.json busybox chmod 400 /etc/hosts
 chmod: /etc/hosts: Operation not permitted
 ```
-Ifuatayo ni matokeo yanayoonyesha “docker inspect” ikionyesha profaili:
+Ifuatayo ni matokeo yanayoonyesha “docker inspect” ikionyesha wasifu:
 ```json
 "SecurityOpt": [
 "seccomp:{\"defaultAction\":\"SCMP_ACT_ALLOW\",\"syscalls\":[{\"name\":\"chmod\",\"action\":\"SCMP_ACT_ERRNO\"}]}"
+]
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
+* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Shiriki mbinu za hacking kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
 
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
 </details>
 {% endhint %}
