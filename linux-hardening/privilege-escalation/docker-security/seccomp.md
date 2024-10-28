@@ -14,26 +14,18 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
-## 基本信息
+## Basic Information
 
-**Seccomp**，即安全计算模式，是**Linux内核的一个安全特性，旨在过滤系统调用**。它将进程限制在一组有限的系统调用中（对于已打开的文件描述符，`exit()`、`sigreturn()`、`read()`和`write()`）。如果进程尝试调用其他任何内容，内核将使用SIGKILL或SIGSYS终止该进程。该机制并不虚拟化资源，而是将进程与其隔离。
+**Seccomp**，即安全计算模式，是**Linux内核的一个安全特性，旨在过滤系统调用**。它将进程限制在一组有限的系统调用中（`exit()`、`sigreturn()`、`read()`和`write()`，仅适用于已打开的文件描述符）。如果进程尝试调用其他任何内容，内核将使用SIGKILL或SIGSYS终止该进程。该机制并不虚拟化资源，而是将进程与资源隔离。
 
-激活seccomp有两种方法：通过`prctl(2)`系统调用与`PR_SET_SECCOMP`，或者对于3.17及以上版本的Linux内核，使用`seccomp(2)`系统调用。通过写入`/proc/self/seccomp`启用seccomp的旧方法已被弃用，取而代之的是`prctl()`。
+激活seccomp有两种方法：通过`prctl(2)`系统调用与`PR_SET_SECCOMP`，或者对于Linux内核3.17及以上版本，使用`seccomp(2)`系统调用。通过写入`/proc/self/seccomp`启用seccomp的旧方法已被弃用，取而代之的是`prctl()`。
 
 一个增强功能，**seccomp-bpf**，增加了使用可定制策略过滤系统调用的能力，使用伯克利数据包过滤器（BPF）规则。此扩展被OpenSSH、vsftpd以及Chrome OS和Linux上的Chrome/Chromium浏览器等软件利用，以实现灵活高效的系统调用过滤，提供了对现在不再支持的Linux systrace的替代方案。
 
-### **原始/严格模式**
+### **Original/Strict Mode**
 
-在此模式下，Seccomp **仅允许系统调用** `exit()`、`sigreturn()`、`read()`和`write()`对已打开的文件描述符。如果进行任何其他系统调用，进程将使用SIGKILL被终止。
+在此模式下，Seccomp **仅允许系统调用** `exit()`、`sigreturn()`、`read()`和`write()`，仅适用于已打开的文件描述符。如果进行任何其他系统调用，进程将使用SIGKILL被终止。
 
 {% code title="seccomp_strict.c" %}
 ```c
@@ -71,7 +63,7 @@ printf("You will not see this message--the process will be killed first\n");
 
 ### Seccomp-bpf
 
-此模式允许**使用可配置策略过滤系统调用**，该策略是使用伯克利数据包过滤器规则实现的。
+此模式允许**使用可配置策略过滤系统调用**，该策略使用伯克利数据包过滤器规则实现。
 
 {% code title="seccomp_bpf.c" %}
 ```c
@@ -140,7 +132,7 @@ hello-world
 docker run -it --security-opt seccomp=default.json modified-ubuntu strace uname
 ```
 {% hint style="info" %}
-如果您只是使用 **Docker 来启动一个应用程序**，您可以使用 **`strace`** 对其进行 **分析**，并 **仅允许它所需的系统调用**
+如果您仅仅是使用 **Docker 启动一个应用程序**，您可以使用 **`strace`** 对其进行 **分析**，并 **仅允许它所需的系统调用**
 {% endhint %}
 
 ### 示例 Seccomp 策略
@@ -169,35 +161,19 @@ chmod: /etc/hosts: Operation not permitted
 ```json
 "SecurityOpt": [
 "seccomp:{\"defaultAction\":\"SCMP_ACT_ALLOW\",\"syscalls\":[{\"name\":\"chmod\",\"action\":\"SCMP_ACT_ERRNO\"}]}"
+]
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>支持 HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
 
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
 </details>
 {% endhint %}
