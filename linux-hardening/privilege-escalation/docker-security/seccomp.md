@@ -14,26 +14,18 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
 ## Basic Information
 
 **Seccomp**, που σημαίνει Secure Computing mode, είναι μια λειτουργία ασφαλείας του **Linux kernel που έχει σχεδιαστεί για να φιλτράρει τις κλήσεις συστήματος**. Περιορίζει τις διαδικασίες σε ένα περιορισμένο σύνολο κλήσεων συστήματος (`exit()`, `sigreturn()`, `read()`, και `write()` για ήδη ανοιχτούς περιγραφείς αρχείων). Αν μια διαδικασία προσπαθήσει να καλέσει οτιδήποτε άλλο, τερματίζεται από τον πυρήνα χρησιμοποιώντας SIGKILL ή SIGSYS. Αυτός ο μηχανισμός δεν εικονικοποιεί τους πόρους αλλά απομονώνει τη διαδικασία από αυτούς.
 
-Υπάρχουν δύο τρόποι για να ενεργοποιηθεί το seccomp: μέσω της κλήσης συστήματος `prctl(2)` με `PR_SET_SECCOMP`, ή για πυρήνες Linux 3.17 και άνω, την κλήση συστήματος `seccomp(2)`. Η παλαιότερη μέθοδος ενεργοποίησης του seccomp γράφοντας στο `/proc/self/seccomp` έχει καταργηθεί υπέρ του `prctl()`.
+Υπάρχουν δύο τρόποι για να ενεργοποιηθεί το seccomp: μέσω της κλήσης συστήματος `prctl(2)` με `PR_SET_SECCOMP`, ή για πυρήνες Linux 3.17 και άνω, η κλήση συστήματος `seccomp(2)`. Η παλαιότερη μέθοδος ενεργοποίησης του seccomp γράφοντας στο `/proc/self/seccomp` έχει καταργηθεί υπέρ του `prctl()`.
 
-Μια βελτίωση, **seccomp-bpf**, προσθέτει τη δυνατότητα φιλτραρίσματος κλήσεων συστήματος με μια προσαρμόσιμη πολιτική, χρησιμοποιώντας κανόνες Berkeley Packet Filter (BPF). Αυτή η επέκταση αξιοποιείται από λογισμικό όπως το OpenSSH, vsftpd, και τους περιηγητές Chrome/Chromium σε Chrome OS και Linux για ευέλικτο και αποδοτικό φιλτράρισμα κλήσεων συστήματος, προσφέροντας μια εναλλακτική λύση στο πλέον μη υποστηριζόμενο systrace για Linux.
+Μια βελτίωση, **seccomp-bpf**, προσθέτει τη δυνατότητα φιλτραρίσματος κλήσεων συστήματος με μια προσαρμόσιμη πολιτική, χρησιμοποιώντας κανόνες Berkeley Packet Filter (BPF). Αυτή η επέκταση αξιοποιείται από λογισμικό όπως το OpenSSH, το vsftpd και τους περιηγητές Chrome/Chromium σε Chrome OS και Linux για ευέλικτο και αποδοτικό φιλτράρισμα κλήσεων συστήματος, προσφέροντας μια εναλλακτική λύση στο πλέον μη υποστηριζόμενο systrace για Linux.
 
 ### **Original/Strict Mode**
 
-Σε αυτή τη λειτουργία, το Seccomp **επιτρέπει μόνο τις κλήσεις συστήματος** `exit()`, `sigreturn()`, `read()` και `write()` σε ήδη ανοιχτούς περιγραφείς αρχείων. Αν γίνει οποιαδήποτε άλλη κλήση συστήματος, η διαδικασία τερματίζεται χρησιμοποιώντας SIGKILL
+Σε αυτή τη λειτουργία, το Seccomp **επιτρέπει μόνο τις κλήσεις συστήματος** `exit()`, `sigreturn()`, `read()` και `write()` σε ήδη ανοιχτούς περιγραφείς αρχείων. Αν γίνει οποιαδήποτε άλλη κλήση συστήματος, η διαδικασία σκοτώνεται χρησιμοποιώντας SIGKILL
 
 {% code title="seccomp_strict.c" %}
 ```c
@@ -71,7 +63,7 @@ printf("You will not see this message--the process will be killed first\n");
 
 ### Seccomp-bpf
 
-Αυτή η λειτουργία επιτρέπει **φιλτράρισμα των συστημικών κλήσεων χρησιμοποιώντας μια ρυθμιζόμενη πολιτική** που υλοποιείται χρησιμοποιώντας κανόνες Berkeley Packet Filter.
+Αυτός ο τρόπος επιτρέπει **φιλτράρισμα των κλήσεων συστήματος χρησιμοποιώντας μια ρυθμιζόμενη πολιτική** που υλοποιείται χρησιμοποιώντας κανόνες Berkeley Packet Filter.
 
 {% code title="seccomp_bpf.c" %}
 ```c
@@ -135,12 +127,12 @@ hello-world
 ```
 Αν θέλετε για παράδειγμα να **απαγορεύσετε** σε ένα κοντέινερ να εκτελεί κάποιο **syscall** όπως το `uname`, μπορείτε να κατεβάσετε το προεπιλεγμένο προφίλ από [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json) και απλά να **αφαιρέσετε τη συμβολοσειρά `uname` από τη λίστα**.\
 Αν θέλετε να βεβαιωθείτε ότι **κάποιο δυαδικό αρχείο δεν λειτουργεί μέσα σε ένα κοντέινερ docker**, μπορείτε να χρησιμοποιήσετε το strace για να καταγράψετε τα syscalls που χρησιμοποιεί το δυαδικό αρχείο και στη συνέχεια να τα απαγορεύσετε.\
-Στο παρακάτω παράδειγμα ανακαλύπτονται τα **syscalls** του `uname`:
+Στο παρακάτω παράδειγμα ανακαλύπτονται οι **syscalls** του `uname`:
 ```bash
 docker run -it --security-opt seccomp=default.json modified-ubuntu strace uname
 ```
 {% hint style="info" %}
-Αν χρησιμοποιείτε **Docker μόνο για να εκκινήσετε μια εφαρμογή**, μπορείτε να **προφίλ** την με **`strace`** και **να επιτρέψετε μόνο τις syscalls** που χρειάζεται
+Αν χρησιμοποιείτε **Docker μόνο για να εκκινήσετε μια εφαρμογή**, μπορείτε να **προφίλετε** την με **`strace`** και **να επιτρέψετε μόνο τις syscalls** που χρειάζεται
 {% endhint %}
 
 ### Παράδειγμα πολιτικής Seccomp
@@ -169,35 +161,19 @@ chmod: /etc/hosts: Operation not permitted
 ```json
 "SecurityOpt": [
 "seccomp:{\"defaultAction\":\"SCMP_ACT_ALLOW\",\"syscalls\":[{\"name\":\"chmod\",\"action\":\"SCMP_ACT_ERRNO\"}]}"
+]
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Υποστηρίξτε το HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
+* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
 </details>
 {% endhint %}
