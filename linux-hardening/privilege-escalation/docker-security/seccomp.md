@@ -14,14 +14,6 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
 ## Basic Information
 
@@ -125,7 +117,7 @@ printf("this process is %d\n", getpid());
 
 ## Seccomp w Dockerze
 
-**Seccomp-bpf** jest wspierany przez **Docker** w celu ograniczenia **syscalli** z kontenerów, skutecznie zmniejszając powierzchnię ataku. Możesz znaleźć **syscalli zablokowanych** przez **domyślnie** w [https://docs.docker.com/engine/security/seccomp/](https://docs.docker.com/engine/security/seccomp/) a **domyślny profil seccomp** można znaleźć tutaj [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).\
+**Seccomp-bpf** jest wspierany przez **Docker**, aby ograniczyć **syscalls** z kontenerów, skutecznie zmniejszając powierzchnię ataku. Możesz znaleźć **syscalls zablokowane** przez **domyślnie** w [https://docs.docker.com/engine/security/seccomp/](https://docs.docker.com/engine/security/seccomp/) a **domyślny profil seccomp** można znaleźć tutaj [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).\
 Możesz uruchomić kontener docker z **inną polityką seccomp** za pomocą:
 ```bash
 docker run --rm \
@@ -135,12 +127,12 @@ hello-world
 ```
 Jeśli chcesz na przykład **zabronić** kontenerowi wykonywania niektórych **syscall** jak `uname`, możesz pobrać domyślny profil z [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json) i po prostu **usunąć ciąg `uname` z listy**.\
 Jeśli chcesz upewnić się, że **niektóre binarne pliki nie działają wewnątrz kontenera docker**, możesz użyć strace, aby wylistować syscall, które używa ten plik binarny, a następnie je zabronić.\
-W następującym przykładzie odkrywane są **syscall** `uname`:
+W poniższym przykładzie odkrywane są **syscall** `uname`:
 ```bash
 docker run -it --security-opt seccomp=default.json modified-ubuntu strace uname
 ```
 {% hint style="info" %}
-Jeśli używasz **Dockera tylko do uruchamiania aplikacji**, możesz **profilować** go za pomocą **`strace`** i **pozwolić tylko na te syscally**, które są potrzebne
+Jeśli używasz **Dockera tylko do uruchamiania aplikacji**, możesz **profilować** go za pomocą **`strace`** i **pozwolić tylko na te syscalls**, które są potrzebne
 {% endhint %}
 
 ### Przykład polityki Seccomp
@@ -169,35 +161,19 @@ Poniższy wynik pokazuje „docker inspect” wyświetlający profil:
 ```json
 "SecurityOpt": [
 "seccomp:{\"defaultAction\":\"SCMP_ACT_ALLOW\",\"syscalls\":[{\"name\":\"chmod\",\"action\":\"SCMP_ACT_ERRNO\"}]}"
+]
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Ucz się i ćwicz Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Ucz się i ćwicz Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Wsparcie dla HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
+* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Dziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów na githubie.
 
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
 </details>
 {% endhint %}
