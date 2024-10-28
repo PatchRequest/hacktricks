@@ -14,22 +14,14 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
 ## Basic Information
 
 **Seccomp**, što znači Secure Computing mode, je bezbednosna funkcija **Linux jezgra dizajnirana da filtrira sistemske pozive**. Ograničava procese na ograničen skup sistemskih poziva (`exit()`, `sigreturn()`, `read()`, i `write()` za već otvorene deskriptore datoteka). Ako proces pokuša da pozove bilo šta drugo, kernel ga prekida koristeći SIGKILL ili SIGSYS. Ovaj mehanizam ne virtualizuje resurse, već izoluje proces od njih.
 
-Postoje dva načina za aktiviranje seccomp-a: putem sistemskog poziva `prctl(2)` sa `PR_SET_SECCOMP`, ili za Linux jezgra 3.17 i novija, sistemski poziv `seccomp(2)`. Stariji metod omogućavanja seccomp-a pisanjem u `/proc/self/seccomp` je ukinut u korist `prctl()`.
+Postoje dva načina za aktiviranje seccomp-a: putem `prctl(2)` sistemskog poziva sa `PR_SET_SECCOMP`, ili za Linux jezgra 3.17 i novija, `seccomp(2)` sistemski poziv. Stariji metod omogućavanja seccomp-a pisanjem u `/proc/self/seccomp` je ukinut u korist `prctl()`.
 
-Poboljšanje, **seccomp-bpf**, dodaje mogućnost filtriranja sistemskih poziva sa prilagodljivom politikom, koristeći Berkeley Packet Filter (BPF) pravila. Ova ekstenzija se koristi u softveru kao što su OpenSSH, vsftpd, i Chrome/Chromium pregledači na Chrome OS-u i Linux-u za fleksibilno i efikasno filtriranje sistemskih poziva, nudeći alternativu sada već nepodržanom systrace-u za Linux.
+Poboljšanje, **seccomp-bpf**, dodaje mogućnost filtriranja sistemskih poziva sa prilagodljivom politikom, koristeći Berkeley Packet Filter (BPF) pravila. Ova ekstenzija se koristi u softveru kao što su OpenSSH, vsftpd, i Chrome/Chromium pregledači na Chrome OS-u i Linux-u za fleksibilno i efikasno filtriranje sistemskih poziva, nudeći alternativu sada neodržavanom systrace-u za Linux.
 
 ### **Original/Strict Mode**
 
@@ -71,7 +63,7 @@ printf("You will not see this message--the process will be killed first\n");
 
 ### Seccomp-bpf
 
-Ovaj režim omogućava **filtriranje sistemskih poziva koristeći konfigurisanu politiku** implementiranu pomoću pravila Berkeley Packet Filter. 
+Ovaj režim omogućava **filtriranje sistemskih poziva koristeći konfigurisanu politiku** implementiranu pomoću pravila Berkeley Packet Filter.
 
 {% code title="seccomp_bpf.c" %}
 ```c
@@ -125,7 +117,7 @@ printf("this process is %d\n", getpid());
 
 ## Seccomp u Dockeru
 
-**Seccomp-bpf** je podržan od strane **Docker-a** da ograniči **syscalls** iz kontejnera, efikasno smanjujući površinu napada. Možete pronaći **syscalls koje su blokirane** po **default-u** na [https://docs.docker.com/engine/security/seccomp/](https://docs.docker.com/engine/security/seccomp/) i **default seccomp profil** se može pronaći ovde [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).\
+**Seccomp-bpf** je podržan od strane **Docker-a** kako bi se ograničili **syscalls** iz kontejnera, efikasno smanjujući površinu napada. Možete pronaći **syscalls koje su blokirane** po **default-u** na [https://docs.docker.com/engine/security/seccomp/](https://docs.docker.com/engine/security/seccomp/) i **default seccomp profil** se može pronaći ovde [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).\
 Možete pokrenuti docker kontejner sa **drugom seccomp** politikom sa:
 ```bash
 docker run --rm \
@@ -169,35 +161,19 @@ chmod: /etc/hosts: Operation not permitted
 ```json
 "SecurityOpt": [
 "seccomp:{\"defaultAction\":\"SCMP_ACT_ALLOW\",\"syscalls\":[{\"name\":\"chmod\",\"action\":\"SCMP_ACT_ERRNO\"}]}"
+]
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Podržite HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Podelite hakerske trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
 </details>
 {% endhint %}
