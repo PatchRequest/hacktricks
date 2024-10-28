@@ -14,14 +14,6 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
 ## Basic Information
 
@@ -125,7 +117,7 @@ printf("this process is %d\n", getpid());
 
 ## Seccomp в Docker
 
-**Seccomp-bpf** підтримується **Docker** для обмеження **syscalls** з контейнерів, ефективно зменшуючи площу атаки. Ви можете знайти **syscalls, які заблоковані** за **замовчуванням** на [https://docs.docker.com/engine/security/seccomp/](https://docs.docker.com/engine/security/seccomp/) і **профіль seccomp за замовчуванням** можна знайти тут [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).\
+**Seccomp-bpf** підтримується **Docker** для обмеження **syscalls** з контейнерів, ефективно зменшуючи площу атаки. Ви можете знайти **syscalls, які заблоковані** за **замовчуванням** за адресою [https://docs.docker.com/engine/security/seccomp/](https://docs.docker.com/engine/security/seccomp/) і **профіль seccomp за замовчуванням** можна знайти тут [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).\
 Ви можете запустити контейнер docker з **іншою політикою seccomp** за допомогою:
 ```bash
 docker run --rm \
@@ -134,7 +126,7 @@ docker run --rm \
 hello-world
 ```
 Якщо ви хочете, наприклад, **заборонити** контейнеру виконувати деякі **syscall**, такі як `uname`, ви можете завантажити профіль за замовчуванням з [https://github.com/moby/moby/blob/master/profiles/seccomp/default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json) і просто **видалити рядок `uname` зі списку**.\
-Якщо ви хочете переконатися, що **якийсь бінарний файл не працює всередині контейнера docker**, ви можете використовувати strace, щоб перерахувати syscalls, які використовує бінарний файл, а потім заборонити їх.\
+Якщо ви хочете впевнитися, що **якийсь бінарний файл не працює всередині контейнера docker**, ви можете використовувати strace, щоб перерахувати syscalls, які використовує бінарний файл, а потім заборонити їх.\
 У наступному прикладі виявляються **syscalls** `uname`:
 ```bash
 docker run -it --security-opt seccomp=default.json modified-ubuntu strace uname
@@ -169,35 +161,19 @@ chmod: /etc/hosts: Operation not permitted
 ```json
 "SecurityOpt": [
 "seccomp:{\"defaultAction\":\"SCMP_ACT_ALLOW\",\"syscalls\":[{\"name\":\"chmod\",\"action\":\"SCMP_ACT_ERRNO\"}]}"
+]
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вивчайте та практикуйте AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Вивчайте та практикуйте GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Підтримайте HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на github.
 
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
 </details>
 {% endhint %}
