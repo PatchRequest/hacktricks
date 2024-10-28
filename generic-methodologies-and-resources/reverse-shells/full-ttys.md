@@ -114,11 +114,11 @@ sftp -P 8888 127.0.0.1
 ```
 ## Penelope
 
-Penelope (https://github.com/brightio/penelope) actualiza automáticamente las shells reversas de Linux a TTY, maneja el tamaño del terminal, registra todo y mucho más. También proporciona soporte de readline para shells de Windows.
+[Penelope](https://github.com/brightio/penelope) actualiza automáticamente las shells reversas de Linux a TTY, maneja el tamaño del terminal, registra todo y mucho más. También proporciona soporte de readline para shells de Windows.
 
 ![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
 
-## No TTY
+## Sin TTY
 
 Si por alguna razón no puedes obtener un TTY completo, **aún puedes interactuar con programas** que esperan entrada del usuario. En el siguiente ejemplo, la contraseña se pasa a `sudo` para leer un archivo:
 ```bash
