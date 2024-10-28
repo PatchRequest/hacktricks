@@ -14,18 +14,10 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
-{% endhint %}
 
 ## Basic Information
 
-**Seccomp**, que significa modo de Computação Segura, é um recurso de segurança do **kernel Linux projetado para filtrar chamadas de sistema**. Ele restringe processos a um conjunto limitado de chamadas de sistema (`exit()`, `sigreturn()`, `read()` e `write()` para descritores de arquivo já abertos). Se um processo tentar chamar qualquer outra coisa, ele é encerrado pelo kernel usando SIGKILL ou SIGSYS. Este mecanismo não virtualiza recursos, mas isola o processo deles.
+**Seccomp**, que significa Modo de Computação Segura, é um recurso de segurança do **kernel Linux projetado para filtrar chamadas de sistema**. Ele restringe processos a um conjunto limitado de chamadas de sistema (`exit()`, `sigreturn()`, `read()` e `write()` para descritores de arquivo já abertos). Se um processo tentar chamar qualquer outra coisa, ele é encerrado pelo kernel usando SIGKILL ou SIGSYS. Esse mecanismo não virtualiza recursos, mas isola o processo deles.
 
 Existem duas maneiras de ativar o seccomp: através da chamada de sistema `prctl(2)` com `PR_SET_SECCOMP`, ou para kernels Linux 3.17 e superiores, a chamada de sistema `seccomp(2)`. O método mais antigo de habilitar o seccomp escrevendo em `/proc/self/seccomp` foi descontinuado em favor do `prctl()`.
 
@@ -165,39 +157,23 @@ A saída a seguir mostra a chamada "chmod" retornando erro porque está desabili
 $ docker run --rm -it --security-opt seccomp:/home/smakam14/seccomp/profile.json busybox chmod 400 /etc/hosts
 chmod: /etc/hosts: Operation not permitted
 ```
-A saída a seguir mostra o “docker inspect” exibindo o perfil:
+O seguinte output mostra o “docker inspect” exibindo o perfil:
 ```json
 "SecurityOpt": [
 "seccomp:{\"defaultAction\":\"SCMP_ACT_ALLOW\",\"syscalls\":[{\"name\":\"chmod\",\"action\":\"SCMP_ACT_ERRNO\"}]}"
+]
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprenda e pratique Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
+* **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
 
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
-</details>
-{% endhint %}
 </details>
 {% endhint %}
