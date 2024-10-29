@@ -42,9 +42,9 @@ Unaweza kuangalia **blogu** yao katika [**https://blog.stmcyber.com**](https://b
 
 <figure><img src=".gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
 
-**Intigriti** ni **jukwaa la udukuzi wa kimaadili na bug bounty nambari moja barani Ulaya.**
+**Intigriti** ni **jukwaa nambari moja** la udukuzi wa kimaadili na **bug bounty** barani **Ulaya**.
 
-**Nasaha ya bug bounty**: **jiandikishe** kwa **Intigriti**, jukwaa la **bug bounty la premium lililoundwa na hackers, kwa hackers**! Jiunge nasi katika [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) leo, na anza kupata zawadi hadi **$100,000**!
+**Nasaha ya bug bounty**: **jiandikishe** kwa **Intigriti**, jukwaa la **bug bounty la kiwango cha juu lililotengenezwa na hackers, kwa hackers**! Jiunge nasi katika [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) leo, na anza kupata zawadi hadi **$100,000**!
 
 {% embed url="https://go.intigriti.com/hacktricks" %}
 
@@ -77,13 +77,31 @@ Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serve
 
 ***
 
-### [Pentest-Tools.com](https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons) - Zana muhimu za kupima udukuzi
+### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - Zana muhimu za kupima udukuzi
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
 **Mipangilio inayopatikana mara moja kwa ajili ya tathmini ya udhaifu & kupima udukuzi**. Fanya pentest kamili kutoka mahali popote na zana na vipengele zaidi ya 20 vinavyotoka kwenye recon hadi ripoti. Hatubadilishi pentesters - tunaunda zana maalum, moduli za kugundua na kutumia ili kuwapa muda wa kuchimba zaidi, kufungua shells, na kufurahia.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+\
+
+{% endembed %}
+
+***
+
+### [SerpApi](https://serpapi.com/)
+
+<figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
+
+**SerpApi** inatoa APIs za haraka na rahisi za wakati halisi ili **kupata matokeo ya injini za utafutaji**. Wanakusanya data kutoka kwa injini za utafutaji, kushughulikia proxies, kutatua captchas, na kuchambua data yote yenye muundo wa tajiri kwa ajili yako.
+
+Usajili wa moja ya mipango ya SerpApi unajumuisha ufikiaji wa zaidi ya APIs 50 tofauti za kukusanya data kutoka kwa injini tofauti za utafutaji, ikiwa ni pamoja na Google, Bing, Baidu, Yahoo, Yandex, na zaidi.\
+Tofauti na watoa huduma wengine, **SerpApi haisafishi tu matokeo ya asili**. Majibu ya SerpApi mara kwa mara yanajumuisha matangazo yote, picha na video za ndani, grafu za maarifa, na vipengele na sifa nyingine zilizopo katika matokeo ya utafutaji.
+
+Wateja wa sasa wa SerpApi ni pamoja na **Apple, Shopify, na GrubHub**.\
+Kwa maelezo zaidi angalia [**blogu**](https://serpapi.com/blog/)**,** au jaribu mfano katika [**sehemu yao ya majaribio**](https://serpapi.com/playground)**.**\
+Unaweza **kuunda akaunti ya bure** [**hapa**](https://serpapi.com/users/sign\_up)**.**
 
 ***
 
@@ -93,7 +111,7 @@ Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serve
 
 [**WebSec**](https://websec.nl) ni kampuni ya kitaalamu ya usalama wa mtandao iliyo na makao yake nchini **Amsterdam** ambayo inasaidia **kulinda** biashara **duniani kote** dhidi ya vitisho vya hivi karibuni vya usalama wa mtandao kwa kutoa **huduma za usalama wa mashambulizi** kwa njia ya **kisasa**.
 
-WebSec ni **kampuni ya usalama ya kila kitu** ambayo inamaanisha wanafanya kila kitu; Pentesting, **Ukaguzi wa** Usalama, Mafunzo ya Uelewa, Kampeni za Phishing, Mapitio ya Kanuni, Maendeleo ya Utekelezaji, Utaalamu wa Usalama wa Kuajiri na mengi zaidi.
+WebSec ni **kampuni ya usalama ya kila kitu** ambayo inamaanisha wanafanya kila kitu; Pentesting, **Ukaguzi wa** Usalama, Mafunzo ya Uelewa, Kampeni za Phishing, Mapitio ya Kanuni, Maendeleo ya Utekelezaji, Utaalamu wa Usalama wa Kukodisha na mengi zaidi.
 
 Jambo lingine zuri kuhusu WebSec ni kwamba tofauti na wastani wa sekta WebSec ni **na uhakika sana katika ujuzi wao**, hadi kiwango kwamba **wanahakikishia matokeo bora**, inasema kwenye tovuti yao "**Ikiwa hatuwezi kuikabili, Hupaswi kulipa!**". Kwa maelezo zaidi angalia [**tovuti yao**](https://websec.nl/en/) na [**blogu**](https://websec.nl/blog/)!
 
@@ -101,10 +119,9 @@ Mbali na hayo WebSec pia ni **mshabiki aliyejitolea wa HackTricks.**
 
 {% embed url="https://www.youtube.com/watch?v=Zq2JycGDCPM" %}
 
-
 ## License & Disclaimer
 
-Angalia katika:
+Angalia kwenye:
 
 {% content-ref url="welcome/hacktricks-values-and-faq.md" %}
 [hacktricks-values-and-faq.md](welcome/hacktricks-values-and-faq.md)
@@ -112,12 +129,11 @@ Angalia katika:
 
 ## Github Stats
 
-![HackTricks Github Stats](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg "Repobeats analytics image")
-
+![HackTricks Github Stats](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg)
 
 {% hint style="success" %}
-Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Jifunze na fanya mazoezi ya AWS Hacking:<img src=".gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src=".gitbook/assets/arte.png" alt="" data-size="line">\
+Jifunze na fanya mazoezi ya GCP Hacking: <img src=".gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src=".gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
