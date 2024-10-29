@@ -5,7 +5,7 @@
 _Hacktricks logo's & bewegingsontwerp deur_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
 
 {% hint style="success" %}
-**Welkom by die wiki waar jy elke hacking truuk/tegniek/iets wat ek geleer het van CTFs, werklike toepassings, navorsing lees, en nuus sal vind.**
+**Welkom by die wiki waar jy elke hacking truuk/tegniek/iets wat ek geleer het van CTFs, werklike toepassings, navorsing en nuus sal vind.**
 {% endhint %}
 
 Om te begin, volg hierdie bladsy waar jy die **tipiese vloei** sal vind wat **jy moet volg wanneer jy pentesting** op een of meer **masjiene:**
@@ -20,7 +20,7 @@ Om te begin, volg hierdie bladsy waar jy die **tipiese vloei** sal vind wat **jy
 
 <figure><img src=".gitbook/assets/stm (1).png" alt=""><figcaption></figcaption></figure>
 
-[**STM Cyber**](https://www.stmcyber.com) is 'n uitstekende kuberveiligheid maatskappy wie se slagspreuk is **HACK THE UNHACKABLE**. Hulle voer hul eie navorsing uit en ontwikkel hul eie hacking gereedskap om **verskeie waardevolle kuberveiligheid dienste** soos pentesting, Red teams en opleiding aan te bied.
+[**STM Cyber**](https://www.stmcyber.com) is 'n uitstekende kuberveiligheidsmaatskappy wie se leuse is **HACK THE UNHACKABLE**. Hulle voer hul eie navorsing uit en ontwikkel hul eie hacking gereedskap om **verskeie waardevolle kuberveiligheidsdienste** soos pentesting, Red teams en opleiding aan te bied.
 
 Jy kan hul **blog** in [**https://blog.stmcyber.com**](https://blog.stmcyber.com) nagaan.
 
@@ -70,20 +70,38 @@ Kry Toegang Vandag:
 Sluit by die [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener aan om met ervare hackers en bug bounty jagters te kommunikeer!
 
 * **Hacking Inligting:** Betrek met inhoud wat die opwinding en uitdagings van hacking ondersoek
-* **Regstyds Hack Nuus:** Bly op hoogte van die vinnig bewegende hacking wêreld deur regstydse nuus en insigte
+* **Regstydse Hack Nuus:** Bly op hoogte van die vinnig bewegende hacking wêreld deur regstydse nuus en insigte
 * **Laaste Aankondigings:** Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike platform opdaterings
 
 **Sluit by ons aan op** [**Discord**](https://discord.com/invite/N3FrSbmwdy) en begin vandag saamwerk met top hackers!
 
 ***
 
-### [Pentest-Tools.com](https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons) - Die noodsaaklike penetrasietoets gereedskapstel
+### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - Die noodsaaklike penetrasietoets gereedskapstel
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Dadelijk beskikbare opstelling vir kwesbaarheid assessering & penetrasietoetsing**. Voer 'n volledige pentest van enige plek uit met 20+ gereedskap & funksies wat van recon tot verslagdoening gaan. Ons vervang nie pentesters nie - ons ontwikkel pasgemaakte gereedskap, opsporing & eksploitasiemodules om hulle weer 'n bietjie tyd te gee om dieper te delf, shells te pop, en pret te hê.
+**Dadelijk beskikbare opstelling vir kwesbaarheid assessering & penetrasietoetsing**. Voer 'n volledige pentest van enige plek uit met 20+ gereedskap & funksies wat van rekognisie tot verslagdoening gaan. Ons vervang nie pentesters nie - ons ontwikkel pasgemaakte gereedskap, opsporing & eksploitasiemodules om hulle terug 'n bietjie tyd te gee om dieper te delf, shells te pop, en pret te hê.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+\
+
+{% endembed %}
+
+***
+
+### [SerpApi](https://serpapi.com/)
+
+<figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
+
+**SerpApi** bied vinnige en maklike regstydse API's om **toegang tot soekenjinresultate** te verkry. Hulle scrape soekenjins, hanteer proxies, los captchas op, en parse al die ryk gestructureerde data vir jou.
+
+'n Intekening op een van SerpApi se planne sluit toegang tot meer as 50 verskillende API's in vir die scraping van verskillende soekenjins, insluitend Google, Bing, Baidu, Yahoo, Yandex, en meer.\
+In teenstelling met ander verskaffers, **scrape SerpApi nie net organiese resultate nie**. SerpApi antwoorde sluit konsekwent al die advertensies, inline beelde en video's, kennisgrafieke, en ander elemente en funksies wat in die soekenjinresultate teenwoordig is, in.
+
+Huidige SerpApi kliënte sluit **Apple, Shopify, en GrubHub** in.\
+Vir meer inligting, kyk na hul [**blog**](https://serpapi.com/blog/)**,** of probeer 'n voorbeeld in hul [**speelgrond**](https://serpapi.com/playground)**.**\
+Jy kan **'n gratis rekening** [**hier**](https://serpapi.com/users/sign\_up)**.**
 
 ***
 
@@ -91,7 +109,7 @@ Sluit by die [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) be
 
 <figure><img src=".gitbook/assets/websec (1).svg" alt=""><figcaption></figcaption></figure>
 
-[**WebSec**](https://websec.nl) is 'n professionele kuberveiligheid maatskappy gebaseer in **Amsterdam** wat help om **besighede** **oor die wêreld** teen die nuutste kuberveiligheid bedreigings te **beskerm** deur **offensiewe-sekuriteit dienste** met 'n **moderne** benadering te bied.
+[**WebSec**](https://websec.nl) is 'n professionele kuberveiligheidsmaatskappy gebaseer in **Amsterdam** wat help om **besighede** **oor die wêreld** teen die nuutste kuberveiligheidsbedreigings te beskerm deur **offensiewe-sekuriteit dienste** met 'n **moderne** benadering te bied.
 
 WebSec is 'n **alles-in-een sekuriteitsmaatskappy** wat beteken hulle doen dit alles; Pentesting, **Sekuriteit** Oudit, Bewustheidsopleiding, Phishing Campagnes, Kode Hersiening, Eksploit Ontwikkeling, Sekuriteit Eksperte Uitsourcing en nog baie meer.
 
@@ -100,7 +118,6 @@ Nog 'n interessante ding oor WebSec is dat, in teenstelling met die industrie ge
 Benewens die bogenoemde is WebSec ook 'n **toegewyde ondersteuner van HackTricks.**
 
 {% embed url="https://www.youtube.com/watch?v=Zq2JycGDCPM" %}
-
 
 ## Lisensie & Vrywaring
 
@@ -112,12 +129,11 @@ Kyk hulle in:
 
 ## Github Statistieke
 
-![HackTricks Github Statistieke](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg "Repobeats analitiese beeld")
-
+![HackTricks Github Statistieke](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg)
 
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src=".gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src=".gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src=".gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src=".gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
