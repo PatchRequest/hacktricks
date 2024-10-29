@@ -5,7 +5,7 @@
 _Los logos y el diseño en movimiento de Hacktricks son de_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
 
 {% hint style="success" %}
-**Bienvenido a la wiki donde encontrarás cada truco/técnica de hacking que he aprendido de CTFs, aplicaciones de la vida real, leyendo investigaciones y noticias.**
+**Bienvenido a la wiki donde encontrarás cada truco/técnica de hacking/lo que he aprendido de CTFs, aplicaciones de la vida real, leyendo investigaciones y noticias.**
 {% endhint %}
 
 Para comenzar, sigue esta página donde encontrarás el **flujo típico** que **debes seguir al realizar pentesting** en una o más **máquinas:**
@@ -57,7 +57,7 @@ Puedes consultar su **blog** en [**https://blog.stmcyber.com**](https://blog.stm
 \
 Usa [**Trickest**](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks) para construir y **automatizar flujos de trabajo** fácilmente, impulsados por las herramientas comunitarias **más avanzadas** del mundo.
 
-Obtén acceso hoy:
+Accede hoy:
 
 {% embed url="https://trickest.com/?utm_campaign=hacktrics&utm_medium=banner&utm_source=hacktricks" %}
 
@@ -77,13 +77,31 @@ Obtén acceso hoy:
 
 ***
 
-### [Pentest-Tools.com](https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons) - El kit de herramientas esencial para pruebas de penetración
+### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - El kit de herramientas esencial para pruebas de penetración
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Configuración disponible instantáneamente para evaluación de vulnerabilidades y pruebas de penetración**. Realiza un pentest completo desde cualquier lugar con más de 20 herramientas y características que van desde la recopilación de información hasta la elaboración de informes. No reemplazamos a los pentesters - desarrollamos herramientas personalizadas, módulos de detección y explotación para darles más tiempo para profundizar, ejecutar shells y divertirse.
+**Configuración disponible instantáneamente para evaluación de vulnerabilidades y pruebas de penetración**. Realiza un pentest completo desde cualquier lugar con más de 20 herramientas y características que van desde la recopilación de información hasta la elaboración de informes. No reemplazamos a los pentesters; desarrollamos herramientas personalizadas, módulos de detección y explotación para darles tiempo para profundizar, abrir shells y divertirse.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+\
+
+{% endembed %}
+
+***
+
+### [SerpApi](https://serpapi.com/)
+
+<figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
+
+**SerpApi** ofrece APIs rápidas y fáciles en tiempo real para **acceder a resultados de motores de búsqueda**. Raspamos motores de búsqueda, manejamos proxies, resolvemos captchas y analizamos todos los datos estructurados ricos por ti.
+
+Una suscripción a uno de los planes de SerpApi incluye acceso a más de 50 APIs diferentes para raspar diferentes motores de búsqueda, incluyendo Google, Bing, Baidu, Yahoo, Yandex, y más.\
+A diferencia de otros proveedores, **SerpApi no solo raspa resultados orgánicos**. Las respuestas de SerpApi incluyen consistentemente todos los anuncios, imágenes y videos en línea, gráficos de conocimiento y otros elementos y características presentes en los resultados de búsqueda.
+
+Los clientes actuales de SerpApi incluyen **Apple, Shopify y GrubHub**.\
+Para más información, consulta su [**blog**](https://serpapi.com/blog/)**,** o prueba un ejemplo en su [**playground**](https://serpapi.com/playground)**.**\
+Puedes **crear una cuenta gratuita** [**aquí**](https://serpapi.com/users/sign\_up)**.**
 
 ***
 
@@ -101,7 +119,6 @@ Además de lo anterior, WebSec también es un **apoyo comprometido de HackTricks
 
 {% embed url="https://www.youtube.com/watch?v=Zq2JycGDCPM" %}
 
-
 ## Licencia y Descargo de Responsabilidad
 
 Consúltalos en:
@@ -112,12 +129,11 @@ Consúltalos en:
 
 ## Estadísticas de Github
 
-![Estadísticas de HackTricks en Github](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg "Imagen de análisis de Repobeats")
-
+![Estadísticas de HackTricks en Github](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg)
 
 {% hint style="success" %}
-Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprende y practica Hacking en AWS:<img src=".gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src=".gitbook/assets/arte.png" alt="" data-size="line">\
+Aprende y practica Hacking en GCP: <img src=".gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src=".gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
