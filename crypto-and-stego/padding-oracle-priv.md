@@ -15,6 +15,10 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 ## CBC - Cipher Block Chaining
 
 En el modo CBC, el **bloque cifrado anterior se utiliza como IV** para XOR con el siguiente bloque:
@@ -29,8 +33,8 @@ Nota cómo es necesario usar una **clave de cifrado** y un **IV**.
 
 ## Message Padding
 
-Dado que el cifrado se realiza en **bloques** de **tamaño** **fijo**, generalmente se necesita **relleno** en el **último** **bloque** para completar su longitud.\
-Normalmente se utiliza **PKCS7**, que genera un relleno **repitiendo** el **número** de **bytes** **necesarios** para **completar** el bloque. Por ejemplo, si el último bloque le faltan 3 bytes, el relleno será `\x03\x03\x03`.
+Como el cifrado se realiza en **bloques** de **tamaño** **fijo**, generalmente se necesita **relleno** en el **último** **bloque** para completar su longitud.\
+Normalmente se utiliza **PKCS7**, que genera un relleno **repitiendo** el **número** de **bytes** **necesarios** para **completar** el bloque. Por ejemplo, si al último bloque le faltan 3 bytes, el relleno será `\x03\x03\x03`.
 
 Veamos más ejemplos con **2 bloques de longitud 8bytes**:
 
@@ -41,7 +45,7 @@ Veamos más ejemplos con **2 bloques de longitud 8bytes**:
 | P       | A       | S       | S       | W       | O       | R       | D       | 1        | 2        | 3        | **0x05** | **0x05** | **0x05** | **0x05** | **0x05** |
 | P       | A       | S       | S       | W       | O       | R       | D       | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** |
 
-Nota cómo en el último ejemplo el **último bloque estaba completo, por lo que se generó otro solo con relleno**.
+Nota cómo en el último ejemplo el **último bloque estaba lleno, por lo que se generó otro solo con relleno**.
 
 ## Padding Oracle
 
@@ -93,34 +97,38 @@ Lo que nos permite **calcular C15**: `C15 = E7 ^ I15 = E7 ^ \x01 ^ E'7`
 
 Conociendo **C15**, ahora es posible **calcular C14**, pero esta vez forzando el relleno `\x02\x02`.
 
-Este BF es tan complejo como el anterior ya que es posible calcular el `E''15` cuyo valor es 0x02: `E''7 = \x02 ^ I15` así que solo se necesita encontrar el **`E'14`** que genera un **`C14` igual a `0x02`**.\
+Este BF es tan complejo como el anterior, ya que es posible calcular el `E''15` cuyo valor es 0x02: `E''7 = \x02 ^ I15`, así que solo se necesita encontrar el **`E'14`** que genera un **`C14` igual a `0x02`**.\
 Luego, haz los mismos pasos para descifrar C14: **`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
 
 **Sigue esta cadena hasta que descifres todo el texto cifrado.**
 
 ### Detección de la vulnerabilidad
 
-Registra una cuenta e inicia sesión con esta cuenta.\
+Registra y crea una cuenta e inicia sesión con esta cuenta.\
 Si **inicias sesión muchas veces** y siempre obtienes la **misma cookie**, probablemente haya **algo** **mal** en la aplicación. La **cookie devuelta debería ser única** cada vez que inicias sesión. Si la cookie es **siempre** la **misma**, probablemente siempre será válida y no **habrá manera de invalidarla**.
 
 Ahora, si intentas **modificar** la **cookie**, puedes ver que obtienes un **error** de la aplicación.\
-Pero si forzas el relleno (usando padbuster por ejemplo) logras obtener otra cookie válida para un usuario diferente. Este escenario es altamente probable que sea vulnerable a padbuster.
+Pero si fuerzas el relleno (usando padbuster, por ejemplo), logras obtener otra cookie válida para un usuario diferente. Este escenario es altamente probable que sea vulnerable a padbuster.
 
 ### Referencias
 
-* [https://es.wikipedia.org/wiki/Modo\_de\_operaci%C3%B3n\_de\_cifrado\_por\_bloques](https://es.wikipedia.org/wiki/Modo_de_operaci%C3%B3n_de_cifrado_por_bloques)
+* [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
+
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Apoya a HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositorios de github.
 
 </details>
 {% endhint %}

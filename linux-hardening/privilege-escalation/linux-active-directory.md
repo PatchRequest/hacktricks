@@ -15,6 +15,10 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 Una máquina linux también puede estar presente dentro de un entorno de Active Directory.
 
 Una máquina linux en un AD podría estar **almacenando diferentes tickets CCACHE dentro de archivos. Estos tickets pueden ser utilizados y abusados como cualquier otro ticket kerberos**. Para leer estos tickets necesitarás ser el usuario propietario del ticket o **root** dentro de la máquina.
@@ -33,7 +37,7 @@ También puedes consultar la siguiente página para aprender **otras formas de e
 
 ### FreeIPA
 
-FreeIPA es una **alternativa** de código abierto a Microsoft Windows **Active Directory**, principalmente para entornos **Unix**. Combina un **directorio LDAP** completo con un Centro de Distribución de Claves **Kerberos** de MIT para la gestión similar a Active Directory. Utilizando el **Sistema de Certificados** Dogtag para la gestión de certificados CA y RA, admite autenticación **multifactor**, incluyendo tarjetas inteligentes. SSSD está integrado para procesos de autenticación Unix. Aprende más sobre esto en:
+FreeIPA es una **alternativa** de código abierto a Microsoft Windows **Active Directory**, principalmente para entornos **Unix**. Combina un **directorio LDAP** completo con un Centro de Distribución de Claves **Kerberos** de MIT para la gestión similar a Active Directory. Utilizando el **Sistema de Certificados** Dogtag para la gestión de certificados CA y RA, admite autenticación **multifactor**, incluyendo tarjetas inteligentes. SSSD está integrado para procesos de autenticación Unix. Aprende más sobre ello en:
 
 {% content-ref url="../freeipa-pentesting.md" %}
 [freeipa-pentesting.md](../freeipa-pentesting.md)
@@ -51,7 +55,7 @@ En esta página encontrarás diferentes lugares donde podrías **encontrar ticke
 
 ### Reutilización de tickets CCACHE desde /tmp
 
-Los archivos CCACHE son formatos binarios para **almacenar credenciales Kerberos** que generalmente se almacenan con permisos 600 en `/tmp`. Estos archivos pueden ser identificados por su **formato de nombre, `krb5cc_%{uid}`,** que corresponde al UID del usuario. Para la verificación del ticket de autenticación, la **variable de entorno `KRB5CCNAME`** debe establecerse en la ruta del archivo de ticket deseado, permitiendo su reutilización.
+Los archivos CCACHE son formatos binarios para **almacenar credenciales Kerberos** que generalmente se almacenan con permisos 600 en `/tmp`. Estos archivos pueden ser identificados por su **formato de nombre, `krb5cc_%{uid}`,** que se correlaciona con el UID del usuario. Para la verificación del ticket de autenticación, la **variable de entorno `KRB5CCNAME`** debe establecerse en la ruta del archivo de ticket deseado, permitiendo su reutilización.
 
 Lista el ticket actual utilizado para la autenticación con `env | grep KRB5CCNAME`. El formato es portátil y el ticket puede ser **reutilizado configurando la variable de entorno** con `export KRB5CCNAME=/tmp/ticket.ccache`. El formato del nombre del ticket Kerberos es `krb5cc_%{uid}` donde uid es el UID del usuario.
 ```bash
@@ -97,7 +101,7 @@ klist -k /etc/krb5.keytab
 
 Las claves de cuentas de servicio, esenciales para los servicios que operan con privilegios de root, se almacenan de forma segura en los archivos **`/etc/krb5.keytab`**. Estas claves, similares a contraseñas para servicios, exigen estricta confidencialidad.
 
-Para inspeccionar el contenido del archivo keytab, se puede emplear **`klist`**. La herramienta está diseñada para mostrar detalles de la clave, incluyendo el **NT Hash** para la autenticación de usuarios, particularmente cuando el tipo de clave se identifica como 23.
+Para inspeccionar el contenido del archivo keytab, se puede emplear **`klist`**. La herramienta está diseñada para mostrar detalles clave, incluyendo el **NT Hash** para la autenticación de usuarios, particularmente cuando el tipo de clave se identifica como 23.
 ```bash
 klist.exe -t -K -e -k FILE:C:/Path/to/your/krb5.keytab
 # Output includes service principal details and the NT Hash
@@ -119,6 +123,10 @@ crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDO
 * [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
 * [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
 * [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
+
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
 Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

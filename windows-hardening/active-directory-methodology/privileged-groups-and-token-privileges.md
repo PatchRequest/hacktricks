@@ -1,19 +1,26 @@
 # Grupos Privilegiados
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Apoya a HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos de github.
 
 </details>
 {% endhint %}
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Usa [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) para construir y **automatizar flujos de trabajo** fácilmente, impulsados por las **herramientas comunitarias más avanzadas** del mundo.\
+Obtén acceso hoy:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 ## Grupos bien conocidos con privilegios de administración
 
@@ -23,7 +30,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## Operadores de Cuenta
 
-Este grupo está facultado para crear cuentas y grupos que no son administradores en el dominio. Además, permite el inicio de sesión local en el Controlador de Dominio (DC).
+Este grupo tiene la capacidad de crear cuentas y grupos que no son administradores en el dominio. Además, permite el inicio de sesión local en el Controlador de Dominio (DC).
 
 Para identificar a los miembros de este grupo, se ejecuta el siguiente comando:
 ```powershell
@@ -176,10 +183,10 @@ Reiniciar el servicio DNS (lo que puede requerir permisos adicionales) es necesa
 sc.exe \\dc01 stop dns
 sc.exe \\dc01 start dns
 ```
-Para más detalles sobre este vector de ataque, consulta ired.team.
+Para más detalles sobre este vector de ataque, consulte ired.team.
 
 #### Mimilib.dll
-También es factible usar mimilib.dll para la ejecución de comandos, modificándolo para ejecutar comandos específicos o shells reversos. [Consulta esta publicación](https://www.labofapenetrationtester.com/2017/05/abusing-dnsadmins-privilege-for-escalation-in-active-directory.html) para más información.
+También es factible usar mimilib.dll para la ejecución de comandos, modificándolo para ejecutar comandos específicos o shells inversos. [Consulte esta publicación](https://www.labofapenetrationtester.com/2017/05/abusing-dnsadmins-privilege-for-escalation-in-active-directory.html) para más información.
 
 ### Registro WPAD para MitM
 DnsAdmins pueden manipular registros DNS para realizar ataques Man-in-the-Middle (MitM) creando un registro WPAD después de deshabilitar la lista de bloqueo de consultas global. Herramientas como Responder o Inveigh se pueden usar para suplantar y capturar tráfico de red.
@@ -201,7 +208,7 @@ Get-NetGroupMember -Identity "Exchange Windows Permissions" -Recurse
 Los Administradores de Hyper-V tienen acceso completo a Hyper-V, lo que puede ser explotado para obtener control sobre Controladores de Dominio virtualizados. Esto incluye clonar DCs en vivo y extraer hashes NTLM del archivo NTDS.dit.
 
 ### Ejemplo de Explotación
-El Servicio de Mantenimiento de Mozilla Firefox puede ser explotado por los Administradores de Hyper-V para ejecutar comandos como SYSTEM. Esto implica crear un enlace duro a un archivo protegido del SYSTEM y reemplazarlo con un ejecutable malicioso:
+El Servicio de Mantenimiento de Mozilla Firefox puede ser explotado por los Administradores de Hyper-V para ejecutar comandos como SYSTEM. Esto implica crear un enlace duro a un archivo protegido de SYSTEM y reemplazarlo con un ejecutable malicioso:
 ```bash
 # Take ownership and start the service
 takeown /F C:\Program Files (x86)\Mozilla Maintenance Service\maintenanceservice.exe
@@ -211,7 +218,7 @@ Nota: La explotación de enlaces duros ha sido mitigada en las actualizaciones r
 
 ## Organización de Gestión
 
-En entornos donde se despliega **Microsoft Exchange**, un grupo especial conocido como **Organización de Gestión** tiene capacidades significativas. Este grupo tiene privilegios para **acceder a los buzones de todos los usuarios del dominio** y mantiene **control total sobre la Unidad Organizativa (OU) 'Grupos de Seguridad de Microsoft Exchange'**. Este control incluye el grupo **`Exchange Windows Permissions`**, que puede ser explotado para la escalada de privilegios.
+En entornos donde se despliega **Microsoft Exchange**, un grupo especial conocido como **Organización de Gestión** posee capacidades significativas. Este grupo tiene privilegios para **acceder a los buzones de todos los usuarios del dominio** y mantiene **control total sobre la Unidad Organizativa (OU) 'Grupos de Seguridad de Microsoft Exchange'**. Este control incluye el grupo **`Exchange Windows Permissions`**, que puede ser explotado para la escalación de privilegios.
 
 ### Explotación de Privilegios y Comandos
 
@@ -222,7 +229,7 @@ Para listar los miembros de este grupo, se utiliza el siguiente comando de Power
 ```powershell
 Get-NetGroupMember -Identity "Print Operators" -Recurse
 ```
-Para técnicas de explotación más detalladas relacionadas con **`SeLoadDriverPrivilege`**, se deben consultar recursos de seguridad específicos.
+Para obtener técnicas de explotación más detalladas relacionadas con **`SeLoadDriverPrivilege`**, se deben consultar recursos de seguridad específicos.
 
 #### Usuarios de Escritorio Remoto
 A los miembros de este grupo se les concede acceso a PCs a través del Protocolo de Escritorio Remoto (RDP). Para enumerar a estos miembros, están disponibles comandos de PowerShell:
@@ -261,6 +268,13 @@ Get-NetGroupMember -Identity "Server Operators" -Recurse
 * [https://github.com/FuzzySecurity/Capcom-Rootkit/blob/master/Driver/Capcom.sys](https://github.com/FuzzySecurity/Capcom-Rootkit/blob/master/Driver/Capcom.sys)
 * [https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e](https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e)
 * [https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html](https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html)
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Usa [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) para construir y **automatizar flujos de trabajo** fácilmente impulsados por las **herramientas comunitarias más avanzadas** del mundo.\
+Obtén acceso hoy:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 {% hint style="success" %}
 Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

@@ -15,14 +15,22 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Obtén la perspectiva de un hacker sobre tus aplicaciones web, red y nube
+
+**Encuentra e informa sobre vulnerabilidades críticas y explotables con un impacto real en el negocio.** Utiliza nuestras más de 20 herramientas personalizadas para mapear la superficie de ataque, encontrar problemas de seguridad que te permitan escalar privilegios y usar exploits automatizados para recopilar evidencia esencial, convirtiendo tu arduo trabajo en informes persuasivos.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
 ## Abusando de MDMs
 
 * JAMF Pro: `jamf checkJSSConnection`
 * Kandji
 
-Si logras **comprometer las credenciales de administrador** para acceder a la plataforma de gestión, puedes **comprometer potencialmente todas las computadoras** distribuyendo tu malware en las máquinas.
+Si logras **comprometer las credenciales de administrador** para acceder a la plataforma de gestión, puedes **comprometer potencialmente todos los ordenadores** distribuyendo tu malware en las máquinas.
 
-Para el red teaming en entornos de MacOS, se recomienda tener algún entendimiento de cómo funcionan los MDMs:
+Para el red teaming en entornos MacOS, se recomienda encarecidamente tener algún conocimiento de cómo funcionan los MDMs:
 
 {% content-ref url="macos-mdm/" %}
 [macos-mdm](macos-mdm/)
@@ -34,11 +42,11 @@ Un MDM tendrá permiso para instalar, consultar o eliminar perfiles, instalar ap
 
 Para ejecutar tu propio MDM necesitas **que tu CSR sea firmado por un proveedor** que podrías intentar obtener con [**https://mdmcert.download/**](https://mdmcert.download/). Y para ejecutar tu propio MDM para dispositivos Apple podrías usar [**MicroMDM**](https://github.com/micromdm/micromdm).
 
-Sin embargo, para instalar una aplicación en un dispositivo inscrito, aún necesitas que esté firmada por una cuenta de desarrollador... sin embargo, al inscribirse en el MDM, el **dispositivo agrega el certificado SSL del MDM como una CA de confianza**, por lo que ahora puedes firmar cualquier cosa.
+Sin embargo, para instalar una aplicación en un dispositivo inscrito, aún necesitas que esté firmada por una cuenta de desarrollador... sin embargo, al inscribir el dispositivo en un MDM, el **dispositivo agrega el certificado SSL del MDM como una CA de confianza**, por lo que ahora puedes firmar cualquier cosa.
 
-Para inscribir el dispositivo en un MDM, necesitas instalar un **`mobileconfig`** como root, que podría ser entregado a través de un **pkg** (podrías comprimirlo en zip y cuando se descargue desde Safari se descomprimirá).
+Para inscribir el dispositivo en un MDM, necesitas instalar un **`mobileconfig`** como root, que podría ser entregado a través de un **archivo pkg** (podrías comprimirlo en zip y cuando se descargue desde Safari se descomprimirá).
 
-**Mythic agent Orthrus** utiliza esta técnica.
+**El agente Mythic Orthrus** utiliza esta técnica.
 
 ### Abusando de JAMF PRO
 
@@ -97,9 +105,9 @@ sudo jamf policy -id 0
 Para **suplantar la comunicación** entre un dispositivo y JMF necesitas:
 
 * El **UUID** del dispositivo: `ioreg -d2 -c IOPlatformExpertDevice | awk -F" '/IOPlatformUUID/{print $(NF-1)}'`
-* El **llavero de JAMF** de: `/Library/Application\ Support/Jamf/JAMF.keychain` que contiene el certificado del dispositivo
+* La **llave de cadena de JAMF** de: `/Library/Application\ Support/Jamf/JAMF.keychain` que contiene el certificado del dispositivo
 
-Con esta información, **crea una VM** con el **UUID** de Hardware **robado** y con **SIP deshabilitado**, coloca el **llavero de JAMF,** **intercepta** el **agente** de Jamf y roba su información.
+Con esta información, **crea una VM** con el **UUID** de Hardware **robado** y con **SIP deshabilitado**, coloca la **llave de cadena de JAMF,** **engancha** el **agente** de Jamf y roba su información.
 
 #### Robo de secretos
 
@@ -142,7 +150,7 @@ dscl "/Active Directory/[Domain]/All Domains" ls /
 También hay algunas herramientas preparadas para MacOS para enumerar automáticamente el AD y jugar con kerberos:
 
 * [**Machound**](https://github.com/XMCyber/MacHound): MacHound es una extensión de la herramienta de auditoría Bloodhound que permite recopilar e ingerir relaciones de Active Directory en hosts de MacOS.
-* [**Bifrost**](https://github.com/its-a-feature/bifrost): Bifrost es un proyecto en Objective-C diseñado para interactuar con las APIs Heimdal krb5 en macOS. El objetivo del proyecto es habilitar mejores pruebas de seguridad en torno a Kerberos en dispositivos macOS utilizando APIs nativas sin requerir ningún otro marco o paquetes en el objetivo.
+* [**Bifrost**](https://github.com/its-a-feature/bifrost): Bifrost es un proyecto de Objective-C diseñado para interactuar con las APIs Heimdal krb5 en macOS. El objetivo del proyecto es habilitar mejores pruebas de seguridad en torno a Kerberos en dispositivos macOS utilizando APIs nativas sin requerir ningún otro marco o paquetes en el objetivo.
 * [**Orchard**](https://github.com/its-a-feature/Orchard): Herramienta de JavaScript para Automatización (JXA) para hacer enumeración de Active Directory.
 
 ### Información del Dominio
@@ -188,7 +196,7 @@ dsconfigad -show
 ```
 Más información en [https://its-a-feature.github.io/posts/2018/01/Active-Directory-Discovery-with-a-Mac/](https://its-a-feature.github.io/posts/2018/01/Active-Directory-Discovery-with-a-Mac/)
 
-### Computer$ password
+### Computer$ contraseña
 
 Obtén contraseñas usando:
 ```bash
@@ -247,6 +255,14 @@ Cuando se descarga un archivo en Safari, si es un archivo "seguro", se **abrirá
 * [**Come to the Dark Side, We Have Apples: Turning macOS Management Evil**](https://www.youtube.com/watch?v=pOQOh07eMxY)
 * [**OBTS v3.0: "An Attackers Perspective on Jamf Configurations" - Luke Roberts / Calum Hall**](https://www.youtube.com/watch?v=ju1IYWUv4ZA)
 
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Obtén la perspectiva de un hacker sobre tus aplicaciones web, red y nube
+
+**Encuentra y reporta vulnerabilidades críticas y explotables con un impacto real en el negocio.** Usa nuestras más de 20 herramientas personalizadas para mapear la superficie de ataque, encontrar problemas de seguridad que te permitan escalar privilegios y usar exploits automatizados para recopilar evidencia esencial, convirtiendo tu arduo trabajo en informes persuasivos.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
 {% hint style="success" %}
 Aprende y practica Hacking en AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
 Aprende y practica Hacking en GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
@@ -257,7 +273,7 @@ Aprende y practica Hacking en GCP: <img src="../../.gitbook/assets/grte.png" alt
 
 * Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
 * **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Comparte trucos de hacking enviando PRs a los** [**repositorios de HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
+* **Comparte trucos de hacking enviando PRs a los repositorios de** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
 
 </details>
 {% endhint %}

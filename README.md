@@ -5,7 +5,7 @@
 _Los logos y el diseño en movimiento de Hacktricks son de_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
 
 {% hint style="success" %}
-**Bienvenido a la wiki donde encontrarás cada truco/técnica de hacking/lo que he aprendido de CTFs, aplicaciones de la vida real, leyendo investigaciones y noticias.**
+**Bienvenido a la wiki donde encontrarás cada truco/técnica de hacking/cualquier cosa que he aprendido de CTFs, aplicaciones de la vida real, leyendo investigaciones y noticias.**
 {% endhint %}
 
 Para comenzar, sigue esta página donde encontrarás el **flujo típico** que **debes seguir al realizar pentesting** en una o más **máquinas:**
@@ -42,7 +42,7 @@ Puedes consultar su **blog** en [**https://blog.stmcyber.com**](https://blog.stm
 
 <figure><img src=".gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
 
-**Intigriti** es la **plataforma de hacking ético y bug bounty #1 de Europa.**
+**Intigriti** es la **plataforma de hacking ético y bug bounty número 1 de Europa.**
 
 **Consejo de bug bounty**: **regístrate** en **Intigriti**, una plataforma premium de **bug bounty creada por hackers, para hackers**! Únete a nosotros en [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) hoy, y comienza a ganar recompensas de hasta **$100,000**!
 
@@ -57,7 +57,7 @@ Puedes consultar su **blog** en [**https://blog.stmcyber.com**](https://blog.stm
 \
 Usa [**Trickest**](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks) para construir y **automatizar flujos de trabajo** fácilmente, impulsados por las herramientas comunitarias **más avanzadas** del mundo.
 
-Accede hoy:
+Obtén acceso hoy:
 
 {% embed url="https://trickest.com/?utm_campaign=hacktrics&utm_medium=banner&utm_source=hacktricks" %}
 
@@ -79,12 +79,14 @@ Accede hoy:
 
 ### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - El kit de herramientas esencial para pruebas de penetración
 
-<figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Configuración disponible instantáneamente para evaluación de vulnerabilidades y pruebas de penetración**. Realiza un pentest completo desde cualquier lugar con más de 20 herramientas y características que van desde la recopilación de información hasta la elaboración de informes. No reemplazamos a los pentesters; desarrollamos herramientas personalizadas, módulos de detección y explotación para darles tiempo para profundizar, abrir shells y divertirse.
+#### Obtén la perspectiva de un hacker sobre tus aplicaciones web, red y nube
+
+**Encuentra e informa sobre vulnerabilidades críticas y explotables con un impacto real en los negocios.** Usa nuestras más de 20 herramientas personalizadas para mapear la superficie de ataque, encontrar problemas de seguridad que te permitan escalar privilegios y usar exploits automatizados para recopilar evidencia esencial, convirtiendo tu arduo trabajo en informes persuasivos.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
-\
+
 
 {% endembed %}
 
@@ -94,10 +96,10 @@ Accede hoy:
 
 <figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
 
-**SerpApi** ofrece APIs rápidas y fáciles en tiempo real para **acceder a resultados de motores de búsqueda**. Raspamos motores de búsqueda, manejamos proxies, resolvemos captchas y analizamos todos los datos estructurados ricos por ti.
+**SerpApi** ofrece APIs rápidas y fáciles en tiempo real para **acceder a los resultados de motores de búsqueda**. Ellos extraen datos de motores de búsqueda, manejan proxies, resuelven captchas y analizan todos los datos estructurados ricos por ti.
 
-Una suscripción a uno de los planes de SerpApi incluye acceso a más de 50 APIs diferentes para raspar diferentes motores de búsqueda, incluyendo Google, Bing, Baidu, Yahoo, Yandex, y más.\
-A diferencia de otros proveedores, **SerpApi no solo raspa resultados orgánicos**. Las respuestas de SerpApi incluyen consistentemente todos los anuncios, imágenes y videos en línea, gráficos de conocimiento y otros elementos y características presentes en los resultados de búsqueda.
+Una suscripción a uno de los planes de SerpApi incluye acceso a más de 50 APIs diferentes para extraer datos de diferentes motores de búsqueda, incluyendo Google, Bing, Baidu, Yahoo, Yandex, y más.\
+A diferencia de otros proveedores, **SerpApi no solo extrae resultados orgánicos**. Las respuestas de SerpApi incluyen consistentemente todos los anuncios, imágenes y videos en línea, gráficos de conocimiento y otros elementos y características presentes en los resultados de búsqueda.
 
 Los clientes actuales de SerpApi incluyen **Apple, Shopify y GrubHub**.\
 Para más información, consulta su [**blog**](https://serpapi.com/blog/)**,** o prueba un ejemplo en su [**playground**](https://serpapi.com/playground)**.**\
@@ -111,7 +113,7 @@ Puedes **crear una cuenta gratuita** [**aquí**](https://serpapi.com/users/sign\
 
 [**WebSec**](https://websec.nl) es una empresa profesional de ciberseguridad con sede en **Ámsterdam** que ayuda a **proteger** negocios **en todo el mundo** contra las últimas amenazas de ciberseguridad al proporcionar **servicios de seguridad ofensiva** con un enfoque **moderno**.
 
-WebSec es una **empresa de seguridad todo en uno**, lo que significa que hacen de todo; Pentesting, **Auditorías** de Seguridad, Capacitación en Conciencia, Campañas de Phishing, Revisión de Código, Desarrollo de Explotaciones, Externalización de Expertos en Seguridad y mucho más.
+WebSec es una **empresa de seguridad todo en uno**, lo que significa que hacen de todo; Pentesting, **Auditorías** de Seguridad, Capacitación en Conciencia, Campañas de Phishing, Revisión de Código, Desarrollo de Exploits, Externalización de Expertos en Seguridad y mucho más.
 
 Otra cosa interesante sobre WebSec es que, a diferencia del promedio de la industria, WebSec es **muy confiado en sus habilidades**, hasta el punto de que **garantizan los mejores resultados de calidad**, se indica en su sitio web "**Si no podemos hackearlo, ¡no pagas!**". Para más información, echa un vistazo a su [**sitio web**](https://websec.nl/en/) y [**blog**](https://websec.nl/blog/)!
 
