@@ -2,10 +2,10 @@
 
 <figure><img src=".gitbook/assets/hacktricks.gif" alt=""><figcaption></figcaption></figure>
 
-_I loghi e il design in movimento di Hacktricks sono di_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
+_I loghi e il design in movimento di Hacktricks sono stati creati da_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
 
 {% hint style="success" %}
-**Benvenuto nella wiki dove troverai ogni trucco/tecnica di hacking/qualunque cosa io abbia imparato da CTF, app della vita reale, lettura di ricerche e notizie.**
+**Benvenuto nella wiki dove troverai ogni trucco/tecnica/hacking che ho imparato da CTF, applicazioni della vita reale, lettura di ricerche e notizie.**
 {% endhint %}
 
 Per iniziare, segui questa pagina dove troverai il **flusso tipico** che **dovresti seguire quando fai pentesting** su una o più **macchine:**
@@ -44,7 +44,7 @@ Puoi controllare il loro **blog** in [**https://blog.stmcyber.com**](https://blo
 
 **Intigriti** è la **piattaforma di hacking etico e bug bounty numero 1 in Europa.**
 
-**Suggerimento bug bounty**: **iscriviti** a **Intigriti**, una premium **piattaforma di bug bounty creata da hacker, per hacker**! Unisciti a noi su [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) oggi, e inizia a guadagnare ricompense fino a **$100,000**!
+**Suggerimento bug bounty**: **iscriviti** a **Intigriti**, una premium **piattaforma di bug bounty creata da hacker, per hacker**! Unisciti a noi su [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) oggi e inizia a guadagnare ricompense fino a **$100,000**!
 
 {% embed url="https://go.intigriti.com/hacktricks" %}
 
@@ -71,7 +71,7 @@ Unisciti al server [**HackenProof Discord**](https://discord.com/invite/N3FrSbmw
 
 * **Approfondimenti sul hacking:** Interagisci con contenuti che approfondiscono l'emozione e le sfide dell'hacking
 * **Notizie di hacking in tempo reale:** Rimani aggiornato con il mondo frenetico dell'hacking attraverso notizie e approfondimenti in tempo reale
-* **Ultimi annunci:** Rimani informato sulle nuove ricompense bug bounty in arrivo e aggiornamenti cruciali della piattaforma
+* **Ultimi annunci:** Rimani informato sulle nuove ricompense bug che vengono lanciate e sugli aggiornamenti cruciali della piattaforma
 
 **Unisciti a noi su** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e inizia a collaborare con i migliori hacker oggi!
 
@@ -81,7 +81,7 @@ Unisciti al server [**HackenProof Discord**](https://discord.com/invite/N3FrSbmw
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Ottieni la prospettiva di un hacker sulle tue app web, rete e cloud
+**Ottieni la prospettiva di un hacker sulle tue app web, rete e cloud**
 
 **Trova e segnala vulnerabilità critiche e sfruttabili con un impatto reale sul business.** Usa i nostri oltre 20 strumenti personalizzati per mappare la superficie di attacco, trovare problemi di sicurezza che ti consentono di elevare i privilegi e utilizzare exploit automatizzati per raccogliere prove essenziali, trasformando il tuo duro lavoro in report persuasivi.
 
@@ -96,10 +96,10 @@ Unisciti al server [**HackenProof Discord**](https://discord.com/invite/N3FrSbmw
 
 <figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
 
-**SerpApi** offre API veloci e facili in tempo reale per **accedere ai risultati dei motori di ricerca**. Raccolgono dati dai motori di ricerca, gestiscono proxy, risolvono captcha e analizzano tutti i dati strutturati ricchi per te.
+**SerpApi** offre API veloci e facili in tempo reale per **accedere ai risultati dei motori di ricerca**. Scrapeano i motori di ricerca, gestiscono i proxy, risolvono i captcha e analizzano tutti i dati strutturati ricchi per te.
 
-Un abbonamento a uno dei piani di SerpApi include l'accesso a oltre 50 diverse API per raccogliere dati da diversi motori di ricerca, tra cui Google, Bing, Baidu, Yahoo, Yandex e altri.\
-A differenza di altri fornitori, **SerpApi non raccoglie solo risultati organici**. Le risposte di SerpApi includono costantemente tutti gli annunci, immagini e video in linea, grafici di conoscenza e altri elementi e funzionalità presenti nei risultati di ricerca.
+Un abbonamento a uno dei piani di SerpApi include l'accesso a oltre 50 diverse API per scraping di diversi motori di ricerca, tra cui Google, Bing, Baidu, Yahoo, Yandex e altri.\
+A differenza di altri fornitori, **SerpApi non si limita a fare scraping dei risultati organici**. Le risposte di SerpApi includono costantemente tutti gli annunci, immagini e video inline, grafici di conoscenza e altri elementi e funzionalità presenti nei risultati di ricerca.
 
 I clienti attuali di SerpApi includono **Apple, Shopify e GrubHub**.\
 Per ulteriori informazioni, dai un'occhiata al loro [**blog**](https://serpapi.com/blog/)**,** o prova un esempio nel loro [**playground**](https://serpapi.com/playground)**.**\

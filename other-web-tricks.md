@@ -17,13 +17,13 @@ Impara e pratica GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Ottieni la prospettiva di un hacker sulle tue app web, rete e cloud
+**Ottieni la prospettiva di un hacker sulle tue app web, rete e cloud**
 
-**Trova e segnala vulnerabilità critiche ed exploitabili con un reale impatto sul business.** Usa i nostri oltre 20 strumenti personalizzati per mappare la superficie di attacco, trovare problemi di sicurezza che ti permettano di elevare i privilegi e utilizzare exploit automatizzati per raccogliere prove essenziali, trasformando il tuo duro lavoro in report persuasivi.
+**Trova e segnala vulnerabilità critiche ed exploitabili con un reale impatto commerciale.** Usa i nostri oltre 20 strumenti personalizzati per mappare la superficie di attacco, trovare problemi di sicurezza che ti consentono di elevare i privilegi e utilizzare exploit automatizzati per raccogliere prove essenziali, trasformando il tuo duro lavoro in report persuasivi.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
-### Intestazione Host
+### Intestazione host
 
 Diverse volte il back-end si fida dell'**intestazione Host** per eseguire alcune azioni. Ad esempio, potrebbe utilizzare il suo valore come **dominio per inviare un ripristino della password**. Quindi, quando ricevi un'email con un link per ripristinare la tua password, il dominio utilizzato è quello che hai inserito nell'intestazione Host. Poi, puoi richiedere il ripristino della password di altri utenti e cambiare il dominio in uno controllato da te per rubare i loro codici di ripristino della password. [WriteUp](https://medium.com/nassec-cybersecurity-writeups/how-i-was-able-to-take-over-any-users-account-with-host-header-injection-546fff6d0f2).
 
@@ -38,7 +38,7 @@ Tuttavia, se **superi il controllo** e la tua sessione riceve quel valore "True"
 
 ### Funzionalità di registrazione
 
-Prova a registrarti come un utente già esistente. Prova anche a utilizzare caratteri equivalenti (punti, molte spaziature e Unicode).
+Prova a registrarti come un utente già esistente. Prova anche a utilizzare caratteri equivalenti (punti, molti spazi e Unicode).
 
 ### Prendere il controllo delle email
 
@@ -57,9 +57,9 @@ Gli sviluppatori potrebbero dimenticare di disabilitare varie opzioni di debug n
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Ottieni la prospettiva di un hacker sulle tue app web, rete e cloud
+**Ottieni la prospettiva di un hacker sulle tue app web, rete e cloud**
 
-**Trova e segnala vulnerabilità critiche ed exploitabili con un reale impatto sul business.** Usa i nostri oltre 20 strumenti personalizzati per mappare la superficie di attacco, trovare problemi di sicurezza che ti permettano di elevare i privilegi e utilizzare exploit automatizzati per raccogliere prove essenziali, trasformando il tuo duro lavoro in report persuasivi.
+**Trova e segnala vulnerabilità critiche ed exploitabili con un reale impatto commerciale.** Usa i nostri oltre 20 strumenti personalizzati per mappare la superficie di attacco, trovare problemi di sicurezza che ti consentono di elevare i privilegi e utilizzare exploit automatizzati per raccogliere prove essenziali, trasformando il tuo duro lavoro in report persuasivi.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
