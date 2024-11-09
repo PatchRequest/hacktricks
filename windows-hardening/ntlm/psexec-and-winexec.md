@@ -15,9 +15,16 @@ Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Verwenden Sie [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection), um einfach **Workflows** zu erstellen und zu **automatisieren**, die von den **fortschrittlichsten** Community-Tools der Welt unterstützt werden.\
+Zugang heute erhalten:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
 ## Wie funktionieren sie
 
-Der Prozess wird in den folgenden Schritten skizziert, die veranschaulichen, wie Dienst-Binärdateien manipuliert werden, um eine Remote-Ausführung auf einem Zielcomputer über SMB zu erreichen:
+Der Prozess ist in den folgenden Schritten skizziert, die zeigen, wie Dienst-Binärdateien manipuliert werden, um eine Remote-Ausführung auf einem Zielcomputer über SMB zu erreichen:
 
 1. **Kopieren einer Dienst-Binärdatei in den ADMIN$-Freigabe über SMB** wird durchgeführt.
 2. **Erstellung eines Dienstes auf dem Remote-Computer** erfolgt durch Verweisen auf die Binärdatei.
@@ -51,6 +58,13 @@ Sie könnten auch [**SharpLateral**](https://github.com/mertdas/SharpLateral) ve
 SharpLateral.exe redexec HOSTNAME C:\\Users\\Administrator\\Desktop\\malware.exe.exe malware.exe ServiceName
 ```
 {% endcode %}
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Verwenden Sie [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection), um einfach **Workflows** zu erstellen und **zu automatisieren**, die von den **fortschrittlichsten** Community-Tools der Welt unterstützt werden.\
+Zugang heute erhalten:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 {% hint style="success" %}
 Lernen & üben Sie AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

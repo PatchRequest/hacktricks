@@ -15,6 +15,10 @@ Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 ## CBC - Cipher Block Chaining
 
 Im CBC-Modus wird der **vorherige verschlüsselte Block als IV** verwendet, um mit dem nächsten Block zu XORen:
@@ -29,10 +33,10 @@ Beachten Sie, dass es notwendig ist, einen **Verschlüsselungs** **schlüssel** 
 
 ## Nachrichten-Padding
 
-Da die Verschlüsselung in **festen** **Größen** **Blöcken** durchgeführt wird, ist in dem **letzten** **Block** normalerweise **Padding** erforderlich, um seine Länge zu vervollständigen.\
-In der Regel wird **PKCS7** verwendet, das ein Padding erzeugt, das die **Anzahl** der **benötigten** **Bytes** **wiederholt**, um den Block zu vervollständigen. Wenn der letzte Block beispielsweise 3 Bytes fehlt, wird das Padding `\x03\x03\x03` sein.
+Da die Verschlüsselung in **festen** **Größen** **Blöcken** durchgeführt wird, ist **Padding** normalerweise im **letzten** **Block** erforderlich, um seine Länge zu vervollständigen.\
+Normalerweise wird **PKCS7** verwendet, das ein Padding erzeugt, das die **Anzahl** der **benötigten** **Bytes** **wiederholt**, um den Block zu vervollständigen. Wenn der letzte Block beispielsweise 3 Bytes fehlt, wird das Padding `\x03\x03\x03` sein.
 
-Schauen wir uns weitere Beispiele mit **2 Blöcken der Länge 8 Bytes** an:
+Schauen wir uns weitere Beispiele mit **2 Blöcken von 8 Bytes Länge** an:
 
 | byte #0 | byte #1 | byte #2 | byte #3 | byte #4 | byte #5 | byte #6 | byte #7 | byte #0  | byte #1  | byte #2  | byte #3  | byte #4  | byte #5  | byte #6  | byte #7  |
 | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
@@ -101,14 +105,18 @@ Dann die gleichen Schritte wiederholen, um C14 zu entschlüsseln: **`C14 = E6 ^ 
 ### Erkennung der Schwachstelle
 
 Registrieren Sie sich und melden Sie sich mit diesem Konto an.\
-Wenn Sie sich **mehrmals anmelden** und immer dasselbe **Cookie** erhalten, ist wahrscheinlich **etwas** **falsch** in der Anwendung. Das **zurückgesendete Cookie sollte jedes Mal einzigartig sein**, wenn Sie sich anmelden. Wenn das Cookie **immer** dasselbe ist, wird es wahrscheinlich immer gültig sein und es **wird keinen Weg geben, es zu ungültig zu machen**.
+Wenn Sie sich **mehrmals anmelden** und immer dasselbe **Cookie** erhalten, ist wahrscheinlich **etwas** **falsch** in der Anwendung. Das **zurückgesendete Cookie sollte jedes Mal einzigartig sein**, wenn Sie sich anmelden. Wenn das Cookie **immer** dasselbe ist, wird es wahrscheinlich immer gültig sein und es **wird keinen Weg geben, es zu invalidieren**.
 
 Wenn Sie jetzt versuchen, das **Cookie zu modifizieren**, sehen Sie, dass Sie einen **Fehler** von der Anwendung erhalten.\
-Aber wenn Sie das Padding brute-forcen (zum Beispiel mit padbuster), schaffen Sie es, ein anderes Cookie zu erhalten, das für einen anderen Benutzer gültig ist. Dieses Szenario ist höchstwahrscheinlich anfällig für padbuster.
+Aber wenn Sie das Padding brute-forcen (zum Beispiel mit Padbuster), schaffen Sie es, ein anderes Cookie zu erhalten, das für einen anderen Benutzer gültig ist. Dieses Szenario ist höchstwahrscheinlich anfällig für Padbuster.
 
 ### Referenzen
 
-* [https://de.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://de.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
+* [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
+
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
 Lernen & üben Sie AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -120,7 +128,7 @@ Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 
 * Überprüfen Sie die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
 * **Treten Sie der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folgen** Sie uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Teilen Sie Hacking-Tricks, indem Sie PRs an die** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos senden.
+* **Teilen Sie Hacking-Tricks, indem Sie PRs zu den** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichen.
 
 </details>
 {% endhint %}

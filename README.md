@@ -32,7 +32,7 @@ Sie können ihren **Blog** unter [**https://blog.stmcyber.com**](https://blog.st
 
 <figure><img src=".gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
 
-[**RootedCON**](https://www.rootedcon.com) ist die relevanteste Cybersicherheitsveranstaltung in **Spanien** und eine der wichtigsten in **Europa**. Mit **der Mission, technisches Wissen zu fördern**, ist dieser Kongress ein brodelnder Treffpunkt für Technologie- und Cybersicherheitsprofis in jeder Disziplin.
+[**RootedCON**](https://www.rootedcon.com) ist die relevanteste Cybersicherheitsveranstaltung in **Spanien** und eine der wichtigsten in **Europa**. Mit **der Mission, technisches Wissen zu fördern**, ist dieser Kongress ein brodelnder Treffpunkt für Technologie- und Cybersicherheitsexperten in jeder Disziplin.
 
 {% embed url="https://www.rootedcon.com/" %}
 
@@ -67,10 +67,10 @@ Zugriff heute erhalten:
 
 <figure><img src=".gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
 
-Treten Sie dem [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) Server bei, um mit erfahrenen Hackern und Bug Bounty-Jägern zu kommunizieren!
+Treten Sie dem [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) Server bei, um mit erfahrenen Hackern und Bug Bounty Jägern zu kommunizieren!
 
 * **Hacking Einblicke:** Engagieren Sie sich mit Inhalten, die in die Aufregung und Herausforderungen des Hackens eintauchen
-* **Echtzeit-Hack-Nachrichten:** Bleiben Sie auf dem Laufenden über die schnelllebige Hacking-Welt durch Echtzeit-Nachrichten und Einblicke
+* **Echtzeit-Hack-Nachrichten:** Bleiben Sie auf dem Laufenden mit der schnelllebigen Hacking-Welt durch Echtzeit-Nachrichten und Einblicke
 * **Neueste Ankündigungen:** Bleiben Sie informiert über die neuesten Bug Bounties und wichtige Plattform-Updates
 
 **Treten Sie uns auf** [**Discord**](https://discord.com/invite/N3FrSbmwdy) bei und beginnen Sie noch heute mit der Zusammenarbeit mit Top-Hackern!
@@ -79,12 +79,14 @@ Treten Sie dem [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 
 
 ### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - Das essentielle Toolkit für Penetrationstests
 
-<figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Sofort verfügbare Einrichtung für Schwachstellenbewertung & Penetrationstests**. Führen Sie einen vollständigen Pentest von überall mit über 20 Tools und Funktionen durch, die von Recon bis Reporting reichen. Wir ersetzen keine Pentester - wir entwickeln benutzerdefinierte Tools, Erkennungs- und Ausnutzungs-Module, um ihnen etwas Zeit zu geben, um tiefer zu graben, Shells zu knacken und Spaß zu haben.
+#### Erhalten Sie die Perspektive eines Hackers auf Ihre Webanwendungen, Netzwerke und Cloud
+
+**Finden und melden Sie kritische, ausnutzbare Schwachstellen mit echtem Geschäftsauswirkungen.** Verwenden Sie unsere 20+ benutzerdefinierten Tools, um die Angriffsfläche zu kartieren, Sicherheitsprobleme zu finden, die Ihnen ermöglichen, Berechtigungen zu eskalieren, und automatisierte Exploits zu verwenden, um wesentliche Beweise zu sammeln, die Ihre harte Arbeit in überzeugende Berichte verwandeln.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
-\
+
 
 {% endembed %}
 
@@ -94,7 +96,7 @@ Treten Sie dem [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 
 
 <figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
 
-**SerpApi** bietet schnelle und einfache Echtzeit-APIs, um **auf Suchmaschinenergebnisse** zuzugreifen. Sie scrapen Suchmaschinen, verwalten Proxys, lösen Captchas und parsen alle strukturierten Daten für Sie.
+**SerpApi** bietet schnelle und einfache Echtzeit-APIs, um **auf Suchmaschinenergebnisse** zuzugreifen. Sie scrapen Suchmaschinen, verwalten Proxys, lösen Captchas und parsen alle reichhaltigen strukturierten Daten für Sie.
 
 Ein Abonnement eines der SerpApi-Pläne umfasst den Zugriff auf über 50 verschiedene APIs zum Scrapen verschiedener Suchmaschinen, einschließlich Google, Bing, Baidu, Yahoo, Yandex und mehr.\
 Im Gegensatz zu anderen Anbietern **scrapt SerpApi nicht nur organische Ergebnisse**. Die Antworten von SerpApi enthalten konsequent alle Anzeigen, Inline-Bilder und Videos, Wissensgraphen und andere Elemente und Funktionen, die in den Suchergebnissen vorhanden sind.
@@ -109,13 +111,13 @@ Sie können **hier ein kostenloses Konto erstellen** [**hier**](https://serpapi.
 
 <figure><img src=".gitbook/assets/websec (1).svg" alt=""><figcaption></figcaption></figure>
 
-[**WebSec**](https://websec.nl) ist ein professionelles Cybersicherheitsunternehmen mit Sitz in **Amsterdam**, das **Unternehmen auf der ganzen Welt** dabei hilft, sich gegen die neuesten Cybersicherheitsbedrohungen zu **schützen**, indem es **Offensive-Security-Dienste** mit einem **modernen** Ansatz anbietet.
+[**WebSec**](https://websec.nl) ist ein professionelles Cybersicherheitsunternehmen mit Sitz in **Amsterdam**, das **Unternehmen** auf der ganzen Welt **schützt** vor den neuesten Bedrohungen der Cybersicherheit, indem es **Offensive-Security-Dienste** mit einem **modernen** Ansatz anbietet.
 
-WebSec ist ein **All-in-One-Sicherheitsunternehmen**, was bedeutet, dass sie alles machen; Pentesting, **Sicherheits**-Audits, Awareness-Trainings, Phishing-Kampagnen, Code-Überprüfungen, Exploit-Entwicklung, Outsourcing von Sicherheitsexperten und vieles mehr.
+WebSec ist ein **All-in-One-Sicherheitsunternehmen**, was bedeutet, dass sie alles anbieten; Pentesting, **Sicherheits**-Audits, Awareness-Trainings, Phishing-Kampagnen, Code-Überprüfungen, Exploit-Entwicklung, Outsourcing von Sicherheitsexperten und vieles mehr.
 
-Ein weiterer cooler Aspekt von WebSec ist, dass WebSec im Gegensatz zum Branchendurchschnitt **sehr zuversichtlich in ihre Fähigkeiten ist**, so sehr, dass sie **die besten Qualitätsresultate garantieren**. Auf ihrer Website steht: "**Wenn wir es nicht hacken können, zahlen Sie nicht!**". Für weitere Informationen werfen Sie einen Blick auf ihre [**Website**](https://websec.nl/en/) und ihren [**Blog**](https://websec.nl/blog/)!
+Ein weiterer cooler Aspekt von WebSec ist, dass WebSec im Gegensatz zum Branchendurchschnitt **sehr zuversichtlich in ihre Fähigkeiten ist**, so sehr, dass sie **die besten Qualitätsresultate garantieren**, es steht auf ihrer Website "**Wenn wir es nicht hacken können, zahlen Sie nicht!**". Für weitere Informationen werfen Sie einen Blick auf ihre [**Website**](https://websec.nl/en/) und [**Blog**](https://websec.nl/blog/)!
 
-Zusätzlich zu den oben genannten Punkten ist WebSec auch ein **engagierter Unterstützer von HackTricks.**
+Zusätzlich zu den oben genannten ist WebSec auch ein **engagierter Unterstützer von HackTricks.**
 
 {% embed url="https://www.youtube.com/watch?v=Zq2JycGDCPM" %}
 
@@ -141,7 +143,7 @@ Lernen & üben Sie GCP Hacking: <img src=".gitbook/assets/grte.png" alt="" data-
 
 * Überprüfen Sie die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
 * **Treten Sie der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folgen** Sie uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Teilen Sie Hacking-Tricks, indem Sie PRs an die** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichen.
+* **Teilen Sie Hacking-Tricks, indem Sie PRs an die** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos senden.
 
 </details>
 {% endhint %}

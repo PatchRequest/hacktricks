@@ -17,13 +17,15 @@ Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Sofort verfügbare Einrichtung für Schwachstellenbewertung & Penetrationstests**. Führe einen vollständigen Pentest von überall mit 20+ Tools & Funktionen durch, die von Recon bis Reporting reichen. Wir ersetzen keine Pentester - wir entwickeln maßgeschneiderte Tools, Erkennungs- & Ausnutzungs-Module, um ihnen etwas Zeit zurückzugeben, um tiefer zu graben, Shells zu öffnen und Spaß zu haben.
+#### Erhalte die Perspektive eines Hackers auf deine Webanwendungen, Netzwerke und Cloud
+
+**Finde und melde kritische, ausnutzbare Schwachstellen mit echtem Geschäftsauswirkungen.** Nutze unsere 20+ benutzerdefinierten Tools, um die Angriffsfläche zu kartieren, Sicherheitsprobleme zu finden, die dir erlauben, Berechtigungen zu eskalieren, und automatisierte Exploits zu verwenden, um wesentliche Beweise zu sammeln, die deine harte Arbeit in überzeugende Berichte verwandeln.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
 ### Host-Header
 
-Mehrmals vertraut das Backend dem **Host-Header**, um einige Aktionen auszuführen. Zum Beispiel könnte es seinen Wert als **Domain zum Senden eines Passwort-Reset** verwenden. Wenn du also eine E-Mail mit einem Link zum Zurücksetzen deines Passworts erhältst, ist die verwendete Domain die, die du im Host-Header angegeben hast. Dann kannst du die Passwortzurücksetzung anderer Benutzer anfordern und die Domain auf eine von dir kontrollierte ändern, um ihre Passwort-Reset-Codes zu stehlen. [WriteUp](https://medium.com/nassec-cybersecurity-writeups/how-i-was-able-to-take-over-any-users-account-with-host-header-injection-546fff6d0f2).
+Mehrmals vertraut das Backend dem **Host-Header**, um einige Aktionen auszuführen. Zum Beispiel könnte es seinen Wert als **Domain für das Senden eines Passwort-Reset** verwenden. Wenn du also eine E-Mail mit einem Link zum Zurücksetzen deines Passworts erhältst, ist die verwendete Domain die, die du im Host-Header angegeben hast. Dann kannst du die Passwortzurücksetzung anderer Benutzer anfordern und die Domain auf eine von dir kontrollierte ändern, um ihre Passwort-Reset-Codes zu stehlen. [WriteUp](https://medium.com/nassec-cybersecurity-writeups/how-i-was-able-to-take-over-any-users-account-with-host-header-injection-546fff6d0f2).
 
 {% hint style="warning" %}
 Beachte, dass es möglich ist, dass du nicht einmal warten musst, bis der Benutzer auf den Link zum Zurücksetzen des Passworts klickt, um das Token zu erhalten, da möglicherweise sogar **Spam-Filter oder andere Zwischengeräte/Bots darauf klicken, um es zu analysieren**.
@@ -32,9 +34,9 @@ Beachte, dass es möglich ist, dass du nicht einmal warten musst, bis der Benutz
 ### Sitzungs-Boolean
 
 Manchmal, wenn du eine Überprüfung korrekt abschließt, wird das Backend **einfach einen Boolean mit dem Wert "True" zu einem Sicherheitsattribut deiner Sitzung hinzufügen**. Dann wird ein anderer Endpunkt wissen, ob du diese Überprüfung erfolgreich bestanden hast.\
-Wenn du jedoch die **Überprüfung bestehst** und deine Sitzung diesen "True"-Wert im Sicherheitsattribut erhält, kannst du versuchen, **auf andere Ressourcen zuzugreifen**, die **von demselben Attribut abhängen**, auf die du **keine Berechtigung** haben solltest. [WriteUp](https://medium.com/@ozguralp/a-less-known-attack-vector-second-order-idor-attacks-14468009781a).
+Wenn du jedoch **die Überprüfung bestehst** und deine Sitzung diesen "True"-Wert im Sicherheitsattribut erhält, kannst du versuchen, **auf andere Ressourcen zuzugreifen**, die **von demselben Attribut abhängen**, auf die du **keine Berechtigungen** haben solltest. [WriteUp](https://medium.com/@ozguralp/a-less-known-attack-vector-second-order-idor-attacks-14468009781a).
 
-### Registrierungsfunktionalität
+### Registrierungsfunktion
 
 Versuche, dich als bereits existierender Benutzer zu registrieren. Versuche auch, äquivalente Zeichen (Punkte, viele Leerzeichen und Unicode) zu verwenden.
 
@@ -55,7 +57,9 @@ Entwickler könnten vergessen, verschiedene Debugging-Optionen in der Produktion
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Sofort verfügbare Einrichtung für Schwachstellenbewertung & Penetrationstests**. Führe einen vollständigen Pentest von überall mit 20+ Tools & Funktionen durch, die von Recon bis Reporting reichen. Wir ersetzen keine Pentester - wir entwickeln maßgeschneiderte Tools, Erkennungs- & Ausnutzungs-Module, um ihnen etwas Zeit zurückzugeben, um tiefer zu graben, Shells zu öffnen und Spaß zu haben.
+#### Erhalte die Perspektive eines Hackers auf deine Webanwendungen, Netzwerke und Cloud
+
+**Finde und melde kritische, ausnutzbare Schwachstellen mit echtem Geschäftsauswirkungen.** Nutze unsere 20+ benutzerdefinierten Tools, um die Angriffsfläche zu kartieren, Sicherheitsprobleme zu finden, die dir erlauben, Berechtigungen zu eskalieren, und automatisierte Exploits zu verwenden, um wesentliche Beweise zu sammeln, die deine harte Arbeit in überzeugende Berichte verwandeln.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
