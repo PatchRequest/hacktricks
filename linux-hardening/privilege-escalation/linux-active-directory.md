@@ -15,13 +15,17 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 Une machine linux peut également être présente dans un environnement Active Directory.
 
 Une machine linux dans un AD pourrait **stocker différents tickets CCACHE dans des fichiers. Ces tickets peuvent être utilisés et abusés comme tout autre ticket kerberos**. Pour lire ces tickets, vous devez être le propriétaire du ticket ou **root** sur la machine.
 
-## Énumération
+## Enumeration
 
-### Énumération AD depuis linux
+### Enumeration AD depuis linux
 
 Si vous avez accès à un AD sous linux (ou bash sous Windows), vous pouvez essayer [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) pour énumérer l'AD.
 
@@ -33,7 +37,7 @@ Vous pouvez également consulter la page suivante pour apprendre **d'autres faç
 
 ### FreeIPA
 
-FreeIPA est une **alternative** open-source à Microsoft Windows **Active Directory**, principalement pour les environnements **Unix**. Il combine un **annuaire LDAP** complet avec un Centre de Distribution de Clés **Kerberos** MIT pour une gestion similaire à Active Directory. Utilisant le **Système de Certificats** Dogtag pour la gestion des certificats CA & RA, il prend en charge l'authentification **multi-facteurs**, y compris les cartes intelligentes. SSSD est intégré pour les processus d'authentification Unix. En savoir plus à ce sujet dans :
+FreeIPA est une **alternative** open-source à Microsoft Windows **Active Directory**, principalement pour les environnements **Unix**. Il combine un **annuaire LDAP** complet avec un centre de distribution de clés Kerberos MIT pour une gestion similaire à Active Directory. Utilisant le système de certificats Dogtag pour la gestion des certificats CA et RA, il prend en charge l'authentification **multi-facteurs**, y compris les cartes intelligentes. SSSD est intégré pour les processus d'authentification Unix. En savoir plus à ce sujet dans :
 
 {% content-ref url="../freeipa-pentesting.md" %}
 [freeipa-pentesting.md](../freeipa-pentesting.md)
@@ -51,7 +55,7 @@ Sur cette page, vous allez trouver différents endroits où vous pourriez **trou
 
 ### Réutilisation des tickets CCACHE depuis /tmp
 
-Les fichiers CCACHE sont des formats binaires pour **stocker des identifiants Kerberos** et sont généralement stockés avec des permissions 600 dans `/tmp`. Ces fichiers peuvent être identifiés par leur **format de nom, `krb5cc_%{uid}`,** correspondant à l'UID de l'utilisateur. Pour la vérification des tickets d'authentification, la **variable d'environnement `KRB5CCNAME`** doit être définie sur le chemin du fichier de ticket souhaité, permettant sa réutilisation.
+Les fichiers CCACHE sont des formats binaires pour **stocker les identifiants Kerberos** et sont généralement stockés avec des permissions 600 dans `/tmp`. Ces fichiers peuvent être identifiés par leur **format de nom, `krb5cc_%{uid}`,** correspondant à l'UID de l'utilisateur. Pour la vérification des tickets d'authentification, la **variable d'environnement `KRB5CCNAME`** doit être définie sur le chemin du fichier de ticket souhaité, permettant sa réutilisation.
 
 Listez le ticket actuel utilisé pour l'authentification avec `env | grep KRB5CCNAME`. Le format est portable et le ticket peut être **réutilisé en définissant la variable d'environnement** avec `export KRB5CCNAME=/tmp/ticket.ccache`. Le format de nom de ticket Kerberos est `krb5cc_%{uid}` où uid est l'UID de l'utilisateur.
 ```bash
@@ -80,7 +84,7 @@ Cette procédure tentera d'injecter dans diverses sessions, indiquant le succès
 
 SSSD maintient une copie de la base de données au chemin `/var/lib/sss/secrets/secrets.ldb`. La clé correspondante est stockée en tant que fichier caché au chemin `/var/lib/sss/secrets/.secrets.mkey`. Par défaut, la clé n'est lisible que si vous avez des permissions **root**.
 
-L'invocation de \*\*`SSSDKCMExtractor` \*\* avec les paramètres --database et --key analysera la base de données et **décrypta les secrets**.
+L'invocation de \*\*`SSSDKCMExtractor` \*\* avec les paramètres --database et --key analysera la base de données et **décryptera les secrets**.
 ```bash
 git clone https://github.com/fireeye/SSSDKCMExtractor
 python3 SSSDKCMExtractor.py --database secrets.ldb --key secrets.mkey
@@ -95,7 +99,7 @@ klist -k /etc/krb5.keytab
 ```
 ### Extraire des comptes de /etc/krb5.keytab
 
-Les clés des comptes de service, essentielles pour les services fonctionnant avec des privilèges root, sont stockées en toute sécurité dans les fichiers **`/etc/krb5.keytab`**. Ces clés, semblables à des mots de passe pour les services, nécessitent une stricte confidentialité.
+Les clés des comptes de service, essentielles pour les services fonctionnant avec des privilèges root, sont stockées en toute sécurité dans les fichiers **`/etc/krb5.keytab`**. Ces clés, semblables à des mots de passe pour les services, nécessitent une confidentialité stricte.
 
 Pour inspecter le contenu du fichier keytab, **`klist`** peut être utilisé. L'outil est conçu pour afficher les détails des clés, y compris le **NT Hash** pour l'authentification des utilisateurs, en particulier lorsque le type de clé est identifié comme 23.
 ```bash
@@ -119,6 +123,10 @@ crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDO
 * [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
 * [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
 * [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
+
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
 Apprenez et pratiquez le hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
