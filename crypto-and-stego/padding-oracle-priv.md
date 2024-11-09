@@ -15,6 +15,10 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 ## CBC - Cipher Block Chaining
 
 In CBC mode the **previous encrypted block is used as IV** to XOR with the next block:
@@ -45,9 +49,9 @@ Note how in the last example the **last block was full so another one was genera
 
 ## Padding Oracle
 
-When an application decrypts encrypted data, it will first decrypt the data; then it will remove the padding. During the cleanup of the padding, if an **invalid padding triggers a detectable behaviour**, you have a **padding oracle vulnerability**. The detectable behaviour can be an **error**, a **lack of results**, or a **slower response**.
+Όταν μια εφαρμογή αποκρυπτογραφεί κρυπτογραφημένα δεδομένα, θα αποκρυπτογραφήσει πρώτα τα δεδομένα και στη συνέχεια θα αφαιρέσει το padding. Κατά την καθαριότητα του padding, αν ένα **μη έγκυρο padding προκαλέσει μια ανιχνεύσιμη συμπεριφορά**, έχετε μια **ευπάθεια padding oracle**. Η ανιχνεύσιμη συμπεριφορά μπορεί να είναι ένα **σφάλμα**, μια **έλλειψη αποτελεσμάτων** ή μια **αργή απόκριση**.
 
-If you detect this behaviour, you can **decrypt the encrypted data** and even **encrypt any cleartext**.
+Αν ανιχνεύσετε αυτή τη συμπεριφορά, μπορείτε να **αποκρυπτογραφήσετε τα κρυπτογραφημένα δεδομένα** και ακόμη και να **κρυπτογραφήσετε οποιοδήποτε καθαρό κείμενο**.
 
 ### How to exploit
 
@@ -100,7 +104,7 @@ perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon
 
 ### Ανίχνευση της ευπάθειας
 
-Εγγραφείτε και συνδεθείτε με αυτόν τον λογαριασμό.\
+Εγγραφείτε και δημιουργήστε λογαριασμό και συνδεθείτε με αυτόν το λογαριασμό.\
 Αν συνδεθείτε πολλές φορές και πάντα λαμβάνετε το ίδιο cookie, πιθανότατα υπάρχει κάτι λάθος στην εφαρμογή. Το cookie που επιστρέφεται θα πρέπει να είναι μοναδικό κάθε φορά που συνδέεστε. Αν το cookie είναι πάντα το ίδιο, πιθανότατα θα είναι πάντα έγκυρο και δεν θα υπάρχει τρόπος να το ακυρώσετε.
 
 Τώρα, αν προσπαθήσετε να τροποποιήσετε το cookie, μπορείτε να δείτε ότι λαμβάνετε ένα σφάλμα από την εφαρμογή.\
@@ -110,17 +114,21 @@ perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon
 
 * [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Υποστήριξη HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
+* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}

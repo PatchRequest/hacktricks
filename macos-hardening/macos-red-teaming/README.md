@@ -1,26 +1,34 @@
 # macOS Red Teaming
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Υποστήριξη HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
+* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
+
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Αποκτήστε την προοπτική ενός χάκερ για τις εφαρμογές σας, το δίκτυο και το cloud
+
+**Βρείτε και αναφέρετε κρίσιμες, εκμεταλλεύσιμες ευπάθειες με πραγματικό επιχειρηματικό αντίκτυπο.** Χρησιμοποιήστε τα 20+ προσαρμοσμένα εργαλεία μας για να χαρτογραφήσετε την επιφάνεια επίθεσης, να βρείτε ζητήματα ασφαλείας που σας επιτρέπουν να κλιμακώσετε προνόμια και να χρησιμοποιήσετε αυτοματοποιημένα exploits για να συλλέξετε βασικά αποδεικτικά στοιχεία, μετατρέποντας τη σκληρή δουλειά σας σε πειστικές αναφορές.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
 ## Κατάχρηση MDMs
 
 * JAMF Pro: `jamf checkJSSConnection`
 * Kandji
 
-Αν καταφέρετε να **συμβιβάσετε τα διαπιστευτήρια διαχειριστή** για να αποκτήσετε πρόσβαση στην πλατφόρμα διαχείρισης, μπορείτε να **συμβιβάσετε δυνητικά όλους τους υπολογιστές** διανέμοντας το κακόβουλο λογισμικό σας στις μηχανές.
+Εάν καταφέρετε να **συμβιβάσετε τα διαπιστευτήρια διαχειριστή** για να αποκτήσετε πρόσβαση στην πλατφόρμα διαχείρισης, μπορείτε να **συμβιβάσετε δυνητικά όλους τους υπολογιστές** διανέμοντας το κακόβουλο λογισμικό σας στις μηχανές.
 
 Για red teaming σε περιβάλλοντα MacOS, συνιστάται να έχετε κάποια κατανόηση του πώς λειτουργούν τα MDMs:
 
@@ -30,27 +38,27 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 
 ### Χρήση MDM ως C2
 
-Ένα MDM θα έχει άδεια να εγκαθιστά, να ερωτά ή να αφαιρεί προφίλ, να εγκαθιστά εφαρμογές, να δημιουργεί τοπικούς λογαριασμούς διαχειριστή, να ορίζει κωδικό firmware, να αλλάζει το κλειδί FileVault...
+Ένα MDM θα έχει άδεια να εγκαθιστά, να ερωτά ή να αφαιρεί προφίλ, να εγκαθιστά εφαρμογές, να δημιουργεί τοπικούς λογαριασμούς διαχειριστή, να ορίζει κωδικό πρόσβασης firmware, να αλλάζει το κλειδί FileVault...
 
-Για να τρέξετε το δικό σας MDM χρειάζεστε **το CSR σας υπογεγραμμένο από έναν προμηθευτή** που θα μπορούσατε να προσπαθήσετε να αποκτήσετε με [**https://mdmcert.download/**](https://mdmcert.download/). Και για να τρέξετε το δικό σας MDM για συσκευές Apple, μπορείτε να χρησιμοποιήσετε [**MicroMDM**](https://github.com/micromdm/micromdm).
+Για να εκτελέσετε το δικό σας MDM, χρειάζεστε **το CSR σας υπογεγραμμένο από έναν προμηθευτή** που θα μπορούσατε να προσπαθήσετε να αποκτήσετε με [**https://mdmcert.download/**](https://mdmcert.download/). Και για να εκτελέσετε το δικό σας MDM για συσκευές Apple, μπορείτε να χρησιμοποιήσετε [**MicroMDM**](https://github.com/micromdm/micromdm).
 
-Ωστόσο, για να εγκαταστήσετε μια εφαρμογή σε μια εγγεγραμμένη συσκευή, χρειάζεται ακόμα να είναι υπογεγραμμένη από έναν λογαριασμό προγραμματιστή... ωστόσο, κατά την εγγραφή MDM, η **συσκευή προσθέτει το SSL cert του MDM ως αξιόπιστη CA**, οπότε μπορείτε τώρα να υπογράψετε οτιδήποτε.
+Ωστόσο, για να εγκαταστήσετε μια εφαρμογή σε μια εγγεγραμμένη συσκευή, χρειάζεται ακόμα να είναι υπογεγραμμένη από έναν λογαριασμό προγραμματιστή... ωστόσο, κατά την εγγραφή MDM, η **συσκευή προσθέτει το SSL cert του MDM ως αξιόπιστο CA**, οπότε μπορείτε τώρα να υπογράψετε οτιδήποτε.
 
 Για να εγγραφεί η συσκευή σε ένα MDM, πρέπει να εγκαταστήσετε ένα **`mobileconfig`** αρχείο ως root, το οποίο θα μπορούσε να παραδοθεί μέσω ενός **pkg** αρχείου (μπορείτε να το συμπιέσετε σε zip και όταν κατεβεί από το safari θα αποσυμπιεστεί).
 
-**Mythic agent Orthrus** χρησιμοποιεί αυτή την τεχνική.
+**Ο μύθος πράκτορας Orthrus** χρησιμοποιεί αυτή την τεχνική.
 
 ### Κατάχρηση JAMF PRO
 
-Το JAMF μπορεί να εκτελεί **προσαρμοσμένα σενάρια** (σενάρια που αναπτύχθηκαν από τον sysadmin), **εγγενείς payloads** (δημιουργία τοπικού λογαριασμού, ορισμός κωδικού EFI, παρακολούθηση αρχείων/διεργασιών...) και **MDM** (ρυθμίσεις συσκευής, πιστοποιητικά συσκευής...).
+Η JAMF μπορεί να εκτελεί **προσαρμοσμένα σενάρια** (σενάρια που αναπτύχθηκαν από τον sysadmin), **εγγενείς payloads** (δημιουργία τοπικού λογαριασμού, ορισμός κωδικού EFI, παρακολούθηση αρχείων/διαδικασιών...) και **MDM** (ρυθμίσεις συσκευής, πιστοποιητικά συσκευής...).
 
 #### Αυτοεγγραφή JAMF
 
-Πηγαίνετε σε μια σελίδα όπως `https://<company-name>.jamfcloud.com/enroll/` για να δείτε αν έχουν **ενεργοποιήσει την αυτοεγγραφή**. Αν το έχουν, μπορεί να **ζητήσει διαπιστευτήρια για πρόσβαση**.
+Μεταβείτε σε μια σελίδα όπως `https://<company-name>.jamfcloud.com/enroll/` για να δείτε αν έχουν **επιτρέψει την αυτοεγγραφή**. Εάν το έχουν, μπορεί να **ζητήσει διαπιστευτήρια για πρόσβαση**.
 
 Μπορείτε να χρησιμοποιήσετε το σενάριο [**JamfSniper.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfSniper.py) για να εκτελέσετε μια επίθεση password spraying.
 
-Επιπλέον, αφού βρείτε κατάλληλα διαπιστευτήρια, θα μπορούσατε να είστε σε θέση να σπάσετε άλλους χρήστες με την επόμενη φόρμα:
+Επιπλέον, αφού βρείτε τα κατάλληλα διαπιστευτήρια, θα μπορούσατε να είστε σε θέση να σπάσετε άλλους χρήστες με την επόμενη φόρμα:
 
 ![](<../../.gitbook/assets/image (107).png>)
 
@@ -58,10 +66,10 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 
 <figure><img src="../../.gitbook/assets/image (167).png" alt=""><figcaption></figcaption></figure>
 
-Το **`jamf`** δυαδικό περιείχε το μυστικό για να ανοίξει το keychain το οποίο κατά την ανακάλυψη ήταν **κοινό** μεταξύ όλων και ήταν: **`jk23ucnq91jfu9aj`**.\
+Ο **`jamf`** δυαδικός περιέχει το μυστικό για να ανοίξει το keychain το οποίο κατά την ανακάλυψη ήταν **κοινό** μεταξύ όλων και ήταν: **`jk23ucnq91jfu9aj`**.\
 Επιπλέον, το jamf **επιμένει** ως **LaunchDaemon** στο **`/Library/LaunchAgents/com.jamf.management.agent.plist`**
 
-#### Κατάληψη Συσκευής JAMF
+#### Κατάληψη συσκευής JAMF
 
 Η **JSS** (Jamf Software Server) **URL** που θα χρησιμοποιήσει το **`jamf`** βρίσκεται στο **`/Library/Preferences/com.jamfsoftware.jamf.plist`**.\
 Αυτό το αρχείο περιέχει βασικά την URL:
@@ -105,7 +113,7 @@ sudo jamf policy -id 0
 
 Μπορείς επίσης να παρακολουθήσεις την τοποθεσία `/Library/Application Support/Jamf/tmp/` για τα **custom scripts** που οι διαχειριστές μπορεί να θέλουν να εκτελέσουν μέσω Jamf καθώς **τοποθετούνται εδώ, εκτελούνται και αφαιρούνται**. Αυτά τα scripts **μπορεί να περιέχουν διαπιστευτήρια**.
 
-Ωστόσο, τα **διαπιστευτήρια** μπορεί να περάσουν σε αυτά τα scripts ως **παράμετροι**, οπότε θα χρειαστεί να παρακολουθήσεις `ps aux | grep -i jamf` (χωρίς καν να είσαι root).
+Ωστόσο, **τα διαπιστευτήρια** μπορεί να περάσουν σε αυτά τα scripts ως **παράμετροι**, οπότε θα χρειαστεί να παρακολουθήσεις `ps aux | grep -i jamf` (χωρίς καν να είσαι root).
 
 Το script [**JamfExplorer.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfExplorer.py) μπορεί να ακούει για νέα αρχεία που προστίθενται και νέα επιχειρήματα διαδικασίας.
 
@@ -140,7 +148,7 @@ dscl "/Active Directory/[Domain]/All Domains" ls /
 Επίσης, υπάρχουν μερικά εργαλεία προετοιμασμένα για το MacOS για αυτόματη καταμέτρηση του AD και αλληλεπίδραση με το kerberos:
 
 * [**Machound**](https://github.com/XMCyber/MacHound): Το MacHound είναι μια επέκταση του εργαλείου ελέγχου Bloodhound που επιτρέπει τη συλλογή και την εισαγωγή σχέσεων Active Directory σε MacOS hosts.
-* [**Bifrost**](https://github.com/its-a-feature/bifrost): Το Bifrost είναι ένα έργο Objective-C σχεδιασμένο για αλληλεπίδραση με τα APIs Heimdal krb5 στο macOS. Ο στόχος του έργου είναι να επιτρέψει καλύτερη δοκιμή ασφάλειας γύρω από το Kerberos σε συσκευές macOS χρησιμοποιώντας εγγενή APIs χωρίς να απαιτείται κανένα άλλο πλαίσιο ή πακέτα στον στόχο.
+* [**Bifrost**](https://github.com/its-a-feature/bifrost): Το Bifrost είναι ένα έργο Objective-C σχεδιασμένο για αλληλεπίδραση με τα APIs Heimdal krb5 στο macOS. Ο στόχος του έργου είναι να επιτρέψει καλύτερη ασφάλεια δοκιμών γύρω από το Kerberos σε συσκευές macOS χρησιμοποιώντας εγγενή APIs χωρίς να απαιτείται κανένα άλλο πλαίσιο ή πακέτα στον στόχο.
 * [**Orchard**](https://github.com/its-a-feature/Orchard): Εργαλείο JavaScript for Automation (JXA) για την καταμέτρηση Active Directory.
 
 ### Πληροφορίες Τομέα
@@ -152,7 +160,7 @@ echo show com.apple.opendirectoryd.ActiveDirectory | scutil
 Οι τρεις τύποι χρηστών MacOS είναι:
 
 * **Τοπικοί Χρήστες** — Διαχειρίζονται από την τοπική υπηρεσία OpenDirectory, δεν συνδέονται με κανέναν τρόπο με το Active Directory.
-* **Δικτυακοί Χρήστες** — Μεταβλητοί χρήστες Active Directory που απαιτούν σύνδεση με τον διακομιστή DC για να αυθεντικοποιηθούν.
+* **Δικτυακοί Χρήστες** — Μεταβλητοί χρήστες Active Directory που απαιτούν σύνδεση με τον διακομιστή DC για αυθεντικοποίηση.
 * **Κινητοί Χρήστες** — Χρήστες Active Directory με τοπικό αντίγραφο ασφαλείας για τα διαπιστευτήρια και τα αρχεία τους.
 
 Οι τοπικές πληροφορίες σχετικά με τους χρήστες και τις ομάδες αποθηκεύονται στον φάκελο _/var/db/dslocal/nodes/Default._\
@@ -212,14 +220,14 @@ bifrost --action asktgt --username test_lab_admin \
 bifrost --action asktgs --spn [service] --domain [domain.com] \
 --username [user] --hash [hash] --enctype [enctype]
 ```
-Με τα αποκτηθέντα εισιτήρια υπηρεσιών είναι δυνατή η προσπάθεια πρόσβασης σε κοινόχρηστα αρχεία σε άλλους υπολογιστές:
+Με τα αποκτηθέντα εισιτήρια υπηρεσίας είναι δυνατή η προσπάθεια πρόσβασης σε κοινόχρηστα αρχεία σε άλλους υπολογιστές:
 ```bash
 smbutil view //computer.fqdn
 mount -t smbfs //server/folder /local/mount/point
 ```
 ## Πρόσβαση στο Keychain
 
-Το Keychain περιέχει πιθανότατα ευαίσθητες πληροφορίες που αν αποκτηθούν χωρίς να δημιουργηθεί προτροπή θα μπορούσαν να βοηθήσουν στην προώθηση μιας άσκησης red team:
+Το Keychain περιέχει πιθανότατα ευαίσθητες πληροφορίες που αν αποκτηθούν χωρίς να παραχθεί προτροπή θα μπορούσαν να βοηθήσουν στην προώθηση μιας άσκησης red team:
 
 {% content-ref url="macos-keychain.md" %}
 [macos-keychain.md](macos-keychain.md)
@@ -244,6 +252,14 @@ mount -t smbfs //server/folder /local/mount/point
 * [**https://gist.github.com/its-a-feature/1a34f597fb30985a2742bb16116e74e0**](https://gist.github.com/its-a-feature/1a34f597fb30985a2742bb16116e74e0)
 * [**Come to the Dark Side, We Have Apples: Turning macOS Management Evil**](https://www.youtube.com/watch?v=pOQOh07eMxY)
 * [**OBTS v3.0: "An Attackers Perspective on Jamf Configurations" - Luke Roberts / Calum Hall**](https://www.youtube.com/watch?v=ju1IYWUv4ZA)
+
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Αποκτήστε την προοπτική ενός χάκερ για τις διαδικτυακές σας εφαρμογές, το δίκτυο και το cloud
+
+**Βρείτε και αναφέρετε κρίσιμες, εκμεταλλεύσιμες ευπάθειες με πραγματικό επιχειρηματικό αντίκτυπο.** Χρησιμοποιήστε τα 20+ προσαρμοσμένα εργαλεία μας για να χαρτογραφήσετε την επιφάνεια επίθεσης, να βρείτε ζητήματα ασφάλειας που σας επιτρέπουν να κλιμακώσετε προνόμια και να χρησιμοποιήσετε αυτοματοποιημένες εκμεταλλεύσεις για να συλλέξετε βασικά αποδεικτικά στοιχεία, μετατρέποντας τη σκληρή σας δουλειά σε πειστικές αναφορές.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
 {% hint style="success" %}
 Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
