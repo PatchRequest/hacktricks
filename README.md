@@ -69,7 +69,7 @@ Acesse hoje:
 
 Junte-se ao servidor [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para se comunicar com hackers experientes e caçadores de bug bounty!
 
-* **Insights de Hacking:** Envolva-se com conteúdo que mergulha na emoção e nos desafios do hacking
+* **Insights de Hacking:** Engaje-se com conteúdo que mergulha na emoção e nos desafios do hacking
 * **Notícias de Hack em Tempo Real:** Mantenha-se atualizado com o mundo do hacking em ritmo acelerado através de notícias e insights em tempo real
 * **Últimos Anúncios:** Fique informado sobre os novos bug bounties lançando e atualizações cruciais da plataforma
 
@@ -79,12 +79,14 @@ Junte-se ao servidor [**HackenProof Discord**](https://discord.com/invite/N3FrSb
 
 ### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - O kit de ferramentas essencial para testes de penetração
 
-<figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Configuração instantaneamente disponível para avaliação de vulnerabilidades e testes de penetração**. Execute um pentest completo de qualquer lugar com mais de 20 ferramentas e recursos que vão de recon até relatórios. Nós não substituímos os pentesters - desenvolvemos ferramentas personalizadas, módulos de detecção e exploração para dar a eles mais tempo para investigar mais a fundo, explorar e se divertir.
+#### Obtenha a perspectiva de um hacker sobre seus aplicativos web, rede e nuvem
+
+**Encontre e relate vulnerabilidades críticas e exploráveis com impacto real nos negócios.** Use nossas mais de 20 ferramentas personalizadas para mapear a superfície de ataque, encontrar problemas de segurança que permitem escalar privilégios e usar exploits automatizados para coletar evidências essenciais, transformando seu trabalho árduo em relatórios persuasivos.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
-\
+
 
 {% endembed %}
 
@@ -94,7 +96,7 @@ Junte-se ao servidor [**HackenProof Discord**](https://discord.com/invite/N3FrSb
 
 <figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
 
-**SerpApi** oferece APIs rápidas e fáceis em tempo real para **acessar resultados de mecanismos de busca**. Eles raspam mecanismos de busca, gerenciam proxies, resolvem captchas e analisam todos os dados estruturados ricos para você.
+**SerpApi** oferece APIs rápidas e fáceis em tempo real para **acessar resultados de mecanismos de busca**. Eles raspam mecanismos de busca, lidam com proxies, resolvem captchas e analisam todos os dados estruturados ricos para você.
 
 Uma assinatura de um dos planos da SerpApi inclui acesso a mais de 50 APIs diferentes para raspagem de diferentes mecanismos de busca, incluindo Google, Bing, Baidu, Yahoo, Yandex e mais.\
 Ao contrário de outros provedores, **a SerpApi não apenas raspa resultados orgânicos**. As respostas da SerpApi incluem consistentemente todos os anúncios, imagens e vídeos inline, gráficos de conhecimento e outros elementos e recursos presentes nos resultados de busca.
@@ -111,7 +113,7 @@ Você pode **criar uma conta gratuita** [**aqui**](https://serpapi.com/users/sig
 
 [**WebSec**](https://websec.nl) é uma empresa profissional de cibersegurança com sede em **Amsterdã** que ajuda a **proteger** empresas **em todo o mundo** contra as mais recentes ameaças de cibersegurança, fornecendo **serviços de segurança ofensiva** com uma abordagem **moderna**.
 
-WebSec é uma **empresa de segurança tudo-em-um**, o que significa que eles fazem tudo; Pentesting, **Auditorias** de Segurança, Treinamentos de Conscientização, Campanhas de Phishing, Revisão de Código, Desenvolvimento de Exploits, Terceirização de Especialistas em Segurança e muito mais.
+WebSec é uma **empresa de segurança tudo-em-um**, o que significa que eles fazem tudo; Pentesting, **Auditorias de Segurança**, Treinamentos de Conscientização, Campanhas de Phishing, Revisão de Código, Desenvolvimento de Exploits, Terceirização de Especialistas em Segurança e muito mais.
 
 Outra coisa legal sobre a WebSec é que, ao contrário da média da indústria, a WebSec é **muito confiante em suas habilidades**, a tal ponto que **garante os melhores resultados de qualidade**, afirmando em seu site "**Se não conseguimos hackear, você não paga!**". Para mais informações, dê uma olhada em seu [**site**](https://websec.nl/en/) e [**blog**](https://websec.nl/blog/)!
 
@@ -129,7 +131,7 @@ Confira-os em:
 
 ## Estatísticas do Github
 
-![Estatísticas do HackTricks no Github](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg)
+![Estatísticas do Github do HackTricks](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg)
 
 {% hint style="success" %}
 Aprenda e pratique Hacking AWS:<img src=".gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src=".gitbook/assets/arte.png" alt="" data-size="line">\

@@ -17,7 +17,9 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Configuração disponível instantaneamente para avaliação de vulnerabilidades e testes de penetração**. Execute um pentest completo de qualquer lugar com mais de 20 ferramentas e recursos que vão de reconhecimento a relatórios. Não substituímos os pentesters - desenvolvemos ferramentas personalizadas, módulos de detecção e exploração para dar a eles mais tempo para investigar mais a fundo, explorar e se divertir.
+#### Obtenha a perspectiva de um hacker sobre seus aplicativos web, rede e nuvem
+
+**Encontre e relate vulnerabilidades críticas e exploráveis com impacto real nos negócios.** Use nossas mais de 20 ferramentas personalizadas para mapear a superfície de ataque, encontrar problemas de segurança que permitem escalar privilégios e usar exploits automatizados para coletar evidências essenciais, transformando seu trabalho árduo em relatórios persuasivos.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -29,20 +31,20 @@ Várias vezes o back-end confia no **cabeçalho Host** para realizar algumas aç
 Note que é possível que você não precise nem esperar o usuário clicar no link de redefinição de senha para obter o token, pois talvez até mesmo **filtros de spam ou outros dispositivos/bots intermediários cliquem nele para analisá-lo**.
 {% endhint %}
 
-### Booleanos de Sessão
+### Booleanos de sessão
 
 Às vezes, quando você completa alguma verificação corretamente, o back-end **apenas adiciona um booleano com o valor "True" a um atributo de segurança da sua sessão**. Então, um endpoint diferente saberá se você passou com sucesso naquela verificação.\
 No entanto, se você **passar a verificação** e sua sessão receber esse valor "True" no atributo de segurança, você pode tentar **acessar outros recursos** que **dependem do mesmo atributo** mas que você **não deveria ter permissões** para acessar. [WriteUp](https://medium.com/@ozguralp/a-less-known-attack-vector-second-order-idor-attacks-14468009781a).
 
-### Funcionalidade de Registro
+### Funcionalidade de registro
 
 Tente se registrar como um usuário já existente. Tente também usar caracteres equivalentes (pontos, muitos espaços e Unicode).
 
-### Tomar Contas de E-mail
+### Tomar conta de e-mails
 
-Registre um e-mail, antes de confirmá-lo, mude o e-mail, então, se o novo e-mail de confirmação for enviado para o primeiro e-mail registrado, você pode tomar qualquer e-mail. Ou se você puder habilitar o segundo e-mail confirmando o primeiro, você também pode tomar qualquer conta.
+Registre um e-mail, antes de confirmá-lo, mude o e-mail, então, se o novo e-mail de confirmação for enviado para o primeiro e-mail registrado, você pode tomar conta de qualquer e-mail. Ou se você puder habilitar o segundo e-mail confirmando o primeiro, você também pode tomar conta de qualquer conta.
 
-### Acessar o Servicedesk Interno de Empresas Usando Atlassian
+### Acessar o serviço interno de atendimento ao cliente de empresas usando Atlassian
 
 {% embed url="https://yourcompanyname.atlassian.net/servicedesk/customer/user/login" %}
 
@@ -55,7 +57,9 @@ Os desenvolvedores podem esquecer de desativar várias opções de depuração n
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Configuração disponível instantaneamente para avaliação de vulnerabilidades e testes de penetração**. Execute um pentest completo de qualquer lugar com mais de 20 ferramentas e recursos que vão de reconhecimento a relatórios. Não substituímos os pentesters - desenvolvemos ferramentas personalizadas, módulos de detecção e exploração para dar a eles mais tempo para investigar mais a fundo, explorar e se divertir.
+#### Obtenha a perspectiva de um hacker sobre seus aplicativos web, rede e nuvem
+
+**Encontre e relate vulnerabilidades críticas e exploráveis com impacto real nos negócios.** Use nossas mais de 20 ferramentas personalizadas para mapear a superfície de ataque, encontrar problemas de segurança que permitem escalar privilégios e usar exploits automatizados para coletar evidências essenciais, transformando seu trabalho árduo em relatórios persuasivos.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 

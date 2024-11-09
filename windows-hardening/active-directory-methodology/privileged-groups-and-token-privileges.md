@@ -6,14 +6,21 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Suporte ao HackTricks</summary>
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Use [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) para construir e **automatizar fluxos de trabalho** facilmente, impulsionados pelas **ferramentas comunitárias mais avançadas** do mundo.\
+Acesse hoje:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 ## Grupos Conhecidos com privilégios de administração
 
@@ -33,7 +40,7 @@ Adicionar novos usuários é permitido, assim como o login local no DC01.
 
 ## Grupo AdminSDHolder
 
-A Lista de Controle de Acesso (ACL) do grupo **AdminSDHolder** é crucial, pois define permissões para todos os "grupos protegidos" dentro do Active Directory, incluindo grupos de alto privilégio. Este mecanismo garante a segurança desses grupos, impedindo modificações não autorizadas.
+A Lista de Controle de Acesso (ACL) do grupo **AdminSDHolder** é crucial, pois define permissões para todos os "grupos protegidos" dentro do Active Directory, incluindo grupos de alto privilégio. Esse mecanismo garante a segurança desses grupos, impedindo modificações não autorizadas.
 
 Um atacante poderia explorar isso modificando a ACL do grupo **AdminSDHolder**, concedendo permissões totais a um usuário padrão. Isso daria efetivamente a esse usuário controle total sobre todos os grupos protegidos. Se as permissões desse usuário forem alteradas ou removidas, elas seriam automaticamente restauradas dentro de uma hora devido ao design do sistema.
 
@@ -67,7 +74,7 @@ Este comando revela que `Server Operators` têm acesso total, permitindo a manip
 
 ## Backup Operators
 
-A adesão ao grupo `Backup Operators` fornece acesso ao sistema de arquivos `DC01` devido aos privilégios `SeBackup` e `SeRestore`. Esses privilégios permitem a travessia de pastas, listagem e cópia de arquivos, mesmo sem permissões explícitas, usando a flag `FILE_FLAG_BACKUP_SEMANTICS`. É necessário utilizar scripts específicos para esse processo.
+A filiação no grupo `Backup Operators` fornece acesso ao sistema de arquivos `DC01` devido aos privilégios `SeBackup` e `SeRestore`. Esses privilégios permitem a travessia de pastas, listagem e cópia de arquivos, mesmo sem permissões explícitas, usando a flag `FILE_FLAG_BACKUP_SEMANTICS`. É necessário utilizar scripts específicos para esse processo.
 
 Para listar os membros do grupo, execute:
 ```powershell
@@ -98,7 +105,7 @@ O acesso direto ao sistema de arquivos do Controlador de Domínio permite o roub
 
 #### Using diskshadow.exe
 
-1. Crie uma cópia sombra do drive `C`:
+1. Crie uma cópia sombra da unidade `C`:
 ```cmd
 diskshadow.exe
 set verbose on
@@ -111,7 +118,7 @@ expose %cdrive% F:
 end backup
 exit
 ```
-2. Copie `NTDS.dit` da cópia de sombra:
+2. Copie `NTDS.dit` da cópia sombra:
 ```cmd
 Copy-FileSeBackupPrivilege E:\Windows\NTDS\ntds.dit C:\Tools\ntds.dit
 ```
@@ -198,7 +205,7 @@ Este grupo pode modificar DACLs no objeto do domínio, potencialmente concedendo
 Get-NetGroupMember -Identity "Exchange Windows Permissions" -Recurse
 ```
 ## Administradores do Hyper-V
-Os Administradores do Hyper-V têm acesso total ao Hyper-V, o que pode ser explorado para obter controle sobre Controladores de Domínio virtualizados. Isso inclui clonar DCs ativos e extrair hashes NTLM do arquivo NTDS.dit.
+Os Administradores do Hyper-V têm acesso total ao Hyper-V, o que pode ser explorado para obter controle sobre Controladores de Domínio virtualizados. Isso inclui clonar DCs ao vivo e extrair hashes NTLM do arquivo NTDS.dit.
 
 ### Exemplo de Exploração
 O Serviço de Manutenção da Mozilla Firefox pode ser explorado por Administradores do Hyper-V para executar comandos como SYSTEM. Isso envolve criar um link físico para um arquivo protegido do SYSTEM e substituí-lo por um executável malicioso:
@@ -238,7 +245,7 @@ Membros podem acessar PCs através do **Windows Remote Management (WinRM)**. A e
 Get-NetGroupMember -Identity "Remote Management Users" -Recurse
 Get-NetLocalGroupMember -ComputerName <pc name> -GroupName "Remote Management Users"
 ```
-Para técnicas de exploração relacionadas ao **WinRM**, deve-se consultar a documentação específica.
+Para técnicas de exploração relacionadas ao **WinRM**, documentação específica deve ser consultada.
 
 #### Operadores de Servidor
 Este grupo tem permissões para realizar várias configurações em Controladores de Domínio, incluindo privilégios de backup e restauração, alteração da hora do sistema e desligamento do sistema. Para enumerar os membros, o comando fornecido é:
@@ -262,6 +269,13 @@ Get-NetGroupMember -Identity "Server Operators" -Recurse
 * [https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e](https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e)
 * [https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html](https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html)
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Use [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) para construir e **automatizar fluxos de trabalho** facilmente, alimentados pelas **ferramentas** da comunidade **mais avançadas** do mundo.\
+Obtenha Acesso Hoje:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
 {% hint style="success" %}
 Aprenda e pratique Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
 Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
@@ -272,7 +286,7 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
+* **Compartilhe truques de hacking enviando PRs para os** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}

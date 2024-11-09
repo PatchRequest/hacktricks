@@ -15,17 +15,21 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-Uma máquina linux também pode estar presente em um ambiente Active Directory.
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
+Uma máquina linux também pode estar presente dentro de um ambiente Active Directory.
 
 Uma máquina linux em um AD pode estar **armazenando diferentes tickets CCACHE dentro de arquivos. Esses tickets podem ser usados e abusados como qualquer outro ticket kerberos**. Para ler esses tickets, você precisará ser o usuário proprietário do ticket ou **root** dentro da máquina.
 
 ## Enumeração
 
-### Enumeração AD a partir do linux
+### Enumeração de AD a partir do linux
 
 Se você tiver acesso a um AD no linux (ou bash no Windows), pode tentar [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) para enumerar o AD.
 
-Você também pode verificar a seguinte página para aprender **outras maneiras de enumerar o AD a partir do linux**:
+Você também pode verificar a seguinte página para aprender **outras maneiras de enumerar AD a partir do linux**:
 
 {% content-ref url="../../network-services-pentesting/pentesting-ldap.md" %}
 [pentesting-ldap.md](../../network-services-pentesting/pentesting-ldap.md)
@@ -33,7 +37,7 @@ Você também pode verificar a seguinte página para aprender **outras maneiras 
 
 ### FreeIPA
 
-FreeIPA é uma **alternativa** de código aberto ao **Active Directory** da Microsoft, principalmente para ambientes **Unix**. Ele combina um **diretório LDAP** completo com um Centro de Distribuição de Chaves **Kerberos** do MIT para gerenciamento semelhante ao Active Directory. Utilizando o **Sistema de Certificados Dogtag** para gerenciamento de certificados CA e RA, suporta autenticação **multifatorial**, incluindo smartcards. O SSSD está integrado para processos de autenticação Unix. Saiba mais sobre isso em:
+FreeIPA é uma **alternativa** de código aberto ao **Active Directory** da Microsoft, principalmente para ambientes **Unix**. Ele combina um **diretório LDAP** completo com um Centro de Distribuição de Chaves **Kerberos** do MIT para gerenciamento semelhante ao Active Directory. Utilizando o **Sistema de Certificados Dogtag** para gerenciamento de certificados CA e RA, suporta autenticação **multifatorial**, incluindo cartões inteligentes. O SSSD está integrado para processos de autenticação Unix. Saiba mais sobre isso em:
 
 {% content-ref url="../freeipa-pentesting.md" %}
 [freeipa-pentesting.md](../freeipa-pentesting.md)
@@ -96,7 +100,7 @@ klist -k /etc/krb5.keytab
 
 As chaves de contas de serviço, essenciais para serviços que operam com privilégios de root, são armazenadas de forma segura nos arquivos **`/etc/krb5.keytab`**. Essas chaves, semelhantes a senhas para serviços, exigem estrita confidencialidade.
 
-Para inspecionar o conteúdo do arquivo keytab, **`klist`** pode ser empregado. A ferramenta é projetada para exibir detalhes da chave, incluindo o **NT Hash** para autenticação de usuários, particularmente quando o tipo de chave é identificado como 23.
+Para inspecionar o conteúdo do arquivo keytab, pode-se empregar **`klist`**. A ferramenta é projetada para exibir detalhes da chave, incluindo o **NT Hash** para autenticação de usuários, particularmente quando o tipo de chave é identificado como 23.
 ```bash
 klist.exe -t -K -e -k FILE:C:/Path/to/your/krb5.keytab
 # Output includes service principal details and the NT Hash
@@ -118,6 +122,10 @@ crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDO
 * [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
 * [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
 * [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
+
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
 Aprenda e pratique Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

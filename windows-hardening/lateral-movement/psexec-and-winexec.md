@@ -15,6 +15,10 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 ## Como eles funcionam
 
 O processo é descrito nos passos abaixo, ilustrando como os binários de serviço são manipulados para alcançar a execução remota em uma máquina alvo via SMB:
@@ -22,14 +26,14 @@ O processo é descrito nos passos abaixo, ilustrando como os binários de servi�
 1. **Cópia de um binário de serviço para o compartilhamento ADMIN$ via SMB** é realizada.
 2. **Criação de um serviço na máquina remota** é feita apontando para o binário.
 3. O serviço é **iniciado remotamente**.
-4. Ao sair, o serviço é **parado, e o binário é deletado**.
+4. Ao sair, o serviço é **parado, e o binário é excluído**.
 
 ### **Processo de Execução Manual do PsExec**
 
 Assumindo que há um payload executável (criado com msfvenom e ofuscado usando Veil para evadir a detecção de antivírus), nomeado 'met8888.exe', representando um payload reverse_http do meterpreter, os seguintes passos são tomados:
 
 * **Cópia do binário**: O executável é copiado para o compartilhamento ADMIN$ a partir de um prompt de comando, embora possa ser colocado em qualquer lugar no sistema de arquivos para permanecer oculto.
-* **Criação de um serviço**: Utilizando o comando `sc` do Windows, que permite consultar, criar e deletar serviços do Windows remotamente, um serviço chamado "meterpreter" é criado para apontar para o binário carregado.
+* **Criação de um serviço**: Utilizando o comando `sc` do Windows, que permite consultar, criar e excluir serviços do Windows remotamente, um serviço chamado "meterpreter" é criado para apontar para o binário carregado.
 * **Iniciando o serviço**: O passo final envolve iniciar o serviço, o que provavelmente resultará em um erro de "timeout" devido ao binário não ser um verdadeiro binário de serviço e falhar em retornar o código de resposta esperado. Este erro é irrelevante, pois o objetivo principal é a execução do binário.
 
 A observação do listener do Metasploit revelará que a sessão foi iniciada com sucesso.
@@ -49,6 +53,10 @@ Você também pode usar [**SharpLateral**](https://github.com/mertdas/SharpLater
 SharpLateral.exe redexec HOSTNAME C:\\Users\\Administrator\\Desktop\\malware.exe.exe malware.exe ServiceName
 ```
 {% endcode %}
+
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
 Aprenda e pratique Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
