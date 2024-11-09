@@ -15,11 +15,18 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Use [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) to easily build and **automate workflows** powered by the world's **most advanced** community tools.\
+Get Access Today:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
 ## Well Known groups with administration privileges
 
-* **Administrators**
-* **Domain Admins**
-* **Enterprise Admins**
+* **관리자**
+* **도메인 관리자**
+* **엔터프라이즈 관리자**
 
 ## Account Operators
 
@@ -29,11 +36,11 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 ```powershell
 Get-NetGroupMember -Identity "Account Operators" -Recurse
 ```
-사용자 추가는 허용되며, DC01에 대한 로컬 로그인도 가능합니다.
+사용자 추가는 허용되며, DC01에 대한 로컬 로그인이 가능합니다.
 
 ## AdminSDHolder 그룹
 
-**AdminSDHolder** 그룹의 접근 제어 목록(ACL)은 모든 "보호된 그룹"에 대한 권한을 설정하므로 매우 중요합니다. 여기에는 고급 권한 그룹이 포함됩니다. 이 메커니즘은 무단 수정을 방지하여 이러한 그룹의 보안을 보장합니다.
+**AdminSDHolder** 그룹의 접근 제어 목록(ACL)은 모든 "보호된 그룹"에 대한 권한을 설정하므로 매우 중요합니다. 여기에는 높은 권한 그룹이 포함됩니다. 이 메커니즘은 무단 수정을 방지하여 이러한 그룹의 보안을 보장합니다.
 
 공격자는 **AdminSDHolder** 그룹의 ACL을 수정하여 표준 사용자에게 전체 권한을 부여함으로써 이를 악용할 수 있습니다. 이렇게 되면 해당 사용자는 모든 보호된 그룹에 대한 전체 제어 권한을 가지게 됩니다. 이 사용자의 권한이 변경되거나 제거되면, 시스템 설계로 인해 1시간 이내에 자동으로 복원됩니다.
 
@@ -45,9 +52,9 @@ Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs | ?{$_.IdentityRefer
 ```
 복원 프로세스를 신속하게 진행할 수 있는 스크립트가 있습니다: [Invoke-ADSDPropagation.ps1](https://github.com/edemilliere/ADSI/blob/master/Invoke-ADSDPropagation.ps1).
 
-자세한 내용은 [ired.team](https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/how-to-abuse-and-backdoor-adminsdholder-to-obtain-domain-admin-persistence)를 방문하세요.
+자세한 내용은 [ired.team](https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/how-to-abuse-and-backdoor-adminsdholder-to-obtain-domain-admin-persistence)을 방문하세요.
 
-## AD 리사이클 빈
+## AD Recycle Bin
 
 이 그룹의 구성원은 삭제된 Active Directory 객체를 읽을 수 있으며, 이는 민감한 정보를 드러낼 수 있습니다:
 ```bash
@@ -63,11 +70,11 @@ Sysinternals의 `PsService` 또는 `sc`를 사용하여 서비스 권한을 검�
 ```cmd
 C:\> .\PsService.exe security AppReadiness
 ```
-이 명령은 `Server Operators`가 전체 접근 권한을 가지고 있어 서비스 조작을 통해 상승된 권한을 부여할 수 있음을 보여줍니다.
+이 명령은 `Server Operators`가 전체 액세스 권한을 가지고 있어 서비스 조작을 통해 상승된 권한을 얻을 수 있음을 보여줍니다.
 
 ## Backup Operators
 
-`Backup Operators` 그룹의 구성원 자격은 `SeBackup` 및 `SeRestore` 권한 덕분에 `DC01` 파일 시스템에 대한 접근을 제공합니다. 이러한 권한은 명시적인 권한 없이도 `FILE_FLAG_BACKUP_SEMANTICS` 플래그를 사용하여 폴더 탐색, 목록 작성 및 파일 복사 기능을 가능하게 합니다. 이 프로세스에는 특정 스크립트를 사용하는 것이 필요합니다.
+`Backup Operators` 그룹의 구성원 자격은 `SeBackup` 및 `SeRestore` 권한 덕분에 `DC01` 파일 시스템에 대한 액세스를 제공합니다. 이러한 권한은 명시적인 권한 없이도 `FILE_FLAG_BACKUP_SEMANTICS` 플래그를 사용하여 폴더 탐색, 목록 작성 및 파일 복사 기능을 가능하게 합니다. 이 프로세스에는 특정 스크립트를 사용하는 것이 필요합니다.
 
 그룹 구성원을 나열하려면 다음을 실행하십시오:
 ```powershell
@@ -179,10 +186,10 @@ sc.exe \\dc01 start dns
 For more details on this attack vector, refer to ired.team.
 
 #### Mimilib.dll
-mimilib.dll을 사용하여 명령 실행을 위해 특정 명령이나 리버스 셸을 실행하도록 수정하는 것도 가능합니다. [이 게시물을 확인하세요](https://www.labofapenetrationtester.com/2017/05/abusing-dnsadmins-privilege-for-escalation-in-active-directory.html) 더 많은 정보를 위해.
+mimilib.dll을 사용하여 명령 실행을 수행하는 것도 가능하며, 특정 명령이나 리버스 셸을 실행하도록 수정할 수 있습니다. [이 게시물](https://www.labofapenetrationtester.com/2017/05/abusing-dnsadmins-privilege-for-escalation-in-active-directory.html)을 참조하여 더 많은 정보를 확인하세요.
 
 ### WPAD Record for MitM
-DnsAdmins는 글로벌 쿼리 차단 목록을 비활성화한 후 WPAD 레코드를 생성하여 Man-in-the-Middle (MitM) 공격을 수행하기 위해 DNS 레코드를 조작할 수 있습니다. Responder 또는 Inveigh와 같은 도구를 사용하여 네트워크 트래픽을 스푸핑하고 캡처할 수 있습니다.
+DnsAdmins는 전역 쿼리 차단 목록을 비활성화한 후 WPAD 레코드를 생성하여 Man-in-the-Middle (MitM) 공격을 수행하기 위해 DNS 레코드를 조작할 수 있습니다. Responder 또는 Inveigh와 같은 도구를 사용하여 네트워크 트래픽을 스푸핑하고 캡처할 수 있습니다.
 
 ### Event Log Readers
 구성원은 이벤트 로그에 접근할 수 있으며, 평문 비밀번호나 명령 실행 세부정보와 같은 민감한 정보를 찾을 수 있습니다:
@@ -198,34 +205,34 @@ Get-WinEvent -LogName security | where { $_.ID -eq 4688 -and $_.Properties[8].Va
 Get-NetGroupMember -Identity "Exchange Windows Permissions" -Recurse
 ```
 ## Hyper-V Administrators
-Hyper-V 관리자는 Hyper-V에 대한 전체 액세스 권한을 가지며, 이를 통해 가상화된 도메인 컨트롤러를 제어할 수 있습니다. 여기에는 라이브 DC를 클론하고 NTDS.dit 파일에서 NTLM 해시를 추출하는 것이 포함됩니다.
+Hyper-V 관리자는 Hyper-V에 대한 전체 액세스 권한을 가지고 있으며, 이를 통해 가상화된 도메인 컨트롤러에 대한 제어를 얻을 수 있습니다. 여기에는 라이브 DC를 클론하고 NTDS.dit 파일에서 NTLM 해시를 추출하는 것이 포함됩니다.
 
 ### Exploitation Example
-Firefox의 Mozilla Maintenance Service는 Hyper-V 관리자가 SYSTEM으로 명령을 실행하는 데 악용될 수 있습니다. 이는 보호된 SYSTEM 파일에 대한 하드 링크를 생성하고 이를 악성 실행 파일로 교체하는 것을 포함합니다:
+Firefox의 Mozilla Maintenance Service는 Hyper-V 관리자가 SYSTEM으로 명령을 실행하는 데 악용될 수 있습니다. 여기에는 보호된 SYSTEM 파일에 대한 하드 링크를 생성하고 이를 악성 실행 파일로 교체하는 것이 포함됩니다:
 ```bash
 # Take ownership and start the service
 takeown /F C:\Program Files (x86)\Mozilla Maintenance Service\maintenanceservice.exe
 sc.exe start MozillaMaintenance
 ```
-Note: 하드 링크 악용은 최근 Windows 업데이트에서 완화되었습니다.
+Note: Hard link exploitation has been mitigated in recent Windows updates.
 
-## 조직 관리
+## Organization Management
 
-**Microsoft Exchange**가 배포된 환경에서는 **조직 관리**라는 특별한 그룹이 중요한 권한을 가지고 있습니다. 이 그룹은 **모든 도메인 사용자의 메일박스에 접근할 수 있는 권한**을 가지며, **'Microsoft Exchange 보안 그룹'** 조직 단위(OU)에 대한 **전체 제어**를 유지합니다. 이 제어에는 권한 상승을 위해 악용될 수 있는 **`Exchange Windows Permissions`** 그룹이 포함됩니다.
+**Microsoft Exchange**가 배포된 환경에서는 **Organization Management**라는 특별한 그룹이 중요한 권한을 가지고 있습니다. 이 그룹은 **모든 도메인 사용자의 메일박스에 접근할 수 있는 권한**을 가지며, **'Microsoft Exchange Security Groups'** 조직 단위(OU)에 대한 **전체 제어**를 유지합니다. 이 제어에는 **`Exchange Windows Permissions`** 그룹이 포함되어 있으며, 이는 권한 상승을 위해 악용될 수 있습니다.
 
-### 권한 악용 및 명령
+### Privilege Exploitation and Commands
 
-#### 인쇄 운영자
-**인쇄 운영자** 그룹의 구성원은 **`SeLoadDriverPrivilege`**를 포함한 여러 권한을 부여받으며, 이를 통해 **도메인 컨트롤러에 로컬로 로그인**하고, 이를 종료하며, 프린터를 관리할 수 있습니다. 이러한 권한을 악용하기 위해서는, 특히 **`SeLoadDriverPrivilege`**가 낮은 권한의 컨텍스트에서 보이지 않는 경우, 사용자 계정 컨트롤(UAC)을 우회해야 합니다.
+#### Print Operators
+**Print Operators** 그룹의 구성원은 **`SeLoadDriverPrivilege`**를 포함한 여러 권한을 부여받으며, 이를 통해 **도메인 컨트롤러에 로컬로 로그인**하고, 이를 종료하며, 프린터를 관리할 수 있습니다. 이러한 권한을 악용하기 위해서는, 특히 **`SeLoadDriverPrivilege`**가 비승격된 컨텍스트에서 보이지 않는 경우, 사용자 계정 컨트롤(UAC)을 우회해야 합니다.
 
 이 그룹의 구성원을 나열하기 위해 다음 PowerShell 명령이 사용됩니다:
 ```powershell
 Get-NetGroupMember -Identity "Print Operators" -Recurse
 ```
-보다 자세한 **`SeLoadDriverPrivilege`** 관련 악용 기술은 특정 보안 리소스를 참조해야 합니다.
+더 자세한 **`SeLoadDriverPrivilege`** 관련 악용 기술에 대해서는 특정 보안 리소스를 참조해야 합니다.
 
 #### 원격 데스크톱 사용자
-이 그룹의 구성원은 원격 데스크톱 프로토콜(RDP)을 통해 PC에 접근할 수 있습니다. 이러한 구성원을 열거하기 위해 PowerShell 명령을 사용할 수 있습니다:
+이 그룹의 구성원은 원격 데스크톱 프로토콜(RDP)을 통해 PC에 접근할 수 있습니다. 이러한 구성원을 나열하기 위해 PowerShell 명령을 사용할 수 있습니다:
 ```powershell
 Get-NetGroupMember -Identity "Remote Desktop Users" -Recurse
 Get-NetLocalGroupMember -ComputerName <pc name> -GroupName "Remote Desktop Users"
@@ -238,7 +245,7 @@ RDP를 악용하는 데 대한 추가 정보는 전용 pentesting 리소스에�
 Get-NetGroupMember -Identity "Remote Management Users" -Recurse
 Get-NetLocalGroupMember -ComputerName <pc name> -GroupName "Remote Management Users"
 ```
-**WinRM**와 관련된 익스플로잇 기술에 대해서는 특정 문서를 참조해야 합니다.
+**WinRM**와 관련된 exploitation 기술에 대해서는 특정 문서를 참조해야 합니다.
 
 #### 서버 운영자
 이 그룹은 도메인 컨트롤러에서 다양한 구성을 수행할 수 있는 권한을 가지고 있으며, 여기에는 백업 및 복원 권한, 시스템 시간 변경, 시스템 종료가 포함됩니다. 구성원을 나열하기 위해 제공된 명령은 다음과 같습니다:
@@ -262,17 +269,24 @@ Get-NetGroupMember -Identity "Server Operators" -Recurse
 * [https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e](https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e)
 * [https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html](https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html)
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Use [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) to easily build and **automate workflows** powered by the world's **most advanced** community tools.\
+Get Access Today:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
 {% hint style="success" %}
-AWS 해킹 배우기 및 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>HackTricks 지원하기</summary>
+<summary>Support HackTricks</summary>
 
-* [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
-* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
-* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.**
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}

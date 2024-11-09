@@ -13,6 +13,12 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Use [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) to easily build and **automate workflows** powered by the world's **most advanced** community tools.\
+Get Access Today:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 # Sudo/Admin Groups
 
@@ -38,8 +44,7 @@ sudo su
 ```bash
 find / -perm -4000 2>/dev/null
 ```
-If you find that the binary pkexec is a SUID binary and you belong to sudo or admin, you could probably execute binaries as sudo using pkexec.  
-다음 내용을 확인하세요:
+만약 pkexec 바이너리가 SUID 바이너리이고 당신이 sudo 또는 admin 그룹에 속한다면, pkexec를 사용하여 sudo로 바이너리를 실행할 수 있을 것입니다. 다음 내용을 확인하세요:
 ```bash
 cat /etc/polkit-1/localauthority.conf.d/*
 ```
@@ -94,7 +99,7 @@ So, read the file and try to **crack some hashes**.
 
 # Disk Group
 
-이 권한은 **루트 접근과 거의 동등**하여 머신 내부의 모든 데이터에 접근할 수 있습니다.
+이 권한은 거의 **루트 접근과 동등**하며, 머신 내부의 모든 데이터에 접근할 수 있습니다.
 
 Files:`/dev/sd[a-z][1-9]`
 ```text
@@ -110,9 +115,9 @@ Note that using debugfs you can also **write files**. For example to copy `/tmp/
 debugfs -w /dev/sda1
 debugfs:  dump /tmp/asd1.txt /tmp/asd2.txt
 ```
-그러나 **root가 소유한 파일** \(예: `/etc/shadow` 또는 `/etc/passwd`\)을 **쓰기** 시도하면 "**Permission denied**" 오류가 발생합니다.
+그러나 **root가 소유한 파일** \(예: `/etc/shadow` 또는 `/etc/passwd`\)에 **쓰기**를 시도하면 "**Permission denied**" 오류가 발생합니다.
 
-# Video Group
+# 비디오 그룹
 
 `w` 명령어를 사용하면 **시스템에 로그인한 사람**을 찾을 수 있으며, 다음과 같은 출력을 보여줍니다:
 ```bash
@@ -127,19 +132,19 @@ The **tty1**는 사용자 **yossi가 물리적으로** 머신의 터미널에 �
 cat /dev/fb0 > /tmp/screen.raw
 cat /sys/class/graphics/fb0/virtual_size
 ```
-To **open** the **raw image** you can use **GIMP**, select the **`screen.raw`** file and select as file type **Raw image data**:
+**원시 이미지**를 **열기** 위해 **GIMP**를 사용하고 **`screen.raw`** 파일을 선택한 후 파일 형식으로 **원시 이미지 데이터**를 선택할 수 있습니다:
 
 ![](../../.gitbook/assets/image%20%28208%29.png)
 
-Then modify the Width and Height to the ones used on the screen and check different Image Types \(and select the one that shows better the screen\):
+그런 다음 너비와 높이를 화면에서 사용된 값으로 수정하고 다양한 이미지 유형을 확인한 후 (화면을 더 잘 보여주는 것을 선택합니다):
 
 ![](../../.gitbook/assets/image%20%28295%29.png)
 
-# Root Group
+# 루트 그룹
 
-기본적으로 **root 그룹의 구성원**은 **서비스** 구성 파일이나 일부 **라이브러리** 파일 또는 권한 상승에 사용할 수 있는 **기타 흥미로운 것들**을 **수정**할 수 있는 접근 권한을 가질 수 있는 것 같습니다...
+기본적으로 **루트 그룹의 구성원**은 **서비스** 구성 파일이나 일부 **라이브러리** 파일 또는 권한 상승에 사용할 수 있는 **기타 흥미로운 것들**을 **수정**할 수 있는 접근 권한이 있는 것 같습니다...
 
-**root 구성원이 수정할 수 있는 파일 확인**:
+**루트 구성원이 수정할 수 있는 파일 확인**:
 ```bash
 find / -group root -perm -g=w 2>/dev/null
 ```
@@ -155,6 +160,14 @@ find / -group root -perm -g=w 2>/dev/null
 
 [lxc - Privilege Escalation](lxd-privilege-escalation.md)
 
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+[**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection)를 사용하여 세계에서 **가장 진보된** 커뮤니티 도구로 **워크플로우**를 쉽게 구축하고 **자동화**하세요.\
+지금 바로 액세스하세요:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
 {% hint style="success" %}
 AWS 해킹 배우기 및 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
 GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
@@ -164,8 +177,8 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 <summary>HackTricks 지원하기</summary>
 
 * [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
-* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
-* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 트릭을 공유하세요.**
+* 💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 **가입**하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 **팔로우**하세요.**
+* [**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 트릭을 공유하세요.
 
 </details>
 {% endhint %}
