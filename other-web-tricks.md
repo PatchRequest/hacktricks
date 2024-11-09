@@ -17,9 +17,9 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Obtenha a perspectiva de um hacker sobre seus aplicativos web, rede e nuvem
+**Obtenha a perspectiva de um hacker sobre seus aplicativos web, rede e nuvem**
 
-**Encontre e relate vulnerabilidades críticas e exploráveis com impacto real nos negócios.** Use nossas mais de 20 ferramentas personalizadas para mapear a superfície de ataque, encontrar problemas de segurança que permitem escalar privilégios e usar exploits automatizados para coletar evidências essenciais, transformando seu trabalho árduo em relatórios persuasivos.
+**Encontre e relate vulnerabilidades críticas e exploráveis com impacto real nos negócios.** Use nossas mais de 20 ferramentas personalizadas para mapear a superfície de ataque, encontrar problemas de segurança que permitem que você eleve privilégios e use exploits automatizados para coletar evidências essenciais, transformando seu trabalho árduo em relatórios persuasivos.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -44,7 +44,7 @@ Tente se registrar como um usuário já existente. Tente também usar caracteres
 
 Registre um e-mail, antes de confirmá-lo, mude o e-mail, então, se o novo e-mail de confirmação for enviado para o primeiro e-mail registrado, você pode tomar conta de qualquer e-mail. Ou se você puder habilitar o segundo e-mail confirmando o primeiro, você também pode tomar conta de qualquer conta.
 
-### Acessar o serviço interno de atendimento ao cliente de empresas usando Atlassian
+### Acessar o serviço de atendimento interno de empresas usando Atlassian
 
 {% embed url="https://yourcompanyname.atlassian.net/servicedesk/customer/user/login" %}
 
@@ -57,9 +57,9 @@ Os desenvolvedores podem esquecer de desativar várias opções de depuração n
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Obtenha a perspectiva de um hacker sobre seus aplicativos web, rede e nuvem
+**Obtenha a perspectiva de um hacker sobre seus aplicativos web, rede e nuvem**
 
-**Encontre e relate vulnerabilidades críticas e exploráveis com impacto real nos negócios.** Use nossas mais de 20 ferramentas personalizadas para mapear a superfície de ataque, encontrar problemas de segurança que permitem escalar privilégios e usar exploits automatizados para coletar evidências essenciais, transformando seu trabalho árduo em relatórios persuasivos.
+**Encontre e relate vulnerabilidades críticas e exploráveis com impacto real nos negócios.** Use nossas mais de 20 ferramentas personalizadas para mapear a superfície de ataque, encontrar problemas de segurança que permitem que você eleve privilégios e use exploits automatizados para coletar evidências essenciais, transformando seu trabalho árduo em relatórios persuasivos.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
