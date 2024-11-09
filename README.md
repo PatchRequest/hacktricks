@@ -20,7 +20,7 @@ Başlamak için, bir veya daha fazla **makineyi pentest ederken** **takip etmeni
 
 <figure><img src=".gitbook/assets/stm (1).png" alt=""><figcaption></figcaption></figure>
 
-[**STM Cyber**](https://www.stmcyber.com), sloganı **HACK THE UNHACKABLE** olan harika bir siber güvenlik şirketidir. Kendi araştırmalarını yapar ve **birçok değerli siber güvenlik hizmeti** sunmak için kendi hacking araçlarını geliştirir, bunlar arasında pentesting, Kırmızı takımlar ve eğitim bulunmaktadır.
+[**STM Cyber**](https://www.stmcyber.com), sloganı **HACK THE UNHACKABLE** olan harika bir siber güvenlik şirketidir. Kendi araştırmalarını yapar ve **pentesting, Kırmızı takımlar ve eğitim** gibi birkaç değerli siber güvenlik hizmeti sunmak için kendi hacking araçlarını geliştirir.
 
 **Bloglarını** [**https://blog.stmcyber.com**](https://blog.stmcyber.com) adresinde kontrol edebilirsiniz.
 
@@ -32,7 +32,7 @@ Başlamak için, bir veya daha fazla **makineyi pentest ederken** **takip etmeni
 
 <figure><img src=".gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
 
-[**RootedCON**](https://www.rootedcon.com), **İspanya**'daki en önemli siber güvenlik etkinliği ve **Avrupa**'daki en önemli etkinliklerden biridir. **Teknik bilgiyi teşvik etme misyonu** ile bu kongre, her disiplinde teknoloji ve siber güvenlik profesyonelleri için kaynayan bir buluşma noktasıdır.
+[**RootedCON**](https://www.rootedcon.com), **İspanya'daki** en önemli siber güvenlik etkinliği ve **Avrupa'daki** en önemli etkinliklerden biridir. **Teknik bilgiyi teşvik etme misyonu** ile bu kongre, her disiplinde teknoloji ve siber güvenlik profesyonelleri için kaynayan bir buluşma noktasıdır.
 
 {% embed url="https://www.rootedcon.com/" %}
 
@@ -44,7 +44,7 @@ Başlamak için, bir veya daha fazla **makineyi pentest ederken** **takip etmeni
 
 **Intigriti**, **Avrupa'nın #1** etik hacking ve **bug bounty platformudur.**
 
-**Bug bounty ipucu**: **Intigriti**'ye **kaydolun**, hackerlar tarafından, hackerlar için oluşturulmuş bir premium **bug bounty platformu**! Bugün [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) adresinde bize katılın ve **$100,000**'a kadar ödüller kazanmaya başlayın!
+**Bug bounty ipucu**: **Intigriti'ye kaydolun**, hackerlar tarafından, hackerlar için oluşturulmuş bir premium **bug bounty platformu**! Bugün [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) adresine katılın ve **$100,000**'a kadar ödüller kazanmaya başlayın!
 
 {% embed url="https://go.intigriti.com/hacktricks" %}
 
@@ -71,7 +71,7 @@ Deneyimli hackerlar ve bug bounty avcıları ile iletişim kurmak için [**Hacke
 
 * **Hacking İçgörüleri:** Hacking'in heyecanı ve zorluklarına dalan içeriklerle etkileşimde bulunun
 * **Gerçek Zamanlı Hack Haberleri:** Hızla değişen hacking dünyasında gerçek zamanlı haberler ve içgörülerle güncel kalın
-* **Son Duyurular:** Yeni başlayan bug bounty'ler ve önemli platform güncellemeleri hakkında bilgi sahibi olun
+* **Son Duyurular:** Yeni başlayan bug bounty'ler ve kritik platform güncellemeleri hakkında bilgi sahibi olun
 
 **Bize katılın** [**Discord**](https://discord.com/invite/N3FrSbmwdy) üzerinde ve bugün en iyi hackerlarla iş birliği yapmaya başlayın!
 
@@ -79,12 +79,14 @@ Deneyimli hackerlar ve bug bounty avcıları ile iletişim kurmak için [**Hacke
 
 ### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - Temel penetrasyon testi aracı seti
 
-<figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Zafiyet değerlendirmesi ve penetrasyon testi için anında kullanılabilir kurulum**. 20'den fazla araç ve özellik ile her yerden tam bir pentest gerçekleştirin; keşiften raporlamaya kadar. Pentester'ları değiştirmiyoruz - onlara daha derinlemesine araştırma yapmaları, shell'leri patlatmaları ve eğlenmeleri için biraz zaman kazandırmak amacıyla özel araçlar, tespit ve istismar modülleri geliştiriyoruz.
+#### Web uygulamalarınız, ağınız ve bulutunuz hakkında bir hacker perspektifi edinin
+
+**Gerçek iş etkisi olan kritik, istismar edilebilir güvenlik açıklarını bulun ve raporlayın.** Saldırı yüzeyini haritalamak, ayrıcalıkları artırmanıza izin veren güvenlik sorunlarını bulmak ve temel kanıtları toplamak için otomatik istismarları kullanmak için 20'den fazla özel aracımızı kullanın, böylece sıkı çalışmanızı ikna edici raporlara dönüştürün.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
-\
+
 
 {% endembed %}
 
@@ -96,12 +98,12 @@ Deneyimli hackerlar ve bug bounty avcıları ile iletişim kurmak için [**Hacke
 
 **SerpApi**, **arama motoru sonuçlarına** erişim sağlamak için hızlı ve kolay gerçek zamanlı API'ler sunar. Arama motorlarını tarar, proxy'leri yönetir, captcha'ları çözer ve sizin için tüm zengin yapılandırılmış verileri ayrıştırır.
 
-SerpApi'nın planlarından birine abone olmak, Google, Bing, Baidu, Yahoo, Yandex ve daha fazlası dahil olmak üzere farklı arama motorlarını taramak için 50'den fazla farklı API'ye erişim içerir.\
+SerpApi'nin planlarından birine abone olmak, Google, Bing, Baidu, Yahoo, Yandex ve daha fazlası dahil olmak üzere farklı arama motorlarını taramak için 50'den fazla API'ye erişim içerir.\
 Diğer sağlayıcılardan farklı olarak, **SerpApi sadece organik sonuçları taramaz**. SerpApi yanıtları, arama sonuçlarında bulunan tüm reklamları, satır içi resimleri ve videoları, bilgi grafikleri ve diğer öğeleri ve özellikleri sürekli olarak içerir.
 
 Mevcut SerpApi müşterileri arasında **Apple, Shopify ve GrubHub** bulunmaktadır.\
 Daha fazla bilgi için [**bloglarına**](https://serpapi.com/blog/) göz atın veya [**oyun alanlarında**](https://serpapi.com/playground) bir örnek deneyin.\
-**Buradan** [**ücretsiz bir hesap oluşturabilirsiniz**](https://serpapi.com/users/sign\_up)**.**
+**Buradan** [**ücretsiz bir hesap**](https://serpapi.com/users/sign\_up) oluşturabilirsiniz.**
 
 ***
 
@@ -111,11 +113,11 @@ Daha fazla bilgi için [**bloglarına**](https://serpapi.com/blog/) göz atın v
 
 [**WebSec**](https://websec.nl), **Amsterdam** merkezli profesyonel bir siber güvenlik şirketidir ve **dünyanın dört bir yanındaki** işletmeleri en son siber güvenlik tehditlerine karşı korumaya yardımcı olmak için **ofansif güvenlik hizmetleri** sunmaktadır.
 
-WebSec, pentesting, **Güvenlik** Denetimleri, Farkındalık Eğitimleri, Phishing Kampanyaları, Kod İncelemesi, İstismar Geliştirme, Güvenlik Uzmanları Dış Kaynak Kullanımı ve daha fazlasını içeren **hepsi bir arada güvenlik şirketidir**.
+WebSec, **her şeyi yapan** bir **hepsi bir arada güvenlik şirketidir**; Pentesting, **Güvenlik** Denetimleri, Farkındalık Eğitimleri, Phishing Kampanyaları, Kod İncelemesi, İstismar Geliştirme, Güvenlik Uzmanları Dış Kaynak Kullanımı ve daha fazlasını yapar.
 
-WebSec'in bir diğer ilginç yanı, sektördeki ortalamadan farklı olarak WebSec'in **yeteneklerine çok güvenmesidir**, o kadar ki **en iyi kalite sonuçları garanti eder**, web sitelerinde "**Eğer hackleyemiyorsak, ödemiyorsunuz!**" ifadesi yer almaktadır. Daha fazla bilgi için [**web sitelerine**](https://websec.nl/en/) ve [**bloglarına**](https://websec.nl/blog/) göz atın!
+WebSec hakkında başka bir harika şey, sektördeki ortalamadan farklı olarak WebSec'in **yeteneklerine çok güvenmesidir**, o kadar ki **en iyi kalite sonuçları garanti eder**, web sitelerinde "**Eğer hackleyemiyorsak, ödemiyorsunuz!**" ifadesi yer almaktadır. Daha fazla bilgi için [**web sitelerine**](https://websec.nl/en/) ve [**bloglarına**](https://websec.nl/blog/) göz atın!
 
-Yukarıdakilere ek olarak WebSec, **HackTricks'in kararlı bir destekçisidir.**
+Yukarıdakilere ek olarak WebSec, **HackTricks'in de kararlı bir destekçisidir.**
 
 {% embed url="https://www.youtube.com/watch?v=Zq2JycGDCPM" %}
 
@@ -140,7 +142,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src=".gitbook/assets/grte.png" al
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'i takip edin.**
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** bizi takip edin.**
 * **Hacking hilelerini paylaşmak için [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.**
 
 </details>

@@ -1,37 +1,41 @@
 {% hint style="success" %}
-Öğren ve AWS Hacking pratiği yap:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Eğitim AWS Kırmızı Takım Uzmanı (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Öğren ve GCP Hacking pratiği yap: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Eğitim GCP Kırmızı Takım Uzmanı (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS Hacking'i öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>HackTricks'i Destekle</summary>
+<summary>HackTricks'i Destekleyin</summary>
 
-* [**Abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol et!
-* 💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) katıl veya [**telegram grubuna**](https://t.me/peass) katıl veya bizi **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** takip et.**
-* **Hacking püf noktalarını paylaşmak için PR'lar göndererek** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github depolarına katkıda bulun.
+* [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
+* **Bize katılın** 💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) veya **bizi** **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** takip edin.**
+* **Hacking ipuçlarını paylaşarak** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
 
-# CBC - Cipher Block Chaining
+{% embed url="https://websec.nl/" %}
 
-CBC modunda **önceki şifrelenmiş blok IV olarak** kullanılır ve bir sonraki blokla XOR işlemi yapılır:
+
+# CBC - Şifre Blok Zincirleme
+
+CBC modunda **önceki şifreli blok IV olarak kullanılır** ve bir sonraki blokla XOR yapılır:
 
 ![https://defuse.ca/images/cbc\_encryption.png](https://defuse.ca/images/cbc\_encryption.png)
 
-CBC'yi şifrelemek için **zıt işlemler** yapılır:
+CBC'yi deşifrelemek için **ters** **işlemler** yapılır:
 
 ![https://defuse.ca/images/cbc\_decryption.png](https://defuse.ca/images/cbc\_decryption.png)
 
-Dikkat edilmesi gereken **şifreleme anahtarı** ve **IV** kullanılmasıdır.
+**Şifreleme** **anahtarı** ve **IV** kullanmanın gerekli olduğunu unutmayın.
 
-# Mesaj Dolgusu
+# Mesaj Doldurma
 
-Şifreleme **sabit boyutlu bloklarda** gerçekleştirildiği için genellikle **son bloğu tamamlamak için dolgu** gereklidir.\
-Genellikle **PKCS7** kullanılır, bu da bloğu **tamamlamak için gereken byte sayısını tekrarlayan bir dolgu** oluşturur. Örneğin, son blokta 3 byte eksikse, dolgu `\x03\x03\x03` olacaktır.
+Şifreleme **sabit** **boyut** **blokları** içinde gerçekleştirildiğinden, **son** **blokta** uzunluğunu tamamlamak için genellikle **doldurma** gereklidir.\
+Genellikle **PKCS7** kullanılır, bu da bloğu tamamlamak için **gerekli** **bayt** **sayısını** **tekrarlayarak** bir doldurma oluşturur. Örneğin, son blokta 3 bayt eksikse, doldurma `\x03\x03\x03` olacaktır.
 
-**8 byte uzunluğunda 2 blok** için daha fazla örneklerimize bakalım:
+**8 bayt uzunluğunda 2 blok** ile daha fazla örneğe bakalım:
 
 | byte #0 | byte #1 | byte #2 | byte #3 | byte #4 | byte #5 | byte #6 | byte #7 | byte #0  | byte #1  | byte #2  | byte #3  | byte #4  | byte #5  | byte #6  | byte #7  |
 | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
@@ -40,43 +44,43 @@ Genellikle **PKCS7** kullanılır, bu da bloğu **tamamlamak için gereken byte 
 | P       | A       | S       | S       | W       | O       | R       | D       | 1        | 2        | 3        | **0x05** | **0x05** | **0x05** | **0x05** | **0x05** |
 | P       | A       | S       | S       | W       | O       | R       | D       | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** |
 
-Son örnekte **son bloğun dolu olduğuna** dikkat edin, bu yüzden sadece dolgu ile başka bir blok oluşturuldu.
+Son örnekte **son bloğun dolu olduğunu ve sadece doldurma ile yeni bir bloğun oluşturulduğunu** unutmayın.
 
-# Padding Oracle
+# Doldurma Oracle'ı
 
-Bir uygulama şifrelenmiş verileri şifre çözme işleminden sonra önce veriyi şifre çözecek; ardından dolguyu kaldıracaktır. Dolgu temizliği sırasında, **geçersiz bir dolgu algılanabilir bir davranışı tetiklerse**, bir **padding oracle açığı** oluşur. Algılanabilir davranış bir **hata**, **sonuçların eksikliği** veya **daha yavaş bir yanıt** olabilir.
+Bir uygulama şifreli verileri deşifre ettiğinde, önce verileri deşifre eder; ardından doldurmayı kaldırır. Doldurmanın temizlenmesi sırasında, eğer **geçersiz bir doldurma tespit edilebilir bir davranış tetiklerse**, bir **doldurma oracle zafiyeti** vardır. Tespit edilebilir davranış bir **hata**, **sonuç eksikliği** veya **daha yavaş bir yanıt** olabilir.
 
-Bu davranışı tespit ederseniz, **şifrelenmiş verileri şifre çözebilir** ve hatta **herhangi bir açık metni şifreleyebilirsiniz**.
+Bu davranışı tespit ederseniz, **şifreli verileri deşifre edebilir** ve hatta **herhangi bir açık metni şifreleyebilirsiniz**.
 
-## Nasıl sömürülür
+## Nasıl istismar edilir
 
-Bu tür bir açığı sömürmek için [https://github.com/AonCyberLabs/PadBuster](https://github.com/AonCyberLabs/PadBuster) kullanabilir veya sadece devam edebilirsiniz.
+Bu tür bir zafiyeti istismar etmek için [https://github.com/AonCyberLabs/PadBuster](https://github.com/AonCyberLabs/PadBuster) kullanabilir veya sadece yapabilirsiniz.
 ```
 sudo apt-get install padbuster
 ```
-Bir sitenin çerezinin savunmasız olup olmadığını test etmek için şunları deneyebilirsiniz:
+Bir sitenin çerezinin zayıf olup olmadığını test etmek için şunları deneyebilirsiniz:
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -encoding 0 -cookies "login=RVJDQrwUdTRWJUVUeBKkEA=="
 ```
-**Kodlama 0**, **base64**'ün kullanıldığı anlamına gelir (ancak diğerleri de mevcuttur, yardım menüsünü kontrol edin).
+**Encoding 0** demek **base64** kullanıldığı anlamına gelir (ancak diğerleri de mevcuttur, yardım menüsüne bakın).
 
-Bu zafiyeti yeni verileri şifrelemek için de **kötüye kullanabilirsiniz. Örneğin, çerezin içeriğinin "**_**user=MyUsername**_**" olduğunu varsayalım, sonra bunu "\_user=administrator\_" olarak değiştirebilir ve uygulama içinde ayrıcalıkları yükseltebilirsiniz. Ayrıca, `-plaintext` parametresini belirterek `paduster` kullanarak da yapabilirsiniz:
+Bu güvenlik açığını **kötüye kullanarak yeni verileri şifreleyebilirsiniz. Örneğin, çerezin içeriği "**_**user=MyUsername**_**" ise, bunu "\_user=administrator\_" olarak değiştirebilir ve uygulama içinde yetkileri artırabilirsiniz. Bunu `paduster` kullanarak -plaintext** parametresini belirterek de yapabilirsiniz:
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -encoding 0 -cookies "login=RVJDQrwUdTRWJUVUeBKkEA==" -plaintext "user=administrator"
 ```
-Eğer site savunmasızsa, `padbuster` otomatik olarak dolgu hatası meydana geldiğinde bulmaya çalışacaktır, ancak ayrıca hata mesajını belirtmek için **-error** parametresini de kullanabilirsiniz.
+Eğer site savunmasızsa, `padbuster` otomatik olarak padding hatasının ne zaman meydana geldiğini bulmaya çalışacaktır, ancak hata mesajını **-error** parametresi ile de belirtebilirsiniz.
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon=RVJDQrwUdTRWJUVUeBKkEA==" -error "Invalid padding"
 ```
 ## Teori
 
-**Özetle**, şifrelenmiş verileri şifresini çözmeye başlayabilirsiniz, doğru değerleri tahmin ederek **farklı dolgu**ları oluşturmak için kullanılabilecek. Ardından, dolgu oracle saldırısı, hangisinin doğru değeri olacağını tahmin ederek **1, 2, 3 vb. dolgu oluşturan** doğru değeri tahmin ederek baştan sona doğru baytları şifrelemeye başlayacaktır.
+**Özetle**, tüm **farklı padding'leri** oluşturmak için kullanılabilecek doğru değerleri tahmin ederek şifrelenmiş verileri çözmeye başlayabilirsiniz. Ardından, padding oracle saldırısı, 1, 2, 3, vb. **padding'leri oluşturan** doğru değerin ne olacağını tahmin ederek son byte'dan başlayarak byte'ları çözmeye başlayacaktır.
 
 ![](<../.gitbook/assets/image (629) (1) (1).png>)
 
-**E0'den E15'e** kadar olan baytlar tarafından oluşturulan **2 bloktan** oluşan bazı şifrelenmiş metinler olduğunu hayal edin.\
-**Son bloğu** (**E8** ile **E15**) **şifrelemek** için, tüm blok "blok şifre çözme" işleminden geçer ve **ara baytlar I0'dan I15'e** oluşturur.\
-Son olarak, her ara bayt önceki şifrelenmiş baytlarla (E0'dan E7'ye) **XOR** edilir. Yani:
+Şifrelenmiş ve **E0'dan E15'e** kadar olan byte'ları içeren **2 blok** olduğunu hayal edin.\
+**Son** **blok**u (**E8**'den **E15**'e) **çözmek** için, tüm blok "blok şifre çözme" işleminden geçerek **I0'dan I15'e** kadar olan **ara byte'ları** oluşturur.\
+Son olarak, her ara byte, önceki şifrelenmiş byte'larla (E0'dan E7'ye) **XOR'lanır**. Yani:
 
 * `C15 = D(E15) ^ E7 = I15 ^ E7`
 * `C14 = I14 ^ E6`
@@ -84,43 +88,47 @@ Son olarak, her ara bayt önceki şifrelenmiş baytlarla (E0'dan E7'ye) **XOR** 
 * `C12 = I12 ^ E4`
 * ...
 
-Şimdi, `C15` **0x01** olduğunda **`E7` değiştirilebilir** ve bu da doğru bir dolgu olacaktır. Bu durumda: `\x01 = I15 ^ E'7`
+Artık **C15'in `0x01`** olana kadar **`E7`'yi değiştirmek** mümkündür, bu da geçerli bir padding olacaktır. Bu durumda: `\x01 = I15 ^ E'7`
 
-Bu nedenle, `E'7` bulunduğunda, **I15 hesaplanabilir**: `I15 = 0x01 ^ E'7`
+E'7'yi bulduğunuzda, **I15'i hesaplamak** mümkündür: `I15 = 0x01 ^ E'7`
 
-Bu bize **C15'i hesaplama** olanağı sağlar: `C15 = E7 ^ I15 = E7 ^ \x01 ^ E'7`
+Bu da **C15'i hesaplamamıza** olanak tanır: `C15 = E7 ^ I15 = E7 ^ \x01 ^ E'7`
 
-**C15** bilindiğine göre, şimdi **C14 hesaplanabilir**, ancak bu sefer `\x02\x02` dolgusunu kaba kuvvet uygulayarak.
+**C15**'i bildiğinizde, şimdi **C14'ü hesaplamak** mümkündür, ancak bu sefer padding'i `\x02\x02` ile brute-force yaparak.
 
-Bu BF, öncekiyle aynı kadar karmaşıktır çünkü 0x02 değerine sahip `E''15`'i hesaplamak mümkündür: `E''7 = \x02 ^ I15` bu yüzden sadece **`C14`'ü `0x02`'ye eşit olan `E'14`'ü bulmak gereklidir.\
-Sonra, C14'ü şifrelemek için aynı adımları uygulayın: **`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
+Bu BF, önceki kadar karmaşıktır çünkü `E''15` değerinin 0x02 olduğu hesaplanabilir: `E''7 = \x02 ^ I15`, bu nedenle sadece **`E'14`**'ü bulmak gerekir ki bu da **`C14`'ün `0x02`** eşit olmasını sağlar.\
+Ardından, C14'ü çözmek için aynı adımları izleyin: **`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
 
-**Tüm şifreli metni çözmek için bu zinciri takip edin.**
+**Tüm şifrelenmiş metni çözene kadar bu zinciri takip edin.**
 
-## Zafiyetin Tespiti
+## Açığın Tespiti
 
-Bir hesap kaydedin ve bu hesapla oturum açın.\
-Eğer **çok kez oturum açarsanız** ve her zaman **aynı çerez**i alırsanız, uygulamada muhtemelen **bir sorun** var demektir. Geri gönderilen çerez her oturum açtığınızda **benzersiz olmalıdır**. Eğer çerez **her zaman** **aynıysa**, muhtemelen her zaman geçerli olacak ve **geçersiz kılacak bir yol olmayacaktır**.
+Bir hesap kaydedin ve bu hesapla giriş yapın.\
+Eğer **birçok kez giriş yaparsanız** ve her seferinde **aynı çerezi** alıyorsanız, uygulamada muhtemelen **bir sorun** vardır. **Geri gönderilen çerez her seferinde benzersiz olmalıdır.** Eğer çerez **her zaman** **aynıysa**, muhtemelen her zaman geçerli olacaktır ve onu geçersiz kılmanın bir yolu **olmayacaktır.**
 
-Şimdi, çerezi **değiştirmeyi denerseniz**, uygulamadan bir **hata** aldığınızı görebilirsiniz.\
-Ancak dolgu (örneğin padbuster kullanarak) kaba kuvvet uygularsanız, farklı bir kullanıcı için geçerli başka bir çerez elde edebilirsiniz. Bu senaryo büyük olasılıkla padbuster'a karşı savunmasızdır.
+Artık çerezi **değiştirmeye** çalıştığınızda, uygulamadan bir **hata** aldığınızı görebilirsiniz.\
+Ancak padding'i BF yaparsanız (örneğin padbuster kullanarak) farklı bir kullanıcı için geçerli başka bir çerez elde etmeyi başarabilirsiniz. Bu senaryo, padbuster'a karşı yüksek ihtimalle savunmasızdır.
 
 ## Referanslar
 
 * [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
 
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 {% hint style="success" %}
-AWS Hacking öğrenin ve uygulayın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Eğitim AWS Kırmızı Takım Uzmanı (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP Hacking öğrenin ve uygulayın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Eğitim GCP Kırmızı Takım Uzmanı (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS Hacking'i öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks'i Destekleyin</summary>
 
-* [**Abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* 💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) katılın veya [**telegram grubuna**](https://t.me/peass) katılın veya bizi **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** takip edin.**
-* **Hacking püf noktalarını paylaşarak** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github depolarına PR gönderin.
+* [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'i takip edin.**
+* **Hacking ipuçlarını paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
 {% endhint %}
