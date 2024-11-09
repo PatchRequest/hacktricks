@@ -55,7 +55,7 @@ Unaweza kuangalia **blogu** yao katika [**https://blog.stmcyber.com**](https://b
 <figure><img src=".gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
 \
-Tumia [**Trickest**](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks) kujenga na **kujiendesha kiotomatiki** kwa urahisi kwa kutumia zana za jamii zenye **maendeleo zaidi** duniani.
+Tumia [**Trickest**](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks) kujenga na **kujiendesha** kwa urahisi kwa kutumia zana za jamii zenye **maendeleo zaidi** duniani.
 
 Pata Ufikiaji Leo:
 
@@ -81,9 +81,9 @@ Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serve
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Pata mtazamo wa hacker kuhusu programu zako za wavuti, mtandao, na wingu
+**Pata mtazamo wa hacker kuhusu programu zako za wavuti, mtandao, na wingu**
 
-**Pata na ripoti udhaifu muhimu, unaoweza kutumiwa kwa faida halisi ya biashara.** Tumia zana zetu zaidi ya 20 za kawaida kubaini uso wa shambulio, pata masuala ya usalama yanayokuruhusu kupandisha hadhi, na tumia matumizi ya kiotomatiki kukusanya ushahidi muhimu, ukigeuza kazi yako ngumu kuwa ripoti za kushawishi.
+**Pata na ripoti kuhusu udhaifu muhimu, unaoweza kutumiwa kwa biashara halisi.** Tumia zana zetu zaidi ya 20 za kawaida kubaini uso wa shambulio, pata masuala ya usalama yanayokuruhusu kupandisha hadhi, na tumia mashambulizi ya kiotomatiki kukusanya ushahidi muhimu, ukigeuza kazi yako ngumu kuwa ripoti za kushawishi.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -96,12 +96,12 @@ Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serve
 
 <figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
 
-**SerpApi** inatoa APIs za wakati halisi kwa urahisi na haraka ili **kupata matokeo ya injini za utafutaji**. Wanakusanya data kutoka kwa injini za utafutaji, kushughulikia proxies, kutatua captchas, na kuchambua data zote zenye muundo wa kina kwa ajili yako.
+**SerpApi** inatoa APIs za haraka na rahisi za wakati halisi ili **kupata matokeo ya injini za utafutaji**. Wanakusanya data kutoka kwa injini za utafutaji, kushughulikia proxies, kutatua captchas, na kuchambua data zote zenye muundo mzuri kwa ajili yako.
 
 Usajili wa moja ya mipango ya SerpApi unajumuisha ufikiaji wa zaidi ya APIs 50 tofauti za kukusanya data kutoka kwa injini tofauti za utafutaji, ikiwa ni pamoja na Google, Bing, Baidu, Yahoo, Yandex, na zaidi.\
 Tofauti na watoa huduma wengine, **SerpApi haisafishi tu matokeo ya asili**. Majibu ya SerpApi mara kwa mara yanajumuisha matangazo yote, picha na video za ndani, grafu za maarifa, na vipengele na sifa nyingine zilizopo katika matokeo ya utafutaji.
 
-Wateja wa sasa wa SerpApi ni **Apple, Shopify, na GrubHub**.\
+Wateja wa sasa wa SerpApi ni pamoja na **Apple, Shopify, na GrubHub**.\
 Kwa maelezo zaidi angalia [**blogu**](https://serpapi.com/blog/)**,** au jaribu mfano katika [**sehemu yao ya majaribio**](https://serpapi.com/playground)**.**\
 Unaweza **kuunda akaunti ya bure** [**hapa**](https://serpapi.com/users/sign\_up)**.**
 
@@ -111,11 +111,11 @@ Unaweza **kuunda akaunti ya bure** [**hapa**](https://serpapi.com/users/sign\_up
 
 <figure><img src=".gitbook/assets/websec (1).svg" alt=""><figcaption></figcaption></figure>
 
-[**WebSec**](https://websec.nl) ni kampuni ya kitaalamu ya usalama wa mtandao iliyo na makao yake nchini **Amsterdam** ambayo inasaidia **kulinda** biashara **duniani kote** dhidi ya vitisho vya hivi karibuni vya usalama wa mtandao kwa kutoa **huduma za usalama wa mashambulizi** kwa njia ya **kisasa**.
+[**WebSec**](https://websec.nl) ni kampuni ya kitaalamu ya usalama wa mtandao iliyo na makao yake makuu nchini **Amsterdam** ambayo inasaidia **kulinda** biashara **duniani kote** dhidi ya vitisho vya hivi karibuni vya usalama wa mtandao kwa kutoa **huduma za usalama wa mashambulizi** kwa njia ya **kisasa**.
 
-WebSec ni kampuni ya **usalama wa kila kitu** ambayo inamaanisha wanafanya kila kitu; Pentesting, **Ukaguzi wa** Usalama, Mafunzo ya Uelewa, Kampeni za Phishing, Mapitio ya Kanuni, Maendeleo ya Utekelezaji, Utaalamu wa Usalama wa Kukodisha na mengi zaidi.
+WebSec ni kampuni ya **usalama wa kila kitu** ambayo inamaanisha wanafanya kila kitu; Pentesting, **Ukaguzi wa** Usalama, Mafunzo ya Uelewa, Kampeni za Phishing, Mapitio ya Kanuni, Maendeleo ya Mashambulizi, Utaalamu wa Usalama wa Kukodisha na mengi zaidi.
 
-Jambo lingine zuri kuhusu WebSec ni kwamba tofauti na wastani wa sekta WebSec ni **na uhakika sana katika ujuzi wao**, hadi kiwango ambacho **wanahakikishia matokeo bora**, inasema kwenye tovuti yao "**Ikiwa hatuwezi kuikabili, Hupaswi kulipa!**". Kwa maelezo zaidi angalia [**tovuti yao**](https://websec.nl/en/) na [**blogu**](https://websec.nl/blog/)!
+Jambo lingine zuri kuhusu WebSec ni kwamba tofauti na wastani wa sekta WebSec ni **na uhakika sana katika ujuzi wao**, hadi kiwango kwamba **wanahakikishia matokeo bora**, inasema kwenye tovuti yao "**Ikiwa hatuwezi kuikabili, Hupaswi kulipa!**". Kwa maelezo zaidi angalia [**tovuti yao**](https://websec.nl/en/) na [**blogu**](https://websec.nl/blog/)!
 
 Mbali na hayo WebSec pia ni **mshabiki aliyejitolea wa HackTricks.**
 
@@ -123,7 +123,7 @@ Mbali na hayo WebSec pia ni **mshabiki aliyejitolea wa HackTricks.**
 
 ## License & Disclaimer
 
-Angalia kwenye:
+Angalia katika:
 
 {% content-ref url="welcome/hacktricks-values-and-faq.md" %}
 [hacktricks-values-and-faq.md](welcome/hacktricks-values-and-faq.md)

