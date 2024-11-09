@@ -17,7 +17,7 @@ Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Erhalten Sie die Perspektive eines Hackers auf Ihre Webanwendungen, Ihr Netzwerk und die Cloud
+**Erhalten Sie die Perspektive eines Hackers auf Ihre Webanwendungen, Ihr Netzwerk und Ihre Cloud**
 
 **Finden und melden Sie kritische, ausnutzbare Schwachstellen mit echtem Geschäftsauswirkungen.** Verwenden Sie unsere 20+ benutzerdefinierten Tools, um die Angriffsfläche zu kartieren, Sicherheitsprobleme zu finden, die Ihnen ermöglichen, Privilegien zu eskalieren, und automatisierte Exploits zu verwenden, um wesentliche Beweise zu sammeln, die Ihre harte Arbeit in überzeugende Berichte verwandeln.
 
@@ -35,15 +35,15 @@ Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 ```bash
 smbexec.py WORKGROUP/genericuser:genericpassword@10.10.10.10
 ```
-### Befehle ohne Binärdateien ausführen
+### Befehle ohne Binaries ausführen
 
-- **Smbexec** ermöglicht die direkte Ausführung von Befehlen über Service-BinPaths, wodurch die Notwendigkeit physischer Binärdateien auf dem Ziel entfällt.
-- Diese Methode ist nützlich, um einmalige Befehle auf einem Windows-Ziel auszuführen. Zum Beispiel ermöglicht die Kombination mit Metasploit's `web_delivery`-Modul die Ausführung eines PowerShell-zielgerichteten Reverse-Meterpreter-Payloads.
-- Durch die Erstellung eines Remote-Services auf dem Rechner des Angreifers mit binPath, der so eingestellt ist, dass der bereitgestellte Befehl über cmd.exe ausgeführt wird, ist es möglich, den Payload erfolgreich auszuführen, einen Callback und die Payload-Ausführung mit dem Metasploit-Listener zu erreichen, selbst wenn Fehler bei der Service-Antwort auftreten.
+- **Smbexec** ermöglicht die direkte Ausführung von Befehlen über Service-BinPaths, wodurch die Notwendigkeit physischer Binaries auf dem Ziel entfällt.
+- Diese Methode ist nützlich, um einmalige Befehle auf einem Windows-Ziel auszuführen. Zum Beispiel ermöglicht die Kombination mit Metasploits `web_delivery`-Modul die Ausführung eines PowerShell-zielgerichteten Reverse-Meterpreter-Payloads.
+- Durch das Erstellen eines Remote-Services auf dem Rechner des Angreifers mit binPath, der so eingestellt ist, dass der bereitgestellte Befehl über cmd.exe ausgeführt wird, ist es möglich, das Payload erfolgreich auszuführen, einen Callback und die Payload-Ausführung mit dem Metasploit-Listener zu erreichen, selbst wenn Fehler bei der Service-Antwort auftreten.
 
 ### Beispielbefehle
 
-Die Erstellung und der Start des Services können mit den folgenden Befehlen durchgeführt werden:
+Das Erstellen und Starten des Services kann mit den folgenden Befehlen durchgeführt werden:
 ```bash
 sc create [ServiceName] binPath= "cmd.exe /c [PayloadCommand]"
 sc start [ServiceName]
@@ -55,7 +55,7 @@ FOr further details check [https://blog.ropnop.com/using-credentials-to-own-wind
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Holen Sie sich die Perspektive eines Hackers auf Ihre Webanwendungen, Ihr Netzwerk und die Cloud
+**Erhalten Sie die Perspektive eines Hackers auf Ihre Webanwendungen, Ihr Netzwerk und Ihre Cloud**
 
 **Finden und melden Sie kritische, ausnutzbare Schwachstellen mit echtem Geschäftsauswirkungen.** Verwenden Sie unsere 20+ benutzerdefinierten Tools, um die Angriffsfläche zu kartieren, Sicherheitsprobleme zu finden, die Ihnen ermöglichen, Berechtigungen zu eskalieren, und automatisierte Exploits zu verwenden, um wesentliche Beweise zu sammeln, die Ihre harte Arbeit in überzeugende Berichte verwandeln.
 
@@ -67,7 +67,7 @@ Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <details>
 
-<summary>Unterstützen Sie HackTricks</summary>
+<summary>Support HackTricks</summary>
 
 * Überprüfen Sie die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
 * **Treten Sie der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folgen** Sie uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**

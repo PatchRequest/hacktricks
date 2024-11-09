@@ -17,7 +17,7 @@ Lerne & übe GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Erhalte die Perspektive eines Hackers auf deine Webanwendungen, Netzwerke und Cloud
+**Erhalte die Perspektive eines Hackers auf deine Webanwendungen, Netzwerke und Cloud**
 
 **Finde und melde kritische, ausnutzbare Schwachstellen mit echtem Geschäftsauswirkungen.** Nutze unsere 20+ benutzerdefinierten Tools, um die Angriffsfläche zu kartieren, Sicherheitsprobleme zu finden, die dir ermöglichen, Privilegien zu eskalieren, und verwende automatisierte Exploits, um wesentliche Beweise zu sammeln, die deine harte Arbeit in überzeugende Berichte verwandeln.
 
@@ -42,7 +42,7 @@ Ein MDM hat die Berechtigung, Profile zu installieren, abzufragen oder zu entfer
 
 Um dein eigenes MDM zu betreiben, musst du **dein CSR von einem Anbieter signieren lassen**, was du versuchen könntest, mit [**https://mdmcert.download/**](https://mdmcert.download/). Und um dein eigenes MDM für Apple-Geräte zu betreiben, könntest du [**MicroMDM**](https://github.com/micromdm/micromdm) verwenden.
 
-Um jedoch eine Anwendung auf einem registrierten Gerät zu installieren, musst du sie immer noch von einem Entwicklerkonto signieren lassen... jedoch fügt das **Gerät beim MDM-Registrierungsprozess das SSL-Zertifikat des MDM als vertrauenswürdige CA hinzu**, sodass du jetzt alles signieren kannst.
+Um jedoch eine Anwendung auf einem registrierten Gerät zu installieren, muss sie immer noch von einem Entwicklerkonto signiert sein... jedoch fügt das **Gerät bei der MDM-Registrierung das SSL-Zertifikat des MDM als vertrauenswürdige CA hinzu**, sodass du jetzt alles signieren kannst.
 
 Um das Gerät in ein MDM zu registrieren, musst du eine **`mobileconfig`**-Datei als Root installieren, die über eine **pkg**-Datei bereitgestellt werden könnte (du könntest sie in zip komprimieren und wenn sie von Safari heruntergeladen wird, wird sie dekomprimiert).
 
@@ -50,15 +50,15 @@ Um das Gerät in ein MDM zu registrieren, musst du eine **`mobileconfig`**-Datei
 
 ### Missbrauch von JAMF PRO
 
-JAMF kann **benutzerdefinierte Skripte** (Skripte, die vom Sysadmin entwickelt wurden), **native Payloads** (Erstellung lokaler Konten, EFI-Passwort festlegen, Datei-/Prozessüberwachung...) und **MDM** (Gerätekonfigurationen, Gerätezertifikate...) ausführen.
+JAMF kann **benutzerdefinierte Skripte** (Skripte, die vom Sysadmin entwickelt wurden), **native Payloads** (Erstellung lokaler Konten, Festlegung des EFI-Passworts, Datei-/Prozessüberwachung...) und **MDM** (Gerätekonfigurationen, Gerätezertifikate...) ausführen.
 
 #### JAMF Selbstregistrierung
 
-Gehe zu einer Seite wie `https://<company-name>.jamfcloud.com/enroll/`, um zu sehen, ob sie **Selbstregistrierung aktiviert haben**. Wenn sie es haben, könnte es **nach Anmeldeinformationen fragen**.
+Gehe zu einer Seite wie `https://<company-name>.jamfcloud.com/enroll/`, um zu sehen, ob sie **Selbstregistrierung aktiviert haben**. Wenn ja, könnte es **nach Anmeldeinformationen fragen**.
 
 Du könntest das Skript [**JamfSniper.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfSniper.py) verwenden, um einen Passwort-Spraying-Angriff durchzuführen.
 
-Darüber hinaus könntest du, nachdem du die richtigen Anmeldeinformationen gefunden hast, in der Lage sein, andere Benutzernamen mit dem nächsten Formular zu brute-forcen:
+Darüber hinaus könntest du nach dem Finden geeigneter Anmeldeinformationen in der Lage sein, andere Benutzernamen mit dem nächsten Formular zu brute-forcen:
 
 ![](<../../.gitbook/assets/image (107).png>)
 
@@ -151,9 +151,9 @@ Auch gibt es einige Tools für MacOS, um automatisch das AD zu enumerieren und m
 
 * [**Machound**](https://github.com/XMCyber/MacHound): MacHound ist eine Erweiterung des Bloodhound-Audit-Tools, das das Sammeln und Verarbeiten von Active Directory-Beziehungen auf MacOS-Hosts ermöglicht.
 * [**Bifrost**](https://github.com/its-a-feature/bifrost): Bifrost ist ein Objective-C-Projekt, das entwickelt wurde, um mit den Heimdal krb5 APIs auf macOS zu interagieren. Das Ziel des Projekts ist es, bessere Sicherheitstests rund um Kerberos auf macOS-Geräten unter Verwendung nativer APIs zu ermöglichen, ohne dass andere Frameworks oder Pakete auf dem Ziel erforderlich sind.
-* [**Orchard**](https://github.com/its-a-feature/Orchard): JavaScript für Automatisierung (JXA) Tool zur Durchführung der Active Directory-Enumeration.
+* [**Orchard**](https://github.com/its-a-feature/Orchard): JavaScript for Automation (JXA) Tool zur Durchführung der Active Directory-Enumeration.
 
-### Domain-Informationen
+### Domain Information
 ```bash
 echo show com.apple.opendirectoryd.ActiveDirectory | scutil
 ```
@@ -211,7 +211,7 @@ Holen Sie sich ein TGT für einen bestimmten Benutzer und Dienst:
 bifrost --action asktgt --username [user] --domain [domain.com] \
 --hash [hash] --enctype [enctype] --keytab [/path/to/keytab]
 ```
-Sobald das TGT gesammelt ist, ist es möglich, es in die aktuelle Sitzung mit einzufügen:
+Sobald das TGT gesammelt ist, ist es möglich, es in die aktuelle Sitzung mit:
 ```bash
 bifrost --action asktgt --username test_lab_admin \
 --hash CF59D3256B62EE655F6430B0F80701EE05A0885B8B52E9C2480154AFA62E78 \
@@ -222,7 +222,7 @@ bifrost --action asktgt --username test_lab_admin \
 bifrost --action asktgs --spn [service] --domain [domain.com] \
 --username [user] --hash [hash] --enctype [enctype]
 ```
-Mit erhaltenen Diensttickets ist es möglich, auf Freigaben auf anderen Computern zuzugreifen:
+Mit den erhaltenen Diensttickets ist es möglich, auf Freigaben auf anderen Computern zuzugreifen:
 ```bash
 smbutil view //computer.fqdn
 mount -t smbfs //server/folder /local/mount/point
@@ -257,9 +257,9 @@ Wenn eine Datei in Safari heruntergeladen wird und es sich um eine "sichere" Dat
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Holen Sie sich die Perspektive eines Hackers auf Ihre Webanwendungen, Ihr Netzwerk und die Cloud
+**Erhalten Sie die Perspektive eines Hackers auf Ihre Webanwendungen, Ihr Netzwerk und die Cloud**
 
-**Finden und melden Sie kritische, ausnutzbare Schwachstellen mit echtem Geschäftsauswirkungen.** Verwenden Sie unsere 20+ benutzerdefinierten Tools, um die Angriffsfläche zu kartieren, Sicherheitsprobleme zu finden, die Ihnen ermöglichen, Berechtigungen zu eskalieren, und automatisierte Exploits zu verwenden, um wesentliche Beweise zu sammeln und Ihre harte Arbeit in überzeugende Berichte umzuwandeln.
+**Finden und melden Sie kritische, ausnutzbare Schwachstellen mit echtem Geschäftsauswirkungen.** Verwenden Sie unsere 20+ benutzerdefinierten Tools, um die Angriffsfläche zu kartieren, Sicherheitsprobleme zu finden, die Ihnen ermöglichen, Berechtigungen zu eskalieren, und nutzen Sie automatisierte Exploits, um wesentliche Beweise zu sammeln, und verwandeln Sie Ihre harte Arbeit in überzeugende Berichte.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 

