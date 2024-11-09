@@ -17,9 +17,9 @@
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### 从黑客的角度看待您的网络应用、网络和云
+**从黑客的角度审视您的网络应用、网络和云**
 
-**查找并报告具有实际商业影响的关键、可利用的漏洞。** 使用我们 20 多个自定义工具来映射攻击面，查找允许您提升权限的安全问题，并使用自动化利用收集重要证据，将您的辛勤工作转化为有说服力的报告。
+**发现并报告具有实际商业影响的关键、可利用的漏洞。** 使用我们 20 多个自定义工具来映射攻击面，查找允许您提升权限的安全问题，并使用自动化利用收集重要证据，将您的辛勤工作转化为有说服力的报告。
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -28,7 +28,7 @@
 * JAMF Pro: `jamf checkJSSConnection`
 * Kandji
 
-如果您设法**获取管理员凭据**以访问管理平台，您可以**潜在地危害所有计算机**，通过在机器上分发恶意软件。
+如果您设法 **获取管理员凭据** 以访问管理平台，您可以 **潜在地危害所有计算机**，通过在机器上分发您的恶意软件。
 
 在 MacOS 环境中进行红队活动，强烈建议对 MDM 的工作原理有一定了解：
 
@@ -40,11 +40,11 @@
 
 MDM 将有权限安装、查询或删除配置文件，安装应用程序，创建本地管理员帐户，设置固件密码，更改 FileVault 密钥...
 
-为了运行您自己的 MDM，您需要**您的 CSR 由供应商签名**，您可以尝试通过 [**https://mdmcert.download/**](https://mdmcert.download/) 获取。要为 Apple 设备运行您自己的 MDM，您可以使用 [**MicroMDM**](https://github.com/micromdm/micromdm)。
+为了运行您自己的 MDM，您需要 **您的 CSR 由供应商签名**，您可以尝试通过 [**https://mdmcert.download/**](https://mdmcert.download/) 获取。要为 Apple 设备运行您自己的 MDM，您可以使用 [**MicroMDM**](https://github.com/micromdm/micromdm)。
 
 然而，要在注册设备上安装应用程序，您仍然需要它由开发者帐户签名... 然而，在 MDM 注册时，**设备将 MDM 的 SSL 证书添加为受信任的 CA**，因此您现在可以签署任何内容。
 
-要将设备注册到 MDM，您需要以 root 身份安装一个 **`mobileconfig`** 文件，这可以通过 **pkg** 文件传递（您可以将其压缩为 zip，当从 Safari 下载时将被解压）。
+要将设备注册到 MDM，您需要以 root 身份安装 **`mobileconfig`** 文件，这可以通过 **pkg** 文件传递（您可以将其压缩为 zip，当从 Safari 下载时将被解压）。
 
 **Mythic agent Orthrus** 使用了这种技术。
 
@@ -54,7 +54,7 @@ JAMF 可以运行 **自定义脚本**（由系统管理员开发的脚本）、*
 
 #### JAMF 自助注册
 
-访问 `https://<公司名称>.jamfcloud.com/enroll/` 这样的页面，查看他们是否启用了 **自助注册**。如果启用了，可能会**要求输入凭据以访问**。
+访问 `https://<公司名称>.jamfcloud.com/enroll/` 这样的页面，查看他们是否启用了 **自助注册**。如果启用了，可能会 **要求输入凭据以访问**。
 
 您可以使用脚本 [**JamfSniper.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfSniper.py) 执行密码喷洒攻击。
 
@@ -66,8 +66,8 @@ JAMF 可以运行 **自定义脚本**（由系统管理员开发的脚本）、*
 
 <figure><img src="../../.gitbook/assets/image (167).png" alt=""><figcaption></figcaption></figure>
 
-**`jamf`** 二进制文件包含打开钥匙串的秘密，在发现时是**共享**给所有人的，内容是：**`jk23ucnq91jfu9aj`**。\
-此外，jamf **持久化**为 **LaunchDaemon** 在 **`/Library/LaunchAgents/com.jamf.management.agent.plist`**
+**`jamf`** 二进制文件包含打开钥匙串的秘密，在发现时是 **共享** 给所有人的，内容是：**`jk23ucnq91jfu9aj`**。\
+此外，jamf **持久化** 为 **LaunchDaemon** 在 **`/Library/LaunchAgents/com.jamf.management.agent.plist`**
 
 #### JAMF 设备接管
 
@@ -125,7 +125,7 @@ sudo jamf policy -id 0
 [macos-protocols.md](../macos-security-and-privilege-escalation/macos-protocols.md)
 {% endcontent-ref %}
 
-## Active Directory
+## 活动目录
 
 在某些情况下，你会发现 **MacOS 计算机连接到 AD**。在这种情况下，你应该尝试**枚举**活动目录，就像你习惯的那样。在以下页面中找到一些**帮助**：
 
@@ -220,14 +220,14 @@ bifrost --action asktgt --username test_lab_admin \
 bifrost --action asktgs --spn [service] --domain [domain.com] \
 --username [user] --hash [hash] --enctype [enctype]
 ```
-通过获取的服务票证，可以尝试访问其他计算机上的共享：
+通过获得的服务票证，可以尝试访问其他计算机上的共享：
 ```bash
 smbutil view //computer.fqdn
 mount -t smbfs //server/folder /local/mount/point
 ```
 ## 访问钥匙串
 
-钥匙串很可能包含敏感信息，如果在没有生成提示的情况下访问，可能有助于推进红队演习：
+钥匙串很可能包含敏感信息，如果在没有生成提示的情况下访问，可能有助于推进红队演练：
 
 {% content-ref url="macos-keychain.md" %}
 [macos-keychain.md](macos-keychain.md)
@@ -245,7 +245,7 @@ MacOS 红队与常规 Windows 红队不同，因为通常 **MacOS 直接与多�
 
 <figure><img src="../../.gitbook/assets/image (226).png" alt=""><figcaption></figcaption></figure>
 
-## 参考资料
+## 参考文献
 
 * [**https://www.youtube.com/watch?v=IiMladUbL6E**](https://www.youtube.com/watch?v=IiMladUbL6E)
 * [**https://medium.com/xm-cyber/introducing-machound-a-solution-to-macos-active-directory-based-attacks-2a425f0a22b6**](https://medium.com/xm-cyber/introducing-machound-a-solution-to-macos-active-directory-based-attacks-2a425f0a22b6)
@@ -255,15 +255,15 @@ MacOS 红队与常规 Windows 红队不同，因为通常 **MacOS 直接与多�
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### 从黑客的角度看您的网络应用、网络和云
+**获取黑客对您的网络应用程序、网络和云的看法**
 
-**查找并报告具有实际商业影响的关键可利用漏洞。** 使用我们 20 多个自定义工具来映射攻击面，查找让您提升权限的安全问题，并使用自动化利用收集重要证据，将您的辛勤工作转化为有说服力的报告。
+**查找并报告具有实际业务影响的关键可利用漏洞。** 使用我们 20 多个自定义工具来映射攻击面，查找让您提升权限的安全问题，并使用自动化漏洞收集重要证据，将您的辛勤工作转化为有说服力的报告。
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
 {% hint style="success" %}
-学习和实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
-学习和实践 GCP 黑客技术：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 

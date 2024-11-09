@@ -17,19 +17,19 @@
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### 从黑客的角度看待您的网络应用、网络和云
+**从黑客的角度审视您的网络应用、网络和云**
 
-**查找并报告具有实际商业影响的关键可利用漏洞。** 使用我们 20 多个自定义工具来映射攻击面，发现让您提升权限的安全问题，并使用自动化利用收集重要证据，将您的辛勤工作转化为有说服力的报告。
+**查找并报告具有实际商业影响的关键可利用漏洞。** 使用我们 20 多个自定义工具来映射攻击面，发现让您提升权限的安全问题，并使用自动化漏洞收集重要证据，将您的辛勤工作转化为有说服力的报告。
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
 ## 工作原理
 
-**Smbexec** 是一个用于在 Windows 系统上进行远程命令执行的工具，类似于 **Psexec**，但它避免在目标系统上放置任何恶意文件。
+**Smbexec** 是一个用于在 Windows 系统上远程执行命令的工具，类似于 **Psexec**，但它避免在目标系统上放置任何恶意文件。
 
 ### 关于 **SMBExec** 的关键点
 
-- 它通过在目标机器上创建一个临时服务（例如，“BTOBTO”）来执行命令，通过 cmd.exe (%COMSPEC%)，而不放置任何二进制文件。
+- 它通过在目标机器上创建一个临时服务（例如，“BTOBTO”）来通过 cmd.exe (%COMSPEC%) 执行命令，而不放置任何二进制文件。
 - 尽管采用隐蔽的方法，但它确实为每个执行的命令生成事件日志，提供了一种非交互式的“shell”。
 - 使用 **Smbexec** 连接的命令如下：
 ```bash
@@ -55,9 +55,9 @@ FOr further details check [https://blog.ropnop.com/using-credentials-to-own-wind
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### 从黑客的角度看待您的网络应用程序、网络和云
+**获取黑客对您的网络应用程序、网络和云的看法**
 
-**发现并报告对业务有重大影响的关键可利用漏洞。** 使用我们20多个自定义工具来映射攻击面，查找让您提升权限的安全问题，并使用自动化漏洞收集重要证据，将您的辛勤工作转化为有说服力的报告。
+**查找并报告具有实际商业影响的关键可利用漏洞。** 使用我们20多个自定义工具来映射攻击面，查找让您提升权限的安全问题，并使用自动化漏洞收集重要证据，将您的辛勤工作转化为有说服力的报告。
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
