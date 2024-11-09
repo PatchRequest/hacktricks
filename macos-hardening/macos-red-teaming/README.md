@@ -6,7 +6,7 @@ Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Ondersteun HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
 * **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
@@ -17,20 +17,20 @@ Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Kry 'n hacker se perspektief op jou webtoepassings, netwerk, en wolk
+**Kry 'n hacker se perspektief op jou webtoepassings, netwerk, en wolk**
 
 **Vind en rapporteer kritieke, exploiteerbare kwesbaarhede met werklike besigheidsimpak.** Gebruik ons 20+ pasgemaakte gereedskap om die aanvaloppervlak te karteer, vind sekuriteitskwessies wat jou toelaat om bevoegdhede te verhoog, en gebruik geoutomatiseerde eksploitte om noodsaaklike bewyse te versamel, wat jou harde werk in oortuigende verslae omskep.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
-## Misbruik van MDMs
+## Misbruik van MDM's
 
 * JAMF Pro: `jamf checkJSSConnection`
 * Kandji
 
 As jy daarin slaag om **administrateur akrediteer te kompromitteer** om toegang tot die bestuursplatform te verkry, kan jy **potensieel al die rekenaars kompromitteer** deur jou malware in die masjiene te versprei.
 
-Vir red teaming in MacOS omgewings is dit hoogs aanbeveel om 'n bietjie begrip te hê van hoe die MDMs werk:
+Vir red teaming in MacOS omgewings is dit hoogs aanbeveel om 'n bietjie begrip te hê van hoe die MDM's werk:
 
 {% content-ref url="macos-mdm/" %}
 [macos-mdm](macos-mdm/)
@@ -54,7 +54,7 @@ JAMF kan **pasgemaakte skripte** (skripte wat deur die sysadmin ontwikkel is), *
 
 #### JAMF self-registrasie
 
-Gaan na 'n bladsy soos `https://<company-name>.jamfcloud.com/enroll/` om te sien of hulle **self-registrasie geaktiveer** het. As hulle dit het, kan dit **om akrediteer vra**.
+Gaan na 'n bladsy soos `https://<company-name>.jamfcloud.com/enroll/` om te sien of hulle **self-registrasie geaktiveer** het. As hulle dit het, mag dit **om akrediteer vra**.
 
 Jy kan die skrip [**JamfSniper.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfSniper.py) gebruik om 'n wagwoord spuit aanval uit te voer.
 
@@ -69,12 +69,10 @@ Boonop, nadat jy die regte akrediteer gevind het, kan jy in staat wees om ander 
 Die **`jamf`** binêre het die geheim bevat om die sleutelring te open wat op die tyd van die ontdekking **gedeel** was onder almal en dit was: **`jk23ucnq91jfu9aj`**.\
 Boonop, jamf **bly** as 'n **LaunchDaemon** in **`/Library/LaunchAgents/com.jamf.management.agent.plist`**
 
-#### JAMF Toestel Oorname
+#### JAMF Toestel Oorneming
 
 Die **JSS** (Jamf Software Server) **URL** wat **`jamf`** sal gebruik, is geleë in **`/Library/Preferences/com.jamfsoftware.jamf.plist`**.\
 Hierdie lêer bevat basies die URL:
-
-{% code overflow="wrap" %}
 ```bash
 plutil -convert xml1 -o - /Library/Preferences/com.jamfsoftware.jamf.plist
 
@@ -115,7 +113,7 @@ Met hierdie inligting, **skep 'n VM** met die **gestole** Hardeware **UUID** en 
 
 Jy kan ook die ligging `/Library/Application Support/Jamf/tmp/` monitor vir die **aangepaste skripte** wat admins mag wil uitvoer via Jamf, aangesien hulle **hier geplaas, uitgevoer en verwyder** word. Hierdie skripte **kan akrediteer** bevat.
 
-Echter, **akrediteer** kan deur hierdie skripte as **parameters** oorgedra word, so jy sal `ps aux | grep -i jamf` moet monitor (sonder om root te wees).
+E however, **akrediteer** mag deur hierdie skripte as **parameters** oorgedra word, so jy sal `ps aux | grep -i jamf` moet monitor (sonder om eers root te wees).
 
 Die skrip [**JamfExplorer.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfExplorer.py) kan luister vir nuwe lêers wat bygevoeg word en nuwe proses argumente.
 
@@ -143,15 +141,15 @@ In sommige gevalle sal jy vind dat die **MacOS rekenaar aan 'n AD** gekoppel is.
 [pentesting-kerberos-88](../../network-services-pentesting/pentesting-kerberos-88/)
 {% endcontent-ref %}
 
-'n **lokale MacOS hulpmiddel** wat jou ook kan help is `dscl`:
+Sommige **lokale MacOS hulpmiddel** wat jou ook kan help is `dscl`:
 ```bash
 dscl "/Active Directory/[Domain]/All Domains" ls /
 ```
-Ook is daar 'n paar gereedskap voorberei vir MacOS om outomaties die AD te evalueer en met kerberos te speel:
+Ook is daar 'n paar gereedskap voorberei vir MacOS om die AD outomaties te enumerate en met kerberos te speel:
 
 * [**Machound**](https://github.com/XMCyber/MacHound): MacHound is 'n uitbreiding van die Bloodhound ouditgereedskap wat die versameling en opname van Active Directory verhoudings op MacOS gasheer toestelle moontlik maak.
 * [**Bifrost**](https://github.com/its-a-feature/bifrost): Bifrost is 'n Objective-C projek wat ontwerp is om met die Heimdal krb5 APIs op macOS te kommunikeer. Die doel van die projek is om beter sekuriteitstoetsing rondom Kerberos op macOS toestelle moontlik te maak deur gebruik te maak van inheemse APIs sonder om enige ander raamwerk of pakkette op die teiken te vereis.
-* [**Orchard**](https://github.com/its-a-feature/Orchard): JavaScript for Automation (JXA) gereedskap om Active Directory evaluering te doen.
+* [**Orchard**](https://github.com/its-a-feature/Orchard): JavaScript for Automation (JXA) gereedskap om Active Directory enumerasie te doen.
 
 ### Domein Inligting
 ```bash
@@ -229,7 +227,7 @@ mount -t smbfs //server/folder /local/mount/point
 ```
 ## Toegang tot die Sleutelkettie
 
-Die Sleutelkettie bevat hoogs waarskynlik sensitiewe inligting wat, indien toegang verkry word sonder om 'n prompt te genereer, kan help om 'n rooi span oefening vorentoe te beweeg:
+Die Sleutelkettie bevat hoogs waarskynlik sensitiewe inligting wat, indien dit sonder 'n prompt verkry word, kan help om 'n rooi span oefening vorentoe te beweeg:
 
 {% content-ref url="macos-keychain.md" %}
 [macos-keychain.md](macos-keychain.md)
@@ -237,7 +235,7 @@ Die Sleutelkettie bevat hoogs waarskynlik sensitiewe inligting wat, indien toega
 
 ## Eksterne Dienste
 
-MacOS Rooi Spanwerk is anders as 'n gewone Windows Rooi Spanwerk aangesien **MacOS gewoonlik direk met verskeie eksterne platforms geïntegreer is**. 'n Algemene konfigurasie van MacOS is om toegang tot die rekenaar te verkry met **OneLogin gesinkroniseerde akrediteer, en toegang tot verskeie eksterne dienste** (soos github, aws...) via OneLogin.
+MacOS Rooi Span werk verskillend van 'n gewone Windows Rooi Span, aangesien **MacOS gewoonlik direk met verskeie eksterne platforms geïntegreer is**. 'n Algemene konfigurasie van MacOS is om toegang tot die rekenaar te verkry met **OneLogin gesinkroniseerde akrediteer, en toegang tot verskeie eksterne dienste** (soos github, aws...) via OneLogin.
 
 ## Verskeie Rooi Span tegnieke
 
@@ -257,9 +255,9 @@ Wanneer 'n lêer in Safari afgelaai word, as dit 'n "veilige" lêer is, sal dit 
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Kry 'n hacker se perspektief op jou webtoepassings, netwerk, en wolk
+**Kry 'n hacker se perspektief op jou webtoepassings, netwerk, en wolk**
 
-**Vind en rapporteer kritieke, uitbuitbare kwesbaarhede met werklike besigheidsimpak.** Gebruik ons 20+ pasgemaakte gereedskap om die aanvaloppervlak te karteer, vind sekuriteitskwessies wat jou toelaat om voorregte te verhoog, en gebruik outomatiese uitbuitings om noodsaaklike bewyse te versamel, wat jou harde werk in oortuigende verslae omskep.
+**Vind en rapporteer kritieke, exploiteerbare kwesbaarhede met werklike besigheidsimpak.** Gebruik ons 20+ pasgemaakte gereedskap om die aanvaloppervlak te karteer, vind sekuriteitskwessies wat jou toelaat om voorregte te verhoog, en gebruik outomatiese eksploit om noodsaaklike bewyse te versamel, wat jou harde werk in oortuigende verslae omskep.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -271,9 +269,9 @@ Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 
 <summary>Ondersteun HackTricks</summary>
 
-* Kyk na die [**subskripsieplanne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord-groep**](https://discord.gg/hRep4RUj7f) of die [**telegram-groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Deel hacking truuks deur PR's in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
