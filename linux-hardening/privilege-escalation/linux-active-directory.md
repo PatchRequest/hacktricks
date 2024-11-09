@@ -1,31 +1,35 @@
 # Linux Active Directory
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>支持 HackTricks</summary>
+<summary>Support HackTricks</summary>
 
-* 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-一台 Linux 机器也可以存在于 Active Directory 环境中。
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
 
-在 AD 中的 Linux 机器可能会 **在文件中存储不同的 CCACHE 票证。这些票证可以像其他任何 Kerberos 票证一样被使用和滥用**。要读取这些票证，您需要是票证的用户所有者或 **root** 用户。
+{% embed url="https://websec.nl/" %}
 
-## 枚举
+在Active Directory环境中也可以存在一台linux机器。
 
-### 从 Linux 进行 AD 枚举
+在AD中的linux机器可能**在文件中存储不同的CCACHE票证。这些票证可以像其他任何kerberos票证一样被使用和滥用**。要读取这些票证，您需要是票证的用户所有者或**root**用户。
 
-如果您在 Linux（或 Windows 的 bash）中访问 AD，您可以尝试 [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) 来枚举 AD。
+## Enumeration
 
-您还可以查看以下页面以了解 **从 Linux 枚举 AD 的其他方法**：
+### 从linux进行AD枚举
+
+如果您在linux（或Windows中的bash）上访问AD，可以尝试[https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn)来枚举AD。
+
+您还可以查看以下页面以了解**从linux枚举AD的其他方法**：
 
 {% content-ref url="../../network-services-pentesting/pentesting-ldap.md" %}
 [pentesting-ldap.md](../../network-services-pentesting/pentesting-ldap.md)
@@ -33,27 +37,27 @@
 
 ### FreeIPA
 
-FreeIPA 是一个开源的 **替代品**，用于 Microsoft Windows **Active Directory**，主要用于 **Unix** 环境。它结合了一个完整的 **LDAP 目录** 和一个 MIT **Kerberos** 密钥分发中心，管理方式类似于 Active Directory。利用 Dogtag **证书系统**进行 CA 和 RA 证书管理，支持 **多因素** 身份验证，包括智能卡。集成了 SSSD 以进行 Unix 身份验证过程。了解更多信息：
+FreeIPA是一个开源的**替代方案**，用于Microsoft Windows **Active Directory**，主要用于**Unix**环境。它结合了一个完整的**LDAP目录**和一个MIT **Kerberos**密钥分发中心，管理方式类似于Active Directory。利用Dogtag **证书系统**进行CA和RA证书管理，支持**多因素**身份验证，包括智能卡。集成了SSSD用于Unix身份验证过程。了解更多信息：
 
 {% content-ref url="../freeipa-pentesting.md" %}
 [freeipa-pentesting.md](../freeipa-pentesting.md)
 {% endcontent-ref %}
 
-## 操作票证
+## 玩票证
 
 ### Pass The Ticket
 
-在此页面中，您将找到不同的地方，您可以 **在 Linux 主机中找到 Kerberos 票证**，在以下页面中，您可以了解如何将这些 CCache 票证格式转换为 Kirbi（您在 Windows 中需要使用的格式），以及如何执行 PTT 攻击：
+在此页面中，您将找到不同的地方，您可以**在linux主机中找到kerberos票证**，在以下页面中，您可以学习如何将这些CCache票证格式转换为Kirbi（您在Windows中需要使用的格式），以及如何执行PTT攻击：
 
 {% content-ref url="../../windows-hardening/active-directory-methodology/pass-the-ticket.md" %}
 [pass-the-ticket.md](../../windows-hardening/active-directory-methodology/pass-the-ticket.md)
 {% endcontent-ref %}
 
-### 从 /tmp 重用 CCACHE 票证
+### 从/tmp重用CCACHE票证
 
-CCACHE 文件是用于 **存储 Kerberos 凭据** 的二进制格式，通常以 600 权限存储在 `/tmp` 中。这些文件可以通过其 **名称格式 `krb5cc_%{uid}`** 进行识别，与用户的 UID 相关联。要验证身份验证票证，**环境变量 `KRB5CCNAME`** 应设置为所需票证文件的路径，以便重用。
+CCACHE文件是用于**存储Kerberos凭据**的二进制格式，通常以600权限存储在`/tmp`中。这些文件可以通过其**名称格式，`krb5cc_%{uid}`，**与用户的UID相关联来识别。要验证身份验证票证，**环境变量`KRB5CCNAME`**应设置为所需票证文件的路径，以便重新使用。
 
-使用 `env | grep KRB5CCNAME` 列出当前用于身份验证的票证。该格式是可移植的，票证可以通过使用 `export KRB5CCNAME=/tmp/ticket.ccache` 设置环境变量来 **重用**。Kerberos 票证名称格式为 `krb5cc_%{uid}`，其中 uid 是用户 UID。
+使用`env | grep KRB5CCNAME`列出当前用于身份验证的票证。该格式是可移植的，票证可以通过使用`export KRB5CCNAME=/tmp/ticket.ccache`设置环境变量来**重新使用**。Kerberos票证名称格式为`krb5cc_%{uid}`，其中uid是用户UID。
 ```bash
 # Find tickets
 ls /tmp/ | grep krb5cc
@@ -119,6 +123,10 @@ crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDO
 * [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
 * [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 {% hint style="success" %}
 学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
 学习和实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
@@ -128,8 +136,8 @@ crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDO
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 **上关注我们** [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 来分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**telegram 群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** 上关注我们。**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}

@@ -15,18 +15,22 @@
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 ## 它们是如何工作的
 
-该过程在以下步骤中概述，说明如何操纵服务二进制文件以通过 SMB 在目标机器上实现远程执行：
+该过程在以下步骤中概述，说明如何通过 SMB 操纵服务二进制文件以实现对目标机器的远程执行：
 
 1. **通过 SMB 复制服务二进制文件到 ADMIN$ 共享**。
 2. **在远程机器上创建服务**，指向该二进制文件。
-3. 服务被 **远程启动**。
-4. 退出时，服务被 **停止，二进制文件被删除**。
+3. 服务被**远程启动**。
+4. 退出时，服务被**停止，二进制文件被删除**。
 
 ### **手动执行 PsExec 的过程**
 
-假设有一个可执行有效载荷（使用 msfvenom 创建并使用 Veil 混淆以规避防病毒检测），名为 'met8888.exe'，代表一个 meterpreter reverse_http 有效载荷，采取以下步骤：
+假设有一个可执行有效载荷（使用 msfvenom 创建并使用 Veil 混淆以规避防病毒检测），名为 'met8888.exe'，代表一个 meterpreter reverse\_http 有效载荷，采取以下步骤：
 
 * **复制二进制文件**：可执行文件从命令提示符复制到 ADMIN$ 共享，尽管它可以放置在文件系统的任何位置以保持隐蔽。
 * **创建服务**：利用 Windows `sc` 命令，该命令允许远程查询、创建和删除 Windows 服务，创建一个名为 "meterpreter" 的服务，指向上传的二进制文件。
@@ -42,7 +46,7 @@
 
 ![](<../../.gitbook/assets/image (928).png>)
 
-您还可以使用 [**SharpLateral**](https://github.com/mertdas/SharpLateral)： 
+您还可以使用 [**SharpLateral**](https://github.com/mertdas/SharpLateral):
 
 {% code overflow="wrap" %}
 ```
@@ -50,9 +54,13 @@ SharpLateral.exe redexec HOSTNAME C:\\Users\\Administrator\\Desktop\\malware.exe
 ```
 {% endcode %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 

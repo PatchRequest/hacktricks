@@ -13,6 +13,12 @@
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+使用 [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) 轻松构建和 **自动化工作流**，由世界上 **最先进** 的社区工具提供支持。\
+今天获取访问权限：
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 # Sudo/Admin 组
 
@@ -86,7 +92,7 @@ sudo su
 ```
 # Shadow Group
 
-来自 **group shadow** 的用户可以 **读取** **/etc/shadow** 文件：
+来自 **group shadow** 的用户可以 **read** **/etc/shadow** 文件：
 ```text
 -rw-r----- 1 root shadow 1824 Apr 26 19:10 /etc/shadow
 ```
@@ -121,7 +127,7 @@ moshe    pts/1    10.10.14.44      02:53   24:07   0.06s  0.06s /bin/bash
 ```
 **tty1**意味着用户**yossi 正在物理上**登录到机器上的终端。
 
-**video group**有权查看屏幕输出。基本上，您可以观察屏幕。为了做到这一点，您需要**以原始数据抓取当前屏幕上的图像**并获取屏幕使用的分辨率。屏幕数据可以保存在`/dev/fb0`中，您可以在`/sys/class/graphics/fb0/virtual_size`中找到该屏幕的分辨率。
+**video group**有权查看屏幕输出。基本上，你可以观察屏幕。为了做到这一点，你需要**以原始数据抓取当前屏幕上的图像**并获取屏幕使用的分辨率。屏幕数据可以保存在`/dev/fb0`中，你可以在`/sys/class/graphics/fb0/virtual_size`找到该屏幕的分辨率。
 ```bash
 cat /dev/fb0 > /tmp/screen.raw
 cat /sys/class/graphics/fb0/virtual_size
@@ -142,7 +148,7 @@ cat /sys/class/graphics/fb0/virtual_size
 ```bash
 find / -group root -perm -g=w 2>/dev/null
 ```
-# Docker Group
+# Docker 组
 
 您可以将主机的根文件系统挂载到实例的卷中，因此当实例启动时，它会立即加载一个 `chroot` 到该卷。这实际上使您在机器上获得了 root 权限。
 
@@ -150,9 +156,16 @@ find / -group root -perm -g=w 2>/dev/null
 
 {% embed url="https://fosterelli.co/privilege-escalation-via-docker.html" %}
 
-# lxc/lxd Group
+# lxc/lxd 组
 
 [lxc - 权限提升](lxd-privilege-escalation.md)
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+使用 [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) 轻松构建和 **自动化工作流**，由世界上 **最先进** 的社区工具提供支持。\
+立即获取访问权限：
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 {% hint style="success" %}
 学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -163,8 +176,8 @@ find / -group root -perm -g=w 2>/dev/null
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** 上关注我们。**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 来分享黑客技巧。
+* **加入** 💬 [**Discord 组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 组**](https://t.me/peass) 或 **在 Twitter 上关注** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
 
 </details>
 {% endhint %}
