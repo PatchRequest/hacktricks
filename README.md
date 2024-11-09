@@ -32,7 +32,7 @@ _Hacktricksのロゴとモーションデザインは_ [_@ppiernacho_](https://w
 
 <figure><img src=".gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
 
-[**RootedCON**](https://www.rootedcon.com)は、**スペイン**で最も重要なサイバーセキュリティイベントであり、**ヨーロッパ**で最も重要なイベントの1つです。**技術知識の促進**を使命とし、この会議はあらゆる分野の技術とサイバーセキュリティの専門家のための熱い交流の場です。
+[**RootedCON**](https://www.rootedcon.com)は、**スペイン**で最も重要なサイバーセキュリティイベントであり、**ヨーロッパ**で最も重要なイベントの1つです。**技術的知識を促進することを使命**とし、この会議はあらゆる分野の技術とサイバーセキュリティの専門家のための熱い交流の場です。
 
 {% embed url="https://www.rootedcon.com/" %}
 
@@ -42,9 +42,9 @@ _Hacktricksのロゴとモーションデザインは_ [_@ppiernacho_](https://w
 
 <figure><img src=".gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
 
-**Intigriti**は、**ヨーロッパの#1**エシカルハッキングおよび**バグバウンティプラットフォーム**です。
+**Intigriti**は、**ヨーロッパの#1**の倫理的ハッキングおよび**バグバウンティプラットフォーム**です。
 
-**バグバウンティのヒント**：**Intigritiにサインアップ**してください。これは、**ハッカーによって、ハッカーのために作られたプレミアムバグバウンティプラットフォーム**です！今日、[**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks)に参加し、最大**$100,000**の報酬を得始めましょう！
+**バグバウンティのヒント**: **Intigriti**に**サインアップ**してください。これは、**ハッカーによって、ハッカーのために作られたプレミアムなバグバウンティプラットフォーム**です！今日、[**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks)に参加し、最大**$100,000**のバウンティを獲得し始めましょう！
 
 {% embed url="https://go.intigriti.com/hacktricks" %}
 
@@ -69,9 +69,9 @@ _Hacktricksのロゴとモーションデザインは_ [_@ppiernacho_](https://w
 
 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy)サーバーに参加して、経験豊富なハッカーやバグバウンティハンターとコミュニケーションを取りましょう！
 
-* **ハッキングの洞察**：ハッキングのスリルと課題に深く掘り下げたコンテンツに参加
-* **リアルタイムハックニュース**：リアルタイムのニュースと洞察を通じて、急速に変化するハッキングの世界を把握
-* **最新の発表**：新しいバグバウンティの開始や重要なプラットフォームの更新について情報を得る
+* **ハッキングの洞察:** ハッキングのスリルと課題に深く掘り下げたコンテンツに参加
+* **リアルタイムハックニュース:** リアルタイムのニュースと洞察を通じて、急速に変化するハッキングの世界を把握
+* **最新の発表:** 新しいバグバウンティの開始や重要なプラットフォームの更新について情報を得る
 
 **私たちと一緒に** [**Discord**](https://discord.com/invite/N3FrSbmwdy)に参加し、今日からトップハッカーとコラボレーションを始めましょう！
 
@@ -79,12 +79,14 @@ _Hacktricksのロゴとモーションデザインは_ [_@ppiernacho_](https://w
 
 ### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - 必須のペネトレーションテストツールキット
 
-<figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**脆弱性評価とペネトレーションテストのための即時利用可能なセットアップ**。20以上のツールと機能を使用して、どこからでも完全なペンテストを実行できます。私たちはペンテスターを置き換えるのではなく、彼らに深く掘り下げ、シェルをポップし、楽しむための時間を戻すためにカスタムツール、検出および悪用モジュールを開発します。
+#### ハッカーの視点からあなたのウェブアプリ、ネットワーク、クラウドを評価
+
+**実際のビジネスに影響を与える重大で悪用可能な脆弱性を見つけて報告します。** 20以上のカスタムツールを使用して攻撃面をマッピングし、特権を昇格させるセキュリティ問題を見つけ、自動化されたエクスプロイトを使用して重要な証拠を収集し、あなたの努力を説得力のある報告に変えます。
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
-\
+
 
 {% endembed %}
 
@@ -94,14 +96,14 @@ _Hacktricksのロゴとモーションデザインは_ [_@ppiernacho_](https://w
 
 <figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
 
-**SerpApi**は、**検索エンジンの結果にアクセスするための迅速かつ簡単なリアルタイムAPI**を提供します。彼らは検索エンジンをスクレイピングし、プロキシを処理し、キャプチャを解決し、すべてのリッチ構造化データを解析します。
+**SerpApi**は、**検索エンジンの結果にアクセスするための迅速で簡単なリアルタイムAPI**を提供します。彼らは検索エンジンをスクレイピングし、プロキシを処理し、キャプチャを解決し、すべてのリッチ構造化データを解析します。
 
-SerpApiのプランの1つに加入すると、Google、Bing、Baidu、Yahoo、Yandexなど、さまざまな検索エンジンをスクレイピングするための50以上の異なるAPIにアクセスできます。\
+SerpApiのプランのサブスクリプションには、Google、Bing、Baidu、Yahoo、Yandexなど、さまざまな検索エンジンをスクレイピングするための50以上の異なるAPIへのアクセスが含まれています。\
 他のプロバイダーとは異なり、**SerpApiはオーガニック結果だけをスクレイピングするわけではありません**。SerpApiの応答には、常にすべての広告、インライン画像と動画、ナレッジグラフ、検索結果に存在する他の要素や機能が含まれます。
 
-現在のSerpApiの顧客には、**Apple、Shopify、GrubHub**が含まれます。\
-詳細については、彼らの[**ブログ**](https://serpapi.com/blog/)を確認するか、[**プレイグラウンド**](https://serpapi.com/playground)で例を試してください。\
-**無料アカウントを作成**するには、[**こちら**](https://serpapi.com/users/sign\_up)をクリックしてください。**
+現在のSerpApiの顧客には、**Apple、Shopify、GrubHub**が含まれています。\
+詳細については、彼らの[**ブログ**](https://serpapi.com/blog/)をチェックするか、[**プレイグラウンド**](https://serpapi.com/playground)で例を試してください。\
+**ここで無料アカウントを作成**できます[**こちら**](https://serpapi.com/users/sign\_up)**。**
 
 ***
 
@@ -109,11 +111,11 @@ SerpApiのプランの1つに加入すると、Google、Bing、Baidu、Yahoo、Y
 
 <figure><img src=".gitbook/assets/websec (1).svg" alt=""><figcaption></figcaption></figure>
 
-[**WebSec**](https://websec.nl)は、**アムステルダム**に拠点を置くプロフェッショナルなサイバーセキュリティ会社で、最新のサイバーセキュリティ脅威から**世界中のビジネスを保護する**手助けをしています。彼らは**攻撃的セキュリティサービス**を提供し、**現代的な**アプローチを採用しています。
+[**WebSec**](https://websec.nl)は、**アムステルダム**に拠点を置くプロフェッショナルなサイバーセキュリティ会社で、最新のサイバーセキュリティ脅威から**世界中のビジネスを保護する**手助けをしています。**攻撃的セキュリティサービス**を提供する**現代的な**アプローチを採用しています。
 
 WebSecは**オールインワンのセキュリティ会社**であり、ペンテスト、**セキュリティ**監査、意識向上トレーニング、フィッシングキャンペーン、コードレビュー、エクスプロイト開発、セキュリティ専門家のアウトソーシングなど、すべてを行います。
 
-WebSecのもう一つの素晴らしい点は、業界の平均とは異なり、WebSecは**自分たちのスキルに非常に自信を持っている**ことです。そのため、**最高の品質の結果を保証します**。彼らのウェブサイトには「**私たちがハッキングできなければ、あなたは支払わない！**」と記載されています。詳細については、彼らの[**ウェブサイト**](https://websec.nl/en/)と[**ブログ**](https://websec.nl/blog/)を見てください！
+WebSecのもう一つの素晴らしい点は、業界の平均とは異なり、WebSecは**自分たちのスキルに非常に自信を持っている**ことであり、そのため、**最高の品質の結果を保証します**。彼らのウェブサイトには「**私たちがハッキングできなければ、あなたは支払わない！**」と記載されています。詳細については、彼らの[**ウェブサイト**](https://websec.nl/en/)と[**ブログ**](https://websec.nl/blog/)を見てください！
 
 上記に加えて、WebSecは**HackTricksの熱心なサポーターでもあります。**
 
@@ -121,7 +123,7 @@ WebSecのもう一つの素晴らしい点は、業界の平均とは異なり�
 
 ## License & Disclaimer
 
-彼らを確認してください：
+チェックしてください：
 
 {% content-ref url="welcome/hacktricks-values-and-faq.md" %}
 [hacktricks-values-and-faq.md](welcome/hacktricks-values-and-faq.md)
@@ -140,8 +142,8 @@ GCPハッキングを学び、実践する：<img src=".gitbook/assets/grte.png"
 <summary>HackTricksをサポートする</summary>
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)や[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter**で私たちをフォローしてください 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**。**
-* **ハッキングトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
+* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter**で私たちをフォローしてください 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**。**
+* **ハッキングトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
 
 </details>
 {% endhint %}

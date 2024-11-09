@@ -15,6 +15,10 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 ## CBC - Cipher Block Chaining
 
 CBCモードでは、**前の暗号化ブロックがIVとして使用され**、次のブロックとXORされます：
@@ -29,8 +33,8 @@ CBCを復号するには、**逆の** **操作**が行われます：
 
 ## Message Padding
 
-暗号化は**固定** **サイズ** **ブロック**で行われるため、**最後の** **ブロック**の長さを完成させるために**パディング**が通常必要です。\
-通常、**PKCS7**が使用され、ブロックを完成させるために**必要なバイト数**を**繰り返す**パディングが生成されます。たとえば、最後のブロックが3バイト不足している場合、パディングは`\x03\x03\x03`になります。
+暗号化は**固定** **サイズ** **ブロック**で行われるため、**最後の** **ブロック**の長さを完了するために**パディング**が通常必要です。\
+通常、**PKCS7**が使用され、ブロックを完了するために必要な**バイト数**を**繰り返す**パディングが生成されます。たとえば、最後のブロックが3バイト不足している場合、パディングは`\x03\x03\x03`になります。
 
 **8バイトの長さの2つのブロック**の例を見てみましょう：
 
@@ -61,11 +65,11 @@ perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -e
 ```
 **エンコーディング 0** は **base64** が使用されていることを意味します（他のオプションも利用可能ですので、ヘルプメニューを確認してください）。
 
-この脆弱性を悪用して新しいデータを暗号化することもできます。例えば、クッキーの内容が "**_**user=MyUsername**_**" の場合、これを "\_user=administrator\_" に変更してアプリケーション内で権限を昇格させることができます。また、`paduster` を使用して -plaintext** パラメータを指定することでも可能です：
+この脆弱性を**悪用して新しいデータを暗号化することもできます。例えば、クッキーの内容が "**_**user=MyUsername**_**" の場合、これを "\_user=administrator\_" に変更してアプリケーション内で権限を昇格させることができます。また、`paduster`を使用して -plaintext** パラメータを指定することでも可能です：
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -encoding 0 -cookies "login=RVJDQrwUdTRWJUVUeBKkEA==" -plaintext "user=administrator"
 ```
-サイトが脆弱な場合、`padbuster`は自動的にパディングエラーが発生するタイミングを見つけようとしますが、**-error**パラメータを使用してエラーメッセージを指定することもできます。
+もしサイトが脆弱であれば、`padbuster`は自動的にパディングエラーが発生するタイミングを見つけようとしますが、**-error**パラメータを使用してエラーメッセージを指定することもできます。
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon=RVJDQrwUdTRWJUVUeBKkEA==" -error "Invalid padding"
 ```
@@ -85,42 +89,46 @@ perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon
 * `C12 = I12 ^ E4`
 * ...
 
-今、**C15が`0x01`になるまで`E7`を** **変更**することが可能です。これも正しいパディングになります。したがって、この場合： `\x01 = I15 ^ E'7`
+今、`C15`が`0x01`になるように**`E7`を変更する**ことが可能です。これも正しいパディングになります。したがって、この場合：`\x01 = I15 ^ E'7`
 
-E'7を見つけることで、**I15を計算することが可能です**： `I15 = 0x01 ^ E'7`
+したがって、E'7を見つけることで、**I15を計算する**ことができます：`I15 = 0x01 ^ E'7`
 
-これにより、**C15を計算することができます**： `C15 = E7 ^ I15 = E7 ^ \x01 ^ E'7`
+これにより、**C15を計算する**ことができます：`C15 = E7 ^ I15 = E7 ^ \x01 ^ E'7`
 
-**C15**を知っているので、今度は**C14を計算することが可能です**が、今回はパディング`\x02\x02`をブルートフォースします。
+**C15**を知っているので、今度は**C14を計算する**ことが可能ですが、今回はパディング`\x02\x02`をブルートフォースします。
 
-このブルートフォースは前のものと同じくらい複雑で、値が0x02の`E''15`を計算することが可能です： `E''7 = \x02 ^ I15` したがって、**`C14`が`0x02`に等しい** **`E'14`**を見つけるだけです。\
-次に、C14を復号するために同じ手順を行います： **`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
+このBFは前のものと同じくらい複雑で、値が0x02の`E''15`を計算することが可能です：`E''7 = \x02 ^ I15`。したがって、**`C14`が`0x02`に等しい**ように生成する**`E'14`**を見つけるだけです。\
+次に、C14を復号するために同じ手順を実行します：**`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
 
 **このチェーンをたどって、暗号化されたテキスト全体を復号します。**
 
 ### 脆弱性の検出
 
 アカウントを登録し、このアカウントでログインします。\
-**何度もログイン**して、常に**同じクッキー**を取得する場合、アプリケーションに**何か** **問題**がある可能性があります。**送信されるクッキーは、ログインするたびに一意であるべきです**。クッキーが**常に** **同じ**であれば、それはおそらく常に有効であり、無効にする方法は**ありません**。
+もし**何度もログイン**して、常に**同じクッキー**を受け取る場合、アプリケーションに**何か**が**間違っている**可能性があります。**送信されるクッキーは、ログインするたびにユニークであるべきです**。クッキーが**常に**同じであれば、おそらく常に有効であり、それを無効にする方法は**ありません**。
 
-今、**クッキーを変更**しようとすると、アプリケーションから**エラー**が返されることがわかります。\
-しかし、パディングをブルートフォース（例えば、padbusterを使用）すると、異なるユーザーに対して有効な別のクッキーを取得することができます。このシナリオは、padbusterに対して非常に脆弱である可能性があります。
+今、もし**クッキーを変更しようとすると**、アプリケーションから**エラー**が返されるのがわかります。\
+しかし、パディングをBF（例えばpadbusterを使用）すると、異なるユーザーのための別の有効なクッキーを取得することができます。このシナリオは、padbusterに対して脆弱である可能性が非常に高いです。
 
 ### 参考文献
 
 * [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWSハッキングを学び、実践する：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>HackTricksをサポートする</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
+* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter**で**フォロー**してください 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **ハッキングのトリックを共有するために、[**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
 
 </details>
 {% endhint %}
