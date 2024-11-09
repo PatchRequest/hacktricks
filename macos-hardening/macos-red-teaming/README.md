@@ -17,9 +17,9 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### ハッカーの視点であなたのウェブアプリ、ネットワーク、クラウドを評価する
+**あなたのウェブアプリ、ネットワーク、クラウドに対するハッカーの視点を得る**
 
-**実際のビジネスに影響を与える重大で悪用可能な脆弱性を見つけて報告します。** 20以上のカスタムツールを使用して攻撃面をマッピングし、特権を昇格させるセキュリティ問題を見つけ、自動化されたエクスプロイトを使用して重要な証拠を収集し、あなたの努力を説得力のある報告書に変えます。
+**実際のビジネスに影響を与える重大で悪用可能な脆弱性を見つけて報告します。** 私たちの20以上のカスタムツールを使用して攻撃面をマッピングし、特権を昇格させるセキュリティ問題を見つけ、自動化されたエクスプロイトを使用して重要な証拠を収集し、あなたの努力を説得力のある報告に変えます。
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -30,7 +30,7 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 
 管理プラットフォームにアクセスするために**管理者資格情報を侵害**することができれば、マシンにマルウェアを配布することで**すべてのコンピュータを侵害する可能性があります**。
 
-MacOS環境でのレッドチーミングには、MDMの動作についての理解が非常に推奨されます：
+MacOS環境でのレッドチーミングには、MDMの動作についての理解があることが強く推奨されます：
 
 {% content-ref url="macos-mdm/" %}
 [macos-mdm](macos-mdm/)
@@ -66,7 +66,7 @@ JAMFは**カスタムスクリプト**（システム管理者によって開発
 
 <figure><img src="../../.gitbook/assets/image (167).png" alt=""><figcaption></figcaption></figure>
 
-**`jamf`**バイナリには、キーチェーンを開くための秘密が含まれており、発見時には**誰もが共有**していたもので、**`jk23ucnq91jfu9aj`**でした。\
+**`jamf`**バイナリには、発見時に**共有**されていたキーチェーンを開くための秘密が含まれており、それは**`jk23ucnq91jfu9aj`**でした。\
 さらに、jamfは**`/Library/LaunchAgents/com.jamf.management.agent.plist`**に**LaunchDaemon**として**持続**します。
 
 #### JAMFデバイスタケオーバー
@@ -89,7 +89,7 @@ plutil -convert xml1 -o - /Library/Preferences/com.jamfsoftware.jamf.plist
 ```
 {% endcode %}
 
-したがって、攻撃者は、インストール時にこのファイルを**上書きする**悪意のあるパッケージ（`pkg`）をドロップし、**TyphonエージェントからのMythic C2リスナーへのURLを設定する**ことで、JAMFをC2として悪用できるようになります。
+攻撃者は、インストール時にこのファイルを**上書きする**悪意のあるパッケージ（`pkg`）をドロップし、**TyphonエージェントからのMythic C2リスナーへのURLを設定する**ことで、JAMFをC2として悪用できるようになります。
 
 {% code overflow="wrap" %}
 ```bash
@@ -102,7 +102,7 @@ sudo jamf policy -id 0
 
 #### JAMFなりすまし
 
-デバイスとJMF間の**通信をなりすます**ためには、以下が必要です：
+デバイスとJMF間の**通信をなりすます**には、以下が必要です：
 
 * デバイスの**UUID**: `ioreg -d2 -c IOPlatformExpertDevice | awk -F" '/IOPlatformUUID/{print $(NF-1)}'`
 * デバイス証明書を含む**JAMFキーチェーン**: `/Library/Application\ Support/Jamf/JAMF.keychain`
@@ -117,7 +117,7 @@ sudo jamf policy -id 0
 
 ただし、**資格情報**はこれらのスクリプトに**パラメータ**として渡される可能性があるため、`ps aux | grep -i jamf`を監視する必要があります（ルートでなくても可能です）。
 
-スクリプト[**JamfExplorer.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfExplorer.py)は、新しいファイルが追加されるのをリスンし、新しいプロセス引数を監視できます。
+スクリプト[**JamfExplorer.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfExplorer.py)は、新しいファイルが追加されるのをリッスンし、新しいプロセス引数を監視できます。
 
 ### macOSリモートアクセス
 
@@ -150,8 +150,8 @@ dscl "/Active Directory/[Domain]/All Domains" ls /
 また、ADを自動的に列挙し、kerberosで遊ぶためのMacOS用のツールがいくつか用意されています：
 
 * [**Machound**](https://github.com/XMCyber/MacHound): MacHoundは、MacOSホスト上のActive Directory関係を収集および取り込むことを可能にするBloodhound監査ツールの拡張です。
-* [**Bifrost**](https://github.com/its-a-feature/bifrost): Bifrostは、macOS上のHeimdal krb5 APIと対話するために設計されたObjective-Cプロジェクトです。このプロジェクトの目標は、ターゲットに他のフレームワークやパッケージを必要とせず、ネイティブAPIを使用してmacOSデバイス上のKerberosに関するセキュリティテストを向上させることです。
-* [**Orchard**](https://github.com/its-a-feature/Orchard): Active Directoryの列挙を行うためのJavaScript for Automation (JXA)ツールです。
+* [**Bifrost**](https://github.com/its-a-feature/bifrost): Bifrostは、macOS上のHeimdal krb5 APIと対話するために設計されたObjective-Cプロジェクトです。このプロジェクトの目標は、ターゲットに他のフレームワークやパッケージを必要とせずに、ネイティブAPIを使用してmacOSデバイス上のKerberosに関するより良いセキュリティテストを可能にすることです。
+* [**Orchard**](https://github.com/its-a-feature/Orchard): Active Directory列挙を行うためのJavaScript for Automation (JXA)ツールです。
 
 ### ドメイン情報
 ```bash
@@ -159,14 +159,14 @@ echo show com.apple.opendirectoryd.ActiveDirectory | scutil
 ```
 ### ユーザー
 
-MacOSのユーザーには3種類あります：
+MacOSのユーザーには3種類があります：
 
 * **ローカルユーザー** — ローカルOpenDirectoryサービスによって管理されており、Active Directoryとは何の接続もありません。
 * **ネットワークユーザー** — 認証のためにDCサーバーへの接続を必要とする揮発性のActive Directoryユーザーです。
 * **モバイルユーザー** — 認証情報とファイルのローカルバックアップを持つActive Directoryユーザーです。
 
 ユーザーとグループに関するローカル情報は、フォルダー _/var/db/dslocal/nodes/Default._ に保存されています。\
-例えば、_mark_ というユーザーに関する情報は _/var/db/dslocal/nodes/Default/users/mark.plist_ に保存されており、_admin_ というグループに関する情報は _/var/db/dslocal/nodes/Default/groups/admin.plist_ にあります。
+例えば、_mark_ というユーザーに関する情報は _/var/db/dslocal/nodes/Default/users/mark.plist_ に保存されており、_admin_ グループに関する情報は _/var/db/dslocal/nodes/Default/groups/admin.plist_ にあります。
 
 HasSessionおよびAdminToエッジを使用することに加えて、**MacHoundはBloodhoundデータベースに3つの新しいエッジを追加します**：
 
@@ -198,7 +198,7 @@ More info in [https://its-a-feature.github.io/posts/2018/01/Active-Directory-Dis
 
 ### Computer$ パスワード
 
-パスワードを取得するには:
+Get passwords using:
 ```bash
 bifrost --action askhash --username [name] --password [password] --domain [domain]
 ```
@@ -229,7 +229,7 @@ mount -t smbfs //server/folder /local/mount/point
 ```
 ## キーチェーンへのアクセス
 
-キーチェーンには、プロンプトを生成せずにアクセスされると、レッドチームの演習を進めるのに役立つ可能性のある機密情報が含まれている可能性が高いです：
+キーチェーンには、プロンプトを生成せずにアクセスされた場合、レッドチーム演習を進めるのに役立つ可能性のある機密情報が含まれている可能性が高いです：
 
 {% content-ref url="macos-keychain.md" %}
 [macos-keychain.md](macos-keychain.md)
@@ -257,7 +257,7 @@ Safariでファイルがダウンロードされると、それが「安全な�
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### ハッカーの視点であなたのウェブアプリ、ネットワーク、クラウドを評価する
+**あなたのウェブアプリ、ネットワーク、クラウドに対するハッカーの視点を得る**
 
 **実際のビジネスに影響を与える重大で悪用可能な脆弱性を見つけて報告します。** 20以上のカスタムツールを使用して攻撃面をマッピングし、特権を昇格させるセキュリティ問題を見つけ、自動化されたエクスプロイトを使用して重要な証拠を収集し、あなたの努力を説得力のある報告書に変えます。
 
@@ -272,7 +272,7 @@ GCPハッキングを学び、実践する：<img src="../../.gitbook/assets/grt
 <summary>HackTricksをサポートする</summary>
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
+* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
 * **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
 
 </details>
