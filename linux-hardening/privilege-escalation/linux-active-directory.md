@@ -15,17 +15,21 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 Linux mašina može biti prisutna unutar Active Directory okruženja.
 
 Linux mašina u AD može **čuvati različite CCACHE karte unutar fajlova. Ove karte se mogu koristiti i zloupotrebljavati kao i svaka druga kerberos karta**. Da biste pročitali ove karte, potrebno je da budete korisnik vlasnik karte ili **root** unutar mašine.
 
 ## Enumeration
 
-### AD enumeracija sa linux-a
+### AD enumeracija iz linuxa
 
-Ako imate pristup AD-u na linux-u (ili bash-u u Windows-u), možete probati [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) da enumerirate AD.
+Ako imate pristup AD-u u linuxu (ili bash-u u Windows-u), možete probati [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) da enumerišete AD.
 
-Takođe možete proveriti sledeću stranicu da biste naučili **druge načine za enumeraciju AD-a sa linux-a**:
+Takođe možete proveriti sledeću stranicu da biste naučili **druge načine za enumeraciju AD-a iz linuxa**:
 
 {% content-ref url="../../network-services-pentesting/pentesting-ldap.md" %}
 [pentesting-ldap.md](../../network-services-pentesting/pentesting-ldap.md)
@@ -43,7 +47,7 @@ FreeIPA je open-source **alternativa** za Microsoft Windows **Active Directory**
 
 ### Pass The Ticket
 
-Na ovoj stranici ćete pronaći različita mesta gde možete **pronaći kerberos karte unutar linux hosta**, na sledećoj stranici možete naučiti kako da transformišete formate ovih CCache karata u Kirbi (format koji treba da koristite u Windows-u) i takođe kako da izvršite PTT napad:
+Na ovoj stranici ćete pronaći različita mesta gde možete **pronaći kerberos karte unutar linux hosta**, na sledećoj stranici možete naučiti kako da transformišete ove CCache formate karata u Kirbi (format koji treba da koristite u Windows-u) i takođe kako da izvršite PTT napad:
 
 {% content-ref url="../../windows-hardening/active-directory-methodology/pass-the-ticket.md" %}
 [pass-the-ticket.md](../../windows-hardening/active-directory-methodology/pass-the-ticket.md)
@@ -51,9 +55,9 @@ Na ovoj stranici ćete pronaći različita mesta gde možete **pronaći kerberos
 
 ### CCACHE ponovna upotreba iz /tmp
 
-CCACHE fajlovi su binarni formati za **čuvanje Kerberos kredencijala** i obično se čuvaju sa 600 dozvolama u `/tmp`. Ovi fajlovi se mogu identifikovati po svom **formatu imena, `krb5cc_%{uid}`,** koji se odnosi na UID korisnika. Za verifikaciju autentifikacione karte, **promenljiva okruženja `KRB5CCNAME`** treba da bude postavljena na putanju željenog fajla karte, omogućavajući njenu ponovnu upotrebu.
+CCACHE fajlovi su binarni formati za **čuvanje Kerberos akreditiva** koji se obično čuvaju sa 600 dozvolama u `/tmp`. Ovi fajlovi se mogu identifikovati po svom **formatu imena, `krb5cc_%{uid}`,** koji se odnosi na korisnikov UID. Za verifikaciju autentifikacione karte, **promenljiva okruženja `KRB5CCNAME`** treba da bude postavljena na putanju željenog fajla karte, omogućavajući njenu ponovnu upotrebu.
 
-Prikazivanje trenutne karte koja se koristi za autentifikaciju sa `env | grep KRB5CCNAME`. Format je prenosiv i karta se može **ponovo koristiti postavljanjem promenljive okruženja** sa `export KRB5CCNAME=/tmp/ticket.ccache`. Format imena kerberos karte je `krb5cc_%{uid}` gde je uid UID korisnika.
+Nabrojte trenutnu kartu koja se koristi za autentifikaciju sa `env | grep KRB5CCNAME`. Format je prenosiv i karta se može **ponovo koristiti postavljanjem promenljive okruženja** sa `export KRB5CCNAME=/tmp/ticket.ccache`. Format imena kerberos karte je `krb5cc_%{uid}` gde je uid korisnikov UID.
 ```bash
 # Find tickets
 ls /tmp/ | grep krb5cc
@@ -64,9 +68,9 @@ export KRB5CCNAME=/tmp/krb5cc_1000
 ```
 ### CCACHE ticket reuse from keyring
 
-**Kerberos karte pohranjene u memoriji procesa mogu biti ekstraktovane**, posebno kada je zaštita ptrace na mašini onemogućena (`/proc/sys/kernel/yama/ptrace_scope`). Koristan alat za ovu svrhu se može naći na [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey), koji olakšava ekstrakciju injektovanjem u sesije i dumpovanjem karata u `/tmp`.
+**Kerberos karte pohranjene u memoriji procesa mogu se izvući**, posebno kada je zaštita ptrace na mašini onemogućena (`/proc/sys/kernel/yama/ptrace_scope`). Koristan alat za ovu svrhu se može pronaći na [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey), koji olakšava ekstrakciju injektovanjem u sesije i dumpovanjem karata u `/tmp`.
 
-Da bi se konfigurisao i koristio ovaj alat, sledeći koraci se prate:
+Da biste konfigurisali i koristili ovaj alat, slede se koraci u nastavku:
 ```bash
 git clone https://github.com/TarlogicSecurity/tickey
 cd tickey/tickey
@@ -96,7 +100,7 @@ klist -k /etc/krb5.keytab
 
 Ključevi servisnih naloga, koji su neophodni za usluge koje rade sa root privilegijama, sigurno su pohranjeni u **`/etc/krb5.keytab`** datotekama. Ovi ključevi, slični lozinkama za usluge, zahtevaju strogu poverljivost.
 
-Da biste pregledali sadržaj keytab datoteke, može se koristiti **`klist`**. Ovaj alat je dizajniran da prikaže detalje ključeva, uključujući **NT Hash** za autentifikaciju korisnika, posebno kada je tip ključa identifikovan kao 23.
+Da biste pregledali sadržaj keytab datoteke, može se koristiti **`klist`**. Ovaj alat je dizajniran da prikaže detalje o ključevima, uključujući **NT Hash** za autentifikaciju korisnika, posebno kada je tip ključa identifikovan kao 23.
 ```bash
 klist.exe -t -K -e -k FILE:C:/Path/to/your/krb5.keytab
 # Output includes service principal details and the NT Hash
@@ -114,10 +118,14 @@ Korišćenjem ekstraktovanih informacija o nalogu i hešu, mogu se uspostaviti v
 ```bash
 crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDOMAIN"
 ```
-## Reference
+## References
 * [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
 * [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
 * [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
+
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
 Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -125,7 +133,7 @@ Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <details>
 
-<summary>Podrška HackTricks</summary>
+<summary>Podržite HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
 * **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**

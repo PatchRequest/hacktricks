@@ -15,13 +15,17 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 ## CBC - Cipher Block Chaining
 
-U CBC modu, **prethodni enkriptovani blok se koristi kao IV** za XOR sa sledećim blokom:
+U CBC režimu **prethodni enkriptovani blok se koristi kao IV** za XOR sa sledećim blokom:
 
 ![https://defuse.ca/images/cbc\_encryption.png](https://defuse.ca/images/cbc\_encryption.png)
 
-Da bi se dekriptovao CBC, vrše se **suprotne** **operacije**:
+Da bi se dekriptovao CBC, **vrše se suprotne** **operacije**:
 
 ![https://defuse.ca/images/cbc\_decryption.png](https://defuse.ca/images/cbc\_decryption.png)
 
@@ -47,11 +51,11 @@ Primetite kako je u poslednjem primeru **poslednji blok bio pun, pa je generisan
 
 Kada aplikacija dekriptuje enkriptovane podatke, prvo će dekriptovati podatke; zatim će ukloniti padding. Tokom čišćenja paddinga, ako **nevalidan padding izazove uočljivo ponašanje**, imate **padding oracle ranjivost**. Uočljivo ponašanje može biti **greška**, **nedostatak rezultata**, ili **sporiji odgovor**.
 
-Ako primetite ovo ponašanje, možete **dekriptuju enkriptovane podatke** i čak **enkriptovati bilo koji čist tekst**.
+Ako primetite ovo ponašanje, možete **dekriptovati enkriptovane podatke** i čak **enkriptovati bilo koji čist tekst**.
 
-### How to exploit
+### Kako iskoristiti
 
-Možete koristiti [https://github.com/AonCyberLabs/PadBuster](https://github.com/AonCyberLabs/PadBuster) da iskoristite ovu vrstu ranjivosti ili samo uradite
+Možete koristiti [https://github.com/AonCyberLabs/PadBuster](https://github.com/AonCyberLabs/PadBuster) da iskoristite ovu vrstu ranjivosti ili jednostavno uraditi
 ```
 sudo apt-get install padbuster
 ```
@@ -61,11 +65,11 @@ perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -e
 ```
 **Encoding 0** znači da se koristi **base64** (ali su dostupni i drugi, proverite meni pomoći).
 
-Takođe možete **iskoristiti ovu ranjivost da enkriptujete nove podatke. Na primer, zamislite da je sadržaj kolačića "**_**user=MyUsername**_**", tada ga možete promeniti u "\_user=administrator\_" i eskalirati privilegije unutar aplikacije. Takođe to možete uraditi koristeći `paduster`specifikujući -plaintext** parametar:
+Takođe možete **iskoristiti ovu ranjivost za enkripciju novih podataka. Na primer, zamislite da je sadržaj kolačića "**_**user=MyUsername**_**", tada ga možete promeniti u "\_user=administrator\_" i eskalirati privilegije unutar aplikacije. Takođe to možete uraditi koristeći `paduster`specifikujući -plaintext** parametar:
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -encoding 0 -cookies "login=RVJDQrwUdTRWJUVUeBKkEA==" -plaintext "user=administrator"
 ```
-Ako je sajt ranjiv, `padbuster` će automatski pokušati da pronađe kada se javlja greška u punjenju, ali takođe možete naznačiti poruku o grešci koristeći **-error** parametar.
+Ako je sajt ranjiv, `padbuster` će automatski pokušati da pronađe kada se javlja greška u dodavanju, ali takođe možete naznačiti poruku o grešci koristeći **-error** parametar.
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon=RVJDQrwUdTRWJUVUeBKkEA==" -error "Invalid padding"
 ```
@@ -76,7 +80,7 @@ U **kratko**, možete početi dekriptovanje enkriptovanih podataka pogađanjem i
 ![](<../.gitbook/assets/image (561).png>)
 
 Zamislite da imate neki enkriptovani tekst koji zauzima **2 bloka** formirana bajtovima od **E0 do E15**.\
-Da biste **dekriptovali** **poslednji** **blok** (**E8** do **E15**), ceo blok prolazi kroz "dekriptovanje blok šifre" generišući **intermedijarne bajtove I0 do I15**.\
+Da biste **dekriptovali** **poslednji** **blok** (**E8** do **E15**), ceo blok prolazi kroz "dekripciju blok cifre" generišući **intermedijarne bajtove I0 do I15**.\
 Na kraju, svaki intermedijarni bajt se **XOR-uje** sa prethodnim enkriptovanim bajtovima (E0 do E7). Tako:
 
 * `C15 = D(E15) ^ E7 = I15 ^ E7`
@@ -104,11 +108,15 @@ Registrujte se i otvorite nalog i prijavite se sa tim nalogom.\
 Ako se **prijavljujete više puta** i uvek dobijate **isti kolačić**, verovatno postoji **nešto** **pogrešno** u aplikaciji. **Kolačić koji se vraća treba da bude jedinstven** svaki put kada se prijavite. Ako je kolačić **uvek** **isti**, verovatno će uvek biti važeći i neće biti načina da se on **nevaži**.
 
 Sada, ako pokušate da **modifikujete** **kolačić**, možete videti da dobijate **grešku** iz aplikacije.\
-Ali ako BF-ujete popunu (koristeći padbuster na primer) uspete da dobijete drugi kolačić važeći za drugog korisnika. Ovaj scenario je veoma verovatno ranjiv na padbuster.
+Ali ako BF popunu (koristeći padbuster na primer) uspete da dobijete drugi kolačić važeći za drugog korisnika. Ovaj scenario je veoma verovatno ranjiv na padbuster.
 
 ### Reference
 
 * [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
+
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
 Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -116,7 +124,7 @@ Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <details>
 
-<summary>Podrška HackTricks</summary>
+<summary>Podržite HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
 * **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**

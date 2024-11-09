@@ -15,14 +15,22 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-## Kako to funkcioniše
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Get a hacker's perspective on your web apps, network, and cloud
+
+**Pronađite i prijavite kritične, iskoristive ranjivosti sa stvarnim poslovnim uticajem.** Koristite naših 20+ prilagođenih alata za mapiranje napadačke površine, pronalaženje sigurnosnih problema koji vam omogućavaju da eskalirate privilegije, i koristite automatizovane eksploate za prikupljanje suštinskih dokaza, pretvarajući vaš trud u uverljive izveštaje.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
+## How it Works
 
 **Smbexec** je alat koji se koristi za daljinsko izvršavanje komandi na Windows sistemima, sličan **Psexec**, ali izbegava postavljanje bilo kojih zlonamernih datoteka na ciljni sistem.
 
-### Ključne tačke o **SMBExec**
+### Key Points about **SMBExec**
 
-- Radi tako što kreira privremenu uslugu (na primer, "BTOBTO") na ciljnim mašinama kako bi izvršio komande putem cmd.exe (%COMSPEC%), bez ispuštanja bilo kakvih binarnih datoteka.
-- I pored svog diskretnog pristupa, generiše logove događaja za svaku izvršenu komandu, nudeći oblik neinteraktivnog "shell-a".
+- Deluje tako što kreira privremenu uslugu (na primer, "BTOBTO") na ciljnim mašinama za izvršavanje komandi putem cmd.exe (%COMSPEC%), bez ispuštanja bilo kakvih binarnih datoteka.
+- I pored svog diskretnog pristupa, generiše dnevničke zapise za svaku izvršenu komandu, nudeći oblik neinteraktivnog "shell-a".
 - Komanda za povezivanje koristeći **Smbexec** izgleda ovako:
 ```bash
 smbexec.py WORKGROUP/genericuser:genericpassword@10.10.10.10
@@ -30,8 +38,8 @@ smbexec.py WORKGROUP/genericuser:genericpassword@10.10.10.10
 ### Izvršavanje Komandi Bez Binarnih Fajlova
 
 - **Smbexec** omogućava direktno izvršavanje komandi kroz binPaths servisa, eliminišući potrebu za fizičkim binarnim fajlovima na meti.
-- Ova metoda je korisna za izvršavanje jednokratnih komandi na Windows meti. Na primer, kombinovanjem sa Metasploit-ovim `web_delivery` modulom omogućava se izvršavanje PowerShell-targetiranog obrnuto Meterpreter payload-a.
-- Kreiranjem udaljenog servisa na napadačevoj mašini sa binPath postavljenim da izvrši pruženu komandu kroz cmd.exe, moguće je uspešno izvršiti payload, ostvarujući povratne informacije i izvršavanje payload-a sa Metasploit slušačem, čak i ako dođe do grešaka u odgovoru servisa.
+- Ova metoda je korisna za izvršavanje jednokratnih komandi na Windows meti. Na primer, kombinovanjem sa Metasploit-ovim `web_delivery` modulom omogućava izvršavanje PowerShell-targetiranog obrnuto Meterpreter payload-a.
+- Kreiranjem udaljenog servisa na napadačevoj mašini sa binPath postavljenim da izvrši pruženu komandu kroz cmd.exe, moguće je uspešno izvršiti payload, postizajući povratne informacije i izvršavanje payload-a sa Metasploit slušačem, čak i ako dođe do grešaka u odgovoru servisa.
 
 ### Primer Komandi
 
@@ -45,6 +53,14 @@ FOr further details check [https://blog.ropnop.com/using-credentials-to-own-wind
 
 ## References
 * [https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/](https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/)
+
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Dobijte perspektivu hakera na vaše web aplikacije, mrežu i oblak
+
+**Pronađite i prijavite kritične, iskoristive ranjivosti sa stvarnim poslovnim uticajem.** Koristite naših 20+ prilagođenih alata za mapiranje napada, pronalaženje sigurnosnih problema koji vam omogućavaju da eskalirate privilegije, i koristite automatizovane eksploate za prikupljanje suštinskih dokaza, pretvarajući vaš trud u uverljive izveštaje.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
 {% hint style="success" %}
 Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

@@ -2,7 +2,7 @@
 
 <figure><img src=".gitbook/assets/hacktricks.gif" alt=""><figcaption></figcaption></figure>
 
-_Hacktricks logotipi i animacija dizajnirani od_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
+_Hacktricks logotipi i animacija od_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
 
 {% hint style="success" %}
 **Dobrodošli u wiki gde ćete pronaći svaku hacking trik/tehniku/šta god da sam naučio iz CTF-ova, aplikacija iz stvarnog života, čitajući istraživanja i vesti.**
@@ -32,7 +32,7 @@ Možete proveriti njihov **blog** na [**https://blog.stmcyber.com**](https://blo
 
 <figure><img src=".gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
 
-[**RootedCON**](https://www.rootedcon.com) je najrelevantnija manifestacija sajber bezbednosti u **Španiji** i jedna od najvažnijih u **Evropi**. Sa **misijom promovisanja tehničkog znanja**, ovaj kongres je vrelo mesto okupljanja za profesionalce u tehnologiji i sajber bezbednosti u svakoj disciplini.
+[**RootedCON**](https://www.rootedcon.com) je najrelevantnija sajber bezbednosna manifestacija u **Španiji** i jedna od najvažnijih u **Evropi**. Sa **misijom promovisanja tehničkog znanja**, ovaj kongres je vrelo mesto okupljanja za profesionalce u tehnologiji i sajber bezbednosti u svakoj disciplini.
 
 {% embed url="https://www.rootedcon.com/" %}
 
@@ -44,7 +44,7 @@ Možete proveriti njihov **blog** na [**https://blog.stmcyber.com**](https://blo
 
 **Intigriti** je **broj 1** etička hacking i **bug bounty platforma u Evropi.**
 
-**Saveta za bug bounty**: **prijavite se** za **Intigriti**, premium **bug bounty platformu koju su kreirali hakeri, za hakere**! Pridružite nam se na [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) danas, i počnite da zarađujete nagrade do **$100,000**!
+**Bug bounty savet**: **prijavite se** za **Intigriti**, premium **bug bounty platformu koju su kreirali hakeri, za hakere**! Pridružite nam se na [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) danas, i počnite da zarađujete nagrade do **$100,000**!
 
 {% embed url="https://go.intigriti.com/hacktricks" %}
 
@@ -71,7 +71,7 @@ Pridružite se [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 
 
 * **Hacking uvidi:** Uključite se u sadržaj koji se bavi uzbuđenjem i izazovima hackinga
 * **Vesti o hakovanju u realnom vremenu:** Budite u toku sa brzim svetom hackinga kroz vesti i uvide u realnom vremenu
-* **Najnovija obaveštenja:** Budite informisani o najnovijim bug bounty programima i važnim ažuriranjima platforme
+* **Najnovija obaveštenja:** Budite informisani o najnovijim nagradama za bugove i važnim ažuriranjima platforme
 
 **Pridružite nam se na** [**Discord**](https://discord.com/invite/N3FrSbmwdy) i počnite da sarađujete sa vrhunskim hakerima danas!
 
@@ -79,12 +79,14 @@ Pridružite se [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 
 
 ### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - Osnovni alat za penetraciono testiranje
 
-<figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Odmah dostupna postavka za procenu ranjivosti i penetraciono testiranje**. Izvršite potpuni pentest sa bilo kog mesta sa 20+ alata i funkcija koje idu od recon-a do izveštavanja. Ne zamenjujemo pentestere - razvijamo prilagođene alate, module za detekciju i eksploataciju kako bismo im vratili malo vremena da dublje istraže, pop-up shell-ove i zabave se.
+#### Dobijte perspektivu hakera o vašim web aplikacijama, mreži i cloudu
+
+**Pronađite i prijavite kritične, iskoristive ranjivosti sa stvarnim poslovnim uticajem.** Koristite naših 20+ prilagođenih alata za mapiranje napadačke površine, pronalaženje sigurnosnih problema koji vam omogućavaju da eskalirate privilegije, i koristite automatizovane eksploate za prikupljanje suštinskih dokaza, pretvarajući vaš trud u uverljive izveštaje.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
-\
+
 
 {% endembed %}
 
@@ -100,7 +102,7 @@ Pretplata na jedan od planova SerpApi uključuje pristup više od 50 različitih
 Za razliku od drugih provajdera, **SerpApi ne sakuplja samo organske rezultate**. Odgovori SerpApi dosledno uključuju sve oglase, inline slike i video zapise, znanje grafove i druge elemente i funkcije prisutne u rezultatima pretrage.
 
 Trenutni klijenti SerpApi uključuju **Apple, Shopify i GrubHub**.\
-Za više informacija pogledajte njihov [**blog**](https://serpapi.com/blog/)**,** ili isprobajte primer u njihovom [**playground-u**](https://serpapi.com/playground)**.**\
+Za više informacija pogledajte njihov [**blog**](https://serpapi.com/blog/)**,** ili isprobajte primer u njihovom [**playground**](https://serpapi.com/playground)**.**\
 Možete **napraviti besplatan nalog** [**ovde**](https://serpapi.com/users/sign\_up)**.**
 
 ***
@@ -109,9 +111,9 @@ Možete **napraviti besplatan nalog** [**ovde**](https://serpapi.com/users/sign\
 
 <figure><img src=".gitbook/assets/websec (1).svg" alt=""><figcaption></figcaption></figure>
 
-[**WebSec**](https://websec.nl) je profesionalna kompanija za sajber bezbednost sa sedištem u **Amsterdamu** koja pomaže u **zaštiti** preduzeća **š širom sveta** od najnovijih pretnji u oblasti sajber bezbednosti pružajući **usluge ofanzivne bezbednosti** sa **modernim** pristupom.
+[**WebSec**](https://websec.nl) je profesionalna kompanija za sajber bezbednost sa sedištem u **Amsterdamu** koja pomaže **zaštiti** preduzeća **široko u svetu** od najnovijih pretnji u oblasti sajber bezbednosti pružajući **usluge ofanzivne bezbednosti** sa **modernim** pristupom.
 
-WebSec je **sve-u-jednom bezbednosna kompanija** što znači da rade sve; Pentesting, **Bezbednosne** revizije, Obuke o svesti, Phishing kampanje, Revizija koda, Razvoj eksploata, Outsourcing bezbednosnih stručnjaka i još mnogo toga.
+WebSec je **sve-u-jednom bezbednosna kompanija** što znači da rade sve; Pentesting, **Sigurnosne** revizije, Obuke o svesti, Phishing kampanje, Revizija koda, Razvoj eksploata, Outsourcing bezbednosnih stručnjaka i još mnogo toga.
 
 Još jedna zanimljiva stvar o WebSec-u je da, za razliku od proseka u industriji, WebSec je **veoma siguran u svoje veštine**, do te mere da **garantuje najbolje kvalitetne rezultate**, kako stoji na njihovom sajtu "**Ako ne možemo da hakujemo, ne plaćate!**". Za više informacija pogledajte njihov [**sajt**](https://websec.nl/en/) i [**blog**](https://websec.nl/blog/)!
 
@@ -140,7 +142,7 @@ Učite i vežbajte GCP Hacking: <img src=".gitbook/assets/grte.png" alt="" data-
 <summary>Podržite HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
-* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitter-u** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Podelite hacking trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>

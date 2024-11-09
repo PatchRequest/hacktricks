@@ -13,12 +13,18 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
-# Sudo/Admin Grupe
+Use [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) to easily build and **automate workflows** powered by the world's **most advanced** community tools.\
+Get Access Today:
 
-## **PE - Metod 1**
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
-**Ponekad**, **podrazumevano \(ili zato što neka softverska rešenja to zahtevaju\)** unutar **/etc/sudoers** datoteke možete pronaći neke od ovih linija:
+# Sudo/Admin Groups
+
+## **PE - Metoda 1**
+
+**Ponekad**, **podrazumevano \(ili zato što neki softver to zahteva\)** unutar **/etc/sudoers** datoteke možete pronaći neke od ovih linija:
 ```bash
 # Allow members of group sudo to execute any command
 %sudo	ALL=(ALL:ALL) ALL
@@ -32,7 +38,7 @@ Ako je to slučaj, da **postanete root, možete jednostavno izvršiti**:
 ```text
 sudo su
 ```
-## PE - Metoda 2
+## PE - Metod 2
 
 Pronađite sve suid binarne datoteke i proverite da li postoji binarna datoteka **Pkexec**:
 ```bash
@@ -119,24 +125,24 @@ USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
 yossi    tty1                      22:16    5:13m  0.05s  0.04s -bash
 moshe    pts/1    10.10.14.44      02:53   24:07   0.06s  0.06s /bin/bash
 ```
-**tty1** znači da je korisnik **yossi fizički prijavljen** na terminalu na mašini.
+**tty1** значи да је корисник **yossi физички пријављен** на терминал на машини.
 
-**video grupa** ima pristup za pregled izlaza sa ekrana. U suštini, možete posmatrati ekrane. Da biste to uradili, potrebno je da **uhvatite trenutnu sliku na ekranu** u sirovim podacima i dobijete rezoluciju koju ekran koristi. Podaci sa ekrana mogu se sačuvati u `/dev/fb0`, a rezoluciju ovog ekrana možete pronaći na `/sys/class/graphics/fb0/virtual_size`
+**video group** има приступ за преглед излаза на екрану. У основи, можете посматрати екране. Да бисте то урадили, потребно је да **узмете тренутну слику на екрану** у сировим подацима и добијете резолуцију коју екран користи. Податке о екрану можете сачувати у `/dev/fb0`, а резолуцију овог екрана можете пронаћи на `/sys/class/graphics/fb0/virtual_size`
 ```bash
 cat /dev/fb0 > /tmp/screen.raw
 cat /sys/class/graphics/fb0/virtual_size
 ```
-Da biste **otvorili** **sirovu sliku**, možete koristiti **GIMP**, odabrati **`screen.raw`** datoteku i odabrati tip datoteke **Sirovi podaci o slici**:
+Da biste **otvorili** **sirovu sliku**, možete koristiti **GIMP**, odabrati **`screen.raw`** datoteku i odabrati tip datoteke **Raw image data**:
 
 ![](../../.gitbook/assets/image%20%28208%29.png)
 
-Zatim promenite Širinu i Visinu na one koje koristi ekran i proverite različite Tipove slika \(i odaberite onaj koji bolje prikazuje ekran\):
+Zatim modifikujte Širinu i Visinu na one koje koristi ekran i proverite različite Tipove slika \(i odaberite onaj koji bolje prikazuje ekran\):
 
 ![](../../.gitbook/assets/image%20%28295%29.png)
 
 # Root Grupa
 
-Izgleda da po defaultu **članovi root grupe** mogu imati pristup da **modifikuju** neke **konfiguracione** datoteke usluga ili neke **biblioteke** ili **druge zanimljive stvari** koje bi mogle biti korišćene za eskalaciju privilegija...
+Izgleda da po defaultu **članovi root grupe** mogu imati pristup da **modifikuju** neke **konfiguracione** datoteke servisa ili neke **biblioteke** ili **druge zanimljive stvari** koje se mogu koristiti za eskalaciju privilegija...
 
 **Proverite koje datoteke članovi root grupe mogu modifikovati**:
 ```bash
@@ -153,6 +159,14 @@ Možete montirati root datotečni sistem host mašine na volumen instance, tako 
 # lxc/lxd Grupa
 
 [lxc - Eskalacija privilegija](lxd-privilege-escalation.md)
+
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Koristite [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) za lako kreiranje i **automatizaciju radnih tokova** pokretanih najnaprednijim **alatom** zajednice.\
+Pribavite pristup danas:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 {% hint style="success" %}
 Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
