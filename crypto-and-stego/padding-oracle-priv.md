@@ -15,6 +15,10 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 ## CBC - Cipher Block Chaining
 
 In modalità CBC, il **blocco crittografato precedente viene utilizzato come IV** per XORare con il blocco successivo:
@@ -32,7 +36,7 @@ Nota come sia necessario utilizzare una **chiave di crittografia** e un **IV**.
 Poiché la crittografia viene eseguita in **blocchi** di **dimensioni** **fisse**, è solitamente necessario un **padding** nell'**ultimo** **blocco** per completarne la lunghezza.\
 Di solito si utilizza **PKCS7**, che genera un padding **ripetendo** il **numero** di **byte** **necessari** per **completare** il blocco. Ad esempio, se l'ultimo blocco manca di 3 byte, il padding sarà `\x03\x03\x03`.
 
-Esaminiamo più esempi con **2 blocchi di lunghezza 8byte**:
+Esaminiamo ulteriori esempi con **2 blocchi di lunghezza 8byte**:
 
 | byte #0 | byte #1 | byte #2 | byte #3 | byte #4 | byte #5 | byte #6 | byte #7 | byte #0  | byte #1  | byte #2  | byte #3  | byte #4  | byte #5  | byte #6  | byte #7  |
 | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
@@ -61,7 +65,7 @@ perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -e
 ```
 **Encoding 0** significa che **base64** è utilizzato (ma sono disponibili altri, controlla il menu di aiuto).
 
-Potresti anche **sfruttare questa vulnerabilità per crittografare nuovi dati. Ad esempio, immagina che il contenuto del cookie sia "**_**user=MyUsername**_**", quindi potresti cambiarlo in "\_user=administrator\_" e ottenere privilegi elevati all'interno dell'applicazione. Potresti anche farlo usando `paduster` specificando il parametro -plaintext**:
+Potresti anche **sfruttare questa vulnerabilità per crittografare nuovi dati. Ad esempio, immagina che il contenuto del cookie sia "**_**user=MyUsername**_**", quindi potresti cambiarlo in "\_user=administrator\_" ed elevare i privilegi all'interno dell'applicazione. Potresti anche farlo usando `paduster` specificando il parametro -plaintext**:
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -encoding 0 -cookies "login=RVJDQrwUdTRWJUVUeBKkEA==" -plaintext "user=administrator"
 ```
@@ -76,7 +80,7 @@ In **sintesi**, puoi iniziare a decrittare i dati crittografati indovinando i va
 ![](<../.gitbook/assets/image (561).png>)
 
 Immagina di avere del testo crittografato che occupa **2 blocchi** formati dai byte da **E0 a E15**.\
-Per **decrittare** l'**ultimo** **blocco** (**E8** a **E15**), l'intero blocco passa attraverso la "decrittazione del cifrario a blocchi" generando i **byte intermedi I0 a I15**.\
+Per **decrittare** l'**ultimo** **blocco** (**E8** a **E15**), l'intero blocco passa attraverso la "decrittazione del blocco" generando i **byte intermedi I0 a I15**.\
 Infine, ogni byte intermedio è **XORato** con i byte crittografati precedenti (E0 a E7). Quindi:
 
 * `C15 = D(E15) ^ E7 = I15 ^ E7`
@@ -89,12 +93,12 @@ Ora, è possibile **modificare `E7` fino a quando `C15` è `0x01`**, che sarà a
 
 Quindi, trovando E'7, è **possibile calcolare I15**: `I15 = 0x01 ^ E'7`
 
-Il che ci permette di **calcolare C15**: `C15 = E7 ^ I15 = E7 ^ \x01 ^ E'7`
+Il che ci consente di **calcolare C15**: `C15 = E7 ^ I15 = E7 ^ \x01 ^ E'7`
 
 Sapendo **C15**, ora è possibile **calcolare C14**, ma questa volta forzando il padding `\x02\x02`.
 
 Questo BF è complesso quanto il precedente poiché è possibile calcolare il `E''15` il cui valore è 0x02: `E''7 = \x02 ^ I15` quindi è solo necessario trovare il **`E'14`** che genera un **`C14` uguale a `0x02`**.\
-Poi, fare gli stessi passaggi per decrittare C14: **`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
+Poi, eseguire gli stessi passaggi per decrittare C14: **`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
 
 **Segui questa catena fino a decrittare l'intero testo crittografato.**
 
@@ -110,17 +114,21 @@ Ma se forzi il padding (usando padbuster per esempio) riesci a ottenere un'altra
 
 * [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Impara e pratica AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Impara e pratica GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Supporta HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
 
 </details>
 {% endhint %}

