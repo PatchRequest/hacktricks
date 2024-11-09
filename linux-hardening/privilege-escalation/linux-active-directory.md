@@ -15,15 +15,19 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-Лінукс-машина також може бути присутня в середовищі Active Directory.
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
 
-Лінукс-машина в AD може **зберігати різні квитки CCACHE у файлах. Ці квитки можуть бути використані та зловживані, як і будь-який інший квиток kerberos**. Щоб прочитати ці квитки, вам потрібно бути власником квитка або **root** на машині.
+{% embed url="https://websec.nl/" %}
 
-## Перерахунок
+Linux-машина також може бути присутня в середовищі Active Directory.
 
-### Перерахунок AD з linux
+Linux-машина в AD може **зберігати різні квитки CCACHE у файлах. Ці квитки можуть бути використані та зловживані, як і будь-який інший квиток kerberos**. Щоб прочитати ці квитки, вам потрібно бути власником квитка або **root** на машині.
 
-Якщо у вас є доступ до AD в linux (або bash у Windows), ви можете спробувати [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) для перерахунку AD.
+## Enumeration
+
+### AD enumeration from linux
+
+Якщо у вас є доступ до AD в linux (або bash в Windows), ви можете спробувати [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) для перерахунку AD.
 
 Ви також можете перевірити наступну сторінку, щоб дізнатися **інші способи перерахунку AD з linux**:
 
@@ -39,17 +43,17 @@ FreeIPA є відкритим **альтернативою** Microsoft Windows *
 [freeipa-pentesting.md](../freeipa-pentesting.md)
 {% endcontent-ref %}
 
-## Гра з квитками
+## Playing with tickets
 
 ### Pass The Ticket
 
-На цій сторінці ви знайдете різні місця, де ви могли б **знайти квитки kerberos всередині хоста linux**, на наступній сторінці ви можете дізнатися, як перетворити ці формати квитків CCache на Kirbi (формат, який вам потрібно використовувати в Windows) і також як виконати атаку PTT:
+На цій сторінці ви знайдете різні місця, де ви могли б **знайти квитки kerberos всередині linux-хоста**, на наступній сторінці ви можете дізнатися, як перетворити ці формати квитків CCache в Kirbi (формат, який вам потрібно використовувати в Windows) і також як виконати атаку PTT:
 
 {% content-ref url="../../windows-hardening/active-directory-methodology/pass-the-ticket.md" %}
 [pass-the-ticket.md](../../windows-hardening/active-directory-methodology/pass-the-ticket.md)
 {% endcontent-ref %}
 
-### Повторне використання квитка CCACHE з /tmp
+### CCACHE ticket reuse from /tmp
 
 Файли CCACHE є бінарними форматами для **зберігання облікових даних Kerberos**, зазвичай зберігаються з правами 600 у `/tmp`. Ці файли можна ідентифікувати за їх **форматом імені, `krb5cc_%{uid}`,** що відповідає UID користувача. Для перевірки квитка аутентифікації **змінна середовища `KRB5CCNAME`** повинна бути встановлена на шлях до бажаного файлу квитка, що дозволяє його повторне використання.
 
@@ -64,9 +68,9 @@ export KRB5CCNAME=/tmp/krb5cc_1000
 ```
 ### CCACHE квитки повторного використання з keyring
 
-**Квитки Kerberos, збережені в пам'яті процесу, можуть бути витягнуті**, особливо коли захист ptrace на машині вимкнений (`/proc/sys/kernel/yama/ptrace_scope`). Корисний інструмент для цієї мети можна знайти за адресою [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey), який полегшує витяг, інжектуючи в сесії та скидаючи квитки в `/tmp`.
+**Квитки Kerberos, збережені в пам'яті процесу, можуть бути витягнуті**, особливо коли захист ptrace на машині вимкнено (`/proc/sys/kernel/yama/ptrace_scope`). Корисний інструмент для цієї мети можна знайти за адресою [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey), який полегшує витяг, інжектуючи в сесії та скидаючи квитки в `/tmp`.
 
-Щоб налаштувати та використовувати цей інструмент, слід виконати наведені нижче кроки:
+Щоб налаштувати та використовувати цей інструмент, слідуйте наведеним нижче крокам:
 ```bash
 git clone https://github.com/TarlogicSecurity/tickey
 cd tickey/tickey
@@ -78,7 +82,7 @@ make CONF=Release
 
 ### Повторне використання квитків CCACHE з SSSD KCM
 
-SSSD підтримує копію бази даних за шляхом `/var/lib/sss/secrets/secrets.ldb`. Відповідний ключ зберігається як прихований файл за шляхом `/var/lib/sss/secrets/.secrets.mkey`. За замовчуванням ключ доступний лише для читання, якщо у вас є **root** права.
+SSSD підтримує копію бази даних за шляхом `/var/lib/sss/secrets/secrets.ldb`. Відповідний ключ зберігається як прихований файл за шляхом `/var/lib/sss/secrets/.secrets.mkey`. За замовчуванням, ключ доступний для читання лише якщо у вас є **root** права.
 
 Виклик \*\*`SSSDKCMExtractor` \*\* з параметрами --database та --key розпарсить базу даних та **дешифрує секрети**.
 ```bash
@@ -120,6 +124,10 @@ crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDO
 * [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
 * [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 {% hint style="success" %}
 Вивчайте та практикуйте AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
 Вивчайте та практикуйте GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
@@ -129,7 +137,7 @@ crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDO
 <summary>Підтримати HackTricks</summary>
 
 * Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
-* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на github.
 
 </details>

