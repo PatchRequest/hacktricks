@@ -77,14 +77,16 @@ Sluit by die [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) be
 
 ***
 
-### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - Die noodsaaklike penetrasietoets gereedskapstel
+### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - Die noodsaaklike penetrasietoets gereedskap
 
-<figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Dadelijk beskikbare opstelling vir kwesbaarheid assessering & penetrasietoetsing**. Voer 'n volledige pentest van enige plek uit met 20+ gereedskap & funksies wat van rekognisie tot verslagdoening gaan. Ons vervang nie pentesters nie - ons ontwikkel pasgemaakte gereedskap, opsporing & eksploitasiemodules om hulle terug 'n bietjie tyd te gee om dieper te delf, shells te pop, en pret te hê.
+#### Kry 'n hacker se perspektief op jou web toepassings, netwerk, en wolk
+
+**Vind en rapporteer kritieke, exploitable kwesbaarhede met werklike besigheidsimpak.** Gebruik ons 20+ pasgemaakte gereedskap om die aanval oppervlak te karteer, vind sekuriteitskwessies wat jou toelaat om voorregte te verhoog, en gebruik geoutomatiseerde exploits om noodsaaklike bewyse te versamel, wat jou harde werk in oortuigende verslae omskep.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
-\
+
 
 {% endembed %}
 
@@ -96,8 +98,8 @@ Sluit by die [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) be
 
 **SerpApi** bied vinnige en maklike regstydse API's om **toegang tot soekenjinresultate** te verkry. Hulle scrape soekenjins, hanteer proxies, los captchas op, en parse al die ryk gestructureerde data vir jou.
 
-'n Intekening op een van SerpApi se planne sluit toegang tot meer as 50 verskillende API's in vir die scraping van verskillende soekenjins, insluitend Google, Bing, Baidu, Yahoo, Yandex, en meer.\
-In teenstelling met ander verskaffers, **scrape SerpApi nie net organiese resultate nie**. SerpApi antwoorde sluit konsekwent al die advertensies, inline beelde en video's, kennisgrafieke, en ander elemente en funksies wat in die soekenjinresultate teenwoordig is, in.
+'n Subskripsie op een van SerpApi se planne sluit toegang tot meer as 50 verskillende API's in vir die scraping van verskillende soekenjins, insluitend Google, Bing, Baidu, Yahoo, Yandex, en meer.\
+In teenstelling met ander verskaffers, **scrape SerpApi nie net organiese resultate nie**. SerpApi antwoorde sluit konsekwent al die advertensies, inline beelde en video's, kennisgrafieke, en ander elemente en funksies wat in die soekresultate teenwoordig is, in.
 
 Huidige SerpApi kliënte sluit **Apple, Shopify, en GrubHub** in.\
 Vir meer inligting, kyk na hul [**blog**](https://serpapi.com/blog/)**,** of probeer 'n voorbeeld in hul [**speelgrond**](https://serpapi.com/playground)**.**\
@@ -111,9 +113,9 @@ Jy kan **'n gratis rekening** [**hier**](https://serpapi.com/users/sign\_up)**.*
 
 [**WebSec**](https://websec.nl) is 'n professionele kuberveiligheidsmaatskappy gebaseer in **Amsterdam** wat help om **besighede** **oor die wêreld** teen die nuutste kuberveiligheidsbedreigings te beskerm deur **offensiewe-sekuriteit dienste** met 'n **moderne** benadering te bied.
 
-WebSec is 'n **alles-in-een sekuriteitsmaatskappy** wat beteken hulle doen dit alles; Pentesting, **Sekuriteit** Oudit, Bewustheidsopleiding, Phishing Campagnes, Kode Hersiening, Eksploit Ontwikkeling, Sekuriteit Eksperte Uitsourcing en nog baie meer.
+WebSec is 'n **alles-in-een sekuriteitsmaatskappy** wat beteken hulle doen dit alles; Pentesting, **Sekuriteit** Oudit, Bewustheidsopleiding, Phishing Campagnes, Kode Hersiening, Exploit Ontwikkeling, Sekuriteit Eksperte Uitsourcing en nog baie meer.
 
-Nog 'n interessante ding oor WebSec is dat, in teenstelling met die industrie gemiddelde, WebSec **baie selfversekerd is in hul vaardighede**, tot so 'n mate dat hulle **die beste kwaliteit resultate waarborg**, dit staan op hul webwerf "**As ons dit nie kan hack nie, betaal jy dit nie!**". Vir meer inligting, kyk na hul [**webwerf**](https://websec.nl/en/) en [**blog**](https://websec.nl/blog/)!
+Nog 'n interessante ding oor WebSec is dat, in teenstelling met die industrie gemiddelde, WebSec is **baie selfversekerd in hul vaardighede**, tot so 'n mate dat hulle **die beste kwaliteit resultate waarborg**, dit staan op hul webwerf "**As ons dit nie kan hack nie, betaal jy nie!**". Vir meer inligting, kyk na hul [**webwerf**](https://websec.nl/en/) en [**blog**](https://websec.nl/blog/)!
 
 Benewens die bogenoemde is WebSec ook 'n **toegewyde ondersteuner van HackTricks.**
 

