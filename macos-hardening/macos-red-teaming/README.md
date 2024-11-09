@@ -9,7 +9,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="../../.gitbook/assets/grte.p
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'i takip edin.**
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter**'da **bizi takip edin** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Hacking ipuçlarını paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
@@ -17,7 +17,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="../../.gitbook/assets/grte.p
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Web uygulamalarınız, ağınız ve bulutunuz hakkında bir hacker perspektifi edinin
+**Web uygulamalarınız, ağınız ve bulutunuz hakkında bir hacker perspektifi edinin**
 
 **Gerçek iş etkisi olan kritik, istismar edilebilir güvenlik açıklarını bulun ve raporlayın.** Saldırı yüzeyini haritalamak, ayrıcalıkları artırmanıza izin veren güvenlik sorunlarını bulmak ve temel kanıtları toplamak için otomatik istismarları kullanmak için 20'den fazla özel aracımızı kullanın, böylece sıkı çalışmanızı ikna edici raporlara dönüştürün.
 
@@ -28,7 +28,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="../../.gitbook/assets/grte.p
 * JAMF Pro: `jamf checkJSSConnection`
 * Kandji
 
-Yönetim platformuna erişmek için **admin kimlik bilgilerini ele geçirmeyi** başarırsanız, makinelerde kötü amaçlı yazılımınızı dağıtarak **tüm bilgisayarları potansiyel olarak tehlikeye atabilirsiniz**.
+Yönetim platformuna erişmek için **admin kimlik bilgilerini ele geçirirseniz**, makinelerde kötü amaçlı yazılımınızı dağıtarak **tüm bilgisayarları tehlikeye atabilirsiniz**.
 
 MacOS ortamlarında kırmızı takım çalışması için MDM'lerin nasıl çalıştığına dair bir anlayışa sahip olmak şiddetle tavsiye edilir:
 
@@ -38,13 +38,13 @@ MacOS ortamlarında kırmızı takım çalışması için MDM'lerin nasıl çal�
 
 ### MDM'yi C2 Olarak Kullanma
 
-Bir MDM, profilleri yüklemek, sorgulamak veya kaldırmak, uygulamaları yüklemek, yerel admin hesapları oluşturmak, firmware şifresi ayarlamak, FileVault anahtarını değiştirmek için izne sahip olacaktır...
+Bir MDM, profilleri yüklemek, sorgulamak veya kaldırmak, uygulamaları yüklemek, yerel admin hesapları oluşturmak, firmware şifresi ayarlamak, FileVault anahtarını değiştirmek için izinlere sahip olacaktır...
 
-Kendi MDM'nizi çalıştırmak için **CSR'nizin bir satıcı tarafından imzalanması** gerekir, bunu [**https://mdmcert.download/**](https://mdmcert.download/) ile almaya çalışabilirsiniz. Apple cihazları için kendi MDM'nizi çalıştırmak için [**MicroMDM**](https://github.com/micromdm/micromdm) kullanabilirsiniz.
+Kendi MDM'nizi çalıştırmak için **CSR'nizi bir satıcı tarafından imzalatmanız** gerekir, bunu [**https://mdmcert.download/**](https://mdmcert.download/) ile elde etmeyi deneyebilirsiniz. Apple cihazları için kendi MDM'nizi çalıştırmak için [**MicroMDM**](https://github.com/micromdm/micromdm) kullanabilirsiniz.
 
-Ancak, kayıtlı bir cihazda bir uygulama yüklemek için, yine de bir geliştirici hesabı tarafından imzalanmış olması gerekir... ancak, MDM kaydı sırasında **cihaz, MDM'nin SSL sertifikasını güvenilir CA olarak ekler**, böylece artık her şeyi imzalayabilirsiniz.
+Ancak, kayıtlı bir cihazda bir uygulama yüklemek için, hala bir geliştirici hesabı tarafından imzalanmış olması gerekir... ancak, MDM kaydı sırasında **cihaz, MDM'nin SSL sertifikasını güvenilir CA olarak ekler**, böylece artık her şeyi imzalayabilirsiniz.
 
-Cihazı bir MDM'ye kaydetmek için, **`mobileconfig`** dosyasını root olarak yüklemeniz gerekir, bu bir **pkg** dosyası aracılığıyla teslim edilebilir (zip içinde sıkıştırabilir ve Safari'den indirildiğinde açılacaktır).
+Cihazı bir MDM'ye kaydetmek için, **`mobileconfig`** dosyasını root olarak yüklemeniz gerekir, bu bir **pkg** dosyası aracılığıyla teslim edilebilir (zip dosyasına sıkıştırabilir ve Safari'den indirildiğinde açılacaktır).
 
 **Mythic agent Orthrus** bu tekniği kullanır.
 
@@ -54,25 +54,27 @@ JAMF, **özel betikler** (sistem yöneticisi tarafından geliştirilen betikler)
 
 #### JAMF kendi kendine kayıt
 
-`https://<şirket-adı>.jamfcloud.com/enroll/` gibi bir sayfaya giderek **kendi kendine kaydın etkin olup olmadığını** kontrol edin. Eğer etkinse, **erişim için kimlik bilgileri isteyebilir**.
+`https://<şirket-adı>.jamfcloud.com/enroll/` gibi bir sayfaya giderek **kendi kendine kayıt** özelliğinin etkin olup olmadığını kontrol edin. Eğer etkinse, **erişim için kimlik bilgileri isteyebilir**.
 
 Bir şifre püskürtme saldırısı gerçekleştirmek için [**JamfSniper.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfSniper.py) betiğini kullanabilirsiniz.
 
-Ayrıca, uygun kimlik bilgilerini bulduktan sonra, diğer kullanıcı adlarını brute-force ile denemek için aşağıdaki formu kullanabilirsiniz:
+Ayrıca, uygun kimlik bilgilerini bulduktan sonra, diğer kullanıcı adlarını aşağıdaki form ile brute-force yapabilirsiniz:
 
 ![](<../../.gitbook/assets/image (107).png>)
 
-#### JAMF cihaz Kimlik Doğrulaması
+#### JAMF cihaz Kimlik Doğrulama
 
 <figure><img src="../../.gitbook/assets/image (167).png" alt=""><figcaption></figcaption></figure>
 
-**`jamf`** ikili dosyası, keşif anında herkesle **paylaşılan** anahtarı açmak için sırrı içeriyordu ve bu: **`jk23ucnq91jfu9aj`**.\
-Ayrıca, jamf **/Library/LaunchAgents/com.jamf.management.agent.plist** içinde bir **LaunchDaemon** olarak **kalır**.
+**`jamf`** ikili dosyası, keşif anında herkesle **paylaşılan** anahtar zincirini açma sırrını içeriyordu ve bu: **`jk23ucnq91jfu9aj`**.\
+Ayrıca, jamf **/Library/LaunchAgents/com.jamf.management.agent.plist** içinde **LaunchDaemon** olarak **kalır**.
 
 #### JAMF Cihaz Ele Geçirme
 
-**JSS** (Jamf Software Server) **URL'si** **`jamf`** tarafından kullanılacak olan **`/Library/Preferences/com.jamfsoftware.jamf.plist`** içinde yer almaktadır.\
+**JSS** (Jamf Software Server) **URL'si** **`jamf`** tarafından kullanılacak olan **`/Library/Preferences/com.jamfsoftware.jamf.plist`** dosyasında bulunmaktadır.\
 Bu dosya temelde URL'yi içerir:
+
+{% code overflow="wrap" %}
 ```bash
 plutil -convert xml1 -o - /Library/Preferences/com.jamfsoftware.jamf.plist
 
@@ -87,7 +89,7 @@ plutil -convert xml1 -o - /Library/Preferences/com.jamfsoftware.jamf.plist
 ```
 {% endcode %}
 
-Yani, bir saldırgan, kurulduğunda bu dosyayı **üzerine yazan** kötü niyetli bir paket (`pkg`) bırakabilir ve **URL'yi bir Typhon ajanından bir Mythic C2 dinleyicisine** ayarlayarak JAMF'i C2 olarak kötüye kullanabilir.
+Yani, bir saldırgan, yüklendiğinde bu dosyayı **üzerine yazan** kötü niyetli bir paket (`pkg`) bırakabilir ve **URL'yi bir Typhon ajanından bir Mythic C2 dinleyicisine** ayarlayarak JAMF'i C2 olarak kötüye kullanabilir.
 
 {% code overflow="wrap" %}
 ```bash
@@ -115,7 +117,7 @@ Ayrıca, yöneticilerin Jamf aracılığıyla çalıştırmak isteyebileceği **
 
 Ancak, **kimlik bilgileri** bu betiklere **parametreler** olarak geçebilir, bu nedenle `ps aux | grep -i jamf` komutunu izlemelisiniz (root olmadan bile).
 
-[**JamfExplorer.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfExplorer.py) betiği, yeni dosyaların eklenmesini ve yeni işlem argümanlarını dinleyebilir.
+[**JamfExplorer.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfExplorer.py) adlı betik, yeni dosyaların eklenmesini ve yeni işlem argümanlarını dinleyebilir.
 
 ### macOS Uzaktan Erişim
 
@@ -145,10 +147,10 @@ Size yardımcı olabilecek bazı **yerel MacOS araçları** `dscl` olabilir:
 ```bash
 dscl "/Active Directory/[Domain]/All Domains" ls /
 ```
-Ayrıca, MacOS için AD'yi otomatik olarak listelemek ve kerberos ile oynamak için hazırlanmış bazı araçlar vardır:
+Ayrıca, MacOS için AD'yi otomatik olarak listelemek ve kerberos ile oynamak üzere hazırlanmış bazı araçlar bulunmaktadır:
 
-* [**Machound**](https://github.com/XMCyber/MacHound): MacHound, MacOS hostlarında Active Directory ilişkilerini toplama ve işleme imkanı sağlayan Bloodhound denetim aracının bir uzantısıdır.
-* [**Bifrost**](https://github.com/its-a-feature/bifrost): Bifrost, macOS'taki Heimdal krb5 API'leri ile etkileşimde bulunmak için tasarlanmış bir Objective-C projesidir. Projenin amacı, hedefte başka bir çerçeve veya paket gerektirmeden yerel API'ler kullanarak macOS cihazlarında Kerberos etrafında daha iyi güvenlik testleri yapmaktır.
+* [**Machound**](https://github.com/XMCyber/MacHound): MacHound, MacOS ana bilgisayarlarında Active Directory ilişkilerini toplama ve alma imkanı sağlayan Bloodhound denetim aracının bir uzantısıdır.
+* [**Bifrost**](https://github.com/its-a-feature/bifrost): Bifrost, macOS'taki Heimdal krb5 API'leri ile etkileşimde bulunmak üzere tasarlanmış bir Objective-C projesidir. Projenin amacı, hedefte başka bir çerçeve veya paket gerektirmeden yerel API'ler kullanarak macOS cihazlarında Kerberos etrafında daha iyi güvenlik testleri yapmaktır.
 * [**Orchard**](https://github.com/its-a-feature/Orchard): Active Directory listeleme yapmak için JavaScript for Automation (JXA) aracı. 
 
 ### Alan Bilgisi
@@ -168,9 +170,9 @@ Kullanıcılar ve gruplar hakkında yerel bilgiler _/var/db/dslocal/nodes/Defaul
 
 HasSession ve AdminTo kenarlarını kullanmanın yanı sıra, **MacHound, Bloodhound veritabanına üç yeni kenar ekler**:
 
-* **CanSSH** - ana makineye SSH bağlantısına izin verilen varlık
-* **CanVNC** - ana makineye VNC bağlantısına izin verilen varlık
-* **CanAE** - ana makinede AppleEvent betikleri çalıştırmaya izin verilen varlık
+* **CanSSH** - ana makineye SSH ile bağlanmasına izin verilen varlık
+* **CanVNC** - ana makineye VNC ile bağlanmasına izin verilen varlık
+* **CanAE** - ana makinede AppleEvent betikleri çalıştırmasına izin verilen varlık
 ```bash
 #User enumeration
 dscl . ls /Users
@@ -220,7 +222,7 @@ bifrost --action asktgt --username test_lab_admin \
 bifrost --action asktgs --spn [service] --domain [domain.com] \
 --username [user] --hash [hash] --enctype [enctype]
 ```
-Elde edilen hizmet biletleri ile diğer bilgisayarlardaki paylaşımlara erişmeye çalışmak mümkündür:
+Elde edilen hizmet biletleri ile diğer bilgisayarlardaki paylaşımlara erişim sağlamaya çalışmak mümkündür:
 ```bash
 smbutil view //computer.fqdn
 mount -t smbfs //server/folder /local/mount/point
@@ -255,7 +257,7 @@ Safari'de bir dosya indirildiğinde, eğer "güvenli" bir dosya ise, **otomatik 
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Web uygulamalarınız, ağınız ve bulutunuz hakkında bir hacker perspektifi edinin
+**Web uygulamalarınız, ağınız ve bulutunuz hakkında bir hacker perspektifi edinin**
 
 **Gerçek iş etkisi olan kritik, istismar edilebilir güvenlik açıklarını bulun ve raporlayın.** Saldırı yüzeyini haritalamak, ayrıcalıkları artırmanıza izin veren güvenlik sorunlarını bulmak ve temel kanıtları toplamak için otomatik istismarları kullanmak için 20'den fazla özel aracımızı kullanın, sıkı çalışmanızı ikna edici raporlara dönüştürün.
 

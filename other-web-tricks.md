@@ -9,7 +9,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" a
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'i takip edin.**
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** bizi takip edin.**
 * **Hacking hilelerini paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
@@ -17,7 +17,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" a
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Web uygulamalarınız, ağınız ve bulutunuz hakkında bir hacker perspektifi edinin
+**Web uygulamalarınız, ağınız ve bulutunuz hakkında bir hacker perspektifi edinin**
 
 **Gerçek iş etkisi olan kritik, istismar edilebilir güvenlik açıklarını bulun ve raporlayın.** Saldırı yüzeyini haritalamak, ayrıcalıkları artırmanıza izin veren güvenlik sorunlarını bulmak ve temel kanıtları toplamak için 20'den fazla özel aracımızı kullanarak, sıkı çalışmanızı ikna edici raporlara dönüştürün.
 
@@ -25,7 +25,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" a
 
 ### Host başlığı
 
-Arka uç, bazı işlemleri gerçekleştirmek için **Host başlığına** güvenebilir. Örneğin, değerini **şifre sıfırlamak için kullanılacak alan adı** olarak kullanabilir. Bu nedenle, şifrenizi sıfırlamak için bir bağlantı içeren bir e-posta aldığınızda, kullanılan alan adı Host başlığına koyduğunuz o alandır. Ardından, diğer kullanıcıların şifre sıfırlama taleplerini yapabilir ve alan adını kontrol ettiğiniz bir alan adıyla değiştirerek şifre sıfırlama kodlarını çalabilirsiniz. [WriteUp](https://medium.com/nassec-cybersecurity-writeups/how-i-was-able-to-take-over-any-users-account-with-host-header-injection-546fff6d0f2).
+Arka uç, bazı işlemleri gerçekleştirmek için **Host başlığına** güvenebilir. Örneğin, bu değeri **şifre sıfırlamak için kullanılacak alan olarak** kullanabilir. Bu nedenle, şifre sıfırlama bağlantısı içeren bir e-posta aldığınızda, kullanılan alan, Host başlığına koyduğunuz alandır. Ardından, diğer kullanıcıların şifre sıfırlama taleplerini yapabilir ve alanı kontrolünüzde olan bir alanla değiştirerek şifre sıfırlama kodlarını çalabilirsiniz. [WriteUp](https://medium.com/nassec-cybersecurity-writeups/how-i-was-able-to-take-over-any-users-account-with-host-header-injection-546fff6d0f2).
 
 {% hint style="warning" %}
 Kullanıcının şifre sıfırlama bağlantısına tıklamasını beklemenize gerek olmadığını unutmayın, çünkü belki de **spam filtreleri veya diğer ara cihazlar/botlar bunu analiz etmek için tıklayabilir**.
@@ -33,12 +33,12 @@ Kullanıcının şifre sıfırlama bağlantısına tıklamasını beklemenize ge
 
 ### Oturum boolean'ları
 
-Bazen bazı doğrulamaları doğru tamamladığınızda arka uç, **oturumunuza bir güvenlik niteliğine "True" değeri ekleyebilir**. Ardından, farklı bir uç nokta bu kontrolü başarıyla geçip geçmediğinizi bilecektir.\
-Ancak, eğer **kontrolü geçerseniz** ve oturumunuza güvenlik niteliğinde "True" değeri verilirse, **aynı niteliğe bağlı olan diğer kaynaklara erişmeyi** deneyebilirsiniz, ancak **erişim izniniz olmamalıdır**. [WriteUp](https://medium.com/@ozguralp/a-less-known-attack-vector-second-order-idor-attacks-14468009781a).
+Bazen bazı doğrulamaları doğru tamamladığınızda, arka uç **sadece oturumunuza bir güvenlik niteliğine "True" değeri ekler**. Ardından, farklı bir uç nokta bu kontrolü başarıyla geçip geçmediğinizi bilecektir.\
+Ancak, eğer **kontrolü geçerseniz** ve oturumunuza güvenlik niteliğinde "True" değeri verilirse, **erişim izniniz olmaması gereken** ancak **aynı niteliğe bağlı olan diğer kaynaklara erişmeyi deneyebilirsiniz**. [WriteUp](https://medium.com/@ozguralp/a-less-known-attack-vector-second-order-idor-attacks-14468009781a).
 
 ### Kayıt işlevselliği
 
-Zaten mevcut bir kullanıcı olarak kaydolmayı deneyin. Eşdeğer karakterler (nokta, çok fazla boşluk ve Unicode) kullanmayı da deneyin.
+Zaten mevcut bir kullanıcı olarak kaydolmayı deneyin. Eşdeğer karakterler (nokta, çok sayıda boşluk ve Unicode) kullanmayı da deneyin.
 
 ### E-postaları ele geçirme
 
@@ -50,14 +50,14 @@ Bir e-posta kaydedin, onaylamadan önce e-postayı değiştirin, ardından, yeni
 
 ### TRACE yöntemi
 
-Geliştiriciler, üretim ortamında çeşitli hata ayıklama seçeneklerini devre dışı bırakmayı unutabilir. Örneğin, HTTP `TRACE` yöntemi tanısal amaçlar için tasarlanmıştır. Eğer etkinse, web sunucusu `TRACE` yöntemini kullanan isteklere, alınan isteği yanıtında yankılayarak yanıt verecektir. Bu davranış genellikle zararsızdır, ancak bazen ters proxyler tarafından isteklere eklenebilecek dahili kimlik doğrulama başlıklarının adları gibi bilgi ifşasına yol açabilir.![Image for post](https://miro.medium.com/max/60/1\*wDFRADTOd9Tj63xucenvAA.png?q=20)
+Geliştiriciler, üretim ortamında çeşitli hata ayıklama seçeneklerini devre dışı bırakmayı unutabilir. Örneğin, HTTP `TRACE` yöntemi tanısal amaçlar için tasarlanmıştır. Eğer etkinse, web sunucusu `TRACE` yöntemini kullanan isteklere, alınan isteği yanıtında yankılayarak yanıt verir. Bu davranış genellikle zararsızdır, ancak bazen, ters proxyler tarafından isteklere eklenebilecek dahili kimlik doğrulama başlıklarının adları gibi bilgi ifşasına yol açabilir.![Image for post](https://miro.medium.com/max/60/1\*wDFRADTOd9Tj63xucenvAA.png?q=20)
 
 ![Image for post](https://miro.medium.com/max/1330/1\*wDFRADTOd9Tj63xucenvAA.png)
 
 
 <figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-#### Web uygulamalarınız, ağınız ve bulutunuz hakkında bir hacker perspektifi edinin
+**Web uygulamalarınız, ağınız ve bulutunuz hakkında bir hacker perspektifi edinin**
 
 **Gerçek iş etkisi olan kritik, istismar edilebilir güvenlik açıklarını bulun ve raporlayın.** Saldırı yüzeyini haritalamak, ayrıcalıkları artırmanıza izin veren güvenlik sorunlarını bulmak ve temel kanıtları toplamak için 20'den fazla özel aracımızı kullanarak, sıkı çalışmanızı ikna edici raporlara dönüştürün.
 
@@ -72,7 +72,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" a
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'i takip edin.**
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** bizi takip edin.**
 * **Hacking hilelerini paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
