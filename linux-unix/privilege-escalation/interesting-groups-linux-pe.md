@@ -13,6 +13,12 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Use [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) to easily build and **automate workflows** powered by the world's **most advanced** community tools.\
+Get Access Today:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
 
 # Sudo/Admin Groups
 
@@ -74,7 +80,7 @@ pkttyagent --process <PID of session1> #Step 2, attach pkttyagent to session1
 
 # Wheel Group
 
-**Wakati mwingine**, **kwa kawaida** ndani ya **/etc/sudoers** faili unaweza kupata mstari huu:
+**Wakati mwingine**, **kwa default** ndani ya faili ya **/etc/sudoers** unaweza kupata mstari huu:
 ```text
 %wheel	ALL=(ALL:ALL) ALL
 ```
@@ -104,7 +110,7 @@ debugfs: ls
 debugfs: cat /root/.ssh/id_rsa
 debugfs: cat /etc/shadow
 ```
-Kumbuka kwamba kutumia debugfs unaweza pia **kuandika faili**. Kwa mfano, ili nakala `/tmp/asd1.txt` kwenda `/tmp/asd2.txt` unaweza kufanya:
+Kumbuka kwamba kutumia debugfs unaweza pia **kuandika faili**. Kwa mfano, ili nakala ya `/tmp/asd1.txt` kwenda `/tmp/asd2.txt` unaweza kufanya:
 ```bash
 debugfs -w /dev/sda1
 debugfs:  dump /tmp/asd1.txt /tmp/asd2.txt
@@ -126,7 +132,7 @@ Kikundi cha **video** kina ufikiaji wa kuangalia matokeo ya skrini. Kimsingi una
 cat /dev/fb0 > /tmp/screen.raw
 cat /sys/class/graphics/fb0/virtual_size
 ```
-To **fungua** **picha ya raw** unaweza kutumia **GIMP**, chagua faili **`screen.raw`** na chagua kama aina ya faili **Data ya picha ya raw**:
+Ili **kufungua** **picha ya raw** unaweza kutumia **GIMP**, chagua faili **`screen.raw`** na chagua kama aina ya faili **Data ya picha ya raw**:
 
 ![](../../.gitbook/assets/image%20%28208%29.png)
 
@@ -136,7 +142,7 @@ Kisha badilisha Upana na Kimo kuwa zile zinazotumika kwenye skrini na angalia Ai
 
 # Kundi la Root
 
-Inaonekana kama kwa kawaida **wanachama wa kundi la root** wanaweza kuwa na ufikiaji wa **kubadilisha** baadhi ya **faili za usanidi** wa huduma au baadhi ya **faili za maktaba** au **mambo mengine ya kuvutia** ambayo yanaweza kutumika kuongeza mamlaka...
+Inaonekana kama kwa kawaida **wanachama wa kundi la root** wanaweza kuwa na ufikiaji wa **kubadilisha** baadhi ya faili za usanidi wa **huduma** au baadhi ya faili za **maktaba** au **mambo mengine ya kuvutia** ambayo yanaweza kutumika kuongeza mamlaka...
 
 **Angalia ni faili zipi wanachama wa root wanaweza kubadilisha**:
 ```bash
@@ -144,7 +150,7 @@ find / -group root -perm -g=w 2>/dev/null
 ```
 # Docker Group
 
-Unaweza kuunganisha mfumo wa faili wa mwenyeji kwenye volumu ya mfano, hivyo wakati mfano unapoanza, mara moja unaload `chroot` kwenye volumu hiyo. Hii inakupa root kwenye mashine.
+Unaweza kuunganisha mfumo wa faili wa mwenyeji kwenye kiasi cha mfano, hivyo wakati mfano unapoanza, mara moja inachaji `chroot` kwenye kiasi hicho. Hii inakupa root kwenye mashine.
 
 {% embed url="https://github.com/KrustyHack/docker-privilege-escalation" %}
 
@@ -154,16 +160,24 @@ Unaweza kuunganisha mfumo wa faili wa mwenyeji kwenye volumu ya mfano, hivyo wak
 
 [lxc - Privilege Escalation](lxd-privilege-escalation.md)
 
+
+<figure><img src="/.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Tumia [**Trickest**](https://trickest.com/?utm_source=hacktricks&utm_medium=text&utm_campaign=ppc&utm_term=trickest&utm_content=command-injection) kujenga na **kujiendesha** kwa urahisi kazi zinazotolewa na zana za jamii **zilizoendelea zaidi** duniani.\
+Pata Ufikiaji Leo:
+
+{% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=command-injection" %}
+
 {% hint style="success" %}
-Jifunze & fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Jifunze & fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
-* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **fuata** sisi kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Shiriki mbinu za hacking kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
 
 </details>

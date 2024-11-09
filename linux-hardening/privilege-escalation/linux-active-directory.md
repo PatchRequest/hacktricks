@@ -15,6 +15,10 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
+
 Mashine ya linux inaweza pia kuwepo ndani ya mazingira ya Active Directory.
 
 Mashine ya linux katika AD inaweza kuwa **ikiweka tiketi tofauti za CCACHE ndani ya faili. Tiketi hizi zinaweza kutumika na kutumiwa vibaya kama tiketi nyingine yoyote ya kerberos**. Ili kusoma tiketi hizi utahitaji kuwa mmiliki wa tiketi au **root** ndani ya mashine.
@@ -23,9 +27,9 @@ Mashine ya linux katika AD inaweza kuwa **ikiweka tiketi tofauti za CCACHE ndani
 
 ### AD enumeration kutoka linux
 
-Ikiwa una ufikiaji juu ya AD katika linux (au bash katika Windows) unaweza kujaribu [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) ili kuhesabu AD.
+Ikiwa una ufikiaji juu ya AD katika linux (au bash katika Windows) unaweza kujaribu [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) ili kuorodhesha AD.
 
-Unaweza pia kuangalia ukurasa ufuatao kujifunza **njia nyingine za kuhesabu AD kutoka linux**:
+Unaweza pia kuangalia ukurasa ufuatao kujifunza **njia nyingine za kuorodhesha AD kutoka linux**:
 
 {% content-ref url="../../network-services-pentesting/pentesting-ldap.md" %}
 [pentesting-ldap.md](../../network-services-pentesting/pentesting-ldap.md)
@@ -33,7 +37,7 @@ Unaweza pia kuangalia ukurasa ufuatao kujifunza **njia nyingine za kuhesabu AD k
 
 ### FreeIPA
 
-FreeIPA ni **mbadala** wa chanzo wazi kwa Microsoft Windows **Active Directory**, hasa kwa mazingira ya **Unix**. Inachanganya **LDAP directory** kamili na Kituo cha Usambazaji wa Funguo za MIT **Kerberos** kwa usimamizi unaofanana na Active Directory. Inatumia Mfumo wa **Cheti** wa Dogtag kwa usimamizi wa cheti za CA & RA, inasaidia **uthibitishaji wa hatua nyingi**, ikiwa ni pamoja na kadi za smart. SSSD imeunganishwa kwa michakato ya uthibitishaji wa Unix. Jifunze zaidi kuhusu hilo katika:
+FreeIPA ni **mbadala** wa chanzo wazi kwa Microsoft Windows **Active Directory**, hasa kwa mazingira ya **Unix**. Inachanganya **LDAP directory** kamili na Kituo cha Usambazaji wa Funguo za MIT **Kerberos** kwa usimamizi unaofanana na Active Directory. Inatumia Mfumo wa **Cheti** wa Dogtag kwa usimamizi wa cheti za CA & RA, inasaidia **uthibitishaji wa hatua nyingi**, ikiwa ni pamoja na kadi za smart. SSSD imeunganishwa kwa michakato ya uthibitishaji wa Unix. Jifunze zaidi kuhusu hiyo katika:
 
 {% content-ref url="../freeipa-pentesting.md" %}
 [freeipa-pentesting.md](../freeipa-pentesting.md)
@@ -85,9 +89,9 @@ Kuita \*\*`SSSDKCMExtractor` \*\* na vigezo --database na --key vitachambua hifa
 git clone https://github.com/fireeye/SSSDKCMExtractor
 python3 SSSDKCMExtractor.py --database secrets.ldb --key secrets.mkey
 ```
-The **credential cache Kerberos blob inaweza kubadilishwa kuwa faili ya Kerberos CCache** inayoweza kupitishwa kwa Mimikatz/Rubeus.
+**kumbukumbu ya akiba ya sifa za Kerberos inaweza kubadilishwa kuwa faili ya Kerberos CCache** inayoweza kupitishwa kwa Mimikatz/Rubeus.
 
-### CCACHE tiketi ya matumizi tena kutoka keytab
+### Urejeo wa tiketi ya CCACHE kutoka kwa keytab
 ```bash
 git clone https://github.com/its-a-feature/KeytabParser
 python KeytabParser.py /etc/krb5.keytab
@@ -111,7 +115,7 @@ Katika macOS, **`bifrost`** hutumika kama chombo cha uchambuzi wa faili za keyta
 ```bash
 ./bifrost -action dump -source keytab -path /path/to/your/file
 ```
-Kwa kutumia taarifa za akaunti na hash zilizopatikana, muunganisho na seva zinaweza kuanzishwa kwa kutumia zana kama **`crackmapexec`**.
+Kwa kutumia taarifa za akaunti na hash zilizovunwa, mawasiliano na seva zinaweza kuanzishwa kwa kutumia zana kama **`crackmapexec`**.
 ```bash
 crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDOMAIN"
 ```
@@ -119,6 +123,10 @@ crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDO
 * [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
 * [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
 * [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
+
+<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
 Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -129,8 +137,8 @@ Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" al
 <summary>Support HackTricks</summary>
 
 * Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
-* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **fuata** sisi kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Shiriki mbinu za hacking kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
+* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Shiriki mbinu za hacking kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}

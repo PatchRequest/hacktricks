@@ -15,22 +15,30 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 </details>
 {% endhint %}
 
-## Abusing MDMs
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Pata mtazamo wa hacker kuhusu programu zako za wavuti, mtandao, na wingu
+
+**Pata na ripoti mapungufu makubwa, yanayoweza kutumiwa kwa faida na athari halisi za kibiashara.** Tumia zana zetu zaidi ya 20 za kawaida kupanga uso wa shambulio, pata masuala ya usalama yanayokuruhusu kupandisha mamlaka, na tumia matumizi ya moja kwa moja kukusanya ushahidi muhimu, ukigeuza kazi yako ngumu kuwa ripoti za kushawishi.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
+## Kutumia MDM vibaya
 
 * JAMF Pro: `jamf checkJSSConnection`
 * Kandji
 
-Ikiwa utaweza **kudukua akauti za admin** ili kufikia jukwaa la usimamizi, unaweza **kudukua kompyuta zote** kwa kusambaza malware yako kwenye mashine.
+Ikiwa utaweza **kudhoofisha akidi za admin** ili kufikia jukwaa la usimamizi, unaweza **kudhoofisha kompyuta zote** kwa kusambaza programu yako ya uhalifu kwenye mashine.
 
-Kwa red teaming katika mazingira ya MacOS, inashauriwa sana kuwa na ufahamu wa jinsi MDMs zinavyofanya kazi:
+Kwa red teaming katika mazingira ya MacOS, inashauriwa sana kuwa na ufahamu wa jinsi MDM zinavyofanya kazi:
 
 {% content-ref url="macos-mdm/" %}
 [macos-mdm](macos-mdm/)
 {% endcontent-ref %}
 
-### Using MDM as a C2
+### Kutumia MDM kama C2
 
-MDM itakuwa na ruhusa ya kufunga, kuuliza au kuondoa profaili, kufunga programu, kuunda akaunti za admin za ndani, kuweka nenosiri la firmware, kubadilisha ufunguo wa FileVault...
+MDM itakuwa na ruhusa ya kufunga, kuuliza au kuondoa profaili, kufunga programu, kuunda akaunti za admin za ndani, kuweka nenosiri la firmware, kubadilisha funguo za FileVault...
 
 Ili kuendesha MDM yako mwenyewe unahitaji **CSR yako isainiwe na muuzaji** ambayo unaweza kujaribu kupata na [**https://mdmcert.download/**](https://mdmcert.download/). Na ili kuendesha MDM yako mwenyewe kwa vifaa vya Apple unaweza kutumia [**MicroMDM**](https://github.com/micromdm/micromdm).
 
@@ -40,28 +48,28 @@ Ili kusajili kifaa katika MDM unahitaji kufunga **`mobileconfig`** faili kama ro
 
 **Mythic agent Orthrus** inatumia mbinu hii.
 
-### Abusing JAMF PRO
+### Kutumia JAMF PRO vibaya
 
 JAMF inaweza kuendesha **scripts za kawaida** (scripts zilizotengenezwa na sysadmin), **payloads za asili** (kuunda akaunti za ndani, kuweka nenosiri la EFI, ufuatiliaji wa faili/mchakato...) na **MDM** (mipangilio ya kifaa, vyeti vya kifaa...).
 
-#### JAMF self-enrolment
+#### Usajili wa kujitegemea wa JAMF
 
-Nenda kwenye ukurasa kama `https://<company-name>.jamfcloud.com/enroll/` kuona kama wana **self-enrolment enabled**. Ikiwa wanaweza **kuomba akauti za kufikia**.
+Nenda kwenye ukurasa kama `https://<company-name>.jamfcloud.com/enroll/` kuona kama wana **usajili wa kujitegemea ulioanzishwa**. Ikiwa wanaweza **kuomba akidi za kufikia**.
 
 Unaweza kutumia script [**JamfSniper.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfSniper.py) kufanya shambulio la password spraying.
 
-Zaidi ya hayo, baada ya kupata akauti sahihi unaweza kuwa na uwezo wa kujaribu nguvu majina mengine ya watumiaji kwa fomu ifuatayo:
+Zaidi ya hayo, baada ya kupata akidi sahihi unaweza kuwa na uwezo wa kujaribu nguvu majina mengine ya watumiaji kwa fomu ifuatayo:
 
 ![](<../../.gitbook/assets/image (107).png>)
 
-#### JAMF device Authentication
+#### Uthibitishaji wa kifaa cha JAMF
 
 <figure><img src="../../.gitbook/assets/image (167).png" alt=""><figcaption></figcaption></figure>
 
 **`jamf`** binary ilikuwa na siri ya kufungua keychain ambayo wakati wa ugunduzi ilikuwa **shirikishi** kati ya kila mtu na ilikuwa: **`jk23ucnq91jfu9aj`**.\
-Zaidi ya hayo, jamf **persist** kama **LaunchDaemon** katika **`/Library/LaunchAgents/com.jamf.management.agent.plist`**
+Zaidi ya hayo, jamf **inaendelea** kama **LaunchDaemon** katika **`/Library/LaunchAgents/com.jamf.management.agent.plist`**
 
-#### JAMF Device Takeover
+#### Kuchukua kifaa cha JAMF
 
 **JSS** (Jamf Software Server) **URL** ambayo **`jamf`** itatumia iko katika **`/Library/Preferences/com.jamfsoftware.jamf.plist`**.\
 Faili hii kimsingi ina URL:
@@ -90,14 +98,14 @@ sudo jamf policy -id 0
 ```
 {% endcode %}
 
-#### JAMF Ujumbe wa Kuingilia
+#### JAMF Ujumbe wa Ujanja
 
-Ili **kuiga mawasiliano** kati ya kifaa na JMF unahitaji:
+Ili **kujifanya kama mawasiliano** kati ya kifaa na JMF unahitaji:
 
 * **UUID** ya kifaa: `ioreg -d2 -c IOPlatformExpertDevice | awk -F" '/IOPlatformUUID/{print $(NF-1)}'`
 * **JAMF keychain** kutoka: `/Library/Application\ Support/Jamf/JAMF.keychain` ambayo ina cheti cha kifaa
 
-Kwa habari hii, **unda VM** yenye **stolen** Hardware **UUID** na **SIP disabled**, weka **JAMF keychain,** **hook** agent wa Jamf na uibe habari zake.
+Kwa habari hii, **unda VM** yenye **stolen** Hardware **UUID** na **SIP disabled**, drop the **JAMF keychain,** **hook** the Jamf **agent** na uibe habari zake.
 
 #### Kuiba Siri
 
@@ -192,7 +200,7 @@ Pata nywila kwa kutumia:
 ```bash
 bifrost --action askhash --username [name] --password [password] --domain [domain]
 ```
-Inawezekana kufikia nenosiri la **`Computer$`** ndani ya mfumo wa keychain.
+Ni inawezekana kufikia **`Computer$`** nywila ndani ya mfumo wa keychain.
 
 ### Over-Pass-The-Hash
 
@@ -217,9 +225,9 @@ Kwa tiketi za huduma zilizopatikana, inawezekana kujaribu kufikia sehemu katika 
 smbutil view //computer.fqdn
 mount -t smbfs //server/folder /local/mount/point
 ```
-## Kufikia Keychain
+## Kupata Ufikiaji wa Keychain
 
-Keychain ina uwezekano mkubwa kuwa na taarifa nyeti ambazo ikiwa zitafikiwa bila kuunda kichocheo zinaweza kusaidia kuendeleza zoezi la red team:
+Keychain ina uwezekano mkubwa wa kuwa na taarifa nyeti ambazo ikiwa zitafikiwa bila kuunda kichocheo zinaweza kusaidia kuendeleza zoezi la red team:
 
 {% content-ref url="macos-keychain.md" %}
 [macos-keychain.md](macos-keychain.md)
@@ -227,17 +235,17 @@ Keychain ina uwezekano mkubwa kuwa na taarifa nyeti ambazo ikiwa zitafikiwa bila
 
 ## Huduma za Nje
 
-MacOS Red Teaming ni tofauti na Red Teaming ya kawaida ya Windows kwani kawaida **MacOS imeunganishwa na majukwaa kadhaa ya nje moja kwa moja**. Mipangilio ya kawaida ya MacOS ni kufikia kompyuta kwa kutumia **OneLogin credentials zilizoratibiwa, na kufikia huduma kadhaa za nje** (kama github, aws...) kupitia OneLogin.
+MacOS Red Teaming ni tofauti na Red Teaming ya kawaida ya Windows kwani kawaida **MacOS imeunganishwa moja kwa moja na majukwaa kadhaa ya nje**. Mipangilio ya kawaida ya MacOS ni kupata kompyuta kwa kutumia **OneLogin credentials zilizoratibiwa, na kufikia huduma kadhaa za nje** (kama github, aws...) kupitia OneLogin.
 
 ## Mbinu Mbalimbali za Red Team
 
 ### Safari
 
-Wakati faili inapopakuliwa katika Safari, ikiwa ni faili "salama", itafunguliwa **automatically**. Hivyo kwa mfano, ikiwa **unapakua zip**, itafunguliwa moja kwa moja:
+Wakati faili inapopakuliwa katika Safari, ikiwa ni faili "salama", itafunguliwa **kiotomatiki**. Hivyo kwa mfano, ikiwa **unapakua zip**, itafunguliwa kiotomatiki:
 
 <figure><img src="../../.gitbook/assets/image (226).png" alt=""><figcaption></figcaption></figure>
 
-## Marejeo
+## Marejeleo
 
 * [**https://www.youtube.com/watch?v=IiMladUbL6E**](https://www.youtube.com/watch?v=IiMladUbL6E)
 * [**https://medium.com/xm-cyber/introducing-machound-a-solution-to-macos-active-directory-based-attacks-2a425f0a22b6**](https://medium.com/xm-cyber/introducing-machound-a-solution-to-macos-active-directory-based-attacks-2a425f0a22b6)
@@ -245,17 +253,25 @@ Wakati faili inapopakuliwa katika Safari, ikiwa ni faili "salama", itafunguliwa 
 * [**Come to the Dark Side, We Have Apples: Turning macOS Management Evil**](https://www.youtube.com/watch?v=pOQOh07eMxY)
 * [**OBTS v3.0: "An Attackers Perspective on Jamf Configurations" - Luke Roberts / Calum Hall**](https://www.youtube.com/watch?v=ju1IYWUv4ZA)
 
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Pata mtazamo wa hacker kuhusu programu zako za wavuti, mtandao, na wingu
+
+**Pata na ripoti udhaifu muhimu, unaoweza kutumiwa kwa faida halisi ya biashara.** Tumia zana zetu zaidi ya 20 za kawaida kupanga uso wa shambulio, pata masuala ya usalama yanayokuruhusu kupandisha mamlaka, na tumia mashambulizi ya kiotomatiki kukusanya ushahidi muhimu, ukigeuza kazi yako ngumu kuwa ripoti za kushawishi.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Jifunze na fanya mazoezi ya AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Jifunze na fanya mazoezi ya GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
+* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **fuata** sisi kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Shiriki mbinu za hacking kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
 
 </details>
 {% endhint %}
