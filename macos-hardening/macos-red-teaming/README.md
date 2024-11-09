@@ -15,12 +15,20 @@ Ucz się i ćwicz Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" 
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Uzyskaj perspektywę hakera na swoje aplikacje webowe, sieć i chmurę
+
+**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi do mapowania powierzchni ataku, znajdowania problemów z bezpieczeństwem, które pozwalają na eskalację uprawnień, oraz użyj automatycznych exploitów do zbierania niezbędnych dowodów, przekształcając swoją ciężką pracę w przekonujące raporty.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
 ## Wykorzystywanie MDM
 
 * JAMF Pro: `jamf checkJSSConnection`
 * Kandji
 
-Jeśli uda ci się **skompromentować dane logowania administratora** do platformy zarządzania, możesz **potencjalnie skompromitować wszystkie komputery** poprzez dystrybucję swojego złośliwego oprogramowania na maszynach.
+Jeśli uda ci się **skompromentować dane logowania administratora** do platformy zarządzania, możesz **potencjalnie skompromitować wszystkie komputery**, rozprzestrzeniając swoje złośliwe oprogramowanie na maszynach.
 
 Dla red teamingu w środowiskach MacOS zaleca się posiadanie pewnej wiedzy na temat działania MDM:
 
@@ -48,7 +56,7 @@ JAMF może uruchamiać **niestandardowe skrypty** (skrypty opracowane przez sysa
 
 Przejdź do strony takiej jak `https://<nazwa-firmy>.jamfcloud.com/enroll/`, aby sprawdzić, czy mają **włączoną samo-rejestrację**. Jeśli tak, może **poprosić o dane logowania**.
 
-Możesz użyć skryptu [**JamfSniper.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfSniper.py), aby przeprowadzić atak password spraying.
+Możesz użyć skryptu [**JamfSniper.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfSniper.py), aby przeprowadzić atak na hasła.
 
 Ponadto, po znalezieniu odpowiednich danych logowania, możesz być w stanie przeprowadzić brute-force na innych nazwach użytkowników za pomocą następnej formy:
 
@@ -58,15 +66,13 @@ Ponadto, po znalezieniu odpowiednich danych logowania, możesz być w stanie prz
 
 <figure><img src="../../.gitbook/assets/image (167).png" alt=""><figcaption></figcaption></figure>
 
-**`jamf`** binarny zawierał sekret do otwarcia keychain, który w momencie odkrycia był **dzielony** wśród wszystkich i był to: **`jk23ucnq91jfu9aj`**.\
+**`jamf`** binarny zawierał sekret do otwarcia pęku kluczy, który w momencie odkrycia był **dzielony** wśród wszystkich i był: **`jk23ucnq91jfu9aj`**.\
 Ponadto, jamf **utrzymuje się** jako **LaunchDaemon** w **`/Library/LaunchAgents/com.jamf.management.agent.plist`**
 
 #### Przejęcie urządzenia JAMF
 
 **JSS** (Jamf Software Server) **URL**, który **`jamf`** będzie używać, znajduje się w **`/Library/Preferences/com.jamfsoftware.jamf.plist`**.\
 Ten plik zasadniczo zawiera URL:
-
-{% code overflow="wrap" %}
 ```bash
 plutil -convert xml1 -o - /Library/Preferences/com.jamfsoftware.jamf.plist
 
@@ -105,11 +111,11 @@ Mając te informacje, **stwórz VM** z **skradzionym** Hardware **UUID** i z **w
 
 <figure><img src="../../.gitbook/assets/image (1025).png" alt=""><figcaption><p>a</p></figcaption></figure>
 
-Możesz również monitorować lokalizację `/Library/Application Support/Jamf/tmp/` w poszukiwaniu **niestandardowych skryptów**, które administratorzy mogą chcieć wykonać za pośrednictwem Jamf, ponieważ są **umieszczane tutaj, wykonywane i usuwane**. Te skrypty **mogą zawierać poświadczenia**.
+Możesz również monitorować lokalizację `/Library/Application Support/Jamf/tmp/` w poszukiwaniu **niestandardowych skryptów**, które administratorzy mogą chcieć wykonać za pomocą Jamf, ponieważ są **umieszczane tutaj, wykonywane i usuwane**. Te skrypty **mogą zawierać poświadczenia**.
 
 Jednakże, **poświadczenia** mogą być przekazywane do tych skryptów jako **parametry**, więc musisz monitorować `ps aux | grep -i jamf` (nawet nie będąc rootem).
 
-Skrypt [**JamfExplorer.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfExplorer.py) może nasłuchiwać nowych plików dodawanych i nowych argumentów procesów.
+Skrypt [**JamfExplorer.py**](https://github.com/WithSecureLabs/Jamf-Attack-Toolkit/blob/master/JamfExplorer.py) może nasłuchiwać na nowe pliki dodawane i nowe argumenty procesów.
 
 ### Zdalny dostęp do macOS
 
@@ -121,7 +127,7 @@ A także o **"specjalnych" protokołach** **sieciowych** **MacOS**:
 
 ## Active Directory
 
-W niektórych przypadkach możesz stwierdzić, że **komputer MacOS jest podłączony do AD**. W tym scenariuszu powinieneś spróbować **wyliczyć** aktywny katalog, jak jesteś do tego przyzwyczajony. Znajdź trochę **pomocy** na następujących stronach:
+W niektórych przypadkach możesz stwierdzić, że **komputer MacOS jest podłączony do AD**. W tym scenariuszu powinieneś spróbować **wyenumerować** aktywny katalog, jak jesteś do tego przyzwyczajony. Znajdź trochę **pomocy** na następujących stronach:
 
 {% content-ref url="../../network-services-pentesting/pentesting-ldap.md" %}
 [pentesting-ldap.md](../../network-services-pentesting/pentesting-ldap.md)
@@ -188,7 +194,7 @@ dsconfigad -show
 ```
 Więcej informacji w [https://its-a-feature.github.io/posts/2018/01/Active-Directory-Discovery-with-a-Mac/](https://its-a-feature.github.io/posts/2018/01/Active-Directory-Discovery-with-a-Mac/)
 
-### Hasło komputera$
+### Computer$ hasło
 
 Uzyskaj hasła za pomocą:
 ```bash
@@ -214,7 +220,7 @@ bifrost --action asktgt --username test_lab_admin \
 bifrost --action asktgs --spn [service] --domain [domain.com] \
 --username [user] --hash [hash] --enctype [enctype]
 ```
-Z uzyskanymi biletami serwisowymi możliwe jest próbowanie dostępu do udostępnionych zasobów na innych komputerach:
+Z uzyskanymi biletami serwisowymi możliwe jest próbowanie dostępu do udostępnień na innych komputerach:
 ```bash
 smbutil view //computer.fqdn
 mount -t smbfs //server/folder /local/mount/point
@@ -235,7 +241,7 @@ MacOS Red Teaming różni się od standardowego Windows Red Teaming, ponieważ z
 
 ### Safari
 
-Gdy plik jest pobierany w Safari, jeśli jest to "bezpieczny" plik, zostanie **automatycznie otwarty**. Na przykład, jeśli **pobierzesz zip**, zostanie on automatycznie rozpakowany:
+Gdy plik jest pobierany w Safari, jeśli jest to plik "bezpieczny", zostanie **automatycznie otwarty**. Na przykład, jeśli **pobierzesz zip**, zostanie on automatycznie rozpakowany:
 
 <figure><img src="../../.gitbook/assets/image (226).png" alt=""><figcaption></figcaption></figure>
 
@@ -247,6 +253,14 @@ Gdy plik jest pobierany w Safari, jeśli jest to "bezpieczny" plik, zostanie **a
 * [**Come to the Dark Side, We Have Apples: Turning macOS Management Evil**](https://www.youtube.com/watch?v=pOQOh07eMxY)
 * [**OBTS v3.0: "An Attackers Perspective on Jamf Configurations" - Luke Roberts / Calum Hall**](https://www.youtube.com/watch?v=ju1IYWUv4ZA)
 
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Uzyskaj perspektywę hakera na swoje aplikacje internetowe, sieć i chmurę
+
+**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi, aby zmapować powierzchnię ataku, znaleźć problemy z bezpieczeństwem, które pozwalają na eskalację uprawnień, i użyj zautomatyzowanych exploitów, aby zebrać niezbędne dowody, przekształcając swoją ciężką pracę w przekonujące raporty.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
 {% hint style="success" %}
 Ucz się i ćwicz Hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
 Ucz się i ćwicz Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
@@ -257,7 +271,7 @@ Ucz się i ćwicz Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" 
 
 * Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
 * **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegram**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Dziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów github.
+* **Dziel się trikami hakerskimi, przesyłając PR-y do repozytoriów** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
 
 </details>
 {% endhint %}

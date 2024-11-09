@@ -15,23 +15,31 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-## Jak to działa
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Get a hacker's perspective on your web apps, network, and cloud
+
+**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi, aby zmapować powierzchnię ataku, znaleźć problemy z bezpieczeństwem, które pozwalają na eskalację uprawnień, oraz użyj zautomatyzowanych exploitów, aby zebrać niezbędne dowody, przekształcając swoją ciężką pracę w przekonujące raporty.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
+
+## How it Works
 
 **Smbexec** to narzędzie używane do zdalnego wykonywania poleceń na systemach Windows, podobne do **Psexec**, ale unika umieszczania jakichkolwiek złośliwych plików na docelowym systemie.
 
-### Kluczowe punkty dotyczące **SMBExec**
+### Key Points about **SMBExec**
 
 - Działa poprzez tworzenie tymczasowej usługi (na przykład "BTOBTO") na docelowej maszynie, aby wykonywać polecenia za pomocą cmd.exe (%COMSPEC%), bez zrzucania jakichkolwiek binariów.
-- Pomimo swojego dyskretnego podejścia, generuje dzienniki zdarzeń dla każdego wykonanego polecenia, oferując formę nieinteraktywnego "shella".
+- Pomimo swojego dyskretnego podejścia, generuje logi zdarzeń dla każdego wykonanego polecenia, oferując formę nieinteraktywnego "shella".
 - Polecenie do połączenia za pomocą **Smbexec** wygląda tak:
 ```bash
 smbexec.py WORKGROUP/genericuser:genericpassword@10.10.10.10
 ```
 ### Wykonywanie poleceń bez binariów
 
-- **Smbexec** umożliwia bezpośrednie wykonywanie poleceń za pomocą binPaths usług, eliminując potrzebę posiadania fizycznych binariów na docelowym systemie.
-- Metoda ta jest przydatna do wykonywania jednorazowych poleceń na docelowym systemie Windows. Na przykład, połączenie jej z modułem `web_delivery` Metasploit pozwala na wykonanie ładunku zwrotnego Meterpreter skierowanego na PowerShell.
-- Tworząc zdalną usługę na maszynie atakującego z binPath ustawionym na uruchomienie podanego polecenia przez cmd.exe, możliwe jest pomyślne wykonanie ładunku, osiągając callback i wykonanie ładunku z nasłuchiwacza Metasploit, nawet jeśli wystąpią błędy odpowiedzi usługi.
+- **Smbexec** umożliwia bezpośrednie wykonywanie poleceń za pomocą binPaths usługi, eliminując potrzebę posiadania fizycznych binariów na docelowym systemie.
+- Metoda ta jest przydatna do wykonywania jednorazowych poleceń na docelowym systemie Windows. Na przykład, połączenie jej z modułem `web_delivery` Metasploit pozwala na wykonanie ładunku odwrotnego Meterpreter skierowanego na PowerShell.
+- Tworząc zdalną usługę na maszynie atakującego z binPath ustawionym na uruchomienie podanego polecenia przez cmd.exe, możliwe jest pomyślne wykonanie ładunku, osiągając callback i wykonanie ładunku z nasłuchiwaczem Metasploit, nawet jeśli wystąpią błędy odpowiedzi usługi.
 
 ### Przykład poleceń
 
@@ -42,9 +50,16 @@ sc start [ServiceName]
 ```
 FOr further details check [https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/](https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/)
 
-
 ## References
 * [https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/](https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/)
+
+<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+
+#### Uzyskaj perspektywę hakera na swoje aplikacje internetowe, sieć i chmurę
+
+**Znajdź i zgłoś krytyczne, wykorzystywalne luki w zabezpieczeniach, które mają rzeczywisty wpływ na biznes.** Użyj naszych 20+ niestandardowych narzędzi, aby zmapować powierzchnię ataku, znaleźć problemy z bezpieczeństwem, które pozwalają na eskalację uprawnień, i użyj zautomatyzowanych exploitów, aby zebrać niezbędne dowody, przekształcając swoją ciężką pracę w przekonujące raporty.
+
+{% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
 {% hint style="success" %}
 Ucz się i ćwicz Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -52,11 +67,11 @@ Ucz się i ćwicz Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-
 
 <details>
 
-<summary>Wsparcie dla HackTricks</summary>
+<summary>Wsparcie HackTricks</summary>
 
 * Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
-* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Dziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów github.
+* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegram**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Podziel się trikami hakerskimi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów github.
 
 </details>
 {% endhint %}
