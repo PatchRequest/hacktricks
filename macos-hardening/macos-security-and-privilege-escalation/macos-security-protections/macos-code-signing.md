@@ -15,13 +15,13 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 </details>
 {% endhint %}
 
-## Basic Information
+## Podstawowe informacje
 
-Binarne Mach-o zawierają polecenie ładujące zwane **`LC_CODE_SIGNATURE`**, które wskazuje **offset** i **rozmiar** podpisów wewnątrz binarnego pliku. W rzeczywistości, używając narzędzia GUI MachOView, można znaleźć na końcu binarnego pliku sekcję o nazwie **Code Signature** z tymi informacjami:
+Binaries Mach-o zawierają polecenie ładujące zwane **`LC_CODE_SIGNATURE`**, które wskazuje **offset** i **rozmiar** podpisów wewnątrz binarnego pliku. W rzeczywistości, używając narzędzia GUI MachOView, można znaleźć na końcu binarnego pliku sekcję o nazwie **Code Signature** z tymi informacjami:
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
-Magiczny nagłówek podpisu kodu to **`0xFADE0CC0`**. Następnie masz informacje takie jak długość i liczba blobów superBlob, które je zawierają.\
+Magiczny nagłówek podpisu kodu to **`0xFADE0CC0`**. Następnie znajdują się informacje takie jak długość i liczba blobów superBlob, które je zawierają.\
 Można znaleźć te informacje w [kodzie źródłowym tutaj](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
 ```c
 /*
@@ -119,7 +119,7 @@ Zauważ, że istnieją różne wersje tej struktury, w których starsze mogą za
 ## Strony podpisu kodu
 
 Haszowanie pełnego binarnego pliku byłoby nieefektywne, a nawet bezużyteczne, jeśli jest on ładowany w pamięci tylko częściowo. Dlatego podpis kodu jest w rzeczywistości haszem haszy, gdzie każda strona binarna jest haszowana indywidualnie.\
-W rzeczywistości, w poprzednim kodzie **Code Directory** możesz zobaczyć, że **rozmiar strony jest określony** w jednym z jego pól. Co więcej, jeśli rozmiar binarnego pliku nie jest wielokrotnością rozmiaru strony, pole **CodeLimit** określa, gdzie kończy się podpis.
+W rzeczywistości, w poprzednim kodzie **Katalogu kodu** możesz zobaczyć, że **rozmiar strony jest określony** w jednym z jego pól. Co więcej, jeśli rozmiar binarnego pliku nie jest wielokrotnością rozmiaru strony, pole **CodeLimit** określa, gdzie kończy się podpis.
 ```bash
 # Get all hashes of /bin/ps
 codesign -d -vvvvvv /bin/ps
@@ -246,7 +246,7 @@ designated => identifier "org.whispersystems.signal-desktop" and anchor apple ge
 Zauważ, jak te podpisy mogą sprawdzać takie rzeczy jak informacje o certyfikacie, TeamID, identyfikatory, uprawnienia i wiele innych danych.
 {% endhint %}
 
-Ponadto możliwe jest generowanie niektórych skompilowanych wymagań za pomocą narzędzia `csreq`:
+Ponadto możliwe jest generowanie skompilowanych wymagań za pomocą narzędzia `csreq`:
 
 {% code overflow="wrap" %}
 ```bash
@@ -275,7 +275,7 @@ Możliwe jest uzyskanie dostępu do tych informacji oraz tworzenie lub modyfikow
 * **`SecRequirementCreateWithData`:** Tworzy `SecRequirementRef` z danych binarnych reprezentujących wymaganie.
 * **`SecRequirementCreateWithString`:** Tworzy `SecRequirementRef` z wyrażenia tekstowego wymagania.
 * **`SecRequirementCopy[Data/String]`**: Pobiera reprezentację danych binarnych `SecRequirementRef`.
-* **`SecRequirementCreateGroup`**: Tworzy wymaganie dla członkostwa w grupie aplikacji.
+* **`SecRequirementCreateGroup`**: Tworzy wymaganie dotyczące członkostwa w grupie aplikacji.
 
 #### **Uzyskiwanie informacji o podpisywaniu kodu**
 
@@ -308,11 +308,11 @@ Możliwe jest uzyskanie dostępu do tych informacji oraz tworzenie lub modyfikow
 
 ## Egzekwowanie podpisu kodu
 
-**Jądro** to to, które **sprawdza podpis kodu** przed zezwoleniem na wykonanie kodu aplikacji. Ponadto, jednym ze sposobów na możliwość pisania i wykonywania nowego kodu w pamięci jest nadużycie JIT, jeśli `mprotect` jest wywoływane z flagą `MAP_JIT`. Należy zauważyć, że aplikacja potrzebuje specjalnego uprawnienia, aby móc to zrobić.
+**Jądro** to to, które **sprawdza podpis kodu** przed zezwoleniem na wykonanie kodu aplikacji. Ponadto, jednym ze sposobów na możliwość zapisu i wykonania nowego kodu w pamięci jest nadużycie JIT, jeśli `mprotect` jest wywoływane z flagą `MAP_JIT`. Należy zauważyć, że aplikacja potrzebuje specjalnego uprawnienia, aby móc to zrobić.
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) struktura zawiera informacje o uprawnieniach działającego procesu. `csb_platform_binary` informuje również, czy aplikacja jest binarną platformą (co jest sprawdzane w różnych momentach przez system operacyjny w celu zastosowania mechanizmów zabezpieczeń, takich jak ochrona praw SEND do portów zadań tych procesów).
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106) struktura zawiera informacje o uprawnieniach działającego procesu. `csb_platform_binary` informuje również, czy aplikacja jest binarną platformą (co jest sprawdzane w różnych momentach przez system operacyjny w celu zastosowania mechanizmów zabezpieczeń, takich jak ochrona praw SEND do portów zadań tych procesów).
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
@@ -371,7 +371,7 @@ bool csb_csm_managed;
 #endif
 };
 ```
-## Odniesienia
+## References
 
 * [**\*OS Internals Volume III**](https://newosxbook.com/home.html)
 
