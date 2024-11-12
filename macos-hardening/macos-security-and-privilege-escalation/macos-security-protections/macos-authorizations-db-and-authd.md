@@ -34,7 +34,7 @@ Die Regeln werden in der `rules`-Tabelle innerhalb der Datenbank gespeichert und
 * **kofn**: Stellt den "k-of-n"-Parameter dar, der bestimmt, wie viele Unterregeln aus einer Gesamtzahl erfüllt sein müssen.
 * **timeout**: Definiert die Dauer in Sekunden, bevor die durch die Regel gewährte Autorisierung abläuft.
 * **flags**: Enthält verschiedene Flags, die das Verhalten und die Eigenschaften der Regel ändern.
-* **tries**: Begrenzung der Anzahl der erlaubten Autorisierungsversuche zur Verbesserung der Sicherheit.
+* **tries**: Begrenzung der Anzahl der zulässigen Autorisierungsversuche zur Verbesserung der Sicherheit.
 * **version**: Verfolgt die Version der Regel zur Versionskontrolle und Aktualisierungen.
 * **created**: Protokolliert den Zeitstempel, wann die Regel erstellt wurde, zu Prüfungszwecken.
 * **modified**: Speichert den Zeitstempel der letzten Änderung an der Regel.
@@ -90,11 +90,11 @@ Außerdem ist es möglich, die Bedeutung von `authenticate-admin-nonshared` unte
 
 Es ist ein Daemon, der Anfragen erhält, um Clients zu autorisieren, sensible Aktionen durchzuführen. Es funktioniert als XPC-Dienst, der im `XPCServices/`-Ordner definiert ist, und verwendet, um seine Protokolle in `/var/log/authd.log` zu schreiben.
 
-Darüber hinaus ist es möglich, mit dem Sicherheitstool viele `Security.framework`-APIs zu testen. Zum Beispiel `AuthorizationExecuteWithPrivileges`, das ausgeführt wird mit: `security execute-with-privileges /bin/ls`
+Darüber hinaus ist es möglich, mit dem Sicherheitstool viele `Security.framework` APIs zu testen. Zum Beispiel `AuthorizationExecuteWithPrivileges`, das ausgeführt wird mit: `security execute-with-privileges /bin/ls`
 
 Das wird `/usr/libexec/security_authtrampoline /bin/ls` als root fork und exec, was nach Berechtigungen in einem Prompt fragt, um ls als root auszuführen:
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\

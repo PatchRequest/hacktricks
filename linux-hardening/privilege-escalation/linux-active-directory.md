@@ -1,35 +1,33 @@
 # Linux Active Directory
 
 {% hint style="success" %}
-Lerne & übe AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Unterstütze HackTricks</summary>
+<summary>Support HackTricks</summary>
 
-* Überprüfe die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
-* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Teile Hacking-Tricks, indem du PRs zu den** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichst.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
-
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://websec.nl/" %}
 
 Eine Linux-Maschine kann auch in einer Active Directory-Umgebung vorhanden sein.
 
-Eine Linux-Maschine in einem AD könnte **verschiedene CCACHE-Tickets in Dateien speichern. Diese Tickets können wie jedes andere Kerberos-Ticket verwendet und missbraucht werden**. Um diese Tickets zu lesen, musst du der Benutzerbesitzer des Tickets oder **root** auf der Maschine sein.
+Eine Linux-Maschine in einem AD könnte **verschiedene CCACHE-Tickets in Dateien speichern. Diese Tickets können wie jedes andere Kerberos-Ticket verwendet und missbraucht werden**. Um diese Tickets zu lesen, müssen Sie der Benutzerbesitzer des Tickets oder **root** auf der Maschine sein.
 
 ## Enumeration
 
 ### AD Enumeration von Linux
 
-Wenn du Zugriff auf ein AD in Linux (oder Bash in Windows) hast, kannst du [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) versuchen, um das AD zu enumerieren.
+Wenn Sie Zugriff auf ein AD in Linux (oder Bash in Windows) haben, können Sie [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) versuchen, um das AD zu enumerieren.
 
-Du kannst auch die folgende Seite überprüfen, um **andere Möglichkeiten zur Enumeration von AD aus Linux zu lernen**:
+Sie können auch die folgende Seite überprüfen, um **andere Möglichkeiten zur Enumeration von AD aus Linux** zu lernen:
 
 {% content-ref url="../../network-services-pentesting/pentesting-ldap.md" %}
 [pentesting-ldap.md](../../network-services-pentesting/pentesting-ldap.md)
@@ -37,17 +35,17 @@ Du kannst auch die folgende Seite überprüfen, um **andere Möglichkeiten zur E
 
 ### FreeIPA
 
-FreeIPA ist eine Open-Source-**Alternative** zu Microsoft Windows **Active Directory**, hauptsächlich für **Unix**-Umgebungen. Es kombiniert ein vollständiges **LDAP-Verzeichnis** mit einem MIT **Kerberos** Key Distribution Center für eine Verwaltung ähnlich der von Active Directory. Es nutzt das Dogtag **Zertifikatsystem** für CA- und RA-Zertifikatsmanagement und unterstützt **Multi-Faktor**-Authentifizierung, einschließlich Smartcards. SSSD ist für Unix-Authentifizierungsprozesse integriert. Erfahre mehr darüber in:
+FreeIPA ist eine Open-Source-**Alternative** zu Microsoft Windows **Active Directory**, hauptsächlich für **Unix**-Umgebungen. Es kombiniert ein vollständiges **LDAP-Verzeichnis** mit einem MIT **Kerberos** Key Distribution Center für eine Verwaltung ähnlich der von Active Directory. Es nutzt das Dogtag **Zertifikatssystem** für CA- und RA-Zertifikatsmanagement und unterstützt **Multi-Faktor**-Authentifizierung, einschließlich Smartcards. SSSD ist für Unix-Authentifizierungsprozesse integriert. Erfahren Sie mehr darüber in:
 
 {% content-ref url="../freeipa-pentesting.md" %}
 [freeipa-pentesting.md](../freeipa-pentesting.md)
 {% endcontent-ref %}
 
-## Mit Tickets spielen
+## Spielen mit Tickets
 
 ### Pass The Ticket
 
-Auf dieser Seite findest du verschiedene Orte, an denen du **Kerberos-Tickets auf einem Linux-Host finden könntest**. Auf der folgenden Seite kannst du lernen, wie du diese CCache-Ticketformate in Kirbi (das Format, das du in Windows verwenden musst) umwandelst und auch, wie du einen PTT-Angriff durchführst:
+Auf dieser Seite finden Sie verschiedene Orte, an denen Sie **Kerberos-Tickets auf einem Linux-Host finden können**. Auf der folgenden Seite können Sie lernen, wie Sie diese CCache-Ticketformate in Kirbi (das Format, das Sie in Windows verwenden müssen) umwandeln und auch, wie Sie einen PTT-Angriff durchführen:
 
 {% content-ref url="../../windows-hardening/active-directory-methodology/pass-the-ticket.md" %}
 [pass-the-ticket.md](../../windows-hardening/active-directory-methodology/pass-the-ticket.md)
@@ -57,7 +55,7 @@ Auf dieser Seite findest du verschiedene Orte, an denen du **Kerberos-Tickets au
 
 CCACHE-Dateien sind binäre Formate zum **Speichern von Kerberos-Anmeldeinformationen**, die typischerweise mit 600 Berechtigungen in `/tmp` gespeichert werden. Diese Dateien können durch ihr **Namensformat, `krb5cc_%{uid}`,** identifiziert werden, das mit der UID des Benutzers korreliert. Für die Überprüfung des Authentifizierungstickets sollte die **Umgebungsvariable `KRB5CCNAME`** auf den Pfad der gewünschten Ticketdatei gesetzt werden, um deren Wiederverwendung zu ermöglichen.
 
-Liste das aktuelle Ticket, das für die Authentifizierung verwendet wird, mit `env | grep KRB5CCNAME` auf. Das Format ist portabel und das Ticket kann **durch Setzen der Umgebungsvariable** mit `export KRB5CCNAME=/tmp/ticket.ccache` wiederverwendet werden. Das Kerberos-Ticket-Namensformat ist `krb5cc_%{uid}`, wobei uid die Benutzer-UID ist.
+Listen Sie das aktuelle Ticket, das für die Authentifizierung verwendet wird, mit `env | grep KRB5CCNAME` auf. Das Format ist portabel und das Ticket kann **durch Setzen der Umgebungsvariable** mit `export KRB5CCNAME=/tmp/ticket.ccache` wiederverwendet werden. Das Kerberos-Ticket-Namensformat ist `krb5cc_%{uid}`, wobei uid die Benutzer-UID ist.
 ```bash
 # Find tickets
 ls /tmp/ | grep krb5cc
@@ -68,7 +66,7 @@ export KRB5CCNAME=/tmp/krb5cc_1000
 ```
 ### CCACHE Ticket-Wiederverwendung aus dem Keyring
 
-**Kerberos-Tickets, die im Speicher eines Prozesses gespeichert sind, können extrahiert werden**, insbesondere wenn der ptrace-Schutz der Maschine deaktiviert ist (`/proc/sys/kernel/yama/ptrace_scope`). Ein nützliches Tool zu diesem Zweck ist unter [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey) zu finden, das die Extraktion erleichtert, indem es in Sitzungen injiziert und Tickets in `/tmp` dumpet.
+**Kerberos-Tickets, die im Speicher eines Prozesses gespeichert sind, können extrahiert werden**, insbesondere wenn der ptrace-Schutz der Maschine deaktiviert ist (`/proc/sys/kernel/yama/ptrace_scope`). Ein nützliches Tool zu diesem Zweck findet sich unter [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey), das die Extraktion erleichtert, indem es in Sitzungen injiziert und Tickets in `/tmp` dumpet.
 
 Um dieses Tool zu konfigurieren und zu verwenden, werden die folgenden Schritte befolgt:
 ```bash
@@ -77,8 +75,7 @@ cd tickey/tickey
 make CONF=Release
 /tmp/tickey -i
 ```
-Dieses Verfahren wird versuchen, in verschiedene Sitzungen zu injizieren, wobei der Erfolg durch das Speichern extrahierter Tickets in `/tmp` mit einer Namenskonvention von `__krb_UID.ccache` angezeigt wird.
-
+Dieses Verfahren wird versuchen, in verschiedene Sitzungen zu injizieren, wobei der Erfolg durch das Speichern der extrahierten Tickets in `/tmp` mit einer Namenskonvention von `__krb_UID.ccache` angezeigt wird.
 
 ### CCACHE-Ticket-Wiederverwendung von SSSD KCM
 
@@ -120,17 +117,16 @@ Durch die Nutzung der extrahierten Konten- und Hash-Informationen können Verbin
 crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDOMAIN"
 ```
 ## Referenzen
+
 * [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
 * [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
 * [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
-Lerne & übe AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lerne & übe AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Lerne & übe GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -138,7 +134,7 @@ Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 
 * Überprüfe die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
 * **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Teile Hacking-Tricks, indem du PRs zu den** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichst.
+* **Teile Hacking-Tricks, indem du PRs an die** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichst.
 
 </details>
 {% endhint %}
