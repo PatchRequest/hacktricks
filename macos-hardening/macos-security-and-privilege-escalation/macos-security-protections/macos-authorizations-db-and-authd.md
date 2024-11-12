@@ -19,7 +19,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 ## **Athorizarions DB**
 
-База даних, розташована в `/var/db/auth.db`, використовується для зберігання дозволів на виконання чутливих операцій. Ці операції виконуються повністю в **просторі користувача** і зазвичай використовуються **XPC-сервісами**, які повинні перевірити **чи має викликаючий клієнт право** виконувати певну дію, перевіряючи цю базу даних.
+База даних, розташована в `/var/db/auth.db`, використовується для зберігання дозволів на виконання чутливих операцій. Ці операції виконуються повністю в **просторі користувача** і зазвичай використовуються **XPC-сервісами**, які повинні перевірити **чи викликаний клієнт має право** виконувати певну дію, перевіряючи цю базу даних.
 
 Спочатку ця база даних створюється з вмісту `/System/Library/Security/authorization.plist`. Потім деякі сервіси можуть додавати або змінювати цю базу даних, щоб додати до неї інші дозволи.
 
@@ -88,13 +88,13 @@ security authorizationdb read com.apple.tcc.util.admin
 ```
 ## Authd
 
-Це демон, який отримуватиме запити на авторизацію клієнтів для виконання чутливих дій. Він працює як служба XPC, визначена в папці `XPCServices/`, і зазвичай записує свої журнали в `/var/log/authd.log`.
+Це демон, який отримуватиме запити на авторизацію клієнтів для виконання чутливих дій. Він працює як служба XPC, визначена в папці `XPCServices/`, і використовує для запису своїх журналів `/var/log/authd.log`.
 
 Більше того, використовуючи інструмент безпеки, можна протестувати багато API `Security.framework`. Наприклад, `AuthorizationExecuteWithPrivileges`, запустивши: `security execute-with-privileges /bin/ls`
 
 Це створить новий процес і виконає `/usr/libexec/security_authtrampoline /bin/ls` від імені root, що запитає дозволи в спливаючому вікні для виконання ls від імені root:
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\

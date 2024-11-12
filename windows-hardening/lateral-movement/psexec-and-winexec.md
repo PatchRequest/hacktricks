@@ -1,8 +1,8 @@
 # PsExec/Winexec/ScExec
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,15 +15,13 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 ## Як вони працюють
 
 Процес описаний у наступних кроках, що ілюструють, як бінарні файли служб маніпулюються для досягнення віддаленого виконання на цільовій машині через SMB:
 
-1. **Копіювання бінарного файлу служби до спільного доступу ADMIN$ через SMB** виконується.
+1. **Копіювання бінарного файлу служби на загальний доступ ADMIN$ через SMB** виконується.
 2. **Створення служби на віддаленій машині** здійснюється шляхом вказівки на бінарний файл.
 3. Служба **запускається віддалено**.
 4. Після виходу служба **зупиняється, а бінарний файл видаляється**.
@@ -32,7 +30,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 Припустимо, що є виконуваний вантаж (створений за допомогою msfvenom і обфусцований за допомогою Veil для уникнення виявлення антивірусом), названий 'met8888.exe', що представляє вантаж meterpreter reverse_http, виконуються наступні кроки:
 
-* **Копіювання бінарного файлу**: Виконуваний файл копіюється до спільного доступу ADMIN$ з командного рядка, хоча його можна розмістити в будь-якому місці файлової системи, щоб залишитися непоміченим.
+* **Копіювання бінарного файлу**: Виконуваний файл копіюється на загальний доступ ADMIN$ з командного рядка, хоча його можна розмістити в будь-якому місці файлової системи, щоб залишитися непоміченим.
 * **Створення служби**: Використовуючи команду Windows `sc`, яка дозволяє запитувати, створювати та видаляти служби Windows віддалено, створюється служба з назвою "meterpreter", яка вказує на завантажений бінарний файл.
 * **Запуск служби**: Останній крок полягає в запуску служби, що, ймовірно, призведе до помилки "time-out" через те, що бінарний файл не є справжнім бінарним файлом служби і не повертає очікуваний код відповіді. Ця помилка не має значення, оскільки основна мета - виконання бінарного файлу.
 
@@ -54,13 +52,11 @@ SharpLateral.exe redexec HOSTNAME C:\\Users\\Administrator\\Desktop\\malware.exe
 ```
 {% endcode %}
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
-Вивчайте та практикуйте AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Вивчайте та практикуйте GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вивчайте та практикуйте AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Вивчайте та практикуйте GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
