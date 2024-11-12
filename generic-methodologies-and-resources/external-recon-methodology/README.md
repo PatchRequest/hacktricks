@@ -15,7 +15,7 @@
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 如果你对 **黑客职业** 感兴趣并想要攻克不可攻克的目标 - **我们正在招聘！** (_需要流利的波兰语书写和口语能力_).
 
@@ -27,8 +27,8 @@
 
 这个阶段的目标是获取**母公司拥有的所有公司**，然后获取这些公司的所有**资产**。为此，我们将：
 
-1. 查找母公司的收购，这将给我们提供范围内的公司。
-2. 查找每个公司的 ASN（如果有的话），这将给我们提供每个公司拥有的 IP 范围。
+1. 找到母公司的收购，这将给我们提供范围内的公司。
+2. 找到每个公司的 ASN（如果有的话），这将给我们提供每个公司拥有的 IP 范围。
 3. 使用反向 whois 查询搜索与第一个相关的其他条目（组织名称、域名...）（这可以递归进行）。
 4. 使用其他技术，如 shodan `org` 和 `ssl` 过滤器来搜索其他资产（`ssl` 技巧可以递归进行）。
 
@@ -36,18 +36,18 @@
 
 首先，我们需要知道**母公司拥有的其他公司**。\
 一个选项是访问 [https://www.crunchbase.com/](https://www.crunchbase.com)，**搜索** **母公司**，并**点击**“**收购**”。在那里你将看到母公司收购的其他公司。\
-另一个选项是访问母公司的**维基百科**页面并搜索**收购**。
+另一个选项是访问母公司的 **维基百科** 页面并搜索 **收购**。
 
 > 好吧，到这个时候你应该知道范围内的所有公司。让我们弄清楚如何找到它们的资产。
 
 ### **ASNs**
 
-自治系统编号（**ASN**）是由**互联网分配号码管理局（IANA）**分配给**自治系统**（AS）的**唯一编号**。\
-一个**AS**由**IP 地址块**组成，这些地址块具有明确的外部网络访问政策，并由单一组织管理，但可能由多个运营商组成。
+自治系统编号（**ASN**）是由 **互联网分配号码管理局（IANA）** 分配给 **自治系统**（AS）的 **唯一编号**。\
+一个 **AS** 由 **IP 地址块** 组成，这些地址块有明确的政策来访问外部网络，并由单一组织管理，但可能由多个运营商组成。
 
-查找**公司是否分配了任何 ASN**以找到其**IP 范围**是很有趣的。对范围内的所有**主机**进行**漏洞测试**并**查找这些 IP 内的域名**将是很有趣的。\
-你可以在 [**https://bgp.he.net/**](https://bgp.he.net)**中按公司**名称、**IP**或**域名**进行**搜索**。\
-**根据公司的地区，这些链接可能对收集更多数据有用：** [**AFRINIC**](https://www.afrinic.net) **（非洲），** [**Arin**](https://www.arin.net/about/welcome/region/)**（北美），** [**APNIC**](https://www.apnic.net) **（亚洲），** [**LACNIC**](https://www.lacnic.net) **（拉丁美洲），** [**RIPE NCC**](https://www.ripe.net) **（欧洲）。无论如何，所有** 有用的信息 **（IP 范围和 Whois）**可能已经在第一个链接中出现。
+查找**公司是否分配了任何 ASN** 以找到其 **IP 范围** 是很有趣的。对所有**范围内的主机**进行 **漏洞测试** 并 **查找这些 IP 内的域名** 将是很有意义的。\
+你可以在 [**https://bgp.he.net/**](https://bgp.he.net)** 中按公司 **名称**、**IP** 或 **域名** 进行 **搜索**。\
+**根据公司的地区，这些链接可能对收集更多数据有用：** [**AFRINIC**](https://www.afrinic.net) **（非洲），** [**Arin**](https://www.arin.net/about/welcome/region/)**（北美），** [**APNIC**](https://www.apnic.net) **（亚洲），** [**LACNIC**](https://www.lacnic.net) **（拉丁美洲），** [**RIPE NCC**](https://www.ripe.net) **（欧洲）。无论如何，所有的** 有用信息 **（IP 范围和 Whois）** 可能已经在第一个链接中出现。
 ```bash
 #You can try "automate" this with amass, but it's not very recommended
 amass intel -org tesla
@@ -75,8 +75,8 @@ bbot -t tesla.com -f subdomain-enum
 
 ### **寻找漏洞**
 
-此时我们知道 **范围内的所有资产**，所以如果您被允许，可以对所有主机启动一些 **漏洞扫描器**（Nessus, OpenVAS）。\
-此外，您还可以启动一些 [**端口扫描**](../pentesting-network/#discovering-hosts-from-the-outside) **或使用像** shodan **这样的服务来查找** 开放端口 **，根据您发现的内容，您应该** 查看本书以了解如何对多个可能运行的服务进行渗透测试。\
+在这一点上，我们知道 **范围内的所有资产**，所以如果您被允许，可以对所有主机启动一些 **漏洞扫描器**（Nessus, OpenVAS）。\
+此外，您可以启动一些 [**端口扫描**](../pentesting-network/#discovering-hosts-from-the-outside) **或使用像** shodan **这样的服务来查找** 开放端口 **，根据您发现的内容，您应该** 查看本书以了解如何对多个可能运行的服务进行渗透测试。\
 **此外，值得一提的是，您还可以准备一些** 默认用户名 **和** 密码 **列表，并尝试使用 [https://github.com/x90skysn3k/brutespray](https://github.com/x90skysn3k/brutespray) 进行** 暴力破解服务**。
 
 ## 域名
@@ -89,7 +89,7 @@ _请注意，在以下提出的技术中，您还可以找到子域名，这些�
 
 ### **反向 DNS**
 
-由于您已经找到了域名的所有 IP 范围，您可以尝试对这些 **IP 执行反向 DNS 查找，以查找范围内的更多域名**。尝试使用受害者的一些 DNS 服务器或一些知名的 DNS 服务器（1.1.1.1, 8.8.8.8）。
+由于您已经找到了域名的所有 IP 范围，您可以尝试对这些 **IP 执行反向 DNS 查找，以查找范围内的更多域名**。尝试使用受害者的某些 DNS 服务器或一些知名的 DNS 服务器（1.1.1.1, 8.8.8.8）。
 ```bash
 dnsrecon -r <DNS Range> -n <IP_DNS>   #DNS reverse of all of the addresses
 dnsrecon -d facebook.com -r 157.240.221.35/24 #Using facebooks dns
@@ -101,7 +101,7 @@ dnsrecon -r 157.240.221.35/24 -n 8.8.8.8 #Using google dns
 
 ### **反向 Whois（循环）**
 
-在 **whois** 中，您可以找到很多有趣的 **信息**，如 **组织名称**、**地址**、**电子邮件**、电话号码……但更有趣的是，如果您通过这些字段中的任何一个执行 **反向 whois 查询**（例如其他 whois 注册处中出现相同的电子邮件），您可以找到 **与公司相关的更多资产**。\
+在 **whois** 中，您可以找到很多有趣的 **信息**，如 **组织名称**、**地址**、**电子邮件**、电话号码……但更有趣的是，如果您通过这些字段中的任何一个执行 **反向 whois 查询**，您可以找到 **与公司相关的更多资产**（例如，其他 whois 注册处中出现相同电子邮件的情况）。\
 您可以使用在线工具，如：
 
 * [https://viewdns.info/reversewhois/](https://viewdns.info/reversewhois/) - **免费**
@@ -117,12 +117,12 @@ dnsrecon -r 157.240.221.35/24 -n 8.8.8.8 #Using google dns
 
 **请注意，每次找到新域名时，您可以使用此技术发现更多域名。**
 
-### **跟踪器**
+### **追踪器**
 
-如果在两个不同页面中找到 **相同的跟踪器 ID**，您可以推测 **这两个页面** 是 **由同一团队管理**。\
+如果在两个不同页面中找到 **相同的追踪器 ID**，您可以推测 **这两个页面** 是 **由同一团队管理**。\
 例如，如果您在多个页面上看到相同的 **Google Analytics ID** 或相同的 **Adsense ID**。
 
-有一些页面和工具可以让您通过这些跟踪器和更多内容进行搜索：
+有一些页面和工具可以让您通过这些追踪器和更多内容进行搜索：
 
 * [**Udon**](https://github.com/dhn/udon)
 * [**BuiltWith**](https://builtwith.com)
@@ -141,11 +141,11 @@ python3 favihash.py -f https://target/favicon.ico -t targets.txt -s
 
 简单来说，favihash 将允许我们发现与我们的目标具有相同 favicon 图标哈希的域。
 
-此外，您还可以使用 favicon 哈希搜索技术，如 [**这篇博客文章**](https://medium.com/@Asm0d3us/weaponizing-favicon-ico-for-bugbounties-osint-and-what-not-ace3c214e139) 中所述。这意味着如果您知道 **易受攻击的网络技术的 favicon 哈希**，您可以在 shodan 中搜索并 **找到更多易受攻击的地方**：
+此外，您还可以使用 favicon 哈希搜索技术，如 [**这篇博客文章**](https://medium.com/@Asm0d3us/weaponizing-favicon-ico-for-bugbounties-osint-and-what-not-ace3c214e139) 中所述。这意味着如果您知道 **一个易受攻击的 web 技术的 favicon 哈希**，您可以在 shodan 中搜索并 **找到更多易受攻击的地方**：
 ```bash
 shodan search org:"Target" http.favicon.hash:116323821 --fields ip_str,port --separator " " | awk '{print $1":"$2}'
 ```
-这是您如何**计算网站的 favicon 哈希**：
+这是您如何**计算网页的 favicon 哈希**：
 ```python
 import mmh3
 import requests
@@ -162,9 +162,9 @@ return fhash
 
 在网页中搜索**可能在同一组织的不同网站之间共享的字符串**。**版权字符串**可能是一个很好的例子。然后在**谷歌**、其他**浏览器**或甚至在**shodan**中搜索该字符串：`shodan search http.html:"Copyright string"`
 
-### **CRT 时间**
+### **CRT时间**
 
-通常会有一个 cron 作业，例如
+通常会有一个cron作业，例如
 ```bash
 # /etc/crontab
 37 13 */10 * * certbot renew --post-hook "systemctl reload nginx"
@@ -340,7 +340,7 @@ python3 DomainTrail.py -d example.com
 * [**securitytrails.com**](https://securitytrails.com/) 提供免费的 API 用于搜索子域名和 IP 历史
 * [**chaos.projectdiscovery.io**](https://chaos.projectdiscovery.io/#/)
 
-该项目提供 **与漏洞悬赏计划相关的所有子域名** 的免费访问。您还可以使用 [chaospy](https://github.com/dr-0x0x/chaospy) 访问这些数据，甚至可以访问该项目使用的范围 [https://github.com/projectdiscovery/chaos-public-program-list](https://github.com/projectdiscovery/chaos-public-program-list)
+该项目提供 **与漏洞悬赏计划相关的所有子域名** 的免费访问。您也可以使用 [chaospy](https://github.com/dr-0x0x/chaospy) 访问这些数据，甚至可以访问该项目使用的范围 [https://github.com/projectdiscovery/chaos-public-program-list](https://github.com/projectdiscovery/chaos-public-program-list)
 
 您可以在这里找到许多这些工具的 **比较**: [https://blog.blacklanternsecurity.com/p/subdomain-enumeration-tool-face-off](https://blog.blacklanternsecurity.com/p/subdomain-enumeration-tool-face-off)
 
@@ -374,7 +374,7 @@ gobuster dns -d mysite.com -t 50 -w subdomains.txt
 ```
 shuffledns -d example.com -list example-subdomains.txt -r resolvers.txt
 ```
-* [**puredns**](https://github.com/d3mondev/puredns)：它也使用 `massdns`。
+* [**puredns**](https://github.com/d3mondev/puredns): 它也使用 `massdns`。
 ```
 puredns bruteforce all.txt domain.com
 ```
@@ -399,7 +399,7 @@ goaltdns -l subdomains.txt -w /tmp/words-permutations.txt -o /tmp/final-words-s3
 ```
 gotator -sub subdomains.txt -silent [-perm /tmp/words-permutations.txt]
 ```
-* [**altdns**](https://github.com/infosec-au/altdns)：除了生成子域名排列外，它还可以尝试解析它们（但最好使用之前提到的工具）。
+* [**altdns**](https://github.com/infosec-au/altdns): 除了生成子域名排列，它还可以尝试解析它们（但最好使用之前提到的工具）。
 * 你可以在 [**这里**](https://github.com/infosec-au/altdns/blob/master/words.txt) 获取 altdns 排列的 **wordlist**。
 ```
 altdns -i subdomains.txt -w /tmp/words-permutations.txt -o /tmp/asd3
@@ -410,17 +410,17 @@ altdns -i subdomains.txt -w /tmp/words-permutations.txt -o /tmp/asd3
 cat subdomains.txt | dmut -d /tmp/words-permutations.txt -w 100 \
 --dns-errorLimit 10 --use-pb --verbose -s /tmp/resolvers-trusted.txt
 ```
-* [**alterx**](https://github.com/projectdiscovery/alterx)**:** 基于域名，它 **生成新的潜在子域名**，根据指示的模式尝试发现更多子域名。
+* [**alterx**](https://github.com/projectdiscovery/alterx)**:** 基于域名，它**生成新的潜在子域名**，根据指示的模式尝试发现更多子域名。
 
 #### 智能排列生成
 
-* [**regulator**](https://github.com/cramppet/regulator): 更多信息请阅读这篇 [**文章**](https://cramppet.github.io/regulator/index.html)，但它基本上会从 **发现的子域名** 中提取 **主要部分** 并进行混合，以找到更多子域名。
+* [**regulator**](https://github.com/cramppet/regulator): 更多信息请阅读这篇[**文章**](https://cramppet.github.io/regulator/index.html)，但它基本上会从**发现的子域名**中提取**主要部分**并进行混合，以找到更多子域名。
 ```bash
 python3 main.py adobe.com adobe adobe.rules
 make_brute_list.sh adobe.rules adobe.brute
 puredns resolve adobe.brute --write adobe.valid
 ```
-* [**subzuf**](https://github.com/elceef/subzuf)**:** _subzuf_ 是一个子域名暴力破解模糊器，结合了一个极其简单但有效的 DNS 响应引导算法。它利用提供的一组输入数据，如定制的单词列表或历史 DNS/TLS 记录，准确合成更多相应的域名，并根据在 DNS 扫描过程中收集的信息进一步扩展它们。
+* [**subzuf**](https://github.com/elceef/subzuf)**:** _subzuf_ 是一个子域名暴力破解模糊器，结合了一个极其简单但有效的 DNS 响应引导算法。它利用提供的一组输入数据，如定制的词汇表或历史 DNS/TLS 记录，准确合成更多相应的域名，并根据在 DNS 扫描过程中收集的信息进一步扩展它们。
 ```
 echo www | subzuf facebook.com
 ```
@@ -462,54 +462,54 @@ VHostScan -t example.com
 
 ### **CORS 暴力破解**
 
-有时您会发现页面仅在有效的域/子域设置在 _**Origin**_ 头时返回头部 _**Access-Control-Allow-Origin**_。在这些情况下，您可以利用这种行为来 **发现** 新的 **子域**。
+有时您会发现页面仅在 _**Origin**_ 头中设置有效的域/子域时返回头部 _**Access-Control-Allow-Origin**_。在这些情况下，您可以利用这种行为来 **发现** 新的 **子域**。
 ```bash
 ffuf -w subdomains-top1million-5000.txt -u http://10.10.10.208 -H 'Origin: http://FUZZ.crossfit.htb' -mr "Access-Control-Allow-Origin" -ignore-body
 ```
 ### **Buckets Brute Force**
 
 在寻找 **subdomains** 时，注意是否指向任何类型的 **bucket**，在这种情况下 [**检查权限**](../../network-services-pentesting/pentesting-web/buckets/)**.**\
-此外，由于此时您将知道所有在范围内的域名，请尝试 [**暴力破解可能的 bucket 名称并检查权限**](../../network-services-pentesting/pentesting-web/buckets/)。
+此外，既然你已经知道了所有在范围内的域名，尝试 [**暴力破解可能的 bucket 名称并检查权限**](../../network-services-pentesting/pentesting-web/buckets/)。
 
 ### **Monitorization**
 
-您可以通过监控 **Certificate Transparency** 日志来 **监控** 是否创建了域的新 **subdomains**，[**sublert**](https://github.com/yassineaboukir/sublert/blob/master/sublert.py) 可以做到这一点。
+你可以通过监控 **证书透明度** 日志来 **监控** 是否创建了域的 **新子域**，[**sublert**](https://github.com/yassineaboukir/sublert/blob/master/sublert.py) 可以做到这一点。
 
 ### **Looking for vulnerabilities**
 
-检查可能的 [**subdomain 接管**](../../pentesting-web/domain-subdomain-takeover.md#subdomain-takeover)。\
+检查可能的 [**subdomain takeovers**](../../pentesting-web/domain-subdomain-takeover.md#subdomain-takeover)。\
 如果 **subdomain** 指向某个 **S3 bucket**，[**检查权限**](../../network-services-pentesting/pentesting-web/buckets/)。
 
-如果您发现任何 **subdomain 的 IP 与您在资产发现中找到的不同**，您应该执行 **基本漏洞扫描**（使用 Nessus 或 OpenVAS）和一些 [**端口扫描**](../pentesting-network/#discovering-hosts-from-the-outside) 使用 **nmap/masscan/shodan**。根据运行的服务，您可以在 **本书中找到一些“攻击”它们的技巧**。\
-_请注意，有时 subdomain 托管在不受客户控制的 IP 内，因此不在范围内，请小心。_
+如果你发现任何 **子域的 IP 与你在资产发现中找到的不同**，你应该进行 **基本漏洞扫描**（使用 Nessus 或 OpenVAS）和一些 [**端口扫描**](../pentesting-network/#discovering-hosts-from-the-outside) 使用 **nmap/masscan/shodan**。根据运行的服务，你可以在 **这本书中找到一些“攻击”它们的技巧**。\
+_请注意，有时子域托管在不受客户控制的 IP 内，因此不在范围内，请小心。_
 
 ## IPs
 
-在初始步骤中，您可能已经 **找到了一些 IP 范围、域和 subdomains**。\
-现在是 **收集这些范围内的所有 IP** 和 **域/subdomains（DNS 查询）**的时候。
+在初始步骤中，你可能已经 **找到了一些 IP 范围、域名和子域名**。\
+现在是 **收集这些范围内的所有 IP** 和 **域名/子域名（DNS 查询）**的时候了。
 
-使用以下 **免费 API** 的服务，您还可以找到 **域和 subdomains 之前使用的 IP**。这些 IP 可能仍然归客户所有（并可能让您找到 [**CloudFlare 绕过**](../../network-services-pentesting/pentesting-web/uncovering-cloudflare.md)）
+使用以下 **免费 API** 的服务，你还可以找到 **域名和子域名之前使用的 IP**。这些 IP 可能仍然归客户所有（并可能让你找到 [**CloudFlare 绕过**](../../network-services-pentesting/pentesting-web/uncovering-cloudflare.md)）
 
 * [**https://securitytrails.com/**](https://securitytrails.com/)
 
-您还可以使用工具 [**hakip2host**](https://github.com/hakluke/hakip2host) 检查指向特定 IP 地址的域。
+你还可以使用工具 [**hakip2host**](https://github.com/hakluke/hakip2host) 检查指向特定 IP 地址的域名。
 
 ### **Looking for vulnerabilities**
 
-**对所有不属于 CDN 的 IP 进行端口扫描**（因为您很可能不会在其中找到任何有趣的东西）。在发现的运行服务中，您可能 **能够找到漏洞**。
+**对所有不属于 CDN 的 IP 进行端口扫描**（因为你很可能不会在这里找到任何有趣的东西）。在发现的运行服务中，你可能 **能够找到漏洞**。
 
 **查找一个** [**指南**](../pentesting-network/) **关于如何扫描主机。**
 
 ## Web servers hunting
 
-> 我们已经找到了所有公司及其资产，并且知道范围内的 IP 范围、域和 subdomains。现在是搜索 Web 服务器的时候了。
+> 我们已经找到了所有公司及其资产，并且知道范围内的 IP 范围、域名和子域名。现在是搜索 Web 服务器的时候了。
 
-在之前的步骤中，您可能已经对发现的 **IPs 和域进行了某些侦察**，因此您可能 **已经找到了所有可能的 Web 服务器**。但是，如果您还没有，我们现在将看到一些 **快速技巧来搜索范围内的 Web 服务器**。
+在之前的步骤中，你可能已经对发现的 **IP 和域名进行了某些侦察**，因此你可能 **已经找到了所有可能的 Web 服务器**。然而，如果你还没有，我们现在将看到一些 **快速技巧来搜索范围内的 Web 服务器**。
 
-请注意，这将是 **面向 Web 应用程序发现**，因此您还应该 **执行漏洞** 和 **端口扫描**（如果范围允许）。
+请注意，这将是 **面向 Web 应用程序发现**，因此你也应该 **进行漏洞** 和 **端口扫描**（**如果范围允许**）。
 
-一种 **快速方法** 是使用 [**masscan** 在此处发现与 **web** 服务器相关的 **开放端口**](../pentesting-network/#http-port-discovery)。\
-另一个友好的工具来查找 Web 服务器是 [**httprobe**](https://github.com/tomnomnom/httprobe)**,** [**fprobe**](https://github.com/theblackturtle/fprobe) 和 [**httpx**](https://github.com/projectdiscovery/httpx)。您只需传递一个域名列表，它将尝试连接到 80（http）和 443（https）端口。此外，您可以指示尝试其他端口：
+一种 **快速方法** 是使用 [**masscan** 在这里发现与 **web** 服务器相关的 **开放端口**](../pentesting-network/#http-port-discovery)。\
+另一个友好的工具来查找 Web 服务器是 [**httprobe**](https://github.com/tomnomnom/httprobe)**,** [**fprobe**](https://github.com/theblackturtle/fprobe) 和 [**httpx**](https://github.com/projectdiscovery/httpx)。你只需传递一个域名列表，它将尝试连接到 80（http）和 443（https）端口。此外，你可以指示尝试其他端口：
 ```bash
 cat /tmp/domains.txt | httprobe #Test all domains inside the file for port 80 and 443
 cat /tmp/domains.txt | httprobe -p http:8080 -p https:8443 #Check port 80, 443 and 8080 and 8443
@@ -526,7 +526,7 @@ cat /tmp/domains.txt | httprobe -p http:8080 -p https:8443 #Check port 80, 443 a
 
 为了找到属于公司的潜在云资产，您应该**从一份识别该公司的关键词列表开始**。例如，对于一家加密公司，您可以使用以下词汇：“`"crypto", "wallet", "dao", "<domain_name>", <"subdomain_names">`”。
 
-您还需要**常用词汇**的字典，用于存储桶：
+您还需要**常用词汇的字典**，用于存储桶：
 
 * [https://raw.githubusercontent.com/cujanovic/goaltdns/master/words.txt](https://raw.githubusercontent.com/cujanovic/goaltdns/master/words.txt)
 * [https://raw.githubusercontent.com/infosec-au/altdns/master/words.txt](https://raw.githubusercontent.com/infosec-au/altdns/master/words.txt)
@@ -587,12 +587,12 @@ cat /tmp/domains.txt | httprobe -p http:8080 -p https:8443 #Check port 80, 443 a
 
 ### Paste泄露
 
-有时攻击者或仅仅是员工会在**粘贴网站**上**发布公司内容**。这可能包含或不包含**敏感信息**，但搜索它非常有趣。\
+有时攻击者或只是员工会在**粘贴网站**上**发布公司内容**。这可能包含或不包含**敏感信息**，但搜索它非常有趣。\
 您可以使用工具[**Pastos**](https://github.com/carlospolop/Pastos)同时在80多个粘贴网站上进行搜索。
 
 ### Google Dorks
 
-老而金的Google dorks始终对查找**不应存在的暴露信息**非常有用。唯一的问题是[**google-hacking-database**](https://www.exploit-db.com/google-hacking-database)包含数千个您无法手动运行的可能查询。因此，您可以选择您最喜欢的10个，或者使用**工具，如**[**Gorks**](https://github.com/carlospolop/Gorks)**来运行它们。**
+老而金贵的google dorks始终对查找**不应存在的暴露信息**非常有用。唯一的问题是[**google-hacking-database**](https://www.exploit-db.com/google-hacking-database)包含数千个您无法手动运行的可能查询。因此，您可以选择您最喜欢的10个，或者使用**工具，如**[**Gorks**](https://github.com/carlospolop/Gorks)**来运行它们。**
 
 _请注意，期望使用常规Google浏览器运行所有数据库的工具将永远无法完成，因为Google会很快阻止您。_
 
@@ -616,7 +616,7 @@ _请注意，期望使用常规Google浏览器运行所有数据库的工具将�
 
 ## [**网络渗透测试方法**](../../network-services-pentesting/pentesting-web/)
 
-**大多数漏洞**由漏洞猎人发现，存在于**网络应用程序**中，因此在这一点上，我想谈谈**网络应用程序测试方法**，您可以在[**这里找到此信息**](../../network-services-pentesting/pentesting-web/)。
+**大多数漏洞**都是由漏洞猎人发现的，存在于**网络应用程序**中，因此在这一点上，我想谈谈**网络应用程序测试方法**，您可以[**在这里找到此信息**](../../network-services-pentesting/pentesting-web/)。
 
 我还想特别提到[**Web自动扫描器开源工具**](../../network-services-pentesting/pentesting-web/#automatic-scanners)部分，因为如果您不应该期望它们找到非常敏感的漏洞，但它们在**工作流程中实现一些初步网络信息**时非常有用。
 
@@ -626,14 +626,14 @@ _请注意，期望使用常规Google浏览器运行所有数据库的工具将�
 
 所以您已经：
 
-1. 找到范围内的所有**公司**
-2. 找到属于公司的所有**资产**（并在范围内进行一些漏洞扫描）
-3. 找到属于公司的所有**域名**
-4. 找到所有域名的**子域名**（是否有子域名接管？）
-5. 找到范围内的所有**IP**（来自和**不来自CDN**的IP）。
-6. 找到所有**网络服务器**并对其进行了**截图**（是否有任何奇怪的地方值得深入研究？）
-7. 找到属于公司的所有**潜在公共云资产**。
-8. **电子邮件**、**凭证泄露**和**秘密泄露**，这些可能会让您**轻松获得重大胜利**。
+1. 找到了范围内的**所有公司**
+2. 找到了属于公司的**所有资产**（并在范围内进行了一些漏洞扫描）
+3. 找到了属于公司的**所有域名**
+4. 找到了域名的**所有子域名**（是否有子域名接管？）
+5. 找到了范围内的**所有IP**（来自和**不来自CDN**的IP）。
+6. 找到了**所有网络服务器**并对它们进行了**截图**（是否有任何奇怪的地方值得深入研究？）
+7. 找到了属于公司的**所有潜在公共云资产**。
+8. **电子邮件**、**凭证泄露**和**秘密泄露**，这可能会让您**轻松获得重大胜利**。
 9. **渗透测试您找到的所有网站**
 
 ## **全面侦查自动工具**
@@ -647,17 +647,17 @@ _请注意，期望使用常规Google浏览器运行所有数据库的工具将�
 
 ## **参考文献**
 
-* 所有免费的[**@Jhaddix**](https://twitter.com/Jhaddix)课程，如[**漏洞猎人的方法论v4.0 - 侦查版**](https://www.youtube.com/watch?v=p4JgIu1mceI)
+* 所有免费的[**@Jhaddix**](https://twitter.com/Jhaddix)课程，如[**Bug Hunter's Methodology v4.0 - Recon Edition**](https://www.youtube.com/watch?v=p4JgIu1mceI)
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-如果您对**黑客职业**和破解不可破解的东西感兴趣 - **我们正在招聘！**（_需要流利的波兰语书写和口语能力_）。
+如果您对**黑客职业**和破解不可破解的东西感兴趣 - **我们正在招聘！**（_要求流利的波兰语书写和口语_）。
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
 {% hint style="success" %}
-学习和实践AWS黑客攻击：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks培训AWS红队专家（ARTE）**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
-学习和实践GCP黑客攻击：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks培训GCP红队专家（GRTE）**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践AWS黑客攻击：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践GCP黑客攻击：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -665,7 +665,7 @@ _请注意，期望使用常规Google浏览器运行所有数据库的工具将�
 
 * 查看[**订阅计划**](https://github.com/sponsors/carlospolop)!
 * **加入**💬 [**Discord小组**](https://discord.gg/hRep4RUj7f)或[**电报小组**](https://t.me/peass)或**在Twitter上关注**我们🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向**[**HackTricks**](https://github.com/carlospolop/hacktricks)和[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)的github仓库提交PR来分享黑客技巧。
+* **通过向**[**HackTricks**](https://github.com/carlospolop/hacktricks)和[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github仓库提交PR来分享黑客技巧。
 
 </details>
 {% endhint %}

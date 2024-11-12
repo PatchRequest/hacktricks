@@ -1,21 +1,21 @@
 # Antivirus (AV) Bypass
 
 {% hint style="success" %}
-学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习和实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** 上关注我们。**
 * **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 如果你对 **黑客职业** 感兴趣并想要攻克不可攻克的目标 - **我们正在招聘！** (_需要流利的波兰语书写和口语能力_).
 
@@ -29,7 +29,7 @@
 
 ### **静态检测**
 
-静态检测是通过标记已知的恶意字符串或字节数组在二进制文件或脚本中实现的，同时还提取文件本身的信息（例如文件描述、公司名称、数字签名、图标、校验和等）。这意味着使用已知的公共工具可能更容易被捕获，因为它们可能已经被分析并标记为恶意。有几种方法可以绕过这种检测：
+静态检测是通过标记已知的恶意字符串或字节数组在二进制文件或脚本中实现的，同时也提取文件本身的信息（例如文件描述、公司名称、数字签名、图标、校验和等）。这意味着使用已知的公共工具可能更容易被捕获，因为它们可能已经被分析并标记为恶意。有几种方法可以绕过这种检测：
 
 * **加密**
 
@@ -55,11 +55,11 @@
 
 * **执行前休眠** 根据实现方式，这可能是绕过 AV 动态分析的好方法。AV 扫描文件的时间非常短，以免打断用户的工作流程，因此使用长时间的休眠可以干扰二进制文件的分析。问题是许多 AV 的沙箱可以根据实现方式跳过休眠。
 * **检查机器资源** 通常沙箱可用的资源非常少（例如 < 2GB RAM），否则它们可能会减慢用户的机器。你也可以在这里发挥创造力，例如检查 CPU 的温度或风扇速度，并不是所有内容都会在沙箱中实现。
-* **特定机器检查** 如果你想针对加入“contoso.local”域的用户的工作站，你可以检查计算机的域以查看是否与指定的域匹配，如果不匹配，你可以让程序退出。
+* **特定机器检查** 如果你想针对加入 "contoso.local" 域的用户工作站，可以检查计算机的域以查看是否与指定的域匹配，如果不匹配，可以让你的程序退出。
 
-事实证明，Microsoft Defender 的沙箱计算机名是 HAL9TH，因此，你可以在恶意软件引爆前检查计算机名，如果名称匹配 HAL9TH，则意味着你在 Defender 的沙箱中，因此可以让程序退出。
+事实证明，Microsoft Defender 的沙箱计算机名是 HAL9TH，因此，你可以在恶意软件引爆前检查计算机名，如果名称匹配 HAL9TH，则意味着你在 Defender 的沙箱中，因此可以让你的程序退出。
 
-<figure><img src="../.gitbook/assets/image (209).png" alt=""><figcaption><p>来源: <a href="https://youtu.be/StSLxFbVz0M?t=1439">https://youtu.be/StSLxFbVz0M?t=1439</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (209).png" alt=""><figcaption><p>来源： <a href="https://youtu.be/StSLxFbVz0M?t=1439">https://youtu.be/StSLxFbVz0M?t=1439</a></p></figcaption></figure>
 
 一些来自 [@mgeeky](https://twitter.com/mariuszbit) 的非常好的建议，用于对抗沙箱
 
@@ -69,7 +69,7 @@
 
 例如，如果你想转储 LSASS，**你真的需要使用 mimikatz 吗**？或者你可以使用一个不太知名的项目来转储 LSASS。
 
-正确的答案可能是后者。以 mimikatz 为例，它可能是被 AV 和 EDR 标记的恶意软件中最被标记的之一，尽管该项目本身非常酷，但在绕过 AV 时与之合作也是一场噩梦，因此只需寻找替代方案来实现你的目标。
+正确的答案可能是后者。以 mimikatz 为例，它可能是被 AV 和 EDR 标记的恶意软件中最被标记的之一，尽管该项目本身非常酷，但在绕过 AV 时使用它也是一场噩梦，因此只需寻找你想要实现的目标的替代方案。
 
 {% hint style="info" %}
 在修改你的有效载荷以进行规避时，请确保 **关闭 Defender 的自动样本提交**，并且请认真考虑，**如果你的目标是长期规避，请不要上传到 VIRUSTOTAL**。如果你想检查你的有效载荷是否被特定 AV 检测到，请在虚拟机上安装它，尝试关闭自动样本提交，并在那里进行测试，直到你对结果满意为止。
@@ -162,13 +162,13 @@ Git clone the Freeze repo and build it (git clone https://github.com/optiv/Freez
 
 ## AMSI（反恶意软件扫描接口）
 
-AMSI的创建是为了防止“[无文件恶意软件](https://en.wikipedia.org/wiki/Fileless\_malware)”。最初，AV只能扫描**磁盘上的文件**，因此如果你能够以某种方式**直接在内存中执行有效载荷**，AV就无能为力，因为它没有足够的可见性。
+AMSI的创建是为了防止“[无文件恶意软件](https://en.wikipedia.org/wiki/Fileless\_malware)”。最初，AV只能扫描**磁盘上的文件**，因此如果你能够以某种方式**直接在内存中执行有效载荷**，AV就无法采取任何措施来阻止它，因为它没有足够的可见性。
 
 AMSI功能集成在Windows的以下组件中。
 
-* 用户帐户控制，或UAC（EXE、COM、MSI或ActiveX安装的提升）
+* 用户帐户控制，或UAC（提升EXE、COM、MSI或ActiveX安装）
 * PowerShell（脚本、交互使用和动态代码评估）
-* Windows脚本宿主（wscript.exe和cscript.exe）
+* Windows脚本主机（wscript.exe和cscript.exe）
 * JavaScript和VBScript
 * Office VBA宏
 
@@ -178,7 +178,7 @@ AMSI功能集成在Windows的以下组件中。
 
 <figure><img src="../.gitbook/assets/image (1135).png" alt=""><figcaption></figcaption></figure>
 
-注意它如何在前面加上 `amsi:`，然后是脚本运行的可执行文件的路径，在这种情况下是powershell.exe。
+注意它是如何在前面加上 `amsi:` 然后是脚本运行的可执行文件的路径，在这种情况下是powershell.exe。
 
 我们没有将任何文件写入磁盘，但仍然因为AMSI在内存中被捕获。
 
@@ -188,7 +188,7 @@ AMSI功能集成在Windows的以下组件中。
 
 由于AMSI主要依赖静态检测，因此修改你尝试加载的脚本可能是规避检测的好方法。
 
-然而，AMSI有能力解混淆脚本，即使它有多层，因此混淆可能是一个糟糕的选择，具体取决于其实现方式。这使得规避变得不那么简单。尽管有时，你所需要做的只是更改几个变量名称，你就可以成功，因此这取决于某个东西被标记的程度。
+然而，AMSI有能力解混淆脚本，即使它有多层，因此混淆可能是一个糟糕的选择，具体取决于其实现方式。这使得规避变得不那么简单。尽管有时，你所需要做的只是更改几个变量名称，你就可以成功，因此这取决于某个内容被标记的程度。
 
 * **AMSI绕过**
 
@@ -224,7 +224,7 @@ $Spotfix.SetValue($null,$true)
 
 **内存补丁**
 
-该技术最初由 [@RastaMouse](https://twitter.com/\_RastaMouse/) 发现，涉及在 amsi.dll 中找到 "AmsiScanBuffer" 函数的地址（负责扫描用户提供的输入），并用返回 E\_INVALIDARG 代码的指令覆盖它，这样，实际扫描的结果将返回 0，这被解释为干净的结果。
+该技术最初是由 [@RastaMouse](https://twitter.com/\_RastaMouse/) 发现的，它涉及在 amsi.dll 中找到 "AmsiScanBuffer" 函数的地址（负责扫描用户提供的输入），并用返回 E\_INVALIDARG 代码的指令覆盖它，这样，实际扫描的结果将返回 0，这被解释为干净的结果。
 
 {% hint style="info" %}
 请阅读 [https://rastamouse.me/memory-patching-amsi-bypass/](https://rastamouse.me/memory-patching-amsi-bypass/) 以获取更详细的解释。
@@ -258,7 +258,7 @@ Microsoft Defender SmartScreen 是一种安全机制，旨在保护最终用户�
 
 SmartScreen 主要采用基于声誉的方法，这意味着不常下载的应用程序将触发 SmartScreen，从而警告并阻止最终用户执行该文件（尽管可以通过点击更多信息 -> 无论如何运行来执行该文件）。
 
-**MoTW**（网络标记）是一个 [NTFS 备用数据流](https://en.wikipedia.org/wiki/NTFS#Alternate\_data\_stream\_\(ADS\))，其名称为 Zone.Identifier，下载来自互联网的文件时会自动创建，并附带下载的 URL。
+**MoTW**（网络标记）是一个 [NTFS 备用数据流](https://en.wikipedia.org/wiki/NTFS#Alternate\_data\_stream\_\(ADS\))，其名称为 Zone.Identifier，下载来自互联网的文件时会自动创建，并包含下载的 URL。
 
 <figure><img src="../.gitbook/assets/image (237).png" alt=""><figcaption><p>检查从互联网下载的文件的 Zone.Identifier ADS。</p></figcaption></figure>
 
@@ -308,13 +308,13 @@ Adding file: /TotallyLegitApp.exe
 
 * **Fork\&Run**
 
-这涉及到 **生成一个新的牺牲进程**，将你的后渗透恶意代码注入到那个新进程中，执行你的恶意代码，完成后杀死新进程。这有其优点和缺点。Fork 和 run 方法的好处在于执行发生在 **我们的 Beacon 植入进程之外**。这意味着如果我们的后渗透操作中的某些事情出错或被捕获，我们的 **植入物存活的机会会更大**。缺点是你有 **更大的机会** 被 **行为检测** 捕获。
+这涉及到 **生成一个新的牺牲进程**，将你的后渗透恶意代码注入到该新进程中，执行你的恶意代码，完成后杀死新进程。这有其优点和缺点。Fork 和 run 方法的好处在于执行发生在 **我们的 Beacon 植入进程之外**。这意味着如果我们的后渗透操作中的某些事情出错或被捕获，我们的 **植入物存活的机会更大**。缺点是你有 **更大的机会** 被 **行为检测** 捕获。
 
 <figure><img src="../.gitbook/assets/image (215).png" alt=""><figcaption></figcaption></figure>
 
 * **Inline**
 
-这涉及将后渗透恶意代码 **注入到其自身进程中**。这样，你可以避免创建新进程并让其被 AV 扫描，但缺点是如果你的有效负载执行出现问题，**失去你的 beacon 的机会会更大**，因为它可能会崩溃。
+这是将后渗透恶意代码 **注入到其自身进程中**。这样，你可以避免创建新进程并让其被 AV 扫描，但缺点是如果你的有效负载执行出现问题，**失去你的 beacon 的机会更大**，因为它可能崩溃。
 
 <figure><img src="../.gitbook/assets/image (1136).png" alt=""><figcaption></figcaption></figure>
 
@@ -330,7 +330,7 @@ Adding file: /TotallyLegitApp.exe
 
 通过允许访问 SMB 共享上的解释器二进制文件和环境，你可以 **在被攻陷机器的内存中执行这些语言的任意代码**。
 
-该仓库指出：Defender 仍然会扫描脚本，但通过利用 Go、Java、PHP 等，我们有 **更多的灵活性来绕过静态签名**。使用这些语言中的随机未混淆反向 shell 脚本进行测试已证明成功。
+该仓库指出：Defender 仍然会扫描脚本，但通过利用 Go、Java、PHP 等，我们有 **更多灵活性来绕过静态签名**。使用这些语言中的随机未混淆反向 shell 脚本进行测试已证明成功。
 
 ## 高级规避
 
@@ -338,11 +338,11 @@ Adding file: /TotallyLegitApp.exe
 
 你所面对的每个环境都有其自身的优缺点。
 
-我强烈建议你观看 [@ATTL4S](https://twitter.com/DaniLJ94) 的这场演讲，以了解更多高级规避技术。
+我强烈建议你观看 [@ATTL4S](https://twitter.com/DaniLJ94) 的这次演讲，以了解更多高级规避技术。
 
 {% embed url="https://vimeo.com/502507556?embedded=true&owner=32913914&source=vimeo_logo" %}
 
-这也是 [@mariuszbit](https://twitter.com/mariuszbit) 关于深入规避的另一场精彩演讲。
+这也是 [@mariuszbit](https://twitter.com/mariuszbit) 关于深入规避的另一个精彩演讲。
 
 {% embed url="https://www.youtube.com/watch?v=IbA7Ung39o4" %}
 
@@ -351,7 +351,7 @@ Adding file: /TotallyLegitApp.exe
 ### **检查 Defender 发现的恶意部分**
 
 你可以使用 [**ThreatCheck**](https://github.com/rasta-mouse/ThreatCheck)，它将 **删除二进制文件的部分**，直到 **找出 Defender** 发现的恶意部分并将其分离给你。\
-另一个做 **同样事情的工具是** [**avred**](https://github.com/dobin/avred)，它提供了一个开放的网络服务，地址是 [**https://avred.r00ted.ch/**](https://avred.r00ted.ch/)
+另一个做 **同样事情的工具是** [**avred**](https://github.com/dobin/avred)，它在 [**https://avred.r00ted.ch/**](https://avred.r00ted.ch/) 提供开放的网络服务。
 
 ### **Telnet 服务器**
 
@@ -370,7 +370,7 @@ netsh advfirewall set allprofiles state off
 ```
 ### UltraVNC
 
-从以下链接下载: [http://www.uvnc.com/downloads/ultravnc.html](http://www.uvnc.com/downloads/ultravnc.html)（你需要的是二进制下载，而不是安装程序）
+从这里下载: [http://www.uvnc.com/downloads/ultravnc.html](http://www.uvnc.com/downloads/ultravnc.html)（你需要的是二进制下载，而不是安装程序）
 
 **在主机上**: 执行 _**winvnc.exe**_ 并配置服务器:
 
@@ -387,12 +387,12 @@ netsh advfirewall set allprofiles state off
 **警告:** 为了保持隐蔽性，你必须避免以下几件事
 
 * 如果 `winvnc` 已经在运行，不要再次启动它，否则会触发 [弹出窗口](https://i.imgur.com/1SROTTl.png)。使用 `tasklist | findstr winvnc` 检查它是否在运行
-* 如果没有 `UltraVNC.ini` 在同一目录中，不要启动 `winvnc`，否则会导致 [配置窗口](https://i.imgur.com/rfMQWcf.png) 打开
+* 如果同一目录中没有 `UltraVNC.ini`，不要启动 `winvnc`，否则会导致 [配置窗口](https://i.imgur.com/rfMQWcf.png) 打开
 * 不要运行 `winvnc -h` 获取帮助，否则会触发 [弹出窗口](https://i.imgur.com/oc18wcu.png)
 
 ### GreatSCT
 
-从以下链接下载: [https://github.com/GreatSCT/GreatSCT](https://github.com/GreatSCT/GreatSCT)
+从这里下载: [https://github.com/GreatSCT/GreatSCT](https://github.com/GreatSCT/GreatSCT)
 ```
 git clone https://github.com/GreatSCT/GreatSCT.git
 cd GreatSCT/setup/
@@ -400,7 +400,7 @@ cd GreatSCT/setup/
 cd ..
 ./GreatSCT.py
 ```
-Inside GreatSCT:
+在 GreatSCT 内部：
 ```
 use 1
 list #Listing available payloads
@@ -565,23 +565,23 @@ https://github.com/praetorian-code/vulcan
 
 * [https://github.com/persianhydra/Xeexe-TopAntivirusEvasion](https://github.com/persianhydra/Xeexe-TopAntivirusEvasion)
 
-<figure><img src="/.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-如果你对**黑客职业**感兴趣并想要攻克不可攻克的目标 - **我们正在招聘！**（_需要流利的波兰语书写和口语能力_）。
+如果你对**黑客职业**感兴趣并想要攻克不可攻克的目标 - **我们正在招聘！**（_要求流利的波兰语书写和口语_）。
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习与实践 AWS 黑客技术：<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习与实践 GCP 黑客技术：<img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 **上关注我们** [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 来分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**上关注我们。**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}
