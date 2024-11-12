@@ -94,7 +94,7 @@ Boonop is dit moontlik om baie `Security.framework` API's te toets met die sekur
 
 Dit sal `/usr/libexec/security_authtrampoline /bin/ls` as root fork en exec, wat toestemming sal vra in 'n prompt om ls as root uit te voer:
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\

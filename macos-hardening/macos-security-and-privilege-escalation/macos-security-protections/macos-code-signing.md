@@ -17,9 +17,9 @@ Leer & oefen GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" da
 
 ## Basic Information
 
-Mach-o binêre bevat 'n laaiopdrag genaamd **`LC_CODE_SIGNATURE`** wat die **offset** en **grootte** van die handtekeninge binne die binêre aandui. Trouens, deur die GUI-gereedskap MachOView te gebruik, is dit moontlik om aan die einde van die binêre 'n afdeling genaamd **Code Signature** met hierdie inligting te vind:
+Mach-o binaire bevat 'n laaiopdrag genaamd **`LC_CODE_SIGNATURE`** wat die **offset** en **grootte** van die handtekeninge binne die binaire aandui. Trouens, deur die GUI-gereedskap MachOView te gebruik, is dit moontlik om aan die einde van die binaire 'n afdeling genaamd **Code Signature** met hierdie inligting te vind:
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 Die magiese kop van die Code Signature is **`0xFADE0CC0`**. Dan het jy inligting soos die lengte en die aantal blobs van die superBlob wat hulle bevat.\
 Dit is moontlik om hierdie inligting in die [bronkode hier](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276) te vind:
@@ -114,12 +114,12 @@ char end_withLinkage[0];
 } CS_CodeDirectory
 __attribute__ ((aligned(1)));
 ```
-Let daarop dat daar verskillende weergawes van hierdie struktuur is waar oues minder inligting mag bevat.
+Let daarop dat daar verskillende weergawes van hierdie struktuur is waar oues dalk minder inligting bevat.
 
 ## Ondertekening van Kode Bladsye
 
 Hashing van die volle binêre sou ondoeltreffend en selfs nutteloos wees as dit net gedeeltelik in geheue gelaai word. Daarom is die kodehandtekening eintlik 'n hash van hashes waar elke binêre bladsy individueel gehasht word.\
-Eintlik kan jy in die vorige **Kode Gids** kode sien dat die **bladsygrootte gespesifiseer is** in een van sy velde. Boonop, as die grootte van die binêre nie 'n veelvoud van die grootte van 'n bladsy is nie, spesifiseer die veld **CodeLimit** waar die einde van die handtekening is.
+Eintlik kan jy in die vorige **Kode Gids** kode sien dat die **bladgrootte gespesifiseer is** in een van sy velde. Boonop, as die grootte van die binêre nie 'n veelvoud van die grootte van 'n bladsy is nie, spesifiseer die veld **CodeLimit** waar die einde van die handtekening is.
 ```bash
 # Get all hashes of /bin/ps
 codesign -d -vvvvvv /bin/ps
@@ -157,11 +157,11 @@ openssl sha256 /tmp/*.page.*
 ```
 ## Entitlements Blob
 
-Let op dat toepassings ook 'n **entitlement blob** kan bevat waar al die regte gedefinieer is. Boonop kan sommige iOS-binaries hul regte spesifiek in die spesiale slot -7 hê (in plaas van in die -5 regte spesiale slot).
+Let daarop dat toepassings ook 'n **entitlement blob** kan bevat waar al die regte gedefinieer is. Boonop kan sommige iOS-binaries hul regte spesifiek in die spesiale slot -7 hê (in plaas van in die -5 regte spesiale slot).
 
 ## Special Slots
 
-MacOS-toepassings het nie alles wat hulle nodig het om binne die binêre uit te voer nie, maar hulle gebruik ook **buitelandse hulpbronne** (gewoonlik binne die toepassings **bundle**). Daarom is daar 'n paar slots binne die binêre wat die hashes van 'n paar interessante buitelandse hulpbronne sal bevat om te kontroleer dat hulle nie gewysig is nie.
+MacOS-toepassings het nie alles wat hulle nodig het om binne die binêre uit te voer nie, maar hulle gebruik ook **eksterne hulpbronne** (gewoonlik binne die toepassings **bundle**). Daarom is daar 'n paar slots binne die binêre wat die hashes van 'n paar interessante eksterne hulpbronne sal bevat om te kontroleer dat hulle nie gewysig is nie.
 
 Werklik, dit is moontlik om in die Code Directory strukture 'n parameter genaamd **`nSpecialSlots`** te sien wat die aantal spesiale slots aandui. Daar is nie 'n spesiale slot 0 nie en die mees algemene (van -1 tot -6) is:
 
@@ -175,7 +175,7 @@ Werklik, dit is moontlik om in die Code Directory strukture 'n parameter genaamd
 
 ## Code Signing Flags
 
-Elke proses het 'n bitmasker wat bekend staan as die `status` wat deur die kern begin word en sommige daarvan kan oorgeskryf word deur die **kodehandtekening**. Hierdie vlae wat in die kodehandtekening ingesluit kan word, is [gedefinieer in die kode](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
+Elke proses het 'n bitmasker wat bekend staan as die `status` wat deur die kern gestarte word en sommige daarvan kan oorgeskryf word deur die **kodehandtekening**. Hierdie vlae wat in die kodehandtekening ingesluit kan word, is [gedefinieer in die kode](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
 ```c
 /* code signing attributes of a process */
 #define CS_VALID                    0x00000001  /* dynamically valid */
@@ -226,9 +226,9 @@ Note dat die funksie [**exec\_mach\_imgact**](https://github.com/apple-oss-distr
 
 Elke toepassing stoor **vereistes** wat dit moet **tevrede stel** om uitgevoer te kan word. As die **toepassing vereistes bevat wat nie deur die toepassing tevrede gestel word nie**, sal dit nie uitgevoer word nie (soos dit waarskynlik verander is).
 
-Die vereistes van 'n binêre gebruik 'n **spesiale grammatika** wat 'n stroom van **uitdrukkings** is en word as blobs gekodeer met `0xfade0c00` as die magie waarvan die **hash in 'n spesiale kode-slot gestoor word**.
+Die vereistes van 'n binêre gebruik 'n **spesiale grammatika** wat 'n stroom van **uitdrukkings** is en word as blobs gekodeer met `0xfade0c00` as die magiese wat se **hash in 'n spesiale kode-slot gestoor word**.
 
-Die vereistes van 'n binêre kan gesien word deur te loop: 
+Die vereistes van 'n binêre kan gesien word terwyl dit loop:
 
 {% code overflow="wrap" %}
 ```bash
@@ -246,7 +246,7 @@ designated => identifier "org.whispersystems.signal-desktop" and anchor apple ge
 Let op hoe hierdie handtekeninge dinge soos sertifiseringsinligting, TeamID, ID's, regte en baie ander data kan nagaan.
 {% endhint %}
 
-Boonop is dit moontlik om 'n paar gecompileerde vereistes te genereer met die `csreq` hulpmiddel:
+Boonop is dit moontlik om 'n paar saamgestelde vereistes te genereer met die `csreq` hulpmiddel:
 
 {% code overflow="wrap" %}
 ```bash

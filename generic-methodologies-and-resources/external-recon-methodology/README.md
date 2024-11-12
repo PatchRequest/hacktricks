@@ -15,15 +15,15 @@ Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-As jy belangstel in 'n **hacking loopbaan** en die onhackbare hack - **ons huur aan!** (_vloeiend in geskryf en gesproke Pools vereis_).
+As jy belangstel in 'n **hacking loopbaan** en om die onhackbare te hack - **ons huur aan!** (_vloeiend Pools geskryf en gesproke vereis_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
 ## Bate ontdekkings
 
-> Jy is gesê dat alles wat aan 'n sekere maatskappy behoort binne die omvang is, en jy wil uitvind wat hierdie maatskappy eintlik besit.
+> Jy is gesê dat alles wat aan 'n maatskappy behoort binne die omvang is, en jy wil uitvind wat hierdie maatskappy eintlik besit.
 
 Die doel van hierdie fase is om al die **maatskappye wat deur die hoofmaatskappy besit word** te verkry en dan al die **bates** van hierdie maatskappye. Om dit te doen, gaan ons:
 
@@ -42,10 +42,10 @@ Een opsie is om [https://www.crunchbase.com/](https://www.crunchbase.com) te bes
 
 ### **ASNs**
 
-'n Outonome stelselnommer (**ASN**) is 'n **unieke nommer** wat aan 'n **outonome stelsel** (AS) deur die **Internet Assigned Numbers Authority (IANA)** toegeken word.\
+'n autonome stelselnommer (**ASN**) is 'n **unieke nommer** wat aan 'n **autonome stelsel** (AS) deur die **Internet Assigned Numbers Authority (IANA)** toegeken word.\
 'n **AS** bestaan uit **blokke** van **IP adresse** wat 'n duidelik gedefinieerde beleid het vir toegang tot eksterne netwerke en word deur 'n enkele organisasie bestuur, maar kan uit verskeie operateurs bestaan.
 
-Dit is interessant om te vind of die **maatskappy enige ASN toegeken het** om sy **IP-reekse** te vind. Dit sal interessant wees om 'n **kwesbaarheidstoets** teen al die **gasheer** binne die **omvang** uit te voer en **te soek na domeine** binne hierdie IP's.\
+Dit is interessant om te vind of die **maatskappy enige ASN toegeken het** om sy **IP-reekse** te vind. Dit sal interessant wees om 'n **kwesbaarheidstoets** teen al die **gasheer** binne die **omvang** uit te voer en **te soek na domeine** binne hierdie IPs.\
 Jy kan **soek** volgens maatskappy **naam**, volgens **IP** of volgens **domein** in [**https://bgp.he.net/**](https://bgp.he.net)**.**\
 **Afhangende van die streek van die maatskappy kan hierdie skakels nuttig wees om meer data te versamel:** [**AFRINIC**](https://www.afrinic.net) **(Afrika),** [**Arin**](https://www.arin.net/about/welcome/region/)**(Noord-Amerika),** [**APNIC**](https://www.apnic.net) **(Asië),** [**LACNIC**](https://www.lacnic.net) **(Latyns-Amerika),** [**RIPE NCC**](https://www.ripe.net) **(Europa). In elk geval, waarskynlik verskyn al die** nuttige inligting **(IP-reekse en Whois)** reeds in die eerste skakel.
 ```bash
@@ -53,7 +53,7 @@ Jy kan **soek** volgens maatskappy **naam**, volgens **IP** of volgens **domein*
 amass intel -org tesla
 amass intel -asn 8911,50313,394161
 ```
-Ook, [**BBOT**](https://github.com/blacklanternsecurity/bbot)**'s** subdomein-opsomming aggregeer en som outomaties ASN's aan die einde van die skandering op.
+Ook, [**BBOT**](https://github.com/blacklanternsecurity/bbot)**'s** subdomein-opsomming aggregeer en som automatisch ASN's aan die einde van die skandering op.
 ```bash
 bbot -t tesla.com -f subdomain-enum
 ...
@@ -76,8 +76,8 @@ You can find the IP and ASN of a domain using [http://ipv4info.com/](http://ipv4
 ### **Soek na kwesbaarhede**
 
 Op hierdie punt weet ons **alle bates binne die omvang**, so as jy toegelaat word, kan jy 'n paar **kwesbaarheid skandeerders** (Nessus, OpenVAS) oor al die gasheer loods.\
-Ook kan jy 'n paar [**poort skanderings**](../pentesting-network/#discovering-hosts-from-the-outside) **of dienste soos** shodan **gebruik om** oop poorte **te vind, en afhangende van wat jy vind, moet jy** in hierdie boek kyk hoe om verskeie moontlike dienste wat loop, te pentest.\
-**Dit kan ook die moeite werd wees om te noem dat jy ook 'n paar** standaard gebruikersnaam **en** wagwoorde **lysies kan voorberei en probeer om** dienste te bruteforce met [https://github.com/x90skysn3k/brutespray](https://github.com/x90skysn3k/brutespray).
+Ook kan jy 'n paar [**poort skanderings**](../pentesting-network/#discovering-hosts-from-the-outside) **of dienste soos** shodan **gebruik om** oop poorte **te vind en afhangende van wat jy vind, moet jy** in hierdie boek kyk hoe om verskeie moontlike dienste wat loop, te pentest.\
+**Ook, dit kan die moeite werd wees om te noem dat jy ook 'n paar** standaard gebruikersnaam **en** wagwoorde **lysies kan voorberei en probeer om** dienste te bruteforce met [https://github.com/x90skysn3k/brutespray](https://github.com/x90skysn3k/brutespray).
 
 ## Domeine
 
@@ -89,7 +89,7 @@ Eerstens moet jy soek na die **hoofdomein**(e) van elke maatskappy. Byvoorbeeld,
 
 ### **Reverse DNS**
 
-Soos jy al die IP-reekse van die domeine gevind het, kan jy probeer om **reverse dns opsoekings** op daardie **IP's uit te voer om meer domeine binne die omvang te vind**. Probeer om 'n dns-bediener van die slagoffer of 'n bekende dns-bediener (1.1.1.1, 8.8.8.8) te gebruik.
+Soos jy al die IP-reekse van die domeine gevind het, kan jy probeer om **reverse dns opsoekings** op daardie **IP's uit te voer om meer domeine binne die omvang te vind**. Probeer om 'n paar dns bediener van die slagoffer of 'n bekende dns bediener (1.1.1.1, 8.8.8.8) te gebruik.
 ```bash
 dnsrecon -r <DNS Range> -n <IP_DNS>   #DNS reverse of all of the addresses
 dnsrecon -d facebook.com -r 157.240.221.35/24 #Using facebooks dns
@@ -101,7 +101,7 @@ You can also use a online tool for this info: [http://ptrarchive.com/](http://pt
 
 ### **Reverse Whois (loop)**
 
-Binne 'n **whois** kan jy 'n baie interessante **inligting** vind soos **organisasie naam**, **adres**, **e-posse**, telefoonnommers... Maar wat selfs meer interessant is, is dat jy **meer bates wat met die maatskappy verband hou** kan vind as jy **omgekeerde whois soektogte deur enige van daardie velde** uitvoer (byvoorbeeld ander whois registrasies waar dieselfde e-pos verskyn).\
+Inside a **whois** you can find a lot of interesting **information** like **organisasie naam**, **adres**, **e-pos**, telefoon nommers... Maar wat nog meer interessant is, is dat jy **meer bates wat met die maatskappy verband hou** kan vind as jy **omgekeerde whois soektogte deur enige van daardie velde** uitvoer (byvoorbeeld ander whois registrasies waar dieselfde e-pos verskyn).\
 You can use online tools like:
 
 * [https://viewdns.info/reversewhois/](https://viewdns.info/reversewhois/) - **Gratis**
@@ -119,8 +119,8 @@ You can also perform some automatic reverse whois discovery with [amass](https:/
 
 ### **Trackers**
 
-As jy die **dieselfde ID van dieselfde tracker** in 2 verskillende bladsye vind, kan jy aanvaar dat **albei bladsye** **deur dieselfde span bestuur word**.\
-Byvoorbeeld, as jy dieselfde **Google Analytics ID** of dieselfde **Adsense ID** op verskeie bladsye sien.
+If find the **same ID of the same tracker** in 2 different pages you can suppose that **both pages** are **managed by the same team**.\
+For example, if you see the same **Google Analytics ID** or the same **Adsense ID** on several pages.
 
 There are some pages and tools that let you search by these trackers and more:
 
@@ -132,20 +132,20 @@ There are some pages and tools that let you search by these trackers and more:
 
 ### **Favicon**
 
-Het jy geweet dat ons verwante domeine en subdomeine aan ons teiken kan vind deur te soek na dieselfde favicon ikoon hash? Dit is presies wat die [favihash.py](https://github.com/m4ll0k/Bug-Bounty-Toolz/blob/master/favihash.py) hulpmiddel gemaak deur [@m4ll0k2](https://twitter.com/m4ll0k2) doen. Hier is hoe om dit te gebruik:
+Did you know that we can find related domains and sub domains to our target by looking for the same favicon icon hash? This is exactly what [favihash.py](https://github.com/m4ll0k/Bug-Bounty-Toolz/blob/master/favihash.py) tool made by [@m4ll0k2](https://twitter.com/m4ll0k2) does. Here’s how to use it:
 ```bash
 cat my_targets.txt | xargs -I %% bash -c 'echo "http://%%/favicon.ico"' > targets.txt
 python3 favihash.py -f https://target/favicon.ico -t targets.txt -s
 ```
 ![favihash - ontdek domeine met dieselfde favicon ikoon hash](https://www.infosecmatter.com/wp-content/uploads/2020/07/favihash.jpg)
 
-Eenvoudig gestel, favihash sal ons toelaat om domeine te ontdek wat dieselfde favicon ikoon hash as ons teiken het.
+Eenvoudig gestel, favihash sal ons toelaat om domeine te ontdek wat dieselfde favicon ikoon hash het as ons teiken.
 
 Boonop kan jy ook tegnologieë soek met behulp van die favicon hash soos verduidelik in [**hierdie blogpos**](https://medium.com/@Asm0d3us/weaponizing-favicon-ico-for-bugbounties-osint-and-what-not-ace3c214e139). Dit beteken dat as jy die **hash van die favicon van 'n kwesbare weergawe van 'n web tegnologie** ken, jy kan soek in shodan en **meer kwesbare plekke vind**:
 ```bash
 shodan search org:"Target" http.favicon.hash:116323821 --fields ip_str,port --separator " " | awk '{print $1":"$2}'
 ```
-Dit is hoe jy die **favicon-hash** van 'n web kan **bereken**:
+Dit is hoe jy die **favicon-has** van 'n web kan **bereken**:
 ```python
 import mmh3
 import requests
@@ -346,7 +346,7 @@ Jy kan 'n **vergelyking** van baie van hierdie gereedskap hier vind: [https://bl
 
 ### **DNS Brute force**
 
-Kom ons probeer om nuwe **subdomeine** te vind deur DNS-bedieners te brute-forse met moontlike subdomeinname.
+Kom ons probeer om nuwe **subdomeine** te vind deur DNS-bedieners te brute-force met moontlike subdomeinname.
 
 Vir hierdie aksie sal jy 'n paar **gewone subdomein woordlyste soos** nodig hê:
 
@@ -366,11 +366,11 @@ sed 's/$/.domain.com/' subdomains.txt > bf-subdomains.txt
 ./massdns -r resolvers.txt -w /tmp/results.txt bf-subdomains.txt
 grep -E "tesla.com. [0-9]+ IN A .+" /tmp/results.txt
 ```
-* [**gobuster**](https://github.com/OJ/gobuster): Hierdie een gebruik glo net 1 resolver
+* [**gobuster**](https://github.com/OJ/gobuster): Hierdie een gebruik ek dink net 1 oplosser
 ```
 gobuster dns -d mysite.com -t 50 -w subdomains.txt
 ```
-* [**shuffledns**](https://github.com/projectdiscovery/shuffledns) is 'n wrapper rondom `massdns`, geskryf in go, wat jou toelaat om geldige subdomeine te enumereer deur aktiewe bruteforce, sowel as om subdomeine met wildcard hantering en maklike invoer-uitvoer ondersteuning op te los.
+* [**shuffledns**](https://github.com/projectdiscovery/shuffledns) is 'n wrapper rondom `massdns`, geskryf in go, wat jou toelaat om geldige subdomeine te enumereer deur aktiewe bruteforce, sowel as om subdomeine op te los met wildcard hantering en maklike invoer-uitvoer ondersteuning.
 ```
 shuffledns -d example.com -list example-subdomains.txt -r resolvers.txt
 ```
@@ -391,7 +391,7 @@ Nadat jy subdomeine gevind het met behulp van oop bronne en brute-forcing, kan j
 cat subdomains.txt | dnsgen -
 ```
 * [**goaltdns**](https://github.com/subfinder/goaltdns): Gegewe die domeine en subdomeine genereer permutasies.
-* Jy kan goaltdns permutasies **woordlys** kry in [**hier**](https://github.com/subfinder/goaltdns/blob/master/words.txt).
+* Jy kan goaltdns permutasies **woordlys** in [**hier**](https://github.com/subfinder/goaltdns/blob/master/words.txt) kry.
 ```bash
 goaltdns -l subdomains.txt -w /tmp/words-permutations.txt -o /tmp/final-words-s3.txt
 ```
@@ -400,17 +400,17 @@ goaltdns -l subdomains.txt -w /tmp/words-permutations.txt -o /tmp/final-words-s3
 gotator -sub subdomains.txt -silent [-perm /tmp/words-permutations.txt]
 ```
 * [**altdns**](https://github.com/infosec-au/altdns): Behalwe om subdomein permutasies te genereer, kan dit ook probeer om hulle op te los (maar dit is beter om die vorige genoem gereedskap te gebruik).
-* Jy kan altdns permutasies **woordlys** kry [**hier**](https://github.com/infosec-au/altdns/blob/master/words.txt).
+* Jy kan altdns permutasies **woordlys** kry in [**hier**](https://github.com/infosec-au/altdns/blob/master/words.txt).
 ```
 altdns -i subdomains.txt -w /tmp/words-permutations.txt -o /tmp/asd3
 ```
-* [**dmut**](https://github.com/bp0lr/dmut): Nog 'n hulpmiddel om permutasies, mutasies en verandering van subdomeine uit te voer. Hierdie hulpmiddel sal die resultaat brute force (dit ondersteun nie dns wild card nie).
+* [**dmut**](https://github.com/bp0lr/dmut): Nog 'n hulpmiddel om permutasies, mutasies en veranderinge van subdomeine uit te voer. Hierdie hulpmiddel sal die resultaat brute force (dit ondersteun nie dns wild card nie).
 * Jy kan dmut permutasies woordlys in [**hier**](https://raw.githubusercontent.com/bp0lr/dmut/main/words.txt) kry.
 ```bash
 cat subdomains.txt | dmut -d /tmp/words-permutations.txt -w 100 \
 --dns-errorLimit 10 --use-pb --verbose -s /tmp/resolvers-trusted.txt
 ```
-* [**alterx**](https://github.com/projectdiscovery/alterx)**:** Gebaseer op 'n domein, **genereer dit nuwe potensiële subdomeinnaam** gebaseer op aangeduidde patrone om te probeer om meer subdomeine te ontdek.
+* [**alterx**](https://github.com/projectdiscovery/alterx)**:** Gebaseer op 'n domein, **genereer dit nuwe potensiële subdomeinnames** gebaseer op aangeduidde patrone om te probeer om meer subdomeine te ontdek.
 
 #### Slim permutasiegenerasie
 
@@ -426,7 +426,7 @@ echo www | subzuf facebook.com
 ```
 ### **Subdomein Ontdekking Werkvloei**
 
-Kyk na hierdie blogpos wat ek geskryf het oor hoe om die **subdomein ontdekking** van 'n domein te **automateer** met behulp van **Trickest werkvloei** sodat ek nie 'n klomp gereedskap handmatig op my rekenaar hoef te begin nie:
+Kyk na hierdie blogpos wat ek geskryf het oor hoe om **subdomein ontdekking** van 'n domein te **automateer** met behulp van **Trickest werkvloei** sodat ek nie 'n klomp gereedskap handmatig op my rekenaar hoef te begin nie:
 
 {% embed url="https://trickest.com/blog/full-subdomain-discovery-using-workflow/" %}
 
@@ -434,7 +434,7 @@ Kyk na hierdie blogpos wat ek geskryf het oor hoe om die **subdomein ontdekking*
 
 ### **VHosts / Virtuele Gashere**
 
-As jy 'n IP-adres gevind het wat **een of verskeie webbladsye** bevat wat aan subdomeine behoort, kan jy probeer om **ander subdomeine met webbladsye in daardie IP** te vind deur in **OSINT bronne** te kyk vir domeine in 'n IP of deur **brute-force VHost domeinnaam in daardie IP**.
+As jy 'n IP-adres gevind het wat **een of verskeie webbladsye** bevat wat aan subdomeine behoort, kan jy probeer om **ander subdomeine met webbladsye in daardie IP** te **vind** deur in **OSINT bronne** te kyk vir domeine in 'n IP of deur **brute-force VHost domeinnaam in daardie IP**.
 
 #### OSINT
 
@@ -442,7 +442,7 @@ Jy kan 'n paar **VHosts in IPs vind met behulp van** [**HostHunter**](https://gi
 
 **Brute Force**
 
-As jy vermoed dat 'n subdomein in 'n webbediener versteek kan wees, kan jy probeer om dit te brute-force:
+As jy vermoed dat 'n subdomein in 'n webbediener versteek kan wees, kan jy probeer om dit te brute force:
 ```bash
 ffuf -c -w /path/to/wordlist -u http://victim.com -H "Host: FUZZ.victim.com"
 
@@ -469,26 +469,26 @@ ffuf -w subdomains-top1million-5000.txt -u http://10.10.10.208 -H 'Origin: http:
 ### **Buckets Brute Force**
 
 Terwyl jy na **subdomeine** soek, hou 'n oog op of dit na enige tipe **emmer** **wys**, en in daardie geval [**kontroleer die toestemmings**](../../network-services-pentesting/pentesting-web/buckets/)**.**\
-Ook, aangesien jy op hierdie punt al die domeine binne die omvang sal weet, probeer om [**emmername te brute force en die toestemmings te kontroleer**](../../network-services-pentesting/pentesting-web/buckets/).
+Ook, aangesien jy op hierdie punt al die domeine binne die omvang sal weet, probeer om [**brute force moontlike emmer name en kontroleer die toestemmings**](../../network-services-pentesting/pentesting-web/buckets/).
 
 ### **Monitorisering**
 
-Jy kan **moniteer** of **nuwe subdomeine** van 'n domein geskep word deur die **Certificate Transparency** Logs [**sublert** ](https://github.com/yassineaboukir/sublert/blob/master/sublert.py) te monitor.
+Jy kan **moniteer** of **nuwe subdomeine** van 'n domein geskep word deur die **Sertifikaat Deursigtigheid** Logs [**sublert** ](https://github.com/yassineaboukir/sublert/blob/master/sublert.py) te monitor.
 
 ### **Soek na kwesbaarhede**
 
 Kontroleer vir moontlike [**subdomein oorneem**](../../pentesting-web/domain-subdomain-takeover.md#subdomain-takeover).\
-As die **subdomein** na 'n **S3-emmer** **wys**, [**kontroleer die toestemmings**](../../network-services-pentesting/pentesting-web/buckets/).
+As die **subdomein** na 'n **S3 emmer** **wys**, [**kontroleer die toestemmings**](../../network-services-pentesting/pentesting-web/buckets/).
 
-As jy enige **subdomein met 'n IP verskil** van diegene wat jy reeds in die batesontdekking gevind het, moet jy 'n **basiese kwesbaarheidsskandering** (met Nessus of OpenVAS) en 'n [**poortskaande**](../pentesting-network/#discovering-hosts-from-the-outside) met **nmap/masscan/shodan** uitvoer. Afhangende van watter dienste aan die gang is, kan jy in **hierdie boek 'n paar truuks vind om hulle te "aanval"**.\
+As jy enige **subdomein met 'n IP verskil** van diegene wat jy reeds in die bates ontdek het, vind, moet jy 'n **basiese kwesbaarheid skandering** (met Nessus of OpenVAS) en 'n paar [**poort skandering**](../pentesting-network/#discovering-hosts-from-the-outside) met **nmap/masscan/shodan** uitvoer. Afhangende van watter dienste aan die gang is, kan jy in **hierdie boek 'n paar truuks vind om hulle "aan te val"**.\
 _Nota dat soms die subdomein gehos is binne 'n IP wat nie deur die kliënt beheer word nie, so dit is nie in die omvang nie, wees versigtig._
 
 ## IPs
 
-In die aanvanklike stappe mag jy **sommige IP-reekse, domeine en subdomeine** **gevind het**.\
-Dit is tyd om **al die IPs van daardie reekse te versamel** en vir die **domeine/subdomeine (DNS-vrae).**
+In die aanvanklike stappe het jy dalk **sommige IP-reekse, domeine en subdomeine** **gevind**.\
+Dit is tyd om **al die IPs van daardie reekse te versamel** en vir die **domeine/subdomeine (DNS vrae).**
 
-Deur dienste van die volgende **gratis API's** te gebruik, kan jy ook **vorige IPs wat deur domeine en subdomeine gebruik is, vind**. Hierdie IPs mag steeds deur die kliënt besit word (en mag jou toelaat om [**CloudFlare omseilings**](../../network-services-pentesting/pentesting-web/uncovering-cloudflare.md) te vind)
+Deur dienste van die volgende **gratis apis** te gebruik, kan jy ook **vorige IPs wat deur domeine en subdomeine gebruik is, vind**. Hierdie IPs mag steeds deur die kliënt besit word (en mag jou toelaat om [**CloudFlare omseilings**](../../network-services-pentesting/pentesting-web/uncovering-cloudflare.md) te vind)
 
 * [**https://securitytrails.com/**](https://securitytrails.com/)
 
@@ -496,20 +496,20 @@ Jy kan ook kyk vir domeine wat na 'n spesifieke IP-adres wys met die hulpmiddel 
 
 ### **Soek na kwesbaarhede**
 
-**Poortskaande al die IPs wat nie aan CDN's behoort nie** (aangesien jy hoogs waarskynlik niks interessant daar sal vind nie). In die lopende dienste wat ontdek is, mag jy **kwesbaarhede vind**.
+**Poort skandeer al die IPs wat nie aan CDN's behoort nie** (aangesien jy hoogs waarskynlik niks interessant daar sal vind nie). In die lopende dienste wat ontdek is, mag jy **in staat wees om kwesbaarhede te vind**.
 
 **Vind 'n** [**gids**](../pentesting-network/) **oor hoe om gashere te skandeer.**
 
-## Webbedieners jag
+## Web bedieners jag
 
-> Ons het al die maatskappye en hul bates gevind en ons weet IP-reekse, domeine en subdomeine binne die omvang. Dit is tyd om na webbedieners te soek.
+> Ons het al die maatskappye en hul bates gevind en ons weet IP-reekse, domeine en subdomeine binne die omvang. Dit is tyd om na web bedieners te soek.
 
-In die vorige stappe het jy waarskynlik al 'n paar **recon van die IPs en domeine ontdek** gedoen, so jy mag **al die moontlike webbedieners** **gevind het**. As jy egter nie, gaan ons nou 'n paar **vinnige truuks kyk om webbedieners** binne die omvang te soek.
+In die vorige stappe het jy waarskynlik al 'n paar **recon van die IPs en domeine ontdek** uitgevoer, so jy mag **al die moontlike web bedieners** **gevind het**. As jy egter nie, gaan ons nou 'n paar **vinnige truuks kyk om web bedieners** binne die omvang te soek.
 
-Neem asseblief kennis dat dit **georiënteer sal wees op webtoepassingsontdekking**, so jy moet ook **die kwesbaarheid** en **poortskaande** uitvoer (**as toegelaat** deur die omvang).
+Let asseblief daarop dat dit **georiënteer sal wees op web apps ontdekking**, so jy moet ook **die kwesbaarheid** en **poort skandering** uitvoer (**indien toegelaat** deur die omvang).
 
-'n **Vinnige metode** om **oop poorte** wat verband hou met **web** bedieners te ontdek, kan met [**masscan** hier gevind word](../pentesting-network/#http-port-discovery).\
-Nog 'n vriendelike hulpmiddel om na webbedieners te soek is [**httprobe**](https://github.com/tomnomnom/httprobe)**,** [**fprobe**](https://github.com/theblackturtle/fprobe) en [**httpx**](https://github.com/projectdiscovery/httpx). Jy gee net 'n lys van domeine en dit sal probeer om met poort 80 (http) en 443 (https) te verbind. Daarbenewens kan jy aandui om ander poorte te probeer:
+'n **Vinnige metode** om **oop poorte** wat verband hou met **web** bedieners te ontdek, kan [**masscan** hier gevind word](../pentesting-network/#http-port-discovery).\
+Nog 'n vriendelike hulpmiddel om na web bedieners te soek is [**httprobe**](https://github.com/tomnomnom/httprobe)**,** [**fprobe**](https://github.com/theblackturtle/fprobe) en [**httpx**](https://github.com/projectdiscovery/httpx). Jy gee net 'n lys van domeine en dit sal probeer om met poort 80 (http) en 443 (https) te verbind. Daarbenewens kan jy aandui om ander poorte te probeer:
 ```bash
 cat /tmp/domains.txt | httprobe #Test all domains inside the file for port 80 and 443
 cat /tmp/domains.txt | httprobe -p http:8080 -p https:8443 #Check port 80, 443 and 8080 and 8443
@@ -518,13 +518,13 @@ cat /tmp/domains.txt | httprobe -p http:8080 -p https:8443 #Check port 80, 443 a
 
 Nou dat jy **alle webbedieners** in die omvang ontdek het (tussen die **IP's** van die maatskappy en al die **domeine** en **subdomeine**) weet jy waarskynlik **nie waar om te begin nie**. Laat ons dit eenvoudig maak en net skermskootte van al hulle neem. Net deur **na die hoofblad** te **kyk** kan jy **vreemde** eindpunte vind wat meer **geneig** is om **kwulnerabel** te wees.
 
-Om die voorgestelde idee uit te voer, kan jy [**EyeWitness**](https://github.com/FortyNorthSecurity/EyeWitness), [**HttpScreenshot**](https://github.com/breenmachine/httpscreenshot), [**Aquatone**](https://github.com/michenriksen/aquatone), [**Shutter**](https://shutter-project.org/downloads/third-party-packages/), [**Gowitness**](https://github.com/sensepost/gowitness) of [**webscreenshot**](https://github.com/maaaaz/webscreenshot)**.** 
+Om die voorgestelde idee uit te voer, kan jy [**EyeWitness**](https://github.com/FortyNorthSecurity/EyeWitness), [**HttpScreenshot**](https://github.com/breenmachine/httpscreenshot), [**Aquatone**](https://github.com/michenriksen/aquatone), [**Shutter**](https://shutter-project.org/downloads/third-party-packages/), [**Gowitness**](https://github.com/sensepost/gowitness) of [**webscreenshot**](https://github.com/maaaaz/webscreenshot)**.**
 
 Boonop kan jy dan [**eyeballer**](https://github.com/BishopFox/eyeballer) gebruik om oor al die **skermskootte** te loop om jou te vertel **wat waarskynlik kwesbaarhede bevat**, en wat nie.
 
 ## Publieke Wolk Bate
 
-Om potensiële wolk bate wat aan 'n maatskappy behoort te vind, moet jy **begin met 'n lys van sleutelwoorde wat daardie maatskappy identifiseer**. Byvoorbeeld, 'n crypto vir 'n crypto maatskappy kan jy woorde soos: `"crypto", "wallet", "dao", "<domein_naam>", <"subdomein_namme">` gebruik.
+Om potensiële wolk bate wat aan 'n maatskappy behoort te vind, moet jy **begin met 'n lys van sleutelwoorde wat daardie maatskappy identifiseer**. Byvoorbeeld, vir 'n kripto maatskappy kan jy woorde soos: `"crypto", "wallet", "dao", "<domain_name>", <"subdomain_names">` gebruik.
 
 Jy sal ook woordlyste van **gewone woorde wat in emmers gebruik word** benodig:
 
@@ -555,7 +555,7 @@ Met die **domeine** en **subdomeine** binne die omvang het jy basies alles wat j
 
 E-posse sal later handig wees om **brute-force web aanmeldings en outentikasiedienste** (soos SSH) te doen. Ook, hulle is nodig vir **phishings**. Boonop sal hierdie API's jou selfs meer **inligting oor die persoon** agter die e-pos gee, wat nuttig is vir die phishing veldtog.
 
-## Kredensiaal Leke
+## Kredensiaal Lekke
 
 Met die **domeine,** **subdomeine**, en **e-posse** kan jy begin soek na kredensiale wat in die verlede gelek het wat aan daardie e-posse behoort:
 
@@ -566,16 +566,16 @@ Met die **domeine,** **subdomeine**, en **e-posse** kan jy begin soek na kredens
 
 As jy **geldige gelekte** kredensiale vind, is dit 'n baie maklike oorwinning.
 
-## Geheime Leke
+## Geheime Lekke
 
-Kredensiaal leke is verwant aan hacks van maatskappye waar **sensitiewe inligting gelek en verkoop is**. egter, maatskappye mag geraak word deur **ander leke** waarvan die inligting nie in daardie databasisse is nie:
+Kredensiaal lekke is verwant aan hacks van maatskappye waar **sensitiewe inligting gelek en verkoop is**. egter, maatskappye mag geraak word deur **ander lekke** waarvan die inligting nie in daardie databasisse is nie:
 
-### Github Leke
+### Github Lekke
 
 Kredensiale en API's mag in die **openbare repositories** van die **maatskappy** of van die **gebruikers** wat vir daardie github maatskappy werk, gelek word.\
 Jy kan die **gereedskap** [**Leakos**](https://github.com/carlospolop/Leakos) gebruik om **alle openbare repos** van 'n **organisasie** en sy **ontwikkelaars** af te laai en [**gitleaks**](https://github.com/zricethezav/gitleaks) daaroor outomaties te laat loop.
 
-**Leakos** kan ook gebruik word om **gitleaks** teen alle **teks** te laat loop wat **URL's** aan dit gegee word, aangesien **webbladsye ook geheime kan bevat**.
+**Leakos** kan ook gebruik word om **gitleaks** teen alle **teks** te laat loop wat **URL's aan dit gegee** is, aangesien **webbladsye ook geheime kan bevat**.
 
 #### Github Dorks
 
@@ -585,7 +585,7 @@ Kyk ook na hierdie **bladsy** vir potensiële **github dorks** wat jy ook in die
 [github-leaked-secrets.md](github-leaked-secrets.md)
 {% endcontent-ref %}
 
-### Paste Leke
+### Paste Lekke
 
 Soms sal aanvallers of net werkers **maatskappy-inhoud op 'n paste site publiseer**. Dit mag of mag nie **sensitiewe inligting** bevat nie, maar dit is baie interessant om daarna te soek.\
 Jy kan die gereedskap [**Pastos**](https://github.com/carlospolop/Pastos) gebruik om in meer as 80 paste sites terselfdertyd te soek.
@@ -594,7 +594,7 @@ Jy kan die gereedskap [**Pastos**](https://github.com/carlospolop/Pastos) gebrui
 
 Ou maar goud google dorks is altyd nuttig om **blootgestelde inligting wat daar nie behoort te wees nie** te vind. Die enigste probleem is dat die [**google-hacking-database**](https://www.exploit-db.com/google-hacking-database) verskeie **duisende** moontlike navrae bevat wat jy nie handmatig kan uitvoer nie. So, jy kan jou gunsteling 10 kies of jy kan 'n **gereedskap soos** [**Gorks**](https://github.com/carlospolop/Gorks) **gebruik om hulle almal uit te voer**.
 
-_Noteer dat die gereedskap wat verwag om die hele databasis met die gewone Google-blaaier te laat loop, nooit sal eindig nie, aangesien Google jou baie gou sal blokkeer._
+_Nota dat die gereedskap wat verwag om die hele databasis met die gewone Google-blaaier te laat loop, nooit sal eindig nie, aangesien google jou baie gou sal blokkeer._
 
 ### **Soek na kwesbaarhede**
 
@@ -602,7 +602,7 @@ As jy **geldige gelekte** kredensiale of API tokens vind, is dit 'n baie maklike
 
 ## Publieke Kode Kwesbaarhede
 
-As jy gevind het dat die maatskappy **open-source kode** het, kan jy dit **analiseer** en soek na **kwesbaarhede** daarin.
+As jy gevind het dat die maatskappy **oopbron kode** het, kan jy dit **analiseer** en soek na **kwesbaarhede** daarin.
 
 **Afhangende van die taal** is daar verskillende **gereedskap** wat jy kan gebruik:
 
@@ -616,7 +616,7 @@ Daar is ook gratis dienste wat jou toelaat om **openbare repositories** te **ska
 
 ## [**Pentesting Web Metodologie**](../../network-services-pentesting/pentesting-web/)
 
-Die **meerderheid van die kwesbaarhede** wat deur foutjagters gevind word, is binne **webtoepassings**, so op hierdie punt wil ek oor 'n **webtoepassing toets metodologie** praat, en jy kan [**hierdie inligting hier vind**](../../network-services-pentesting/pentesting-web/).
+Die **meerderheid van die kwesbaarhede** wat deur foutjagters gevind word, is binne **webtoepassings**, so op hierdie punt wil ek graag oor 'n **webtoepassing toets metodologie** praat, en jy kan [**hierdie inligting hier vind**](../../network-services-pentesting/pentesting-web/).
 
 Ek wil ook 'n spesiale vermelding maak van die afdeling [**Web Geoutomatiseerde Skandeerders open source gereedskap**](../../network-services-pentesting/pentesting-web/#automatic-scanners), aangesien, as jy nie moet verwag dat hulle baie sensitiewe kwesbaarhede sal vind nie, hulle handig is om dit in **werkvloei te implementeer om 'n paar aanvanklike webinligting te hê.**
 
@@ -626,14 +626,14 @@ Ek wil ook 'n spesiale vermelding maak van die afdeling [**Web Geoutomatiseerde 
 
 So jy het reeds:
 
-1. Alle **maatskappye** binne die omvang gevind
+1. Alle **maatskappye** in die omvang gevind
 2. Alle **bates** wat aan die maatskappye behoort gevind (en 'n paar kwesbaarheid skandeer as dit in omvang is)
 3. Alle **domeine** wat aan die maatskappye behoort gevind
 4. Alle **subdomeine** van die domeine gevind (enige subdomein oorneem?)
-5. Alle **IP's** (van en **nie van CDN's**) binne die omvang gevind.
+5. Alle **IP's** (van en **nie van CDN's**) in die omvang gevind.
 6. Alle **webbedieners** gevind en 'n **skermskoot** daarvan geneem (iets vreemd wat 'n dieper kyk werd is?)
 7. Alle **potensiële publieke wolk bates** wat aan die maatskappy behoort gevind.
-8. **E-posse**, **kredensiaal leke**, en **geheime leke** wat jou 'n **groot oorwinning baie maklik kan gee**.
+8. **E-posse**, **kredensiaal lekke**, en **geheime lekke** wat jou 'n **groot oorwinning baie maklik** kan gee.
 9. **Pentesting al die webwerwe wat jy gevind het**
 
 ## **Volledige Recon Outomatiese Gereedskap**
@@ -649,7 +649,7 @@ Daar is verskeie gereedskap daar buite wat 'n deel van die voorgestelde aksies t
 
 * Alle gratis kursusse van [**@Jhaddix**](https://twitter.com/Jhaddix) soos [**The Bug Hunter's Methodology v4.0 - Recon Edition**](https://www.youtube.com/watch?v=p4JgIu1mceI)
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 As jy belangstel in 'n **hacking loopbaan** en die onhackbare hack - **ons huur aan!** (_vloeiend Pools geskryf en gesproke vereis_).
 
