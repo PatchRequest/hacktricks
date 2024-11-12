@@ -29,11 +29,11 @@ Las reglas se almacenan en la tabla `rules` dentro de la base de datos y contien
 * **name**: El nombre único de la regla utilizado para identificarla y referenciarla dentro del sistema de autorización.
 * **type**: Especifica el tipo de la regla, restringido a los valores 1 o 2 para definir su lógica de autorización.
 * **class**: Categoriza la regla en una clase específica, asegurando que sea un número entero positivo.
-* "allow" para permitir, "deny" para denegar, "user" si la propiedad de grupo indica un grupo cuya membresía permite el acceso, "rule" indica en un array una regla que debe cumplirse, "evaluate-mechanisms" seguido de un array de `mechanisms` que son ya sea integrados o un nombre de un paquete dentro de `/System/Library/CoreServices/SecurityAgentPlugins/` o /Library/Security//SecurityAgentPlugins
+* "allow" para permitir, "deny" para denegar, "user" si la propiedad de grupo indica un grupo cuya membresía permite el acceso, "rule" indica en un array una regla que debe cumplirse, "evaluate-mechanisms" seguido de un array `mechanisms` que son ya sea integrados o un nombre de un paquete dentro de `/System/Library/CoreServices/SecurityAgentPlugins/` o /Library/Security//SecurityAgentPlugins
 * **group**: Indica el grupo de usuarios asociado con la regla para la autorización basada en grupos.
 * **kofn**: Representa el parámetro "k-of-n", determinando cuántas subreglas deben ser satisfechas de un número total.
 * **timeout**: Define la duración en segundos antes de que la autorización otorgada por la regla expire.
-* **flags**: Contiene varias flags que modifican el comportamiento y las características de la regla.
+* **flags**: Contiene varias banderas que modifican el comportamiento y las características de la regla.
 * **tries**: Limita el número de intentos de autorización permitidos para mejorar la seguridad.
 * **version**: Rastrea la versión de la regla para el control de versiones y actualizaciones.
 * **created**: Registra la marca de tiempo cuando se creó la regla para fines de auditoría.
@@ -94,7 +94,7 @@ Además, utilizando la herramienta de seguridad es posible probar muchas APIs de
 
 Eso hará un fork y ejecutará `/usr/libexec/security_authtrampoline /bin/ls` como root, lo que pedirá permisos en un aviso para ejecutar ls como root:
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
