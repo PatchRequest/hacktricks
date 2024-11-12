@@ -19,11 +19,11 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 ## **Athorizarions DB**
 
-Hifadhidata iliyoko katika `/var/db/auth.db` ni hifadhidata inayotumika kuhifadhi ruhusa za kufanya operesheni nyeti. Operesheni hizi zinafanywa kabisa katika **nafasi ya mtumiaji** na kwa kawaida hutumiwa na **huduma za XPC** ambazo zinahitaji kuangalia **kama mteja anayepiga simu ameidhinishwa** kufanya hatua fulani kwa kuangalia hifadhidata hii.
+Hifadhidata iliyoko katika `/var/db/auth.db` ni hifadhidata inayotumika kuhifadhi ruhusa za kufanya operesheni nyeti. Operesheni hizi zinafanywa kabisa katika **nafasi ya mtumiaji** na kwa kawaida hutumiwa na **huduma za XPC** ambazo zinahitaji kuangalia **kama mteja anayepiga simu ameidhinishwa** kufanya kitendo fulani kwa kuangalia hifadhidata hii.
 
-Kwanza, hifadhidata hii inaundwa kutoka kwa maudhui ya `/System/Library/Security/authorization.plist`. Kisha, huduma zingine zinaweza kuongeza au kubadilisha hifadhidata hii kuongeza ruhusa nyingine.
+Kwanza, hifadhidata hii inaundwa kutoka kwa maudhui ya `/System/Library/Security/authorization.plist`. Kisha, huduma zingine zinaweza kuongeza au kubadilisha hifadhidata hii ili kuongeza ruhusa nyingine.
 
-Sheria zinaifadhiwa katika jedwali la `rules` ndani ya hifadhidata na zina columns zifuatazo:
+Sheria zinaifadhiwa katika jedwali la `rules` ndani ya hifadhidata na zina vitu vifuatavyo:
 
 * **id**: Kitambulisho cha kipekee kwa kila sheria, kinachoongezeka kiotomatiki na kutumikia kama funguo kuu.
 * **name**: Jina la kipekee la sheria linalotumika kutambua na kurejelea ndani ya mfumo wa idhini.
@@ -31,16 +31,16 @@ Sheria zinaifadhiwa katika jedwali la `rules` ndani ya hifadhidata na zina colum
 * **class**: Inagawanya sheria katika darasa maalum, kuhakikisha ni nambari chanya.
 * "allow" kwa ruhusu, "deny" kwa kataa, "user" ikiwa mali ya kundi inaonyesha kundi ambalo uanachama wake unaruhusu ufikiaji, "rule" inaonyesha katika orodha sheria inayopaswa kutimizwa, "evaluate-mechanisms" ikifuatwa na orodha ya `mechanisms` ambazo ni ama za ndani au jina la kifurushi ndani ya `/System/Library/CoreServices/SecurityAgentPlugins/` au /Library/Security//SecurityAgentPlugins
 * **group**: Inaonyesha kundi la mtumiaji linalohusishwa na sheria kwa ajili ya idhini ya msingi ya kundi.
-* **kofn**: Inaonyesha parameter ya "k-of-n", ikiamua ni ngapi subrules zinapaswa kutimizwa kutoka kwa jumla.
-* **timeout**: Inaeleza muda kwa sekunde kabla ya idhini iliyotolewa na sheria kuisha.
-* **flags**: Ina vitu mbalimbali vinavyobadilisha tabia na sifa za sheria.
-* **tries**: Inaweka mipaka ya idhini inayoruhusiwa ili kuongeza usalama.
+* **kofn**: Inawakilisha parameter ya "k-of-n", ikiamua ni subrules ngapi zinapaswa kutimizwa kutoka kwa jumla.
+* **timeout**: Inaeleza muda katika sekunde kabla ya idhini iliyotolewa na sheria kuisha.
+* **flags**: Inashikilia bendera mbalimbali zinazobadilisha tabia na sifa za sheria.
+* **tries**: Inapunguza idadi ya majaribio ya idhini yanayoruhusiwa ili kuongeza usalama.
 * **version**: Inafuatilia toleo la sheria kwa ajili ya udhibiti wa toleo na masasisho.
 * **created**: Inarekodi muda wa kuunda sheria kwa ajili ya madhumuni ya ukaguzi.
 * **modified**: Inahifadhi muda wa mabadiliko ya mwisho yaliyofanywa kwa sheria.
 * **hash**: Inashikilia thamani ya hash ya sheria ili kuhakikisha uaminifu wake na kugundua udanganyifu.
 * **identifier**: Inatoa kitambulisho cha kipekee cha mfuatano, kama UUID, kwa marejeleo ya nje kwa sheria.
-* **requirement**: Ina data iliyosimbwa inayofafanua mahitaji maalum ya idhini ya sheria na mitambo.
+* **requirement**: Inashikilia data iliyosimbwa ikielezea mahitaji maalum ya idhini ya sheria na mitambo.
 * **comment**: Inatoa maelezo yanayoweza kusomeka na binadamu au maoni kuhusu sheria kwa ajili ya nyaraka na uwazi.
 
 ### Example
@@ -94,7 +94,7 @@ Zaidi ya hayo, kwa kutumia zana ya usalama inawezekana kujaribu APIs nyingi za `
 
 Hiyo itafork na exec `/usr/libexec/security_authtrampoline /bin/ls` kama root, ambayo itauliza ruhusa katika dirisha la kuingia ili kutekeleza ls kama root:
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\

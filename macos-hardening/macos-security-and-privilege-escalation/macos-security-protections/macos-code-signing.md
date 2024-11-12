@@ -17,12 +17,12 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 ## Basic Information
 
-Mach-o binaries zina maelezo ya kupakia yanayoitwa **`LC_CODE_SIGNATURE`** ambayo yanaonyesha **offset** na **size** ya saini ndani ya binary. Kwa kweli, kwa kutumia zana ya GUI MachOView, inawezekana kupata mwishoni mwa binary sehemu inayoitwa **Code Signature** yenye maelezo haya:
+Mach-o binaries zina amri ya kupakia inayoitwa **`LC_CODE_SIGNATURE`** ambayo inaonyesha **offset** na **size** ya saini ndani ya binary. Kwa kweli, kwa kutumia zana ya GUI MachOView, inawezekana kupata mwishoni mwa binary sehemu inayoitwa **Code Signature** yenye taarifa hii:
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
-Kichwa cha kichawi cha Code Signature ni **`0xFADE0CC0`**. Kisha una maelezo kama vile urefu na idadi ya blobs ya superBlob inayoyashikilia.\
-Inawezekana kupata maelezo haya katika [source code hapa](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
+Kichwa cha kichawi cha Code Signature ni **`0xFADE0CC0`**. Kisha una taarifa kama vile urefu na idadi ya blobs ya superBlob inayozishikilia.\
+Inawezekana kupata taarifa hii katika [source code hapa](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
 ```c
 /*
 * Structure of an embedded-signature SuperBlob
@@ -52,9 +52,9 @@ char data[];
 __attribute__ ((aligned(1)));
 ```
 Common blobs contained are Code Directory, Requirements and Entitlements and a Cryptographic Message Syntax (CMS).\
-Moreover, note how the data encoded in the blobs is encoded in **Big Endian.**
+Zaidi ya hayo, kumbuka jinsi data iliyowekwa kwenye blobs imewekwa katika **Big Endian.**
 
-Moreover, signatures zinaweza kutengwa kutoka kwa binaries na kuhifadhiwa katika `/var/db/DetachedSignatures` (inayotumiwa na iOS).
+Zaidi ya hayo, saini zinaweza kutengwa kutoka kwa binaries na kuhifadhiwa katika `/var/db/DetachedSignatures` (inayotumiwa na iOS).
 
 ## Code Directory Blob
 
@@ -157,17 +157,17 @@ openssl sha256 /tmp/*.page.*
 ```
 ## Entitlements Blob
 
-Kumbuka kwamba programu zinaweza pia kuwa na **entitlement blob** ambapo haki zote zinafafanuliwa. Zaidi ya hayo, baadhi ya binaries za iOS zinaweza kuwa na haki zao maalum katika sloti maalum -7 (badala ya katika sloti maalum -5 za haki).
+Kumbuka kwamba programu zinaweza pia kuwa na **entitlement blob** ambapo haki zote zimefafanuliwa. Zaidi ya hayo, baadhi ya binaries za iOS zinaweza kuwa na haki zao maalum katika sloti maalum -7 (badala ya katika sloti maalum -5 za haki).
 
 ## Special Slots
 
 Programu za MacOS hazina kila kitu wanachohitaji kutekeleza ndani ya binary lakini pia zinatumia **rasilimali za nje** (kawaida ndani ya **bundle** za programu). Hivyo, kuna sloti ndani ya binary ambazo zitakuwa na hash za baadhi ya rasilimali za nje za kuvutia ili kuangalia hazikubadilishwa.
 
-Kwa kweli, inawezekana kuona katika muundo wa Directory ya Code parameter inayoitwa **`nSpecialSlots`** ikionyesha idadi ya sloti maalum. Hakuna sloti maalum 0 na zile zinazotumika zaidi (kutoka -1 hadi -6 ni):
+Kwa kweli, inawezekana kuona katika muundo wa Code Directory parameter inayoitwa **`nSpecialSlots`** ikionyesha idadi ya sloti maalum. Hakuna sloti maalum 0 na zile zinazotumika zaidi (kutoka -1 hadi -6 ni):
 
 * Hash ya `info.plist` (au ile ndani ya `__TEXT.__info__plist`).
 * Hash ya Mahitaji
-* Hash ya Directory ya Rasilimali (hash ya faili ya `_CodeSignature/CodeResources` ndani ya bundle).
+* Hash ya Resource Directory (hash ya faili ya `_CodeSignature/CodeResources` ndani ya bundle).
 * Maalum kwa programu (isiyotumika)
 * Hash ya haki
 * Saini za msimbo wa DMG pekee
@@ -226,7 +226,7 @@ Note that the function [**exec\_mach\_imgact**](https://github.com/apple-oss-dis
 
 Kila programu ina **mahitaji** ambayo lazima **iyatimize** ili iweze kutekelezwa. Ikiwa **programu ina mahitaji ambayo hayajatimizwa na programu**, haitatekelezwa (kama imebadilishwa).
 
-Mahitaji ya binary hutumia **sarufi maalum** ambayo ni mtiririko wa **maelezo** na yanakodishwa kama blobs kwa kutumia `0xfade0c00` kama uchawi ambao **hash yake inahifadhiwa katika sloti maalum ya kanuni**.
+Mahitaji ya binary hutumia **sarufi maalum** ambayo ni mtiririko wa **maelezo** na yanaandikwa kama blobs kwa kutumia `0xfade0c00` kama uchawi ambao **hash yake inahifadhiwa katika sloti maalum ya kanuni**.
 
 Mahitaji ya binary yanaweza kuonekana kwa kukimbia: 
 
@@ -243,7 +243,7 @@ designated => identifier "org.whispersystems.signal-desktop" and anchor apple ge
 {% endcode %}
 
 {% hint style="info" %}
-Kumbuka jinsi saini hizi zinaweza kuangalia mambo kama taarifa za uthibitisho, TeamID, IDs, ruhusa na data nyingine nyingi.
+Kumbuka jinsi saini hizi zinaweza kuangalia mambo kama taarifa za uthibitisho, TeamID, IDs, haki na data nyingine nyingi.
 {% endhint %}
 
 Zaidi ya hayo, inawezekana kuzalisha baadhi ya mahitaji yaliyokusanywa kwa kutumia zana ya `csreq`:
@@ -275,40 +275,40 @@ Inawezekana kufikia habari hii na kuunda au kubadilisha mahitaji na baadhi ya AP
 * **`SecRequirementCreateWithData`:** Inaunda `SecRequirementRef` kutoka kwa data ya binary inayowakilisha mahitaji.
 * **`SecRequirementCreateWithString`:** Inaunda `SecRequirementRef` kutoka kwa usemi wa string wa mahitaji.
 * **`SecRequirementCopy[Data/String]`**: Inapata uwakilishi wa data ya binary wa `SecRequirementRef`.
-* **`SecRequirementCreateGroup`**: Unda mahitaji ya ushirika wa programu.
+* **`SecRequirementCreateGroup`**: Unda mahitaji ya ushirika wa kikundi cha programu.
 
 #### **Kufikia Habari za Kusaini Msimbo**
 
-* **`SecStaticCodeCreateWithPath`**: Inaanzisha kipande cha `SecStaticCodeRef` kutoka kwa njia ya mfumo wa faili kwa ajili ya kukagua saini za msimbo.
+* **`SecStaticCodeCreateWithPath`**: Inaanzisha kitu cha `SecStaticCodeRef` kutoka kwa njia ya mfumo wa faili kwa ajili ya kukagua saini za msimbo.
 * **`SecCodeCopySigningInformation`**: Inapata habari za kusaini kutoka kwa `SecCodeRef` au `SecStaticCodeRef`.
 
 #### **Kubadilisha Mahitaji ya Msimbo**
 
-* **`SecCodeSignerCreate`**: Inaunda kipande cha `SecCodeSignerRef` kwa ajili ya kufanya operesheni za kusaini msimbo.
-* **`SecCodeSignerSetRequirement`**: Inaweka mahitaji mapya kwa ajili ya msajili wa msimbo kutekeleza wakati wa kusaini.
+* **`SecCodeSignerCreate`**: Inaunda kitu cha `SecCodeSignerRef` kwa ajili ya kufanya operesheni za kusaini msimbo.
+* **`SecCodeSignerSetRequirement`**: Inaweka mahitaji mapya kwa ajili ya msajili wa msimbo kutumia wakati wa kusaini.
 * **`SecCodeSignerAddSignature`**: Inaongeza saini kwa msimbo unaosainiwa na msajili aliyeainishwa.
 
-#### **Kuthibitisha Msimbo kwa Mahitaji**
+#### **Kuthibitisha Msimbo na Mahitaji**
 
-* **`SecStaticCodeCheckValidity`**: Inathibitisha kipande cha msimbo wa static dhidi ya mahitaji yaliyoainishwa.
+* **`SecStaticCodeCheckValidity`**: Inathibitisha kitu cha msimbo wa static dhidi ya mahitaji yaliyoainishwa.
 
 #### **APIs za Ziada za Faida**
 
 * **`SecCodeCopy[Internal/Designated]Requirement`: Pata SecRequirementRef kutoka SecCodeRef**
-* **`SecCodeCopyGuestWithAttributes`**: Inaunda `SecCodeRef` inayowakilisha kipande cha msimbo kulingana na sifa maalum, muhimu kwa sandboxing.
-* **`SecCodeCopyPath`**: Inapata njia ya mfumo wa faili inayohusiana na `SecCodeRef`.
-* **`SecCodeCopySigningIdentifier`**: Inapata kitambulisho cha kusaini (mfano, Timu ID) kutoka kwa `SecCodeRef`.
-* **`SecCodeGetTypeID`**: Inarudisha kitambulisho cha aina kwa ajili ya vitu vya `SecCodeRef`.
+* **`SecCodeCopyGuestWithAttributes`**: Inaunda `SecCodeRef` inayowakilisha kitu cha msimbo kulingana na sifa maalum, muhimu kwa sandboxing.
+* **`SecCodeCopyPath`**: Inapata njia ya mfumo wa faili inayohusishwa na `SecCodeRef`.
+* **`SecCodeCopySigningIdentifier`**: Inapata kitambulisho cha kusaini (mfano, Kitambulisho cha Timu) kutoka kwa `SecCodeRef`.
+* **`SecCodeGetTypeID`**: Inarudisha kitambulisho cha aina kwa vitu vya `SecCodeRef`.
 * **`SecRequirementGetTypeID`**: Inapata CFTypeID ya `SecRequirementRef`.
 
 #### **Bendera na Misingi ya Kusaini Msimbo**
 
-* **`kSecCSDefaultFlags`**: Bendera za kawaida zinazotumika katika kazi nyingi za Security.framework kwa ajili ya operesheni za kusaini msimbo.
+* **`kSecCSDefaultFlags`**: Bendera za kawaida zinazotumika katika kazi nyingi za Security.framework kwa operesheni za kusaini msimbo.
 * **`kSecCSSigningInformation`**: Bendera inayotumika kuashiria kwamba habari za kusaini zinapaswa kupatikana.
 
 ## Utekelezaji wa Saini ya Msimbo
 
-**Kernel** ndiye anayekagua **saini ya msimbo** kabla ya kuruhusu msimbo wa programu kutekelezwa. Aidha, njia moja ya kuweza kuandika na kutekeleza msimbo mpya katika kumbukumbu ni kutumia JIT ikiwa `mprotect` inaitwa na bendera ya `MAP_JIT`. Kumbuka kwamba programu inahitaji haki maalum ili iweze kufanya hivi.
+**Kernel** ndiye anayekagua **saini ya msimbo** kabla ya kuruhusu msimbo wa programu kutekelezwa. Zaidi ya hayo, njia moja ya kuwa na uwezo wa kuandika na kutekeleza msimbo mpya katika kumbukumbu ni kutumia JIT ikiwa `mprotect` inaitwa na bendera ya `MAP_JIT`. Kumbuka kwamba programu inahitaji haki maalum ili iweze kufanya hivi.
 
 ## `cs_blobs` & `cs_blob`
 
