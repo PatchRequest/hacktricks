@@ -1,27 +1,25 @@
 # Padding Oracle
 
 {% hint style="success" %}
-AWS Hacking'i öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS Hacking'i öğrenin ve pratik yapın:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP Hacking'i öğrenin ve pratik yapın: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **Bize katılın** 💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) veya **bizi** **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** takip edin.**
-* **Hacking ipuçlarını paylaşın,** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** **bizi takip edin** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Hacking ipuçlarını paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
 {% endhint %}
-
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://websec.nl/" %}
 
 ## CBC - Cipher Block Chaining
 
-CBC modunda **önceki şifreli blok IV olarak kullanılır** ve bir sonraki blokla XOR yapılır:
+CBC modunda **önceki şifreli blok, bir sonraki blokla XOR'lamak için IV olarak kullanılır**:
 
 ![https://defuse.ca/images/cbc\_encryption.png](https://defuse.ca/images/cbc\_encryption.png)
 
@@ -29,7 +27,7 @@ CBC'yi deşifre etmek için **ters** **işlemler** yapılır:
 
 ![https://defuse.ca/images/cbc\_decryption.png](https://defuse.ca/images/cbc\_decryption.png)
 
-Bir **şifreleme** **anahtarı** ve bir **IV** kullanmanın gerekli olduğunu unutmayın.
+**Şifreleme** **anahtarı** ve bir **IV** kullanmanın gerekli olduğunu unutmayın.
 
 ## Mesaj Doldurma
 
@@ -65,7 +63,7 @@ perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -e
 ```
 **Encoding 0** demek **base64** kullanıldığı anlamına gelir (ancak diğerleri de mevcuttur, yardım menüsüne bakın).
 
-Bu güvenlik açığını yeni verileri şifrelemek için de **istismar edebilirsiniz**. Örneğin, çerezin içeriği "**_**user=MyUsername**_**" ise, bunu "\_user=administrator\_" olarak değiştirebilir ve uygulama içinde yetkileri artırabilirsiniz. Bunu `paduster` kullanarak -plaintext** parametresini belirterek de yapabilirsiniz:
+Bu güvenlik açığını **kötüye kullanarak yeni verileri şifreleyebilirsiniz. Örneğin, çerezin içeriği "**_**user=MyUsername**_**" ise, bunu "\_user=administrator\_" olarak değiştirebilir ve uygulama içinde yetkileri artırabilirsiniz. Bunu `paduster` kullanarak -plaintext** parametresini belirterek de yapabilirsiniz:
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -encoding 0 -cookies "login=RVJDQrwUdTRWJUVUeBKkEA==" -plaintext "user=administrator"
 ```
@@ -75,13 +73,13 @@ perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon
 ```
 ### Teori
 
-**Özetle**, tüm **farklı padding'leri** oluşturmak için kullanılabilecek doğru değerleri tahmin ederek şifrelenmiş verileri çözmeye başlayabilirsiniz. Ardından, padding oracle saldırısı, 1, 2, 3, vb. **padding'leri oluşturan doğru değerin** ne olacağını tahmin ederek son byte'dan başlayarak byte'ları çözmeye başlayacaktır.
+**Özetle**, tüm **farklı padding'leri** oluşturmak için kullanılabilecek doğru değerleri tahmin ederek şifreli verileri çözmeye başlayabilirsiniz. Ardından, padding oracle saldırısı, 1, 2, 3, vb. **padding'leri oluşturan** doğru değeri tahmin ederek son byte'dan başlayarak byte'ları çözmeye başlayacaktır.
 
 ![](<../.gitbook/assets/image (561).png>)
 
-Şifrelenmiş ve **E0'dan E15'e** kadar olan byte'ları içeren **2 blok** olduğunu hayal edin.\
-**Son** **blok**u (**E8**'den **E15**'e) **çözmek** için, tüm blok "blok şifre çözme" işleminden geçerek **I0'dan I15'e kadar olan ara byte'ları** oluşturur.\
-Son olarak, her ara byte, önceki şifrelenmiş byte'larla (E0'dan E7'ye) **XOR'lanır**. Yani:
+Şifrelenmiş ve **E0'dan E15'e** kadar olan byte'ları içeren **2 blok**'a sahip olduğunuzu hayal edin.\
+**Son** **blok**'u (**E8**'den **E15**'e) **çözmek** için, tüm blok "blok şifre çözme" işleminden geçerek **I0'dan I15'e** kadar olan **ara byte'ları** oluşturur.\
+Sonunda, her ara byte, önceki şifreli byte'larla (E0'dan E7'ye) **XOR**'lanır. Yani:
 
 * `C15 = D(E15) ^ E7 = I15 ^ E7`
 * `C14 = I14 ^ E6`
@@ -89,7 +87,7 @@ Son olarak, her ara byte, önceki şifrelenmiş byte'larla (E0'dan E7'ye) **XOR'
 * `C12 = I12 ^ E4`
 * ...
 
-Artık **C15'in `0x01`** olana kadar **`E7`'yi değiştirmek** mümkündür, bu da doğru bir padding olacaktır. Bu durumda: `\x01 = I15 ^ E'7`
+Artık **`E7`'yi `C15`'i `0x01`** olacak şekilde **değiştirmek** mümkündür; bu da doğru bir padding olacaktır. Bu durumda: `\x01 = I15 ^ E'7`
 
 E'7'yi bulduğunuzda, **I15'i hesaplamak** mümkündür: `I15 = 0x01 ^ E'7`
 
@@ -97,37 +95,35 @@ Bu da **C15'i hesaplamamıza** olanak tanır: `C15 = E7 ^ I15 = E7 ^ \x01 ^ E'7`
 
 **C15**'i bildiğinizde, şimdi **C14'ü hesaplamak** mümkündür, ancak bu sefer padding'i `\x02\x02` ile brute-force yaparak.
 
-Bu BF, `E''15` değerinin 0x02 olduğu hesaplanabildiği için önceki kadar karmaşıktır: `E''7 = \x02 ^ I15`, bu nedenle sadece **`E'14`**'ü bulmak gerekir ki bu da **`C14`'ün `0x02`'ye eşit olmasını** sağlar.\
+Bu BF, önceki kadar karmaşıktır çünkü `E''15` değerini 0x02 olarak hesaplamak mümkündür: `E''7 = \x02 ^ I15`, bu nedenle sadece **`E'14`**'ü bulmak gerekir ki bu da **`C14`'ün `0x02`**'ye eşit olmasını sağlar.\
 Ardından, C14'ü çözmek için aynı adımları izleyin: **`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
 
-**Tüm şifrelenmiş metni çözene kadar bu zinciri takip edin.**
+**Tüm şifreli metni çözene kadar bu zinciri takip edin.**
 
 ### Açığın Tespiti
 
-Bir hesap kaydedin ve bu hesapla giriş yapın.\
-Eğer **birçok kez giriş yaparsanız** ve her seferinde **aynı çerezi** alıyorsanız, uygulamada muhtemelen **bir sorun** vardır. **Geri gönderilen çerez her seferinde benzersiz olmalıdır.** Eğer çerez **her zaman** **aynıysa**, muhtemelen her zaman geçerli olacaktır ve onu geçersiz kılmanın bir yolu **olmayacaktır.**
+Bir hesap oluşturun ve bu hesapla giriş yapın.\
+Eğer **birçok kez giriş yaparsanız** ve her seferinde **aynı çerezi** alıyorsanız, uygulamada muhtemelen **bir sorun** vardır. **Geri gönderilen çerez her seferinde benzersiz** olmalıdır. Eğer çerez **her zaman** **aynı** ise, muhtemelen her zaman geçerli olacaktır ve onu geçersiz kılmanın bir yolu **olmayacaktır**.
 
-Artık çerezi **değiştirmeyi** denerken, uygulamadan bir **hata** aldığınızı görebilirsiniz.\
-Ancak padding'i BF yaparsanız (örneğin padbuster kullanarak) farklı bir kullanıcı için geçerli başka bir çerez elde etmeyi başarabilirsiniz. Bu senaryo, padbuster'a karşı yüksek ihtimalle savunmasızdır.
+Şimdi, eğer **çerezi değiştirmeye** çalışırsanız, uygulamadan bir **hata** aldığınızı görebilirsiniz.\
+Ama eğer padding'i BF yaparsanız (örneğin padbuster kullanarak) farklı bir kullanıcı için geçerli başka bir çerez elde etmeyi başarırsınız. Bu senaryo, padbuster'a karşı yüksek ihtimalle savunmasızdır.
 
 ### Referanslar
 
 * [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
-AWS Hacking'i öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS Hacking'i öğrenin ve pratik yapın:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP Hacking'i öğrenin ve pratik yapın: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'i takip edin.**
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter**'da **bizi takip edin** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Hacking ipuçlarını paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
