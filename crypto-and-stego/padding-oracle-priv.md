@@ -1,8 +1,8 @@
 # Padding Oracle
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -14,8 +14,6 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://websec.nl/" %}
 
@@ -34,7 +32,7 @@ CBCを復号するには、**逆の** **操作**が行われます：
 ## Message Padding
 
 暗号化は**固定** **サイズ** **ブロック**で行われるため、**最後の** **ブロック**の長さを完了するために**パディング**が通常必要です。\
-通常、**PKCS7**が使用され、ブロックを完了するために必要な**バイト数**を**繰り返す**パディングが生成されます。たとえば、最後のブロックが3バイト不足している場合、パディングは`\x03\x03\x03`になります。
+通常、**PKCS7**が使用され、ブロックを完了するために**必要なバイト数**を**繰り返す**パディングが生成されます。たとえば、最後のブロックが3バイト不足している場合、パディングは`\x03\x03\x03`になります。
 
 **8バイトの長さの2つのブロック**の例を見てみましょう：
 
@@ -51,7 +49,7 @@ CBCを復号するには、**逆の** **操作**が行われます：
 
 アプリケーションが暗号化されたデータを復号するとき、最初にデータを復号し、その後パディングを削除します。パディングのクリーンアップ中に、**無効なパディングが検出可能な動作を引き起こす**場合、**パディングオラクルの脆弱性**があります。検出可能な動作は、**エラー**、**結果の欠如**、または**応答の遅延**である可能性があります。
 
-この動作を検出すると、**暗号化されたデータを復号**し、さらには**任意の平文を暗号化**することができます。
+この動作を検出した場合、**暗号化されたデータを復号**し、さらには**任意の平文を暗号化**することができます。
 
 ### How to exploit
 
@@ -69,7 +67,7 @@ perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -e
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -encoding 0 -cookies "login=RVJDQrwUdTRWJUVUeBKkEA==" -plaintext "user=administrator"
 ```
-もしサイトが脆弱であれば、`padbuster`は自動的にパディングエラーが発生するタイミングを見つけようとしますが、**-error**パラメータを使用してエラーメッセージを指定することもできます。
+サイトが脆弱な場合、`padbuster`は自動的にパディングエラーが発生するタイミングを見つけようとしますが、**-error**パラメータを使用してエラーメッセージを指定することもできます。
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon=RVJDQrwUdTRWJUVUeBKkEA==" -error "Invalid padding"
 ```
@@ -89,13 +87,13 @@ perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon
 * `C12 = I12 ^ E4`
 * ...
 
-今、`C15`が`0x01`になるように**`E7`を変更する**ことが可能です。これも正しいパディングになります。したがって、この場合：`\x01 = I15 ^ E'7`
+今、`C15`が`0x01`になるまで`E7`を**変更**することが可能です。これは正しいパディングでもあります。したがって、この場合：`\x01 = I15 ^ E'7`
 
-したがって、E'7を見つけることで、**I15を計算する**ことができます：`I15 = 0x01 ^ E'7`
+したがって、E'7を見つけることで、**I15を計算することが可能です**：`I15 = 0x01 ^ E'7`
 
-これにより、**C15を計算する**ことができます：`C15 = E7 ^ I15 = E7 ^ \x01 ^ E'7`
+これにより、**C15を計算することが可能です**：`C15 = E7 ^ I15 = E7 ^ \x01 ^ E'7`
 
-**C15**を知っているので、今度は**C14を計算する**ことが可能ですが、今回はパディング`\x02\x02`をブルートフォースします。
+**C15**を知っているので、今度は**C14を計算することが可能です**が、今回はパディング`\x02\x02`をブルートフォースします。
 
 このBFは前のものと同じくらい複雑で、値が0x02の`E''15`を計算することが可能です：`E''7 = \x02 ^ I15`。したがって、**`C14`が`0x02`に等しい**ように生成する**`E'14`**を見つけるだけです。\
 次に、C14を復号するために同じ手順を実行します：**`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
@@ -105,30 +103,28 @@ perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon
 ### 脆弱性の検出
 
 アカウントを登録し、このアカウントでログインします。\
-もし**何度もログイン**して、常に**同じクッキー**を受け取る場合、アプリケーションに**何か**が**間違っている**可能性があります。**送信されるクッキーは、ログインするたびにユニークであるべきです**。クッキーが**常に**同じであれば、おそらく常に有効であり、それを無効にする方法は**ありません**。
+もし**何度もログイン**して、常に**同じクッキー**を受け取る場合、アプリケーションに**何か**が**間違っている**可能性があります。**返送されるクッキーは、ログインするたびにユニークであるべきです**。クッキーが**常に**同じであれば、それはおそらく常に有効であり、無効にする方法は**ありません**。
 
-今、もし**クッキーを変更しようとすると**、アプリケーションから**エラー**が返されるのがわかります。\
+今、もし**クッキーを変更**しようとすると、アプリケーションから**エラー**が返されるのがわかります。\
 しかし、パディングをBF（例えばpadbusterを使用）すると、異なるユーザーのための別の有効なクッキーを取得することができます。このシナリオは、padbusterに対して脆弱である可能性が非常に高いです。
 
 ### 参考文献
 
 * [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
-AWSハッキングを学び、実践する：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWSハッキングを学び、練習する：<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCPハッキングを学び、練習する：<img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricksをサポートする</summary>
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter**で**フォロー**してください 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **ハッキングのトリックを共有するために、[**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
+* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter**で**フォロー**してください** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを送信してください。**
 
 </details>
 {% endhint %}

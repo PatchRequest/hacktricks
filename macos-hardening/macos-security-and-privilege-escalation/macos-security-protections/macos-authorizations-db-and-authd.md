@@ -17,9 +17,9 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 </details>
 {% endhint %}
 
-## **認可データベース**
+## **Athorizarions DB**
 
-`/var/db/auth.db`にあるデータベースは、機密操作を実行するための権限を保存するために使用されます。これらの操作は完全に**ユーザースペース**で実行され、通常は**XPCサービス**によって使用され、特定のアクションを実行するために**呼び出し元クライアントが認可されているかどうか**をこのデータベースをチェックして確認します。
+`/var/db/auth.db`にあるデータベースは、機密操作を実行するための権限を保存するために使用されるデータベースです。これらの操作は完全に**ユーザースペース**で実行され、通常は**XPCサービス**によって使用され、特定のアクションを実行するために**呼び出し元クライアントが認可されているかどうか**をこのデータベースをチェックして確認します。
 
 最初にこのデータベースは`/System/Library/Security/authorization.plist`の内容から作成されます。その後、一部のサービスがこのデータベースに他の権限を追加または変更することがあります。
 
@@ -29,21 +29,21 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 * **name**: 認可システム内でルールを識別し参照するために使用される一意の名前。
 * **type**: ルールのタイプを指定し、認可ロジックを定義するために1または2の値に制限されます。
 * **class**: ルールを特定のクラスに分類し、正の整数であることを保証します。
-* "allow"は許可、"deny"は拒否、"user"はグループプロパティがアクセスを許可するメンバーシップを示す場合、"rule"は満たすべきルールを配列で示し、"evaluate-mechanisms"は`mechanisms`配列に続き、これらは組み込みまたは`/System/Library/CoreServices/SecurityAgentPlugins/`または/Library/Security//SecurityAgentPlugins内のバンドルの名前です。
+* "allow"は許可、"deny"は拒否、"user"はグループプロパティがアクセスを許可するメンバーシップを示す場合、"rule"は満たすべきルールを配列で示し、"evaluate-mechanisms"は`mechanisms`配列に続き、組み込みまたは`/System/Library/CoreServices/SecurityAgentPlugins/`または/Library/Security//SecurityAgentPlugins内のバンドルの名前です。
 * **group**: グループベースの認可のためにルールに関連付けられたユーザーグループを示します。
 * **kofn**: "k-of-n"パラメータを表し、満たすべきサブルールの数を決定します。
 * **timeout**: ルールによって付与された認可が期限切れになるまでの秒数を定義します。
 * **flags**: ルールの動作と特性を変更するさまざまなフラグを含みます。
 * **tries**: セキュリティを強化するために許可される認可試行の回数を制限します。
-* **version**: ルールのバージョンを追跡し、バージョン管理と更新を行います。
-* **created**: ルールが作成されたタイムスタンプを記録し、監査目的で使用します。
+* **version**: バージョン管理と更新のためにルールのバージョンを追跡します。
+* **created**: 監査目的のためにルールが作成されたタイムスタンプを記録します。
 * **modified**: ルールに対する最後の変更のタイムスタンプを保存します。
-* **hash**: ルールのハッシュ値を保持し、その整合性を確保し、改ざんを検出します。
+* **hash**: ルールの整合性を確保し、改ざんを検出するためのハッシュ値を保持します。
 * **identifier**: ルールへの外部参照のためのUUIDなどの一意の文字列識別子を提供します。
 * **requirement**: ルールの特定の認可要件とメカニズムを定義するシリアライズされたデータを含みます。
 * **comment**: ドキュメントと明確さのためにルールに関する人間が読める説明またはコメントを提供します。
 
-### 例
+### Example
 ```bash
 # List by name and comments
 sudo sqlite3 /var/db/auth.db "select name, comment from rules"
@@ -88,13 +88,13 @@ security authorizationdb read com.apple.tcc.util.admin
 ```
 ## Authd
 
-これは、クライアントが機密のアクションを実行するための承認リクエストを受け取るデーモンです。`XPCServices/`フォルダー内に定義されたXPCサービスとして機能し、ログは`/var/log/authd.log`に書き込まれます。
+これは、クライアントが機密のアクションを実行するための承認要求を受け取るデーモンです。`XPCServices/`フォルダー内に定義されたXPCサービスとして機能し、ログは`/var/log/authd.log`に書き込まれます。
 
 さらに、セキュリティツールを使用すると、多くの`Security.framework` APIをテストすることが可能です。例えば、`AuthorizationExecuteWithPrivileges`を実行するには、次のようにします: `security execute-with-privileges /bin/ls`
 
 これにより、`/usr/libexec/security_authtrampoline /bin/ls`がrootとしてフォークされ、lsをrootとして実行するための権限を求めるプロンプトが表示されます:
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
