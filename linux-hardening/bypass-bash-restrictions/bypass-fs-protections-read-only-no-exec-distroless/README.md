@@ -15,7 +15,7 @@ Aprenda e pratique Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt
 </details>
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Se você está interessado em **carreira de hacking** e hackear o inhackeável - **estamos contratando!** (_fluência em polonês escrita e falada é necessária_).
 
@@ -25,7 +25,7 @@ Se você está interessado em **carreira de hacking** e hackear o inhackeável -
 
 Nos vídeos a seguir, você pode encontrar as técnicas mencionadas nesta página explicadas com mais profundidade:
 
-* [**DEF CON 31 - Explorando Manipulação de Memória Linux para Stealth e Evasão**](https://www.youtube.com/watch?v=poHirez8jk4)
+* [**DEF CON 31 - Explorando a Manipulação de Memória do Linux para Stealth e Evasão**](https://www.youtube.com/watch?v=poHirez8jk4)
 * [**Intrusões furtivas com DDexec-ng & dlopen() em memória - HackTricks Track 2023**](https://www.youtube.com/watch?v=VM\_gjjiARaU)
 
 ## cenário read-only / no-exec
@@ -59,7 +59,7 @@ No entanto, isso não é suficiente para executar seu backdoor binário ou outra
 
 ## Bypasses de Memória
 
-Se você quiser executar um binário, mas o sistema de arquivos não permitir isso, a melhor maneira de fazê-lo é **executá-lo da memória**, já que as **proteções não se aplicam lá**.
+Se você quiser executar um binário, mas o sistema de arquivos não está permitindo isso, a melhor maneira de fazê-lo é **executá-lo da memória**, já que as **proteções não se aplicam lá**.
 
 ### Bypass de FD + syscall exec
 
@@ -68,7 +68,7 @@ Se você tiver alguns poderosos motores de script dentro da máquina, como **Pyt
 Para isso, você pode facilmente usar o projeto [**fileless-elf-exec**](https://github.com/nnsee/fileless-elf-exec). Você pode passar um binário e ele gerará um script na linguagem indicada com o **binário comprimido e codificado em b64** com as instruções para **decodificá-lo e descomprimí-lo** em um **fd** criado chamando a syscall `create_memfd` e uma chamada para a syscall **exec** para executá-lo.
 
 {% hint style="warning" %}
-Isso não funciona em outras linguagens de script como PHP ou Node porque elas não têm nenhuma **maneira padrão de chamar syscalls brutas** de um script, então não é possível chamar `create_memfd` para criar o **fd de memória** para armazenar o binário.
+Isso não funciona em outras linguagens de script como PHP ou Node porque elas não têm nenhuma **maneira padrão de chamar syscalls brutas** a partir de um script, então não é possível chamar `create_memfd` para criar o **fd de memória** para armazenar o binário.
 
 Além disso, criar um **fd regular** com um arquivo em `/dev/shm` não funcionará, pois você não poderá executá-lo porque a **proteção no-exec** se aplicará.
 {% endhint %}
@@ -110,21 +110,21 @@ Contêineres distroless contêm apenas os **componentes mínimos necessários pa
 
 O objetivo dos contêineres distroless é **reduzir a superfície de ataque dos contêineres, eliminando componentes desnecessários** e minimizando o número de vulnerabilidades que podem ser exploradas.
 
-### Reverse Shell
+### Shell Reverso
 
 Em um contêiner distroless, você pode **não encontrar nem `sh` nem `bash`** para obter um shell regular. Você também não encontrará binários como `ls`, `whoami`, `id`... tudo que você normalmente executa em um sistema.
 
 {% hint style="warning" %}
-Portanto, você **não** poderá obter um **reverse shell** ou **enumerar** o sistema como costuma fazer.
+Portanto, você **não** poderá obter um **shell reverso** ou **enumerar** o sistema como costuma fazer.
 {% endhint %}
 
-No entanto, se o contêiner comprometido estiver executando, por exemplo, um flask web, então o python está instalado, e portanto você pode obter um **Python reverse shell**. Se estiver executando node, você pode obter um shell reverso Node, e o mesmo com praticamente qualquer **linguagem de script**.
+No entanto, se o contêiner comprometido estiver executando, por exemplo, um flask web, então o python está instalado, e portanto você pode obter um **shell reverso Python**. Se estiver executando node, você pode obter um shell rev Node, e o mesmo com praticamente qualquer **linguagem de script**.
 
 {% hint style="success" %}
 Usando a linguagem de script, você poderia **enumerar o sistema** usando as capacidades da linguagem.
 {% endhint %}
 
-Se não houver proteções **`read-only/no-exec`**, você poderia abusar do seu reverse shell para **escrever no sistema de arquivos seus binários** e **executá-los**.
+Se não houver proteções **`read-only/no-exec`**, você poderia abusar do seu shell reverso para **escrever no sistema de arquivos seus binários** e **executá-los**.
 
 {% hint style="success" %}
 No entanto, neste tipo de contêiner, essas proteções geralmente existirão, mas você poderia usar as **técnicas de execução em memória anteriores para contorná-las**.
@@ -132,7 +132,7 @@ No entanto, neste tipo de contêiner, essas proteções geralmente existirão, m
 
 Você pode encontrar **exemplos** de como **explorar algumas vulnerabilidades RCE** para obter shells reversos de linguagens de script e executar binários da memória em [**https://github.com/carlospolop/DistrolessRCE**](https://github.com/carlospolop/DistrolessRCE).
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Se você está interessado em uma **carreira em hacking** e hackear o inhackeável - **estamos contratando!** (_fluência em polonês escrita e falada é necessária_).
 
@@ -148,7 +148,7 @@ Aprenda e pratique Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
+* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
 
 </details>
 {% endhint %}

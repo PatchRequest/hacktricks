@@ -19,7 +19,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 Os binários Mach-o contêm um comando de carregamento chamado **`LC_CODE_SIGNATURE`** que indica o **offset** e o **tamanho** das assinaturas dentro do binário. Na verdade, usando a ferramenta GUI MachOView, é possível encontrar no final do binário uma seção chamada **Code Signature** com essas informações:
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 O cabeçalho mágico da Code Signature é **`0xFADE0CC0`**. Então você tem informações como o comprimento e o número de blobs do superBlob que os contém.\
 É possível encontrar essas informações no [código-fonte aqui](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
@@ -163,7 +163,7 @@ Note que as aplicações podem também conter um **entitlement blob** onde todos
 
 As aplicações do MacOS não têm tudo o que precisam para executar dentro do binário, mas também usam **recursos externos** (geralmente dentro do **bundle** das aplicações). Portanto, existem alguns slots dentro do binário que conterão os hashes de alguns recursos externos interessantes para verificar se não foram modificados.
 
-Na verdade, é possível ver nas estruturas do Code Directory um parâmetro chamado **`nSpecialSlots`** que indica o número dos slots especiais. Não existe um slot especial 0 e os mais comuns (de -1 a -6) são:
+Na verdade, é possível ver nas estruturas do Code Directory um parâmetro chamado **`nSpecialSlots`** indicando o número dos slots especiais. Não existe um slot especial 0 e os mais comuns (de -1 a -6) são:
 
 * Hash de `info.plist` (ou o que está dentro de `__TEXT.__info__plist`).
 * Hash dos Requisitos
@@ -266,7 +266,7 @@ od -A x -t x1 /tmp/output.csreq
 
 #### **Verificando a Validade**
 
-* **`Sec[Static]CodeCheckValidity`**: Verifica a validade do SecCodeRef por Requisito.
+* **`Sec[Static]CodeCheckValidity`**: Verifica a validade de SecCodeRef por Requisito.
 * **`SecRequirementEvaluate`**: Valida o requisito no contexto do certificado.
 * **`SecTaskValidateForRequirement`**: Valida um SecTask em execução contra o requisito `CFString`.
 
@@ -285,8 +285,8 @@ od -A x -t x1 /tmp/output.csreq
 #### **Modificando Requisitos de Código**
 
 * **`SecCodeSignerCreate`**: Cria um objeto `SecCodeSignerRef` para realizar operações de assinatura de código.
-* **`SecCodeSignerSetRequirement`**: Define um novo requisito para o signatário de código aplicar durante a assinatura.
-* **`SecCodeSignerAddSignature`**: Adiciona uma assinatura ao código que está sendo assinado com o signatário especificado.
+* **`SecCodeSignerSetRequirement`**: Define um novo requisito para o assinante de código aplicar durante a assinatura.
+* **`SecCodeSignerAddSignature`**: Adiciona uma assinatura ao código que está sendo assinado com o assinante especificado.
 
 #### **Validando Código com Requisitos**
 
@@ -308,7 +308,7 @@ od -A x -t x1 /tmp/output.csreq
 
 ## Aplicação de Assinatura de Código
 
-O **kernel** é quem **verifica a assinatura de código** antes de permitir que o código do aplicativo seja executado. Além disso, uma maneira de conseguir escrever e executar novo código na memória é abusar do JIT se `mprotect` for chamado com a flag `MAP_JIT`. Note que a aplicação precisa de um direito especial para poder fazer isso.
+O **kernel** é quem **verifica a assinatura de código** antes de permitir que o código do aplicativo seja executado. Além disso, uma maneira de conseguir escrever e executar novo código na memória é abusar do JIT se `mprotect` for chamado com a flag `MAP_JIT`. Observe que a aplicação precisa de um direito especial para poder fazer isso.
 
 ## `cs_blobs` & `cs_blob`
 
@@ -385,7 +385,7 @@ Aprenda e pratique Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
+* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
 
 </details>
 {% endhint %}
