@@ -19,7 +19,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 ## **Base de données des autorisations**
 
-La base de données située dans `/var/db/auth.db` est utilisée pour stocker les autorisations nécessaires à l'exécution d'opérations sensibles. Ces opérations sont effectuées entièrement dans **l'espace utilisateur** et sont généralement utilisées par des **services XPC** qui doivent vérifier **si le client appelant est autorisé** à effectuer une certaine action en consultant cette base de données.
+La base de données située dans `/var/db/auth.db` est utilisée pour stocker les autorisations nécessaires à l'exécution d'opérations sensibles. Ces opérations sont effectuées entièrement dans **l'espace utilisateur** et sont généralement utilisées par des **services XPC** qui doivent vérifier **si le client appelant est autorisé** à effectuer certaines actions en consultant cette base de données.
 
 Initialement, cette base de données est créée à partir du contenu de `/System/Library/Security/authorization.plist`. Ensuite, certains services peuvent ajouter ou modifier cette base de données pour y ajouter d'autres autorisations.
 
@@ -94,7 +94,7 @@ De plus, en utilisant l'outil de sécurité, il est possible de tester de nombre
 
 Cela va fork et exec `/usr/libexec/security_authtrampoline /bin/ls` en tant que root, ce qui demandera des permissions dans une invite pour exécuter ls en tant que root :
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\

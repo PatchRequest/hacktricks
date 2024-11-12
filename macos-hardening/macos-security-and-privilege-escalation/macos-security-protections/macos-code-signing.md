@@ -19,7 +19,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 Les binaires Mach-o contiennent une commande de chargement appelée **`LC_CODE_SIGNATURE`** qui indique le **décalage** et la **taille** des signatures à l'intérieur du binaire. En fait, en utilisant l'outil GUI MachOView, il est possible de trouver à la fin du binaire une section appelée **Code Signature** avec ces informations :
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 L'en-tête magique de la Code Signature est **`0xFADE0CC0`**. Ensuite, vous avez des informations telles que la longueur et le nombre de blobs du superBlob qui les contient.\
 Il est possible de trouver ces informations dans le [code source ici](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
@@ -118,7 +118,7 @@ Notez qu'il existe différentes versions de cette structure où les anciennes pe
 
 ## Pages de signature de code
 
-Hacher le binaire complet serait inefficace et même inutile s'il n'est chargé en mémoire que partiellement. Par conséquent, la signature de code est en réalité un hachage de hachages où chaque page binaire est hachée individuellement.\
+Hacher le binaire complet serait inefficace et même inutile s'il n'est chargé qu'en mémoire partiellement. Par conséquent, la signature de code est en réalité un hachage de hachages où chaque page binaire est hachée individuellement.\
 En fait, dans le code **Code Directory** précédent, vous pouvez voir que la **taille de la page est spécifiée** dans l'un de ses champs. De plus, si la taille du binaire n'est pas un multiple de la taille d'une page, le champ **CodeLimit** spécifie où se termine la signature.
 ```bash
 # Get all hashes of /bin/ps
@@ -224,11 +224,11 @@ Notez que la fonction [**exec\_mach\_imgact**](https://github.com/apple-oss-dist
 
 ## Exigences de signature de code
 
-Chaque application stocke des **exigences** qu'elle doit **satisfaire** pour pouvoir être exécutée. Si les **exigences de l'application ne sont pas satisfaites**, elle ne sera pas exécutée (car elle a probablement été modifiée).
+Chaque application stocke des **exigences** qu'elle doit **satisfaire** pour pouvoir être exécutée. Si les **exigences de l'application ne sont pas satisfaites par l'application**, elle ne sera pas exécutée (car elle a probablement été modifiée).
 
 Les exigences d'un binaire utilisent une **grammaire spéciale** qui est un flux d'**expressions** et sont encodées sous forme de blobs en utilisant `0xfade0c00` comme magie dont le **hash est stocké dans un emplacement de code spécial**.
 
-Les exigences d'un binaire peuvent être consultées en exécutant : 
+Les exigences d'un binaire peuvent être vues en exécutant :
 
 {% code overflow="wrap" %}
 ```bash
@@ -246,7 +246,7 @@ designated => identifier "org.whispersystems.signal-desktop" and anchor apple ge
 Notez comment ces signatures peuvent vérifier des éléments tels que les informations de certification, TeamID, IDs, droits et de nombreuses autres données.
 {% endhint %}
 
-De plus, il est possible de générer certaines exigences compilées en utilisant l'outil `csreq` :
+De plus, il est possible de générer des exigences compilées à l'aide de l'outil `csreq` :
 
 {% code overflow="wrap" %}
 ```bash
@@ -264,35 +264,35 @@ od -A x -t x1 /tmp/output.csreq
 
 Il est possible d'accéder à ces informations et de créer ou modifier des exigences avec certaines API du `Security.framework` comme :
 
-#### **Vérification de la validité**
+#### **Vérification de Validité**
 
 * **`Sec[Static]CodeCheckValidity`** : Vérifie la validité de SecCodeRef par rapport à l'exigence.
 * **`SecRequirementEvaluate`** : Valide l'exigence dans le contexte du certificat.
 * **`SecTaskValidateForRequirement`** : Valide un SecTask en cours par rapport à l'exigence `CFString`.
 
-#### **Création et gestion des exigences de code**
+#### **Création et Gestion des Exigences de Code**
 
-* **`SecRequirementCreateWithData` :** Crée un `SecRequirementRef` à partir de données binaires représentant l'exigence.
-* **`SecRequirementCreateWithString` :** Crée un `SecRequirementRef` à partir d'une expression de chaîne de l'exigence.
+* **`SecRequirementCreateWithData`** : Crée un `SecRequirementRef` à partir de données binaires représentant l'exigence.
+* **`SecRequirementCreateWithString`** : Crée un `SecRequirementRef` à partir d'une expression de chaîne de l'exigence.
 * **`SecRequirementCopy[Data/String]`** : Récupère la représentation des données binaires d'un `SecRequirementRef`.
 * **`SecRequirementCreateGroup`** : Crée une exigence pour l'appartenance à un groupe d'applications.
 
-#### **Accès aux informations de signature de code**
+#### **Accès aux Informations de Signature de Code**
 
 * **`SecStaticCodeCreateWithPath`** : Initialise un objet `SecStaticCodeRef` à partir d'un chemin de système de fichiers pour inspecter les signatures de code.
 * **`SecCodeCopySigningInformation`** : Obtient des informations de signature à partir d'un `SecCodeRef` ou `SecStaticCodeRef`.
 
-#### **Modification des exigences de code**
+#### **Modification des Exigences de Code**
 
 * **`SecCodeSignerCreate`** : Crée un objet `SecCodeSignerRef` pour effectuer des opérations de signature de code.
 * **`SecCodeSignerSetRequirement`** : Définit une nouvelle exigence que le signataire de code doit appliquer lors de la signature.
 * **`SecCodeSignerAddSignature`** : Ajoute une signature au code en cours de signature avec le signataire spécifié.
 
-#### **Validation du code avec des exigences**
+#### **Validation du Code avec des Exigences**
 
 * **`SecStaticCodeCheckValidity`** : Valide un objet de code statique par rapport aux exigences spécifiées.
 
-#### **API supplémentaires utiles**
+#### **API Utiles Supplémentaires**
 
 * **`SecCodeCopy[Internal/Designated]Requirement` : Obtenir SecRequirementRef à partir de SecCodeRef**
 * **`SecCodeCopyGuestWithAttributes`** : Crée un `SecCodeRef` représentant un objet de code basé sur des attributs spécifiques, utile pour le sandboxing.
@@ -301,18 +301,18 @@ Il est possible d'accéder à ces informations et de créer ou modifier des exig
 * **`SecCodeGetTypeID`** : Renvoie l'identifiant de type pour les objets `SecCodeRef`.
 * **`SecRequirementGetTypeID`** : Obtient un CFTypeID d'un `SecRequirementRef`.
 
-#### **Drapeaux et constantes de signature de code**
+#### **Drapeaux et Constantes de Signature de Code**
 
 * **`kSecCSDefaultFlags`** : Drapeaux par défaut utilisés dans de nombreuses fonctions de Security.framework pour les opérations de signature de code.
 * **`kSecCSSigningInformation`** : Drapeau utilisé pour spécifier que les informations de signature doivent être récupérées.
 
-## Application de la signature de code
+## Application de la Signature de Code
 
 Le **noyau** est celui qui **vérifie la signature de code** avant de permettre l'exécution du code de l'application. De plus, une façon de pouvoir écrire et exécuter un nouveau code en mémoire est d'abuser de JIT si `mprotect` est appelé avec le drapeau `MAP_JIT`. Notez que l'application a besoin d'un droit spécial pour pouvoir faire cela.
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) struct contient les informations sur le droit du processus en cours. `csb_platform_binary` informe également si l'application est un binaire de plateforme (ce qui est vérifié à différents moments par le système d'exploitation pour appliquer des mécanismes de sécurité comme protéger les droits SEND aux ports de tâche de ces processus).
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) la structure contient des informations sur le droit de l'application en cours d'exécution. `csb_platform_binary` informe également si l'application est un binaire de plateforme (ce qui est vérifié à différents moments par le système d'exploitation pour appliquer des mécanismes de sécurité comme protéger les droits SEND aux ports de tâche de ces processus).
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
