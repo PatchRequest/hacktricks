@@ -25,7 +25,7 @@ Inizialmente, questo database viene creato dal contenuto di `/System/Library/Sec
 
 Le regole sono memorizzate nella tabella `rules` all'interno del database e contengono le seguenti colonne:
 
-* **id**: Un identificatore unico per ogni regola, incrementato automaticamente e che funge da chiave primaria.
+* **id**: Un identificatore unico per ogni regola, automaticamente incrementato e che funge da chiave primaria.
 * **name**: Il nome unico della regola utilizzato per identificarla e fare riferimento ad essa all'interno del sistema di autorizzazione.
 * **type**: Specifica il tipo di regola, limitato ai valori 1 o 2 per definire la sua logica di autorizzazione.
 * **class**: Categorizza la regola in una classe specifica, assicurandosi che sia un intero positivo.
@@ -94,7 +94,7 @@ Inoltre, utilizzando lo strumento di sicurezza, è possibile testare molte API d
 
 Questo fork e exec `/usr/libexec/security_authtrampoline /bin/ls` come root, che chiederà permessi in un prompt per eseguire ls come root:
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
