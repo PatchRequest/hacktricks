@@ -1,8 +1,8 @@
 # Linux Active Directory
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,13 +15,11 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 Μια μηχανή linux μπορεί επίσης να είναι παρούσα μέσα σε ένα περιβάλλον Active Directory.
 
-Μια μηχανή linux σε ένα AD μπορεί να **αποθηκεύει διάφορα CCACHE tickets μέσα σε αρχεία. Αυτά τα tickets μπορούν να χρησιμοποιηθούν και να κακοποιηθούν όπως οποιοδήποτε άλλο kerberos ticket**. Για να διαβάσετε αυτά τα tickets θα χρειαστεί να είστε ο χρήστης κάτοχος του ticket ή **root** μέσα στη μηχανή.
+Μια μηχανή linux σε ένα AD μπορεί να **αποθηκεύει διάφορα CCACHE tickets μέσα σε αρχεία. Αυτά τα tickets μπορούν να χρησιμοποιηθούν και να καταχραστούν όπως οποιοδήποτε άλλο kerberos ticket**. Για να διαβάσετε αυτά τα tickets θα χρειαστεί να είστε ο χρήστης κάτοχος του ticket ή **root** μέσα στη μηχανή.
 
 ## Enumeration
 
@@ -37,7 +35,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ### FreeIPA
 
-Το FreeIPA είναι μια ανοιχτού κώδικα **εναλλακτική** λύση για το Microsoft Windows **Active Directory**, κυρίως για **Unix** περιβάλλοντα. Συνδυάζει έναν πλήρη **LDAP κατάλογο** με ένα MIT **Kerberos** Key Distribution Center για διαχείριση παρόμοια με το Active Directory. Χρησιμοποιεί το Dogtag **Certificate System** για τη διαχείριση πιστοποιητικών CA & RA, υποστηρίζει **πολλαπλούς παράγοντες** αυθεντικοποίησης, συμπεριλαμβανομένων των smartcards. Το SSSD είναι ενσωματωμένο για διαδικασίες αυθεντικοποίησης Unix. Μάθετε περισσότερα γι' αυτό στην:
+Το FreeIPA είναι μια ανοιχτού κώδικα **εναλλακτική** λύση για το Microsoft Windows **Active Directory**, κυρίως για **Unix** περιβάλλοντα. Συνδυάζει έναν πλήρη **LDAP κατάλογο** με ένα MIT **Kerberos** Κέντρο Κατανομής Κλειδιών για διαχείριση παρόμοια με το Active Directory. Χρησιμοποιεί το Dogtag **Certificate System** για τη διαχείριση πιστοποιητικών CA & RA, υποστηρίζει **πολλαπλούς παράγοντες** αυθεντικοποίησης, συμπεριλαμβανομένων των smartcards. Το SSSD είναι ενσωματωμένο για διαδικασίες αυθεντικοποίησης Unix. Μάθετε περισσότερα γι' αυτό στην:
 
 {% content-ref url="../freeipa-pentesting.md" %}
 [freeipa-pentesting.md](../freeipa-pentesting.md)
@@ -47,7 +45,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ### Pass The Ticket
 
-Σε αυτή τη σελίδα θα βρείτε διάφορες τοποθεσίες όπου μπορείτε να **βρείτε kerberos tickets μέσα σε έναν host linux**, στην επόμενη σελίδα μπορείτε να μάθετε πώς να μετατρέψετε αυτά τα CCache tickets σε μορφές Kirbi (τη μορφή που χρειάζεστε να χρησιμοποιήσετε σε Windows) και επίσης πώς να εκτελέσετε μια επίθεση PTT:
+Σε αυτή τη σελίδα θα βρείτε διάφορες τοποθεσίες όπου μπορείτε να **βρείτε kerberos tickets μέσα σε έναν host linux**, στην επόμενη σελίδα μπορείτε να μάθετε πώς να μετατρέψετε αυτά τα CCache tickets σε μορφή Kirbi (τη μορφή που χρειάζεστε να χρησιμοποιήσετε σε Windows) και επίσης πώς να εκτελέσετε μια επίθεση PTT:
 
 {% content-ref url="../../windows-hardening/active-directory-methodology/pass-the-ticket.md" %}
 [pass-the-ticket.md](../../windows-hardening/active-directory-methodology/pass-the-ticket.md)
@@ -57,7 +55,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 Τα αρχεία CCACHE είναι δυαδικές μορφές για **αποθήκευση πιστοποιητικών Kerberos** που συνήθως αποθηκεύονται με δικαιώματα 600 στο `/tmp`. Αυτά τα αρχεία μπορούν να αναγνωριστούν από τη **μορφή ονόματος τους, `krb5cc_%{uid}`,** που σχετίζεται με το UID του χρήστη. Για την επαλήθευση του ticket αυθεντικοποίησης, η **μεταβλητή περιβάλλοντος `KRB5CCNAME`** θα πρέπει να οριστεί στη διαδρομή του επιθυμητού αρχείου ticket, επιτρέποντας την επαναχρησιμοποίησή του.
 
-Λίστα με το τρέχον ticket που χρησιμοποιείται για αυθεντικοποίηση με `env | grep KRB5CCNAME`. Η μορφή είναι φορητή και το ticket μπορεί να **επανχρησιμοποιηθεί ορίζοντας τη μεταβλητή περιβάλλοντος** με `export KRB5CCNAME=/tmp/ticket.ccache`. Η μορφή ονόματος του ticket Kerberos είναι `krb5cc_%{uid}` όπου uid είναι το UID του χρήστη.
+Λίστα με το τρέχον ticket που χρησιμοποιείται για αυθεντικοποίηση με `env | grep KRB5CCNAME`. Η μορφή είναι φορητή και το ticket μπορεί να **επαναχρησιμοποιηθεί ορίζοντας τη μεταβλητή περιβάλλοντος** με `export KRB5CCNAME=/tmp/ticket.ccache`. Η μορφή ονόματος του kerberos ticket είναι `krb5cc_%{uid}` όπου uid είναι το UID του χρήστη.
 ```bash
 # Find tickets
 ls /tmp/ | grep krb5cc
@@ -110,7 +108,7 @@ klist.exe -t -K -e -k FILE:C:/Path/to/your/krb5.keytab
 python3 keytabextract.py krb5.keytab
 # Expected output varies based on hash availability
 ```
-Στο macOS, **`bifrost`** χρησιμεύει ως εργαλείο ανάλυσης αρχείων keytab.
+Στο macOS, **`bifrost`** χρησιμεύει ως εργαλείο για την ανάλυση αρχείων keytab.
 ```bash
 ./bifrost -action dump -source keytab -path /path/to/your/file
 ```
@@ -119,17 +117,16 @@ python3 keytabextract.py krb5.keytab
 crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDOMAIN"
 ```
 ## Αναφορές
+
 * [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
 * [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
 * [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
-Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
