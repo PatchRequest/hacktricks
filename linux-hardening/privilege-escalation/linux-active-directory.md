@@ -1,8 +1,8 @@
 # Linux Active Directory
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,8 +15,6 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 Linux mašina može biti prisutna unutar Active Directory okruženja.
@@ -25,11 +23,11 @@ Linux mašina u AD može **čuvati različite CCACHE karte unutar fajlova. Ove k
 
 ## Enumeration
 
-### AD enumeracija iz linuxa
+### AD enumeracija sa linux-a
 
-Ako imate pristup AD-u u linuxu (ili bash-u u Windows-u), možete probati [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) da enumerišete AD.
+Ako imate pristup AD-u u linux-u (ili bash-u u Windows-u), možete probati [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn) da enumerišete AD.
 
-Takođe možete proveriti sledeću stranicu da biste naučili **druge načine za enumeraciju AD-a iz linuxa**:
+Takođe možete proveriti sledeću stranicu da biste naučili **druge načine za enumeraciju AD-a sa linux-a**:
 
 {% content-ref url="../../network-services-pentesting/pentesting-ldap.md" %}
 [pentesting-ldap.md](../../network-services-pentesting/pentesting-ldap.md)
@@ -37,7 +35,7 @@ Takođe možete proveriti sledeću stranicu da biste naučili **druge načine za
 
 ### FreeIPA
 
-FreeIPA je open-source **alternativa** za Microsoft Windows **Active Directory**, uglavnom za **Unix** okruženja. Kombinuje kompletnu **LDAP direktoriju** sa MIT **Kerberos** Centrom za distribuciju ključeva za upravljanje sličnim Active Directory. Koristi Dogtag **Sistem sertifikata** za upravljanje CA i RA sertifikatima, podržava **multi-factor** autentifikaciju, uključujući pametne kartice. SSSD je integrisan za Unix procese autentifikacije. Saznajte više o tome u:
+FreeIPA je open-source **alternativa** za Microsoft Windows **Active Directory**, uglavnom za **Unix** okruženja. Kombinuje kompletnu **LDAP direktoriju** sa MIT **Kerberos** Centrom za distribuciju ključeva za upravljanje sličnim Active Directory. Koristeći Dogtag **Sistem sertifikata** za upravljanje CA i RA sertifikatima, podržava **multi-factor** autentifikaciju, uključujući pametne kartice. SSSD je integrisan za Unix procese autentifikacije. Saznajte više o tome u:
 
 {% content-ref url="../freeipa-pentesting.md" %}
 [freeipa-pentesting.md](../freeipa-pentesting.md)
@@ -47,7 +45,7 @@ FreeIPA je open-source **alternativa** za Microsoft Windows **Active Directory**
 
 ### Pass The Ticket
 
-Na ovoj stranici ćete pronaći različita mesta gde možete **pronaći kerberos karte unutar linux hosta**, na sledećoj stranici možete naučiti kako da transformišete ove CCache formate karata u Kirbi (format koji treba da koristite u Windows-u) i takođe kako da izvršite PTT napad:
+Na ovoj stranici ćete pronaći različita mesta gde možete **pronaći kerberos karte unutar linux hosta**, na sledećoj stranici možete naučiti kako da transformišete formate ovih CCache karata u Kirbi (format koji treba da koristite u Windows-u) i takođe kako da izvršite PTT napad:
 
 {% content-ref url="../../windows-hardening/active-directory-methodology/pass-the-ticket.md" %}
 [pass-the-ticket.md](../../windows-hardening/active-directory-methodology/pass-the-ticket.md)
@@ -55,9 +53,9 @@ Na ovoj stranici ćete pronaći različita mesta gde možete **pronaći kerberos
 
 ### CCACHE ponovna upotreba iz /tmp
 
-CCACHE fajlovi su binarni formati za **čuvanje Kerberos akreditiva** koji se obično čuvaju sa 600 dozvolama u `/tmp`. Ovi fajlovi se mogu identifikovati po svom **formatu imena, `krb5cc_%{uid}`,** koji se odnosi na korisnikov UID. Za verifikaciju autentifikacione karte, **promenljiva okruženja `KRB5CCNAME`** treba da bude postavljena na putanju željenog fajla karte, omogućavajući njenu ponovnu upotrebu.
+CCACHE fajlovi su binarni formati za **čuvanje Kerberos kredencijala** i obično se čuvaju sa 600 dozvolama u `/tmp`. Ovi fajlovi se mogu identifikovati po svom **formatu imena, `krb5cc_%{uid}`,** koji se odnosi na UID korisnika. Za verifikaciju autentifikacione karte, **promenljiva okruženja `KRB5CCNAME`** treba da bude postavljena na putanju željenog fajla karte, omogućavajući njenu ponovnu upotrebu.
 
-Nabrojte trenutnu kartu koja se koristi za autentifikaciju sa `env | grep KRB5CCNAME`. Format je prenosiv i karta se može **ponovo koristiti postavljanjem promenljive okruženja** sa `export KRB5CCNAME=/tmp/ticket.ccache`. Format imena kerberos karte je `krb5cc_%{uid}` gde je uid korisnikov UID.
+Prikazivanje trenutne karte korišćene za autentifikaciju sa `env | grep KRB5CCNAME`. Format je prenosiv i karta se može **ponovo koristiti postavljanjem promenljive okruženja** sa `export KRB5CCNAME=/tmp/ticket.ccache`. Format imena kerberos karte je `krb5cc_%{uid}` gde je uid UID korisnika.
 ```bash
 # Find tickets
 ls /tmp/ | grep krb5cc
@@ -100,7 +98,7 @@ klist -k /etc/krb5.keytab
 
 Ključevi servisnih naloga, koji su neophodni za usluge koje rade sa root privilegijama, sigurno su pohranjeni u **`/etc/krb5.keytab`** datotekama. Ovi ključevi, slični lozinkama za usluge, zahtevaju strogu poverljivost.
 
-Da biste pregledali sadržaj keytab datoteke, može se koristiti **`klist`**. Ovaj alat je dizajniran da prikaže detalje o ključevima, uključujući **NT Hash** za autentifikaciju korisnika, posebno kada je tip ključa identifikovan kao 23.
+Da biste pregledali sadržaj keytab datoteke, može se koristiti **`klist`**. Ovaj alat je dizajniran da prikaže ključne detalje, uključujući **NT Hash** za autentifikaciju korisnika, posebno kada je tip ključa identifikovan kao 23.
 ```bash
 klist.exe -t -K -e -k FILE:C:/Path/to/your/krb5.keytab
 # Output includes service principal details and the NT Hash
@@ -119,17 +117,16 @@ Korišćenjem ekstraktovanih informacija o nalogu i hešu, mogu se uspostaviti v
 crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDOMAIN"
 ```
 ## References
+
 * [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
 * [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
 * [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
-Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Učite i vežbajte AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Učite i vežbajte GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 

@@ -27,7 +27,7 @@ Pravila se čuvaju u `rules` tabeli unutar baze podataka i sadrže sledeće kolo
 
 * **id**: Jedinstveni identifikator za svako pravilo, automatski se povećava i služi kao primarni ključ.
 * **name**: Jedinstveno ime pravila koje se koristi za identifikaciju i referenciranje unutar sistema autorizacije.
-* **type**: Određuje tip pravila, ograničeno na vrednosti 1 ili 2 za definisanje njegove logike autorizacije.
+* **type**: Specifikuje tip pravila, ograničeno na vrednosti 1 ili 2 za definisanje njegove logike autorizacije.
 * **class**: Kategorizuje pravilo u određenu klasu, osiguravajući da je pozitivni ceo broj.
 * "allow" za dozvolu, "deny" za odbijanje, "user" ako grupna svojstva ukazuju na grupu članstvo koje omogućava pristup, "rule" ukazuje u nizu na pravilo koje treba ispuniti, "evaluate-mechanisms" praćeno nizom `mechanisms` koji su ili ugrađeni ili naziv paketa unutar `/System/Library/CoreServices/SecurityAgentPlugins/` ili /Library/Security//SecurityAgentPlugins
 * **group**: Ukazuje na korisničku grupu povezanu sa pravilom za autorizaciju zasnovanu na grupi.
@@ -94,7 +94,7 @@ Pored toga, korišćenjem bezbednosnog alata moguće je testirati mnoge `Securit
 
 To će fork-ovati i izvršiti `/usr/libexec/security_authtrampoline /bin/ls` kao root, što će tražiti dozvole u promptu da izvrši ls kao root:
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\

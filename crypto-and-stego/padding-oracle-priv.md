@@ -1,8 +1,8 @@
 # Padding Oracle
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,28 +15,26 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 ## CBC - Cipher Block Chaining
 
-U CBC režimu **prethodni enkriptovani blok se koristi kao IV** za XOR sa sledećim blokom:
+In CBC mode the **previous encrypted block is used as IV** to XOR with the next block:
 
 ![https://defuse.ca/images/cbc\_encryption.png](https://defuse.ca/images/cbc\_encryption.png)
 
-Da bi se dekriptovao CBC, **vrše se suprotne** **operacije**:
+To decrypt CBC the **opposite** **operations** are done:
 
 ![https://defuse.ca/images/cbc\_decryption.png](https://defuse.ca/images/cbc\_decryption.png)
 
-Primetite kako je potrebno koristiti **ključ za enkripciju** i **IV**.
+Notice how it's needed to use an **encryption** **key** and an **IV**.
 
 ## Message Padding
 
-Kako se enkripcija vrši u **fiksnim** **veličinama** **blokova**, obično je potrebno **paddovanje** u **poslednjem** **bloku** da bi se završila njegova dužina.\
-Obično se koristi **PKCS7**, koji generiše padding **ponavljajući** **broj** **bajtova** **potrebnih** da se **završi** blok. Na primer, ako poslednjem bloku nedostaje 3 bajta, padding će biti `\x03\x03\x03`.
+As the encryption is performed in **fixed** **size** **blocks**, **padding** is usually needed in the **last** **block** to complete its length.\
+Usually **PKCS7** is used, which generates a padding **repeating** the **number** of **bytes** **needed** to **complete** the block. For example, if the last block is missing 3 bytes, the padding will be `\x03\x03\x03`.
 
-Pogledajmo više primera sa **2 bloka dužine 8 bajtova**:
+Let's look at more examples with a **2 blocks of length 8bytes**:
 
 | byte #0 | byte #1 | byte #2 | byte #3 | byte #4 | byte #5 | byte #6 | byte #7 | byte #0  | byte #1  | byte #2  | byte #3  | byte #4  | byte #5  | byte #6  | byte #7  |
 | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
@@ -45,17 +43,17 @@ Pogledajmo više primera sa **2 bloka dužine 8 bajtova**:
 | P       | A       | S       | S       | W       | O       | R       | D       | 1        | 2        | 3        | **0x05** | **0x05** | **0x05** | **0x05** | **0x05** |
 | P       | A       | S       | S       | W       | O       | R       | D       | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** | **0x08** |
 
-Primetite kako je u poslednjem primeru **poslednji blok bio pun, pa je generisan još jedan samo sa paddingom**.
+Note how in the last example the **last block was full so another one was generated only with padding**.
 
 ## Padding Oracle
 
-Kada aplikacija dekriptuje enkriptovane podatke, prvo će dekriptovati podatke; zatim će ukloniti padding. Tokom čišćenja paddinga, ako **nevalidan padding izazove uočljivo ponašanje**, imate **padding oracle ranjivost**. Uočljivo ponašanje može biti **greška**, **nedostatak rezultata**, ili **sporiji odgovor**.
+When an application decrypts encrypted data, it will first decrypt the data; then it will remove the padding. During the cleanup of the padding, if an **invalid padding triggers a detectable behaviour**, you have a **padding oracle vulnerability**. The detectable behaviour can be an **error**, a **lack of results**, or a **slower response**.
 
-Ako primetite ovo ponašanje, možete **dekriptovati enkriptovane podatke** i čak **enkriptovati bilo koji čist tekst**.
+If you detect this behaviour, you can **decrypt the encrypted data** and even **encrypt any cleartext**.
 
-### Kako iskoristiti
+### How to exploit
 
-Možete koristiti [https://github.com/AonCyberLabs/PadBuster](https://github.com/AonCyberLabs/PadBuster) da iskoristite ovu vrstu ranjivosti ili jednostavno uraditi
+You could use [https://github.com/AonCyberLabs/PadBuster](https://github.com/AonCyberLabs/PadBuster) to exploit this kind of vulnerability or just do
 ```
 sudo apt-get install padbuster
 ```
@@ -65,7 +63,7 @@ perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -e
 ```
 **Encoding 0** znači da se koristi **base64** (ali su dostupni i drugi, proverite meni pomoći).
 
-Takođe možete **iskoristiti ovu ranjivost za enkripciju novih podataka. Na primer, zamislite da je sadržaj kolačića "**_**user=MyUsername**_**", tada ga možete promeniti u "\_user=administrator\_" i eskalirati privilegije unutar aplikacije. Takođe to možete uraditi koristeći `paduster`specifikujući -plaintext** parametar:
+Takođe možete **iskoristiti ovu ranjivost da enkriptujete nove podatke. Na primer, zamislite da je sadržaj kolačića "**_**user=MyUsername**_**", tada ga možete promeniti u "\_user=administrator\_" i eskalirati privilegije unutar aplikacije. Takođe to možete uraditi koristeći `paduster`specifikujući -plaintext** parametar:
 ```bash
 perl ./padBuster.pl http://10.10.10.10/index.php "RVJDQrwUdTRWJUVUeBKkEA==" 8 -encoding 0 -cookies "login=RVJDQrwUdTRWJUVUeBKkEA==" -plaintext "user=administrator"
 ```
@@ -80,7 +78,7 @@ U **kratko**, možete početi dekriptovanje enkriptovanih podataka pogađanjem i
 ![](<../.gitbook/assets/image (561).png>)
 
 Zamislite da imate neki enkriptovani tekst koji zauzima **2 bloka** formirana bajtovima od **E0 do E15**.\
-Da biste **dekriptovali** **poslednji** **blok** (**E8** do **E15**), ceo blok prolazi kroz "dekripciju blok cifre" generišući **intermedijarne bajtove I0 do I15**.\
+Da biste **dekriptovali** **poslednji** **blok** (**E8** do **E15**), ceo blok prolazi kroz "dekriptovanje blok šifre" generišući **intermedijarne bajtove I0 do I15**.\
 Na kraju, svaki intermedijarni bajt se **XOR-uje** sa prethodnim enkriptovanim bajtovima (E0 do E7). Tako:
 
 * `C15 = D(E15) ^ E7 = I15 ^ E7`
@@ -100,12 +98,12 @@ Znajući **C15**, sada je moguće **izračunati C14**, ali ovaj put brute-forcin
 Ovaj BF je jednako složen kao prethodni jer je moguće izračunati `E''15` čija je vrednost 0x02: `E''7 = \x02 ^ I15` tako da je samo potrebno pronaći **`E'14`** koja generiše **`C14` jednaku `0x02`**.\
 Zatim, uradite iste korake da dekriptujete C14: **`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
 
-**Pratite chain dok ne dekriptujete ceo enkriptovani tekst.**
+**Pratite ovaj lanac dok ne dekriptujete ceo enkriptovani tekst.**
 
 ### Otkrivanje ranjivosti
 
-Registrujte se i otvorite nalog i prijavite se sa tim nalogom.\
-Ako se **prijavljujete više puta** i uvek dobijate **isti kolačić**, verovatno postoji **nešto** **pogrešno** u aplikaciji. **Kolačić koji se vraća treba da bude jedinstven** svaki put kada se prijavite. Ako je kolačić **uvek** **isti**, verovatno će uvek biti važeći i neće biti načina da se on **nevaži**.
+Registrujte se i otvorite nalog i prijavite se sa ovim nalogom.\
+Ako se **prijavite više puta** i uvek dobijate **isti kolačić**, verovatno postoji **nešto** **pogrešno** u aplikaciji. **Kolačić koji se vraća treba da bude jedinstven** svaki put kada se prijavite. Ako je kolačić **uvek** **isti**, verovatno će uvek biti važeći i neće biti načina da se on **nevaži**.
 
 Sada, ako pokušate da **modifikujete** **kolačić**, možete videti da dobijate **grešku** iz aplikacije.\
 Ali ako BF popunu (koristeći padbuster na primer) uspete da dobijete drugi kolačić važeći za drugog korisnika. Ovaj scenario je veoma verovatno ranjiv na padbuster.
@@ -114,17 +112,15 @@ Ali ako BF popunu (koristeći padbuster na primer) uspete da dobijete drugi kola
 
 * [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
-Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Učite i vežbajte AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Učite i vežbajte GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Podržite HackTricks</summary>
+<summary>Podrška HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
 * **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
