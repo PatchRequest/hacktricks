@@ -15,7 +15,7 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If you are interested in **hacking career** and hack the unhackable - **we are hiring!** (_fluent polish written and spoken required_).
 
@@ -23,9 +23,9 @@ If you are interested in **hacking career** and hack the unhackable - **we are h
 
 ## Assets discoveries
 
-> तो आपको बताया गया था कि किसी कंपनी से संबंधित सब कुछ दायरे के भीतर है, और आप यह पता लगाना चाहते हैं कि इस कंपनी के पास वास्तव में क्या है।
+> तो आपको कहा गया था कि किसी कंपनी से संबंधित सब कुछ दायरे के भीतर है, और आप यह पता लगाना चाहते हैं कि इस कंपनी के पास वास्तव में क्या है।
 
-इस चरण का लक्ष्य मुख्य कंपनी द्वारा स्वामित्व वाली सभी **कंपनियों** और फिर इन कंपनियों के सभी **संपत्तियों** को प्राप्त करना है। ऐसा करने के लिए, हम:
+इस चरण का लक्ष्य मुख्य कंपनी द्वारा स्वामित्व वाली सभी **कंपनियों** को प्राप्त करना है और फिर इन कंपनियों के सभी **संपत्तियों** को प्राप्त करना है। ऐसा करने के लिए, हम:
 
 1. मुख्य कंपनी के अधिग्रहणों को खोजेंगे, इससे हमें दायरे के भीतर की कंपनियाँ मिलेंगी।
 2. प्रत्येक कंपनी का ASN (यदि कोई हो) खोजेंगे, इससे हमें प्रत्येक कंपनी द्वारा स्वामित्व वाले IP रेंज मिलेंगे।
@@ -35,17 +35,17 @@ If you are interested in **hacking career** and hack the unhackable - **we are h
 ### **Acquisitions**
 
 सबसे पहले, हमें यह जानने की आवश्यकता है कि **मुख्य कंपनी द्वारा स्वामित्व वाली अन्य कंपनियाँ कौन सी हैं**।\
-एक विकल्प है [https://www.crunchbase.com/](https://www.crunchbase.com) पर जाना, **मुख्य कंपनी** के लिए **खोज** करना, और "**अधिग्रहण**" पर **क्लिक** करना। वहाँ आप मुख्य कंपनी द्वारा अधिग्रहित अन्य कंपनियाँ देखेंगे।\
+एक विकल्प है [https://www.crunchbase.com/](https://www.crunchbase.com) पर जाना, **मुख्य कंपनी** के लिए **खोजें**, और "**अधिग्रहण**" पर **क्लिक** करें। वहाँ आप मुख्य कंपनी द्वारा अधिग्रहित अन्य कंपनियाँ देखेंगे।\
 दूसरा विकल्प है मुख्य कंपनी के **विकिपीडिया** पृष्ठ पर जाना और **अधिग्रहण** के लिए खोज करना।
 
-> ठीक है, इस बिंदु पर आपको दायरे के भीतर सभी कंपनियों के बारे में पता होना चाहिए। चलो उनके संपत्तियों को खोजने का तरीका समझते हैं।
+> ठीक है, इस बिंदु पर आपको दायरे के भीतर सभी कंपनियों के बारे में पता होना चाहिए। चलिए हम उनकी संपत्तियों को खोजने का तरीका समझते हैं।
 
 ### **ASNs**
 
 एक स्वायत्त प्रणाली संख्या (**ASN**) एक **विशिष्ट संख्या** है जो **इंटरनेट असाइन नंबर प्राधिकरण (IANA)** द्वारा एक **स्वायत्त प्रणाली** (AS) को असाइन की जाती है।\
 एक **AS** में **IP पते** के **ब्लॉक** होते हैं जिनकी बाहरी नेटवर्क तक पहुँचने के लिए स्पष्ट रूप से परिभाषित नीति होती है और इसे एक ही संगठन द्वारा प्रशासित किया जाता है लेकिन यह कई ऑपरेटरों से मिलकर बन सकता है।
 
-यह जानना दिलचस्प है कि क्या **कंपनी ने कोई ASN असाइन किया है** ताकि इसके **IP रेंज** को खोजा जा सके। यह **दायरे** के भीतर सभी **होस्ट** के खिलाफ **कमजोरी परीक्षण** करना और इन IPs के भीतर **डोमेन** की खोज करना दिलचस्प होगा।\
+यह जानना दिलचस्प है कि क्या **कंपनी ने किसी ASN को असाइन किया है** ताकि इसके **IP रेंज** को खोजा जा सके। यह **दायरे** के भीतर सभी **होस्ट** के खिलाफ **कमजोरी परीक्षण** करने और इन IPs के भीतर **डोमेन** की खोज करने के लिए दिलचस्प होगा।\
 आप [**https://bgp.he.net/**](https://bgp.he.net)** पर कंपनी के **नाम**, **IP** या **डोमेन** द्वारा **खोज** कर सकते हैं।\
 **कंपनी के क्षेत्र के आधार पर ये लिंक अधिक डेटा इकट्ठा करने के लिए उपयोगी हो सकते हैं:** [**AFRINIC**](https://www.afrinic.net) **(अफ्रीका),** [**Arin**](https://www.arin.net/about/welcome/region/)**(उत्तरी अमेरिका),** [**APNIC**](https://www.apnic.net) **(एशिया),** [**LACNIC**](https://www.lacnic.net) **(लैटिन अमेरिका),** [**RIPE NCC**](https://www.ripe.net) **(यूरोप)। वैसे, शायद सभी** उपयोगी जानकारी **(IP रेंज और Whois)** पहले लिंक में पहले से ही दिखाई देती है।
 ```bash
@@ -75,15 +75,15 @@ You can find the IP and ASN of a domain using [http://ipv4info.com/](http://ipv4
 
 ### **कमजोरियों की तलाश**
 
-इस बिंदु पर हम **स्कोप के अंदर सभी संपत्तियों** के बारे में जानते हैं, इसलिए यदि आपको अनुमति है तो आप सभी होस्ट पर कुछ **कमजोरी स्कैनर** (Nessus, OpenVAS) लॉन्च कर सकते हैं।\
-इसके अलावा, आप कुछ [**पोर्ट स्कैन**](../pentesting-network/#discovering-hosts-from-the-outside) **लॉन्च कर सकते हैं** या **खुले पोर्ट खोजने के लिए** shodan **जैसी सेवाओं का उपयोग कर सकते हैं** और जो कुछ भी आप पाते हैं उसके आधार पर आपको इस पुस्तक में देखना चाहिए कि कैसे कई संभावित सेवाओं का परीक्षण करना है।\
-**इसके अलावा, यह उल्लेख करना भी फायदेमंद हो सकता है कि आप कुछ** डिफ़ॉल्ट उपयोगकर्ता नाम **और** पासवर्ड **सूचियाँ तैयार कर सकते हैं और** [https://github.com/x90skysn3k/brutespray](https://github.com/x90skysn3k/brutespray) के साथ सेवाओं को** ब्रूटफोर्स **करने की कोशिश कर सकते हैं।**
+इस बिंदु पर हम **स्कोप के अंदर सभी संपत्तियों** को जानते हैं, इसलिए यदि आपको अनुमति है तो आप सभी होस्ट पर कुछ **कमजोरी स्कैनर** (Nessus, OpenVAS) लॉन्च कर सकते हैं।\
+इसके अलावा, आप कुछ [**पोर्ट स्कैन**](../pentesting-network/#discovering-hosts-from-the-outside) **या** shodan **जैसी सेवाओं का उपयोग करके** खुले पोर्ट **खोज सकते हैं और जो कुछ भी आप पाते हैं उसके आधार पर आपको** इस पुस्तक में देखना चाहिए कि कैसे कई संभावित सेवाओं का पेंटेस्ट करें।\
+**इसके अलावा, यह उल्लेख करना भी सार्थक हो सकता है कि आप कुछ** डिफ़ॉल्ट उपयोगकर्ता नाम **और** पासवर्ड **सूचियाँ तैयार कर सकते हैं और** [https://github.com/x90skysn3k/brutespray](https://github.com/x90skysn3k/brutespray) के साथ सेवाओं को** ब्रूटफोर्स **करने की कोशिश कर सकते हैं।**
 
 ## डोमेन
 
 > हम स्कोप के अंदर सभी कंपनियों और उनकी संपत्तियों को जानते हैं, अब स्कोप के अंदर डोमेन खोजने का समय है।
 
-_कृपया ध्यान दें कि निम्नलिखित प्रस्तावित तकनीकों में आप उपडोमेन भी खोज सकते हैं और उस जानकारी को कम करके नहीं आंका जाना चाहिए।_
+_कृपया ध्यान दें कि निम्नलिखित प्रस्तावित तकनीकों में आप उपडोमेन भी खोज सकते हैं और उस जानकारी को कम नहीं आंका जाना चाहिए।_
 
 सबसे पहले, आपको प्रत्येक कंपनी के **मुख्य डोमेन**(s) की तलाश करनी चाहिए। उदाहरण के लिए, _Tesla Inc._ के लिए _tesla.com_ होगा।
 
@@ -97,12 +97,12 @@ dnsrecon -r 157.240.221.35/24 -n 1.1.1.1 #Using cloudflares dns
 dnsrecon -r 157.240.221.35/24 -n 8.8.8.8 #Using google dns
 ```
 For this to work, the administrator has to enable manually the PTR.\
-आप इस जानकारी के लिए एक ऑनलाइन टूल का भी उपयोग कर सकते हैं: [http://ptrarchive.com/](http://ptrarchive.com)
+You can also use a online tool for this info: [http://ptrarchive.com/](http://ptrarchive.com)
 
 ### **Reverse Whois (loop)**
 
 Inside a **whois** you can find a lot of interesting **information** like **organisation name**, **address**, **emails**, phone numbers... But which is even more interesting is that you can find **more assets related to the company** if you perform **reverse whois lookups by any of those fields** (for example other whois registries where the same email appears).\
-आप ऑनलाइन टूल का उपयोग कर सकते हैं जैसे:
+You can use online tools like:
 
 * [https://viewdns.info/reversewhois/](https://viewdns.info/reversewhois/) - **Free**
 * [https://domaineye.com/reverse-whois](https://domaineye.com/reverse-whois) - **Free**
@@ -113,14 +113,14 @@ Inside a **whois** you can find a lot of interesting **information** like **orga
 * [https://www.domainiq.com/](https://www.domainiq.com) - Not Free
 
 You can automate this task using [**DomLink** ](https://github.com/vysecurity/DomLink)(requires a whoxy API key).\
-आप कुछ स्वचालित रिवर्स Whois खोज भी कर सकते हैं [amass](https://github.com/OWASP/Amass) के साथ: `amass intel -d tesla.com -whois`
+You can also perform some automatic reverse whois discovery with [amass](https://github.com/OWASP/Amass): `amass intel -d tesla.com -whois`
 
 **Note that you can use this technique to discover more domain names every time you find a new domain.**
 
 ### **Trackers**
 
 If find the **same ID of the same tracker** in 2 different pages you can suppose that **both pages** are **managed by the same team**.\
-उदाहरण के लिए, यदि आप कई पृष्ठों पर वही **Google Analytics ID** या वही **Adsense ID** देखते हैं।
+For example, if you see the same **Google Analytics ID** or the same **Adsense ID** on several pages.
 
 There are some pages and tools that let you search by these trackers and more:
 
@@ -132,16 +132,16 @@ There are some pages and tools that let you search by these trackers and more:
 
 ### **Favicon**
 
-Did you know that we can find related domains and sub domains to our target by looking for the same favicon icon hash? यह ठीक वही है जो [favihash.py](https://github.com/m4ll0k/Bug-Bounty-Toolz/blob/master/favihash.py) टूल [@m4ll0k2](https://twitter.com/m4ll0k2) द्वारा बनाया गया है। इसका उपयोग कैसे करें:
+क्या आप जानते हैं कि हम अपने लक्ष्य से संबंधित डोमेन और उप डोमेन को समान favicon आइकन हैश की तलाश करके खोज सकते हैं? यह ठीक वही है जो [favihash.py](https://github.com/m4ll0k/Bug-Bounty-Toolz/blob/master/favihash.py) उपकरण [@m4ll0k2](https://twitter.com/m4ll0k2) द्वारा बनाया गया है। इसका उपयोग कैसे करें:
 ```bash
 cat my_targets.txt | xargs -I %% bash -c 'echo "http://%%/favicon.ico"' > targets.txt
 python3 favihash.py -f https://target/favicon.ico -t targets.txt -s
 ```
 ![favihash - समान favicon आइकन हैश वाले डोमेन खोजें](https://www.infosecmatter.com/wp-content/uploads/2020/07/favihash.jpg)
 
-साधारण शब्दों में, favihash हमें उन डोमेन को खोजने की अनुमति देगा जिनका हमारे लक्ष्य के समान favicon आइकन हैश है।
+साधारण शब्दों में, favihash हमें उन डोमेन को खोजने की अनुमति देगा जिनका favicon आइकन हैश हमारे लक्ष्य के समान है।
 
-इसके अलावा, आप [**इस ब्लॉग पोस्ट**](https://medium.com/@Asm0d3us/weaponizing-favicon-ico-for-bugbounties-osint-and-what-not-ace3c214e139) में समझाए गए अनुसार favicon हैश का उपयोग करके तकनीकों की भी खोज कर सकते हैं। इसका मतलब है कि यदि आप एक कमजोर वेब तकनीक के favicon का **हैश जानते हैं**, तो आप शोडन में खोज सकते हैं और **अधिक कमजोर स्थानों** को खोज सकते हैं:
+इसके अलावा, आप [**इस ब्लॉग पोस्ट**](https://medium.com/@Asm0d3us/weaponizing-favicon-ico-for-bugbounties-osint-and-what-not-ace3c214e139) में समझाए गए अनुसार favicon हैश का उपयोग करके तकनीकों की भी खोज कर सकते हैं। इसका मतलब है कि यदि आप एक कमजोर वेब तकनीक के favicon का **हैश जानते हैं** तो आप शोडन में खोज सकते हैं और **अधिक कमजोर स्थानों** को खोज सकते हैं:
 ```bash
 shodan search org:"Target" http.favicon.hash:116323821 --fields ip_str,port --separator " " | awk '{print $1":"$2}'
 ```
@@ -160,7 +160,7 @@ return fhash
 ```
 ### **Copyright / Uniq string**
 
-वेब पृष्ठों के अंदर **स्ट्रिंग्स की खोज करें जो एक ही संगठन में विभिन्न वेब्स के बीच साझा की जा सकती हैं**। **कॉपीराइट स्ट्रिंग** एक अच्छा उदाहरण हो सकता है। फिर उस स्ट्रिंग की **गूगल**, अन्य **ब्राउज़रों** या यहां तक कि **शोडन** में खोज करें: `shodan search http.html:"Copyright string"`
+वेब पृष्ठों के अंदर **ऐसे स्ट्रिंग्स की खोज करें जो एक ही संगठन में विभिन्न वेब्स के बीच साझा की जा सकें**। **कॉपीराइट स्ट्रिंग** एक अच्छा उदाहरण हो सकता है। फिर उस स्ट्रिंग की **गूगल**, अन्य **ब्राउज़रों** या यहां तक कि **शोडन** में खोज करें: `shodan search http.html:"Copyright string"`
 
 ### **CRT Time**
 
@@ -275,9 +275,9 @@ vita -d tesla.com
 ```bash
 theHarvester -d tesla.com -b "anubis, baidu, bing, binaryedge, bingapi, bufferoverun, censys, certspotter, crtsh, dnsdumpster, duckduckgo, fullhunt, github-code, google, hackertarget, hunter, intelx, linkedin, linkedin_links, n45ht, omnisint, otx, pentesttools, projectdiscovery, qwant, rapiddns, rocketreach, securityTrails, spyse, sublist3r, threatcrowd, threatminer, trello, twitter, urlscan, virustotal, yahoo, zoomeye"
 ```
-There are **अन्य दिलचस्प उपकरण/एपीआई** जो सीधे तौर पर उपडोमेन खोजने में विशेषज्ञ नहीं हैं, लेकिन उपडोमेन खोजने में उपयोगी हो सकते हैं, जैसे:
+There are **अन्य दिलचस्प उपकरण/एपीआई** जो सीधे उपडोमेन खोजने में विशेषज्ञ नहीं हैं, लेकिन उपडोमेन खोजने में उपयोगी हो सकते हैं, जैसे:
 
-* [**Crobat**](https://github.com/cgboal/sonarsearch)**:** Uses the API [https://sonar.omnisint.io](https://sonar.omnisint.io) to obtain subdomains
+* [**Crobat**](https://github.com/cgboal/sonarsearch)**:** उपडोमेन प्राप्त करने के लिए एपीआई [https://sonar.omnisint.io](https://sonar.omnisint.io) का उपयोग करता है
 ```bash
 # Get list of subdomains in output from the API
 ## This is the API the crobat tool will use
@@ -337,10 +337,10 @@ python3 censys-subdomain-finder.py tesla.com
 ```bash
 python3 DomainTrail.py -d example.com
 ```
-* [**securitytrails.com**](https://securitytrails.com/) में उपडोमेन और आईपी इतिहास खोजने के लिए एक मुफ्त API है
+* [**securitytrails.com**](https://securitytrails.com/) में उपडोमेन और IP इतिहास के लिए एक मुफ्त API है
 * [**chaos.projectdiscovery.io**](https://chaos.projectdiscovery.io/#/)
 
-यह प्रोजेक्ट **बग-बाउंटी कार्यक्रमों से संबंधित सभी उपडोमेन मुफ्त में** प्रदान करता है। आप इस डेटा को [chaospy](https://github.com/dr-0x0x/chaospy) का उपयोग करके भी एक्सेस कर सकते हैं या इस प्रोजेक्ट द्वारा उपयोग किए गए दायरे को भी एक्सेस कर सकते हैं [https://github.com/projectdiscovery/chaos-public-program-list](https://github.com/projectdiscovery/chaos-public-program-list)
+यह प्रोजेक्ट **बग-बाउंटी कार्यक्रमों से संबंधित सभी उपडोमेन मुफ्त में प्रदान करता है**। आप इस डेटा को [chaospy](https://github.com/dr-0x0x/chaospy) का उपयोग करके भी एक्सेस कर सकते हैं या इस प्रोजेक्ट द्वारा उपयोग किए गए दायरे को भी एक्सेस कर सकते हैं [https://github.com/projectdiscovery/chaos-public-program-list](https://github.com/projectdiscovery/chaos-public-program-list)
 
 आप यहाँ इन उपकरणों की **तुलना** पा सकते हैं: [https://blog.blacklanternsecurity.com/p/subdomain-enumeration-tool-face-off](https://blog.blacklanternsecurity.com/p/subdomain-enumeration-tool-face-off)
 
@@ -356,11 +356,11 @@ python3 DomainTrail.py -d example.com
 * [https://github.com/pentester-io/commonspeak](https://github.com/pentester-io/commonspeak)
 * [https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS](https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS)
 
-और अच्छे DNS रिसॉल्वर के आईपी भी। विश्वसनीय DNS रिसॉल्वर की सूची बनाने के लिए आप [https://public-dns.info/nameservers-all.txt](https://public-dns.info/nameservers-all.txt) से रिसॉल्वर डाउनलोड कर सकते हैं और उन्हें फ़िल्टर करने के लिए [**dnsvalidator**](https://github.com/vortexau/dnsvalidator) का उपयोग कर सकते हैं। या आप उपयोग कर सकते हैं: [https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt](https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt)
+और अच्छे DNS रिसोल्वर्स के IPs भी। विश्वसनीय DNS रिसोल्वर्स की सूची बनाने के लिए आप [https://public-dns.info/nameservers-all.txt](https://public-dns.info/nameservers-all.txt) से रिसोल्वर्स डाउनलोड कर सकते हैं और उन्हें फ़िल्टर करने के लिए [**dnsvalidator**](https://github.com/vortexau/dnsvalidator) का उपयोग कर सकते हैं। या आप उपयोग कर सकते हैं: [https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt](https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt)
 
 DNS ब्रूट-फोर्स के लिए सबसे अनुशंसित उपकरण हैं:
 
-* [**massdns**](https://github.com/blechschmidt/massdns): यह पहला उपकरण था जिसने प्रभावी DNS ब्रूट-फोर्स किया। यह बहुत तेज है हालांकि यह गलत सकारात्मक के प्रति संवेदनशील है।
+* [**massdns**](https://github.com/blechschmidt/massdns): यह पहला उपकरण था जिसने प्रभावी DNS ब्रूट-फोर्स किया। यह बहुत तेज है, हालाँकि यह गलत सकारात्मक के प्रति संवेदनशील है।
 ```bash
 sed 's/$/.domain.com/' subdomains.txt > bf-subdomains.txt
 ./massdns -r resolvers.txt -w /tmp/results.txt bf-subdomains.txt
@@ -378,7 +378,7 @@ shuffledns -d example.com -list example-subdomains.txt -r resolvers.txt
 ```
 puredns bruteforce all.txt domain.com
 ```
-* [**aiodnsbrute**](https://github.com/blark/aiodnsbrute) असिंक्रोनसली डोमेन नामों को ब्रूट फोर्स करने के लिए asyncio का उपयोग करता है।
+* [**aiodnsbrute**](https://github.com/blark/aiodnsbrute) असिंक्रोनस रूप से डोमेन नामों को ब्रूट फोर्स करने के लिए asyncio का उपयोग करता है।
 ```
 aiodnsbrute -r resolvers -w wordlist.txt -vv -t 1024 domain.com
 ```
@@ -395,12 +395,12 @@ cat subdomains.txt | dnsgen -
 ```bash
 goaltdns -l subdomains.txt -w /tmp/words-permutations.txt -o /tmp/final-words-s3.txt
 ```
-* [**gotator**](https://github.com/Josue87/gotator)**:** डोमेन और सबडोमेन दिए जाने पर संयोजन उत्पन्न करें। यदि संयोजन फ़ाइल निर्दिष्ट नहीं की गई है, तो gotator अपनी स्वयं की फ़ाइल का उपयोग करेगा।
+* [**gotator**](https://github.com/Josue87/gotator)**:** दिए गए डोमेन और उपडोमेन के लिए संयोजन उत्पन्न करें। यदि संयोजन फ़ाइल निर्दिष्ट नहीं की गई है, तो gotator अपनी स्वयं की फ़ाइल का उपयोग करेगा।
 ```
 gotator -sub subdomains.txt -silent [-perm /tmp/words-permutations.txt]
 ```
 * [**altdns**](https://github.com/infosec-au/altdns): उपडोमेन संयोजनों को उत्पन्न करने के अलावा, यह उन्हें हल करने की भी कोशिश कर सकता है (लेकिन पहले टिप्पणी किए गए उपकरणों का उपयोग करना बेहतर है)।
-* आप altdns संयोजनों की **शब्दसूची** [**यहां**](https://github.com/infosec-au/altdns/blob/master/words.txt) प्राप्त कर सकते हैं।
+* आप altdns संयोजनों की **शब्दसूची** [**यहाँ**](https://github.com/infosec-au/altdns/blob/master/words.txt) प्राप्त कर सकते हैं।
 ```
 altdns -i subdomains.txt -w /tmp/words-permutations.txt -o /tmp/asd3
 ```
@@ -414,13 +414,13 @@ cat subdomains.txt | dmut -d /tmp/words-permutations.txt -w 100 \
 
 #### स्मार्ट संयोजन उत्पन्न करना
 
-* [**regulator**](https://github.com/cramppet/regulator): अधिक जानकारी के लिए इस [**पोस्ट**](https://cramppet.github.io/regulator/index.html) को पढ़ें लेकिन यह मूल रूप से **खोजे गए उपडोमेन** के **मुख्य भागों** को प्राप्त करेगा और अधिक उपडोमेन खोजने के लिए उन्हें मिलाएगा।
+* [**regulator**](https://github.com/cramppet/regulator): अधिक जानकारी के लिए इस [**पोस्ट**](https://cramppet.github.io/regulator/index.html) को पढ़ें लेकिन यह मूल रूप से **खोजे गए उपडोमेन** के **मुख्य भागों** को प्राप्त करेगा और उन्हें मिलाकर अधिक उपडोमेन खोजने की कोशिश करेगा।
 ```bash
 python3 main.py adobe.com adobe adobe.rules
 make_brute_list.sh adobe.rules adobe.brute
 puredns resolve adobe.brute --write adobe.valid
 ```
-* [**subzuf**](https://github.com/elceef/subzuf)**:** _subzuf_ एक उपडोमेन ब्रूट-फोर्स फज़्ज़र है जो एक अत्यंत सरल लेकिन प्रभावी DNS प्रतिक्रिया-निर्देशित एल्गोरिदम के साथ जुड़ा हुआ है। यह एक प्रदान किए गए इनपुट डेटा सेट का उपयोग करता है, जैसे कि एक अनुकूलित शब्द सूची या ऐतिहासिक DNS/TLS रिकॉर्ड, ताकि अधिक संबंधित डोमेन नामों को सटीक रूप से संश्लेषित किया जा सके और DNS स्कैन के दौरान एकत्रित जानकारी के आधार पर उन्हें एक लूप में और भी विस्तारित किया जा सके।
+* [**subzuf**](https://github.com/elceef/subzuf)**:** _subzuf_ एक सबडोमेन ब्रूट-फोर्स फज़्ज़र है जो एक अत्यंत सरल लेकिन प्रभावी DNS प्रतिक्रिया-निर्देशित एल्गोरिदम के साथ जुड़ा हुआ है। यह एक प्रदान किए गए इनपुट डेटा सेट का उपयोग करता है, जैसे कि एक अनुकूलित शब्द सूची या ऐतिहासिक DNS/TLS रिकॉर्ड, ताकि अधिक संबंधित डोमेन नामों को सटीक रूप से संश्लेषित किया जा सके और DNS स्कैन के दौरान एकत्रित जानकारी के आधार पर उन्हें और भी आगे बढ़ाया जा सके।
 ```
 echo www | subzuf facebook.com
 ```
@@ -457,35 +457,35 @@ vhostbrute.py --url="example.com" --remoteip="10.1.1.15" --base="www.example.com
 VHostScan -t example.com
 ```
 {% hint style="info" %}
-इस तकनीक के साथ, आप आंतरिक/छिपे हुए एंडपॉइंट्स तक पहुँचने में सक्षम हो सकते हैं।
+इस तकनीक के साथ आप आंतरिक/छिपे हुए एंडपॉइंट्स तक भी पहुँच सकते हैं।
 {% endhint %}
 
 ### **CORS Brute Force**
 
-कभी-कभी आप ऐसी पृष्ठों को पाएंगे जो केवल _**Access-Control-Allow-Origin**_ हेडर को लौटाते हैं जब _**Origin**_ हेडर में एक मान्य डोमेन/सबडोमेन सेट किया गया हो। इन परिदृश्यों में, आप इस व्यवहार का दुरुपयोग करके **नए** **सबडोमेन** **खोज** सकते हैं।
+कभी-कभी आप ऐसी पृष्ठों को पाएंगे जो केवल _**Access-Control-Allow-Origin**_ हेडर को लौटाती हैं जब _**Origin**_ हेडर में एक मान्य डोमेन/सबडोमेन सेट किया गया हो। इन परिदृश्यों में, आप इस व्यवहार का दुरुपयोग करके **नए** **सबडोमेन** **खोज** सकते हैं।
 ```bash
 ffuf -w subdomains-top1million-5000.txt -u http://10.10.10.208 -H 'Origin: http://FUZZ.crossfit.htb' -mr "Access-Control-Allow-Origin" -ignore-body
 ```
 ### **Buckets Brute Force**
 
-जब आप **subdomains** की तलाश कर रहे हों, तो देखें कि क्या यह किसी प्रकार के **bucket** की ओर **pointing** कर रहा है, और इस मामले में [**permissions की जांच करें**](../../network-services-pentesting/pentesting-web/buckets/)**.**\
+जब **subdomains** की तलाश कर रहे हों, तो देखें कि क्या यह किसी प्रकार के **bucket** की ओर **pointing** कर रहा है, और इस मामले में [**permissions की जांच करें**](../../network-services-pentesting/pentesting-web/buckets/)**.**\
 इसके अलावा, चूंकि इस बिंदु पर आप दायरे के भीतर सभी डोमेन को जानेंगे, कोशिश करें [**संभावित bucket नामों को brute force करने और permissions की जांच करने के लिए**](../../network-services-pentesting/pentesting-web/buckets/).
 
 ### **Monitorization**
 
-आप **Certificate Transparency** Logs की निगरानी करके देख सकते हैं कि किसी डोमेन के **नए subdomains** बनाए गए हैं, [**sublert** ](https://github.com/yassineaboukir/sublert/blob/master/sublert.py) ऐसा करता है।
+आप **Certificate Transparency** Logs की निगरानी करके देख सकते हैं कि किसी डोमेन के **नए subdomains** बनाए गए हैं [**sublert** ](https://github.com/yassineaboukir/sublert/blob/master/sublert.py) करता है।
 
 ### **Looking for vulnerabilities**
 
 संभावित [**subdomain takeovers**](../../pentesting-web/domain-subdomain-takeover.md#subdomain-takeover) के लिए जांचें।\
 यदि **subdomain** किसी **S3 bucket** की ओर **pointing** कर रहा है, तो [**permissions की जांच करें**](../../network-services-pentesting/pentesting-web/buckets/).
 
-यदि आप किसी **subdomain को एक IP के साथ पाते हैं जो पहले से आपके द्वारा खोजे गए IPs से अलग है**, तो आपको एक **बुनियादी vulnerability scan** (Nessus या OpenVAS का उपयोग करके) और कुछ [**port scan**](../pentesting-network/#discovering-hosts-from-the-outside) **nmap/masscan/shodan** के साथ करना चाहिए। यह निर्भर करता है कि कौन से सेवाएँ चल रही हैं, आप **इस पुस्तक में कुछ तरकीबें "हमले" के लिए** पा सकते हैं।\
+यदि आप किसी **subdomain को एक IP के साथ पाते हैं जो पहले से आपके द्वारा खोजे गए IPs से अलग है**, तो आपको एक **बुनियादी vulnerability scan** (Nessus या OpenVAS का उपयोग करके) और कुछ [**port scan**](../pentesting-network/#discovering-hosts-from-the-outside) **nmap/masscan/shodan** के साथ करना चाहिए। चल रहे सेवाओं के आधार पर, आप **इस पुस्तक में कुछ तरकीबें "हमला" करने के लिए** पा सकते हैं।\
 _ध्यान दें कि कभी-कभी subdomain एक IP के अंदर होस्ट किया जाता है जो क्लाइंट द्वारा नियंत्रित नहीं होता है, इसलिए यह दायरे में नहीं है, सावधान रहें।_
 
 ## IPs
 
-प्रारंभिक चरणों में, आपने **कुछ IP रेंज, डोमेन और subdomains** पाए होंगे।\
+प्रारंभिक चरणों में, आपने **कुछ IP रेंज, डोमेन और subdomains** पाए हो सकते हैं।\
 अब **उन रेंज से सभी IPs को इकट्ठा करने** और **डोमेन/subdomains (DNS queries)** के लिए समय है।
 
 निम्नलिखित **free apis** की सेवाओं का उपयोग करके, आप **डोमेन और subdomains द्वारा उपयोग किए गए पिछले IPs** को भी खोज सकते हैं। ये IPs अभी भी क्लाइंट के स्वामित्व में हो सकते हैं (और आपको [**CloudFlare bypasses**](../../network-services-pentesting/pentesting-web/uncovering-cloudflare.md) खोजने की अनुमति दे सकते हैं)
@@ -496,19 +496,19 @@ _ध्यान दें कि कभी-कभी subdomain एक IP के
 
 ### **Looking for vulnerabilities**
 
-**CDNs से संबंधित सभी IPs का port scan करें** (क्योंकि आप वहां कुछ दिलचस्प नहीं पाएंगे)। चल रही सेवाओं में, आप **vulnerabilities** खोजने में **सक्षम हो सकते हैं**।
+**CDNs से संबंधित सभी IPs का port scan करें** (क्योंकि आप वहां कुछ दिलचस्प नहीं पाएंगे)। खोजे गए चल रहे सेवाओं में आप **vulnerabilities** पा सकते हैं।
 
 **होस्ट स्कैन करने के लिए एक** [**गाइड**](../pentesting-network/) **खोजें।**
 
 ## Web servers hunting
 
-> हमने सभी कंपनियों और उनके संपत्तियों को खोज लिया है और हम दायरे के भीतर IP रेंज, डोमेन और subdomains को जानते हैं। अब वेब सर्वरों की खोज करने का समय है।
+> हमने सभी कंपनियों और उनके संपत्तियों को खोज लिया है और हमें दायरे के भीतर IP रेंज, डोमेन और subdomains का पता है। अब वेब सर्वरों की खोज करने का समय है।
 
-पिछले चरणों में, आपने शायद पहले से ही खोजे गए **IPs और डोमेन का कुछ recon किया है**, इसलिए आप **संभावित सभी वेब सर्वरों** को पहले से ही खोज चुके होंगे। हालाँकि, यदि आपने नहीं किया है, तो हम अब दायरे के भीतर वेब सर्वरों की खोज के लिए कुछ **तेज़ तरकीबें** देखेंगे।
+पिछले चरणों में, आपने शायद पहले से ही खोजे गए **IPs और डोमेन का कुछ recon किया है**, इसलिए आप **संभावित सभी वेब सर्वरों** को पहले से ही खोज चुके होंगे। हालाँकि, यदि आपने नहीं किया है, तो हम अब दायरे के भीतर **वेब सर्वरों की खोज के लिए कुछ तेज़ तरकीबें** देखेंगे।
 
 कृपया ध्यान दें कि यह **वेब ऐप्स की खोज के लिए उन्मुख** होगा, इसलिए आपको **vulnerability** और **port scanning** भी करनी चाहिए (**यदि दायरे द्वारा अनुमति दी गई हो**).
 
-**वेब** सर्वरों से संबंधित **खुले ports** की खोज करने के लिए एक **तेज़ विधि** [**masscan** का उपयोग करके यहाँ पाई जा सकती है](../pentesting-network/#http-port-discovery).\
+**वेब** सर्वरों से संबंधित **खुले ports** की खोज करने के लिए [**masscan** का उपयोग करने का एक तेज़ तरीका यहाँ पाया जा सकता है](../pentesting-network/#http-port-discovery).\
 वेब सर्वरों की खोज के लिए एक और उपयोगी टूल [**httprobe**](https://github.com/tomnomnom/httprobe)**,** [**fprobe**](https://github.com/theblackturtle/fprobe) और [**httpx**](https://github.com/projectdiscovery/httpx) है। आप बस डोमेन की एक सूची पास करते हैं और यह पोर्ट 80 (http) और 443 (https) से कनेक्ट करने की कोशिश करेगा। इसके अतिरिक्त, आप अन्य पोर्ट की कोशिश करने के लिए संकेत दे सकते हैं:
 ```bash
 cat /tmp/domains.txt | httprobe #Test all domains inside the file for port 80 and 443
@@ -516,15 +516,15 @@ cat /tmp/domains.txt | httprobe -p http:8080 -p https:8443 #Check port 80, 443 a
 ```
 ### **Screenshots**
 
-अब जब आपने **सभी वेब सर्वर** खोज लिए हैं जो दायरे में हैं (कंपनी के **IPs** और सभी **डोमेन** और **सबडोमेन** के बीच) तो शायद आप **शुरुआत कहाँ से करें** यह नहीं जानते। तो, इसे सरल बनाते हैं और बस सभी के **स्क्रीनशॉट** लेना शुरू करते हैं। बस **मुख्य पृष्ठ** पर **नज़र डालकर** आप **अजीब** एंडपॉइंट्स पा सकते हैं जो अधिक **संवेदनशील** हो सकते हैं।
+अब जब आपने **सभी वेब सर्वर** खोज लिए हैं जो दायरे में हैं (कंपनी के **IPs** और सभी **डोमेन** और **सबडोमेन** के बीच) तो शायद आप **शुरुआत कहाँ से करें** यह नहीं जानते। तो, इसे सरल बनाते हैं और बस सभी का स्क्रीनशॉट लेना शुरू करते हैं। बस **मुख्य पृष्ठ** पर **नज़र डालकर** आप **अजीब** एंडपॉइंट्स पा सकते हैं जो अधिक **संवेदनशील** हो सकते हैं।
 
 प्रस्तावित विचार को लागू करने के लिए आप [**EyeWitness**](https://github.com/FortyNorthSecurity/EyeWitness), [**HttpScreenshot**](https://github.com/breenmachine/httpscreenshot), [**Aquatone**](https://github.com/michenriksen/aquatone), [**Shutter**](https://shutter-project.org/downloads/third-party-packages/), [**Gowitness**](https://github.com/sensepost/gowitness) या [**webscreenshot**](https://github.com/maaaaz/webscreenshot)** का उपयोग कर सकते हैं।**
 
-इसके अलावा, आप फिर [**eyeballer**](https://github.com/BishopFox/eyeballer) का उपयोग कर सकते हैं ताकि सभी **स्क्रीनशॉट्स** पर चलाकर आपको बता सके कि **क्या संभावित रूप से संवेदनशील हो सकता है**, और क्या नहीं।
+इसके अलावा, आप फिर [**eyeballer**](https://github.com/BishopFox/eyeballer) का उपयोग कर सकते हैं ताकि सभी **स्क्रीनशॉट्स** पर चलाकर आपको बता सके कि **कौन सी संभावित रूप से संवेदनशील** हो सकती हैं, और कौन सी नहीं।
 
-## सार्वजनिक क्लाउड संपत्तियाँ
+## Public Cloud Assets
 
-किसी कंपनी की संभावित क्लाउड संपत्तियों को खोजने के लिए आपको **उस कंपनी की पहचान करने वाले कीवर्ड की एक सूची से शुरू करना चाहिए**। उदाहरण के लिए, एक क्रिप्टो कंपनी के लिए आप शब्दों का उपयोग कर सकते हैं: `"crypto", "wallet", "dao", "<domain_name>", <"subdomain_names">`।
+किसी कंपनी के संभावित क्लाउड संपत्तियों को खोजने के लिए आपको **उस कंपनी की पहचान करने वाले कीवर्ड की एक सूची से शुरू करना चाहिए**। उदाहरण के लिए, एक क्रिप्टो कंपनी के लिए आप शब्दों का उपयोग कर सकते हैं: `"crypto", "wallet", "dao", "<domain_name>", <"subdomain_names">`।
 
 आपको **बकेट्स में उपयोग किए जाने वाले सामान्य शब्दों** की वर्डलिस्ट भी चाहिए:
 
@@ -532,17 +532,17 @@ cat /tmp/domains.txt | httprobe -p http:8080 -p https:8443 #Check port 80, 443 a
 * [https://raw.githubusercontent.com/infosec-au/altdns/master/words.txt](https://raw.githubusercontent.com/infosec-au/altdns/master/words.txt)
 * [https://raw.githubusercontent.com/jordanpotti/AWSBucketDump/master/BucketNames.txt](https://raw.githubusercontent.com/jordanpotti/AWSBucketDump/master/BucketNames.txt)
 
-फिर, उन शब्दों के साथ आपको **परम्यूटेशन** उत्पन्न करनी चाहिए (अधिक जानकारी के लिए [**दूसरे राउंड DNS ब्रूट-फोर्स**](./#second-dns-bruteforce-round) देखें)।
+फिर, उन शब्दों के साथ आपको **परम्यूटेशन** उत्पन्न करनी चाहिए (अधिक जानकारी के लिए [**Second Round DNS Brute-Force**](./#second-dns-bruteforce-round) देखें)।
 
 परिणामी वर्डलिस्ट के साथ आप [**cloud\_enum**](https://github.com/initstring/cloud\_enum)**,** [**CloudScraper**](https://github.com/jordanpotti/CloudScraper)**,** [**cloudlist**](https://github.com/projectdiscovery/cloudlist) **या** [**S3Scanner**](https://github.com/sa7mon/S3Scanner)** का उपयोग कर सकते हैं।**
 
-याद रखें कि जब आप क्लाउड संपत्तियों की खोज कर रहे हों तो आपको **AWS में बकेट्स से अधिक की तलाश करनी चाहिए**।
+याद रखें कि जब आप क्लाउड संपत्तियों की खोज कर रहे हैं तो आपको **AWS में बकेट्स से अधिक की तलाश करनी चाहिए**।
 
-### **संवेदनशीलता की खोज**
+### **Looking for vulnerabilities**
 
-यदि आप **खुले बकेट्स या क्लाउड फ़ंक्शंस** खोजते हैं तो आपको **उनका उपयोग करना चाहिए** और देखना चाहिए कि वे आपको क्या प्रदान करते हैं और क्या आप उनका दुरुपयोग कर सकते हैं।
+यदि आप **खुले बकेट्स या क्लाउड फ़ंक्शंस** को उजागर करते हैं तो आपको **उन तक पहुँचने** और देखना चाहिए कि वे आपको क्या प्रदान करते हैं और क्या आप उनका दुरुपयोग कर सकते हैं।
 
-## ईमेल
+## Emails
 
 दायरे में **डोमेन** और **सबडोमेन** के साथ आपके पास **ईमेल खोजने के लिए आवश्यक सभी चीजें** हैं। ये हैं **APIs** और **उपकरण** जो मुझे किसी कंपनी के ईमेल खोजने में सबसे अच्छे लगे हैं:
 
@@ -551,105 +551,105 @@ cat /tmp/domains.txt | httprobe -p http:8080 -p https:8443 #Check port 80, 443 a
 * [**https://app.snov.io/**](https://app.snov.io/) का API (फ्री संस्करण)
 * [**https://minelead.io/**](https://minelead.io/) का API (फ्री संस्करण)
 
-### **संवेदनशीलता की खोज**
+### **Looking for vulnerabilities**
 
 ईमेल बाद में **वेब लॉगिन और ऑथ सेवाओं** (जैसे SSH) के लिए **ब्रूट-फोर्स** करने में सहायक होंगे। इसके अलावा, ये **फिशिंग** के लिए आवश्यक हैं। इसके अलावा, ये APIs आपको ईमेल के पीछे के व्यक्ति के बारे में और भी अधिक **जानकारी** देंगी, जो फिशिंग अभियान के लिए उपयोगी है।
 
-## क्रेडेंशियल लीक
+## Credential Leaks
 
-**डोमेन,** **सबडोमेन**, और **ईमेल** के साथ आप उन ईमेल से संबंधित अतीत में लीक हुए क्रेडेंशियल्स की खोज शुरू कर सकते हैं:
+**डोमेन,** **सबडोमेन**, और **ईमेल** के साथ आप उन ईमेल से संबंधित **लीक हुए क्रेडेंशियल्स** की खोज शुरू कर सकते हैं:
 
 * [https://leak-lookup.com](https://leak-lookup.com/account/login)
 * [https://www.dehashed.com/](https://www.dehashed.com/)
 
-### **संवेदनशीलता की खोज**
+### **Looking for vulnerabilities**
 
-यदि आप **मान्य लीक** हुए क्रेडेंशियल्स पाते हैं, तो यह एक बहुत आसान जीत है।
+यदि आप **मान्य लीक हुए** क्रेडेंशियल्स पाते हैं, तो यह एक बहुत आसान जीत है।
 
-## सीक्रेट्स लीक
+## Secrets Leaks
 
-क्रेडेंशियल लीक उन कंपनियों के हैक से संबंधित हैं जहाँ **संवेदनशील जानकारी लीक और बेची गई**। हालाँकि, कंपनियाँ **अन्य लीक** के लिए प्रभावित हो सकती हैं जिनकी जानकारी उन डेटाबेस में नहीं है:
+क्रेडेंशियल लीक उन कंपनियों के हैक से संबंधित हैं जहाँ **संवेदनशील जानकारी लीक और बेची गई**। हालाँकि, कंपनियाँ **अन्य लीक** से प्रभावित हो सकती हैं जिनकी जानकारी उन डेटाबेस में नहीं है:
 
-### गिटहब लीक
+### Github Leaks
 
-क्रेडेंशियल्स और APIs **कंपनी** या उस गिटहब कंपनी में काम करने वाले **उपयोगकर्ताओं** के **सार्वजनिक रिपॉजिटरी** में लीक हो सकते हैं।\
-आप **Leakos** नामक **उपकरण** का उपयोग करके किसी **संगठन** और उसके **डेवलपर्स** के सभी **सार्वजनिक रिपॉजिटरी** को **डाउनलोड** कर सकते हैं और उन पर स्वचालित रूप से [**gitleaks**](https://github.com/zricethezav/gitleaks) चला सकते हैं।
+क्रेडेंशियल्स और APIs **कंपनी** या उस गिटहब कंपनी के लिए काम करने वाले **उपयोगकर्ताओं** के **सार्वजनिक रिपॉजिटरी** में लीक हो सकते हैं।\
+आप **टूल** [**Leakos**](https://github.com/carlospolop/Leakos) का उपयोग करके किसी **संगठन** और उसके **डेवलपर्स** के सभी **सार्वजनिक रिपॉजिटरी** को **डाउनलोड** कर सकते हैं और उन पर स्वचालित रूप से [**gitleaks**](https://github.com/zricethezav/gitleaks) चला सकते हैं।
 
 **Leakos** का उपयोग सभी **पाठ** प्रदान किए गए **URLs** पर **gitleaks** चलाने के लिए भी किया जा सकता है क्योंकि कभी-कभी **वेब पृष्ठों में भी रहस्य होते हैं**।
 
-#### गिटहब डॉर्क्स
+#### Github Dorks
 
-आप उस **पृष्ठ** की भी जांच करें जहाँ संभावित **गिटहब डॉर्क्स** हैं जिन्हें आप उस संगठन में खोज सकते हैं जिसे आप लक्षित कर रहे हैं:
+आप जिस संगठन पर हमला कर रहे हैं, उसमें संभावित **गिटहब डॉर्क्स** के लिए इस **पृष्ठ** की जांच करें:
 
 {% content-ref url="github-leaked-secrets.md" %}
 [github-leaked-secrets.md](github-leaked-secrets.md)
 {% endcontent-ref %}
 
-### पेस्ट्स लीक
+### Pastes Leaks
 
 कभी-कभी हमलावर या बस कर्मचारी **कंपनी की सामग्री को एक पेस्ट साइट पर प्रकाशित करेंगे**। इसमें **संवेदनशील जानकारी** हो सकती है या नहीं, लेकिन इसे खोजना बहुत दिलचस्प है।\
-आप **Pastos** नामक उपकरण का उपयोग करके एक साथ 80 से अधिक पेस्ट साइटों में खोज कर सकते हैं।
+आप टूल [**Pastos**](https://github.com/carlospolop/Pastos) का उपयोग करके एक साथ 80 से अधिक पेस्ट साइटों में खोज कर सकते हैं।
 
-### गूगल डॉर्क्स
+### Google Dorks
 
-पुराने लेकिन सुनहरे गूगल डॉर्क्स हमेशा **वहां नहीं होनी चाहिए ऐसी उजागर जानकारी** खोजने के लिए उपयोगी होते हैं। एकमात्र समस्या यह है कि [**google-hacking-database**](https://www.exploit-db.com/google-hacking-database) में कई **हजारों** संभावित क्वेरी हैं जिन्हें आप मैन्युअल रूप से नहीं चला सकते। इसलिए, आप अपने पसंदीदा 10 को ले सकते हैं या आप **Gorks** जैसे **उपकरण का उपयोग कर सकते हैं** **उन्हें सभी चलाने के लिए**।
+पुराने लेकिन सुनहरे गूगल डॉर्क्स हमेशा **वहां नहीं होनी चाहिए** ऐसी **उजागर जानकारी** खोजने के लिए उपयोगी होते हैं। एकमात्र समस्या यह है कि [**google-hacking-database**](https://www.exploit-db.com/google-hacking-database) में कई **हजारों** संभावित क्वेरीज़ होती हैं जिन्हें आप मैन्युअल रूप से नहीं चला सकते। तो, आप अपने पसंदीदा 10 को ले सकते हैं या आप **ऐसे टूल का उपयोग कर सकते हैं** [**Gorks**](https://github.com/carlospolop/Gorks) **उन्हें सभी चलाने के लिए**।
 
-_ध्यान दें कि जो उपकरण नियमित Google ब्राउज़र का उपयोग करके सभी डेटाबेस को चलाने की उम्मीद करते हैं, वे कभी समाप्त नहीं होंगे क्योंकि Google आपको बहुत जल्दी ब्लॉक कर देगा।_
+_ध्यान दें कि जो टूल नियमित Google ब्राउज़र का उपयोग करके सभी डेटाबेस को चलाने की उम्मीद करते हैं, वे कभी समाप्त नहीं होंगे क्योंकि Google आपको बहुत जल्दी ब्लॉक कर देगा।_
 
-### **संवेदनशीलता की खोज**
+### **Looking for vulnerabilities**
 
-यदि आप **मान्य लीक** हुए क्रेडेंशियल्स या API टोकन पाते हैं, तो यह एक बहुत आसान जीत है।
+यदि आप **मान्य लीक हुए** क्रेडेंशियल्स या API टोकन पाते हैं, तो यह एक बहुत आसान जीत है।
 
-## सार्वजनिक कोड संवेदनशीलताएँ
+## Public Code Vulnerabilities
 
-यदि आपने पाया कि कंपनी का **ओपन-सोर्स कोड** है तो आप इसे **विश्लेषण** कर सकते हैं और इसमें **संवेदनशीलताएँ** खोज सकते हैं।
+यदि आपने पाया कि कंपनी का **ओपन-सोर्स कोड** है, तो आप इसे **विश्लेषण** कर सकते हैं और इसमें **कमजोरियों** की खोज कर सकते हैं।
 
-**भाषा के आधार पर** आपके पास विभिन्न **उपकरण** हो सकते हैं:
+**भाषा के आधार पर** आप विभिन्न **उपकरणों** का उपयोग कर सकते हैं:
 
 {% content-ref url="../../network-services-pentesting/pentesting-web/code-review-tools.md" %}
 [code-review-tools.md](../../network-services-pentesting/pentesting-web/code-review-tools.md)
 {% endcontent-ref %}
 
-कुछ मुफ्त सेवाएँ भी हैं जो आपको **सार्वजनिक रिपॉजिटरी** को **स्कैन** करने की अनुमति देती हैं, जैसे:
+सार्वजनिक रिपॉजिटरी को **स्कैन** करने के लिए भी मुफ्त सेवाएँ हैं, जैसे:
 
 * [**Snyk**](https://app.snyk.io/)
 
-## [**पेंटेस्टिंग वेब मेथोडोलॉजी**](../../network-services-pentesting/pentesting-web/)
+## [**Pentesting Web Methodology**](../../network-services-pentesting/pentesting-web/)
 
-**संवेदनशीलताओं** की **अधिकांशता** जो बग हंटर्स द्वारा पाई जाती है, **वेब अनुप्रयोगों** के अंदर होती है, इसलिए इस बिंदु पर मैं एक **वेब अनुप्रयोग परीक्षण पद्धति** के बारे में बात करना चाहता हूँ, और आप [**यहाँ इस जानकारी को पा सकते हैं**](../../network-services-pentesting/pentesting-web/)।
+**कमजोरियों** का अधिकांश हिस्सा जो बग हंटर्स द्वारा पाया जाता है, **वेब अनुप्रयोगों** के अंदर होता है, इसलिए इस बिंदु पर मैं एक **वेब अनुप्रयोग परीक्षण पद्धति** के बारे में बात करना चाहूंगा, और आप [**यहाँ इस जानकारी को पा सकते हैं**](../../network-services-pentesting/pentesting-web/)।
 
-मैं [**वेब स्वचालित स्कैनर्स ओपन-सोर्स टूल्स**](../../network-services-pentesting/pentesting-web/#automatic-scanners) अनुभाग का विशेष उल्लेख करना चाहता हूँ, क्योंकि, यदि आपको उनसे बहुत संवेदनशील संवेदनशीलताएँ खोजने की उम्मीद नहीं करनी चाहिए, तो वे **कार्यप्रवाहों में कुछ प्रारंभिक वेब जानकारी प्राप्त करने के लिए सहायक होते हैं।**
+मैं [**Web Automated Scanners open source tools**](../../network-services-pentesting/pentesting-web/#automatic-scanners) अनुभाग का विशेष उल्लेख करना चाहता हूँ, क्योंकि, यदि आपको उनसे बहुत संवेदनशील कमजोरियों की खोज करने की उम्मीद नहीं करनी चाहिए, तो वे **प्रारंभिक वेब जानकारी प्राप्त करने के लिए कार्यप्रवाहों में लागू करने के लिए सहायक होते हैं।**
 
-## पुनरावलोकन
+## Recapitulation
 
 > बधाई हो! इस बिंदु पर आपने पहले ही **सभी बुनियादी गणना** कर ली है। हाँ, यह बुनियादी है क्योंकि और भी बहुत अधिक गणना की जा सकती है (बाद में और तरकीबें देखेंगे)।
 
 तो आपने पहले ही:
 
-1. दायरे में सभी **कंपनियों** को खोज लिया है
-2. कंपनियों से संबंधित सभी **संपत्तियों** को खोज लिया है (और यदि दायरे में हो तो कुछ संवेदनशीलता स्कैन किया है)
-3. कंपनियों से संबंधित सभी **डोमेन** को खोज लिया है
-4. डोमेन के सभी **सबडोमेन** को खोज लिया है (क्या कोई सबडोमेन टेकओवर?)
-5. दायरे में सभी **IPs** (CDNs से और **नहीं**) को खोज लिया है।
-6. सभी **वेब सर्वर** को खोज लिया है और उनके **स्क्रीनशॉट** लिए हैं (क्या कुछ अजीब है जो गहराई से देखने लायक है?)
-7. कंपनी से संबंधित सभी **संभावित सार्वजनिक क्लाउड संपत्तियों** को खोज लिया है।
-8. **ईमेल**, **क्रेडेंशियल लीक**, और **सीक्रेट लीक** जो आपको **बहुत आसानी से एक बड़ा लाभ** दे सकते हैं।
-9. आपने जो भी वेब खोजी हैं उनका **पेंटेस्टिंग** किया है।
+1. दायरे में सभी **कंपनियों** को पाया
+2. कंपनियों से संबंधित सभी **संपत्तियों** को पाया (और यदि दायरे में हो तो कुछ कमजोरियों का स्कैन किया)
+3. कंपनियों से संबंधित सभी **डोमेन** को पाया
+4. डोमेन के सभी **सबडोमेन** को पाया (क्या कोई सबडोमेन टेकओवर?)
+5. दायरे में सभी **IPs** (CDNs से और **नहीं**) को पाया।
+6. सभी **वेब सर्वर** को पाया और उनका **स्क्रीनशॉट** लिया (क्या कुछ अजीब है जो गहराई से देखने लायक है?)
+7. कंपनी से संबंधित सभी **संभावित सार्वजनिक क्लाउड संपत्तियों** को पाया।
+8. **ईमेल**, **क्रेडेंशियल लीक**, और **गुप्त लीक** जो आपको **बहुत आसानी से एक बड़ा लाभ** दे सकते हैं।
+9. आपने जो भी वेब खोजी हैं, उनका **पेंटेस्टिंग** किया।
 
-## **पूर्ण रीकॉन स्वचालित उपकरण**
+## **Full Recon Automatic Tools**
 
-कुछ उपकरण हैं जो दिए गए दायरे के खिलाफ प्रस्तावित कार्यों का एक भाग करेंगे।
+वहाँ कई उपकरण हैं जो दिए गए दायरे के खिलाफ प्रस्तावित कार्यों के कुछ हिस्सों को निष्पादित करेंगे।
 
 * [**https://github.com/yogeshojha/rengine**](https://github.com/yogeshojha/rengine)
 * [**https://github.com/j3ssie/Osmedeus**](https://github.com/j3ssie/Osmedeus)
 * [**https://github.com/six2dez/reconftw**](https://github.com/six2dez/reconftw)
 * [**https://github.com/hackerspider1/EchoPwn**](https://github.com/hackerspider1/EchoPwn) - थोड़ा पुराना और अपडेट नहीं किया गया
 
-## **संदर्भ**
+## **References**
 
-* [**@Jhaddix**](https://twitter.com/Jhaddix) के सभी मुफ्त पाठ्यक्रम जैसे [**The Bug Hunter's Methodology v4.0 - Recon Edition**](https://www.youtube.com/watch?v=p4JgIu1mceI)
+* सभी मुफ्त पाठ्यक्रम [**@Jhaddix**](https://twitter.com/Jhaddix) जैसे [**The Bug Hunter's Methodology v4.0 - Recon Edition**](https://www.youtube.com/watch?v=p4JgIu1mceI)
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 यदि आप **हैकिंग करियर** में रुचि रखते हैं और अचूक को हैक करना चाहते हैं - **हम भर्ती कर रहे हैं!** (_फ्लूएंट पोलिश लिखित और मौखिक आवश्यक है_)।
 
@@ -663,8 +663,8 @@ GCP हैकिंग सीखें और अभ्यास करें: <
 
 <summary>HackTricks का समर्थन करें</summary>
 
-* [**सदस्यता योजनाएँ**](https://github.com/sponsors/carlospolop) देखें!
-* **💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) में शामिल हों या हमें **Twitter** पर **फॉलो करें** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* [**सदस्यता योजनाओं**](https://github.com/sponsors/carlospolop) की जांच करें!
+* **💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) में शामिल हों या **हमें ट्विटर पर फॉलो करें** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **हैकिंग ट्रिक्स साझा करें और** [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपॉजिटरी में PR सबमिट करें।
 
 </details>

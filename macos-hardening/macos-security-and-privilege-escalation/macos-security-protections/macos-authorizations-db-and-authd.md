@@ -94,7 +94,7 @@ security authorizationdb read com.apple.tcc.util.admin
 
 यह `/usr/libexec/security_authtrampoline /bin/ls` को रूट के रूप में फोर्क और एक्सेक करेगा, जो रूट के रूप में ls निष्पादित करने के लिए अनुमति मांगने के लिए एक प्रॉम्प्ट में पूछेगा:
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
