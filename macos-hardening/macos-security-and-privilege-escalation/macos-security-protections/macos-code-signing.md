@@ -19,10 +19,10 @@ GCP 해킹 배우기 및 연습하기: <img src="../../../.gitbook/assets/grte.p
 
 Mach-o 바이너리는 바이너리 내부의 서명의 **오프셋**과 **크기**를 나타내는 **`LC_CODE_SIGNATURE`**라는 로드 명령을 포함합니다. 실제로 GUI 도구인 MachOView를 사용하면 바이너리의 끝에서 이 정보를 포함하는 **Code Signature**라는 섹션을 찾을 수 있습니다:
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 코드 서명의 매직 헤더는 **`0xFADE0CC0`**입니다. 그런 다음 이들을 포함하는 superBlob의 길이와 블롭 수와 같은 정보가 있습니다.\
-이 정보는 [여기에서 소스 코드](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L276)에서 찾을 수 있습니다:
+이 정보는 [여기에서 소스 코드](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276)에서 찾을 수 있습니다:
 ```c
 /*
 * Structure of an embedded-signature SuperBlob
@@ -51,14 +51,14 @@ char data[];
 } CS_GenericBlob
 __attribute__ ((aligned(1)));
 ```
-일반적으로 포함된 블롭은 코드 디렉토리, 요구 사항 및 권한, 그리고 암호화 메시지 구문(CMS)입니다.\
-또한, 블롭에 인코딩된 데이터가 **빅 엔디안**으로 인코딩되어 있음을 주목하십시오.
+Common blobs contained are Code Directory, Requirements and Entitlements and a Cryptographic Message Syntax (CMS).\
+Moreover, note how the data encoded in the blobs is encoded in **Big Endian.**
 
-또한, 서명은 이진 파일에서 분리되어 `/var/db/DetachedSignatures`에 저장될 수 있습니다(ios에서 사용됨).
+Moreover, signatures cloud be detached from the binaries and stored in `/var/db/DetachedSignatures` (used by iOS).
 
-## 코드 디렉토리 블롭
+## Code Directory Blob
 
-[코드 디렉토리 블롭의 선언을 코드에서 찾는 것이 가능합니다](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104):
+It's possible to find the declaration of the [Code Directory Blob in the code](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104):
 ```c
 typedef struct __CodeDirectory {
 uint32_t magic;                                 /* magic number (CSMAGIC_CODEDIRECTORY) */
@@ -114,12 +114,12 @@ char end_withLinkage[0];
 } CS_CodeDirectory
 __attribute__ ((aligned(1)));
 ```
-다양한 버전의 이 구조체가 있으며, 이전 버전은 정보가 덜 포함될 수 있습니다.
+Note that there are different versions of this struct where old ones might contain less information.
 
-## 서명 코드 페이지
+## Signing Code Pages
 
 전체 바이너리를 해싱하는 것은 비효율적이며, 메모리에 부분적으로만 로드될 경우에는 심지어 쓸모가 없습니다. 따라서 코드 서명은 실제로 각 바이너리 페이지가 개별적으로 해싱된 해시의 해시입니다.\
-실제로 이전 **코드 디렉토리** 코드에서 **페이지 크기가 지정된** 것을 볼 수 있습니다. 또한, 바이너리의 크기가 페이지 크기의 배수가 아닐 경우, 필드 **CodeLimit**는 서명의 끝이 어디인지 지정합니다.
+실제로 이전 **Code Directory** 코드에서 **페이지 크기가 지정되어** 있는 것을 볼 수 있습니다. 또한, 바이너리의 크기가 페이지 크기의 배수가 아닐 경우, 필드 **CodeLimit**는 서명의 끝이 어디인지 지정합니다.
 ```bash
 # Get all hashes of /bin/ps
 codesign -d -vvvvvv /bin/ps
@@ -157,15 +157,15 @@ openssl sha256 /tmp/*.page.*
 ```
 ## Entitlements Blob
 
-응용 프로그램에는 모든 권한이 정의된 **권한 블롭**이 포함될 수 있습니다. 또한 일부 iOS 바이너리는 특별 슬롯 -7에 특정 권한을 가질 수 있습니다(대신 -5 권한 특별 슬롯에).
+응용 프로그램에는 모든 권한이 정의된 **권한 블롭**이 포함될 수 있습니다. 또한 일부 iOS 바이너리는 특별 슬롯 -7에 권한이 특정되어 있을 수 있습니다(특별 슬롯 -5 대신).
 
 ## Special Slots
 
 MacOS 응용 프로그램은 실행에 필요한 모든 것을 바이너리 내에 포함하지 않지만 **외부 리소스**(일반적으로 응용 프로그램의 **번들** 내)에 의존합니다. 따라서 바이너리 내에는 수정되지 않았는지 확인하기 위해 일부 흥미로운 외부 리소스의 해시를 포함하는 슬롯이 있습니다.
 
-실제로, 코드 디렉토리 구조체에서 **`nSpecialSlots`**라는 매개변수를 볼 수 있으며, 이는 특별 슬롯의 수를 나타냅니다. 특별 슬롯 0은 없으며 가장 일반적인 슬롯( -1에서 -6까지)은 다음과 같습니다:
+실제로, 코드 디렉토리 구조체에서 **`nSpecialSlots`**라는 매개변수를 볼 수 있으며, 이는 특별 슬롯의 수를 나타냅니다. 특별 슬롯 0은 없으며 가장 일반적인 슬롯(슬롯 -1에서 -6까지)은 다음과 같습니다:
 
-* `info.plist`의 해시(또는 `__TEXT.__info__plist` 내의 것).
+* `info.plist`의 해시(또는 `__TEXT.__info__plist` 내의 해시).
 * 요구 사항의 해시
 * 리소스 디렉토리의 해시(번들 내의 `_CodeSignature/CodeResources` 파일의 해시).
 * 응용 프로그램 특정(사용되지 않음)
@@ -175,7 +175,7 @@ MacOS 응용 프로그램은 실행에 필요한 모든 것을 바이너리 내�
 
 ## Code Signing Flags
 
-모든 프로세스는 `status`라는 비트마스크와 관련이 있으며, 이는 커널에 의해 시작되며 일부는 **코드 서명**에 의해 재정의될 수 있습니다. 코드 서명에 포함될 수 있는 이러한 플래그는 [코드에서 정의되어 있습니다](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
+모든 프로세스는 `status`로 알려진 비트마스크와 관련이 있으며, 이는 커널에 의해 시작되며 일부는 **코드 서명**에 의해 재정의될 수 있습니다. 코드 서명에 포함될 수 있는 이러한 플래그는 [코드에서 정의되어 있습니다](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
 ```c
 /* code signing attributes of a process */
 #define CS_VALID                    0x00000001  /* dynamically valid */
@@ -224,11 +224,11 @@ Note that the function [**exec\_mach\_imgact**](https://github.com/apple-oss-dis
 
 ## 코드 서명 요구 사항
 
-각 애플리케이션은 실행될 수 있도록 **충족해야 하는** **요구 사항**을 저장합니다. 만약 **애플리케이션이 애플리케이션에 의해 충족되지 않는 요구 사항을 포함하고 있다면**, 실행되지 않습니다 (아마도 변경되었기 때문입니다).
+각 애플리케이션은 실행될 수 있도록 **충족해야 하는 요구 사항**을 저장합니다. 만약 **애플리케이션이 충족되지 않는 요구 사항을 포함하고 있다면**, 실행되지 않습니다 (변경되었을 가능성이 높습니다).
 
-이진 파일의 요구 사항은 **특별한 문법**을 사용하며, 이는 **표현식**의 흐름으로 `0xfade0c00`을 매직으로 사용하여 블롭으로 인코딩됩니다. 이 **해시**는 특별한 코드 슬롯에 저장됩니다.
+바이너리의 요구 사항은 **특별한 문법**을 사용하며, 이는 **표현식**의 흐름으로 `0xfade0c00`을 매직으로 사용하여 블롭으로 인코딩됩니다. 이 **해시**는 특별한 코드 슬롯에 저장됩니다.
 
-이진 파일의 요구 사항은 다음을 실행하여 확인할 수 있습니다:
+바이너리의 요구 사항은 다음을 실행하여 확인할 수 있습니다:
 
 {% code overflow="wrap" %}
 ```bash
@@ -243,10 +243,10 @@ designated => identifier "org.whispersystems.signal-desktop" and anchor apple ge
 {% endcode %}
 
 {% hint style="info" %}
-이 서명은 인증 정보, TeamID, ID, 권한 및 기타 많은 데이터를 확인할 수 있습니다.
+이 서명이 인증 정보, TeamID, ID, 권한 및 기타 많은 데이터를 확인할 수 있는 방법에 유의하십시오.
 {% endhint %}
 
-또한, `csreq` 도구를 사용하여 일부 컴파일된 요구 사항을 생성할 수 있습니다:
+또한 `csreq` 도구를 사용하여 일부 컴파일된 요구 사항을 생성하는 것이 가능합니다:
 
 {% code overflow="wrap" %}
 ```bash

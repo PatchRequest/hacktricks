@@ -1,8 +1,8 @@
 # Linux Active Directory
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,21 +15,19 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 리눅스 머신은 Active Directory 환경 내에 존재할 수 있습니다.
 
-AD의 리눅스 머신은 **파일 내에 다양한 CCACHE 티켓을 저장하고 있을 수 있습니다. 이 티켓은 다른 kerberos 티켓처럼 사용되고 악용될 수 있습니다**. 이 티켓을 읽으려면 티켓의 사용자 소유자이거나 **root**여야 합니다.
+AD의 리눅스 머신은 **파일 내에 다양한 CCACHE 티켓을 저장하고 있을 수 있습니다. 이 티켓은 다른 kerberos 티켓처럼 사용되고 남용될 수 있습니다**. 이 티켓을 읽으려면 티켓의 사용자 소유자이거나 **root**여야 합니다.
 
 ## Enumeration
 
-### 리눅스에서 AD 열거하기
+### 리눅스에서 AD 열거
 
-리눅스(또는 Windows의 bash)에서 AD에 접근할 수 있다면 [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn)를 사용하여 AD를 열거할 수 있습니다.
+리눅스(또는 Windows의 bash)에 AD에 대한 접근 권한이 있는 경우 [https://github.com/lefayjey/linWinPwn](https://github.com/lefayjey/linWinPwn)를 사용하여 AD를 열거할 수 있습니다.
 
-리눅스에서 AD를 열거하는 **다른 방법**을 배우려면 다음 페이지를 확인하세요:
+리눅스에서 AD를 열거하는 **다른 방법**을 배우려면 다음 페이지를 확인할 수 있습니다:
 
 {% content-ref url="../../network-services-pentesting/pentesting-ldap.md" %}
 [pentesting-ldap.md](../../network-services-pentesting/pentesting-ldap.md)
@@ -37,7 +35,7 @@ AD의 리눅스 머신은 **파일 내에 다양한 CCACHE 티켓을 저장하�
 
 ### FreeIPA
 
-FreeIPA는 Microsoft Windows **Active Directory**에 대한 오픈 소스 **대안**으로, 주로 **Unix** 환경을 위해 설계되었습니다. Active Directory와 유사한 관리 기능을 위해 MIT **Kerberos** 키 배포 센터와 완전한 **LDAP 디렉토리**를 결합합니다. CA 및 RA 인증서 관리를 위한 Dogtag **Certificate System**을 활용하며, 스마트카드를 포함한 **다중 인증**을 지원합니다. Unix 인증 프로세스를 위해 SSSD가 통합되어 있습니다. 자세한 내용은 다음에서 확인하세요:
+FreeIPA는 Microsoft Windows **Active Directory**에 대한 오픈 소스 **대안**으로, 주로 **Unix** 환경을 위해 설계되었습니다. Active Directory와 유사한 관리 기능을 위해 MIT **Kerberos** 키 배포 센터와 완전한 **LDAP 디렉토리**를 결합합니다. CA 및 RA 인증서 관리를 위해 Dogtag **Certificate System**을 사용하며, 스마트카드를 포함한 **다중 인증**을 지원합니다. Unix 인증 프로세스를 위해 SSSD가 통합되어 있습니다. 자세한 내용은 다음에서 확인하세요:
 
 {% content-ref url="../freeipa-pentesting.md" %}
 [freeipa-pentesting.md](../freeipa-pentesting.md)
@@ -77,8 +75,7 @@ cd tickey/tickey
 make CONF=Release
 /tmp/tickey -i
 ```
-이 절차는 다양한 세션에 주입을 시도하며, 성공을 나타내기 위해 추출된 티켓을 `/tmp`에 `__krb_UID.ccache`라는 명명 규칙으로 저장합니다.
-
+이 절차는 다양한 세션에 주입을 시도하며, 성공을 `/tmp`에 `__krb_UID.ccache`라는 명명 규칙으로 추출된 티켓을 저장함으로써 나타냅니다.
 
 ### SSSD KCM에서 CCACHE 티켓 재사용
 
@@ -111,7 +108,7 @@ Linux 사용자에게 **`KeyTabExtract`**는 NTLM 해시 재사용을 위해 활
 python3 keytabextract.py krb5.keytab
 # Expected output varies based on hash availability
 ```
-macOS에서 **`bifrost`**는 keytab 파일 분석을 위한 도구로 사용됩니다.
+macOS에서, **`bifrost`**는 keytab 파일 분석을 위한 도구로 사용됩니다.
 ```bash
 ./bifrost -action dump -source keytab -path /path/to/your/file
 ```
@@ -120,17 +117,16 @@ macOS에서 **`bifrost`**는 keytab 파일 분석을 위한 도구로 사용됩�
 crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDOMAIN"
 ```
 ## References
+
 * [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
 * [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
 * [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
-AWS 해킹 배우기 및 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS 해킹 배우기 및 연습하기:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP 해킹 배우기 및 연습하기: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 

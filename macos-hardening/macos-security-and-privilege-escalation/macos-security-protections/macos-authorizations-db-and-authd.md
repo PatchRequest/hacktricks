@@ -21,7 +21,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 `/var/db/auth.db`에 위치한 데이터베이스는 민감한 작업을 수행하기 위한 권한을 저장하는 데 사용됩니다. 이러한 작업은 **사용자 공간**에서 완전히 수행되며, 일반적으로 특정 작업을 수행할 수 있는지 확인해야 하는 **XPC 서비스**에서 사용됩니다.
 
-이 데이터베이스는 처음에 `/System/Library/Security/authorization.plist`의 내용으로 생성됩니다. 이후 일부 서비스는 이 데이터베이스에 다른 권한을 추가하거나 수정할 수 있습니다.
+이 데이터베이스는 처음에 `/System/Library/Security/authorization.plist`의 내용으로 생성됩니다. 이후 일부 서비스가 이 데이터베이스에 다른 권한을 추가하거나 수정할 수 있습니다.
 
 규칙은 데이터베이스 내의 `rules` 테이블에 저장되며 다음과 같은 열을 포함합니다:
 
@@ -88,13 +88,13 @@ security authorizationdb read com.apple.tcc.util.admin
 ```
 ## Authd
 
-클라이언트가 민감한 작업을 수행하도록 승인 요청을 받을 데몬입니다. `XPCServices/` 폴더 내에 정의된 XPC 서비스로 작동하며, 로그는 `/var/log/authd.log`에 기록됩니다.
+클라이언트가 민감한 작업을 수행하도록 승인 요청을 받을 데몬입니다. `XPCServices/` 폴더 내에 정의된 XPC 서비스로 작동하며, `/var/log/authd.log`에 로그를 기록합니다.
 
 또한 보안 도구를 사용하여 많은 `Security.framework` API를 테스트할 수 있습니다. 예를 들어 `AuthorizationExecuteWithPrivileges`를 실행하면: `security execute-with-privileges /bin/ls`
 
-이는 `/usr/libexec/security_authtrampoline /bin/ls`를 루트로 포크하고 실행하며, ls를 루트로 실행하기 위한 권한을 요청하는 프롬프트가 나타납니다:
+이는 `/usr/libexec/security_authtrampoline /bin/ls`를 루트로 포크하고 실행하며, 루트로 ls를 실행하기 위한 권한을 요청하는 프롬프트가 표시됩니다:
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\

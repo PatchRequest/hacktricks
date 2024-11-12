@@ -1,8 +1,8 @@
 # Padding Oracle
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -14,8 +14,6 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 </details>
 {% endhint %}
-
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://websec.nl/" %}
 
@@ -97,7 +95,7 @@ perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon
 
 **C15**를 알면 이제 **C14를 계산할 수 있습니다**, 하지만 이번에는 패딩 `\x02\x02`를 브루트 포스해야 합니다.
 
-이 BF는 이전 것만큼 복잡하며, 값이 0x02인 `E''15`를 계산할 수 있습니다: `E''7 = \x02 ^ I15` 따라서 **`C14`가 `0x02`가 되도록 하는 `E'14`**를 찾기만 하면 됩니다.\
+이 BF는 이전 것만큼 복잡하며, 값이 0x02인 `E''15`를 계산할 수 있습니다: `E''7 = \x02 ^ I15` 따라서 **`C14`가 `0x02`가 되도록 생성하는 `E'14`**를 찾기만 하면 됩니다.\
 그런 다음 C14를 복호화하기 위해 동일한 단계를 수행합니다: **`C14 = E6 ^ I14 = E6 ^ \x02 ^ E''6`**
 
 **이 체인을 따라 전체 암호화된 텍스트를 복호화할 때까지 진행하십시오.**
@@ -105,30 +103,28 @@ perl ./padBuster.pl http://10.10.10.10/index.php "" 8 -encoding 0 -cookies "hcon
 ### 취약점 탐지
 
 계정을 등록하고 이 계정으로 로그인하십시오.\
-**여러 번 로그인**하고 항상 **같은 쿠키**를 받는다면, 애플리케이션에 **문제가 있을 가능성**이 높습니다. **로그인할 때마다 반환되는 쿠키는 고유해야 합니다**. 쿠키가 **항상** **같다면**, 아마도 항상 유효할 것이며 이를 **무효화할 방법이 없을 것입니다**.
+**여러 번 로그인**하고 항상 **같은 쿠키**를 받는다면, 애플리케이션에 **문제가 있을 가능성**이 높습니다. **로그인할 때마다 반환되는 쿠키는 고유해야** 합니다. 쿠키가 **항상** **같다면**, 아마도 항상 유효할 것이며 이를 **무효화할 방법이 없을 것입니다**.
 
 이제 **쿠키를 수정**하려고 하면 애플리케이션에서 **오류**가 발생하는 것을 볼 수 있습니다.\
-하지만 패딩을 BF하면(예: padbuster 사용) 다른 사용자에 대해 유효한 또 다른 쿠키를 얻을 수 있습니다. 이 시나리오는 padbuster에 취약할 가능성이 높습니다.
+하지만 패딩을 BF하면(예: padbuster 사용) 다른 사용자에 대해 유효한 또 다른 쿠키를 얻을 수 있습니다. 이 시나리오는 padbuster에 대해 매우 취약할 가능성이 높습니다.
 
 ### 참고 문헌
 
 * [https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation](https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation)
 
-<figure><img src="/..https:/pentest.eu/RENDER_WebSec_10fps_21sec_9MB_29042024.gif" alt=""><figcaption></figcaption></figure>
-
 {% embed url="https://websec.nl/" %}
 
 {% hint style="success" %}
-AWS 해킹 배우고 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP 해킹 배우고 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS 해킹 배우고 연습하기:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP 해킹 배우고 연습하기: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks 지원하기</summary>
 
 * [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
-* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter**에서 **팔로우**하세요** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **해킹 트릭을 공유하려면 [**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하세요.**
+* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 가입하거나 **Twitter**에서 **팔로우**하세요** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **해킹 트릭을 공유하려면** [**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하세요.
 
 </details>
 {% endhint %}
