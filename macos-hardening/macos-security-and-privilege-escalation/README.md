@@ -1,4 +1,4 @@
-# macOS Sicherheit & Privilegieneskalation
+# macOS-Sicherheit & Privilegieneskalation
 
 {% hint style="success" %}
 Lerne & übe AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -15,22 +15,22 @@ Lerne & übe GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Tritt dem [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) Server bei, um mit erfahrenen Hackern und Bug-Bounty-Jägern zu kommunizieren!
 
 **Hacking Einblicke**\
 Engagiere dich mit Inhalten, die in den Nervenkitzel und die Herausforderungen des Hackens eintauchen
 
-**Echtzeit Hacking Nachrichten**\
-Bleibe auf dem Laufenden mit der schnelllebigen Hacking-Welt durch Echtzeitnachrichten und Einblicke
+**Echtzeit-Hack-Nachrichten**\
+Bleibe auf dem Laufenden mit der schnelllebigen Hacking-Welt durch Echtzeit-Nachrichten und Einblicke
 
 **Neueste Ankündigungen**\
 Bleibe informiert über die neuesten Bug-Bounties und wichtige Plattform-Updates
 
 **Tritt uns auf** [**Discord**](https://discord.com/invite/N3FrSbmwdy) bei und beginne noch heute mit den besten Hackern zusammenzuarbeiten!
 
-## Grundlegendes zu MacOS
+## Grundlegendes zu macOS
 
 Wenn du mit macOS nicht vertraut bist, solltest du die Grundlagen von macOS lernen:
 
@@ -67,7 +67,7 @@ Wenn du mit macOS nicht vertraut bist, solltest du die Grundlagen von macOS lern
 * **Open Source** macOS: [https://opensource.apple.com/](https://opensource.apple.com/)
 * Um ein `tar.gz` herunterzuladen, ändere eine URL wie [https://opensource.apple.com/**source**/dyld/](https://opensource.apple.com/source/dyld/) zu [https://opensource.apple.com/**tarballs**/dyld/**dyld-852.2.tar.gz**](https://opensource.apple.com/tarballs/dyld/dyld-852.2.tar.gz)
 
-### MacOS MDM
+### macOS MDM
 
 In Unternehmen werden **macOS** Systeme höchstwahrscheinlich **mit einem MDM verwaltet**. Daher ist es aus der Perspektive eines Angreifers interessant zu wissen, **wie das funktioniert**:
 
@@ -75,13 +75,13 @@ In Unternehmen werden **macOS** Systeme höchstwahrscheinlich **mit einem MDM ve
 [macos-mdm](../macos-red-teaming/macos-mdm/)
 {% endcontent-ref %}
 
-### MacOS - Inspektion, Debugging und Fuzzing
+### macOS - Inspektion, Debugging und Fuzzing
 
 {% content-ref url="macos-apps-inspecting-debugging-and-fuzzing/" %}
 [macos-apps-inspecting-debugging-and-fuzzing](macos-apps-inspecting-debugging-and-fuzzing/)
 {% endcontent-ref %}
 
-## MacOS Sicherheitsmaßnahmen
+## macOS Sicherheitsmaßnahmen
 
 {% content-ref url="macos-security-protections/" %}
 [macos-security-protections](macos-security-protections/)
@@ -89,7 +89,7 @@ In Unternehmen werden **macOS** Systeme höchstwahrscheinlich **mit einem MDM ve
 
 ## Angriffsfläche
 
-### Datei Berechtigungen
+### Datei-Berechtigungen
 
 Wenn ein **Prozess, der als root läuft,** eine Datei schreibt, die von einem Benutzer kontrolliert werden kann, könnte der Benutzer dies ausnutzen, um **Berechtigungen zu eskalieren**.\
 Dies könnte in den folgenden Situationen auftreten:
@@ -101,7 +101,7 @@ Dies könnte in den folgenden Situationen auftreten:
 
 In der Lage zu sein, eine **Datei zu erstellen**, die von **root verwendet wird**, ermöglicht es einem Benutzer, **von ihrem Inhalt zu profitieren** oder sogar **Symlinks/Hartlinks** zu erstellen, um sie an einen anderen Ort zu verweisen.
 
-Für diese Art von Schwachstellen vergiss nicht, **anfällige `.pkg` Installer** zu überprüfen:
+Für diese Art von Schwachstellen vergiss nicht, **anfällige `.pkg`-Installer zu überprüfen**:
 
 {% content-ref url="macos-files-folders-and-binaries/macos-installers-abuse.md" %}
 [macos-installers-abuse.md](macos-files-folders-and-binaries/macos-installers-abuse.md)
@@ -121,9 +121,9 @@ In macOS **können Anwendungen und Binärdateien Berechtigungen** haben, um auf 
 
 Daher muss ein Angreifer, der eine macOS-Maschine erfolgreich kompromittieren möchte, seine **TCC-Berechtigungen eskalieren** (oder sogar **SIP umgehen**, je nach seinen Bedürfnissen).
 
-Diese Berechtigungen werden normalerweise in Form von **Rechten** vergeben, mit denen die Anwendung signiert ist, oder die Anwendung könnte einige Zugriffe angefordert haben, und nachdem der **Benutzer sie genehmigt hat**, können sie in den **TCC-Datenbanken** gefunden werden. Eine andere Möglichkeit, wie ein Prozess diese Berechtigungen erhalten kann, besteht darin, ein **Kind eines Prozesses** mit diesen **Berechtigungen** zu sein, da sie normalerweise **vererbt** werden.
+Diese Berechtigungen werden normalerweise in Form von **Berechtigungen** vergeben, mit denen die Anwendung signiert ist, oder die Anwendung könnte einige Zugriffe angefordert haben, und nachdem der **Benutzer sie genehmigt hat**, können sie in den **TCC-Datenbanken** gefunden werden. Eine andere Möglichkeit, wie ein Prozess diese Berechtigungen erhalten kann, besteht darin, ein **Kind eines Prozesses** mit diesen **Berechtigungen** zu sein, da sie normalerweise **vererbt** werden.
 
-Folge diesen Links, um verschiedene Möglichkeiten zu finden, um [**Berechtigungen in TCC zu eskalieren**](macos-security-protections/macos-tcc/#tcc-privesc-and-bypasses), um [**TCC zu umgehen**](macos-security-protections/macos-tcc/macos-tcc-bypasses/) und wie in der Vergangenheit [**SIP umgangen wurde**](macos-security-protections/macos-sip.md#sip-bypasses).
+Folge diesen Links, um verschiedene Möglichkeiten zu finden, [**Berechtigungen in TCC zu eskalieren**](macos-security-protections/macos-tcc/#tcc-privesc-and-bypasses), um [**TCC zu umgehen**](macos-security-protections/macos-tcc/macos-tcc-bypasses/) und wie in der Vergangenheit [**SIP umgangen wurde**](macos-security-protections/macos-sip.md#sip-bypasses).
 
 ## macOS Traditionelle Privilegieneskalation
 
@@ -145,15 +145,15 @@ Natürlich solltest du aus der Perspektive eines Red Teams auch daran interessie
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Tritt dem [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) Server bei, um mit erfahrenen Hackern und Bug-Bounty-Jägern zu kommunizieren!
 
 **Hacking Einblicke**\
 Engagiere dich mit Inhalten, die in den Nervenkitzel und die Herausforderungen des Hackens eintauchen
 
-**Echtzeit Hacking Nachrichten**\
-Bleibe auf dem Laufenden mit der schnelllebigen Hacking-Welt durch Echtzeitnachrichten und Einblicke
+**Echtzeit-Hack-Nachrichten**\
+Bleibe auf dem Laufenden mit der schnelllebigen Hacking-Welt durch Echtzeit-Nachrichten und Einblicke
 
 **Neueste Ankündigungen**\
 Bleibe informiert über die neuesten Bug-Bounties und wichtige Plattform-Updates

@@ -15,7 +15,7 @@ Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Tritt dem [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) Server bei, um mit erfahrenen Hackern und Bug-Bounty-Jägern zu kommunizieren!
 
@@ -41,7 +41,7 @@ Bleibe informiert über die neuesten Bug-Bounties und wichtige Plattform-Updates
 * [ ] **Überprüfe**, ob die [**sudo-Version** anfällig ist](privilege-escalation/#sudo-version)
 * [ ] [**Dmesg** Signaturüberprüfung fehlgeschlagen](privilege-escalation/#dmesg-signature-verification-failed)
 * [ ] Weitere Systemenumeration ([Datum, Systemstatistiken, CPU-Informationen, Drucker](privilege-escalation/#more-system-enumeration))
-* [ ] [Weitere Abwehrmaßnahmen enumerieren](privilege-escalation/#enumerate-possible-defenses)
+* [ ] [**Weitere Abwehrmaßnahmen enumerieren**](privilege-escalation/#enumerate-possible-defenses)
 
 ### [Laufwerke](privilege-escalation/#drives)
 
@@ -56,8 +56,8 @@ Bleibe informiert über die neuesten Bug-Bounties und wichtige Plattform-Updates
 
 ### [Prozesse](privilege-escalation/#processes)
 
-* [ ] Läuft **irgendwelche unbekannte Software**?
-* [ ] Läuft Software mit **mehr Privilegien als sie haben sollte**?
+* [ ] Läuft irgendeine **unbekannte Software**?
+* [ ] Läuft irgendeine Software mit **mehr Rechten als sie haben sollte**?
 * [ ] Suche nach **Exploits von laufenden Prozessen** (insbesondere der laufenden Version).
 * [ ] Kannst du die **Binärdatei** eines laufenden Prozesses **modifizieren**?
 * [ ] **Überwache Prozesse** und überprüfe, ob ein interessanter Prozess häufig läuft.
@@ -83,35 +83,35 @@ Bleibe informiert über die neuesten Bug-Bounties und wichtige Plattform-Updates
 ### [Sockets](privilege-escalation/#sockets)
 
 * [ ] Gibt es eine **beschreibbare .socket**-Datei?
-* [ ] Kannst du mit **irgendeinem Socket kommunizieren**?
+* [ ] Kannst du mit einem **Socket kommunizieren**?
 * [ ] **HTTP-Sockets** mit interessanten Informationen?
 
 ### [D-Bus](privilege-escalation/#d-bus)
 
-* [ ] Kannst du mit **irgendeinem D-Bus kommunizieren**?
+* [ ] Kannst du mit einem **D-Bus kommunizieren**?
 
 ### [Netzwerk](privilege-escalation/#network)
 
 * [ ] Enumere das Netzwerk, um zu wissen, wo du bist
 * [ ] **Offene Ports, auf die du vorher keinen Zugriff hattest**, um eine Shell im Inneren der Maschine zu erhalten?
-* [ ] Kannst du **Traffic sniffen** mit `tcpdump`?
+* [ ] Kannst du **Verkehr** mit `tcpdump` **sniffen**?
 
 ### [Benutzer](privilege-escalation/#users)
 
-* [ ] Generische Benutzer/Gruppen **Enumeration**
+* [ ] Generische Benutzer-/Gruppenumeration
 * [ ] Hast du eine **sehr große UID**? Ist die **Maschine** **anfällig**?
-* [ ] Kannst du [**Privilegien dank einer Gruppe**](privilege-escalation/interesting-groups-linux-pe/) erhöhen, zu der du gehörst?
+* [ ] Kannst du [**Privilegien dank einer Gruppe**](privilege-escalation/interesting-groups-linux-pe/) **eskalieren**, zu der du gehörst?
 * [ ] **Zwischenablage**-Daten?
 * [ ] Passwort-Richtlinie?
 * [ ] Versuche, **jedes bekannte Passwort**, das du zuvor entdeckt hast, zu verwenden, um dich **mit jedem** möglichen **Benutzer** anzumelden. Versuche auch, dich ohne Passwort anzumelden.
 
 ### [Beschreibbarer PATH](privilege-escalation/#writable-path-abuses)
 
-* [ ] Wenn du **Schreibrechte über einen Ordner im PATH** hast, könntest du in der Lage sein, Privilegien zu erhöhen
+* [ ] Wenn du **Schreibrechte über einen Ordner im PATH** hast, könntest du in der Lage sein, Privilegien zu eskalieren
 
 ### [SUDO und SUID-Befehle](privilege-escalation/#sudo-and-suid)
 
-* [ ] Kannst du **irgendeinen Befehl mit sudo ausführen**? Kannst du es verwenden, um als root zu LESEN, ZU SCHREIBEN oder ETWAS AUSZUFÜHREN? ([**GTFOBins**](https://gtfobins.github.io))
+* [ ] Kannst du **irgendeinen Befehl mit sudo ausführen**? Kannst du es verwenden, um als root **zu LESEN, ZU SCHREIBEN oder AUSZUFÜHREN**? ([**GTFOBins**](https://gtfobins.github.io))
 * [ ] Gibt es eine **ausnutzbare SUID-Binärdatei**? ([**GTFOBins**](https://gtfobins.github.io))
 * [ ] Sind [**sudo**-Befehle **durch den** **Pfad** **eingeschränkt**? Kannst du die Einschränkungen **umgehen**](privilege-escalation/#sudo-execution-bypassing-paths)?
 * [ ] [**Sudo/SUID-Binärdatei ohne angegebenen Pfad**](privilege-escalation/#sudo-command-suid-binary-without-command-path)?
@@ -165,10 +165,10 @@ Bleibe informiert über die neuesten Bug-Bounties und wichtige Plattform-Updates
 
 ### [**Andere Tricks**](privilege-escalation/#other-tricks)
 
-* [ ] Kannst du [**NFS missbrauchen, um Privilegien zu erhöhen**](privilege-escalation/#nfs-privilege-escalation)?
+* [ ] Kannst du [**NFS missbrauchen, um Privilegien zu eskalieren**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] Musst du [**aus einer restriktiven Shell entkommen**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Tritt dem [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) Server bei, um mit erfahrenen Hackern und Bug-Bounty-Jägern zu kommunizieren!
 
