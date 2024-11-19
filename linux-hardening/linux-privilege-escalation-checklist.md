@@ -1,4 +1,4 @@
-# Checklist - Linux Privilege Escalation
+# Lista - Linux Eskalacija Privilegija
 
 {% hint style="success" %}
 Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -15,22 +15,22 @@ Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Pridružite se [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serveru da komunicirate sa iskusnim hakerima i lovcima na greške!
 
-**Hakerski uvidi**\
+**Hakerski Uvidi**\
 Uključite se u sadržaj koji se bavi uzbuđenjem i izazovima hakovanja
 
-**Vesti o hakovanju u realnom vremenu**\
+**Vesti o Haku u Realnom Vremenu**\
 Budite u toku sa brzim svetom hakovanja kroz vesti i uvide u realnom vremenu
 
-**Najnovija obaveštenja**\
+**Najnovija Obaveštenja**\
 Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima platforme
 
 **Pridružite nam se na** [**Discordu**](https://discord.com/invite/N3FrSbmwdy) i počnite da sarađujete sa vrhunskim hakerima danas!
 
-### **Najbolji alat za traženje Linux lokalnih vektora eskalacije privilegija:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
+### **Najbolji alat za traženje lokalnih vektora eskalacije privilegija na Linuxu:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
 
 ### [Informacije o sistemu](privilege-escalation/#system-information)
 
@@ -49,16 +49,16 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 * [ ] **Da li postoji neki nemontirani disk?**
 * [ ] **Da li postoje kredencijali u fstab?**
 
-### [**Instalirani softver**](privilege-escalation/#installed-software)
+### [**Instalirani Softver**](privilege-escalation/#installed-software)
 
 * [ ] **Proverite za** [**koristan softver**](privilege-escalation/#useful-software) **instaliran**
 * [ ] **Proverite za** [**ranjiv softver**](privilege-escalation/#vulnerable-software-installed) **instaliran**
 
 ### [Procesi](privilege-escalation/#processes)
 
-* [ ] Da li se neki **nepoznati softver pokreće**?
+* [ ] Da li se pokreće neki **nepoznati softver**?
 * [ ] Da li se neki softver pokreće sa **više privilegija nego što bi trebao**?
-* [ ] Pretražite **exploite pokrenutih procesa** (posebno verziju koja se pokreće).
+* [ ] Pretražite za **exploite pokrenutih procesa** (posebno verziju koja se pokreće).
 * [ ] Možete li **modifikovati binarni** fajl nekog pokrenutog procesa?
 * [ ] **Pratite procese** i proverite da li se neki zanimljiv proces često pokreće.
 * [ ] Možete li **pročitati** neku zanimljivu **memoriju procesa** (gde bi lozinke mogle biti sačuvane)?
@@ -94,14 +94,14 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 
 * [ ] Enumerisanje mreže da znate gde se nalazite
 * [ ] **Otvoreni portovi koje niste mogli da pristupite pre** nego što ste dobili shell unutar mašine?
-* [ ] Možete li **sniff-ovati saobraćaj** koristeći `tcpdump`?
+* [ ] Možete li **sniffovati saobraćaj** koristeći `tcpdump`?
 
 ### [Korisnici](privilege-escalation/#users)
 
 * [ ] Generička **enumeracija korisnika/grupa**
 * [ ] Da li imate **veoma veliki UID**? Da li je **mašina** **ranjiva**?
 * [ ] Možete li [**eskalirati privilegije zahvaljujući grupi**](privilege-escalation/interesting-groups-linux-pe/) kojoj pripadate?
-* [ ] **Podaci iz clipboard-a**?
+* [ ] **Clipboard** podaci?
 * [ ] Politika lozinki?
 * [ ] Pokušajte da **koristite** svaku **poznatu lozinku** koju ste prethodno otkrili da se prijavite **sa svakim** mogućim **korisnikom**. Pokušajte da se prijavite i bez lozinke.
 
@@ -119,13 +119,13 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 * [ ] [**LD\_PRELOAD ranjivost**](privilege-escalation/#ld\_preload)
 * [ ] [**Nedostatak .so biblioteke u SUID binarnom**](privilege-escalation/#suid-binary-so-injection) iz pisive fascikle?
 * [ ] [**SUDO tokeni dostupni**](privilege-escalation/#reusing-sudo-tokens)? [**Možete li kreirati SUDO token**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
-* [ ] Možete li [**pročitati ili modifikovati sudoers fajlove**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
+* [ ] Možete li [**čitati ili modifikovati sudoers fajlove**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
 * [ ] Možete li [**modifikovati /etc/ld.so.conf.d/**](privilege-escalation/#etc-ld-so-conf-d)?
 * [ ] [**OpenBSD DOAS**](privilege-escalation/#doas) komanda
 
 ### [Kapaciteti](privilege-escalation/#capabilities)
 
-* [ ] Da li neki binarni fajl ima neku **neočekivanu sposobnost**?
+* [ ] Da li neki binarni ima neku **neočekivanu sposobnost**?
 
 ### [ACL-ovi](privilege-escalation/#acls)
 
@@ -141,13 +141,13 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 * [ ] **Debian** [**OpenSSL Predvidljiv PRNG - CVE-2008-0166**](privilege-escalation/#debian-openssl-predictable-prng-cve-2008-0166)
 * [ ] [**SSH Zanimljive konfiguracione vrednosti**](privilege-escalation/#ssh-interesting-configuration-values)
 
-### [Zanimljivi fajlovi](privilege-escalation/#interesting-files)
+### [Zanimljivi Fajlovi](privilege-escalation/#interesting-files)
 
 * [ ] **Profilni fajlovi** - Pročitajte osetljive podatke? Pišite za privesc?
 * [ ] **passwd/shadow fajlovi** - Pročitajte osetljive podatke? Pišite za privesc?
 * [ ] **Proverite uobičajene zanimljive fascikle** za osetljive podatke
-* [ ] **Čudne lokacije/Owned fajlovi,** možda imate pristup ili možete da menjate izvršne fajlove
-* [ ] **Modifikovani** u poslednjim minutima
+* [ ] **Čudne Lokacije/Posedovani fajlovi,** možda imate pristup ili možete da menjate izvršne fajlove
+* [ ] **Izmenjeni** u poslednjih nekoliko minuta
 * [ ] **Sqlite DB fajlovi**
 * [ ] **Skriveni fajlovi**
 * [ ] **Skripte/Binari u PATH-u**
@@ -156,7 +156,7 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 * [ ] **Poznati fajlovi koji sadrže lozinke**: Koristite **Linpeas** i **LaZagne**
 * [ ] **Generička pretraga**
 
-### [**Pisivi fajlovi**](privilege-escalation/#writable-files)
+### [**Pisivi Fajlovi**](privilege-escalation/#writable-files)
 
 * [ ] **Modifikujte python biblioteku** da izvršite proizvoljne komande?
 * [ ] Možete li **modifikovati log fajlove**? **Logtotten** exploit
@@ -168,17 +168,17 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 * [ ] Možete li [**zloupotrebiti NFS da eskalirate privilegije**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] Da li treba da [**pobegnete iz restriktivnog shell-a**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Pridružite se [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serveru da komunicirate sa iskusnim hakerima i lovcima na greške!
 
-**Hakerski uvidi**\
+**Hakerski Uvidi**\
 Uključite se u sadržaj koji se bavi uzbuđenjem i izazovima hakovanja
 
-**Vesti o hakovanju u realnom vremenu**\
+**Vesti o Haku u Realnom Vremenu**\
 Budite u toku sa brzim svetom hakovanja kroz vesti i uvide u realnom vremenu
 
-**Najnovija obaveštenja**\
+**Najnovija Obaveštenja**\
 Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima platforme
 
 **Pridružite nam se na** [**Discordu**](https://discord.com/invite/N3FrSbmwdy) i počnite da sarađujete sa vrhunskim hakerima danas!

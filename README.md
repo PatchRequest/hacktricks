@@ -65,7 +65,7 @@ Pribavite pristup danas:
 
 ### [HACKENPROOF](https://bit.ly/3xrrDrL)
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Pridružite se [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serveru da komunicirate sa iskusnim hakerima i lovcima na bugove!
 
@@ -93,10 +93,10 @@ Pridružite se [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 
 
 <figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
 
-**SerpApi** nudi brze i lake API-je u realnom vremenu za **pristup rezultatima pretraživača**. Oni sakupljaju podatke sa pretraživača, upravljaju proxy-ima, rešavaju captcha izazove i analiziraju sve bogate strukturirane podatke za vas.
+**SerpApi** nudi brze i lake API-je u realnom vremenu za **pristup rezultatima pretraživača**. Oni prikupljaju podatke sa pretraživača, upravljaju proxy-ima, rešavaju captcha izazove i analiziraju sve bogate strukturirane podatke za vas.
 
-Pretplata na jedan od planova SerpApi uključuje pristup više od 50 različitih API-ja za sakupljanje podataka sa različitih pretraživača, uključujući Google, Bing, Baidu, Yahoo, Yandex i druge.\
-Za razliku od drugih provajdera, **SerpApi ne sakuplja samo organske rezultate**. Odgovori SerpApi dosledno uključuju sve oglase, inline slike i video zapise, znanje grafove i druge elemente i funkcije prisutne u rezultatima pretrage.
+Pretplata na jedan od SerpApi planova uključuje pristup više od 50 različitih API-ja za prikupljanje podataka sa različitih pretraživača, uključujući Google, Bing, Baidu, Yahoo, Yandex i druge.\
+Za razliku od drugih provajdera, **SerpApi ne prikuplja samo organske rezultate**. SerpApi odgovori dosledno uključuju sve oglase, inline slike i video zapise, grafove znanja i druge elemente i funkcije prisutne u rezultatima pretrage.
 
 Trenutni klijenti SerpApi uključuju **Apple, Shopify i GrubHub**.\
 Za više informacija pogledajte njihov [**blog**](https://serpapi.com/blog/)**,** ili isprobajte primer u njihovom [**playground-u**](https://serpapi.com/playground)**.**\
@@ -108,7 +108,7 @@ Možete **napraviti besplatan nalog** [**ovde**](https://serpapi.com/users/sign\
 
 <figure><img src=".gitbook/assets/websec (1).svg" alt=""><figcaption></figcaption></figure>
 
-[**WebSec**](https://websec.nl) je profesionalna kompanija za sajber bezbednost sa sedištem u **Amsterdamu** koja pomaže u **zaštiti** preduzeća **široko po svetu** od najnovijih pretnji u oblasti sajber bezbednosti pružajući **usluge ofanzivne bezbednosti** sa **modernim** pristupom.
+[**WebSec**](https://websec.nl) je profesionalna kompanija za sajber bezbednost sa sedištem u **Amsterdamu** koja pomaže **zaštiti** preduzeća **široko u svetu** od najnovijih pretnji u oblasti sajber bezbednosti pružajući **usluge ofanzivne bezbednosti** sa **modernim** pristupom.
 
 WebSec je **sve-u-jednom bezbednosna kompanija** što znači da rade sve; Pentesting, **Sigurnosne** revizije, Obuke o svesti, Phishing kampanje, Revizija koda, Razvoj eksploata, Outsourcing stručnjaka za bezbednost i još mnogo toga.
 
