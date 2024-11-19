@@ -2,10 +2,10 @@
 
 <figure><img src=".gitbook/assets/hacktricks.gif" alt=""><figcaption></figcaption></figure>
 
-_Les logos et le design animé de Hacktricks par_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
+_Hacktricks logos & motion design par_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
 
 {% hint style="success" %}
-**Bienvenue dans le wiki où vous trouverez chaque astuce/technique de hacking/quoi que ce soit que j'ai appris des CTF, des applications de la vie réelle, en lisant des recherches et des nouvelles.**
+**Bienvenue dans le wiki où vous trouverez chaque astuce/technique de hacking que j'ai apprise lors de CTFs, d'applications réelles, de lectures de recherches et d'actualités.**
 {% endhint %}
 
 Pour commencer, suivez cette page où vous trouverez le **flux typique** que **vous devriez suivre lors d'un pentesting** d'une ou plusieurs **machines :**
@@ -14,17 +14,17 @@ Pour commencer, suivez cette page où vous trouverez le **flux typique** que **v
 [pentesting-methodology.md](generic-methodologies-and-resources/pentesting-methodology.md)
 {% endcontent-ref %}
 
-## Sponsors d'entreprise
+## Sponsors Corporatifs
 
 ### [STM Cyber](https://www.stmcyber.com)
 
 <figure><img src=".gitbook/assets/stm (1).png" alt=""><figcaption></figcaption></figure>
 
-[**STM Cyber**](https://www.stmcyber.com) est une grande entreprise de cybersécurité dont le slogan est **HACK THE UNHACKABLE**. Ils effectuent leurs propres recherches et développent leurs propres outils de hacking pour **offrir plusieurs services de cybersécurité précieux** comme le pentesting, les équipes rouges et la formation.
+[**STM Cyber**](https://www.stmcyber.com) est une excellente entreprise de cybersécurité dont le slogan est **HACK THE UNHACKABLE**. Ils effectuent leurs propres recherches et développent leurs propres outils de hacking pour **offrir plusieurs services de cybersécurité précieux** comme le pentesting, les équipes rouges et la formation.
 
 Vous pouvez consulter leur **blog** à [**https://blog.stmcyber.com**](https://blog.stmcyber.com)
 
-**STM Cyber** soutient également des projets de cybersécurité open source comme HackTricks :)
+**STM Cyber** soutient également des projets open source en cybersécurité comme HackTricks :)
 
 ***
 
@@ -65,7 +65,7 @@ Accédez dès aujourd'hui :
 
 ### [HACKENPROOF](https://bit.ly/3xrrDrL)
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Rejoignez le serveur [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) pour communiquer avec des hackers expérimentés et des chasseurs de bugs !
 
@@ -108,7 +108,7 @@ Vous pouvez **créer un compte gratuit** [**ici**](https://serpapi.com/users/sig
 
 <figure><img src=".gitbook/assets/websec (1).svg" alt=""><figcaption></figcaption></figure>
 
-[**WebSec**](https://websec.nl) est une entreprise de cybersécurité professionnelle basée à **Amsterdam** qui aide à **protéger** les entreprises **dans le monde entier** contre les dernières menaces de cybersécurité en fournissant des **services de sécurité offensive** avec une approche **moderne**.
+[**WebSec**](https://websec.nl) est une entreprise professionnelle de cybersécurité basée à **Amsterdam** qui aide à **protéger** les entreprises **dans le monde entier** contre les dernières menaces de cybersécurité en fournissant des **services de sécurité offensive** avec une approche **moderne**.
 
 WebSec est une **entreprise de sécurité tout-en-un**, ce qui signifie qu'ils font tout ; Pentesting, **Audits** de Sécurité, Formations de Sensibilisation, Campagnes de Phishing, Revue de Code, Développement d'Exploits, Externalisation d'Experts en Sécurité et bien plus encore.
 
@@ -128,11 +128,11 @@ Consultez-les dans :
 
 ## Statistiques Github
 
-![Statistiques Github de HackTricks](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg)
+![HackTricks Github Stats](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg)
 
 {% hint style="success" %}
-Apprenez et pratiquez le Hacking AWS :<img src=".gitbook/assets/arte.png" alt="" data-size="line">[**Formation HackTricks AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src=".gitbook/assets/arte.png" alt="" data-size="line">\
-Apprenez et pratiquez le Hacking GCP : <img src=".gitbook/assets/grte.png" alt="" data-size="line">[**Formation HackTricks GCP Red Team Expert (GRTE)**<img src=".gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le Hacking AWS :<img src=".gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src=".gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le Hacking GCP : <img src=".gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src=".gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 

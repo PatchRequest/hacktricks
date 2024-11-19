@@ -1,4 +1,4 @@
-# Sécurité macOS & Élévation de privilèges
+# Sécurité macOS & Escalade de Privilèges
 
 {% hint style="success" %}
 Apprenez et pratiquez le Hacking AWS :<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**Formation HackTricks AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -8,14 +8,14 @@ Apprenez et pratiquez le Hacking GCP : <img src="../../.gitbook/assets/grte.png"
 
 <summary>Soutenir HackTricks</summary>
 
-* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts GitHub.
+* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop)!
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Rejoignez le serveur [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) pour communiquer avec des hackers expérimentés et des chasseurs de bugs !
 
@@ -26,9 +26,9 @@ Engagez-vous avec du contenu qui explore le frisson et les défis du hacking
 Restez à jour avec le monde du hacking en rapide évolution grâce à des nouvelles et des aperçus en temps réel
 
 **Dernières Annonces**\
-Restez informé des nouvelles primes de bugs lancées et des mises à jour cruciales de la plateforme
+Restez informé des nouvelles primes de bugs lancées et des mises à jour cruciales des plateformes
 
-**Rejoignez-nous sur** [**Discord**](https://discord.com/invite/N3FrSbmwdy) et commencez à collaborer avec les meilleurs hackers dès aujourd'hui !
+**Rejoignez-nous sur** [**Discord**](https://discord.com/invite/N3FrSbmwdy) et commencez à collaborer avec les meilleurs hackers aujourd'hui !
 
 ## MacOS de Base
 
@@ -52,7 +52,7 @@ Si vous n'êtes pas familier avec macOS, vous devriez commencer à apprendre les
 [macos-applefs.md](macos-applefs.md)
 {% endcontent-ref %}
 
-* L'**architecture** du **noyau**
+* L'**architecture** du k**ernel**
 
 {% content-ref url="mac-os-architecture/" %}
 [mac-os-architecture](mac-os-architecture/)
@@ -64,10 +64,10 @@ Si vous n'êtes pas familier avec macOS, vous devriez commencer à apprendre les
 [macos-protocols.md](macos-protocols.md)
 {% endcontent-ref %}
 
-* **Open source** macOS : [https://opensource.apple.com/](https://opensource.apple.com/)
+* **Opensource** macOS : [https://opensource.apple.com/](https://opensource.apple.com/)
 * Pour télécharger un `tar.gz`, changez une URL telle que [https://opensource.apple.com/**source**/dyld/](https://opensource.apple.com/source/dyld/) en [https://opensource.apple.com/**tarballs**/dyld/**dyld-852.2.tar.gz**](https://opensource.apple.com/tarballs/dyld/dyld-852.2.tar.gz)
 
-### MacOS MDM
+### MDM macOS
 
 Dans les entreprises, les systèmes **macOS** seront très probablement **gérés avec un MDM**. Par conséquent, du point de vue d'un attaquant, il est intéressant de savoir **comment cela fonctionne** :
 
@@ -107,7 +107,7 @@ Pour ce type de vulnérabilités, n'oubliez pas de **vérifier les installateurs
 [macos-installers-abuse.md](macos-files-folders-and-binaries/macos-installers-abuse.md)
 {% endcontent-ref %}
 
-### Gestion des Extensions de Fichier & des Schémas d'URL
+### Gestion des Extensions de Fichier & des Handlers d'URL
 
 Des applications étranges enregistrées par des extensions de fichier pourraient être abusées et différentes applications peuvent être enregistrées pour ouvrir des protocoles spécifiques
 
@@ -115,17 +115,17 @@ Des applications étranges enregistrées par des extensions de fichier pourraien
 [macos-file-extension-apps.md](macos-file-extension-apps.md)
 {% endcontent-ref %}
 
-## Élévation de Privilèges TCC / SIP macOS
+## Escalade de Privilèges TCC / SIP macOS
 
 Dans macOS, les **applications et binaires peuvent avoir des permissions** pour accéder à des dossiers ou des paramètres qui les rendent plus privilégiés que d'autres.
 
-Par conséquent, un attaquant qui souhaite compromettre avec succès une machine macOS devra **escalader ses privilèges TCC** (ou même **contourner le SIP**, selon ses besoins).
+Par conséquent, un attaquant qui souhaite compromettre avec succès une machine macOS devra **escalader ses privilèges TCC** (ou même **contourner SIP**, selon ses besoins).
 
 Ces privilèges sont généralement accordés sous forme de **droits** avec lesquels l'application est signée, ou l'application peut demander certains accès et après que **l'utilisateur les approuve**, ils peuvent être trouvés dans les **bases de données TCC**. Une autre façon pour un processus d'obtenir ces privilèges est d'être un **enfant d'un processus** avec ces **privilèges** car ils sont généralement **hérités**.
 
-Suivez ces liens pour trouver différentes façons d'[**escalader les privilèges dans TCC**](macos-security-protections/macos-tcc/#tcc-privesc-and-bypasses), pour [**contourner TCC**](macos-security-protections/macos-tcc/macos-tcc-bypasses/) et comment dans le passé [**le SIP a été contourné**](macos-security-protections/macos-sip.md#sip-bypasses).
+Suivez ces liens pour trouver différentes façons d'[**escalader les privilèges dans TCC**](macos-security-protections/macos-tcc/#tcc-privesc-and-bypasses), pour [**contourner TCC**](macos-security-protections/macos-tcc/macos-tcc-bypasses/) et comment dans le passé [**SIP a été contourné**](macos-security-protections/macos-sip.md#sip-bypasses).
 
-## Élévation de Privilèges Traditionnelle macOS
+## Escalade de Privilèges Traditionnelle macOS
 
 Bien sûr, du point de vue des équipes rouges, vous devriez également être intéressé par l'escalade vers root. Consultez le post suivant pour quelques indices :
 
@@ -139,13 +139,13 @@ Bien sûr, du point de vue des équipes rouges, vous devriez également être in
 
 ## Références
 
-* [**Réponse aux Incidents OS X : Scripting et Analyse**](https://www.amazon.com/OS-Incident-Response-Scripting-Analysis-ebook/dp/B01FHOHHVS)
+* [**OS X Incident Response: Scripting and Analysis**](https://www.amazon.com/OS-Incident-Response-Scripting-Analysis-ebook/dp/B01FHOHHVS)
 * [**https://taomm.org/vol1/analysis.html**](https://taomm.org/vol1/analysis.html)
 * [**https://github.com/NicolasGrimonpont/Cheatsheet**](https://github.com/NicolasGrimonpont/Cheatsheet)
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Rejoignez le serveur [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) pour communiquer avec des hackers expérimentés et des chasseurs de bugs !
 
@@ -156,9 +156,9 @@ Engagez-vous avec du contenu qui explore le frisson et les défis du hacking
 Restez à jour avec le monde du hacking en rapide évolution grâce à des nouvelles et des aperçus en temps réel
 
 **Dernières Annonces**\
-Restez informé des nouvelles primes de bugs lancées et des mises à jour cruciales de la plateforme
+Restez informé des nouvelles primes de bugs lancées et des mises à jour cruciales des plateformes
 
-**Rejoignez-nous sur** [**Discord**](https://discord.com/invite/N3FrSbmwdy) et commencez à collaborer avec les meilleurs hackers dès aujourd'hui !
+**Rejoignez-nous sur** [**Discord**](https://discord.com/invite/N3FrSbmwdy) et commencez à collaborer avec les meilleurs hackers aujourd'hui !
 
 {% hint style="success" %}
 Apprenez et pratiquez le Hacking AWS :<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**Formation HackTricks AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -168,9 +168,9 @@ Apprenez et pratiquez le Hacking GCP : <img src="../../.gitbook/assets/grte.png"
 
 <summary>Soutenir HackTricks</summary>
 
-* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts GitHub.
+* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop)!
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}
