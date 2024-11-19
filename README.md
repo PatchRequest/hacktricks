@@ -65,12 +65,12 @@ Acesse hoje:
 
 ### [HACKENPROOF](https://bit.ly/3xrrDrL)
 
-<figure><img src=".gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Junte-se ao servidor [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para se comunicar com hackers experientes e caçadores de bug bounty!
 
-* **Insights de Hacking:** Envolva-se com conteúdo que mergulha na emoção e nos desafios do hacking
-* **Notícias de Hacking em Tempo Real:** Mantenha-se atualizado com o mundo acelerado do hacking através de notícias e insights em tempo real
+* **Insights de Hacking:** Engaje-se com conteúdo que mergulha na emoção e nos desafios do hacking
+* **Notícias de Hack em Tempo Real:** Mantenha-se atualizado com o mundo do hacking em ritmo acelerado através de notícias e insights em tempo real
 * **Últimos Anúncios:** Fique informado sobre os novos bug bounties lançando e atualizações cruciais da plataforma
 
 **Junte-se a nós no** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e comece a colaborar com os melhores hackers hoje!
@@ -79,16 +79,13 @@ Junte-se ao servidor [**HackenProof Discord**](https://discord.com/invite/N3FrSb
 
 ### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - O kit de ferramentas essencial para testes de penetração
 
-<figure><img src="/.gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
 **Obtenha a perspectiva de um hacker sobre seus aplicativos web, rede e nuvem**
 
 **Encontre e relate vulnerabilidades críticas e exploráveis com impacto real nos negócios.** Use nossas mais de 20 ferramentas personalizadas para mapear a superfície de ataque, encontrar problemas de segurança que permitem escalar privilégios e usar exploits automatizados para coletar evidências essenciais, transformando seu trabalho árduo em relatórios persuasivos.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
-
-
-{% endembed %}
 
 ***
 
@@ -113,7 +110,7 @@ Você pode **criar uma conta gratuita** [**aqui**](https://serpapi.com/users/sig
 
 [**WebSec**](https://websec.nl) é uma empresa profissional de cibersegurança com sede em **Amsterdã** que ajuda a **proteger** empresas **em todo o mundo** contra as mais recentes ameaças de cibersegurança, fornecendo **serviços de segurança ofensiva** com uma abordagem **moderna**.
 
-WebSec é uma **empresa de segurança tudo-em-um**, o que significa que eles fazem tudo; Pentesting, **Auditorias** de Segurança, Treinamentos de Conscientização, Campanhas de Phishing, Revisão de Código, Desenvolvimento de Exploits, Terceirização de Especialistas em Segurança e muito mais.
+WebSec é uma **empresa de segurança tudo-em-um**, o que significa que eles fazem tudo; Pentesting, **Auditorias de Segurança**, Treinamentos de Conscientização, Campanhas de Phishing, Revisão de Código, Desenvolvimento de Exploits, Terceirização de Especialistas em Segurança e muito mais.
 
 Outra coisa legal sobre a WebSec é que, ao contrário da média do setor, a WebSec é **muito confiante em suas habilidades**, a tal ponto que **garante os melhores resultados de qualidade**, afirmando em seu site "**Se não conseguimos hackear, você não paga!**". Para mais informações, dê uma olhada em seu [**site**](https://websec.nl/en/) e [**blog**](https://websec.nl/blog/)!
 

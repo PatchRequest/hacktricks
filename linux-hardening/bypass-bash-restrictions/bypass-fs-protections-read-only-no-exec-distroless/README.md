@@ -15,7 +15,7 @@ Aprenda e pratique Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt
 </details>
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Se você está interessado em **carreira de hacking** e hackear o inhackeável - **estamos contratando!** (_fluência em polonês escrita e falada é necessária_).
 
@@ -25,7 +25,7 @@ Se você está interessado em **carreira de hacking** e hackear o inhackeável -
 
 Nos vídeos a seguir, você pode encontrar as técnicas mencionadas nesta página explicadas com mais profundidade:
 
-* [**DEF CON 31 - Explorando a Manipulação de Memória do Linux para Stealth e Evasão**](https://www.youtube.com/watch?v=poHirez8jk4)
+* [**DEF CON 31 - Explorando Manipulação de Memória Linux para Stealth e Evasão**](https://www.youtube.com/watch?v=poHirez8jk4)
 * [**Intrusões furtivas com DDexec-ng & dlopen() em memória - HackTricks Track 2023**](https://www.youtube.com/watch?v=VM\_gjjiARaU)
 
 ## cenário read-only / no-exec
@@ -61,14 +61,14 @@ No entanto, isso não é suficiente para executar seu backdoor binário ou outra
 
 Se você quiser executar um binário, mas o sistema de arquivos não está permitindo isso, a melhor maneira de fazê-lo é **executá-lo da memória**, já que as **proteções não se aplicam lá**.
 
-### Bypass de FD + syscall exec
+### Bypass FD + exec syscall
 
-Se você tiver alguns poderosos motores de script dentro da máquina, como **Python**, **Perl** ou **Ruby**, você poderia baixar o binário para executar da memória, armazená-lo em um descritor de arquivo de memória (`create_memfd` syscall), que não será protegido por essas proteções e então chamar uma **syscall `exec`** indicando o **fd como o arquivo a ser executado**.
+Se você tiver alguns poderosos motores de script dentro da máquina, como **Python**, **Perl** ou **Ruby**, você poderia baixar o binário para executar da memória, armazená-lo em um descritor de arquivo de memória (`create_memfd` syscall), que não será protegido por essas proteções e então chamar uma **`exec` syscall** indicando o **fd como o arquivo a ser executado**.
 
 Para isso, você pode facilmente usar o projeto [**fileless-elf-exec**](https://github.com/nnsee/fileless-elf-exec). Você pode passar um binário e ele gerará um script na linguagem indicada com o **binário comprimido e codificado em b64** com as instruções para **decodificá-lo e descomprimí-lo** em um **fd** criado chamando a syscall `create_memfd` e uma chamada para a syscall **exec** para executá-lo.
 
 {% hint style="warning" %}
-Isso não funciona em outras linguagens de script como PHP ou Node porque elas não têm nenhuma **maneira padrão de chamar syscalls brutas** a partir de um script, então não é possível chamar `create_memfd` para criar o **fd de memória** para armazenar o binário.
+Isso não funciona em outras linguagens de script como PHP ou Node porque elas não têm nenhuma **maneira padrão de chamar syscalls brutas** de um script, então não é possível chamar `create_memfd` para criar o **fd de memória** para armazenar o binário.
 
 Além disso, criar um **fd regular** com um arquivo em `/dev/shm` não funcionará, pois você não poderá executá-lo porque a **proteção no-exec** se aplicará.
 {% endhint %}
@@ -106,9 +106,9 @@ Com um propósito semelhante ao DDexec, a técnica [**memdlopen**](https://githu
 
 ### O que é distroless
 
-Contêineres distroless contêm apenas os **componentes mínimos necessários para executar um aplicativo ou serviço específico**, como bibliotecas e dependências de tempo de execução, mas excluem componentes maiores, como um gerenciador de pacotes, shell ou utilitários de sistema.
+Contêineres distroless contêm apenas os **componentes mínimos necessários para executar um aplicativo ou serviço específico**, como bibliotecas e dependências de tempo de execução, mas excluem componentes maiores como um gerenciador de pacotes, shell ou utilitários de sistema.
 
-O objetivo dos contêineres distroless é **reduzir a superfície de ataque dos contêineres, eliminando componentes desnecessários** e minimizando o número de vulnerabilidades que podem ser exploradas.
+O objetivo dos contêineres distroless é **reduzir a superfície de ataque dos contêineres eliminando componentes desnecessários** e minimizando o número de vulnerabilidades que podem ser exploradas.
 
 ### Shell Reverso
 
@@ -132,7 +132,7 @@ No entanto, neste tipo de contêiner, essas proteções geralmente existirão, m
 
 Você pode encontrar **exemplos** de como **explorar algumas vulnerabilidades RCE** para obter shells reversos de linguagens de script e executar binários da memória em [**https://github.com/carlospolop/DistrolessRCE**](https://github.com/carlospolop/DistrolessRCE).
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Se você está interessado em uma **carreira em hacking** e hackear o inhackeável - **estamos contratando!** (_fluência em polonês escrita e falada é necessária_).
 

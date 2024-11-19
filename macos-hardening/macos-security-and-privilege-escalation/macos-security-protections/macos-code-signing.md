@@ -19,7 +19,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 Os binários Mach-o contêm um comando de carregamento chamado **`LC_CODE_SIGNATURE`** que indica o **offset** e o **tamanho** das assinaturas dentro do binário. Na verdade, usando a ferramenta GUI MachOView, é possível encontrar no final do binário uma seção chamada **Code Signature** com essas informações:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 O cabeçalho mágico da Code Signature é **`0xFADE0CC0`**. Então você tem informações como o comprimento e o número de blobs do superBlob que os contém.\
 É possível encontrar essas informações no [código-fonte aqui](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
@@ -114,11 +114,11 @@ char end_withLinkage[0];
 } CS_CodeDirectory
 __attribute__ ((aligned(1)));
 ```
-Note que existem diferentes versões desta struct onde as antigas podem conter menos informações.
+Note que existem diferentes versões desta estrutura, onde as antigas podem conter menos informações.
 
 ## Páginas de Assinatura de Código
 
-Hashing o binário completo seria ineficiente e até inútil se ele for carregado na memória apenas parcialmente. Portanto, a assinatura do código é na verdade um hash de hashes onde cada página binária é hashada individualmente.\
+Hashing o binário completo seria ineficiente e até inútil se ele for carregado na memória apenas parcialmente. Portanto, a assinatura de código é na verdade um hash de hashes onde cada página binária é hashada individualmente.\
 Na verdade, no código anterior do **Diretório de Código**, você pode ver que o **tamanho da página é especificado** em um de seus campos. Além disso, se o tamanho do binário não for um múltiplo do tamanho de uma página, o campo **CodeLimit** especifica onde está o final da assinatura.
 ```bash
 # Get all hashes of /bin/ps
@@ -157,13 +157,13 @@ openssl sha256 /tmp/*.page.*
 ```
 ## Entitlements Blob
 
-Note que as aplicações podem também conter um **entitlement blob** onde todos os direitos são definidos. Além disso, alguns binários do iOS podem ter seus direitos específicos no slot especial -7 (em vez de no slot especial -5).
+Note que as aplicações também podem conter um **entitlement blob** onde todos os direitos são definidos. Além disso, alguns binários do iOS podem ter seus direitos específicos no slot especial -7 (em vez de no slot especial -5 de direitos).
 
 ## Special Slots
 
 As aplicações do MacOS não têm tudo o que precisam para executar dentro do binário, mas também usam **recursos externos** (geralmente dentro do **bundle** das aplicações). Portanto, existem alguns slots dentro do binário que conterão os hashes de alguns recursos externos interessantes para verificar se não foram modificados.
 
-Na verdade, é possível ver nas estruturas do Code Directory um parâmetro chamado **`nSpecialSlots`** indicando o número dos slots especiais. Não existe um slot especial 0 e os mais comuns (de -1 a -6) são:
+Na verdade, é possível ver nas estruturas do Code Directory um parâmetro chamado **`nSpecialSlots`** que indica o número dos slots especiais. Não existe um slot especial 0 e os mais comuns (de -1 a -6) são:
 
 * Hash de `info.plist` (ou o que está dentro de `__TEXT.__info__plist`).
 * Hash dos Requisitos
@@ -175,7 +175,7 @@ Na verdade, é possível ver nas estruturas do Code Directory um parâmetro cham
 
 ## Code Signing Flags
 
-Cada processo tem um bitmask relacionado conhecido como `status`, que é iniciado pelo kernel e alguns deles podem ser substituídos pela **assinatura de código**. Essas flags que podem ser incluídas na assinatura de código são [definidas no código](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
+Cada processo tem um bitmask relacionado conhecido como `status`, que é iniciado pelo kernel e alguns deles podem ser substituídos pela **assinatura de código**. Essas flags que podem ser incluídas na assinatura de código são [definidas no código](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L36):
 ```c
 /* code signing attributes of a process */
 #define CS_VALID                    0x00000001  /* dynamically valid */
@@ -306,13 +306,13 @@ od -A x -t x1 /tmp/output.csreq
 * **`kSecCSDefaultFlags`**: Flags padrão usadas em muitas funções do Security.framework para operações de assinatura de código.
 * **`kSecCSSigningInformation`**: Flag usada para especificar que as informações de assinatura devem ser recuperadas.
 
-## Aplicação de Assinatura de Código
+## Aplicação da Assinatura de Código
 
-O **kernel** é quem **verifica a assinatura de código** antes de permitir que o código do aplicativo seja executado. Além disso, uma maneira de conseguir escrever e executar novo código na memória é abusar do JIT se `mprotect` for chamado com a flag `MAP_JIT`. Observe que a aplicação precisa de um direito especial para poder fazer isso.
+O **kernel** é quem **verifica a assinatura de código** antes de permitir que o código do aplicativo seja executado. Além disso, uma maneira de conseguir escrever e executar novo código na memória é abusar do JIT se `mprotect` for chamado com a flag `MAP_JIT`. Observe que o aplicativo precisa de um direito especial para poder fazer isso.
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) a struct contém as informações sobre o direito do processo em execução sobre ele. `csb_platform_binary` também informa se a aplicação é um binário de plataforma (o que é verificado em diferentes momentos pelo OS para aplicar mecanismos de segurança, como proteger os direitos de SEND para as portas de tarefa desses processos).
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) a struct contém as informações sobre o direito do processo em execução sobre ele. `csb_platform_binary` também informa se o aplicativo é um binário de plataforma (o que é verificado em diferentes momentos pelo OS para aplicar mecanismos de segurança, como proteger os direitos de SEND para as portas de tarefa desses processos).
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
