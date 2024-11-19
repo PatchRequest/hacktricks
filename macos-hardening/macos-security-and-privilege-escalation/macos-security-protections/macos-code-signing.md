@@ -19,9 +19,9 @@
 
 Mach-o 二进制文件包含一个加载命令 **`LC_CODE_SIGNATURE`**，指示二进制文件内部签名的 **偏移量** 和 **大小**。实际上，使用 GUI 工具 MachOView，可以在二进制文件的末尾找到一个名为 **Code Signature** 的部分，其中包含这些信息：
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
-代码签名的魔术头是 **`0xFADE0CC0`**。然后你会看到一些信息，例如 superBlob 的长度和 blob 的数量。\
+代码签名的魔术头是 **`0xFADE0CC0`**。然后你会得到一些信息，例如包含它们的 superBlob 的长度和 blob 数量。\
 可以在 [源代码这里](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276) 找到这些信息：
 ```c
 /*
@@ -51,8 +51,8 @@ char data[];
 } CS_GenericBlob
 __attribute__ ((aligned(1)));
 ```
-常见的包含的 blob 有代码目录、要求和权限以及加密消息语法 (CMS)。\
-此外，请注意 blob 中编码的数据是以 **大端格式** 编码的。
+常见的 blob 包含代码目录、要求和权限以及加密消息语法 (CMS)。\
+此外，请注意 blob 中编码的数据是以 **大端字节序** 编码的。
 
 此外，签名可以从二进制文件中分离并存储在 `/var/db/DetachedSignatures`（iOS 使用）。
 
@@ -118,7 +118,7 @@ __attribute__ ((aligned(1)));
 
 ## 签名代码页面
 
-对完整二进制文件进行哈希会低效，甚至在其仅部分加载到内存时毫无意义。因此，代码签名实际上是哈希的哈希，其中每个二进制页面单独进行哈希。\
+对完整二进制文件进行哈希会低效且无用，因为它可能只在内存中部分加载。因此，代码签名实际上是哈希的哈希，其中每个二进制页面都是单独哈希的。\
 实际上，在之前的 **Code Directory** 代码中，您可以看到 **页面大小在其字段中被指定**。此外，如果二进制文件的大小不是页面大小的倍数，字段 **CodeLimit** 指定了签名的结束位置。
 ```bash
 # Get all hashes of /bin/ps
@@ -157,7 +157,7 @@ openssl sha256 /tmp/*.page.*
 ```
 ## Entitlements Blob
 
-请注意，应用程序可能还包含一个**权限 blob**，其中定义了所有权限。此外，一些 iOS 二进制文件可能在特殊槽 -7 中具有其特定权限（而不是在 -5 权限特殊槽中）。
+注意，应用程序可能还包含一个**权限 blob**，其中定义了所有权限。此外，一些 iOS 二进制文件可能在特殊槽 -7 中具有其特定权限（而不是在 -5 权限特殊槽中）。
 
 ## Special Slots
 
@@ -266,7 +266,7 @@ od -A x -t x1 /tmp/output.csreq
 
 #### **检查有效性**
 
-* **`Sec[Static]CodeCheckValidity`**：根据要求检查 SecCodeRef 的有效性。
+* **`Sec[Static]CodeCheckValidity`**：检查 SecCodeRef 是否符合要求的有效性。
 * **`SecRequirementEvaluate`**：在证书上下文中验证要求。
 * **`SecTaskValidateForRequirement`**：验证正在运行的 SecTask 是否符合 `CFString` 要求。
 
@@ -284,7 +284,7 @@ od -A x -t x1 /tmp/output.csreq
 
 #### **修改代码要求**
 
-* **`SecCodeSignerCreate`**：创建一个 `SecCodeSignerRef` 对象以执行代码签名操作。
+* **`SecCodeSignerCreate`**：创建 `SecCodeSignerRef` 对象以执行代码签名操作。
 * **`SecCodeSignerSetRequirement`**：为代码签名者设置在签名期间应用的新要求。
 * **`SecCodeSignerAddSignature`**：将签名添加到使用指定签名者签名的代码中。
 
@@ -308,11 +308,11 @@ od -A x -t x1 /tmp/output.csreq
 
 ## 代码签名强制执行
 
-**内核**是在允许应用程序代码执行之前**检查代码签名**的。此外，能够在内存中写入和执行新代码的一种方法是滥用 JIT，如果 `mprotect` 被调用时带有 `MAP_JIT` 标志。请注意，应用程序需要特殊的权限才能做到这一点。
+**内核**是在允许应用程序代码执行之前**检查代码签名**的。此外，能够在内存中写入和执行新代码的一种方法是滥用 JIT，如果 `mprotect` 以 `MAP_JIT` 标志调用。请注意，应用程序需要特殊的权限才能做到这一点。
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106) 结构包含有关正在运行的进程的权限信息。 `csb_platform_binary` 还指示应用程序是否为平台二进制文件（操作系统在不同时间检查这一点，以应用安全机制，例如保护这些进程的任务端口的 SEND 权限）。
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106) 结构包含有关正在运行的进程的权限信息。 `csb_platform_binary` 还指示应用程序是否为平台二进制文件（操作系统在不同时间检查以应用安全机制，例如保护这些进程的任务端口的 SEND 权限）。
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
@@ -384,8 +384,8 @@ bool csb_csm_managed;
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** 上关注我们。**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 **上关注我们** [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
 
 </details>
 {% endhint %}
