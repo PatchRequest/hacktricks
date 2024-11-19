@@ -15,20 +15,20 @@ Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om met ervare hackers en bug bounty jagters te kommunikeer!
+Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om te kommunikeer met ervare hackers en bug bounty jagters!
 
 **Hacking Inligting**\
 Betrek met inhoud wat die opwinding en uitdagings van hacking ondersoek
 
-**Regte Tyd Hack Nuus**\
-Bly op hoogte van die vinnig bewegende hacking wêreld deur regte tyd nuus en insigte
+**Regte-Tyd Hack Nuus**\
+Bly op hoogte van die vinnige hacking wêreld deur regte-tyd nuus en insigte
 
 **Laaste Aankondigings**\
 Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike platform opdaterings
 
-**Sluit by ons aan op** [**Discord**](https://discord.com/invite/N3FrSbmwdy) en begin vandag saamwerk met top hackers!
+**Sluit aan by ons op** [**Discord**](https://discord.com/invite/N3FrSbmwdy) en begin vandag saamwerk met top hackers!
 
 ### **Beste hulpmiddel om na Linux plaaslike privilige eskalasie vektore te soek:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
 
@@ -40,7 +40,7 @@ Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike pla
 * [ ] Soek na [**kernel exploits**](privilege-escalation/#kernel-exploits) **met behulp van skripte** (DirtyCow?)
 * [ ] **Kyk** of die [**sudo weergawe** kwesbaar is](privilege-escalation/#sudo-version)
 * [ ] [**Dmesg** handtekening verifikasie het misluk](privilege-escalation/#dmesg-signature-verification-failed)
-* [ ] Meer stelsel enum ([datum, stelsel statistieke, cpu inligting, drukkers](privilege-escalation/#more-system-enumeration))
+* [ ] Meer stelselinventaris ([datum, stelsels stats, cpu inligting, drukkers](privilege-escalation/#more-system-enumeration))
 * [ ] [**Enumereer meer verdediging**](privilege-escalation/#enumerate-possible-defenses)
 
 ### [Aandrywe](privilege-escalation/#drives)
@@ -61,14 +61,14 @@ Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike pla
 * [ ] Soek na **exploits van lopende prosesse** (veral die weergawe wat aan die gang is).
 * [ ] Kan jy die **binaire** van enige lopende proses **wysig**?
 * [ ] **Monitor prosesse** en kyk of enige interessante proses gereeld aan die gang is.
-* [ ] Kan jy **lees** van sommige interessante **proses geheue** (waar wagwoorde gestoor kan word)?
+* [ ] Kan jy **lees** van sommige interessante **prosesgeheue** (waar wagwoorde gestoor kan word)?
 
 ### [Geskeduleerde/Cron werke?](privilege-escalation/#scheduled-jobs)
 
 * [ ] Word die [**PATH** ](privilege-escalation/#cron-path) deur 'n cron gewysig en kan jy daarin **skryf**?
 * [ ] Enige [**wildcard** ](privilege-escalation/#cron-using-a-script-with-a-wildcard-wildcard-injection) in 'n cron werk?
 * [ ] Sommige [**wysigbare skrip** ](privilege-escalation/#cron-script-overwriting-and-symlink) word **uitgevoer** of is binne **wysigbare vouer**?
-* [ ] Het jy opgemerk dat sommige **skrip** of **uitgevoer** word [**baie **gereeld**](privilege-escalation/#frequent-cron-jobs)? (elke 1, 2 of 5 minute)
+* [ ] Het jy opgemerk dat sommige **skrip** of word [**gereeld uitgevoer**](privilege-escalation/#frequent-cron-jobs)? (elke 1, 2 of 5 minute)
 
 ### [Dienste](privilege-escalation/#services)
 
@@ -93,7 +93,7 @@ Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike pla
 ### [Netwerk](privilege-escalation/#network)
 
 * [ ] Enumereer die netwerk om te weet waar jy is
-* [ ] **Oop poorte wat jy nie voorheen kon toegang nie** om 'n shell binne die masjien te kry?
+* [ ] **Oop poorte wat jy voorheen nie kon toegang nie** om 'n shell binne die masjien te kry?
 * [ ] Kan jy **verkeer afluister** met `tcpdump`?
 
 ### [Gebruikers](privilege-escalation/#users)
@@ -119,11 +119,11 @@ Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike pla
 * [ ] [**LD\_PRELOAD kwesbaarheid**](privilege-escalation/#ld\_preload)
 * [ ] [**Gebrek aan .so biblioteek in SUID binaire**](privilege-escalation/#suid-binary-so-injection) van 'n skryfbare vouer?
 * [ ] [**SUDO tokens beskikbaar**](privilege-escalation/#reusing-sudo-tokens)? [**Kan jy 'n SUDO token skep**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
-* [ ] Kan jy [**lees of wysig sudoers lêers**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
-* [ ] Kan jy [**wysig /etc/ld.so.conf.d/**](privilege-escalation/#etc-ld-so-conf-d)?
+* [ ] Kan jy [**sudoers lêers lees of wysig**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
+* [ ] Kan jy [**/etc/ld.so.conf.d/**](privilege-escalation/#etc-ld-so-conf-d) wysig?
 * [ ] [**OpenBSD DOAS**](privilege-escalation/#doas) opdrag
 
-### [Vermoeëns](privilege-escalation/#capabilities)
+### [Vermoeë](privilege-escalation/#capabilities)
 
 * [ ] Het enige binaire enige **onverwagte vermoë**?
 
@@ -160,7 +160,7 @@ Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike pla
 
 * [ ] **Wysig python biblioteek** om arbitrêre opdragte uit te voer?
 * [ ] Kan jy **log lêers wysig**? **Logtotten** kwesbaarheid
-* [ ] Kan jy **wysig /etc/sysconfig/network-scripts/**? Centos/Redhat kwesbaarheid
+* [ ] Kan jy **/etc/sysconfig/network-scripts/** wysig? Centos/Redhat kwesbaarheid
 * [ ] Kan jy [**skryf in ini, int.d, systemd of rc.d lêers**](privilege-escalation/#init-init-d-systemd-and-rc-d)?
 
 ### [**Ander truuks**](privilege-escalation/#other-tricks)
@@ -168,20 +168,20 @@ Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike pla
 * [ ] Kan jy [**NFS misbruik om privilige te eskaleer**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] Moet jy [**ontsnap uit 'n beperkende shell**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om met ervare hackers en bug bounty jagters te kommunikeer!
+Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om te kommunikeer met ervare hackers en bug bounty jagters!
 
 **Hacking Inligting**\
 Betrek met inhoud wat die opwinding en uitdagings van hacking ondersoek
 
-**Regte Tyd Hack Nuus**\
-Bly op hoogte van die vinnig bewegende hacking wêreld deur regte tyd nuus en insigte
+**Regte-Tyd Hack Nuus**\
+Bly op hoogte van die vinnige hacking wêreld deur regte-tyd nuus en insigte
 
 **Laaste Aankondigings**\
 Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike platform opdaterings
 
-**Sluit by ons aan op** [**Discord**](https://discord.com/invite/N3FrSbmwdy) en begin vandag saamwerk met top hackers!
+**Sluit aan by ons op** [**Discord**](https://discord.com/invite/N3FrSbmwdy) en begin vandag saamwerk met top hackers!
 
 {% hint style="success" %}
 Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

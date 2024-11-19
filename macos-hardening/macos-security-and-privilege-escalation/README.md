@@ -15,15 +15,15 @@ Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om met ervare hackers en bug bounty jagters te kommunikeer!
+Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om te kommunikeer met ervare hackers en bug bounty jagters!
 
 **Hacking Inligting**\
 Betrek met inhoud wat die opwinding en uitdagings van hacking ondersoek
 
-**Regte Tyd Hack Nuus**\
-Bly op hoogte van die vinnig bewegende hacking wêreld deur regte tyd nuus en insigte
+**Regte-Tyd Hack Nuus**\
+Bly op hoogte van die vinnig bewegende hacking wêreld deur regte-tyd nuus en insigte
 
 **Laaste Aankondigings**\
 Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike platform opdaterings
@@ -89,9 +89,9 @@ In maatskappye **macOS** stelsels gaan hoogs waarskynlik **bestuur word met 'n M
 
 ## Aanvaloppervlak
 
-### Lêertoestemmings
+### Lêer Toestemmings
 
-As 'n **proses wat as root loop 'n lêer skryf** wat deur 'n gebruiker beheer kan word, kan die gebruiker dit misbruik om **privileges te verhoog**.\
+As 'n **proses wat as root loop 'n** lêer skryf wat deur 'n gebruiker beheer kan word, kan die gebruiker dit misbruik om **privileges te verhoog**.\
 Dit kan in die volgende situasies gebeur:
 
 * Lêer wat gebruik is, is reeds deur 'n gebruiker geskep (besit deur die gebruiker)
@@ -107,9 +107,9 @@ Vir hierdie soort kwesbaarhede, moenie vergeet om **kwesbare `.pkg` installers**
 [macos-installers-abuse.md](macos-files-folders-and-binaries/macos-installers-abuse.md)
 {% endcontent-ref %}
 
-### Lêeruitbreiding & URL skema app handlers
+### Lêer Uitbreiding & URL skema app hanteerders
 
-Vreemde apps geregistreer deur lêeruitbreidings kan misbruik word en verskillende toepassings kan geregistreer word om spesifieke protokolle te open
+Vreemde apps geregistreer deur lêer uitbreidings kan misbruik word en verskillende toepassings kan geregistreer word om spesifieke protokolle te open
 
 {% content-ref url="macos-file-extension-apps.md" %}
 [macos-file-extension-apps.md](macos-file-extension-apps.md)
@@ -117,17 +117,17 @@ Vreemde apps geregistreer deur lêeruitbreidings kan misbruik word en verskillen
 
 ## macOS TCC / SIP Privilege Escalation
 
-In macOS **toepassings en lêers kan toestemmings hê** om toegang tot gidse of instellings te verkry wat hulle meer bevoorreg maak as ander.
+In macOS **toepassings en binaries kan toestemmings hê** om toegang te verkry tot gidsen of instellings wat hulle meer bevoorregte maak as ander.
 
-Daarom, 'n aanvaller wat suksesvol 'n macOS masjien wil kompromitteer, sal moet **sy TCC privileges verhoog** (of selfs **SIP omseil**, afhangende van sy behoeftes).
+Daarom, 'n aanvaller wat 'n macOS masjien suksesvol wil kompromitteer, sal moet **sy TCC privileges verhoog** (of selfs **SIP omseil**, afhangende van sy behoeftes).
 
-Hierdie privileges word gewoonlik gegee in die vorm van **entitlements** waarmee die toepassing onderteken is, of die toepassing mag sekere toegang gevra het en nadat die **gebruiker dit goedgekeur het**, kan dit in die **TCC databasisse** gevind word. 'n Ander manier waarop 'n proses hierdie privileges kan verkry, is deur 'n **kind van 'n proses** met daardie **privileges** te wees, aangesien dit gewoonlik **geërf** word.
+Hierdie privileges word gewoonlik gegee in die vorm van **entitlements** waarmee die toepassing onderteken is, of die toepassing mag sekere toegang versoek het en nadat die **gebruiker dit goedgekeur het**, kan dit in die **TCC databasisse** gevind word. 'n Ander manier waarop 'n proses hierdie privileges kan verkry, is deur 'n **kind van 'n proses** met daardie **privileges** te wees, aangesien dit gewoonlik **geërf** word.
 
 Volg hierdie skakels om verskillende maniere te vind om [**privileges in TCC te verhoog**](macos-security-protections/macos-tcc/#tcc-privesc-and-bypasses), om [**TCC te omseil**](macos-security-protections/macos-tcc/macos-tcc-bypasses/) en hoe in die verlede [**SIP omseil is**](macos-security-protections/macos-sip.md#sip-bypasses).
 
 ## macOS Tradisionele Privilege Escalation
 
-Natuurlik, vanuit 'n rooi span se perspektief, moet jy ook belangstel om na root te verhoog. Kyk na die volgende pos vir 'n paar wenke:
+Natuurlik, vanuit 'n rooi span perspektief, moet jy ook belangstel om na root te verhoog. Kyk na die volgende pos vir 'n paar wenke:
 
 {% content-ref url="macos-privilege-escalation.md" %}
 [macos-privilege-escalation.md](macos-privilege-escalation.md)
@@ -145,15 +145,15 @@ Natuurlik, vanuit 'n rooi span se perspektief, moet jy ook belangstel om na root
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om met ervare hackers en bug bounty jagters te kommunikeer!
+Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om te kommunikeer met ervare hackers en bug bounty jagters!
 
 **Hacking Inligting**\
 Betrek met inhoud wat die opwinding en uitdagings van hacking ondersoek
 
-**Regte Tyd Hack Nuus**\
-Bly op hoogte van die vinnig bewegende hacking wêreld deur regte tyd nuus en insigte
+**Regte-Tyd Hack Nuus**\
+Bly op hoogte van die vinnig bewegende hacking wêreld deur regte-tyd nuus en insigte
 
 **Laaste Aankondigings**\
 Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike platform opdaterings
