@@ -15,13 +15,13 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 </details>
 {% endhint %}
 
-## Informazioni di base
+## Basic Information
 
-I binari Mach-o contengono un comando di caricamento chiamato **`LC_CODE_SIGNATURE`** che indica l'**offset** e la **dimensione** delle firme all'interno del binario. In realtà, utilizzando lo strumento GUI MachOView, è possibile trovare alla fine del binario una sezione chiamata **Code Signature** con queste informazioni:
+I file Mach-o contengono un comando di caricamento chiamato **`LC_CODE_SIGNATURE`** che indica l'**offset** e la **dimensione** delle firme all'interno del binario. In realtà, utilizzando lo strumento GUI MachOView, è possibile trovare alla fine del binario una sezione chiamata **Code Signature** con queste informazioni:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
-L'intestazione magica della Code Signature è **`0xFADE0CC0`**. Poi hai informazioni come la lunghezza e il numero di blob del superBlob che li contiene.\
+L'intestazione magica della Code Signature è **`0xFADE0CC0`**. Poi hai informazioni come la lunghezza e il numero di blob del superBlob che le contiene.\
 È possibile trovare queste informazioni nel [codice sorgente qui](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
 ```c
 /*
@@ -118,8 +118,8 @@ Nota che ci sono diverse versioni di questa struct dove quelle vecchie potrebber
 
 ## Pagine di Firma del Codice
 
-Hashare il binario completo sarebbe inefficiente e persino inutile se viene caricato in memoria solo parzialmente. Pertanto, la firma del codice è in realtà un hash di hash dove ogni pagina binaria è hashata individualmente.\
-In effetti, nel precedente codice **Code Directory** puoi vedere che **la dimensione della pagina è specificata** in uno dei suoi campi. Inoltre, se la dimensione del binario non è un multiplo della dimensione di una pagina, il campo **CodeLimit** specifica dove si trova la fine della firma.
+Hashare l'intero binario sarebbe inefficiente e persino inutile se viene caricato in memoria solo parzialmente. Pertanto, la firma del codice è in realtà un hash di hash dove ogni pagina binaria è hashata individualmente.\
+In realtà, nel precedente codice **Code Directory** puoi vedere che **la dimensione della pagina è specificata** in uno dei suoi campi. Inoltre, se la dimensione del binario non è un multiplo della dimensione di una pagina, il campo **CodeLimit** specifica dove si trova la fine della firma.
 ```bash
 # Get all hashes of /bin/ps
 codesign -d -vvvvvv /bin/ps
@@ -175,7 +175,7 @@ In realtà, è possibile vedere nelle strutture del Code Directory un parametro 
 
 ## Code Signing Flags
 
-Ogni processo ha associato un bitmask noto come `status` che è avviato dal kernel e alcuni di essi possono essere sovrascritti dalla **firma del codice**. Queste flag che possono essere incluse nella firma del codice sono [definite nel codice](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
+Ogni processo ha associato un bitmask noto come `status` che viene avviato dal kernel e alcuni di essi possono essere sovrascritti dalla **firma del codice**. Queste bandiere che possono essere incluse nella firma del codice sono [definite nel codice](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
 ```c
 /* code signing attributes of a process */
 #define CS_VALID                    0x00000001  /* dynamically valid */
@@ -243,7 +243,7 @@ designated => identifier "org.whispersystems.signal-desktop" and anchor apple ge
 {% endcode %}
 
 {% hint style="info" %}
-Nota come queste firme possono controllare informazioni come certificazione, TeamID, ID, diritti e molti altri dati.
+Nota come queste firme possano controllare informazioni come certificazione, TeamID, ID, diritti e molti altri dati.
 {% endhint %}
 
 Inoltre, è possibile generare alcuni requisiti compilati utilizzando lo strumento `csreq`:
@@ -273,7 +273,7 @@ od -A x -t x1 /tmp/output.csreq
 #### **Creazione e Gestione dei Requisiti di Codice**
 
 * **`SecRequirementCreateWithData`:** Crea un `SecRequirementRef` da dati binari che rappresentano il requisito.
-* **`SecRequirementCreateWithString`:** Crea un `SecRequirementRef` da un'espressione stringa del requisito.
+* **`SecRequirementCreateWithString`:** Crea un `SecRequirementRef` da un'espressione di stringa del requisito.
 * **`SecRequirementCopy[Data/String]`**: Recupera la rappresentazione dei dati binari di un `SecRequirementRef`.
 * **`SecRequirementCreateGroup`**: Crea un requisito per l'appartenenza a un gruppo di app.
 
@@ -312,7 +312,7 @@ Il **kernel** è quello che **controlla la firma del codice** prima di consentir
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) la struttura contiene le informazioni sui diritti dell'entitlement del processo in esecuzione su di esso. `csb_platform_binary` informa anche se l'applicazione è un binario di piattaforma (che viene controllato in momenti diversi dal sistema operativo per applicare meccanismi di sicurezza come proteggere i diritti SEND ai porti di task di questi processi).
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) la struct contiene le informazioni sui diritti dell'entitlement del processo in esecuzione su di esso. `csb_platform_binary` informa anche se l'applicazione è un binario di piattaforma (che viene controllato in momenti diversi dal sistema operativo per applicare meccanismi di sicurezza come proteggere i diritti SEND alle porte di task di questi processi).
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
@@ -376,8 +376,8 @@ bool csb_csm_managed;
 * [**\*OS Internals Volume III**](https://newosxbook.com/home.html)
 
 {% hint style="success" %}
-Impara e pratica il hacking AWS:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Impara e pratica il hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Impara e pratica AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Impara e pratica GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
