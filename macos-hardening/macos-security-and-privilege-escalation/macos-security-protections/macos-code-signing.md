@@ -1,28 +1,28 @@
-# macOS Code Signing
+# macOS コード署名
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWSハッキングを学び、実践する：<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCPハッキングを学び、実践する：<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>HackTricksをサポートする</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
+* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
+* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを送信してください。**
 
 </details>
 {% endhint %}
 
 ## 基本情報
 
-Mach-o バイナリには、バイナリ内の署名の **オフセット** と **サイズ** を示す **`LC_CODE_SIGNATURE`** というロードコマンドが含まれています。実際、GUIツールの MachOView を使用すると、バイナリの最後にこの情報を含む **Code Signature** というセクションを見つけることができます：
+Mach-oバイナリには、バイナリ内の署名の**オフセット**と**サイズ**を示す**`LC_CODE_SIGNATURE`**というロードコマンドが含まれています。実際、GUIツールMachOViewを使用すると、バイナリの最後にこの情報を含む**コード署名**というセクションを見つけることができます：
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
-Code Signature のマジックヘッダーは **`0xFADE0CC0`** です。次に、これらを含む superBlob の長さや blob の数などの情報があります。\
-この情報は、[こちらのソースコード](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276) で見つけることができます：
+コード署名のマジックヘッダーは**`0xFADE0CC0`**です。次に、これらを含むsuperBlobの長さやブロブの数などの情報があります。\
+この情報は[こちらのソースコード](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L276)で見つけることができます：
 ```c
 /*
 * Structure of an embedded-signature SuperBlob
@@ -118,7 +118,7 @@ __attribute__ ((aligned(1)));
 
 ## コード署名ページ
 
-完全なバイナリをハッシュ化することは非効率的であり、部分的にメモリにロードされている場合には無意味です。したがって、コード署名は実際にはハッシュのハッシュであり、各バイナリページが個別にハッシュ化されます。\
+フルバイナリのハッシュを計算することは非効率的であり、部分的にメモリにロードされている場合には無意味です。したがって、コード署名は実際にはハッシュのハッシュであり、各バイナリページが個別にハッシュ化されます。\
 実際、前の**コードディレクトリ**コードでは、**ページサイズが指定されている**のがわかります。さらに、バイナリのサイズがページのサイズの倍数でない場合、フィールド**CodeLimit**は署名の終わりがどこにあるかを指定します。
 ```bash
 # Get all hashes of /bin/ps
@@ -157,7 +157,7 @@ openssl sha256 /tmp/*.page.*
 ```
 ## Entitlements Blob
 
-アプリケーションにはすべての権限が定義された**権限ブロブ**が含まれている場合があります。さらに、一部のiOSバイナリは、特別なスロット-7に特定の権限を持っている場合があります（-5権限特別スロットの代わりに）。
+アプリケーションにはすべての権限が定義された**エンタイトルメントブロブ**が含まれている場合があります。さらに、一部のiOSバイナリは、特別なスロット-7に特定の権限を持っている場合があります（-5エンタイトルメント特別スロットの代わりに）。
 
 ## Special Slots
 
@@ -169,9 +169,9 @@ MacOSアプリケーションは、バイナリ内で実行するために必要
 * 要件のハッシュ
 * リソースディレクトリのハッシュ（バンドル内の`_CodeSignature/CodeResources`ファイルのハッシュ）。
 * アプリケーション固有（未使用）
-* 権限のハッシュ
+* エンタイトルメントのハッシュ
 * DMGコード署名のみ
-* DER権限
+* DERエンタイトルメント
 
 ## Code Signing Flags
 
@@ -224,9 +224,9 @@ Note that the function [**exec\_mach\_imgact**](https://github.com/apple-oss-dis
 
 ## コード署名要件
 
-各アプリケーションは、実行可能であるために満たさなければならない **要件** をいくつか **保持** しています。もし **アプリケーションに満たされていない要件が含まれている場合**、それは実行されません（おそらく変更されているためです）。
+各アプリケーションは、実行可能であるために満たさなければならない **要件** をいくつか **持っています**。もし **アプリケーションに満たされていない要件が含まれている場合**、それは実行されません（おそらく変更されているためです）。
 
-バイナリの要件は **特別な文法** を使用し、**式** のストリームであり、`0xfade0c00` をマジックとして使用してブロブとしてエンコードされ、その **ハッシュは特別なコードスロットに保存されます**。
+バイナリの要件は、**特別な文法** を使用し、**式** のストリームとして表現され、`0xfade0c00` をマジックとして使用してブロブとしてエンコードされます。その **ハッシュは特別なコードスロットに保存されます**。
 
 バイナリの要件は、次のコマンドを実行することで確認できます：
 
@@ -285,8 +285,8 @@ od -A x -t x1 /tmp/output.csreq
 #### **コード要件の変更**
 
 * **`SecCodeSignerCreate`**: コード署名操作を実行するための`SecCodeSignerRef`オブジェクトを作成します。
-* **`SecCodeSignerSetRequirement`**: 署名中に適用するための新しい要件をコード署名者に設定します。
-* **`SecCodeSignerAddSignature`**: 指定された署名者で署名されるコードに署名を追加します。
+* **`SecCodeSignerSetRequirement`**: 署名中に適用するための新しい要件をコードサイナーに設定します。
+* **`SecCodeSignerAddSignature`**: 指定されたサイナーで署名されるコードに署名を追加します。
 
 #### **要件によるコードの検証**
 
@@ -312,7 +312,7 @@ od -A x -t x1 /tmp/output.csreq
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106)構造体は、実行中のプロセスの権限に関する情報を含んでいます。`csb_platform_binary`は、アプリケーションがプラットフォームバイナリであるかどうかも通知します（これは、これらのプロセスのタスクポートへのSEND権限を保護するためのセキュリティメカニズムを適用するために、OSによって異なるタイミングで確認されます）。
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106)構造体は、実行中のプロセスの権限に関する情報を含んでいます。`csb_platform_binary`は、アプリケーションがプラットフォームバイナリであるかどうかも通知します（これは、これらのプロセスのタスクポートへのSEND権を保護するためのセキュリティメカニズムを適用するために、OSによって異なるタイミングで確認されます）。
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
@@ -384,8 +384,8 @@ GCPハッキングを学び、実践する：<img src="../../../.gitbook/assets/
 <summary>HackTricksをサポートする</summary>
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
-* **[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のgithubリポジトリにPRを提出してハッキングトリックを共有してください。**
+* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
+* **[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してハッキングトリックを共有してください。**
 
 </details>
 {% endhint %}
