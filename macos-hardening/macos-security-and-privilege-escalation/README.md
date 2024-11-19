@@ -15,7 +15,7 @@
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Εγγραφείτε στον [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server για να επικοινωνήσετε με έμπειρους hackers και hunters bug bounty!
 
@@ -30,11 +30,11 @@
 
 **Εγγραφείτε μαζί μας στο** [**Discord**](https://discord.com/invite/N3FrSbmwdy) και ξεκινήστε να συνεργάζεστε με κορυφαίους hackers σήμερα!
 
-## Βασικά MacOS
+## Basic MacOS
 
 Αν δεν είστε εξοικειωμένοι με το macOS, θα πρέπει να ξεκινήσετε να μαθαίνετε τα βασικά του macOS:
 
-* Ειδικά αρχεία & δικαιώματα macOS:
+* Ειδικά αρχεία & δικαιώματα **macOS:**
 
 {% content-ref url="macos-files-folders-and-binaries/" %}
 [macos-files-folders-and-binaries](macos-files-folders-and-binaries/)
@@ -58,7 +58,7 @@
 [mac-os-architecture](mac-os-architecture/)
 {% endcontent-ref %}
 
-* Κοινές υπηρεσίες & πρωτόκολλα δικτύου macOS
+* Κοινές υπηρεσίες & πρωτόκολλα δικτύου **macOS**
 
 {% content-ref url="macos-protocols.md" %}
 [macos-protocols.md](macos-protocols.md)
@@ -69,7 +69,7 @@
 
 ### MacOS MDM
 
-Σε εταιρείες, τα συστήματα **macOS** είναι πολύ πιθανό να είναι **διαχειριζόμενα με MDM**. Επομένως, από την προοπτική ενός επιτιθέμενου είναι ενδιαφέρον να γνωρίζει **πώς λειτουργεί**:
+Σε εταιρείες, τα συστήματα **macOS** είναι πολύ πιθανό να είναι **διαχειριζόμενα με MDM**. Επομένως, από την προοπτική ενός επιτιθέμενου είναι ενδιαφέρον να γνωρίζει **πώς λειτουργεί αυτό**:
 
 {% content-ref url="../macos-red-teaming/macos-mdm/" %}
 [macos-mdm](../macos-red-teaming/macos-mdm/)
@@ -81,25 +81,25 @@
 [macos-apps-inspecting-debugging-and-fuzzing](macos-apps-inspecting-debugging-and-fuzzing/)
 {% endcontent-ref %}
 
-## Προστασίες Ασφαλείας MacOS
+## MacOS Security Protections
 
 {% content-ref url="macos-security-protections/" %}
 [macos-security-protections](macos-security-protections/)
 {% endcontent-ref %}
 
-## Επιφάνεια Επίθεσης
+## Attack Surface
 
-### Δικαιώματα Αρχείων
+### File Permissions
 
-Αν μια **διαδικασία που εκτελείται ως root γράφει** ένα αρχείο που μπορεί να ελεγχθεί από έναν χρήστη, ο χρήστης θα μπορούσε να το εκμεταλλευτεί για να **κάνει κλιμάκωση δικαιωμάτων**.\
+Αν μια **διαδικασία που εκτελείται ως root γράφει** ένα αρχείο που μπορεί να ελεγχθεί από έναν χρήστη, ο χρήστης θα μπορούσε να το εκμεταλλευτεί για να **κλιμακώσει τα δικαιώματα**.\
 Αυτό θα μπορούσε να συμβεί στις παρακάτω καταστάσεις:
 
 * Το αρχείο που χρησιμοποιήθηκε είχε ήδη δημιουργηθεί από έναν χρήστη (ανήκει στον χρήστη)
-* Το αρχείο που χρησιμοποιήθηκε είναι εγγράψιμο από τον χρήστη λόγω ομάδας
+* Το αρχείο που χρησιμοποιήθηκε είναι εγγράψιμο από τον χρήστη λόγω μιας ομάδας
 * Το αρχείο που χρησιμοποιήθηκε είναι μέσα σε έναν φάκελο που ανήκει στον χρήστη (ο χρήστης θα μπορούσε να δημιουργήσει το αρχείο)
-* Το αρχείο που χρησιμοποιήθηκε είναι μέσα σε έναν φάκελο που ανήκει στο root αλλά ο χρήστης έχει δικαίωμα εγγραφής σε αυτόν λόγω ομάδας (ο χρήστης θα μπορούσε να δημιουργήσει το αρχείο)
+* Το αρχείο που χρησιμοποιήθηκε είναι μέσα σε έναν φάκελο που ανήκει στον root αλλά ο χρήστης έχει δικαίωμα εγγραφής σε αυτόν λόγω μιας ομάδας (ο χρήστης θα μπορούσε να δημιουργήσει το αρχείο)
 
-Η δυνατότητα **δημιουργίας ενός αρχείου** που πρόκειται να **χρησιμοποιηθεί από το root**, επιτρέπει σε έναν χρήστη να **εκμεταλλευτεί το περιεχόμενό του** ή ακόμη και να δημιουργήσει **symlinks/hardlinks** για να το δείξει σε άλλη τοποθεσία.
+Η δυνατότητα **δημιουργίας ενός αρχείου** που θα χρησιμοποιηθεί από τον **root**, επιτρέπει σε έναν χρήστη να **εκμεταλλευτεί το περιεχόμενό του** ή ακόμα και να δημιουργήσει **symlinks/hardlinks** για να το δείξει σε άλλη τοποθεσία.
 
 Για αυτού του είδους τις ευπάθειες μην ξεχάσετε να **ελέγξετε ευάλωτους εγκαταστάτες `.pkg`**:
 
@@ -107,7 +107,7 @@
 [macos-installers-abuse.md](macos-files-folders-and-binaries/macos-installers-abuse.md)
 {% endcontent-ref %}
 
-### Χειριστές εφαρμογών επεκτάσεων αρχείων & URL scheme
+### File Extension & URL scheme app handlers
 
 Περίεργες εφαρμογές που έχουν καταχωρηθεί από επεκτάσεις αρχείων θα μπορούσαν να εκμεταλλευτούν και διαφορετικές εφαρμογές μπορούν να καταχωρηθούν για να ανοίξουν συγκεκριμένα πρωτόκολλα
 
@@ -115,17 +115,17 @@
 [macos-file-extension-apps.md](macos-file-extension-apps.md)
 {% endcontent-ref %}
 
-## macOS TCC / SIP Κλιμάκωση Δικαιωμάτων
+## macOS TCC / SIP Privilege Escalation
 
-Στο macOS **οι εφαρμογές και τα αρχεία εκτελέσιμα μπορούν να έχουν δικαιώματα** για πρόσβαση σε φακέλους ή ρυθμίσεις που τους καθιστούν πιο προνομιούχους από άλλους.
+Στο macOS **οι εφαρμογές και τα δυαδικά αρχεία μπορούν να έχουν δικαιώματα** για πρόσβαση σε φακέλους ή ρυθμίσεις που τους καθιστούν πιο προνομιούχους από άλλους.
 
-Επομένως, ένας επιτιθέμενος που θέλει να συμβιβάσει με επιτυχία μια μηχανή macOS θα χρειαστεί να **κλιμακώσει τα δικαιώματα TCC** του (ή ακόμη και **να παρακάμψει το SIP**, ανάλογα με τις ανάγκες του).
+Επομένως, ένας επιτιθέμενος που θέλει να συμβιβάσει επιτυχώς μια μηχανή macOS θα χρειαστεί να **κλιμακώσει τα δικαιώματα TCC** του (ή ακόμα και **να παρακάμψει το SIP**, ανάλογα με τις ανάγκες του).
 
-Αυτά τα δικαιώματα δίνονται συνήθως με τη μορφή **entitlements** με τα οποία είναι υπογεγραμμένη η εφαρμογή, ή η εφαρμογή μπορεί να ζητήσει κάποιες προσβάσεις και μετά την **έγκριση τους από τον χρήστη** μπορούν να βρεθούν στις **βάσεις δεδομένων TCC**. Ένας άλλος τρόπος με τον οποίο μια διαδικασία μπορεί να αποκτήσει αυτά τα δικαιώματα είναι να είναι **παιδί μιας διαδικασίας** με αυτά τα **δικαιώματα** καθώς συνήθως **κληρονομούνται**.
+Αυτά τα δικαιώματα δίνονται συνήθως με τη μορφή **entitlements** με τις οποίες είναι υπογεγραμμένη η εφαρμογή, ή η εφαρμογή μπορεί να ζητήσει κάποιες προσβάσεις και μετά την **έγκριση τους από τον χρήστη** μπορούν να βρεθούν στις **βάσεις δεδομένων TCC**. Ένας άλλος τρόπος με τον οποίο μια διαδικασία μπορεί να αποκτήσει αυτά τα δικαιώματα είναι να είναι **παιδί μιας διαδικασίας** με αυτά τα **δικαιώματα** καθώς συνήθως **κληρονομούνται**.
 
-Ακολουθήστε αυτούς τους συνδέσμους για να βρείτε διαφορετικούς τρόπους για [**να κλιμακώσετε δικαιώματα στο TCC**](macos-security-protections/macos-tcc/#tcc-privesc-and-bypasses), για [**να παρακάμψετε το TCC**](macos-security-protections/macos-tcc/macos-tcc-bypasses/) και πώς στο παρελθόν [**το SIP έχει παρακαμφθεί**](macos-security-protections/macos-sip.md#sip-bypasses).
+Ακολουθήστε αυτούς τους συνδέσμους για να βρείτε διαφορετικούς τρόπους για [**να κλιμακώσετε δικαιώματα στο TCC**](macos-security-protections/macos-tcc/#tcc-privesc-and-bypasses), για [**να παρακάμψετε το TCC**](macos-security-protections/macos-tcc/macos-tcc-bypasses/) και πώς στο παρελθόν [**έχει παρακαμφθεί το SIP**](macos-security-protections/macos-sip.md#sip-bypasses).
 
-## macOS Παραδοσιακή Κλιμάκωση Δικαιωμάτων
+## macOS Traditional Privilege Escalation
 
 Φυσικά από την προοπτική των κόκκινων ομάδων θα πρέπει επίσης να ενδιαφέρεστε να κλιμακώσετε σε root. Ελέγξτε την παρακάτω ανάρτηση για μερικές συμβουλές:
 
@@ -133,11 +133,11 @@
 [macos-privilege-escalation.md](macos-privilege-escalation.md)
 {% endcontent-ref %}
 
-## Συμμόρφωση macOS
+## macOS Compliance
 
 * [https://github.com/usnistgov/macos\_security](https://github.com/usnistgov/macos\_security)
 
-## Αναφορές
+## References
 
 * [**OS X Incident Response: Scripting and Analysis**](https://www.amazon.com/OS-Incident-Response-Scripting-Analysis-ebook/dp/B01FHOHHVS)
 * [**https://taomm.org/vol1/analysis.html**](https://taomm.org/vol1/analysis.html)
@@ -145,7 +145,7 @@
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Εγγραφείτε στον [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server για να επικοινωνήσετε με έμπειρους hackers και hunters bug bounty!
 
