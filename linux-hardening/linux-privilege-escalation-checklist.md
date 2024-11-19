@@ -10,34 +10,34 @@ Ucz się i ćwicz Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-
 
 * Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
 * **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Podziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów na GitHubie.
+* **Podziel się sztuczkami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów na GitHubie.
 
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Dołącz do [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy), aby komunikować się z doświadczonymi hackerami i łowcami bugów!
+Dołącz do [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serwera, aby komunikować się z doświadczonymi hackerami i łowcami bugów!
 
 **Wgląd w hacking**\
-Zaangażuj się w treści, które zgłębiają emocje i wyzwania związane z hackingiem
+Zaangażuj się w treści, które zagłębiają się w emocje i wyzwania związane z hackingiem
 
 **Aktualności o hackingu w czasie rzeczywistym**\
-Bądź na bieżąco z dynamicznym światem hackingu dzięki aktualnym wiadomościom i spostrzeżeniom
+Bądź na bieżąco z dynamicznym światem hackingu dzięki aktualnym wiadomościom i wglądom
 
 **Najnowsze ogłoszenia**\
 Bądź informowany o najnowszych programach bug bounty oraz istotnych aktualizacjach platformy
 
 **Dołącz do nas na** [**Discord**](https://discord.com/invite/N3FrSbmwdy) i zacznij współpracować z najlepszymi hackerami już dziś!
 
-### **Najlepsze narzędzie do wyszukiwania wektorów eskalacji uprawnień lokalnych w systemie Linux:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
+### **Najlepsze narzędzie do wyszukiwania wektorów lokalnej eskalacji uprawnień w systemie Linux:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
 
 ### [Informacje o systemie](privilege-escalation/#system-information)
 
 * [ ] Uzyskaj **informacje o systemie operacyjnym**
 * [ ] Sprawdź [**PATH**](privilege-escalation/#path), czy jest jakaś **zapisywalna folder**?
 * [ ] Sprawdź [**zmienne środowiskowe**](privilege-escalation/#env-info), czy są jakieś wrażliwe dane?
-* [ ] Szukaj [**eksploitów jądra**](privilege-escalation/#kernel-exploits) **używając skryptów** (DirtyCow?)
+* [ ] Szukaj [**eksploatacji jądra**](privilege-escalation/#kernel-exploits) **za pomocą skryptów** (DirtyCow?)
 * [ ] **Sprawdź**, czy [**wersja sudo** jest podatna](privilege-escalation/#sudo-version)
 * [ ] [**Weryfikacja podpisu Dmesg** nie powiodła się](privilege-escalation/#dmesg-signature-verification-failed)
 * [ ] Więcej informacji o systemie ([data, statystyki systemu, informacje o CPU, drukarki](privilege-escalation/#more-system-enumeration))
@@ -58,10 +58,10 @@ Bądź informowany o najnowszych programach bug bounty oraz istotnych aktualizac
 
 * [ ] Czy jakieś **nieznane oprogramowanie działa**?
 * [ ] Czy jakieś oprogramowanie działa z **większymi uprawnieniami niż powinno**?
-* [ ] Szukaj **eksploitów działających procesów** (szczególnie wersji, która działa).
-* [ ] Czy możesz **zmodyfikować binarny** plik jakiegokolwiek działającego procesu?
+* [ ] Szukaj **eksploatacji działających procesów** (szczególnie wersji działającej).
+* [ ] Czy możesz **zmodyfikować binarny** plik jakiegoś działającego procesu?
 * [ ] **Monitoruj procesy** i sprawdź, czy jakiś interesujący proces działa często.
-* [ ] Czy możesz **odczytać** pamięć **procesu** (gdzie mogą być zapisane hasła)?
+* [ ] Czy możesz **odczytać** jakąś interesującą **pamięć procesu** (gdzie mogą być zapisane hasła)?
 
 ### [Zadania zaplanowane/Cron?](privilege-escalation/#scheduled-jobs)
 
@@ -74,7 +74,7 @@ Bądź informowany o najnowszych programach bug bounty oraz istotnych aktualizac
 
 * [ ] Czy jest jakiś **zapisywalny plik .service**?
 * [ ] Czy jest jakiś **zapisywalny plik binarny** wykonywany przez **usługę**?
-* [ ] Czy jest jakiś **zapisywalny folder w PATH systemd**?
+* [ ] Czy jest jakiś **zapisywalny folder w systemd PATH**?
 
 ### [Timery](privilege-escalation/#timers)
 
@@ -83,49 +83,49 @@ Bądź informowany o najnowszych programach bug bounty oraz istotnych aktualizac
 ### [Gniazda](privilege-escalation/#sockets)
 
 * [ ] Czy jest jakiś **zapisywalny plik .socket**?
-* [ ] Czy możesz **komunikować się z jakimkolwiek gniazdem**?
+* [ ] Czy możesz **komunikować się z jakimś gniazdem**?
 * [ ] **Gniazda HTTP** z interesującymi informacjami?
 
 ### [D-Bus](privilege-escalation/#d-bus)
 
-* [ ] Czy możesz **komunikować się z jakimkolwiek D-Bus**?
+* [ ] Czy możesz **komunikować się z jakimś D-Bus**?
 
 ### [Sieć](privilege-escalation/#network)
 
 * [ ] Zenumeruj sieć, aby wiedzieć, gdzie jesteś
-* [ ] **Otwarte porty, do których nie mogłeś uzyskać dostępu przed** uzyskaniem powłoki wewnątrz maszyny?
-* [ ] Czy możesz **podsłuchiwać ruch** używając `tcpdump`?
+* [ ] **Otwarte porty, do których nie mogłeś uzyskać dostępu** przed uzyskaniem powłoki wewnątrz maszyny?
+* [ ] Czy możesz **przechwytywać ruch** za pomocą `tcpdump`?
 
 ### [Użytkownicy](privilege-escalation/#users)
 
 * [ ] Ogólna **enumeracja użytkowników/grup**
 * [ ] Czy masz **bardzo duży UID**? Czy **maszyna** jest **podatna**?
-* [ ] Czy możesz [**eskalować uprawnienia dzięki grupie**](privilege-escalation/interesting-groups-linux-pe/) do której należysz?
+* [ ] Czy możesz [**eskalować uprawnienia dzięki grupie**](privilege-escalation/interesting-groups-linux-pe/), do której należysz?
 * [ ] **Dane z schowka**?
 * [ ] Polityka haseł?
-* [ ] Spróbuj **użyć** każdego **znanego hasła**, które odkryłeś wcześniej, aby zalogować się **z każdym** możliwym **użytkownikiem**. Spróbuj również zalogować się bez hasła.
+* [ ] Spróbuj **użyć** każdego **znanego hasła**, które wcześniej odkryłeś, aby zalogować się **z każdym** możliwym **użytkownikiem**. Spróbuj również zalogować się bez hasła.
 
 ### [Zapisywalny PATH](privilege-escalation/#writable-path-abuses)
 
 * [ ] Jeśli masz **uprawnienia do zapisu w jakimś folderze w PATH**, możesz być w stanie eskalować uprawnienia
 
-### [Komendy SUDO i SUID](privilege-escalation/#sudo-and-suid)
+### [Polecenia SUDO i SUID](privilege-escalation/#sudo-and-suid)
 
-* [ ] Czy możesz wykonać **jakąkolwiek komendę z sudo**? Czy możesz użyć tego do ODCZYTU, ZAPISU lub WYKONANIA czegokolwiek jako root? ([**GTFOBins**](https://gtfobins.github.io))
+* [ ] Czy możesz wykonać **jakiekolwiek polecenie z sudo**? Czy możesz użyć go do ODCZYTU, ZAPISU lub WYKONANIA czegokolwiek jako root? ([**GTFOBins**](https://gtfobins.github.io))
 * [ ] Czy jest jakiś **eksploatowalny plik binarny SUID**? ([**GTFOBins**](https://gtfobins.github.io))
-* [ ] Czy [**komendy sudo** są **ograniczone** przez **ścieżkę**? czy możesz **obejść** te ograniczenia](privilege-escalation/#sudo-execution-bypassing-paths)?
+* [ ] Czy [**polecenia sudo** są **ograniczone** przez **ścieżkę**? czy możesz **obejść** te ograniczenia](privilege-escalation/#sudo-execution-bypassing-paths)?
 * [ ] [**Sudo/SUID binarny bez wskazanej ścieżki**](privilege-escalation/#sudo-command-suid-binary-without-command-path)?
 * [ ] [**SUID binarny z określoną ścieżką**](privilege-escalation/#suid-binary-with-command-path)? Obejście
-* [ ] [**Vuln LD\_PRELOAD**](privilege-escalation/#ld\_preload)
-* [ ] [**Brak biblioteki .so w binarnym SUID**](privilege-escalation/#suid-binary-so-injection) z zapisywalnego folderu?
+* [ ] [**LD\_PRELOAD vuln**](privilege-escalation/#ld\_preload)
+* [ ] [**Brak biblioteki .so w binarnym pliku SUID**](privilege-escalation/#suid-binary-so-injection) z zapisywalnego folderu?
 * [ ] [**Dostępne tokeny SUDO**](privilege-escalation/#reusing-sudo-tokens)? [**Czy możesz stworzyć token SUDO**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
 * [ ] Czy możesz [**czytać lub modyfikować pliki sudoers**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
 * [ ] Czy możesz [**zmodyfikować /etc/ld.so.conf.d/**](privilege-escalation/#etc-ld-so-conf-d)?
-* [ ] [**Polecenie OpenBSD DOAS**](privilege-escalation/#doas)
+* [ ] [**OpenBSD DOAS**](privilege-escalation/#doas) polecenie
 
 ### [Uprawnienia](privilege-escalation/#capabilities)
 
-* [ ] Czy jakaś binarka ma jakąś **nieoczekiwaną zdolność**?
+* [ ] Czy jakiś plik binarny ma jakąś **nieoczekiwaną zdolność**?
 
 ### [ACL](privilege-escalation/#acls)
 
@@ -150,7 +150,7 @@ Bądź informowany o najnowszych programach bug bounty oraz istotnych aktualizac
 * [ ] **Zmodyfikowane** w ostatnich minutach
 * [ ] **Pliki bazy danych Sqlite**
 * [ ] **Ukryte pliki**
-* [ ] **Skrypty/Binarki w PATH**
+* [ ] **Skrypty/Binary w PATH**
 * [ ] **Pliki webowe** (hasła?)
 * [ ] **Kopie zapasowe**?
 * [ ] **Znane pliki, które zawierają hasła**: Użyj **Linpeas** i **LaZagne**
@@ -158,25 +158,25 @@ Bądź informowany o najnowszych programach bug bounty oraz istotnych aktualizac
 
 ### [**Zapisywalne pliki**](privilege-escalation/#writable-files)
 
-* [ ] **Modyfikuj bibliotekę Pythona** aby wykonywać dowolne komendy?
-* [ ] Czy możesz **modyfikować pliki dziennika**? **Eksploit Logtotten**
+* [ ] **Modyfikuj bibliotekę Pythona** w celu wykonania dowolnych poleceń?
+* [ ] Czy możesz **modyfikować pliki dziennika**? **Logtotten** exploit
 * [ ] Czy możesz **modyfikować /etc/sysconfig/network-scripts/**? Eksploit Centos/Redhat
 * [ ] Czy możesz [**zapisać w plikach ini, int.d, systemd lub rc.d**](privilege-escalation/#init-init-d-systemd-and-rc-d)?
 
-### [**Inne triki**](privilege-escalation/#other-tricks)
+### [**Inne sztuczki**](privilege-escalation/#other-tricks)
 
 * [ ] Czy możesz [**wykorzystać NFS do eskalacji uprawnień**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] Czy musisz [**uciec z restrykcyjnej powłoki**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Dołącz do [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy), aby komunikować się z doświadczonymi hackerami i łowcami bugów!
+Dołącz do [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serwera, aby komunikować się z doświadczonymi hackerami i łowcami bugów!
 
 **Wgląd w hacking**\
-Zaangażuj się w treści, które zgłębiają emocje i wyzwania związane z hackingiem
+Zaangażuj się w treści, które zagłębiają się w emocje i wyzwania związane z hackingiem
 
 **Aktualności o hackingu w czasie rzeczywistym**\
-Bądź na bieżąco z dynamicznym światem hackingu dzięki aktualnym wiadomościom i spostrzeżeniom
+Bądź na bieżąco z dynamicznym światem hackingu dzięki aktualnym wiadomościom i wglądom
 
 **Najnowsze ogłoszenia**\
 Bądź informowany o najnowszych programach bug bounty oraz istotnych aktualizacjach platformy
@@ -193,7 +193,7 @@ Ucz się i ćwicz Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-
 
 * Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
 * **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Podziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów na GitHubie.
+* **Podziel się sztuczkami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów na GitHubie.
 
 </details>
 {% endhint %}

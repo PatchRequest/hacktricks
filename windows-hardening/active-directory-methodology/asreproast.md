@@ -15,7 +15,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Join [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server to communicate with experienced hackers and bug bounty hunters!
 
@@ -37,7 +37,7 @@ ASREPRoast to atak bezpieczeństwa, który wykorzystuje użytkowników, którzy 
 Główne wymagania dla tego ataku to:
 
 * **Brak wstępnej autoryzacji Kerberos**: Użytkownicy docelowi nie mogą mieć włączonej tej funkcji zabezpieczeń.
-* **Połączenie z Kontrolerem Domeny (DC)**: Atakujący potrzebują dostępu do DC, aby wysyłać żądania i odbierać zaszyfrowane wiadomości.
+* **Połączenie z Kontrolerem Domeny (DC)**: Atakujący muszą mieć dostęp do DC, aby wysyłać żądania i odbierać zaszyfrowane wiadomości.
 * **Opcjonalne konto domenowe**: Posiadanie konta domenowego pozwala atakującym na bardziej efektywne identyfikowanie podatnych użytkowników za pomocą zapytań LDAP. Bez takiego konta atakujący muszą zgadywać nazwy użytkowników.
 
 #### Enumerating vulnerable users (need domain credentials)
@@ -115,9 +115,9 @@ ASRepCatcher listen
 
 ***
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Dołącz do [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serwera, aby komunikować się z doświadczonymi hackerami i łowcami bugów!
+Dołącz do [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy), aby komunikować się z doświadczonymi hackerami i łowcami bugów!
 
 **Hacking Insights**\
 Zaangażuj się w treści, które zagłębiają się w emocje i wyzwania związane z hackingiem
@@ -126,7 +126,7 @@ Zaangażuj się w treści, które zagłębiają się w emocje i wyzwania związa
 Bądź na bieżąco z dynamicznym światem hackingu dzięki wiadomościom i spostrzeżeniom w czasie rzeczywistym
 
 **Latest Announcements**\
-Bądź informowany o najnowszych programach bug bounty oraz istotnych aktualizacjach platformy
+Bądź informowany o najnowszych programach bug bounty oraz istotnych aktualizacjach platform
 
 **Dołącz do nas na** [**Discord**](https://discord.com/invite/N3FrSbmwdy) i zacznij współpracować z najlepszymi hackerami już dziś!
 
