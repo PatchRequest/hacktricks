@@ -19,7 +19,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 Los binarios Mach-o contienen un comando de carga llamado **`LC_CODE_SIGNATURE`** que indica el **offset** y el **tamaño** de las firmas dentro del binario. De hecho, utilizando la herramienta GUI MachOView, es posible encontrar al final del binario una sección llamada **Code Signature** con esta información:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 El encabezado mágico de la Code Signature es **`0xFADE0CC0`**. Luego tienes información como la longitud y el número de blobs del superBlob que los contiene.\
 Es posible encontrar esta información en el [código fuente aquí](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
@@ -119,7 +119,7 @@ Note que hay diferentes versiones de esta estructura donde las antiguas pueden c
 ## Páginas de Firma de Código
 
 Hacer un hash del binario completo sería ineficiente e incluso inútil si solo se carga en memoria parcialmente. Por lo tanto, la firma de código es en realidad un hash de hashes donde cada página binaria se hash individualmente.\
-De hecho, en el código del **Directorio de Código** anterior, puedes ver que se **especifica el tamaño de la página** en uno de sus campos. Además, si el tamaño del binario no es un múltiplo del tamaño de una página, el campo **CodeLimit** especifica dónde está el final de la firma.
+De hecho, en el código del **Directorio de Código** anterior, puedes ver que el **tamaño de página está especificado** en uno de sus campos. Además, si el tamaño del binario no es un múltiplo del tamaño de una página, el campo **CodeLimit** especifica dónde está el final de la firma.
 ```bash
 # Get all hashes of /bin/ps
 codesign -d -vvvvvv /bin/ps
@@ -175,7 +175,7 @@ De hecho, es posible ver en las estructuras del Directorio de Código un paráme
 
 ## Code Signing Flags
 
-Cada proceso tiene relacionado un bitmask conocido como el `status` que es iniciado por el kernel y algunos de ellos pueden ser sobrescritos por la **firma de código**. Estas banderas que pueden incluirse en la firma de código están [definidas en el código](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L36):
+Cada proceso tiene relacionado un bitmask conocido como el `status` que es iniciado por el kernel y algunos de ellos pueden ser sobrescritos por la **firma de código**. Estas banderas que pueden incluirse en la firma de código están [definidas en el código](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
 ```c
 /* code signing attributes of a process */
 #define CS_VALID                    0x00000001  /* dynamically valid */
@@ -308,11 +308,11 @@ Es posible acceder a esta información y crear o modificar requisitos con alguna
 
 ## Aplicación de la Firma de Código
 
-El **núcleo** es el que **verifica la firma de código** antes de permitir que el código de la aplicación se ejecute. Además, una forma de poder escribir y ejecutar nuevo código en memoria es abusar de JIT si `mprotect` se llama con la bandera `MAP_JIT`. Tenga en cuenta que la aplicación necesita un derecho especial para poder hacer esto.
+El **kernel** es el que **verifica la firma de código** antes de permitir que el código de la aplicación se ejecute. Además, una forma de poder escribir y ejecutar nuevo código en memoria es abusar de JIT si `mprotect` se llama con la bandera `MAP_JIT`. Tenga en cuenta que la aplicación necesita un derecho especial para poder hacer esto.
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) la estructura contiene la información sobre el derecho del proceso en ejecución sobre él. `csb_platform_binary` también informa si la aplicación es un binario de plataforma (lo cual es verificado en diferentes momentos por el SO para aplicar mecanismos de seguridad como proteger los derechos de ENVÍO a los puertos de tarea de estos procesos).
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) la estructura contiene la información sobre el derecho del proceso en ejecución sobre él. `csb_platform_binary` también informa si la aplicación es un binario de plataforma (lo cual es verificado en diferentes momentos por el OS para aplicar mecanismos de seguridad como proteger los derechos de SEND a los puertos de tarea de estos procesos).
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
