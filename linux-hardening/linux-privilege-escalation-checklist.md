@@ -10,12 +10,12 @@ Impara e pratica il hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" dat
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
 * **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
+* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
 
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Unisciti al [**Discord di HackenProof**](https://discord.com/invite/N3FrSbmwdy) per comunicare con hacker esperti e cacciatori di bug bounty!
 
@@ -26,7 +26,7 @@ Interagisci con contenuti che approfondiscono l'emozione e le sfide dell'hacking
 Rimani aggiornato con il mondo frenetico dell'hacking attraverso notizie e approfondimenti in tempo reale
 
 **Ultimi annunci**\
-Rimani informato sui nuovi bug bounty in partenza e aggiornamenti cruciali delle piattaforme
+Rimani informato sui nuovi bug bounty in partenza e aggiornamenti cruciali della piattaforma
 
 **Unisciti a noi su** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e inizia a collaborare con i migliori hacker oggi stesso!
 
@@ -39,15 +39,15 @@ Rimani informato sui nuovi bug bounty in partenza e aggiornamenti cruciali delle
 * [ ] Controlla le [**variabili env**](privilege-escalation/#env-info), ci sono dettagli sensibili?
 * [ ] Cerca [**exploit del kernel**](privilege-escalation/#kernel-exploits) **utilizzando script** (DirtyCow?)
 * [ ] **Controlla** se la [**versione di sudo** è vulnerabile](privilege-escalation/#sudo-version)
-* [ ] [**Verifica la firma di Dmesg** fallita](privilege-escalation/#dmesg-signature-verification-failed)
+* [ ] [**Verifica della firma Dmesg fallita**](privilege-escalation/#dmesg-signature-verification-failed)
 * [ ] Maggiore enumerazione del sistema ([data, statistiche di sistema, informazioni sulla cpu, stampanti](privilege-escalation/#more-system-enumeration))
 * [ ] [**Enumera più difese**](privilege-escalation/#enumerate-possible-defenses)
 
 ### [Dischi](privilege-escalation/#drives)
 
 * [ ] **Elenca i dischi** montati
-* [ ] **Qualche disco non montato?**
-* [ ] **Qualche credenziale in fstab?**
+* [ ] **Ci sono dischi non montati?**
+* [ ] **Ci sono credenziali in fstab?**
 
 ### [**Software installato**](privilege-escalation/#installed-software)
 
@@ -121,7 +121,7 @@ Rimani informato sui nuovi bug bounty in partenza e aggiornamenti cruciali delle
 * [ ] [**Token SUDO disponibili**](privilege-escalation/#reusing-sudo-tokens)? [**Puoi creare un token SUDO**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
 * [ ] Puoi [**leggere o modificare i file sudoers**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
 * [ ] Puoi [**modificare /etc/ld.so.conf.d/**](privilege-escalation/#etc-ld-so-conf-d)?
-* [ ] Comando [**OpenBSD DOAS**](privilege-escalation/#doas)
+* [ ] [**Comando OpenBSD DOAS**](privilege-escalation/#doas)
 
 ### [Capacità](privilege-escalation/#capabilities)
 
@@ -165,10 +165,10 @@ Rimani informato sui nuovi bug bounty in partenza e aggiornamenti cruciali delle
 
 ### [**Altri trucchi**](privilege-escalation/#other-tricks)
 
-* [ ] Puoi [**abusare di NFS per escalare i privilegi**](privilege-escalation/#nfs-privilege-escalation)?
+* [ ] Puoi [**sfruttare NFS per escalare i privilegi**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] Hai bisogno di [**uscire da una shell restrittiva**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Unisciti al [**Discord di HackenProof**](https://discord.com/invite/N3FrSbmwdy) per comunicare con hacker esperti e cacciatori di bug bounty!
 
@@ -179,7 +179,7 @@ Interagisci con contenuti che approfondiscono l'emozione e le sfide dell'hacking
 Rimani aggiornato con il mondo frenetico dell'hacking attraverso notizie e approfondimenti in tempo reale
 
 **Ultimi annunci**\
-Rimani informato sui nuovi bug bounty in partenza e aggiornamenti cruciali delle piattaforme
+Rimani informato sui nuovi bug bounty in partenza e aggiornamenti cruciali della piattaforma
 
 **Unisciti a noi su** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e inizia a collaborare con i migliori hacker oggi stesso!
 
@@ -193,7 +193,7 @@ Impara e pratica il hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" dat
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
 * **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
+* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
 
 </details>
 {% endhint %}

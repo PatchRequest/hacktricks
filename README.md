@@ -2,10 +2,10 @@
 
 <figure><img src=".gitbook/assets/hacktricks.gif" alt=""><figcaption></figcaption></figure>
 
-_I loghi e il design in movimento di Hacktricks sono di_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
+_I loghi e il design in movimento di Hacktricks sono stati creati da_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
 
 {% hint style="success" %}
-**Benvenuto nella wiki dove troverai ogni trucco/tecnica/qualcosa che ho imparato da CTF, app della vita reale, lettura di ricerche e notizie.**
+**Benvenuto nella wiki dove troverai ogni trucco/tecnica/qualcosa che ho imparato dai CTF, dalle app della vita reale, leggendo ricerche e notizie.**
 {% endhint %}
 
 Per iniziare, segui questa pagina dove troverai il **flusso tipico** che **dovresti seguire quando fai pentesting** su una o più **macchine:**
@@ -65,7 +65,7 @@ Accedi oggi:
 
 ### [HACKENPROOF](https://bit.ly/3xrrDrL)
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Unisciti al server [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) per comunicare con hacker esperti e cacciatori di bug bounty!
 
@@ -93,10 +93,10 @@ Unisciti al server [**HackenProof Discord**](https://discord.com/invite/N3FrSbmw
 
 <figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
 
-**SerpApi** offre API veloci e facili in tempo reale per **accedere ai risultati dei motori di ricerca**. Scrapeano i motori di ricerca, gestiscono i proxy, risolvono i captcha e analizzano tutti i dati strutturati ricchi per te.
+**SerpApi** offre API veloci e facili in tempo reale per **accedere ai risultati dei motori di ricerca**. Raccolgono dati dai motori di ricerca, gestiscono proxy, risolvono captcha e analizzano tutti i dati strutturati ricchi per te.
 
-Un abbonamento a uno dei piani di SerpApi include l'accesso a oltre 50 diverse API per scraping di diversi motori di ricerca, tra cui Google, Bing, Baidu, Yahoo, Yandex e altri.\
-A differenza di altri fornitori, **SerpApi non si limita a fare scraping dei risultati organici**. Le risposte di SerpApi includono costantemente tutti gli annunci, immagini e video inline, grafici di conoscenza e altri elementi e funzionalità presenti nei risultati di ricerca.
+Un abbonamento a uno dei piani di SerpApi include l'accesso a oltre 50 diverse API per raccogliere dati da diversi motori di ricerca, tra cui Google, Bing, Baidu, Yahoo, Yandex e altri.\
+A differenza di altri fornitori, **SerpApi non raccoglie solo risultati organici**. Le risposte di SerpApi includono costantemente tutti gli annunci, immagini e video in linea, grafici di conoscenza e altri elementi e funzionalità presenti nei risultati di ricerca.
 
 I clienti attuali di SerpApi includono **Apple, Shopify e GrubHub**.\
 Per ulteriori informazioni, dai un'occhiata al loro [**blog**](https://serpapi.com/blog/)**,** o prova un esempio nel loro [**playground**](https://serpapi.com/playground)**.**\
