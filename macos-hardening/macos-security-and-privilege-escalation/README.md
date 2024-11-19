@@ -15,7 +15,7 @@
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 加入 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 服务器，与经验丰富的黑客和漏洞赏金猎人交流！
 
@@ -23,12 +23,12 @@
 参与深入探讨黑客的刺激与挑战的内容
 
 **实时黑客新闻**\
-通过实时新闻和见解，跟上快速变化的黑客世界
+通过实时新闻和见解，保持对快速变化的黑客世界的了解
 
 **最新公告**\
 了解最新的漏洞赏金计划和重要平台更新
 
-**今天就加入我们的** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，与顶尖黑客开始合作吧！
+**今天就加入我们，和顶尖黑客一起合作！** [**Discord**](https://discord.com/invite/N3FrSbmwdy)
 
 ## 基础 MacOS
 
@@ -58,14 +58,14 @@
 [mac-os-architecture](mac-os-architecture/)
 {% endcontent-ref %}
 
-* 常见的 macOS n**etwork 服务与协议**
+* 常见的 macOS 网络服务与协议
 
 {% content-ref url="macos-protocols.md" %}
 [macos-protocols.md](macos-protocols.md)
 {% endcontent-ref %}
 
 * **开源** macOS: [https://opensource.apple.com/](https://opensource.apple.com/)
-* 下载 `tar.gz` 文件时，将 URL 例如 [https://opensource.apple.com/**source**/dyld/](https://opensource.apple.com/source/dyld/) 更改为 [https://opensource.apple.com/**tarballs**/dyld/**dyld-852.2.tar.gz**](https://opensource.apple.com/tarballs/dyld/dyld-852.2.tar.gz)
+* 要下载 `tar.gz`，将 URL 更改为 [https://opensource.apple.com/**tarballs**/dyld/**dyld-852.2.tar.gz**](https://opensource.apple.com/tarballs/dyld/dyld-852.2.tar.gz)
 
 ### MacOS MDM
 
@@ -94,20 +94,20 @@
 如果 **以 root 身份运行的进程写入** 一个可以被用户控制的文件，用户可能会利用这一点来 **提升权限**。\
 这可能发生在以下情况下：
 
-* 使用的文件已经由用户创建（属于用户）
+* 使用的文件已经由用户创建（由用户拥有）
 * 使用的文件因组而可被用户写入
 * 使用的文件位于用户拥有的目录中（用户可以创建该文件）
 * 使用的文件位于 root 拥有的目录中，但用户因组而具有写入权限（用户可以创建该文件）
 
-能够 **创建一个将被 root 使用的文件**，允许用户 **利用其内容**，甚至创建 **符号链接/硬链接** 指向其他位置。
+能够 **创建一个将被 root 使用的文件**，允许用户 **利用其内容**，甚至创建 **符号链接/硬链接** 指向另一个位置。
 
-对于这种漏洞，不要忘记 **检查易受攻击的 `.pkg` 安装程序**：
+对于这类漏洞，不要忘记 **检查易受攻击的 `.pkg` 安装程序**：
 
 {% content-ref url="macos-files-folders-and-binaries/macos-installers-abuse.md" %}
 [macos-installers-abuse.md](macos-files-folders-and-binaries/macos-installers-abuse.md)
 {% endcontent-ref %}
 
-### 文件扩展名与 URL 方案应用处理程序
+### 文件扩展名与 URL 方案应用程序处理程序
 
 通过文件扩展名注册的奇怪应用程序可能会被滥用，不同的应用程序可以注册以打开特定协议
 
@@ -145,7 +145,7 @@
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 加入 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 服务器，与经验丰富的黑客和漏洞赏金猎人交流！
 
@@ -153,12 +153,12 @@
 参与深入探讨黑客的刺激与挑战的内容
 
 **实时黑客新闻**\
-通过实时新闻和见解，跟上快速变化的黑客世界
+通过实时新闻和见解，保持对快速变化的黑客世界的了解
 
 **最新公告**\
 了解最新的漏洞赏金计划和重要平台更新
 
-**今天就加入我们的** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，与顶尖黑客开始合作吧！
+**今天就加入我们，和顶尖黑客一起合作！** [**Discord**](https://discord.com/invite/N3FrSbmwdy)
 
 {% hint style="success" %}
 学习与实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\

@@ -10,12 +10,12 @@
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
 * **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 分享黑客技巧。
+* **通过提交 PR 分享黑客技巧到** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库。
 
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 加入 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 服务器，与经验丰富的黑客和漏洞赏金猎人交流！
 
@@ -28,9 +28,9 @@
 **最新公告**\
 了解最新的漏洞赏金计划和重要平台更新
 
-**加入我们** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，今天就开始与顶尖黑客合作！
+**加入我们** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，今天就开始与顶尖黑客合作吧！
 
-### **查找 Linux 本地权限提升向量的最佳工具：** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
+### **寻找 Linux 本地权限提升向量的最佳工具：** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
 
 ### [系统信息](privilege-escalation/#system-information)
 
@@ -57,7 +57,7 @@
 ### [进程](privilege-escalation/#processes)
 
 * [ ] 是否有 **未知软件在运行**？
-* [ ] 是否有任何软件以 **超出其应有的权限** 运行？
+* [ ] 是否有软件以 **超出其应有的权限** 运行？
 * [ ] 搜索 **正在运行进程的漏洞**（特别是正在运行的版本）。
 * [ ] 你能 **修改任何正在运行进程的二进制文件** 吗？
 * [ ] **监控进程**，检查是否有任何有趣的进程频繁运行。
@@ -65,7 +65,7 @@
 
 ### [计划任务/Cron 任务？](privilege-escalation/#scheduled-jobs)
 
-* [ ] [**PATH**](privilege-escalation/#cron-path) 是否被某些 cron 修改，你能 **写入** 吗？
+* [ ] [**PATH**](privilege-escalation/#cron-path) 是否被某些 cron 修改，并且你可以 **写入**？
 * [ ] 在 cron 任务中有任何 [**通配符**](privilege-escalation/#cron-using-a-script-with-a-wildcard-wildcard-injection) 吗？
 * [ ] 有一些 [**可修改的脚本**](privilege-escalation/#cron-script-overwriting-and-symlink) 正在 **执行** 或在 **可修改文件夹** 中？
 * [ ] 你是否检测到某些 **脚本** 可能或正在被 [**频繁执行**](privilege-escalation/#frequent-cron-jobs)？（每 1、2 或 5 分钟）
@@ -99,11 +99,11 @@
 ### [用户](privilege-escalation/#users)
 
 * [ ] 通用用户/组 **枚举**
-* [ ] 你有一个 **非常大的 UID** 吗？机器 **是否存在漏洞**？
-* [ ] 你能 [**通过你所属的组提升权限**](privilege-escalation/interesting-groups-linux-pe/) 吗？
+* [ ] 你有一个 **非常大的 UID** 吗？机器 **是否脆弱**？
+* [ ] 你能通过你所属的 [**组**](privilege-escalation/interesting-groups-linux-pe/) **提升权限** 吗？
 * [ ] **剪贴板** 数据？
 * [ ] 密码策略？
-* [ ] 尝试 **使用** 你之前发现的每个 **已知密码** 登录 **每个** 可能的 **用户**。也尝试不带密码登录。
+* [ ] 尝试 **使用** 你之前发现的每个 **已知密码** 登录 **每个** 可能的 **用户**。尝试不带密码登录。
 
 ### [可写 PATH](privilege-escalation/#writable-path-abuses)
 
@@ -113,7 +113,7 @@
 
 * [ ] 你能执行 **任何带 sudo 的命令** 吗？你能用它来以 root 身份 **读取、写入或执行** 任何东西吗？（[**GTFOBins**](https://gtfobins.github.io)）
 * [ ] 是否有任何 **可利用的 SUID 二进制文件**？（[**GTFOBins**](https://gtfobins.github.io)）
-* [ ] [**sudo** 命令是否 **受限于路径**？你能 **绕过** 限制吗](privilege-escalation/#sudo-execution-bypassing-paths)？
+* [ ] [**sudo** 命令是否 **受限** 于 **路径**？你能 **绕过** 限制吗](privilege-escalation/#sudo-execution-bypassing-paths)？
 * [ ] [**没有指定路径的 Sudo/SUID 二进制文件**](privilege-escalation/#sudo-command-suid-binary-without-command-path)？
 * [ ] [**指定路径的 SUID 二进制文件**](privilege-escalation/#suid-binary-with-command-path)？绕过
 * [ ] [**LD\_PRELOAD 漏洞**](privilege-escalation/#ld\_preload)
@@ -147,11 +147,11 @@
 * [ ] **passwd/shadow 文件** - 读取敏感数据？写入权限提升？
 * [ ] **检查常见的有趣文件夹** 是否有敏感数据
 * [ ] **奇怪的位置/拥有的文件，** 你可能有权限访问或更改可执行文件
-* [ ] **在最后几分钟内修改**
+* [ ] **最近几分钟内修改过**
 * [ ] **Sqlite 数据库文件**
 * [ ] **隐藏文件**
 * [ ] **PATH 中的脚本/二进制文件**
-* [ ] **Web 文件**（密码？）
+* [ ] **网页文件**（密码？）
 * [ ] **备份**？
 * [ ] **已知包含密码的文件**：使用 **Linpeas** 和 **LaZagne**
 * [ ] **通用搜索**
@@ -168,7 +168,7 @@
 * [ ] 你能 [**利用 NFS 提升权限**](privilege-escalation/#nfs-privilege-escalation) 吗？
 * [ ] 你需要 [**逃离限制性 shell**](privilege-escalation/#escaping-from-restricted-shells) 吗？
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 加入 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 服务器，与经验丰富的黑客和漏洞赏金猎人交流！
 
@@ -181,7 +181,7 @@
 **最新公告**\
 了解最新的漏洞赏金计划和重要平台更新
 
-**加入我们** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，今天就开始与顶尖黑客合作！
+**加入我们** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，今天就开始与顶尖黑客合作吧！
 
 {% hint style="success" %}
 学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -193,7 +193,7 @@
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
 * **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 分享黑客技巧。
+* **通过提交 PR 分享黑客技巧到** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库。
 
 </details>
 {% endhint %}

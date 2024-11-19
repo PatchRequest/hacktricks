@@ -15,7 +15,7 @@
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 加入 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 服务器，与经验丰富的黑客和漏洞赏金猎人交流！
 
@@ -23,16 +23,16 @@
 参与深入探讨黑客的刺激与挑战的内容
 
 **实时黑客新闻**\
-通过实时新闻和见解，跟上快速变化的黑客世界
+通过实时新闻和见解，保持对快速变化的黑客世界的了解
 
 **最新公告**\
 了解最新的漏洞赏金计划和重要平台更新
 
-**今天就加入我们的** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，与顶尖黑客开始合作吧！
+**今天就加入我们，进入** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，与顶尖黑客开始合作吧！
 
 ## ASREPRoast
 
-ASREPRoast 是一种安全攻击，利用缺乏 **Kerberos 预身份验证所需属性** 的用户。实质上，这个漏洞允许攻击者向域控制器 (DC) 请求用户的身份验证，而无需用户的密码。然后，DC 会用用户密码派生的密钥加密消息进行响应，攻击者可以尝试离线破解以发现用户的密码。
+ASREPRoast 是一种安全攻击，利用缺乏 **Kerberos 预身份验证所需属性** 的用户。基本上，这个漏洞允许攻击者向域控制器 (DC) 请求用户的身份验证，而无需用户的密码。然后，DC 会用用户密码派生的密钥加密消息进行响应，攻击者可以尝试离线破解以发现用户的密码。
 
 此攻击的主要要求是：
 
@@ -52,6 +52,8 @@ Get-DomainUser -PreauthNotRequired -verbose #List vuln users using PowerView
 ```bash
 bloodyAD -u user -p 'totoTOTOtoto1234*' -d crash.lab --host 10.100.10.5 get search --filter '(&(userAccountControl:1.2.840.113556.1.4.803:=4194304)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))' --attr sAMAccountName
 ```
+{% endcode %}
+
 #### 请求 AS\_REP 消息
 
 {% code title="使用 Linux" %}
@@ -115,7 +117,7 @@ ASRepCatcher listen
 
 ***
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 加入 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 服务器，与经验丰富的黑客和漏洞赏金猎人交流！
 
@@ -123,12 +125,12 @@ ASRepCatcher listen
 参与深入探讨黑客的刺激与挑战的内容
 
 **实时黑客新闻**\
-通过实时新闻和见解，保持对快速变化的黑客世界的了解
+通过实时新闻和见解，跟上快速变化的黑客世界
 
 **最新公告**\
-了解最新的漏洞赏金计划和重要平台更新
+了解最新的漏洞赏金发布和重要平台更新
 
-**今天就加入我们，** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，与顶尖黑客开始合作！
+**今天就加入我们** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，与顶尖黑客开始合作！
 
 {% hint style="success" %}
 学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -139,8 +141,8 @@ ASRepCatcher listen
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** 上关注我们。**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass)，或 **在 Twitter 上关注** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
 
 </details>
 {% endhint %}
