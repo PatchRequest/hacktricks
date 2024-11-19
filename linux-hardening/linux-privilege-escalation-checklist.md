@@ -1,4 +1,4 @@
-# Orodha ya Ukaguzi - Kuinua Haki za Linux
+# Orodha ya Ukaguzi - Kuinua Mamlaka ya Linux
 
 {% hint style="success" %}
 Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -15,39 +15,39 @@ Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" al
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server kuwasiliana na wahacker wenye uzoefu na wawindaji wa makosa!
+Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server kuwasiliana na wadukuzi wenye uzoefu na wawindaji wa makosa!
 
 **Maoni ya Udukuzi**\
 Shiriki na maudhui yanayoangazia msisimko na changamoto za udukuzi
 
-**Habari za Udukuzi kwa Wakati Halisi**\
+**Habari za Udukuzi za Wakati Halisi**\
 Baki na habari za kisasa kuhusu ulimwengu wa udukuzi kupitia habari na maoni ya wakati halisi
 
 **Matangazo ya Hivi Punde**\
 Baki na taarifa kuhusu makosa mapya yanayoanzishwa na masasisho muhimu ya jukwaa
 
-**Jiunge nasi kwenye** [**Discord**](https://discord.com/invite/N3FrSbmwdy) na anza kushirikiana na wahacker bora leo!
+**Jiunge nasi kwenye** [**Discord**](https://discord.com/invite/N3FrSbmwdy) na anza kushirikiana na wadukuzi bora leo!
 
-### **Zana bora ya kutafuta vektori vya kuinua haki za ndani za Linux:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
+### **Zana bora ya kutafuta vigezo vya kuinua mamlaka ya ndani ya Linux:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
 
 ### [Taarifa za Mfumo](privilege-escalation/#system-information)
 
 * [ ] Pata **taarifa za OS**
 * [ ] Angalia [**PATH**](privilege-escalation/#path), kuna **folda inayoweza kuandikwa**?
-* [ ] Angalia [**env variables**](privilege-escalation/#env-info), kuna maelezo nyeti yoyote?
+* [ ] Angalia [**env variables**](privilege-escalation/#env-info), kuna maelezo nyeti?
 * [ ] Tafuta [**kernel exploits**](privilege-escalation/#kernel-exploits) **ukitumia scripts** (DirtyCow?)
 * [ ] **Angalia** kama [**toleo la sudo** lina udhaifu](privilege-escalation/#sudo-version)
 * [ ] [**Dmesg** uthibitisho wa saini umeshindwa](privilege-escalation/#dmesg-signature-verification-failed)
-* [ ] Zaidi ya mfumo wa enum ([tarehe, takwimu za mfumo, taarifa za cpu, printers](privilege-escalation/#more-system-enumeration))
-* [ ] [Tathmini ulinzi zaidi](privilege-escalation/#enumerate-possible-defenses)
+* [ ] Zaidi ya mfumo enum ([tarehe, takwimu za mfumo, taarifa za cpu, printers](privilege-escalation/#more-system-enumeration))
+* [ ] [Tathmini zaidi ulinzi](privilege-escalation/#enumerate-possible-defenses)
 
 ### [Diski](privilege-escalation/#drives)
 
 * [ ] **Orodhesha diski zilizowekwa**
 * [ ] **Kuna diski isiyowekwa?**
-* [ ] **Kuna akreditif katika fstab?**
+* [ ] **Kuna akreditivu katika fstab?**
 
 ### [**Programu Zilizowekwa**](privilege-escalation/#installed-software)
 
@@ -57,7 +57,7 @@ Baki na taarifa kuhusu makosa mapya yanayoanzishwa na masasisho muhimu ya jukwaa
 ### [Mchakato](privilege-escalation/#processes)
 
 * [ ] Je, kuna **programu isiyojulikana inayoendesha**?
-* [ ] Je, kuna programu inayoendesha kwa **haki zaidi kuliko inavyopaswa kuwa**?
+* [ ] Je, kuna programu inayoendesha kwa **mamlaka zaidi kuliko inavyopaswa kuwa**?
 * [ ] Tafuta **exploits za michakato inayoendesha** (hasa toleo linaloendesha).
 * [ ] Je, unaweza **kubadilisha binary** ya mchakato wowote unaoendesha?
 * [ ] **Fuatilia michakato** na angalia kama kuna mchakato wa kuvutia unaoendesha mara kwa mara.
@@ -98,24 +98,24 @@ Baki na taarifa kuhusu makosa mapya yanayoanzishwa na masasisho muhimu ya jukwaa
 
 ### [Watumiaji](privilege-escalation/#users)
 
-* [ ] Orodha ya watumiaji/vikundi **kuhesabu**
+* [ ] Orodha ya watumiaji/mikundi **ya jumla**
 * [ ] Je, una **UID kubwa sana**? Je, **mashine** ina **udhaifu**?
-* [ ] Je, unaweza [**kuinua haki kwa sababu ya kundi**](privilege-escalation/interesting-groups-linux-pe/) unalotegemea?
+* [ ] Je, unaweza [**kuinua mamlaka kwa sababu ya kundi**](privilege-escalation/interesting-groups-linux-pe/) unalotegemea?
 * [ ] **Data za Clipboard**?
 * [ ] Sera ya Nywila?
 * [ ] Jaribu **kutumia** kila **nywila inayojulikana** uliyogundua awali kuingia **na kila** **mtumiaji** anayeweza. Jaribu kuingia pia bila nywila.
 
 ### [PATH inayoweza kuandikwa](privilege-escalation/#writable-path-abuses)
 
-* [ ] Ikiwa una **haki za kuandika juu ya folda fulani katika PATH** unaweza kuwa na uwezo wa kuinua haki
+* [ ] Ikiwa una **mamlaka ya kuandika juu ya folda fulani katika PATH** unaweza kuwa na uwezo wa kuinua mamlaka
 
 ### [SUDO na amri za SUID](privilege-escalation/#sudo-and-suid)
 
 * [ ] Je, unaweza kutekeleza **amri yoyote na sudo**? Je, unaweza kuitumia KUSOMA, KUANDIKA au KUTEKELEZA chochote kama root? ([**GTFOBins**](https://gtfobins.github.io))
 * [ ] Je, kuna **binary ya SUID inayoweza kutumika**? ([**GTFOBins**](https://gtfobins.github.io))
-* [ ] Je, [**amri za sudo** **zimepunguzika** na **path**? Je, unaweza **kuzidi** vizuizi](privilege-escalation/#sudo-execution-bypassing-paths)?
-* [ ] [**Sudo/SUID binary bila njia iliyotajwa**](privilege-escalation/#sudo-command-suid-binary-without-command-path)?
-* [ ] [**SUID binary ikitaja njia**](privilege-escalation/#suid-binary-with-command-path)? Pita
+* [ ] Je, [**amri za sudo** **zimepunguziliwa** na **path**? Je, unaweza **kuzidi** vizuizi](privilege-escalation/#sudo-execution-bypassing-paths)?
+* [ ] [**Sudo/SUID binary bila path iliyotajwa**](privilege-escalation/#sudo-command-suid-binary-without-command-path)?
+* [ ] [**SUID binary ikitaja path**](privilege-escalation/#suid-binary-with-command-path)? Punguza
 * [ ] [**LD\_PRELOAD vuln**](privilege-escalation/#ld\_preload)
 * [ ] [**Ukosefu wa maktaba ya .so katika binary ya SUID**](privilege-escalation/#suid-binary-so-injection) kutoka folda inayoweza kuandikwa?
 * [ ] [**SUDO tokens zinazopatikana**](privilege-escalation/#reusing-sudo-tokens)? [**Je, unaweza kuunda token ya SUDO**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
@@ -123,7 +123,7 @@ Baki na taarifa kuhusu makosa mapya yanayoanzishwa na masasisho muhimu ya jukwaa
 * [ ] Je, unaweza [**kubadilisha /etc/ld.so.conf.d/**](privilege-escalation/#etc-ld-so-conf-d)?
 * [ ] [**OpenBSD DOAS**](privilege-escalation/#doas) amri
 
-### [Mamlaka](privilege-escalation/#capabilities)
+### [Uwezo](privilege-escalation/#capabilities)
 
 * [ ] Je, kuna binary yoyote yenye **uwezo usiotarajiwa**?
 
@@ -154,7 +154,7 @@ Baki na taarifa kuhusu makosa mapya yanayoanzishwa na masasisho muhimu ya jukwaa
 * [ ] **Faili za Mtandao** (nywila?)
 * [ ] **Nakala za Hifadhi**?
 * [ ] **Faili zinazojulikana ambazo zina nywila**: Tumia **Linpeas** na **LaZagne**
-* [ ] **Utafutaji wa Kawaida**
+* [ ] **Utafutaji wa Jumla**
 
 ### [**Faili Zinazoweza Kuandikwa**](privilege-escalation/#writable-files)
 
@@ -165,23 +165,23 @@ Baki na taarifa kuhusu makosa mapya yanayoanzishwa na masasisho muhimu ya jukwaa
 
 ### [**Mbinu Nyingine**](privilege-escalation/#other-tricks)
 
-* [ ] Je, unaweza [**kudhulumu NFS ili kuinua haki**](privilege-escalation/#nfs-privilege-escalation)?
+* [ ] Je, unaweza [**kudhulumu NFS ili kuinua mamlaka**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] Je, unahitaji [**kutoroka kutoka shell yenye vizuizi**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server kuwasiliana na wahacker wenye uzoefu na wawindaji wa makosa!
+Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server kuwasiliana na wadukuzi wenye uzoefu na wawindaji wa makosa!
 
 **Maoni ya Udukuzi**\
 Shiriki na maudhui yanayoangazia msisimko na changamoto za udukuzi
 
-**Habari za Udukuzi kwa Wakati Halisi**\
+**Habari za Udukuzi za Wakati Halisi**\
 Baki na habari za kisasa kuhusu ulimwengu wa udukuzi kupitia habari na maoni ya wakati halisi
 
 **Matangazo ya Hivi Punde**\
 Baki na taarifa kuhusu makosa mapya yanayoanzishwa na masasisho muhimu ya jukwaa
 
-**Jiunge nasi kwenye** [**Discord**](https://discord.com/invite/N3FrSbmwdy) na anza kushirikiana na wahacker bora leo!
+**Jiunge nasi kwenye** [**Discord**](https://discord.com/invite/N3FrSbmwdy) na anza kushirikiana na wadukuzi bora leo!
 
 {% hint style="success" %}
 Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

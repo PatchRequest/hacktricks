@@ -15,7 +15,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Join [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server to communicate with experienced hackers and bug bounty hunters!
 
@@ -32,15 +32,15 @@ Stay informed with the newest bug bounties launching and crucial platform update
 
 ## ASREPRoast
 
-ASREPRoast ni shambulio la usalama linalotumia watumiaji ambao hawana **sifa inayohitajika ya Kerberos pre-authentication**. Kimsingi, udhaifu huu unaruhusu washambuliaji kuomba uthibitisho kwa mtumiaji kutoka kwa Domain Controller (DC) bila kuhitaji nenosiri la mtumiaji. DC kisha inajibu kwa ujumbe uliofungwa kwa kutumia funguo iliyotokana na nenosiri la mtumiaji, ambayo washambuliaji wanaweza kujaribu kuifungua bila mtandao ili kugundua nenosiri la mtumiaji.
+ASREPRoast ni shambulio la usalama linalotumia watumiaji ambao hawana **sifa inayohitajika ya Kerberos pre-authentication**. Kimsingi, udhaifu huu unaruhusu washambuliaji kuomba uthibitisho wa mtumiaji kutoka kwa Domain Controller (DC) bila kuhitaji nenosiri la mtumiaji. DC kisha inajibu kwa ujumbe uliofungwa kwa kutumia funguo iliyotokana na nenosiri la mtumiaji, ambayo washambuliaji wanaweza kujaribu kuifungua bila mtandao ili kugundua nenosiri la mtumiaji.
 
 Mahitaji makuu ya shambulio hili ni:
 
 * **Ukosefu wa Kerberos pre-authentication**: Watumiaji wa lengo hawapaswi kuwa na kipengele hiki cha usalama kimewezeshwa.
 * **Muunganisho na Domain Controller (DC)**: Washambuliaji wanahitaji ufikiaji wa DC ili kutuma maombi na kupokea ujumbe uliofungwa.
-* **Akaunti ya kikoa ya hiari**: Kuwa na akaunti ya kikoa kunawawezesha washambuliaji kutambua kwa ufanisi watumiaji walio hatarini kupitia maswali ya LDAP. Bila akaunti kama hiyo, washambuliaji lazima wahisi majina ya watumiaji.
+* **Akaunti ya kikoa ya hiari**: Kuwa na akaunti ya kikoa kunawawezesha washambuliaji kutambua kwa ufanisi watumiaji walio hatarini kupitia maswali ya LDAP. Bila akaunti kama hiyo, washambuliaji lazima wahakikishe majina ya watumiaji.
 
-#### Kuorodhesha watumiaji walio hatarini (hitaji akreditif za kikoa)
+#### Kuorodhesha watumiaji walio hatarini (hitaji akidi za kikoa)
 
 {% code title="Using Windows" %}
 ```bash
@@ -71,7 +71,7 @@ Get-ASREPHash -Username VPN114user -verbose #From ASREPRoast.ps1 (https://github
 {% endcode %}
 
 {% hint style="warning" %}
-AS-REP Roasting na Rubeus itazalisha 4768 na aina ya usimbaji wa 0x17 na aina ya preauth ya 0.
+AS-REP Roasting na Rubeus itazalisha 4768 yenye aina ya usimbuaji ya 0x17 na aina ya preauth ya 0.
 {% endhint %}
 
 ### Kupasua
@@ -98,7 +98,7 @@ bloodyAD -u user -p 'totoTOTOtoto1234*' -d crash.lab --host 10.100.10.5 add uac 
 ## ASREProast bila akreditivu
 
 Mshambuliaji anaweza kutumia nafasi ya mtu katikati kukamata pakiti za AS-REP wakati zinapita kwenye mtandao bila kutegemea kuwa Kerberos pre-authentication imezimwa. Hivyo inafanya kazi kwa watumiaji wote kwenye VLAN.\
-[ASRepCatcher](https://github.com/Yaxxine7/ASRepCatcher) inatupa uwezo wa kufanya hivyo. Zaidi ya hayo, chombo hiki kinawalazimisha vituo vya wateja kutumia RC4 kwa kubadilisha mazungumzo ya Kerberos.
+[ASRepCatcher](https://github.com/Yaxxine7/ASRepCatcher) inatufanya tuweze kufanya hivyo. Zaidi ya hayo, chombo hiki kinawalazimisha vituo vya wateja kutumia RC4 kwa kubadilisha mazungumzo ya Kerberos.
 ```bash
 # Actively acting as a proxy between the clients and the DC, forcing RC4 downgrade if supported
 ASRepCatcher relay -dc $DC_IP
@@ -115,20 +115,20 @@ ASRepCatcher listen
 
 ***
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server kuwasiliana na hackers wenye uzoefu na wawindaji wa bug bounty!
+Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server kuwasiliana na hackers wenye uzoefu na wawindaji wa makosa!
 
 **Hacking Insights**\
 Shiriki na maudhui yanayochunguza msisimko na changamoto za hacking
 
 **Real-Time Hack News**\
-Baki na habari za hivi punde katika ulimwengu wa hacking kupitia habari na maarifa ya wakati halisi
+Endelea kuwa na habari za hivi punde katika ulimwengu wa hacking kupitia habari na maarifa ya wakati halisi
 
 **Latest Announcements**\
-Baki na taarifa kuhusu bug bounties mpya zinazozinduliwa na masasisho muhimu ya jukwaa
+Baki na habari kuhusu makosa mapya yanayoanzishwa na masasisho muhimu ya jukwaa
 
-**Jiunge nasi kwenye** [**Discord**](https://discord.com/invite/N3FrSbmwdy) na anza kushirikiana na hackers bora leo!
+**Jiunge nasi kwenye** [**Discord**](https://discord.com/invite/N3FrSbmwdy) na uanze kushirikiana na hackers bora leo!
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

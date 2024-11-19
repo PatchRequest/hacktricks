@@ -15,7 +15,7 @@ Jifunze & fanya mazoezi ya GCP Hacking: <img src="../../.gitbook/assets/grte.png
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server kuwasiliana na hackers wenye uzoefu na wawindaji wa bug bounty!
 
@@ -26,13 +26,13 @@ Shiriki na maudhui yanayoangazia msisimko na changamoto za hacking
 Baki na habari za hivi punde katika ulimwengu wa hacking kupitia habari na uelewa wa wakati halisi
 
 **Matangazo ya Hivi Punde**\
-Baki na taarifa kuhusu bug bounties mpya zinazozinduliwa na masasisho muhimu ya jukwaa
+Baki na habari kuhusu bug bounties mpya zinazozinduliwa na masasisho muhimu ya jukwaa
 
 **Jiunge nasi kwenye** [**Discord**](https://discord.com/invite/N3FrSbmwdy) na anza kushirikiana na hackers bora leo!
 
 ## Msingi wa MacOS
 
-Ikiwa hujafahamu kuhusu macOS, unapaswa kuanza kujifunza misingi ya macOS:
+Ikiwa hujui kuhusu macOS, unapaswa kuanza kujifunza misingi ya macOS:
 
 * Faili maalum za macOS **na ruhusa:**
 
@@ -65,7 +65,7 @@ Ikiwa hujafahamu kuhusu macOS, unapaswa kuanza kujifunza misingi ya macOS:
 {% endcontent-ref %}
 
 * **Opensource** macOS: [https://opensource.apple.com/](https://opensource.apple.com/)
-* Ili kupakua `tar.gz` badilisha URL kama [https://opensource.apple.com/**source**/dyld/](https://opensource.apple.com/source/dyld/) kuwa [https://opensource.apple.com/**tarballs**/dyld/**dyld-852.2.tar.gz**](https://opensource.apple.com/tarballs/dyld/dyld-852.2.tar.gz)
+* Kupakua `tar.gz` badilisha URL kama [https://opensource.apple.com/**source**/dyld/](https://opensource.apple.com/source/dyld/) kuwa [https://opensource.apple.com/**tarballs**/dyld/**dyld-852.2.tar.gz**](https://opensource.apple.com/tarballs/dyld/dyld-852.2.tar.gz)
 
 ### MacOS MDM
 
@@ -97,9 +97,9 @@ Hii inaweza kutokea katika hali zifuatazo:
 * Faili iliyotumika tayari iliumbwa na mtumiaji (inamilikiwa na mtumiaji)
 * Faili iliyotumika inaweza kuandikwa na mtumiaji kwa sababu ya kundi
 * Faili iliyotumika iko ndani ya directory inayomilikiwa na mtumiaji (mtumiaji anaweza kuunda faili hiyo)
-* Faili iliyotumika iko ndani ya directory inayomilikiwa na root lakini mtumiaji ana ufaccess wa kuandika juu yake kwa sababu ya kundi (mtumiaji anaweza kuunda faili hiyo)
+* Faili iliyotumika iko ndani ya directory inayomilikiwa na root lakini mtumiaji ana ufikiaji wa kuandika juu yake kwa sababu ya kundi (mtumiaji anaweza kuunda faili hiyo)
 
-Kuweza **kuunda faili** ambayo itatumika na **root**, inamruhusu mtumiaji **kunufaika na maudhui yake** au hata kuunda **symlinks/hardlinks** kuielekeza mahali pengine.
+Kuwa na uwezo wa **kuunda faili** ambayo itatumika na **root**, inamruhusu mtumiaji **kunufaika na maudhui yake** au hata kuunda **symlinks/hardlinks** kuielekeza mahali pengine.
 
 Kwa aina hii ya udhaifu usisahau **kuangalia waandishi wa `.pkg` walio hatarini**:
 
@@ -107,9 +107,9 @@ Kwa aina hii ya udhaifu usisahau **kuangalia waandishi wa `.pkg` walio hatarini*
 [macos-installers-abuse.md](macos-files-folders-and-binaries/macos-installers-abuse.md)
 {% endcontent-ref %}
 
-### Upanuzi wa Faili & Wakala wa URL
+### Mipangilio ya Faili & Wakala wa URL
 
-Programu za ajabu zilizosajiliwa na upanuzi wa faili zinaweza kutumiwa vibaya na programu tofauti zinaweza kuandikishwa kufungua protokali maalum
+Programu za ajabu zilizosajiliwa na mipangilio ya faili zinaweza kutumiwa vibaya na programu tofauti zinaweza kusajiliwa kufungua protokali maalum
 
 {% content-ref url="macos-file-extension-apps.md" %}
 [macos-file-extension-apps.md](macos-file-extension-apps.md)
@@ -121,9 +121,9 @@ Katika macOS **programu na binaries zinaweza kuwa na ruhusa** za kufikia folda a
 
 Hivyo, mshambuliaji anayetaka kufanikiwa kuathiri mashine ya macOS atahitaji **kuinua ruhusa zake za TCC** (au hata **kupita SIP**, kulingana na mahitaji yake).
 
-Ruhusa hizi kwa kawaida hutolewa kwa njia ya **entitlements** ambayo programu imesainiwa nayo, au programu inaweza kuomba baadhi ya ufaccess na baada ya **mtumiaji kuidhinisha** zinaweza kupatikana katika **maktaba za TCC**. Njia nyingine mchakato unaweza kupata ruhusa hizi ni kwa kuwa **mtoto wa mchakato** wenye hizo **ruhusa** kwani kwa kawaida **zinarithiwa**.
+Ruhusa hizi kwa kawaida hutolewa kwa njia ya **entitlements** ambayo programu imesainiwa nayo, au programu inaweza kuomba baadhi ya ufikiaji na baada ya **mtumiaji kuidhinisha** wanaweza kupatikana katika **maktaba za TCC**. Njia nyingine mchakato unaweza kupata ruhusa hizi ni kwa kuwa **mtoto wa mchakato** wenye hizo **ruhusa** kwani kwa kawaida **zinarithiwa**.
 
-Fuata viungo hivi kupata njia tofauti za [**kuinua ruhusa katika TCC**](macos-security-protections/macos-tcc/#tcc-privesc-and-bypasses), [**kupita TCC**](macos-security-protections/macos-tcc/macos-tcc-bypasses/) na jinsi katika siku za nyuma [**SIP imepita**](macos-security-protections/macos-sip.md#sip-bypasses).
+Fuata viungo hivi kupata njia tofauti za [**kuinua ruhusa katika TCC**](macos-security-protections/macos-tcc/#tcc-privesc-and-bypasses), [**kupita TCC**](macos-security-protections/macos-tcc/macos-tcc-bypasses/) na jinsi katika siku za nyuma [**SIP imepitwa**](macos-security-protections/macos-sip.md#sip-bypasses).
 
 ## macOS Kuinua Privilege Kawaida
 
@@ -145,7 +145,7 @@ Bila shaka kutoka mtazamo wa timu nyekundu unapaswa pia kuwa na hamu ya kuinua h
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server kuwasiliana na hackers wenye uzoefu na wawindaji wa bug bounty!
 
@@ -156,7 +156,7 @@ Shiriki na maudhui yanayoangazia msisimko na changamoto za hacking
 Baki na habari za hivi punde katika ulimwengu wa hacking kupitia habari na uelewa wa wakati halisi
 
 **Matangazo ya Hivi Punde**\
-Baki na taarifa kuhusu bug bounties mpya zinazozinduliwa na masasisho muhimu ya jukwaa
+Baki na habari kuhusu bug bounties mpya zinazozinduliwa na masasisho muhimu ya jukwaa
 
 **Jiunge nasi kwenye** [**Discord**](https://discord.com/invite/N3FrSbmwdy) na anza kushirikiana na hackers bora leo!
 

