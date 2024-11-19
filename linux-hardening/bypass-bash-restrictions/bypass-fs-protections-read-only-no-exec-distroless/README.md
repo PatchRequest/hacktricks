@@ -15,7 +15,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 </details>
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If you are interested in **hacking career** and hack the unhackable - **we are hiring!** (_wymagana biegła znajomość języka polskiego w mowie i piśmie_).
 
@@ -94,7 +94,7 @@ For more information about this technique check the Github or:
 
 ### MemExec
 
-[**Memexec**](https://github.com/arget13/memexec) to naturalny następny krok DDexec. To **DDexec shellcode demonizowane**, więc za każdym razem, gdy chcesz **uruchomić inny plik binarny**, nie musisz ponownie uruchamiać DDexec, możesz po prostu uruchomić shellcode memexec za pomocą techniki DDexec, a następnie **komunikować się z tym demonem, aby przekazać nowe pliki binarne do załadowania i uruchomienia**.
+[**Memexec**](https://github.com/arget13/memexec) to naturalny następny krok DDexec. To **demonizowany shellcode DDexec**, więc za każdym razem, gdy chcesz **uruchomić inny plik binarny**, nie musisz ponownie uruchamiać DDexec, możesz po prostu uruchomić shellcode memexec za pomocą techniki DDexec, a następnie **komunikować się z tym demonem, aby przekazać nowe pliki binarne do załadowania i uruchomienia**.
 
 Możesz znaleźć przykład, jak użyć **memexec do wykonywania plików binarnych z odwróconego powłoki PHP** w [https://github.com/arget13/memexec/blob/main/a.php](https://github.com/arget13/memexec/blob/main/a.php).
 
@@ -112,10 +112,10 @@ Celem kontenerów distroless jest **zmniejszenie powierzchni ataku kontenerów p
 
 ### Odwrócona powłoka
 
-W kontenerze distroless możesz **nawet nie znaleźć `sh` ani `bash`**, aby uzyskać zwykłą powłokę. Nie znajdziesz również plików binarnych, takich jak `ls`, `whoami`, `id`... wszystko, co zwykle uruchamiasz w systemie.
+W kontenerze distroless możesz **nawet nie znaleźć `sh` lub `bash`**, aby uzyskać zwykłą powłokę. Nie znajdziesz również plików binarnych takich jak `ls`, `whoami`, `id`... wszystko, co zwykle uruchamiasz w systemie.
 
 {% hint style="warning" %}
-Dlatego **nie będziesz** w stanie uzyskać **odwróconej powłoki** ani **enumerować** systemu, jak zwykle.
+Dlatego **nie będziesz** w stanie uzyskać **odwróconej powłoki** ani **enumerować** systemu, jak zwykle to robisz.
 {% endhint %}
 
 Jednak jeśli skompromitowany kontener uruchamia na przykład aplikację flask, to python jest zainstalowany, a zatem możesz uzyskać **odwróconą powłokę Pythona**. Jeśli działa node, możesz uzyskać odwróconą powłokę Node, i to samo z większością **języków skryptowych**.
@@ -132,9 +132,9 @@ Jednak w tego rodzaju kontenerach te zabezpieczenia zazwyczaj istnieją, ale mo�
 
 Możesz znaleźć **przykłady** na to, jak **wykorzystać niektóre podatności RCE**, aby uzyskać odwrócone powłoki języków skryptowych i wykonywać pliki binarne z pamięci w [**https://github.com/carlospolop/DistrolessRCE**](https://github.com/carlospolop/DistrolessRCE).
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-If you are interested in **hacking career** and hack the unhackable - **we are hiring!** (_fluent polish written and spoken required_).
+If you are interested in **hacking career** and hack the unhackable - **we are hiring!** (_biegła znajomość polskiego w mowie i piśmie wymagana_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
