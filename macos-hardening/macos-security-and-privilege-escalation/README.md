@@ -15,7 +15,7 @@
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Приєднуйтесь до [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) сервера, щоб спілкуватися з досвідченими хакерами та шукачами вразливостей!
 
@@ -34,13 +34,13 @@
 
 Якщо ви не знайомі з macOS, вам слід почати вивчати основи macOS:
 
-* Спеціальні **файли та дозволи macOS:**
+* Спеціальні **файли та дозволи** macOS:
 
 {% content-ref url="macos-files-folders-and-binaries/" %}
 [macos-files-folders-and-binaries](macos-files-folders-and-binaries/)
 {% endcontent-ref %}
 
-* Загальні **користувачі macOS**
+* Загальні **користувачі** macOS
 
 {% content-ref url="macos-users.md" %}
 [macos-users.md](macos-users.md)
@@ -52,24 +52,24 @@
 [macos-applefs.md](macos-applefs.md)
 {% endcontent-ref %}
 
-* **архітектура** ядра
+* **Архітектура** ядра
 
 {% content-ref url="mac-os-architecture/" %}
 [mac-os-architecture](mac-os-architecture/)
 {% endcontent-ref %}
 
-* Загальні **мережеві сервіси та протоколи macOS**
+* Загальні **мережеві сервіси та протоколи** macOS
 
 {% content-ref url="macos-protocols.md" %}
 [macos-protocols.md](macos-protocols.md)
 {% endcontent-ref %}
 
-* **Opensource** macOS: [https://opensource.apple.com/](https://opensource.apple.com/)
+* **Відкритий код** macOS: [https://opensource.apple.com/](https://opensource.apple.com/)
 * Щоб завантажити `tar.gz`, змініть URL, наприклад, [https://opensource.apple.com/**source**/dyld/](https://opensource.apple.com/source/dyld/) на [https://opensource.apple.com/**tarballs**/dyld/**dyld-852.2.tar.gz**](https://opensource.apple.com/tarballs/dyld/dyld-852.2.tar.gz)
 
 ### MacOS MDM
 
-У компаніях системи **macOS** з великою ймовірністю будуть **керуватися через MDM**. Тому з точки зору атакуючого цікаво знати, **як це працює**:
+У компаніях системи **macOS** з великою ймовірністю будуть **керуватися через MDM**. Тому з точки зору атакуючого цікаво знати **як це працює**:
 
 {% content-ref url="../macos-red-teaming/macos-mdm/" %}
 [macos-mdm](../macos-red-teaming/macos-mdm/)
@@ -89,7 +89,7 @@
 
 ## Поверхня атаки
 
-### Дозволи файлів
+### Дозволи на файли
 
 Якщо **процес, що працює від імені root, записує** файл, який може контролюватися користувачем, користувач може зловживати цим для **ескалації привілеїв**.\
 Це може статися в наступних ситуаціях:
@@ -99,7 +99,7 @@
 * Використовуваний файл знаходиться в каталозі, що належить користувачу (користувач може створити файл)
 * Використовуваний файл знаходиться в каталозі, що належить root, але користувач має доступ на запис через групу (користувач може створити файл)
 
-Можливість **створити файл**, який буде **використовуватися root**, дозволяє користувачу **використовувати його вміст** або навіть створювати **символічні/жорсткі посилання** на нього, щоб вказати на інше місце.
+Можливість **створити файл**, який буде **використовуватися root**, дозволяє користувачу **використовувати його вміст** або навіть створювати **символьні/жорсткі посилання** на інше місце.
 
 Для таких вразливостей не забудьте **перевірити вразливі `.pkg` інсталяційні файли**:
 
@@ -115,9 +115,9 @@
 [macos-file-extension-apps.md](macos-file-extension-apps.md)
 {% endcontent-ref %}
 
-## ескалація привілеїв macOS TCC / SIP
+## macOS TCC / SIP Ескалація привілеїв
 
-У macOS **додатки та бінарники можуть мати дозволи** на доступ до папок або налаштувань, які роблять їх більш привілейованими, ніж інші.
+У macOS **додатки та бінарні файли можуть мати дозволи** на доступ до папок або налаштувань, які роблять їх більш привілейованими, ніж інші.
 
 Тому атакуючий, який хоче успішно скомпрометувати машину macOS, повинен **ескалувати свої привілеї TCC** (або навіть **обійти SIP**, залежно від його потреб).
 
@@ -145,7 +145,7 @@
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Приєднуйтесь до [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) сервера, щоб спілкуватися з досвідченими хакерами та шукачами вразливостей!
 
