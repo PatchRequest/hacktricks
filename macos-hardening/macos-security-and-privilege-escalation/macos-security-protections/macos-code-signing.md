@@ -19,7 +19,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="../../../.gitbook/assets/grt
 
 Mach-o ikili dosyaları, ikili dosya içindeki imzaların **offset** ve **boyutunu** belirten **`LC_CODE_SIGNATURE`** adlı bir yükleme komutu içerir. Aslında, MachOView GUI aracını kullanarak, ikili dosyanın sonunda bu bilgileri içeren **Kod İmzası** adlı bir bölüm bulmak mümkündür:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 Kod İmzasının sihirli başlığı **`0xFADE0CC0`**'dır. Ardından, bunları içeren süperBlob'un uzunluğu ve blob sayısı gibi bilgiler vardır.\
 Bu bilgiyi [kaynak kodda burada](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276) bulmak mümkündür:
@@ -58,7 +58,7 @@ Ayrıca, imzaların ikili dosyalardan ayrılabileceği ve `/var/db/DetachedSigna
 
 ## Code Directory Blob
 
-[Code Directory Blob'un kod içindeki beyanını](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104) bulmak mümkündür:
+[Code Directory Blob'un kod içindeki beyanını](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L104) bulmak mümkündür:
 ```c
 typedef struct __CodeDirectory {
 uint32_t magic;                                 /* magic number (CSMAGIC_CODEDIRECTORY) */
@@ -118,8 +118,8 @@ Not edin ki, bu yapının farklı versiyonları vardır ve eski olanlar daha az 
 
 ## Kod İmzalama Sayfaları
 
-Tam ikili dosyanın hash'lenmesi verimsiz olurdu ve yalnızca bellekte kısmen yüklüyse işe yaramazdı. Bu nedenle, kod imzası aslında her ikili sayfanın ayrı ayrı hash'lenmesiyle oluşturulan bir hash'ler hash'idir.\
-Aslında, önceki **Kod Dizini** kodunda **sayfa boyutunun belirtildiğini** görebilirsiniz. Ayrıca, ikilinin boyutu bir sayfa boyutunun katı değilse, **CodeLimit** alanı imzanın nerede sona erdiğini belirtir.
+Tam ikili dosyanın hash'lenmesi verimsiz olurdu ve yalnızca bellekte kısmen yüklendiğinde işe yaramazdı. Bu nedenle, kod imzası aslında her ikili sayfanın ayrı ayrı hash'lenmesiyle oluşturulan bir hash'ler hash'idir.\
+Aslında, önceki **Kod Dizini** kodunda **sayfa boyutunun belirtildiğini** görebilirsiniz. Ayrıca, ikilinin boyutu bir sayfa boyutunun katı değilse, **CodeLimit** alanı imzanın sonunun nerede olduğunu belirtir.
 ```bash
 # Get all hashes of /bin/ps
 codesign -d -vvvvvv /bin/ps
@@ -157,13 +157,13 @@ openssl sha256 /tmp/*.page.*
 ```
 ## Yetki Blob'u
 
-Uygulamaların tüm yetkilerin tanımlandığı bir **yetki blob'u** içerebileceğini unutmayın. Ayrıca, bazı iOS ikili dosyaları, yetkilerini özel -7 slotunda (özel -5 yetki slotu yerine) belirtebilir.
+Uygulamaların tüm yetkilerin tanımlandığı bir **yetki blob'u** içerebileceğini unutmayın. Ayrıca, bazı iOS ikili dosyaları, yetkilerini özel slot -7'de (slot -5 yerine) belirtebilir.
 
 ## Özel Slotlar
 
 MacOS uygulamaları, ikili dosya içinde çalıştırmak için ihtiyaç duydukları her şeye sahip değildir, aynı zamanda **harici kaynaklar** (genellikle uygulamaların **paketinde**) kullanırlar. Bu nedenle, ikili dosya içinde bazı ilginç harici kaynakların hash'lerini içeren bazı slotlar bulunmaktadır.
 
-Aslında, Kod Dizini yapılarında **`nSpecialSlots`** adında, özel slotların sayısını belirten bir parametre görmek mümkündür. Özel slot 0 yoktur ve en yaygın olanları (-1'den -6'ya kadar) şunlardır:
+Aslında, Kod Dizini yapılarında **`nSpecialSlots`** adında özel slot sayısını belirten bir parametre görmek mümkündür. Özel slot 0 yoktur ve en yaygın olanları (-1'den -6'ya kadar) şunlardır:
 
 * `info.plist`'in hash'i (veya `__TEXT.__info__plist` içindeki).
 * Gereksinimlerin hash'i
@@ -226,9 +226,9 @@ Not edin ki [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/
 
 Her uygulama, yürütülebilmesi için **karşılaması gereken** bazı **gereksinimler** saklar. Eğer **uygulama, uygulama tarafından karşılanmayan gereksinimler içeriyorsa**, yürütülmeyecektir (muhtemelen değiştirilmiştir).
 
-Bir ikili dosyanın gereksinimleri, **özel bir dilbilgisi** kullanır; bu, **ifadelerin** bir akışıdır ve `0xfade0c00` sihirli değeri kullanılarak bloblar olarak kodlanır; **hash'i özel bir kod slotunda** saklanır.
+Bir ikili dosyanın gereksinimleri, **ifade** akışı olan **özel bir dil** kullanır ve `0xfade0c00` sihirli değeri ile blob olarak kodlanır; bu **hash, özel bir kod slotunda** saklanır.
 
-Bir ikili dosyanın gereksinimleri, şu komutla görülebilir: 
+Bir ikili dosyanın gereksinimleri şu şekilde görülebilir: 
 
 {% code overflow="wrap" %}
 ```bash
@@ -243,7 +243,7 @@ designated => identifier "org.whispersystems.signal-desktop" and anchor apple ge
 {% endcode %}
 
 {% hint style="info" %}
-Bu imzaların sertifika bilgileri, TeamID, kimlikler, yetkilendirmeler ve birçok diğer verileri kontrol edebileceğini unutmayın.
+Bu imzaların sertifika bilgileri, TeamID, ID'ler, yetkilendirmeler ve birçok diğer verileri kontrol edebileceğini unutmayın.
 {% endhint %}
 
 Ayrıca, `csreq` aracını kullanarak bazı derlenmiş gereksinimler oluşturmak mümkündür:
@@ -262,13 +262,13 @@ od -A x -t x1 /tmp/output.csreq
 ```
 {% endcode %}
 
-Bu bilgilere erişmek ve `Security.framework`'ten bazı API'lerle gereksinimleri oluşturmak veya değiştirmek mümkündür:
+Bu bilgiyi erişmek ve `Security.framework`'ten bazı API'lerle gereksinimleri oluşturmak veya değiştirmek mümkündür:
 
 #### **Geçerliliği Kontrol Etme**
 
-* **`Sec[Static]CodeCheckValidity`**: SecCodeRef'in gereksinim başına geçerliliğini kontrol eder.
+* **`Sec[Static]CodeCheckValidity`**: SecCodeRef'in gereksinime göre geçerliliğini kontrol eder.
 * **`SecRequirementEvaluate`**: Sertifika bağlamında gereksinimi doğrular.
-* **`SecTaskValidateForRequirement`**: Çalışan bir SecTask'ı `CFString` gereksinimi ile doğrular.
+* **`SecTaskValidateForRequirement`**: Çalışan bir SecTask'ı `CFString` gereksinimine karşı doğrular.
 
 #### **Kod Gereksinimlerini Oluşturma ve Yönetme**
 
@@ -277,14 +277,14 @@ Bu bilgilere erişmek ve `Security.framework`'ten bazı API'lerle gereksinimleri
 * **`SecRequirementCopy[Data/String]`**: Bir `SecRequirementRef`'in ikili veri temsilini alır.
 * **`SecRequirementCreateGroup`**: Uygulama grubu üyeliği için bir gereksinim oluşturur.
 
-#### **Kod İmzalama Bilgilerine Erişim**
+#### **Kod İmzalama Bilgisine Erişim**
 
 * **`SecStaticCodeCreateWithPath`**: Kod imzalarını incelemek için bir dosya sistemi yolundan `SecStaticCodeRef` nesnesini başlatır.
 * **`SecCodeCopySigningInformation`**: Bir `SecCodeRef` veya `SecStaticCodeRef`'den imzalama bilgilerini alır.
 
 #### **Kod Gereksinimlerini Değiştirme**
 
-* **`SecCodeSignerCreate`**: Kod imzalama işlemlerini gerçekleştirmek için bir `SecCodeSignerRef` nesnesi oluşturur.
+* **`SecCodeSignerCreate`**: Kod imzalama işlemleri gerçekleştirmek için bir `SecCodeSignerRef` nesnesi oluşturur.
 * **`SecCodeSignerSetRequirement`**: İmzalama sırasında uygulanacak yeni bir gereksinim belirler.
 * **`SecCodeSignerAddSignature`**: Belirtilen imzalayıcı ile imzalanan koda bir imza ekler.
 
@@ -295,7 +295,7 @@ Bu bilgilere erişmek ve `Security.framework`'ten bazı API'lerle gereksinimleri
 #### **Ekstra Kullanışlı API'ler**
 
 * **`SecCodeCopy[Internal/Designated]Requirement`: SecCodeRef'den SecRequirementRef al**
-* **`SecCodeCopyGuestWithAttributes`**: Belirli özelliklere dayanan bir kod nesnesini temsil eden bir `SecCodeRef` oluşturur, sandboxing için yararlıdır.
+* **`SecCodeCopyGuestWithAttributes`**: Belirli özelliklere dayanan bir kod nesnesini temsil eden bir `SecCodeRef` oluşturur, sandboxing için kullanışlıdır.
 * **`SecCodeCopyPath`**: Bir `SecCodeRef` ile ilişkili dosya sistemi yolunu alır.
 * **`SecCodeCopySigningIdentifier`**: Bir `SecCodeRef`'den imzalama tanımlayıcısını (örneğin, Takım ID'si) alır.
 * **`SecCodeGetTypeID`**: `SecCodeRef` nesneleri için tür tanımlayıcısını döndürür.
@@ -308,7 +308,7 @@ Bu bilgilere erişmek ve `Security.framework`'ten bazı API'lerle gereksinimleri
 
 ## Kod İmzası Uygulaması
 
-**Kernel**, uygulamanın kodunun çalışmasına izin vermeden önce **kod imzasını kontrol eden** kişidir. Ayrıca, bellekte yeni kod yazmak ve çalıştırmak için bir yol, `mprotect` çağrıldığında `MAP_JIT` bayrağının kötüye kullanılmasıdır. Uygulamanın bunu yapabilmesi için özel bir yetkiye ihtiyacı olduğunu unutmayın.
+**Kernel**, uygulamanın kodunun çalışmasına izin vermeden önce **kod imzasını kontrol eder**. Ayrıca, bellekte yeni kod yazmak ve çalıştırmak için bir yol, `mprotect` çağrıldığında `MAP_JIT` bayrağının kötüye kullanılmasıdır. Uygulamanın bunu yapabilmesi için özel bir yetkiye ihtiyacı olduğunu unutmayın.
 
 ## `cs_blobs` & `cs_blob`
 
