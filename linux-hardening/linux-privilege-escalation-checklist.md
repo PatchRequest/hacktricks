@@ -15,20 +15,20 @@ Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" d
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Únete al [**Discord de HackenProof**](https://discord.com/invite/N3FrSbmwdy) para comunicarte con hackers experimentados y cazadores de bugs.
 
 **Perspectivas de Hacking**\
-Involúcrate con contenido que profundiza en la emoción y los desafíos del hacking
+Participa en contenido que profundiza en la emoción y los desafíos del hacking
 
-**Noticias de Hackeo en Tiempo Real**\
+**Noticias de Hacking en Tiempo Real**\
 Mantente al día con el mundo del hacking de ritmo rápido a través de noticias e información en tiempo real
 
 **Últimos Anuncios**\
 Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actualizaciones cruciales de la plataforma
 
-**Únete a nosotros en** [**Discord**](https://discord.com/invite/N3FrSbmwdy) y comienza a colaborar con los mejores hackers hoy!
+**Únete a nosotros en** [**Discord**](https://discord.com/invite/N3FrSbmwdy) y comienza a colaborar con los mejores hackers hoy mismo!
 
 ### **Mejor herramienta para buscar vectores de escalación de privilegios locales en Linux:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
 
@@ -41,7 +41,7 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 * [ ] **Verificar** si la [**versión de sudo** es vulnerable](privilege-escalation/#sudo-version)
 * [ ] [**Dmesg** verificación de firma fallida](privilege-escalation/#dmesg-signature-verification-failed)
 * [ ] Más enumeración del sistema ([fecha, estadísticas del sistema, información de CPU, impresoras](privilege-escalation/#more-system-enumeration))
-* [ ] [Enumerar más defensas](privilege-escalation/#enumerate-possible-defenses)
+* [ ] [**Enumerar más defensas**](privilege-escalation/#enumerate-possible-defenses)
 
 ### [Unidades](privilege-escalation/#drives)
 
@@ -57,7 +57,7 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 ### [Procesos](privilege-escalation/#processes)
 
 * [ ] ¿Hay algún **software desconocido en ejecución**?
-* [ ] ¿Hay algún software en ejecución con **más privilegios de los que debería tener**?
+* [ ] ¿Hay algún software ejecutándose con **más privilegios de los que debería tener**?
 * [ ] Buscar **exploits de procesos en ejecución** (especialmente la versión en ejecución).
 * [ ] ¿Puedes **modificar el binario** de algún proceso en ejecución?
 * [ ] **Monitorear procesos** y verificar si algún proceso interesante se está ejecutando con frecuencia.
@@ -65,10 +65,10 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 
 ### [¿Tareas programadas/Cron?](privilege-escalation/#scheduled-jobs)
 
-* [ ] ¿El [**PATH**](privilege-escalation/#cron-path) está siendo modificado por algún cron y puedes **escribir** en él?
+* [ ] ¿Se está modificando el [**PATH**](privilege-escalation/#cron-path) por algún cron y puedes **escribir** en él?
 * [ ] ¿Algún [**comodín**](privilege-escalation/#cron-using-a-script-with-a-wildcard-wildcard-injection) en un trabajo cron?
-* [ ] ¿Algún [**script modificable**](privilege-escalation/#cron-script-overwriting-and-symlink) está siendo **ejecutado** o está dentro de una **carpeta modificable**?
-* [ ] ¿Has detectado que algún **script** podría estar o está siendo [**ejecutado** muy **frecuentemente**](privilege-escalation/#frequent-cron-jobs)? (cada 1, 2 o 5 minutos)
+* [ ] ¿Algún [**script modificable**](privilege-escalation/#cron-script-overwriting-and-symlink) se está **ejecutando** o está dentro de una **carpeta modificable**?
+* [ ] ¿Has detectado que algún **script** podría estar o se está [**ejecutando** muy **frecuentemente**](privilege-escalation/#frequent-cron-jobs)? (cada 1, 2 o 5 minutos)
 
 ### [Servicios](privilege-escalation/#services)
 
@@ -92,7 +92,7 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 
 ### [Red](privilege-escalation/#network)
 
-* [ ] Enumerar la red para saber dónde estás
+* [ ] Enumera la red para saber dónde estás
 * [ ] **¿Puertos abiertos a los que no pudiste acceder antes** de obtener una shell dentro de la máquina?
 * [ ] ¿Puedes **capturar tráfico** usando `tcpdump`?
 
@@ -146,11 +146,11 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 * [ ] **Archivos de perfil** - ¿Leer datos sensibles? ¿Escribir para privesc?
 * [ ] **Archivos passwd/shadow** - ¿Leer datos sensibles? ¿Escribir para privesc?
 * [ ] **Verificar carpetas comúnmente interesantes** en busca de datos sensibles
-* [ ] **Ubicación/Archivos extraños,** a los que podrías tener acceso o alterar archivos ejecutables
+* [ ] **Ubicación extraña/Archivos propiedad,** a los que podrías tener acceso o alterar archivos ejecutables
 * [ ] **Modificados** en los últimos minutos
 * [ ] **Archivos de base de datos Sqlite**
 * [ ] **Archivos ocultos**
-* [ ] **Scripts/Binarios en PATH**
+* [ ] **Script/Binarios en PATH**
 * [ ] **Archivos web** (¿contraseñas?)
 * [ ] **¿Copias de seguridad?**
 * [ ] **Archivos conocidos que contienen contraseñas**: Usa **Linpeas** y **LaZagne**
@@ -168,20 +168,20 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 * [ ] ¿Puedes [**abusar de NFS para escalar privilegios**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] ¿Necesitas [**escapar de un shell restrictivo**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Únete al [**Discord de HackenProof**](https://discord.com/invite/N3FrSbmwdy) para comunicarte con hackers experimentados y cazadores de bugs.
 
 **Perspectivas de Hacking**\
-Involúcrate con contenido que profundiza en la emoción y los desafíos del hacking
+Participa en contenido que profundiza en la emoción y los desafíos del hacking
 
-**Noticias de Hackeo en Tiempo Real**\
+**Noticias de Hacking en Tiempo Real**\
 Mantente al día con el mundo del hacking de ritmo rápido a través de noticias e información en tiempo real
 
 **Últimos Anuncios**\
 Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actualizaciones cruciales de la plataforma
 
-**Únete a nosotros en** [**Discord**](https://discord.com/invite/N3FrSbmwdy) y comienza a colaborar con los mejores hackers hoy!
+**Únete a nosotros en** [**Discord**](https://discord.com/invite/N3FrSbmwdy) y comienza a colaborar con los mejores hackers hoy mismo!
 
 {% hint style="success" %}
 Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
