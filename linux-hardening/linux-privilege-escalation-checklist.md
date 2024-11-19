@@ -6,16 +6,16 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <details>
 
-<summary>Suporte ao HackTricks</summary>
+<summary>Support HackTricks</summary>
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Junte-se ao [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para se comunicar com hackers experientes e caçadores de bugs!
 
@@ -26,7 +26,7 @@ Engaje-se com conteúdo que mergulha na emoção e nos desafios do hacking
 Mantenha-se atualizado com o mundo acelerado do hacking através de notícias e insights em tempo real
 
 **Últimos Anúncios**\
-Fique informado sobre os novos programas de recompensas por bugs lançados e atualizações cruciais da plataforma
+Fique informado sobre os novos programas de recompensas por bugs lançando e atualizações cruciais da plataforma
 
 **Junte-se a nós no** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e comece a colaborar com os melhores hackers hoje!
 
@@ -35,13 +35,13 @@ Fique informado sobre os novos programas de recompensas por bugs lançados e atu
 ### [Informações do Sistema](privilege-escalation/#system-information)
 
 * [ ] Obter **informações do SO**
-* [ ] Verificar o [**PATH**](privilege-escalation/#path), alguma **pasta gravável**?
-* [ ] Verificar [**variáveis de ambiente**](privilege-escalation/#env-info), algum detalhe sensível?
-* [ ] Procurar por [**explorações de kernel**](privilege-escalation/#kernel-exploits) **usando scripts** (DirtyCow?)
-* [ ] **Verificar** se a [**versão do sudo** é vulnerável](privilege-escalation/#sudo-version)
+* [ ] Verifique o [**PATH**](privilege-escalation/#path), há alguma **pasta gravável**?
+* [ ] Verifique [**variáveis de ambiente**](privilege-escalation/#env-info), há algum detalhe sensível?
+* [ ] Procure por [**explorações de kernel**](privilege-escalation/#kernel-exploits) **usando scripts** (DirtyCow?)
+* [ ] **Verifique** se a [**versão do sudo** é vulnerável](privilege-escalation/#sudo-version)
 * [ ] [**Verificação de assinatura do Dmesg** falhou](privilege-escalation/#dmesg-signature-verification-failed)
 * [ ] Mais enumeração do sistema ([data, estatísticas do sistema, informações da CPU, impressoras](privilege-escalation/#more-system-enumeration))
-* [ ] [**Enumerar mais defesas**](privilege-escalation/#enumerate-possible-defenses)
+* [ ] [**Enumere mais defesas**](privilege-escalation/#enumerate-possible-defenses)
 
 ### [Unidades](privilege-escalation/#drives)
 
@@ -51,19 +51,19 @@ Fique informado sobre os novos programas de recompensas por bugs lançados e atu
 
 ### [**Software Instalado**](privilege-escalation/#installed-software)
 
-* [ ] **Verificar por** [**software útil**](privilege-escalation/#useful-software) **instalado**
-* [ ] **Verificar por** [**software vulnerável**](privilege-escalation/#vulnerable-software-installed) **instalado**
+* [ ] **Verifique se há** [**software útil**](privilege-escalation/#useful-software) **instalado**
+* [ ] **Verifique se há** [**software vulnerável**](privilege-escalation/#vulnerable-software-installed) **instalado**
 
 ### [Processos](privilege-escalation/#processes)
 
 * [ ] Algum **software desconhecido em execução**?
 * [ ] Algum software em execução com **mais privilégios do que deveria ter**?
-* [ ] Procurar por **explorações de processos em execução** (especialmente a versão em execução).
+* [ ] Procure por **explorações de processos em execução** (especialmente a versão em execução).
 * [ ] Você pode **modificar o binário** de algum processo em execução?
-* [ ] **Monitorar processos** e verificar se algum processo interessante está sendo executado com frequência.
+* [ ] **Monitore processos** e verifique se algum processo interessante está sendo executado com frequência.
 * [ ] Você pode **ler** alguma **memória de processo** interessante (onde senhas poderiam estar salvas)?
 
-### [Tarefas/Cron agendadas?](privilege-escalation/#scheduled-jobs)
+### [Tarefas Agendadas/Cron?](privilege-escalation/#scheduled-jobs)
 
 * [ ] O [**PATH**](privilege-escalation/#cron-path) está sendo modificado por algum cron e você pode **escrever** nele?
 * [ ] Algum [**caractere curinga**](privilege-escalation/#cron-using-a-script-with-a-wildcard-wildcard-injection) em uma tarefa cron?
@@ -121,7 +121,7 @@ Fique informado sobre os novos programas de recompensas por bugs lançados e atu
 * [ ] [**Tokens SUDO disponíveis**](privilege-escalation/#reusing-sudo-tokens)? [**Você pode criar um token SUDO**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
 * [ ] Você pode [**ler ou modificar arquivos sudoers**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
 * [ ] Você pode [**modificar /etc/ld.so.conf.d/**](privilege-escalation/#etc-ld-so-conf-d)?
-* [ ] Comando [**OpenBSD DOAS**](privilege-escalation/#doas)
+* [ ] [**Comando OpenBSD DOAS**](privilege-escalation/#doas)
 
 ### [Capacidades](privilege-escalation/#capabilities)
 
@@ -139,19 +139,19 @@ Fique informado sobre os novos programas de recompensas por bugs lançados e atu
 ### [SSH](privilege-escalation/#ssh)
 
 * [ ] **Debian** [**OpenSSL PRNG Previsível - CVE-2008-0166**](privilege-escalation/#debian-openssl-predictable-prng-cve-2008-0166)
-* [ ] [**Valores de configuração interessantes do SSH**](privilege-escalation/#ssh-interesting-configuration-values)
+* [ ] [**Valores de configuração SSH interessantes**](privilege-escalation/#ssh-interesting-configuration-values)
 
 ### [Arquivos Interessantes](privilege-escalation/#interesting-files)
 
 * [ ] **Arquivos de perfil** - Ler dados sensíveis? Escrever para privesc?
 * [ ] **Arquivos passwd/shadow** - Ler dados sensíveis? Escrever para privesc?
-* [ ] **Verificar pastas comumente interessantes** por dados sensíveis
-* [ ] **Localização Estranha/Arquivos de Propriedade,** você pode ter acesso ou alterar arquivos executáveis
+* [ ] **Verifique pastas comumente interessantes** por dados sensíveis
+* [ ] **Localização/Arquivos de propriedade estranhos,** você pode ter acesso ou alterar arquivos executáveis
 * [ ] **Modificado** nos últimos minutos
 * [ ] **Arquivos de DB Sqlite**
-* [ ] **Arquivos Ocultos**
+* [ ] **Arquivos ocultos**
 * [ ] **Script/Binários no PATH**
-* [ ] **Arquivos Web** (senhas?)
+* [ ] **Arquivos da Web** (senhas?)
 * [ ] **Backups**?
 * [ ] **Arquivos conhecidos que contêm senhas**: Use **Linpeas** e **LaZagne**
 * [ ] **Busca genérica**
@@ -168,7 +168,7 @@ Fique informado sobre os novos programas de recompensas por bugs lançados e atu
 * [ ] Você pode [**abusar do NFS para escalar privilégios**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] Você precisa [**escapar de um shell restritivo**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Junte-se ao [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para se comunicar com hackers experientes e caçadores de bugs!
 
@@ -179,7 +179,7 @@ Engaje-se com conteúdo que mergulha na emoção e nos desafios do hacking
 Mantenha-se atualizado com o mundo acelerado do hacking através de notícias e insights em tempo real
 
 **Últimos Anúncios**\
-Fique informado sobre os novos programas de recompensas por bugs lançados e atualizações cruciais da plataforma
+Fique informado sobre os novos programas de recompensas por bugs lançando e atualizações cruciais da plataforma
 
 **Junte-se a nós no** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e comece a colaborar com os melhores hackers hoje!
 
@@ -189,11 +189,11 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <details>
 
-<summary>Suporte ao HackTricks</summary>
+<summary>Support HackTricks</summary>
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}
