@@ -15,9 +15,15 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 ## **Password Spraying**
 
-Μόλις βρείτε αρκετά **έγκυρα ονόματα χρηστών**, μπορείτε να δοκιμάσετε τους πιο **συνηθισμένους κωδικούς πρόσβασης** (κρατήστε υπόψη την πολιτική κωδικών πρόσβασης του περιβάλλοντος) με καθέναν από τους ανακαλυφθέντες χρήστες.\
+Μόλις βρείτε αρκετά **έγκυρα ονόματα χρηστών**, μπορείτε να δοκιμάσετε τους πιο **συνηθισμένους κωδικούς πρόσβασης** (έχετε υπόψη την πολιτική κωδικών πρόσβασης του περιβάλλοντος) με καθέναν από τους ανακαλυφθέντες χρήστες.\
 Κατά **προεπιλογή**, το **ελάχιστο** **μήκος** **κωδικού πρόσβασης** είναι **7**.
 
 Λίστες με κοινά ονόματα χρηστών θα μπορούσαν επίσης να είναι χρήσιμες: [https://github.com/insidetrust/statistically-likely-usernames](https://github.com/insidetrust/statistically-likely-usernames)
@@ -81,7 +87,7 @@ done
 ```
 #### Από τα Windows
 
-* Με την έκδοση [Rubeus](https://github.com/Zer1t0/Rubeus) που περιέχει το brute module:
+* Με την έκδοση του [Rubeus](https://github.com/Zer1t0/Rubeus) που περιέχει το brute module:
 ```bash
 # with a list of users
 .\Rubeus.exe brute /users:<users_file> /passwords:<passwords_file> /domain:<domain_name> /outfile:<output_file>
@@ -115,7 +121,7 @@ legba kerberos --target 127.0.0.1 --username admin --password wordlists/password
 * Με [DomainPasswordSpray](https://github.com/dafthack/DomainPasswordSpray) (Powershell)
 * Με [MailSniper](https://github.com/dafthack/MailSniper) (Powershell)
 
-Για να χρησιμοποιήσετε οποιοδήποτε από αυτά τα εργαλεία, χρειάζεστε μια λίστα χρηστών και έναν κωδικό / μια μικρή λίστα κωδικών για να ψεκάσετε.
+Για να χρησιμοποιήσετε οποιοδήποτε από αυτά τα εργαλεία, χρειάζεστε μια λίστα χρηστών και έναν κωδικό πρόσβασης / μια μικρή λίστα κωδικών πρόσβασης για να ψεκάσετε.
 ```bash
 ./ruler-linux64 --domain reel2.htb -k brute --users users.txt --passwords passwords.txt --delay 0 --verbose
 [x] Failed: larsson:Summer2020
@@ -141,9 +147,16 @@ legba kerberos --target 127.0.0.1 --username admin --password wordlists/password
 * [www.blackhillsinfosec.com/?p=5296](https://www.blackhillsinfosec.com/?p=5296)
 * [https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying](https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying)
 
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Εμβαθύνετε την εμπειρία σας στην **Ασφάλεια Κινητών** με την 8kSec Academy. Εξασκηθείτε στην ασφάλεια iOS και Android μέσω των αυτορυθμιζόμενων μαθημάτων μας και αποκτήστε πιστοποίηση:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε & εξασκηθείτε στο Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε & εξασκηθείτε στο Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 

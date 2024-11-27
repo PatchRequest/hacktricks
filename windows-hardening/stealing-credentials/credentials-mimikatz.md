@@ -15,13 +15,20 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-**Αυτή η σελίδα βασίζεται σε μία από το [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Ελέγξτε την πρωτότυπη για περισσότερες πληροφορίες!
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
+**Αυτή η σελίδα βασίζεται σε μία από το [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Δείτε την πρωτότυπη για περισσότερες πληροφορίες!
 
 ## LM και Καθαρό Κείμενο στη μνήμη
 
 Από τα Windows 8.1 και Windows Server 2012 R2 και μετά, έχουν εφαρμοστεί σημαντικά μέτρα για την προστασία από την κλοπή διαπιστευτηρίων:
 
-- **LM hashes και κωδικοί πρόσβασης σε καθαρό κείμενο** δεν αποθηκεύονται πλέον στη μνήμη για την ενίσχυση της ασφάλειας. Μια συγκεκριμένη ρύθμιση μητρώου, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ πρέπει να ρυθμιστεί με τιμή DWORD `0` για να απενεργοποιηθεί η Αυθεντικοποίηση Digest, διασφαλίζοντας ότι οι κωδικοί πρόσβασης σε "καθαρό κείμενο" δεν αποθηκεύονται στη μνήμη LSASS.
+- **LM hashes και κωδικοί πρόσβασης σε καθαρό κείμενο** δεν αποθηκεύονται πλέον στη μνήμη για την ενίσχυση της ασφάλειας. Μια συγκεκριμένη ρύθμιση μητρώου, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ πρέπει να ρυθμιστεί με μια τιμή DWORD `0` για να απενεργοποιηθεί η Αυθεντικοποίηση Digest, διασφαλίζοντας ότι οι κωδικοί πρόσβασης σε "καθαρό κείμενο" δεν αποθηκεύονται στη μνήμη LSASS.
 
 - **Η Προστασία LSA** εισάγεται για να προστατεύσει τη διαδικασία της Τοπικής Αρχής Ασφαλείας (LSA) από μη εξουσιοδοτημένη ανάγνωση μνήμης και έγχυση κώδικα. Αυτό επιτυγχάνεται με την επισήμανση της LSASS ως προστατευμένη διαδικασία. Η ενεργοποίηση της Προστασίας LSA περιλαμβάνει:
 1. Τροποποίηση του μητρώου στο _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_ ρυθμίζοντας το `RunAsPPL` σε `dword:00000001`.
@@ -31,7 +38,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ### Αντεπίθεση Αφαίρεσης SeDebugPrivilege
 
-Οι διαχειριστές συνήθως έχουν SeDebugPrivilege, επιτρέποντάς τους να αποσφαλματώνουν προγράμματα. Αυτό το προνόμιο μπορεί να περιοριστεί για να αποτραπούν μη εξουσιοδοτημένες εκφορτώσεις μνήμης, μια κοινή τεχνική που χρησιμοποιούν οι επιτιθέμενοι για να εξάγουν διαπιστευτήρια από τη μνήμη. Ωστόσο, ακόμη και με αυτό το προνόμιο αφαιρεμένο, ο λογαριασμός TrustedInstaller μπορεί να εκτελεί εκφορτώσεις μνήμης χρησιμοποιώντας μια προσαρμοσμένη ρύθμιση υπηρεσίας:
+Οι διαχειριστές συνήθως έχουν SeDebugPrivilege, επιτρέποντάς τους να αποσφαλματώνουν προγράμματα. Αυτό το προνόμιο μπορεί να περιοριστεί για να αποτραπούν οι μη εξουσιοδοτημένες εκφορτώσεις μνήμης, μια κοινή τεχνική που χρησιμοποιούν οι επιτιθέμενοι για να εξάγουν διαπιστευτήρια από τη μνήμη. Ωστόσο, ακόμη και με αυτή την αφαίρεση προνομίου, ο λογαριασμός TrustedInstaller μπορεί να εκτελεί εκφορτώσεις μνήμης χρησιμοποιώντας μια προσαρμοσμένη ρύθμιση υπηρεσίας:
 ```bash
 sc config TrustedInstaller binPath= "C:\\Users\\Public\\procdump64.exe -accepteula -ma lsass.exe C:\\Users\\Public\\lsass.dmp"
 sc start TrustedInstaller
@@ -49,7 +56,7 @@ sc start TrustedInstaller
 #### Clearing Event Logs
 
 - **Command**: Αυτή η ενέργεια στοχεύει στη διαγραφή των καταγραφών συμβάντων, καθιστώντας πιο δύσκολη την παρακολούθηση κακόβουλων δραστηριοτήτων.
-- Το Mimikatz δεν παρέχει άμεση εντολή στην τυπική του τεκμηρίωση για την εκκαθάριση των καταγραφών συμβάντων απευθείας μέσω της γραμμής εντολών του. Ωστόσο, η παραχάραξη των καταγραφών συμβάντων συνήθως περιλαμβάνει τη χρήση εργαλείων συστήματος ή σεναρίων εκτός του Mimikatz για την εκκαθάριση συγκεκριμένων καταγραφών (π.χ., χρησιμοποιώντας PowerShell ή Windows Event Viewer).
+- Το Mimikatz δεν παρέχει μια άμεση εντολή στην τυπική του τεκμηρίωση για την εκκαθάριση των καταγραφών συμβάντων απευθείας μέσω της γραμμής εντολών του. Ωστόσο, η παραχάραξη των καταγραφών συμβάντων συνήθως περιλαμβάνει τη χρήση εργαλείων συστήματος ή σεναρίων εκτός του Mimikatz για την εκκαθάριση συγκεκριμένων καταγραφών (π.χ., χρησιμοποιώντας PowerShell ή Windows Event Viewer).
 
 #### Experimental Feature: Patching the Event Service
 
@@ -68,7 +75,7 @@ sc start TrustedInstaller
 
 - Command: `kerberos::golden`
 - Parameters:
-- `/domain`: Το όνομα τομέα.
+- `/domain`: Το όνομα του τομέα.
 - `/sid`: Ο Αναγνωριστικός Αριθμός Ασφαλείας (SID) του τομέα.
 - `/user`: Το όνομα χρήστη που θα μιμηθεί.
 - `/krbtgt`: Ο NTLM hash του λογαριασμού υπηρεσίας KDC του τομέα.
@@ -132,7 +139,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **DCShadow**: Προσωρινά να κάνει μια μηχανή να λειτουργεί ως DC για χειρισμό αντικειμένων AD.
 - `mimikatz "lsadump::dcshadow /object:targetObject /attribute:attributeName /value:newValue" exit`
 
-- **DCSync**: Μιμείται ένα DC για να ζητήσει δεδομένα κωδικού πρόσβασης.
+- **DCSync**: Μιμείται έναν DC για να ζητήσει δεδομένα κωδικών πρόσβασης.
 - `mimikatz "lsadump::dcsync /user:targetUser /domain:targetDomain" exit`
 
 ### Credential Access
@@ -140,7 +147,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **LSADUMP::LSA**: Εξάγει διαπιστευτήρια από LSA.
 - `mimikatz "lsadump::lsa /inject" exit`
 
-- **LSADUMP::NetSync**: Υποδύεται ένα DC χρησιμοποιώντας τα δεδομένα κωδικού πρόσβασης ενός υπολογιστή.
+- **LSADUMP::NetSync**: Υποδύεται έναν DC χρησιμοποιώντας τα δεδομένα κωδικού πρόσβασης ενός υπολογιστή.
 - *Δεν παρέχεται συγκεκριμένη εντολή για NetSync στο αρχικό κείμενο.*
 
 - **LSADUMP::SAM**: Πρόσβαση στη τοπική βάση δεδομένων SAM.
@@ -157,7 +164,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Miscellaneous
 
-- **MISC::Skeleton**: Εισάγει ένα backdoor στο LSASS σε ένα DC.
+- **MISC::Skeleton**: Εισάγει ένα backdoor στο LSASS σε έναν DC.
 - `mimikatz "privilege::debug" "misc::skeleton" exit`
 
 ### Privilege Escalation
@@ -198,6 +205,12 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - Εξάγει κωδικούς πρόσβασης από το Windows Vault.
 - `mimikatz "vault::cred /patch" exit`
 
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
