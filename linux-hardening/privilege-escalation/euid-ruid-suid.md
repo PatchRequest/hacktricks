@@ -1,25 +1,32 @@
 # euid, ruid, suid
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprenda e pratique Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
+* **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Aprofunde sua experiência em **Segurança Móvel** com a 8kSec Academy. Domine a segurança de iOS e Android através de nossos cursos autônomos e obtenha certificação:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 ### Variáveis de Identificação do Usuário
 
 - **`ruid`**: O **ID do usuário real** denota o usuário que iniciou o processo.
-- **`euid`**: Conhecido como o **ID do usuário efetivo**, representa a identidade do usuário utilizada pelo sistema para determinar os privilégios do processo. Geralmente, `euid` reflete `ruid`, exceto em casos como a execução de um binário SetUID, onde `euid` assume a identidade do proprietário do arquivo, concedendo assim permissões operacionais específicas.
-- **`suid`**: Este **ID do usuário salvo** é fundamental quando um processo de alto privilégio (normalmente executado como root) precisa temporariamente renunciar a seus privilégios para realizar certas tarefas, apenas para depois recuperar seu status elevado inicial.
+- **`euid`**: Conhecido como o **ID do usuário efetivo**, representa a identidade do usuário utilizada pelo sistema para determinar privilégios de processo. Geralmente, `euid` reflete `ruid`, exceto em casos como a execução de um binário SetUID, onde `euid` assume a identidade do proprietário do arquivo, concedendo assim permissões operacionais específicas.
+- **`suid`**: Este **ID do usuário salvo** é fundamental quando um processo de alto privilégio (normalmente executando como root) precisa temporariamente renunciar a seus privilégios para realizar certas tarefas, apenas para depois recuperar seu status elevado inicial.
 
 #### Nota Importante
 Um processo que não opera sob root pode apenas modificar seu `euid` para corresponder ao `ruid`, `euid` ou `suid` atuais.
@@ -52,7 +59,7 @@ Notavelmente, enquanto `setuid` pode ser uma escolha comum para elevação de pr
 
 #### **Comportamento de `bash` e `sh` com SUID**
 - **`bash`**:
-- Tem uma opção `-p` que influencia como `euid` e `ruid` são tratados.
+- Possui uma opção `-p` que influencia como `euid` e `ruid` são tratados.
 - Sem `-p`, `bash` define `euid` para `ruid` se eles inicialmente diferirem.
 - Com `-p`, o `euid` inicial é preservado.
 - Mais detalhes podem ser encontrados na [página do manual `bash`](https://linux.die.net/man/1/bash).
@@ -65,7 +72,7 @@ Esses mecanismos, distintos em sua operação, oferecem uma gama versátil de op
 
 ### Testando Comportamentos de ID de Usuário em Execuções
 
-Exemplos retirados de https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail, consulte para mais informações
+Exemplos retirados de https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail, confira para mais informações
 
 #### Caso 1: Usando `setuid` com `system`
 
@@ -195,17 +202,24 @@ uid=99(nobody) gid=99(nobody) euid=100
 * [https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail](https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail)
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Aprofunde sua experiência em **Segurança Móvel** com a 8kSec Academy. Domine a segurança de iOS e Android através de nossos cursos autoguiados e obtenha certificação:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 {% hint style="success" %}
 Aprenda e pratique Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
 Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Suporte ao HackTricks</summary>
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}
