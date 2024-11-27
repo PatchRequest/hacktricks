@@ -9,15 +9,15 @@ Apprenez et pratiquez le hacking GCP : <img src="../../../.gitbook/assets/grte.p
 <summary>Soutenir HackTricks</summary>
 
 * Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Partagez des astuces de hacking en soumettant des PR au** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-Si vous êtes intéressé par une **carrière en hacking** et par le fait de hacker l'inhackable - **nous recrutons !** (_polonais courant écrit et parlé requis_).
+Si vous êtes intéressé par une **carrière de hacking** et par le fait de hacker l'inhackable - **nous recrutons !** (_polonais courant écrit et parlé requis_).
 
 {% embed url="https://www.stmcyber.com/careers" %}
 
@@ -26,7 +26,7 @@ Si vous êtes intéressé par une **carrière en hacking** et par le fait de hac
 Dans les vidéos suivantes, vous pouvez trouver les techniques mentionnées sur cette page expliquées plus en profondeur :
 
 * [**DEF CON 31 - Explorer la manipulation de la mémoire Linux pour la furtivité et l'évasion**](https://www.youtube.com/watch?v=poHirez8jk4)
-* [**Intrusions furtives avec DDexec-ng & dlopen() en mémoire - HackTricks Track 2023**](https://www.youtube.com/watch?v=VM\_gjjiARaU)
+* [**Intrusions furtives avec DDexec-ng & dlopen() en mémoire - HackTricks Track 2023**](https://www.youtube.com/watch?v=VM_gjjiARaU)
 
 ## Scénario read-only / no-exec
 
@@ -55,7 +55,7 @@ D'un point de vue red team, cela rend **compliqué de télécharger et d'exécut
 
 Notez que j'ai mentionné des binaires, vous pouvez **exécuter n'importe quel script** tant que l'interpréteur est présent dans la machine, comme un **script shell** si `sh` est présent ou un **script python** si `python` est installé.
 
-Cependant, cela ne suffit pas pour exécuter votre porte dérobée binaire ou d'autres outils binaires dont vous pourriez avoir besoin.
+Cependant, cela ne suffit pas pour exécuter votre porte dérobée binaire ou d'autres outils binaires que vous pourriez avoir besoin d'exécuter.
 
 ## Contournements en mémoire
 
@@ -70,7 +70,7 @@ Pour cela, vous pouvez facilement utiliser le projet [**fileless-elf-exec**](htt
 {% hint style="warning" %}
 Cela ne fonctionne pas dans d'autres langages de script comme PHP ou Node car ils n'ont pas de **méthode par défaut pour appeler des syscalls bruts** depuis un script, donc il n'est pas possible d'appeler `create_memfd` pour créer le **fd mémoire** pour stocker le binaire.
 
-De plus, créer un **fd régulier** avec un fichier dans `/dev/shm` ne fonctionnera pas, car vous ne serez pas autorisé à l'exécuter en raison de l'application de la **protection no-exec**.
+De plus, créer un **fd régulier** avec un fichier dans `/dev/shm` ne fonctionnera pas, car vous ne serez pas autorisé à l'exécuter en raison de la **protection no-exec** qui s'appliquera.
 {% endhint %}
 
 ### DDexec / EverythingExec
@@ -132,7 +132,7 @@ Cependant, dans ce type de conteneurs, ces protections existeront généralement
 
 Vous pouvez trouver des **exemples** sur comment **exploiter certaines vulnérabilités RCE** pour obtenir des **reverse shells** de langages de script et exécuter des binaires depuis la mémoire dans [**https://github.com/carlospolop/DistrolessRCE**](https://github.com/carlospolop/DistrolessRCE).
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Si vous êtes intéressé par une **carrière en hacking** et par le fait de hacker l'inhackable - **nous recrutons !** (_polonais courant écrit et parlé requis_).
 
@@ -147,7 +147,7 @@ Apprenez et pratiquez le hacking GCP : <img src="../../../.gitbook/assets/grte.p
 <summary>Support HackTricks</summary>
 
 * Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous** sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous** sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Partagez des astuces de hacking en soumettant des PR au** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>

@@ -1,15 +1,15 @@
 # Tunneling et Port Forwarding
 
 {% hint style="success" %}
-Apprenez et pratiquez le hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le hacking AWS :<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le hacking GCP : <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Soutenir HackTricks</summary>
 
 * Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
@@ -109,7 +109,7 @@ Par exemple, transférer tout le trafic allant à 10.10.10.0/24
 pip install sshuttle
 sshuttle -r user@host 10.10.10.10/24
 ```
-Connectez-vous avec une clé privée
+Se connecter avec une clé privée
 ```bash
 sshuttle -D -r user@host 10.10.10.10 0/0 --ssh-cmd 'ssh -i ./id_rsa'
 # -D : Daemon mode
@@ -167,9 +167,9 @@ rportfwd stop [bind port]
 ```
 À noter :
 
-- Le reverse port forward de Beacon est conçu pour **tunneler le trafic vers le Team Server, pas pour relayer entre des machines individuelles**.
-- Le trafic est **tunnelé dans le trafic C2 de Beacon**, y compris les liens P2P.
-- **Les privilèges d'administrateur ne sont pas requis** pour créer des reverse port forwards sur des ports élevés.
+* Le reverse port forward de Beacon est conçu pour **tunneler le trafic vers le Team Server, pas pour relayer entre des machines individuelles**.
+* Le trafic est **tunnelé dans le trafic C2 de Beacon**, y compris les liens P2P.
+* **Les privilèges d'administrateur ne sont pas requis** pour créer des reverse port forwards sur des ports élevés.
 
 ### rPort2Port local
 
@@ -332,7 +332,7 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 
 C'est comme une version console de PuTTY (les options sont très similaires à celles d'un client ssh).
 
-Comme ce binaire sera exécuté sur la victime et qu'il s'agit d'un client ssh, nous devons ouvrir notre service ssh et notre port afin d'avoir une connexion inversée. Ensuite, pour rediriger uniquement un port accessible localement vers un port de notre machine :
+Comme ce binaire sera exécuté sur la victime et qu'il s'agit d'un client ssh, nous devons ouvrir notre service ssh et notre port afin de pouvoir établir une connexion inversée. Ensuite, pour rediriger uniquement un port accessible localement vers un port de notre machine :
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -452,7 +452,7 @@ listen [lhost:]lport rhost:rport #Ex: listen 127.0.0.1:8080 10.0.0.20:80, this b
 ```
 #### Changer le DNS de proxychains
 
-Proxychains intercepte l'appel `gethostbyname` de libc et tunnelise la requête DNS tcp à travers le proxy socks. Par **défaut**, le serveur **DNS** que proxychains utilise est **4.2.2.2** (codé en dur). Pour le changer, éditez le fichier : _/usr/lib/proxychains3/proxyresolv_ et changez l'IP. Si vous êtes dans un **environnement Windows**, vous pouvez définir l'IP du **contrôleur de domaine**.
+Proxychains intercepte l'appel `gethostbyname` de la libc et tunnelise la requête DNS tcp à travers le proxy socks. Par **défaut**, le serveur **DNS** utilisé par proxychains est **4.2.2.2** (codé en dur). Pour le changer, éditez le fichier : _/usr/lib/proxychains3/proxyresolv_ et changez l'IP. Si vous êtes dans un **environnement Windows**, vous pouvez définir l'IP du **contrôleur de domaine**.
 
 ## Tunnels en Go
 
@@ -489,13 +489,13 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ```
 ## ngrok
 
-**[ngrok](https://ngrok.com/) est un outil pour exposer des solutions à Internet en une ligne de commande.**
-*Les URI d'exposition sont comme :* **UID.ngrok.io**
+[**ngrok**](https://ngrok.com/) **est un outil pour exposer des solutions à Internet en une ligne de commande.**\
+&#xNAN;_&#x45;xposition URI sont comme:_ **UID.ngrok.io**
 
 ### Installation
 
-- Créez un compte : https://ngrok.com/signup
-- Téléchargement du client :
+* Créez un compte : https://ngrok.com/signup
+* Téléchargement du client :
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 chmod a+x ./ngrok
@@ -506,7 +506,7 @@ chmod a+x ./ngrok
 
 **Documentation :** [https://ngrok.com/docs/getting-started/](https://ngrok.com/docs/getting-started/).
 
-*Il est également possible d'ajouter une authentification et TLS, si nécessaire.*
+_Il est également possible d'ajouter une authentification et TLS, si nécessaire._
 
 #### Tunneling TCP
 ```bash
@@ -523,7 +523,7 @@ chmod a+x ./ngrok
 ```
 #### Sniffing HTTP calls
 
-*Utile pour XSS, SSRF, SSTI ...*
+_Utile pour XSS, SSRF, SSTI ..._\
 Directement depuis stdout ou dans l'interface HTTP [http://127.0.0.1:4040](http://127.0.0.1:4000).
 
 #### Tunneling internal HTTP service
@@ -536,8 +536,9 @@ Directement depuis stdout ou dans l'interface HTTP [http://127.0.0.1:4040](http:
 #### ngrok.yaml exemple de configuration simple
 
 Il ouvre 3 tunnels :
-- 2 TCP
-- 1 HTTP avec exposition de fichiers statiques depuis /tmp/httpbin/
+
+* 2 TCP
+* 1 HTTP avec exposition de fichiers statiques depuis /tmp/httpbin/
 ```yaml
 tunnels:
 mytcp:
@@ -556,15 +557,15 @@ addr: file:///tmp/httpbin/
 * [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
 
 {% hint style="success" %}
-Apprenez et pratiquez le hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le hacking AWS :<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le hacking GCP : <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Soutenir HackTricks</summary>
 
 * Vérifiez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>

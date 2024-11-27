@@ -9,7 +9,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -19,10 +19,10 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 Les binaires Mach-o contiennent une commande de chargement appelée **`LC_CODE_SIGNATURE`** qui indique le **décalage** et la **taille** des signatures à l'intérieur du binaire. En fait, en utilisant l'outil GUI MachOView, il est possible de trouver à la fin du binaire une section appelée **Code Signature** avec ces informations :
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 L'en-tête magique de la Code Signature est **`0xFADE0CC0`**. Ensuite, vous avez des informations telles que la longueur et le nombre de blobs du superBlob qui les contient.\
-Il est possible de trouver ces informations dans le [code source ici](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
+Il est possible de trouver ces informations dans le [code source ici](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L276):
 ```c
 /*
 * Structure of an embedded-signature SuperBlob
@@ -58,7 +58,7 @@ De plus, les signatures peuvent être détachées des binaires et stockées dans
 
 ## Code Directory Blob
 
-Il est possible de trouver la déclaration du [Code Directory Blob dans le code](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104):
+Il est possible de trouver la déclaration du [Code Directory Blob dans le code](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L104):
 ```c
 typedef struct __CodeDirectory {
 uint32_t magic;                                 /* magic number (CSMAGIC_CODEDIRECTORY) */
@@ -220,7 +220,7 @@ CS_RESTRICT | CS_ENFORCEMENT | CS_REQUIRE_LV | CS_RUNTIME | CS_LINKER_SIGNED)
 
 #define CS_ENTITLEMENT_FLAGS        (CS_GET_TASK_ALLOW | CS_INSTALLER | CS_DATAVAULT_CONTROLLER | CS_NVRAM_UNRESTRICTED)
 ```
-Notez que la fonction [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern\_exec.c#L1420) peut également ajouter dynamiquement les drapeaux `CS_EXEC_*` lors du démarrage de l'exécution.
+Notez que la fonction [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern_exec.c#L1420) peut également ajouter dynamiquement les drapeaux `CS_EXEC_*` lors du démarrage de l'exécution.
 
 ## Exigences de signature de code
 
@@ -246,7 +246,7 @@ designated => identifier "org.whispersystems.signal-desktop" and anchor apple ge
 Notez comment ces signatures peuvent vérifier des éléments tels que les informations de certification, TeamID, IDs, droits et de nombreuses autres données.
 {% endhint %}
 
-De plus, il est possible de générer des exigences compilées à l'aide de l'outil `csreq` :
+De plus, il est possible de générer certaines exigences compilées en utilisant l'outil `csreq` :
 
 {% code overflow="wrap" %}
 ```bash
@@ -264,35 +264,35 @@ od -A x -t x1 /tmp/output.csreq
 
 Il est possible d'accéder à ces informations et de créer ou modifier des exigences avec certaines API du `Security.framework` comme :
 
-#### **Vérification de la validité**
+#### **Vérification de Validité**
 
-* **`Sec[Static]CodeCheckValidity`** : Vérifie la validité de SecCodeRef par exigence.
+* **`Sec[Static]CodeCheckValidity`** : Vérifie la validité de SecCodeRef par rapport à l'exigence.
 * **`SecRequirementEvaluate`** : Valide l'exigence dans le contexte du certificat.
 * **`SecTaskValidateForRequirement`** : Valide un SecTask en cours par rapport à l'exigence `CFString`.
 
-#### **Création et gestion des exigences de code**
+#### **Création et Gestion des Exigences de Code**
 
-* **`SecRequirementCreateWithData` :** Crée un `SecRequirementRef` à partir de données binaires représentant l'exigence.
-* **`SecRequirementCreateWithString` :** Crée un `SecRequirementRef` à partir d'une expression de chaîne de l'exigence.
+* **`SecRequirementCreateWithData`** : Crée un `SecRequirementRef` à partir de données binaires représentant l'exigence.
+* **`SecRequirementCreateWithString`** : Crée un `SecRequirementRef` à partir d'une expression de chaîne de l'exigence.
 * **`SecRequirementCopy[Data/String]`** : Récupère la représentation des données binaires d'un `SecRequirementRef`.
 * **`SecRequirementCreateGroup`** : Crée une exigence pour l'appartenance à un groupe d'applications.
 
-#### **Accès aux informations de signature de code**
+#### **Accès aux Informations de Signature de Code**
 
 * **`SecStaticCodeCreateWithPath`** : Initialise un objet `SecStaticCodeRef` à partir d'un chemin de système de fichiers pour inspecter les signatures de code.
 * **`SecCodeCopySigningInformation`** : Obtient des informations de signature à partir d'un `SecCodeRef` ou `SecStaticCodeRef`.
 
-#### **Modification des exigences de code**
+#### **Modification des Exigences de Code**
 
 * **`SecCodeSignerCreate`** : Crée un objet `SecCodeSignerRef` pour effectuer des opérations de signature de code.
 * **`SecCodeSignerSetRequirement`** : Définit une nouvelle exigence que le signataire de code doit appliquer lors de la signature.
 * **`SecCodeSignerAddSignature`** : Ajoute une signature au code en cours de signature avec le signataire spécifié.
 
-#### **Validation du code avec des exigences**
+#### **Validation du Code avec des Exigences**
 
 * **`SecStaticCodeCheckValidity`** : Valide un objet de code statique par rapport aux exigences spécifiées.
 
-#### **API supplémentaires utiles**
+#### **API Utiles Supplémentaires**
 
 * **`SecCodeCopy[Internal/Designated]Requirement` : Obtenir SecRequirementRef à partir de SecCodeRef**
 * **`SecCodeCopyGuestWithAttributes`** : Crée un `SecCodeRef` représentant un objet de code basé sur des attributs spécifiques, utile pour le sandboxing.
@@ -301,18 +301,18 @@ Il est possible d'accéder à ces informations et de créer ou modifier des exig
 * **`SecCodeGetTypeID`** : Renvoie l'identifiant de type pour les objets `SecCodeRef`.
 * **`SecRequirementGetTypeID`** : Obtient un CFTypeID d'un `SecRequirementRef`.
 
-#### **Drapeaux et constantes de signature de code**
+#### **Drapeaux et Constantes de Signature de Code**
 
 * **`kSecCSDefaultFlags`** : Drapeaux par défaut utilisés dans de nombreuses fonctions de Security.framework pour les opérations de signature de code.
 * **`kSecCSSigningInformation`** : Drapeau utilisé pour spécifier que les informations de signature doivent être récupérées.
 
-## Application de la signature de code
+## Application de la Signature de Code
 
 Le **noyau** est celui qui **vérifie la signature de code** avant de permettre l'exécution du code de l'application. De plus, une façon de pouvoir écrire et exécuter un nouveau code en mémoire est d'abuser de JIT si `mprotect` est appelé avec le drapeau `MAP_JIT`. Notez que l'application a besoin d'un droit spécial pour pouvoir faire cela.
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) la structure contient des informations sur le droit du processus en cours. `csb_platform_binary` informe également si l'application est un binaire de plateforme (ce qui est vérifié à différents moments par le système d'exploitation pour appliquer des mécanismes de sécurité comme protéger les droits SEND aux ports de tâche de ces processus).
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106) struct contient les informations sur le droit du processus en cours. `csb_platform_binary` informe également si l'application est un binaire de plateforme (ce qui est vérifié à différents moments par le système d'exploitation pour appliquer des mécanismes de sécurité comme protéger les droits SEND aux ports de tâche de ces processus).
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
@@ -384,7 +384,7 @@ Apprenez et pratiquez le hacking GCP : <img src="../../../.gitbook/assets/grte.p
 <summary>Soutenir HackTricks</summary>
 
 * Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>

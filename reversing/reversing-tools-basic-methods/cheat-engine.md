@@ -1,16 +1,16 @@
 # Cheat Engine
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le hacking AWS :<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le hacking GCP : <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}
@@ -68,7 +68,7 @@ Ensuite, vous faites quelque chose pour que **la valeur change**, et vous **arr�
 ![](<../../.gitbook/assets/image (684).png>)
 
 Cheat Engine recherchera les **valeurs** qui **sont passées de 100 à la nouvelle valeur**. Félicitations, vous **avez trouvé** l'**adresse** de la valeur que vous cherchiez, vous pouvez maintenant la modifier.\
-_Si vous avez encore plusieurs valeurs, faites quelque chose pour modifier à nouveau cette valeur, et effectuez un autre "scan suivant" pour filtrer les adresses._
+_**Si vous avez encore plusieurs valeurs, faites quelque chose pour modifier à nouveau cette valeur, et effectuez un autre "scan suivant" pour filtrer les adresses.**_
 
 ### Valeur inconnue, changement connu
 
@@ -82,7 +82,7 @@ Ensuite, faites changer la valeur, indiquez **comment** la **valeur** **a chang�
 
 ![](<../../.gitbook/assets/image (371).png>)
 
-Vous serez présenté **toutes les valeurs qui ont été modifiées de la manière sélectionnée** :
+Vous serez présenté avec **toutes les valeurs qui ont été modifiées de la manière sélectionnée** :
 
 ![](<../../.gitbook/assets/image (569).png>)
 
@@ -130,7 +130,7 @@ Cliquez sur "**Ajouter l'adresse manuellement**" :
 
 ![](<../../.gitbook/assets/image (990).png>)
 
-Maintenant, cliquez sur la case à cocher "Pointeur" et ajoutez l'adresse trouvée dans la zone de texte (dans ce scénario, l'adresse trouvée dans l'image précédente était "Tutorial-i386.exe"+2426B0) :
+Maintenant, cochez la case "Pointeur" et ajoutez l'adresse trouvée dans la zone de texte (dans ce scénario, l'adresse trouvée dans l'image précédente était "Tutorial-i386.exe"+2426B0) :
 
 ![](<../../.gitbook/assets/image (392).png>)
 
@@ -144,7 +144,7 @@ Maintenant, chaque fois que vous modifiez cette valeur, vous **modifiez la valeu
 
 ### Injection de code
 
-L'injection de code est une technique où vous injectez un morceau de code dans le processus cible, puis redirigez l'exécution du code pour passer par votre propre code écrit (comme vous donner des points au lieu de les soustraire).
+L'injection de code est une technique où vous injectez un morceau de code dans le processus cible, puis redirigez l'exécution du code pour passer par votre propre code écrit (comme vous donner des points au lieu de les retirer).
 
 Donc, imaginez que vous avez trouvé l'adresse qui soustrait 1 à la vie de votre joueur :
 
@@ -163,27 +163,27 @@ Un modèle sera généré :
 
 ![](<../../.gitbook/assets/image (944).png>)
 
-Donc, insérez votre nouveau code d'assemblage dans la section "**newmem**" et retirez le code original de la section "**originalcode**" si vous ne souhaitez pas qu'il soit exécuté\*\*.\*\* Dans cet exemple, le code injecté ajoutera 2 points au lieu de soustraire 1 :
+Alors, insérez votre nouveau code d'assemblage dans la section "**newmem**" et retirez le code original de la section "**originalcode**" si vous ne souhaitez pas qu'il soit exécuté\*\*.\*\* Dans cet exemple, le code injecté ajoutera 2 points au lieu de soustraire 1 :
 
 ![](<../../.gitbook/assets/image (521).png>)
 
-**Cliquez sur exécuter et ainsi de suite et votre code devrait être injecté dans le programme, changeant le comportement de la fonctionnalité !**
+**Cliquez sur exécuter et ainsi de suite et votre code devrait être injecté dans le programme changeant le comportement de la fonctionnalité !**
 
 ## **Références**
 
 * **Tutoriel Cheat Engine, complétez-le pour apprendre à commencer avec Cheat Engine**
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le hacking AWS :<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le hacking GCP : <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}
