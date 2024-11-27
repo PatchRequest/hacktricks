@@ -1,15 +1,15 @@
 # Cheat Engine
 
 {% hint style="success" %}
-Lerne & übe AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lerne & übe AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Lerne & übe GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Überprüfe die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
-* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Teile Hacking-Tricks, indem du PRs zu den** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichst.
 
 </details>
@@ -23,7 +23,7 @@ Wenn du es herunterlädst und ausführst, wirst du mit einem **Tutorial** konfro
 ![](<../../.gitbook/assets/image (762).png>)
 
 Dieses Tool ist sehr nützlich, um **herauszufinden, wo ein Wert** (normalerweise eine Zahl) **im Speicher** eines Programms **gespeichert ist**.\
-**Normalerweise werden Zahlen** in **4 Bytes** gespeichert, aber du könntest sie auch in **double** oder **float** Formaten finden, oder du möchtest nach etwas **anderem als einer Zahl** suchen. Aus diesem Grund musst du sicherstellen, dass du **auswählst**, wonach du **suchen** möchtest:
+**Normalerweise werden Zahlen** in **4 Bytes** Form gespeichert, aber du könntest sie auch in **double** oder **float** Formaten finden, oder du möchtest nach etwas **anderem als einer Zahl** suchen. Aus diesem Grund musst du sicherstellen, dass du **auswählst**, wonach du **suchen möchtest**:
 
 ![](<../../.gitbook/assets/image (324).png>)
 
@@ -59,7 +59,7 @@ Angenommen, es gibt einen wichtigen Wert (wie das Leben deines Benutzers), den d
 
 ### Durch eine bekannte Änderung
 
-Angenommen, du suchst nach dem Wert 100, du **führst einen Scan** durch, um nach diesem Wert zu suchen, und du findest viele Übereinstimmungen:
+Angenommen, du suchst nach dem Wert 100, du **führst einen Scan** durch, um nach diesem Wert zu suchen, und findest viele Übereinstimmungen:
 
 ![](<../../.gitbook/assets/image (108).png>)
 
@@ -68,11 +68,11 @@ Dann machst du etwas, damit sich der **Wert ändert**, und du **stopst** das Spi
 ![](<../../.gitbook/assets/image (684).png>)
 
 Cheat Engine wird nach den **Werten** suchen, die **von 100 auf den neuen Wert** gewechselt sind. Glückwunsch, du **hast** die **Adresse** des Wertes gefunden, den du gesucht hast, und kannst ihn jetzt ändern.\
-_Wenn du immer noch mehrere Werte hast, mache etwas, um diesen Wert erneut zu ändern, und führe einen weiteren "nächsten Scan" durch, um die Adressen zu filtern._
+Wenn du immer noch mehrere Werte hast, mache etwas, um diesen Wert erneut zu ändern, und führe einen weiteren "nächsten Scan" durch, um die Adressen zu filtern.
 
 ### Unbekannter Wert, bekannte Änderung
 
-In dem Szenario, dass du **den Wert nicht kennst**, aber weißt, **wie du ihn ändern kannst** (und sogar den Wert der Änderung), kannst du nach deiner Zahl suchen.
+In dem Szenario, dass du **den Wert nicht kennst**, aber weißt, **wie man ihn ändert** (und sogar den Wert der Änderung), kannst du nach deiner Zahl suchen.
 
 Beginne also mit einem Scan vom Typ "**Unbekannter Anfangswert**":
 
@@ -88,7 +88,7 @@ Dir werden **alle Werte angezeigt, die auf die ausgewählte Weise geändert wurd
 
 Sobald du deinen Wert gefunden hast, kannst du ihn ändern.
 
-Beachte, dass es eine **Menge möglicher Änderungen** gibt und du diese **Schritte so oft du willst** wiederholen kannst, um die Ergebnisse zu filtern:
+Beachte, dass es **viele mögliche Änderungen** gibt und du diese **Schritte so oft du willst** wiederholen kannst, um die Ergebnisse zu filtern:
 
 ![](<../../.gitbook/assets/image (574).png>)
 
@@ -119,12 +119,12 @@ Folge den vorherigen Schritten, um herauszufinden, wo sich der Wert befindet, de
 
 ![](<../../.gitbook/assets/image (1039).png>)
 
-Führe dann einen neuen Scan durch, **indem du nach dem hexadezimalen Wert zwischen "\[]" suchst** (der Wert von $edx in diesem Fall):
+Führe dann einen neuen Scan durch, **indem du nach dem hexadezimalen Wert zwischen "\[]" suchst** (den Wert von $edx in diesem Fall):
 
 ![](<../../.gitbook/assets/image (994).png>)
 
 (_Wenn mehrere erscheinen, benötigst du normalerweise die kleinste Adresse_)\
-Jetzt haben wir den **Zeiger gefunden, der den Wert ändert, an dem wir interessiert sind**.
+Jetzt haben wir den **Zeiger gefunden, der den Wert ändert, der uns interessiert**.
 
 Klicke auf "**Adresse manuell hinzufügen**":
 
@@ -134,13 +134,13 @@ Klicke jetzt auf das Kontrollkästchen "Zeiger" und füge die gefundene Adresse 
 
 ![](<../../.gitbook/assets/image (392).png>)
 
-(Beachte, dass die erste "Adresse" automatisch mit der Zeigeradresse ausgefüllt wird, die du eingibst)
+(Beachte, wie die erste "Adresse" automatisch mit der Zeigeradresse ausgefüllt wird, die du eingibst)
 
 Klicke auf OK und ein neuer Zeiger wird erstellt:
 
 ![](<../../.gitbook/assets/image (308).png>)
 
-Jetzt, jedes Mal, wenn du diesen Wert änderst, änderst du **den wichtigen Wert, auch wenn die Speicheradresse, an der der Wert ist, unterschiedlich ist.**
+Jetzt, jedes Mal, wenn du diesen Wert änderst, änderst du **den wichtigen Wert, auch wenn die Speicheradresse, an der der Wert gespeichert ist, unterschiedlich ist.**
 
 ### Code-Injektion
 
@@ -151,11 +151,11 @@ Stell dir vor, du hast die Adresse gefunden, die 1 vom Leben deines Spielers abz
 ![](<../../.gitbook/assets/image (203).png>)
 
 Klicke auf "Disassembler anzeigen", um den **disassemblierten Code** zu erhalten.\
-Dann klicke **CTRL+a**, um das Auto-Assembly-Fenster aufzurufen, und wähle _**Vorlage --> Code-Injektion**_
+Klicke dann auf **CTRL+a**, um das Auto-Assembly-Fenster aufzurufen, und wähle _**Vorlage --> Code-Injektion**_
 
 ![](<../../.gitbook/assets/image (902).png>)
 
-Fülle die **Adresse der Anweisung, die du ändern möchtest** (dies wird normalerweise automatisch ausgefüllt):
+Fülle die **Adresse der Anweisung aus, die du ändern möchtest** (dies wird normalerweise automatisch ausgefüllt):
 
 ![](<../../.gitbook/assets/image (744).png>)
 
@@ -163,7 +163,7 @@ Eine Vorlage wird generiert:
 
 ![](<../../.gitbook/assets/image (944).png>)
 
-Füge deinen neuen Assembly-Code in den Abschnitt "**newmem**" ein und entferne den ursprünglichen Code aus dem Abschnitt "**originalcode**", wenn du nicht möchtest, dass er ausgeführt wird. In diesem Beispiel wird der injizierte Code 2 Punkte hinzufügen, anstatt 1 abzuziehen:
+Füge deinen neuen Assembly-Code in den Abschnitt "**newmem**" ein und entferne den ursprünglichen Code aus dem "**originalcode**", wenn du nicht möchtest, dass er ausgeführt wird. In diesem Beispiel wird der injizierte Code 2 Punkte hinzufügen, anstatt 1 abzuziehen:
 
 ![](<../../.gitbook/assets/image (521).png>)
 
@@ -171,19 +171,4 @@ Füge deinen neuen Assembly-Code in den Abschnitt "**newmem**" ein und entferne 
 
 ## **Referenzen**
 
-* **Cheat Engine Tutorial, schließe es ab, um zu lernen, wie man mit Cheat Engine anfängt** 
-
-{% hint style="success" %}
-Lerne & übe AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
-
-<details>
-
-<summary>Support HackTricks</summary>
-
-* Überprüfe die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
-* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Teile Hacking-Tricks, indem du PRs zu den** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichst.
-
-</details>
-{% endhint %}
+* **Cheat Engine Tutorial, schließe es ab, um zu lernen, wie man mit Cheat Engine anfängt**

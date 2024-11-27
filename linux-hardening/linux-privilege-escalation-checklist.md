@@ -1,21 +1,21 @@
 # Checklist - Linux Privilegieneskalation
 
 {% hint style="success" %}
-Lerne & übe AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lerne & übe AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Lerne & übe GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Unterstütze HackTricks</summary>
 
 * Überprüfe die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
-* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Teile Hacking-Tricks, indem du PRs zu den** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichst.
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Tritt dem [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) Server bei, um mit erfahrenen Hackern und Bug-Bounty-Jägern zu kommunizieren!
 
@@ -56,7 +56,7 @@ Bleibe informiert über die neuesten Bug-Bounties und wichtige Plattform-Updates
 
 ### [Prozesse](privilege-escalation/#processes)
 
-* [ ] Läuft irgendeine **unbekannte Software**?
+* [ ] Läuft **irgendwelche unbekannte Software**?
 * [ ] Läuft irgendeine Software mit **mehr Rechten als sie haben sollte**?
 * [ ] Suche nach **Exploits von laufenden Prozessen** (insbesondere der laufenden Version).
 * [ ] Kannst du die **Binärdatei** eines laufenden Prozesses **modifizieren**?
@@ -83,44 +83,44 @@ Bleibe informiert über die neuesten Bug-Bounties und wichtige Plattform-Updates
 ### [Sockets](privilege-escalation/#sockets)
 
 * [ ] Gibt es eine **beschreibbare .socket**-Datei?
-* [ ] Kannst du mit einem **Socket kommunizieren**?
+* [ ] Kannst du mit **irgendeinem Socket kommunizieren**?
 * [ ] **HTTP-Sockets** mit interessanten Informationen?
 
 ### [D-Bus](privilege-escalation/#d-bus)
 
-* [ ] Kannst du mit einem **D-Bus kommunizieren**?
+* [ ] Kannst du mit **irgendeinem D-Bus kommunizieren**?
 
 ### [Netzwerk](privilege-escalation/#network)
 
 * [ ] Enumere das Netzwerk, um zu wissen, wo du bist
 * [ ] **Offene Ports, auf die du vorher keinen Zugriff hattest**, um eine Shell im Inneren der Maschine zu erhalten?
-* [ ] Kannst du **Verkehr** mit `tcpdump` **sniffen**?
+* [ ] Kannst du **Traffic sniffen** mit `tcpdump`?
 
 ### [Benutzer](privilege-escalation/#users)
 
 * [ ] Generische Benutzer-/Gruppenumeration
 * [ ] Hast du eine **sehr große UID**? Ist die **Maschine** **anfällig**?
-* [ ] Kannst du [**Privilegien dank einer Gruppe**](privilege-escalation/interesting-groups-linux-pe/) **eskalieren**, zu der du gehörst?
+* [ ] Kannst du [**Privilegien dank einer Gruppe**](privilege-escalation/interesting-groups-linux-pe/) erhöhen, zu der du gehörst?
 * [ ] **Zwischenablage**-Daten?
 * [ ] Passwort-Richtlinie?
 * [ ] Versuche, **jedes bekannte Passwort**, das du zuvor entdeckt hast, zu verwenden, um dich **mit jedem** möglichen **Benutzer** anzumelden. Versuche auch, dich ohne Passwort anzumelden.
 
 ### [Beschreibbarer PATH](privilege-escalation/#writable-path-abuses)
 
-* [ ] Wenn du **Schreibrechte über einen Ordner im PATH** hast, könntest du in der Lage sein, Privilegien zu eskalieren
+* [ ] Wenn du **Schreibrechte über einen Ordner im PATH** hast, könntest du in der Lage sein, Privilegien zu erhöhen
 
 ### [SUDO und SUID-Befehle](privilege-escalation/#sudo-and-suid)
 
-* [ ] Kannst du **irgendeinen Befehl mit sudo ausführen**? Kannst du es verwenden, um als root **zu LESEN, ZU SCHREIBEN oder AUSZUFÜHREN**? ([**GTFOBins**](https://gtfobins.github.io))
+* [ ] Kannst du **irgendeinen Befehl mit sudo ausführen**? Kannst du es verwenden, um als root zu LESEN, ZU SCHREIBEN oder ETWAS AUSZUFÜHREN? ([**GTFOBins**](https://gtfobins.github.io))
 * [ ] Gibt es eine **ausnutzbare SUID-Binärdatei**? ([**GTFOBins**](https://gtfobins.github.io))
 * [ ] Sind [**sudo**-Befehle **durch den** **Pfad** **eingeschränkt**? Kannst du die Einschränkungen **umgehen**](privilege-escalation/#sudo-execution-bypassing-paths)?
 * [ ] [**Sudo/SUID-Binärdatei ohne angegebenen Pfad**](privilege-escalation/#sudo-command-suid-binary-without-command-path)?
 * [ ] [**SUID-Binärdatei mit angegebenem Pfad**](privilege-escalation/#suid-binary-with-command-path)? Umgehen
-* [ ] [**LD\_PRELOAD vuln**](privilege-escalation/#ld\_preload)
+* [ ] [**LD\_PRELOAD vuln**](privilege-escalation/#ld_preload)
 * [ ] [**Fehlende .so-Bibliothek in SUID-Binärdatei**](privilege-escalation/#suid-binary-so-injection) aus einem beschreibbaren Ordner?
 * [ ] [**SUDO-Tokens verfügbar**](privilege-escalation/#reusing-sudo-tokens)? [**Kannst du ein SUDO-Token erstellen**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
 * [ ] Kannst du [**sudoers-Dateien lesen oder modifizieren**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
-* [ ] Kannst du [**/etc/ld.so.conf.d/**](privilege-escalation/#etc-ld-so-conf-d) **modifizieren**?
+* [ ] Kannst du [**/etc/ld.so.conf.d/**](privilege-escalation/#etc-ld-so-conf-d) modifizieren?
 * [ ] [**OpenBSD DOAS**](privilege-escalation/#doas) Befehl
 
 ### [Fähigkeiten](privilege-escalation/#capabilities)
@@ -158,17 +158,17 @@ Bleibe informiert über die neuesten Bug-Bounties und wichtige Plattform-Updates
 
 ### [**Beschreibbare Dateien**](privilege-escalation/#writable-files)
 
-* [ ] **Python-Bibliothek modifizieren**, um beliebige Befehle auszuführen?
+* [ ] **Modifiziere die Python-Bibliothek**, um beliebige Befehle auszuführen?
 * [ ] Kannst du **Protokolldateien modifizieren**? **Logtotten**-Exploits
-* [ ] Kannst du **/etc/sysconfig/network-scripts/** **modifizieren**? Centos/Redhat-Exploits
+* [ ] Kannst du **/etc/sysconfig/network-scripts/** modifizieren? Centos/Redhat-Exploits
 * [ ] Kannst du [**in ini, int.d, systemd oder rc.d-Dateien schreiben**](privilege-escalation/#init-init-d-systemd-and-rc-d)?
 
 ### [**Andere Tricks**](privilege-escalation/#other-tricks)
 
-* [ ] Kannst du [**NFS missbrauchen, um Privilegien zu eskalieren**](privilege-escalation/#nfs-privilege-escalation)?
+* [ ] Kannst du [**NFS ausnutzen, um Privilegien zu erhöhen**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] Musst du [**aus einer restriktiven Shell entkommen**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Tritt dem [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) Server bei, um mit erfahrenen Hackern und Bug-Bounty-Jägern zu kommunizieren!
 
@@ -184,15 +184,15 @@ Bleibe informiert über die neuesten Bug-Bounties und wichtige Plattform-Updates
 **Tritt uns auf** [**Discord**](https://discord.com/invite/N3FrSbmwdy) bei und beginne noch heute mit den besten Hackern zusammenzuarbeiten!
 
 {% hint style="success" %}
-Lerne & übe AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lerne & übe AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Lerne & übe GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Unterstütze HackTricks</summary>
 
 * Überprüfe die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
-* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Teile Hacking-Tricks, indem du PRs zu den** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichst.
 
 </details>
