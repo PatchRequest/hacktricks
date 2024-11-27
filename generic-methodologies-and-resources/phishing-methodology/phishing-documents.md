@@ -1,15 +1,15 @@
-# Phishing Dosyaları ve Belgeleri
+# Phishing Dosyaları & Belgeleri
 
 {% hint style="success" %}
-AWS Hacking'i öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Eğitim AWS Kırmızı Takım Uzmanı (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Eğitim GCP Kırmızı Takım Uzmanı (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS Hacking'i öğrenin ve pratik yapın:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Eğitim AWS Kırmızı Takım Uzmanı (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP Hacking'i öğrenin ve pratik yapın: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Eğitim GCP Kırmızı Takım Uzmanı (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** bizi takip edin.**
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**'i takip edin.**
 * **Hacking ipuçlarını paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
@@ -27,12 +27,12 @@ Aşağıdaki komutu kullanarak bazı Ofis programları tarafından hangi uzantı
 ```bash
 assoc | findstr /i "word excel powerp"
 ```
-DOCX dosyaları, makroları içeren uzaktan bir şablona atıfta bulunuyorsa (Dosya – Seçenekler – Eklentiler – Yönet: Şablonlar – Git) makroları “çalıştırabilir”.
+DOCX dosyaları, makroları içeren uzaktan bir şablona atıfta bulunuyorsa (Dosya – Seçenekler – Eklentiler – Yönet: Şablonlar – Git) makroları "çalıştırabilir".
 
 ### Harici Resim Yükleme
 
 Git: _Ekle --> Hızlı Parçalar --> Alan_\
-_**Kategoriler**: Bağlantılar ve Referanslar, **Alan adları**: includePicture, ve **Dosya adı veya URL**:_ http://\<ip>/whatever
+&#xNAN;_**Kategoriler**: Bağlantılar ve Referanslar, **Alan adları**: includePicture, ve **Dosya adı veya URL**:_ http://\<ip>/whatever
 
 ![](<../../.gitbook/assets/image (155).png>)
 
@@ -83,7 +83,7 @@ proc.Create "powershell <beacon line generated>
 
 #### Doc Uzantısı
 
-İşlem tamamlandığında, **Farklı Kaydet** türü açılır menüsünden formatı **`.docx`**'den **Word 97-2003 `.doc`**'a değiştirin.\
+İşlem tamamlandığında, **Farklı Kaydet** türü açılır menüsünden, formatı **`.docx`**'den **Word 97-2003 `.doc`**'ye değiştirin.\
 Bunu yapın çünkü **`.docx`** içinde makro kaydedemezsiniz ve makro etkin **`.docm`** uzantısı etrafında bir **stigma** vardır (örneğin, küçük resim simgesi büyük bir `!` içerir ve bazı web/e-posta geçitleri bunları tamamen engeller). Bu nedenle, bu **eski `.doc` uzantısı en iyi uzlaşmadır**.
 
 #### Kötü Amaçlı Makro Üreticileri
@@ -94,7 +94,7 @@ Bunu yapın çünkü **`.docx`** içinde makro kaydedemezsiniz ve makro etkin **
 
 ## HTA Dosyaları
 
-HTA, **HTML ve betik dilleri (VBScript ve JScript gibi)** birleştiren bir Windows programıdır. Kullanıcı arayüzünü oluşturur ve bir "tamamen güvenilir" uygulama olarak çalıştırılır, bir tarayıcının güvenlik modelinin kısıtlamaları olmadan.
+HTA, **HTML ve betik dilleri (VBScript ve JScript gibi)** birleştiren bir Windows programıdır. Kullanıcı arayüzünü oluşturur ve bir "tamamen güvenilir" uygulama olarak çalışır, bir tarayıcının güvenlik modelinin kısıtlamaları olmadan.
 
 HTA, genellikle **Internet Explorer** ile birlikte **kurulan** **`mshta.exe`** kullanılarak çalıştırılır, bu da **`mshta`'nın IE'ye bağımlı** olduğu anlamına gelir. Eğer kaldırılmışsa, HTA'lar çalıştırılamayacaktır.
 ```html
@@ -153,7 +153,7 @@ self.close
 ```
 ## NTLM Kimlik Doğrulamasını Zorlamak
 
-Kullanıcının erişeceği e-postalara veya HTML'ye **görünmez resimler** ekleyerek, örneğin, **NTLM kimlik doğrulamasını "uzaktan" zorlamanın** birkaç yolu vardır (hatta HTTP MitM?). Ya da kurbanı, sadece **klasörü açmak için** bir **kimlik doğrulaması tetikleyecek** **dosyaların adresiyle** gönderebilirsiniz.
+Kullanıcıların erişeceği e-postalara veya HTML'ye **görünmez resimler** ekleyerek, örneğin, **NTLM kimlik doğrulamasını "uzaktan" zorlamanın** birkaç yolu vardır (HTTP MitM bile?). Ya da kurbanı, sadece **klasörü açmak için** bir **kimlik doğrulaması tetikleyecek** **dosyaların adresiyle** gönderebilirsiniz.
 
 **Bu fikirleri ve daha fazlasını aşağıdaki sayfalarda kontrol edin:**
 
@@ -173,16 +173,16 @@ Sadece hash veya kimlik doğrulamasını çalamayacağınızı, aynı zamanda **
 * [**AD CS ESC8 (NTLM iletimi ile sertifikalar)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
 
 {% hint style="success" %}
-AWS Hacking'i öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS Hacking'i öğrenin ve pratik yapın:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP Hacking'i öğrenin ve pratik yapın: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'i takip edin.**
-* **Hacking ipuçlarını paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**'i takip edin.**
+* **Hacking ipuçlarını paylaşmak için [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.**
 
 </details>
 {% endhint %}

