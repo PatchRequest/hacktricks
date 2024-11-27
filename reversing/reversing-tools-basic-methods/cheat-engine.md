@@ -1,16 +1,16 @@
 # Cheat Engine
 
 {% hint style="success" %}
-学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习和实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}
@@ -23,7 +23,7 @@
 ![](<../../.gitbook/assets/image (762).png>)
 
 这个工具非常有用，可以找到**某个值**（通常是一个数字）**在程序内存中的存储位置**。\
-**通常数字**以**4字节**形式存储，但你也可以找到**双精度**或**浮点**格式，或者你可能想寻找**不同于数字**的东西。因此，你需要确保你**选择**你想要**搜索的内容**：
+**通常数字**以**4字节**的形式存储，但你也可以找到**双精度**或**浮点**格式，或者你可能想寻找**不同于数字**的东西。因此，你需要确保你**选择**你想要**搜索的内容**：
 
 ![](<../../.gitbook/assets/image (324).png>)
 
@@ -43,7 +43,7 @@
 
 ## 修改值
 
-一旦你**找到**你正在**寻找的值**的位置（更多内容在后面的步骤中），你可以通过双击它来**修改**它，然后双击它的值：
+一旦你**找到**你正在**寻找的值**的位置（更多内容在接下来的步骤中），你可以通过双击它来**修改它**，然后双击它的值：
 
 ![](<../../.gitbook/assets/image (563).png>)
 
@@ -55,20 +55,20 @@
 
 ## 搜索值
 
-所以，我们假设有一个重要的值（比如你用户的生命值）你想要提高，你正在内存中寻找这个值。
+所以，我们假设有一个重要的值（比如你用户的生命值）你想要提高，你正在内存中寻找这个值）
 
 ### 通过已知的变化
 
-假设你在寻找值100，你**执行扫描**以搜索该值，并且你发现了很多匹配项：
+假设你在寻找值100，你**执行扫描**搜索该值，并找到很多匹配项：
 
 ![](<../../.gitbook/assets/image (108).png>)
 
-然后，你做了一些事情使得**值发生变化**，你**停止**游戏并**执行**下一次扫描：
+然后，你做一些事情使得**值发生变化**，你**停止**游戏并**执行**下一次扫描：
 
 ![](<../../.gitbook/assets/image (684).png>)
 
-Cheat Engine 将搜索**从100变为新值**的**值**。恭喜你，你**找到了**你正在寻找的值的**地址**，现在你可以修改它。\
-_如果你仍然有多个值，请做一些事情再次修改该值，并执行另一次“下一次扫描”以过滤地址。_
+Cheat Engine 将搜索**从100变为新值的值**。恭喜你，你**找到了**你正在寻找的值的**地址**，现在你可以修改它。\
+如果你仍然有多个值，做一些事情再次修改该值，并执行另一次“下一次扫描”以过滤地址。
 
 ### 未知值，已知变化
 
@@ -78,29 +78,29 @@ _如果你仍然有多个值，请做一些事情再次修改该值，并执行�
 
 ![](<../../.gitbook/assets/image (890).png>)
 
-然后，使值发生变化，指示**值**是**如何变化的**（在我的情况下，它减少了1），并执行**下一次扫描**：
+然后，使值发生变化，指示**值**是**如何变化的**（在我的例子中，它减少了1），并执行**下一次扫描**：
 
 ![](<../../.gitbook/assets/image (371).png>)
 
-你将看到**所有以所选方式修改的值**：
+你将看到**所有以所选方式被修改的值**：
 
 ![](<../../.gitbook/assets/image (569).png>)
 
 一旦你找到了你的值，你可以修改它。
 
-请注意，有很多可能的变化，你可以根据需要多次执行这些**步骤**以过滤结果：
+请注意，有很多可能的变化，你可以根据需要多次执行这些步骤以过滤结果：
 
 ![](<../../.gitbook/assets/image (574).png>)
 
 ### 随机内存地址 - 查找代码
 
-到目前为止，我们学习了如何找到存储值的地址，但在**游戏的不同执行中，该地址很可能位于内存的不同位置**。所以让我们找出如何始终找到该地址。
+到目前为止，我们学习了如何找到存储值的地址，但在**游戏的不同执行中，该地址很可能在内存中的不同位置**。所以让我们找出如何始终找到该地址。
 
 使用一些提到的技巧，找到当前游戏存储重要值的地址。然后（如果你愿意，可以停止游戏）右键单击找到的**地址**，选择“**查找访问此地址的内容**”或“**查找写入此地址的内容**”：
 
 ![](<../../.gitbook/assets/image (1067).png>)
 
-**第一个选项**对于了解**代码**的**哪些部分**在**使用**此**地址**非常有用（这对于更多事情也很有用，比如**知道你可以在哪里修改游戏的代码**）。\
+**第一个选项**有助于了解**代码**的**哪些部分**在**使用**此**地址**（这对于更多事情很有用，比如**知道你可以在哪里修改游戏的代码**）。\
 **第二个选项**更**具体**，在这种情况下更有帮助，因为我们想知道**这个值是从哪里写入的**。
 
 一旦你选择了其中一个选项，**调试器**将**附加**到程序，并且会出现一个新的**空窗口**。现在，**玩**游戏并**修改**该**值**（无需重新启动游戏）。**窗口**应该会**填充**正在**修改**该**值**的**地址**：
@@ -111,7 +111,7 @@ _如果你仍然有多个值，请做一些事情再次修改该值，并执行�
 
 ![](<../../.gitbook/assets/image (1057).png>)
 
-所以，你现在可以修改它，使得代码不会影响你的数字，或者总是以积极的方式影响它。
+因此，你现在可以修改它，以便代码不会影响你的数字，或者总是以积极的方式影响它。
 
 ### 随机内存地址 - 查找指针
 
@@ -123,7 +123,7 @@ _如果你仍然有多个值，请做一些事情再次修改该值，并执行�
 
 ![](<../../.gitbook/assets/image (994).png>)
 
-（_如果出现多个，通常需要最小的地址_）\
+（如果出现多个，通常需要最小的地址）\
 现在，我们已经**找到了将修改我们感兴趣的值的指针**。
 
 点击“**手动添加地址**”：
@@ -144,14 +144,14 @@ _如果你仍然有多个值，请做一些事情再次修改该值，并执行�
 
 ### 代码注入
 
-代码注入是一种技术，你将一段代码注入到目标进程中，然后重新路由代码的执行以通过你自己编写的代码（例如给你积分而不是减少它们）。
+代码注入是一种技术，你将一段代码注入到目标进程中，然后重新路由代码的执行以通过你自己编写的代码（例如给你积分而不是扣除它们）。
 
-所以，想象一下你找到了一个将1减去你玩家生命值的地址：
+所以，想象一下你找到了一个正在减少你玩家生命值的地址：
 
 ![](<../../.gitbook/assets/image (203).png>)
 
 点击显示反汇编以获取**反汇编代码**。\
-然后，点击**CTRL+a**以调用自动汇编窗口并选择_**模板 --> 代码注入**_
+然后，点击**CTRL+a**以调用自动汇编窗口并选择 _**模板 --> 代码注入**_
 
 ![](<../../.gitbook/assets/image (902).png>)
 
@@ -163,12 +163,27 @@ _如果你仍然有多个值，请做一些事情再次修改该值，并执行�
 
 ![](<../../.gitbook/assets/image (944).png>)
 
-因此，将你的新汇编代码插入到“**newmem**”部分，并从“**originalcode**”中删除原始代码，如果你不想执行它\*\*.\*\* 在这个例子中，注入的代码将增加2分而不是减少1：
+因此，将你的新汇编代码插入到“**newmem**”部分，并从“**originalcode**”中删除原始代码，如果你不想执行它\*\*.\*\* 在这个例子中，注入的代码将增加2点而不是减少1：
 
 ![](<../../.gitbook/assets/image (521).png>)
 
-**点击执行，这样你的代码应该被注入到程序中，改变功能的行为！**
+**点击执行等等，你的代码应该被注入到程序中，改变功能的行为！**
 
 ## **参考**
 
 * **Cheat Engine 教程，完成它以学习如何开始使用 Cheat Engine**
+
+{% hint style="success" %}
+学习和实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+
+<details>
+
+<summary>支持 HackTricks</summary>
+
+* 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
+
+</details>
+{% endhint %}

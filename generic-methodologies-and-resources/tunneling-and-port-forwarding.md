@@ -1,16 +1,16 @@
 # Tunneling and Port Forwarding
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习与实践 AWS 黑客技术：<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习与实践 GCP 黑客技术：<img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}
@@ -82,7 +82,7 @@ ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
 ```
 ### VPN-Tunnel
 
-您需要**在两个设备上具有root权限**（因为您将创建新的接口），并且sshd配置必须允许root登录：\
+您需要**在两个设备上具有root权限**（因为您将要创建新的接口），并且sshd配置必须允许root登录：\
 `PermitRootLogin yes`\
 `PermitTunnel yes`
 ```bash
@@ -159,7 +159,7 @@ proxychains nmap -n -Pn -sT -p445,3389,5985 10.10.17.25
 ### rPort2Port
 
 {% hint style="warning" %}
-在这种情况下，**端口在信标主机上打开**，而不是在团队服务器上，流量被发送到团队服务器，然后从那里发送到指定的主机:端口
+在这种情况下，**端口是在信标主机上打开的**，而不是在团队服务器上，流量被发送到团队服务器，然后从那里发送到指定的主机:端口
 {% endhint %}
 ```bash
 rportfwd [bind port] [forward host] [forward port]
@@ -167,9 +167,9 @@ rportfwd stop [bind port]
 ```
 To note:
 
-- Beacon的反向端口转发旨在**将流量隧道到团队服务器，而不是在单个机器之间中继**。
-- 流量在**Beacon的C2流量中隧道**，包括P2P链接。
-- **不需要管理员权限**来在高端口上创建反向端口转发。
+* Beacon的反向端口转发旨在**将流量隧道到团队服务器，而不是在单个机器之间中继**。
+* 流量是**在Beacon的C2流量中隧道化**，包括P2P链接。
+* **不需要管理员权限**来在高端口上创建反向端口转发。
 
 ### rPort2Port local
 
@@ -213,7 +213,7 @@ python reGeorgSocksProxy.py -p 8080 -u http://upload.sensepost.net:8080/tunnel/t
 
 **代理和代理使用相同的版本**
 
-### 隧道
+### 隧道技术
 ```bash
 # Start proxy server and automatically generate self-signed TLS certificates -- Attacker
 sudo ./proxy -selfcert
@@ -353,18 +353,18 @@ netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=4444
 ```
 ## SocksOverRDP & Proxifier
 
-您需要拥有**系统的RDP访问权限**。\
+您需要对系统具有**RDP访问权限**。\
 下载：
 
 1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - 该工具使用Windows的远程桌面服务功能中的`Dynamic Virtual Channels`（`DVC`）。DVC负责**在RDP连接上隧道数据包**。
 2. [Proxifier Portable Binary](https://www.proxifier.com/download/#win-tab)
 
-在您的客户端计算机上加载**`SocksOverRDP-Plugin.dll`**，方法如下：
+在您的客户端计算机上加载**`SocksOverRDP-Plugin.dll`**，如下所示：
 ```bash
 # Load SocksOverRDP.dll using regsvr32.exe
 C:\SocksOverRDP-x64> regsvr32.exe SocksOverRDP-Plugin.dll
 ```
-现在我们可以通过 **RDP** 使用 **`mstsc.exe`** 连接到 **victim**，我们应该收到一个 **prompt**，提示 **SocksOverRDP 插件已启用**，并且它将 **listen** 在 **127.0.0.1:1080**。
+现在我们可以通过 **RDP** 使用 **`mstsc.exe`** 连接到 **受害者**，我们应该收到一个 **提示**，说明 **SocksOverRDP 插件已启用**，并且它将 **监听** 在 **127.0.0.1:1080**。
 
 通过 **RDP** 连接并在受害者机器上上传并执行 `SocksOverRDP-Server.exe` 二进制文件：
 ```
@@ -376,7 +376,7 @@ netstat -antb | findstr 1080
 ```
 现在您可以使用 [**Proxifier**](https://www.proxifier.com/) **通过该端口代理流量。**
 
-## 代理 Windows GUI 应用程序
+## 通过 Proxifier 代理 Windows GUI 应用程序
 
 您可以使用 [**Proxifier**](https://www.proxifier.com/) 使 Windows GUI 应用程序通过代理进行导航。\
 在 **Profile -> Proxy Servers** 中添加 SOCKS 服务器的 IP 和端口。\
@@ -402,8 +402,8 @@ Domain CONTOSO.COM
 Proxy 10.0.0.10:8080
 Tunnel 2222:<attackers_machine>:443
 ```
-现在，如果你在受害者的**SSH**服务上设置监听端口为443。你可以通过攻击者的端口2222连接到它。\
-你也可以使用一个连接到localhost:443的**meterpreter**，攻击者在端口2222监听。
+现在，如果你在受害者的**SSH**服务上设置监听端口为443。你可以通过攻击者的2222端口连接到它。\
+你也可以使用一个连接到localhost:443的**meterpreter**，而攻击者在2222端口监听。
 
 ## YARP
 
@@ -421,7 +421,7 @@ attacker> iodined -f -c -P P@ssw0rd 1.1.1.1 tunneldomain.com
 victim> iodine -f -P P@ssw0rd tunneldomain.com -r
 #You can see the victim at 1.1.1.2
 ```
-隧道将会非常慢。您可以通过使用以下命令在此隧道中创建一个压缩的SSH连接：
+隧道将会非常慢。您可以通过使用以下命令创建一个压缩的SSH连接：
 ```
 ssh <user>@1.1.1.2 -C -c blowfish-cbc,arcfour -o CompressionLevel=9 -D 1080
 ```
@@ -452,7 +452,7 @@ listen [lhost:]lport rhost:rport #Ex: listen 127.0.0.1:8080 10.0.0.20:80, this b
 ```
 #### 更改 proxychains DNS
 
-Proxychains 拦截 `gethostbyname` libc 调用，并通过 socks 代理隧道 tcp DNS 请求。默认情况下，proxychains 使用的 DNS 服务器是 **4.2.2.2**（硬编码）。要更改它，请编辑文件： _/usr/lib/proxychains3/proxyresolv_ 并更改 IP。如果您在 **Windows 环境** 中，可以设置 **域控制器** 的 IP。
+Proxychains 拦截 `gethostbyname` libc 调用，并通过 socks 代理隧道 tcp DNS 请求。默认情况下，proxychains 使用的 DNS 服务器是 **4.2.2.2**（硬编码）。要更改它，请编辑文件：_/usr/lib/proxychains3/proxyresolv_ 并更改 IP。如果您在 **Windows 环境** 中，可以设置 **域控制器** 的 IP。
 
 ## Go 中的隧道
 
@@ -489,13 +489,13 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ```
 ## ngrok
 
-**[ngrok](https://ngrok.com/) 是一个通过一条命令行将解决方案暴露到互联网的工具。**
-*暴露的 URI 类似于:* **UID.ngrok.io**
+[**ngrok**](https://ngrok.com/) **是一个通过一条命令行将解决方案暴露到互联网的工具。**\
+&#xNAN;_&#x45;xposition URI 类似于：_ **UID.ngrok.io**
 
 ### 安装
 
-- 创建一个账户: https://ngrok.com/signup
-- 客户端下载:
+* 创建一个账户： https://ngrok.com/signup
+* 客户端下载：
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 chmod a+x ./ngrok
@@ -506,7 +506,7 @@ chmod a+x ./ngrok
 
 **文档:** [https://ngrok.com/docs/getting-started/](https://ngrok.com/docs/getting-started/).
 
-*如果需要，也可以添加身份验证和TLS。*
+_如果需要，也可以添加身份验证和TLS。_
 
 #### 隧道 TCP
 ```bash
@@ -523,7 +523,7 @@ chmod a+x ./ngrok
 ```
 #### 嗅探 HTTP 调用
 
-*对 XSS, SSRF, SSTI 等有用*
+_对 XSS, SSRF, SSTI ... 有用_\
 直接从 stdout 或在 HTTP 接口 [http://127.0.0.1:4040](http://127.0.0.1:4000)。
 
 #### 隧道内部 HTTP 服务
@@ -536,8 +536,9 @@ chmod a+x ./ngrok
 #### ngrok.yaml 简单配置示例
 
 它打开 3 个隧道：
-- 2 个 TCP
-- 1 个 HTTP，静态文件从 /tmp/httpbin/ 暴露
+
+* 2 个 TCP
+* 1 个 HTTP，静态文件从 /tmp/httpbin/ 暴露
 ```yaml
 tunnels:
 mytcp:
@@ -556,15 +557,15 @@ addr: file:///tmp/httpbin/
 * [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习与实践 AWS 黑客技术：<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习与实践 GCP 黑客技术：<img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
 
 </details>

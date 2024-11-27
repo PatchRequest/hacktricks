@@ -9,13 +9,13 @@
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **通过提交 PR 到** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库分享黑客技巧。
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 加入 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 服务器，与经验丰富的黑客和漏洞赏金猎人交流！
 
@@ -28,7 +28,7 @@
 **最新公告**\
 了解最新的漏洞赏金计划和重要平台更新
 
-**今天就加入我们，和顶尖黑客一起合作！** [**Discord**](https://discord.com/invite/N3FrSbmwdy)
+**今天就加入我们的** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，与顶尖黑客开始合作吧！
 
 ## 基础 MacOS
 
@@ -58,7 +58,7 @@
 [mac-os-architecture](mac-os-architecture/)
 {% endcontent-ref %}
 
-* 常见的 macOS 网络服务与协议
+* 常见的 macOS n**etwork 服务与协议**
 
 {% content-ref url="macos-protocols.md" %}
 [macos-protocols.md](macos-protocols.md)
@@ -97,17 +97,17 @@
 * 使用的文件已经由用户创建（由用户拥有）
 * 使用的文件因组而可被用户写入
 * 使用的文件位于用户拥有的目录中（用户可以创建该文件）
-* 使用的文件位于 root 拥有的目录中，但用户因组而具有写入权限（用户可以创建该文件）
+* 使用的文件位于 root 拥有的目录中，但用户因组而对其具有写入权限（用户可以创建该文件）
 
 能够 **创建一个将被 root 使用的文件**，允许用户 **利用其内容**，甚至创建 **符号链接/硬链接** 指向另一个位置。
 
-对于这类漏洞，不要忘记 **检查易受攻击的 `.pkg` 安装程序**：
+对于这种类型的漏洞，不要忘记 **检查易受攻击的 `.pkg` 安装程序**：
 
 {% content-ref url="macos-files-folders-and-binaries/macos-installers-abuse.md" %}
 [macos-installers-abuse.md](macos-files-folders-and-binaries/macos-installers-abuse.md)
 {% endcontent-ref %}
 
-### 文件扩展名与 URL 方案应用程序处理程序
+### 文件扩展名与 URL 方案应用处理程序
 
 通过文件扩展名注册的奇怪应用程序可能会被滥用，不同的应用程序可以注册以打开特定协议
 
@@ -135,9 +135,9 @@
 
 ## macOS 合规性
 
-* [https://github.com/usnistgov/macos\_security](https://github.com/usnistgov/macos\_security)
+* [https://github.com/usnistgov/macos\_security](https://github.com/usnistgov/macos_security)
 
-## 参考文献
+## 参考资料
 
 * [**OS X 事件响应：脚本和分析**](https://www.amazon.com/OS-Incident-Response-Scripting-Analysis-ebook/dp/B01FHOHHVS)
 * [**https://taomm.org/vol1/analysis.html**](https://taomm.org/vol1/analysis.html)
@@ -145,7 +145,7 @@
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 加入 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 服务器，与经验丰富的黑客和漏洞赏金猎人交流！
 
@@ -158,7 +158,7 @@
 **最新公告**\
 了解最新的漏洞赏金计划和重要平台更新
 
-**今天就加入我们，和顶尖黑客一起合作！** [**Discord**](https://discord.com/invite/N3FrSbmwdy)
+**今天就加入我们的** [**Discord**](https://discord.com/invite/N3FrSbmwdy)，与顶尖黑客开始合作吧！
 
 {% hint style="success" %}
 学习与实践 AWS 黑客技术：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -169,7 +169,7 @@
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **通过提交 PR 到** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库分享黑客技巧。
 
 </details>
