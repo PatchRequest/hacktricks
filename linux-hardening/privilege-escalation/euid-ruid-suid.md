@@ -15,14 +15,21 @@ Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Vertiefen Sie Ihr Fachwissen in **Mobilsicherheit** mit der 8kSec Academy. Meistern Sie die Sicherheit von iOS und Android durch unsere selbstgesteuerten Kurse und erhalten Sie ein Zertifikat:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 ### Benutzeridentifikationsvariablen
 
 - **`ruid`**: Die **echte Benutzer-ID** bezeichnet den Benutzer, der den Prozess initiiert hat.
-- **`euid`**: Bekannt als die **effektive Benutzer-ID**, repräsentiert sie die Benutzeridentität, die vom System verwendet wird, um die Prozessprivilegien zu bestimmen. Im Allgemeinen spiegelt `euid` `ruid` wider, mit Ausnahme von Fällen wie der Ausführung einer SetUID-Binärdatei, bei der `euid` die Identität des Dateieigentümers annimmt und somit spezifische Betriebsberechtigungen gewährt.
+- **`euid`**: Bekannt als die **effektive Benutzer-ID**, repräsentiert sie die Benutzeridentität, die das System verwendet, um die Prozessprivilegien zu bestimmen. Im Allgemeinen spiegelt `euid` `ruid` wider, mit Ausnahme von Fällen wie der Ausführung einer SetUID-Binärdatei, bei der `euid` die Identität des Dateieigentümers annimmt und somit spezifische Betriebsberechtigungen gewährt.
 - **`suid`**: Diese **gespeicherte Benutzer-ID** ist entscheidend, wenn ein hochprivilegierter Prozess (typischerweise als root ausgeführt) vorübergehend seine Privilegien aufgeben muss, um bestimmte Aufgaben auszuführen, um später seinen ursprünglichen erhöhten Status wiederzuerlangen.
 
 #### Wichtiger Hinweis
-Ein Prozess, der nicht unter root läuft, kann seine `euid` nur so ändern, dass sie mit dem aktuellen `ruid`, `euid` oder `suid` übereinstimmt.
+Ein Prozess, der nicht unter root läuft, kann seine `euid` nur so ändern, dass sie mit der aktuellen `ruid`, `euid` oder `suid` übereinstimmt.
 
 ### Verständnis der set*uid-Funktionen
 
@@ -31,20 +38,20 @@ Ein Prozess, der nicht unter root läuft, kann seine `euid` nur so ändern, dass
 
 Diese Funktionen sind nicht als Sicherheitsmechanismus konzipiert, sondern um den beabsichtigten Betriebsablauf zu erleichtern, beispielsweise wenn ein Programm die Identität eines anderen Benutzers annimmt, indem es seine effektive Benutzer-ID ändert.
 
-Es ist bemerkenswert, dass `setuid` zwar ein gängiger Ansatz zur Erhöhung der Privilegien auf root sein kann (da es alle IDs auf root ausrichtet), es jedoch entscheidend ist, zwischen diesen Funktionen zu unterscheiden, um das Verhalten der Benutzer-IDs in verschiedenen Szenarien zu verstehen und zu manipulieren.
+Es ist bemerkenswert, dass `setuid` zwar ein gängiger Ansatz zur Erhöhung der Privilegien auf root sein kann (da es alle IDs auf root ausrichtet), das Unterscheiden zwischen diesen Funktionen entscheidend ist, um das Verhalten der Benutzer-IDs in unterschiedlichen Szenarien zu verstehen und zu manipulieren.
 
 ### Programmausführungsmechanismen in Linux
 
-#### **`execve` Systemaufruf**
+#### **`execve`-Systemaufruf**
 - **Funktionalität**: `execve` startet ein Programm, das durch das erste Argument bestimmt wird. Es nimmt zwei Array-Argumente, `argv` für Argumente und `envp` für die Umgebung.
 - **Verhalten**: Es behält den Speicherbereich des Aufrufers bei, aktualisiert jedoch den Stack, Heap und die Datensegmente. Der Programmcode wird durch das neue Programm ersetzt.
 - **Benutzer-ID-Erhaltung**:
 - `ruid`, `euid` und zusätzliche Gruppen-IDs bleiben unverändert.
-- `euid` kann nuancierte Änderungen erfahren, wenn das neue Programm das SetUID-Bit gesetzt hat.
+- `euid` kann nuancierte Änderungen aufweisen, wenn das neue Programm das SetUID-Bit gesetzt hat.
 - `suid` wird nach der Ausführung von `euid` aktualisiert.
 - **Dokumentation**: Detaillierte Informationen finden Sie auf der [`execve`-Man-Seite](https://man7.org/linux/man-pages/man2/execve.2.html).
 
-#### **`system` Funktion**
+#### **`system`-Funktion**
 - **Funktionalität**: Im Gegensatz zu `execve` erstellt `system` einen Kindprozess mit `fork` und führt einen Befehl innerhalb dieses Kindprozesses mit `execl` aus.
 - **Befehlsausführung**: Führt den Befehl über `sh` mit `execl("/bin/sh", "sh", "-c", command, (char *) NULL);` aus.
 - **Verhalten**: Da `execl` eine Form von `execve` ist, funktioniert es ähnlich, jedoch im Kontext eines neuen Kindprozesses.
@@ -57,11 +64,11 @@ Es ist bemerkenswert, dass `setuid` zwar ein gängiger Ansatz zur Erhöhung der 
 - Mit `-p` wird das ursprüngliche `euid` beibehalten.
 - Weitere Details finden Sie auf der [`bash`-Man-Seite](https://linux.die.net/man/1/bash).
 - **`sh`**:
-- Besitzt keinen Mechanismus ähnlich wie `-p` in `bash`.
+- Besitzt keinen Mechanismus ähnlich der `-p`-Option in `bash`.
 - Das Verhalten bezüglich der Benutzer-IDs wird nicht ausdrücklich erwähnt, außer unter der `-i`-Option, die die Erhaltung der Gleichheit von `euid` und `ruid` betont.
 - Zusätzliche Informationen sind auf der [`sh`-Man-Seite](https://man7.org/linux/man-pages/man1/sh.1p.html) verfügbar.
 
-Diese Mechanismen, die sich in ihrem Betrieb unterscheiden, bieten eine vielseitige Palette von Optionen zur Ausführung und zum Übergang zwischen Programmen, mit spezifischen Nuancen in der Verwaltung und Erhaltung von Benutzer-IDs.
+Diese Mechanismen, die sich in ihrer Funktionsweise unterscheiden, bieten eine vielseitige Palette von Optionen zur Ausführung und zum Übergang zwischen Programmen, mit spezifischen Nuancen in der Verwaltung und Erhaltung von Benutzer-IDs.
 
 ### Testen des Benutzer-ID-Verhaltens in Ausführungen
 
@@ -170,7 +177,7 @@ uid=99(nobody) gid=99(nobody) groups=99(nobody) context=system_u:system_r:unconf
 ```
 **Analyse:**
 
-* Obwohl `euid` durch `setuid` auf 1000 gesetzt ist, setzt `bash` `euid` auf `ruid` (99) zurück, da `-p` fehlt.
+* Obwohl `euid` durch `setuid` auf 1000 gesetzt wird, setzt `bash` `euid` aufgrund der Abwesenheit von `-p` auf `ruid` (99) zurück.
 
 **C Code Beispiel 3 (Verwendung von bash -p):**
 ```bash
@@ -191,21 +198,28 @@ bash-4.2$ $ ./e
 bash-4.2$ $ id
 uid=99(nobody) gid=99(nobody) euid=100
 ```
-## Referenzen
+## References
 * [https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail](https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail)
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Vertiefen Sie Ihr Fachwissen in **Mobile Security** mit der 8kSec Academy. Meistern Sie die Sicherheit von iOS und Android durch unsere selbstgesteuerten Kurse und erhalten Sie ein Zertifikat:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 {% hint style="success" %}
-Lerne & übe AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lernen & üben Sie AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Unterstütze HackTricks</summary>
+<summary>Support HackTricks</summary>
 
-* Überprüfe die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
-* **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Teile Hacking-Tricks, indem du PRs zu den** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos einreichst.
+* Überprüfen Sie die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
+* **Treten Sie der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folgen** Sie uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Teilen Sie Hacking-Tricks, indem Sie PRs an die** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos senden.
 
 </details>
 {% endhint %}

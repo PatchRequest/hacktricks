@@ -6,7 +6,7 @@ Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 
 <details>
 
-<summary>Unterstütze HackTricks</summary>
+<summary>Support HackTricks</summary>
 
 * Überprüfe die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
 * **Tritt der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folge** uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
@@ -15,18 +15,24 @@ Lerne & übe GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Vertiefe dein Fachwissen in **Mobilsicherheit** mit der 8kSec Academy. Meistere die Sicherheit von iOS und Android durch unsere selbstgesteuerten Kurse und erhalte ein Zertifikat:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 ## **Passwort-Spraying**
 
-Sobald du mehrere **gültige Benutzernamen** gefunden hast, kannst du die häufigsten **Passwörter** ausprobieren (beachte die Passwort-Richtlinie der Umgebung) mit jedem der entdeckten Benutzer.\
+Sobald du mehrere **gültige Benutzernamen** gefunden hast, kannst du die **häufigsten Passwörter** ausprobieren (beachte die Passwortpolitik der Umgebung) mit jedem der entdeckten Benutzer.\
 Standardmäßig beträgt die **minimale** **Passwort** **länge** **7**.
 
 Listen mit häufigen Benutzernamen könnten ebenfalls nützlich sein: [https://github.com/insidetrust/statistically-likely-usernames](https://github.com/insidetrust/statistically-likely-usernames)
 
-Beachte, dass du **einige Konten sperren könntest, wenn du mehrere falsche Passwörter ausprobierst** (standardmäßig mehr als 10).
+Beachte, dass du **einige Konten sperren könntest, wenn du mehrere falsche Passwörter versuchst** (standardmäßig mehr als 10).
 
-### Passwort-Richtlinie abrufen
+### Passwortpolitik abrufen
 
-Wenn du einige Benutzeranmeldeinformationen oder eine Shell als Domänenbenutzer hast, kannst du **die Passwort-Richtlinie mit**:
+Wenn du einige Benutzeranmeldeinformationen oder eine Shell als Domänenbenutzer hast, kannst du **die Passwortpolitik mit**:
 ```bash
 # From Linux
 crackmapexec <IP> -u 'user' -p 'password' --pass-pol
@@ -140,6 +146,13 @@ Um eines dieser Tools zu verwenden, benötigen Sie eine Benutzerliste und ein Pa
 * [https://www.ired.team/offensive-security/initial-access/password-spraying-outlook-web-access-remote-shell](https://www.ired.team/offensive-security/initial-access/password-spraying-outlook-web-access-remote-shell)
 * [www.blackhillsinfosec.com/?p=5296](https://www.blackhillsinfosec.com/?p=5296)
 * [https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying](https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying)
+
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Vertiefen Sie Ihr Fachwissen in **Mobile Security** mit der 8kSec Academy. Meistern Sie die Sicherheit von iOS und Android durch unsere selbstgesteuerten Kurse und erhalten Sie ein Zertifikat:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 {% hint style="success" %}
 Lernen & üben Sie AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
