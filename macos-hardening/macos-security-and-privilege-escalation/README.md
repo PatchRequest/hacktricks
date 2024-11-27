@@ -9,15 +9,15 @@ Impara e pratica Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" d
 <summary>Supporta HackTricks</summary>
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
-* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-Unisciti al [**server HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) per comunicare con hacker esperti e cacciatori di bug bounty!
+Unisciti al server [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) per comunicare con hacker esperti e cacciatori di bug bounty!
 
 **Approfondimenti sull'Hacking**\
 Interagisci con contenuti che approfondiscono l'emozione e le sfide dell'hacking
@@ -26,7 +26,7 @@ Interagisci con contenuti che approfondiscono l'emozione e le sfide dell'hacking
 Rimani aggiornato con il mondo dell'hacking in rapida evoluzione attraverso notizie e approfondimenti in tempo reale
 
 **Ultimi Annunci**\
-Rimani informato sui nuovi bug bounty in partenza e aggiornamenti cruciali delle piattaforme
+Rimani informato sui nuovi bug bounty in arrivo e aggiornamenti cruciali della piattaforma
 
 **Unisciti a noi su** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e inizia a collaborare con i migliori hacker oggi stesso!
 
@@ -52,13 +52,13 @@ Se non sei familiare con macOS, dovresti iniziare a imparare le basi di macOS:
 [macos-applefs.md](macos-applefs.md)
 {% endcontent-ref %}
 
-* L'**architettura** del k**ernel**
+* L'**architettura** del **kernel**
 
 {% content-ref url="mac-os-architecture/" %}
 [mac-os-architecture](mac-os-architecture/)
 {% endcontent-ref %}
 
-* Servizi e **protocolli di rete comuni di macOS**
+* Servizi e **protocolli di rete** comuni di macOS
 
 {% content-ref url="macos-protocols.md" %}
 [macos-protocols.md](macos-protocols.md)
@@ -135,7 +135,7 @@ Certo, dal punto di vista di un red team, dovresti essere anche interessato a es
 
 ## Conformità macOS
 
-* [https://github.com/usnistgov/macos\_security](https://github.com/usnistgov/macos\_security)
+* [https://github.com/usnistgov/macos\_security](https://github.com/usnistgov/macos_security)
 
 ## Riferimenti
 
@@ -145,9 +145,9 @@ Certo, dal punto di vista di un red team, dovresti essere anche interessato a es
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-Unisciti al [**server HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) per comunicare con hacker esperti e cacciatori di bug bounty!
+Unisciti al server [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) per comunicare con hacker esperti e cacciatori di bug bounty!
 
 **Approfondimenti sull'Hacking**\
 Interagisci con contenuti che approfondiscono l'emozione e le sfide dell'hacking
@@ -156,7 +156,7 @@ Interagisci con contenuti che approfondiscono l'emozione e le sfide dell'hacking
 Rimani aggiornato con il mondo dell'hacking in rapida evoluzione attraverso notizie e approfondimenti in tempo reale
 
 **Ultimi Annunci**\
-Rimani informato sui nuovi bug bounty in partenza e aggiornamenti cruciali delle piattaforme
+Rimani informato sui nuovi bug bounty in arrivo e aggiornamenti cruciali della piattaforma
 
 **Unisciti a noi su** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e inizia a collaborare con i migliori hacker oggi stesso!
 
@@ -169,7 +169,7 @@ Impara e pratica Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" d
 <summary>Supporta HackTricks</summary>
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
-* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
 
 </details>

@@ -1,15 +1,15 @@
 # Cheat Engine
 
 {% hint style="success" %}
-Impara e pratica il hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Impara e pratica il hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Impara e pratica il hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Impara e pratica il hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Supporta HackTricks</summary>
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
-* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
 
 </details>
@@ -68,7 +68,7 @@ Poi, fai qualcosa affinché **il valore cambi**, e **ferma** il gioco e **esegui
 ![](<../../.gitbook/assets/image (684).png>)
 
 Cheat Engine cercherà i **valori** che **sono passati da 100 al nuovo valore**. Congratulazioni, hai **trovato** l'**indirizzo** del valore che stavi cercando, ora puoi modificarlo.\
-_Se hai ancora diversi valori, fai qualcosa per modificare di nuovo quel valore e esegui un'altra "scansione successiva" per filtrare gli indirizzi._
+Se hai ancora diversi valori, fai qualcosa per modificare di nuovo quel valore e esegui un'altra "scansione successiva" per filtrare gli indirizzi.
 
 ### Valore sconosciuto, cambiamento noto
 
@@ -78,7 +78,7 @@ Quindi, inizia eseguendo una scansione di tipo "**Valore iniziale sconosciuto**"
 
 ![](<../../.gitbook/assets/image (890).png>)
 
-Poi, fai cambiare il valore, indica **come** il **valore** **è cambiato** (nel mio caso è diminuito di 1) ed esegui una **scansione successiva**:
+Poi, fai cambiare il valore, indica **come** il **valore** **è cambiato** (nel mio caso è diminuito di 1) e esegui una **scansione successiva**:
 
 ![](<../../.gitbook/assets/image (371).png>)
 
@@ -88,7 +88,7 @@ Ti verranno presentati **tutti i valori che sono stati modificati nel modo selez
 
 Una volta trovato il tuo valore, puoi modificarlo.
 
-Nota che ci sono **molti cambiamenti possibili** e puoi fare questi **passaggi quante più volte vuoi** per filtrare i risultati:
+Nota che ci sono **molti possibili cambiamenti** e puoi fare questi **passaggi quante più volte vuoi** per filtrare i risultati:
 
 ![](<../../.gitbook/assets/image (574).png>)
 
@@ -96,7 +96,7 @@ Nota che ci sono **molti cambiamenti possibili** e puoi fare questi **passaggi q
 
 Fino ad ora abbiamo imparato come trovare un indirizzo che memorizza un valore, ma è altamente probabile che in **diverse esecuzioni del gioco quell'indirizzo si trovi in posti diversi della memoria**. Quindi vediamo come trovare sempre quell'indirizzo.
 
-Utilizzando alcuni dei trucchi menzionati, trova l'indirizzo dove il tuo gioco attuale sta memorizzando il valore importante. Poi (ferma il gioco se lo desideri) fai **clic destro** sull'**indirizzo** trovato e seleziona "**Scopri cosa accede a questo indirizzo**" o "**Scopri cosa scrive a questo indirizzo**":
+Utilizzando alcuni dei trucchi menzionati, trova l'indirizzo dove il tuo gioco attuale sta memorizzando il valore importante. Poi (ferma il gioco se lo desideri) fai clic con il tasto destro sull'**indirizzo** trovato e seleziona "**Scopri cosa accede a questo indirizzo**" o "**Scopri cosa scrive a questo indirizzo**":
 
 ![](<../../.gitbook/assets/image (1067).png>)
 
@@ -115,7 +115,7 @@ Quindi, ora puoi modificarlo in modo che il codice non influisca sul tuo numero,
 
 ### Indirizzo di memoria casuale - Trovare il puntatore
 
-Seguendo i passaggi precedenti, trova dove si trova il valore che ti interessa. Poi, usando "**Scopri cosa scrive a questo indirizzo**" scopri quale indirizzo scrive questo valore e fai doppio clic su di esso per ottenere la vista di disassemblaggio:
+Seguendo i passaggi precedenti, trova dove si trova il valore che ti interessa. Poi, utilizzando "**Scopri cosa scrive a questo indirizzo**" scopri quale indirizzo scrive questo valore e fai doppio clic su di esso per ottenere la vista di disassemblaggio:
 
 ![](<../../.gitbook/assets/image (1039).png>)
 
@@ -144,7 +144,7 @@ Ora, ogni volta che modifichi quel valore stai **modificando il valore important
 
 ### Iniezione di codice
 
-L'iniezione di codice è una tecnica in cui inietti un pezzo di codice nel processo target, e poi reindirizzi l'esecuzione del codice per passare attraverso il tuo codice scritto (come darti punti invece di sottrarli).
+L'iniezione di codice è una tecnica in cui inietti un pezzo di codice nel processo target e poi reindirizzi l'esecuzione del codice per passare attraverso il tuo codice scritto (come darti punti invece di sottrarli).
 
 Quindi, immagina di aver trovato l'indirizzo che sta sottraendo 1 dalla vita del tuo giocatore:
 
@@ -163,7 +163,7 @@ Verrà generato un template:
 
 ![](<../../.gitbook/assets/image (944).png>)
 
-Quindi, inserisci il tuo nuovo codice assembly nella sezione "**newmem**" e rimuovi il codice originale dalla sezione "**originalcode**" se non vuoi che venga eseguito\*\*.\*\* In questo esempio, il codice iniettato aggiungerà 2 punti invece di sottrarre 1:
+Quindi, inserisci il tuo nuovo codice assembly nella sezione "**newmem**" e rimuovi il codice originale dalla sezione "**originalcode**" se non vuoi che venga eseguito. In questo esempio, il codice iniettato aggiungerà 2 punti invece di sottrarre 1:
 
 ![](<../../.gitbook/assets/image (521).png>)
 
@@ -171,18 +171,18 @@ Quindi, inserisci il tuo nuovo codice assembly nella sezione "**newmem**" e rimu
 
 ## **Riferimenti**
 
-* **Tutorial di Cheat Engine, completalo per imparare a iniziare con Cheat Engine** 
+* **Tutorial di Cheat Engine, completalo per imparare come iniziare con Cheat Engine** 
 
 {% hint style="success" %}
-Impara e pratica il hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Impara e pratica il hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Impara e pratica il hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Impara e pratica il hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Supporta HackTricks</summary>
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
-* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
 
 </details>

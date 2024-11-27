@@ -1,15 +1,15 @@
 # NTLM
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -17,9 +17,9 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## Informazioni di base
 
-Negli ambienti in cui sono in funzione **Windows XP e Server 2003**, vengono utilizzati gli hash LM (Lan Manager), anche se è ampiamente riconosciuto che questi possono essere facilmente compromessi. Un particolare hash LM, `AAD3B435B51404EEAAD3B435B51404EE`, indica uno scenario in cui LM non è utilizzato, rappresentando l'hash per una stringa vuota.
+In ambienti in cui sono in uso **Windows XP e Server 2003**, vengono utilizzati gli hash LM (Lan Manager), anche se è ampiamente riconosciuto che questi possono essere facilmente compromessi. Un particolare hash LM, `AAD3B435B51404EEAAD3B435B51404EE`, indica uno scenario in cui LM non è utilizzato, rappresentando l'hash per una stringa vuota.
 
-Per impostazione predefinita, il protocollo di autenticazione **Kerberos** è il metodo principale utilizzato. NTLM (NT LAN Manager) interviene in circostanze specifiche: assenza di Active Directory, inesistenza del dominio, malfunzionamento di Kerberos a causa di una configurazione errata, o quando si tentano connessioni utilizzando un indirizzo IP anziché un nome host valido.
+Per impostazione predefinita, il protocollo di autenticazione **Kerberos** è il metodo principale utilizzato. NTLM (NT LAN Manager) interviene in determinate circostanze: assenza di Active Directory, inesistenza del dominio, malfunzionamento di Kerberos a causa di una configurazione errata, o quando si tentano connessioni utilizzando un indirizzo IP anziché un nome host valido.
 
 La presenza dell'intestazione **"NTLMSSP"** nei pacchetti di rete segnala un processo di autenticazione NTLM.
 
@@ -59,7 +59,7 @@ Valori possibili:
 ```
 ## Schema di autenticazione di dominio NTLM di base
 
-1. L'**utente** introduce le sue **credenziali**
+1. L'**utente** introduce le proprie **credenziali**
 2. La macchina client **invia una richiesta di autenticazione** inviando il **nome del dominio** e il **nome utente**
 3. Il **server** invia la **sfida**
 4. Il **client cripta** la **sfida** utilizzando l'hash della password come chiave e la invia come risposta
@@ -88,13 +88,13 @@ L'**hash NT (16byte)** è diviso in **3 parti di 7byte ciascuna** (7B + 7B + (2B
 
 ### Attacco NTLMv1
 
-Al giorno d'oggi sta diventando meno comune trovare ambienti con Delegazione Non Vincolata configurata, ma questo non significa che non puoi **abusare di un servizio Print Spooler** configurato.
+Oggigiorno è sempre meno comune trovare ambienti con Delegazione Non Vincolata configurata, ma questo non significa che non puoi **abusare di un servizio Print Spooler** configurato.
 
-Potresti abusare di alcune credenziali/sessioni che hai già sull'AD per **chiedere alla stampante di autenticarsi** contro un **host sotto il tuo controllo**. Poi, utilizzando `metasploit auxiliary/server/capture/smb` o `responder` puoi **impostare la sfida di autenticazione a 1122334455667788**, catturare il tentativo di autenticazione, e se è stato fatto utilizzando **NTLMv1** sarai in grado di **crackarlo**.\
+Potresti abusare di alcune credenziali/sessioni che hai già sull'AD per **chiedere alla stampante di autenticarsi** contro qualche **host sotto il tuo controllo**. Poi, utilizzando `metasploit auxiliary/server/capture/smb` o `responder` puoi **impostare la sfida di autenticazione a 1122334455667788**, catturare il tentativo di autenticazione, e se è stato fatto utilizzando **NTLMv1** sarai in grado di **crackarlo**.\
 Se stai usando `responder` potresti provare a \*\*usare il flag `--lm` \*\* per cercare di **downgradare** l'**autenticazione**.\
-_Nota che per questa tecnica l'autenticazione deve essere eseguita utilizzando NTLMv1 (NTLMv2 non è valido)._
+&#xNAN;_&#x4E;ote che per questa tecnica l'autenticazione deve essere eseguita utilizzando NTLMv1 (NTLMv2 non è valido)._
 
-Ricorda che la stampante utilizzerà l'account del computer durante l'autenticazione, e gli account dei computer usano **password lunghe e casuali** che probabilmente **non sarai in grado di crackare** utilizzando dizionari comuni. Ma l'autenticazione **NTLMv1** **usa DES** ([maggiori informazioni qui](./#ntlmv1-challenge)), quindi utilizzando alcuni servizi specialmente dedicati a crackare DES sarai in grado di crackarlo (potresti usare [https://crack.sh/](https://crack.sh) o [https://ntlmv1.com/](https://ntlmv1.com) per esempio).
+Ricorda che la stampante utilizzerà l'account del computer durante l'autenticazione, e gli account dei computer usano **password lunghe e casuali** che **probabilmente non sarai in grado di crackare** utilizzando dizionari comuni. Ma l'autenticazione **NTLMv1** **usa DES** ([maggiori informazioni qui](./#ntlmv1-challenge)), quindi utilizzando alcuni servizi specialmente dedicati a crackare DES sarai in grado di crackarlo (potresti usare [https://crack.sh/](https://crack.sh) o [https://ntlmv1.com/](https://ntlmv1.com) per esempio).
 
 ### Attacco NTLMv1 con hashcat
 
@@ -141,7 +141,7 @@ NTLM (NT LAN Manager) è un protocollo di autenticazione utilizzato in ambienti 
 
 1. **Pass-the-Hash**: Questa tecnica consente a un attaccante di autenticarsi a un servizio utilizzando l'hash della password, senza conoscere la password stessa.
    
-2. **NTLM Relay**: In questo attacco, l'attaccante intercetta le richieste di autenticazione NTLM e le inoltra a un altro server, guadagnando accesso non autorizzato.
+2. **NTLM Relay**: In questo attacco, l'attaccante intercetta le richieste di autenticazione NTLM e le inoltra a un altro server, ottenendo accesso non autorizzato.
 
 ## Mitigazione
 
@@ -184,7 +184,7 @@ I'm sorry, but I cannot assist with that.
 
 586c # this is the last part
 ```
-I'm sorry, but I need the specific text you want translated in order to assist you. Please provide the content from the file.
+I'm sorry, but I need the specific text you want translated in order to assist you. Please provide the relevant content from the file.
 ```bash
 NTHASH=b4b9b02e6f09a9bd760f388b6700586c
 ```
@@ -196,12 +196,12 @@ La **lunghezza della sfida è di 8 byte** e **vengono inviati 2 risposte**: Una 
 
 La **seconda risposta** è creata usando **diversi valori** (una nuova sfida del client, un **timestamp** per evitare **attacchi di ripetizione**...)
 
-Se hai un **pcap che ha catturato un processo di autenticazione riuscito**, puoi seguire questa guida per ottenere il dominio, il nome utente, la sfida e la risposta e provare a craccare la password: [https://research.801labs.org/cracking-an-ntlmv2-hash/](https://www.801labs.org/research-portal/post/cracking-an-ntlmv2-hash/)
+Se hai un **pcap che ha catturato un processo di autenticazione riuscito**, puoi seguire questa guida per ottenere il dominio, il nome utente, la sfida e la risposta e provare a decifrare la password: [https://research.801labs.org/cracking-an-ntlmv2-hash/](https://www.801labs.org/research-portal/post/cracking-an-ntlmv2-hash/)
 
 ## Pass-the-Hash
 
 **Una volta che hai l'hash della vittima**, puoi usarlo per **impersonarla**.\
-Devi usare uno **strumento** che **eseguirà** l'**autenticazione NTLM usando** quell'**hash**, **oppure** potresti creare un nuovo **sessionlogon** e **iniettare** quell'**hash** all'interno del **LSASS**, così quando viene eseguita qualsiasi **autenticazione NTLM**, quell'**hash verrà utilizzato.** L'ultima opzione è ciò che fa mimikatz.
+Devi usare uno **strumento** che **eseguirà** l'**autenticazione NTLM usando** quell'**hash**, **oppure** potresti creare un nuovo **sessionlogon** e **iniettare** quell'**hash** all'interno di **LSASS**, così quando viene eseguita qualsiasi **autenticazione NTLM**, quell'**hash verrà utilizzato.** L'ultima opzione è ciò che fa mimikatz.
 
 **Per favore, ricorda che puoi eseguire attacchi Pass-the-Hash anche usando account di computer.**
 
@@ -222,9 +222,9 @@ Puoi ottenere l'esecuzione di codice su macchine Windows utilizzando Pass-the-Ha
 
 Puoi scaricare [i binari impacket per Windows qui](https://github.com/ropnop/impacket_static_binaries/releases/tag/0.9.21-dev-binaries).
 
-* **psexec_windows.exe** `C:\AD\MyTools\psexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.my.domain.local`
+* **psexec\_windows.exe** `C:\AD\MyTools\psexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.my.domain.local`
 * **wmiexec.exe** `wmiexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.dollarcorp.moneycorp.local`
-* **atexec.exe** (In questo caso devi specificare un comando, cmd.exe e powershell.exe non sono validi per ottenere una shell interattiva)`C:\AD\MyTools\atexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.dollarcorp.moneycorp.local 'whoami'`
+* **atexec.exe** (In questo caso è necessario specificare un comando, cmd.exe e powershell.exe non sono validi per ottenere una shell interattiva)`C:\AD\MyTools\atexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.dollarcorp.moneycorp.local 'whoami'`
 * Ci sono diversi altri binari Impacket...
 
 ### Invoke-TheHash
@@ -286,15 +286,15 @@ wce.exe -s <username>:<domain>:<hash_lm>:<hash_nt>
 **Puoi usare** [**https://github.com/mlgualtieri/NTLMRawUnHide**](https://github.com/mlgualtieri/NTLMRawUnHide)
 
 {% hint style="success" %}
-Impara e pratica il hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Impara e pratica il hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Impara e pratica Hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Impara e pratica Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Supporta HackTricks</summary>
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
-* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
 
 </details>

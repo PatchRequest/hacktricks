@@ -5,7 +5,7 @@
 _I loghi e il design in movimento di Hacktricks sono stati creati da_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
 
 {% hint style="success" %}
-**Benvenuto nella wiki dove troverai ogni trucco/tecnica/qualcosa che ho imparato dai CTF, dalle app della vita reale, leggendo ricerche e notizie.**
+**Benvenuto nella wiki dove troverai ogni trucco/tecnica di hacking/qualunque cosa io abbia imparato da CTF, applicazioni della vita reale, lettura di ricerche e notizie.**
 {% endhint %}
 
 Per iniziare, segui questa pagina dove troverai il **flusso tipico** che **dovresti seguire quando fai pentesting** su una o più **macchine:**
@@ -44,18 +44,18 @@ Puoi controllare il loro **blog** in [**https://blog.stmcyber.com**](https://blo
 
 **Intigriti** è la **piattaforma di hacking etico e bug bounty numero 1 in Europa.**
 
-**Suggerimento bug bounty**: **iscriviti** a **Intigriti**, una premium **piattaforma di bug bounty creata da hacker, per hacker**! Unisciti a noi su [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) oggi, e inizia a guadagnare ricompense fino a **$100,000**!
+**Suggerimento bug bounty**: **iscriviti** a **Intigriti**, una premium **piattaforma di bug bounty creata da hacker, per hacker**! Unisciti a noi su [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) oggi e inizia a guadagnare ricompense fino a **$100,000**!
 
 {% embed url="https://go.intigriti.com/hacktricks" %}
 
 ***
 
-### [Trickest](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks)
+### [Trickest](https://trickest.com/?utm_campaign=hacktrics\&utm_medium=banner\&utm_source=hacktricks)
 
 <figure><img src=".gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
 \
-Usa [**Trickest**](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks) per costruire e **automatizzare facilmente i flussi di lavoro** alimentati dagli strumenti comunitari **più avanzati** al mondo.
+Usa [**Trickest**](https://trickest.com/?utm_campaign=hacktrics\&utm_medium=banner\&utm_source=hacktricks) per costruire e **automatizzare facilmente i flussi di lavoro** alimentati dagli strumenti della comunità **più avanzati** al mondo.
 
 Accedi oggi:
 
@@ -65,19 +65,19 @@ Accedi oggi:
 
 ### [HACKENPROOF](https://bit.ly/3xrrDrL)
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Unisciti al server [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) per comunicare con hacker esperti e cacciatori di bug bounty!
 
 * **Approfondimenti sul hacking:** Interagisci con contenuti che approfondiscono l'emozione e le sfide dell'hacking
-* **Notizie di hacking in tempo reale:** Rimani aggiornato con il mondo frenetico dell'hacking attraverso notizie e approfondimenti in tempo reale
+* **Notizie di hacking in tempo reale:** Rimani aggiornato con il mondo dell'hacking in rapida evoluzione attraverso notizie e approfondimenti in tempo reale
 * **Ultimi annunci:** Rimani informato sulle nuove ricompense bug che vengono lanciate e sugli aggiornamenti cruciali della piattaforma
 
 **Unisciti a noi su** [**Discord**](https://discord.com/invite/N3FrSbmwdy) e inizia a collaborare con i migliori hacker oggi!
 
 ***
 
-### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - Il toolkit essenziale per il penetration testing
+### [Pentest-Tools.com](https://pentest-tools.com/?utm_term=jul2024\&utm_medium=link\&utm_source=hacktricks\&utm_campaign=spons) - Il toolkit essenziale per il penetration testing
 
 <figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
@@ -100,7 +100,17 @@ A differenza di altri fornitori, **SerpApi non raccoglie solo risultati organici
 
 I clienti attuali di SerpApi includono **Apple, Shopify e GrubHub**.\
 Per ulteriori informazioni, dai un'occhiata al loro [**blog**](https://serpapi.com/blog/)**,** o prova un esempio nel loro [**playground**](https://serpapi.com/playground)**.**\
-Puoi **creare un account gratuito** [**qui**](https://serpapi.com/users/sign\_up)**.**
+Puoi **creare un account gratuito** [**qui**](https://serpapi.com/users/sign_up)**.**
+
+***
+
+### 8kSec Academy – Corsi di Sicurezza Mobile Approfonditi
+
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Impara le tecnologie e le competenze necessarie per eseguire ricerche sulle vulnerabilità, penetration testing e reverse engineering per proteggere le applicazioni e i dispositivi mobili. **Padroneggia la sicurezza di iOS e Android** attraverso i nostri corsi on-demand e **ottieni la certificazione**:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 ***
 
@@ -108,11 +118,11 @@ Puoi **creare un account gratuito** [**qui**](https://serpapi.com/users/sign\_up
 
 <figure><img src=".gitbook/assets/websec (1).svg" alt=""><figcaption></figcaption></figure>
 
-[**WebSec**](https://websec.nl) è un'azienda di cybersecurity professionale con sede ad **Amsterdam** che aiuta **a proteggere** le aziende **in tutto il mondo** contro le ultime minacce alla cybersecurity fornendo **servizi di sicurezza offensiva** con un approccio **moderno**.
+[**WebSec**](https://websec.nl) è un'azienda di cybersecurity professionale con sede ad **Amsterdam** che aiuta **a proteggere** le aziende **in tutto il mondo** contro le ultime minacce alla cybersecurity fornendo **servizi di sicurezza offensiva** con un **approccio moderno**.
 
 WebSec è un'**azienda di sicurezza all-in-one**, il che significa che fanno tutto; Pentesting, **Audit** di Sicurezza, Formazione sulla Consapevolezza, Campagne di Phishing, Revisione del Codice, Sviluppo di Exploit, Outsourcing di Esperti di Sicurezza e molto altro.
 
-Un'altra cosa interessante di WebSec è che, a differenza della media del settore, WebSec è **molto sicura delle proprie capacità**, tanto da **garantire i migliori risultati di qualità**, come dichiarato sul loro sito web "**Se non possiamo hackarlo, non lo paghi!**". Per ulteriori informazioni, dai un'occhiata al loro [**sito web**](https://websec.nl/en/) e [**blog**](https://websec.nl/blog/)!
+Un'altra cosa interessante di WebSec è che, a differenza della media del settore, WebSec è **molto sicura delle proprie competenze**, tanto da **garantire i migliori risultati di qualità**, affermando sul loro sito web "**Se non possiamo hackarlo, non lo paghi!**". Per ulteriori informazioni, dai un'occhiata al loro [**sito web**](https://websec.nl/en/) e [**blog**](https://websec.nl/blog/)!
 
 In aggiunta a quanto sopra, WebSec è anche un **sostenitore impegnato di HackTricks.**
 
@@ -131,15 +141,15 @@ Controllali in:
 ![HackTricks Github Stats](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg)
 
 {% hint style="success" %}
-Impara e pratica l'Hacking AWS:<img src=".gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src=".gitbook/assets/arte.png" alt="" data-size="line">\
-Impara e pratica l'Hacking GCP: <img src=".gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src=".gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Impara e pratica Hacking AWS:<img src=".gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src=".gitbook/assets/arte.png" alt="" data-size="line">\
+Impara e pratica Hacking GCP: <img src=".gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src=".gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Supporta HackTricks</summary>
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
-* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
 
 </details>

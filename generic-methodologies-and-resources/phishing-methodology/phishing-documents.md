@@ -1,15 +1,15 @@
 # Phishing Files & Documents
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -32,7 +32,7 @@ DOCX files referencing a remote template (File –Options –Add-ins –Manage: 
 ### Caricamento Immagine Esterno
 
 Vai a: _Inserisci --> Parti Veloci --> Campo_\
-_**Categorie**: Collegamenti e Riferimenti, **Nomi dei file**: includePicture, e **Nome file o URL**:_ http://\<ip>/whatever
+&#xNAN;_**Categorie**: Collegamenti e Riferimenti, **Nomi dei file**: includePicture, e **Nome file o URL**:_ http://\<ip>/whatever
 
 ![](<../../.gitbook/assets/image (155).png>)
 
@@ -79,7 +79,7 @@ proc.Create "powershell <beacon line generated>
 ```
 #### Rimuovere manualmente i metadati
 
-Vai su **File > Info > Ispeziona documento > Ispeziona documento**, che aprirà l'Ispezione documento. Clicca su **Ispeziona** e poi su **Rimuovi tutto** accanto a **Proprietà del documento e informazioni personali**.
+Vai su **File > Info > Ispeziona documento > Ispeziona documento**, che aprirà l'Ispezione documento. Clicca su **Ispeziona** e poi su **Rimuovi tutto** accanto a **Proprietà documento e informazioni personali**.
 
 #### Estensione Doc
 
@@ -96,7 +96,7 @@ Fallo perché **non puoi salvare macro all'interno di un `.docx`** e c'è uno **
 
 Un HTA è un programma Windows che **combina HTML e linguaggi di scripting (come VBScript e JScript)**. Genera l'interfaccia utente ed esegue come un'applicazione "completamente fidata", senza i vincoli del modello di sicurezza di un browser.
 
-Un HTA viene eseguito utilizzando **`mshta.exe`**, che è tipicamente **installato** insieme a **Internet Explorer**, rendendo **`mshta` dipendente da IE**. Quindi, se è stato disinstallato, gli HTA non saranno in grado di essere eseguiti.
+Un HTA viene eseguito utilizzando **`mshta.exe`**, che è tipicamente **installato** insieme a **Internet Explorer**, rendendo **`mshta` dipendente da IE**. Quindi, se è stato disinstallato, gli HTA non saranno in grado di eseguire.
 ```html
 <--! Basic HTA Execution -->
 <html>
@@ -153,7 +153,7 @@ self.close
 ```
 ## Forzare l'autenticazione NTLM
 
-Ci sono diversi modi per **forzare l'autenticazione NTLM "da remoto"**, ad esempio, potresti aggiungere **immagini invisibili** a email o HTML che l'utente accederà (anche HTTP MitM?). Oppure inviare alla vittima l'**indirizzo di file** che attiveranno un'**autenticazione** solo per **aprire la cartella.**
+Ci sono diversi modi per **forzare l'autenticazione NTLM "remotamente"**, ad esempio, potresti aggiungere **immagini invisibili** a email o HTML che l'utente accederà (anche HTTP MitM?). Oppure inviare alla vittima l'**indirizzo di file** che attiveranno un'**autenticazione** solo per **aprire la cartella.**
 
 **Controlla queste idee e altro nelle pagine seguenti:**
 
@@ -173,15 +173,15 @@ Non dimenticare che non puoi solo rubare l'hash o l'autenticazione ma anche **es
 * [**AD CS ESC8 (relay NTLM ai certificati)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
 
 {% hint style="success" %}
-Impara e pratica il hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Impara e pratica il hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Impara e pratica il hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Impara e pratica il hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Supporta HackTricks</summary>
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
-* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
 
 </details>

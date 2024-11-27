@@ -9,13 +9,13 @@ Impara e pratica il hacking GCP: <img src="../../../.gitbook/assets/grte.png" al
 <summary>Supporta HackTricks</summary>
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
-* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repository su github.
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
 
 </details>
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Se sei interessato a una **carriera nell'hacking** e a hackare l'inhackabile - **stiamo assumendo!** (_richiesta di polacco fluente scritto e parlato_).
 
@@ -26,7 +26,7 @@ Se sei interessato a una **carriera nell'hacking** e a hackare l'inhackabile - *
 Nei seguenti video puoi trovare le tecniche menzionate in questa pagina spiegate più in dettaglio:
 
 * [**DEF CON 31 - Esplorare la manipolazione della memoria Linux per stealth e evasione**](https://www.youtube.com/watch?v=poHirez8jk4)
-* [**Intrusioni stealth con DDexec-ng & in-memory dlopen() - HackTricks Track 2023**](https://www.youtube.com/watch?v=VM\_gjjiARaU)
+* [**Intrusioni stealth con DDexec-ng & in-memory dlopen() - HackTricks Track 2023**](https://www.youtube.com/watch?v=VM_gjjiARaU)
 
 ## scenario read-only / no-exec
 
@@ -61,9 +61,9 @@ Tuttavia, questo non è sufficiente per eseguire la tua backdoor binaria o altri
 
 Se vuoi eseguire un binario ma il file system non lo consente, il modo migliore per farlo è **eseguirlo dalla memoria**, poiché le **protezioni non si applicano lì**.
 
-### Bypass syscall FD + exec
+### Bypass FD + exec syscall
 
-Se hai alcuni potenti motori di script all'interno della macchina, come **Python**, **Perl** o **Ruby**, potresti scaricare il binario da eseguire dalla memoria, memorizzarlo in un descrittore di file in memoria (`create_memfd` syscall), che non sarà protetto da quelle protezioni e poi chiamare una **syscall `exec`** indicando il **fd come file da eseguire**.
+Se hai alcuni potenti motori di script all'interno della macchina, come **Python**, **Perl** o **Ruby**, potresti scaricare il binario da eseguire dalla memoria, memorizzarlo in un descrittore di file in memoria (`create_memfd` syscall), che non sarà protetto da quelle protezioni e poi chiamare una **`exec` syscall** indicando il **fd come file da eseguire**.
 
 Per questo puoi facilmente usare il progetto [**fileless-elf-exec**](https://github.com/nnsee/fileless-elf-exec). Puoi passargli un binario e genererà uno script nel linguaggio indicato con il **binario compresso e codificato in b64** con le istruzioni per **decodificarlo e decomprimerlo** in un **fd** creato chiamando la syscall `create_memfd` e una chiamata alla syscall **exec** per eseguirlo.
 
@@ -80,7 +80,7 @@ Inoltre, creare un **fd regolare** con un file in `/dev/shm` non funzionerà, po
 Pertanto, **controllando il codice assembly** che viene eseguito dal processo, puoi scrivere un **shellcode** e "mutare" il processo per **eseguire qualsiasi codice arbitrario**.
 
 {% hint style="success" %}
-**DDexec / EverythingExec** ti permetterà di caricare ed **eseguire** il tuo **shellcode** o **qualsiasi binario** dalla **memoria**.
+**DDexec / EverythingExec** ti permetterà di caricare e **eseguire** il tuo **shellcode** o **qualsiasi binario** dalla **memoria**.
 {% endhint %}
 ```bash
 # Basic example
@@ -106,7 +106,7 @@ Con uno scopo simile a DDexec, la tecnica [**memdlopen**](https://github.com/arg
 
 ### Cos'è distroless
 
-I container distroless contengono solo i **componenti minimi necessari per eseguire un'applicazione o servizio specifico**, come librerie e dipendenze di runtime, ma escludono componenti più grandi come un gestore di pacchetti, shell o utilità di sistema.
+I container distroless contengono solo i **componenti minimi necessari per eseguire un'applicazione o un servizio specifico**, come librerie e dipendenze di runtime, ma escludono componenti più grandi come un gestore di pacchetti, shell o utilità di sistema.
 
 L'obiettivo dei container distroless è **ridurre la superficie di attacco dei container eliminando componenti non necessari** e minimizzando il numero di vulnerabilità che possono essere sfruttate.
 
@@ -118,7 +118,7 @@ In un container distroless potresti **non trovare nemmeno `sh` o `bash`** per ot
 Pertanto, **non** sarai in grado di ottenere una **reverse shell** o **enumerare** il sistema come fai di solito.
 {% endhint %}
 
-Tuttavia, se il container compromesso sta eseguendo ad esempio un'app Flask, allora Python è installato, e quindi puoi ottenere una **reverse shell Python**. Se sta eseguendo Node, puoi ottenere una reverse shell Node, e lo stesso vale per quasi qualsiasi **linguaggio di scripting**.
+Tuttavia, se il container compromesso sta eseguendo ad esempio un'app web Flask, allora Python è installato, e quindi puoi ottenere una **reverse shell Python**. Se sta eseguendo Node, puoi ottenere una reverse shell Node, e lo stesso vale per quasi qualsiasi **linguaggio di scripting**.
 
 {% hint style="success" %}
 Utilizzando il linguaggio di scripting potresti **enumerare il sistema** utilizzando le capacità del linguaggio.
@@ -132,7 +132,7 @@ Tuttavia, in questo tipo di container queste protezioni di solito esistono, ma p
 
 Puoi trovare **esempi** su come **sfruttare alcune vulnerabilità RCE** per ottenere reverse shell di linguaggi di scripting ed eseguire binari dalla memoria in [**https://github.com/carlospolop/DistrolessRCE**](https://github.com/carlospolop/DistrolessRCE).
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Se sei interessato a una **carriera nel hacking** e a hackare l'inhackabile - **stiamo assumendo!** (_richiesta di polacco fluente scritto e parlato_).
 
@@ -147,7 +147,7 @@ Impara e pratica Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt="
 <summary>Supporta HackTricks</summary>
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
-* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
 
 </details>
