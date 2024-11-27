@@ -1,4 +1,4 @@
-# Seguridad de macOS y Escalación de Privilegios
+# Seguridad y Escalación de Privilegios en macOS
 
 {% hint style="success" %}
 Aprende y practica Hacking en AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -9,24 +9,24 @@ Aprende y practica Hacking en GCP: <img src="../../.gitbook/assets/grte.png" alt
 <summary>Apoya a HackTricks</summary>
 
 * Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
-* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos de github.
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-Únete al [**Discord de HackenProof**](https://discord.com/invite/N3FrSbmwdy) para comunicarte con hackers experimentados y cazadores de bugs.
+Únete al servidor de [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para comunicarte con hackers experimentados y cazadores de recompensas por errores.
 
 **Perspectivas de Hacking**\
 Participa en contenido que profundiza en la emoción y los desafíos del hacking
 
-**Noticias de Hackeo en Tiempo Real**\
+**Noticias de Hacking en Tiempo Real**\
 Mantente al día con el mundo del hacking a través de noticias e información en tiempo real
 
 **Últimos Anuncios**\
-Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actualizaciones cruciales de la plataforma
+Mantente informado sobre las nuevas recompensas por errores que se lanzan y actualizaciones cruciales de la plataforma
 
 **Únete a nosotros en** [**Discord**](https://discord.com/invite/N3FrSbmwdy) y comienza a colaborar con los mejores hackers hoy mismo!
 
@@ -64,7 +64,7 @@ Si no estás familiarizado con macOS, deberías comenzar a aprender los concepto
 [macos-protocols.md](macos-protocols.md)
 {% endcontent-ref %}
 
-* **Código abierto** de macOS: [https://opensource.apple.com/](https://opensource.apple.com/)
+* **Open source** macOS: [https://opensource.apple.com/](https://opensource.apple.com/)
 * Para descargar un `tar.gz`, cambia una URL como [https://opensource.apple.com/**source**/dyld/](https://opensource.apple.com/source/dyld/) a [https://opensource.apple.com/**tarballs**/dyld/**dyld-852.2.tar.gz**](https://opensource.apple.com/tarballs/dyld/dyld-852.2.tar.gz)
 
 ### MDM de MacOS
@@ -107,7 +107,7 @@ Para este tipo de vulnerabilidades, no olvides **verificar instaladores `.pkg` v
 [macos-installers-abuse.md](macos-files-folders-and-binaries/macos-installers-abuse.md)
 {% endcontent-ref %}
 
-### Controladores de Aplicaciones de Extensión de Archivo y Esquema de URL
+### Manejadores de Aplicaciones de Extensión de Archivo y Esquema de URL
 
 Aplicaciones extrañas registradas por extensiones de archivo podrían ser abusadas y diferentes aplicaciones pueden registrarse para abrir protocolos específicos
 
@@ -115,9 +115,9 @@ Aplicaciones extrañas registradas por extensiones de archivo podrían ser abusa
 [macos-file-extension-apps.md](macos-file-extension-apps.md)
 {% endcontent-ref %}
 
-## Escalación de Privilegios TCC / SIP de macOS
+## Escalación de Privilegios TCC / SIP en macOS
 
-En macOS, **las aplicaciones y binarios pueden tener permisos** para acceder a carpetas o configuraciones que les otorgan más privilegios que a otros.
+En macOS, **las aplicaciones y binarios pueden tener permisos** para acceder a carpetas o configuraciones que los hacen más privilegiados que otros.
 
 Por lo tanto, un atacante que quiera comprometer con éxito una máquina macOS necesitará **escalar sus privilegios TCC** (o incluso **eludir SIP**, dependiendo de sus necesidades).
 
@@ -125,7 +125,7 @@ Estos privilegios generalmente se otorgan en forma de **derechos** con los que l
 
 Sigue estos enlaces para encontrar diferentes formas de [**escalar privilegios en TCC**](macos-security-protections/macos-tcc/#tcc-privesc-and-bypasses), para [**eludir TCC**](macos-security-protections/macos-tcc/macos-tcc-bypasses/) y cómo en el pasado [**se ha eludido SIP**](macos-security-protections/macos-sip.md#sip-bypasses).
 
-## Escalación de Privilegios Tradicional de macOS
+## Escalación de Privilegios Tradicional en macOS
 
 Por supuesto, desde la perspectiva de un equipo rojo, también deberías estar interesado en escalar a root. Revisa la siguiente publicación para algunos consejos:
 
@@ -135,7 +135,7 @@ Por supuesto, desde la perspectiva de un equipo rojo, también deberías estar i
 
 ## Cumplimiento de macOS
 
-* [https://github.com/usnistgov/macos\_security](https://github.com/usnistgov/macos\_security)
+* [https://github.com/usnistgov/macos\_security](https://github.com/usnistgov/macos_security)
 
 ## Referencias
 
@@ -145,18 +145,18 @@ Por supuesto, desde la perspectiva de un equipo rojo, también deberías estar i
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-Únete al [**Discord de HackenProof**](https://discord.com/invite/N3FrSbmwdy) para comunicarte con hackers experimentados y cazadores de bugs.
+Únete al servidor de [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) para comunicarte con hackers experimentados y cazadores de recompensas por errores.
 
 **Perspectivas de Hacking**\
 Participa en contenido que profundiza en la emoción y los desafíos del hacking
 
-**Noticias de Hackeo en Tiempo Real**\
+**Noticias de Hacking en Tiempo Real**\
 Mantente al día con el mundo del hacking a través de noticias e información en tiempo real
 
 **Últimos Anuncios**\
-Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actualizaciones cruciales de la plataforma
+Mantente informado sobre las nuevas recompensas por errores que se lanzan y actualizaciones cruciales de la plataforma
 
 **Únete a nosotros en** [**Discord**](https://discord.com/invite/N3FrSbmwdy) y comienza a colaborar con los mejores hackers hoy mismo!
 
@@ -169,7 +169,7 @@ Aprende y practica Hacking en GCP: <img src="../../.gitbook/assets/grte.png" alt
 <summary>Apoya a HackTricks</summary>
 
 * Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
-* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos de github.
 
 </details>

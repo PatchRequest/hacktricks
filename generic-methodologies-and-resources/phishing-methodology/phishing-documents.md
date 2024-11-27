@@ -1,15 +1,15 @@
 # Archivos y Documentos de Phishing
 
 {% hint style="success" %}
-Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprende y practica Hacking en AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprende y practica Hacking en GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Apoya a HackTricks</summary>
 
 * Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
-* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Comparte trucos de hacking enviando PRs a los** [**repositorios de HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
 
 </details>
@@ -17,9 +17,9 @@ Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" d
 
 ## Documentos de Office
 
-Microsoft Word realiza la validación de datos del archivo antes de abrirlo. La validación de datos se lleva a cabo en forma de identificación de la estructura de datos, de acuerdo con el estándar OfficeOpenXML. Si ocurre algún error durante la identificación de la estructura de datos, el archivo que se está analizando no se abrirá.
+Microsoft Word realiza la validación de datos de archivos antes de abrir un archivo. La validación de datos se lleva a cabo en forma de identificación de estructuras de datos, contra el estándar OfficeOpenXML. Si ocurre algún error durante la identificación de la estructura de datos, el archivo que se está analizando no se abrirá.
 
-Por lo general, los archivos de Word que contienen macros utilizan la extensión `.docm`. Sin embargo, es posible renombrar el archivo cambiando la extensión y aún así mantener sus capacidades de ejecución de macros.\
+Por lo general, los archivos de Word que contienen macros utilizan la extensión `.docm`. Sin embargo, es posible renombrar el archivo cambiando la extensión del archivo y aún así mantener sus capacidades de ejecución de macros.\
 Por ejemplo, un archivo RTF no admite macros, por diseño, pero un archivo DOCM renombrado a RTF será manejado por Microsoft Word y será capaz de ejecutar macros.\
 Los mismos internos y mecanismos se aplican a todo el software de la Suite de Microsoft Office (Excel, PowerPoint, etc.).
 
@@ -32,7 +32,7 @@ DOCX files referencing a remote template (Archivo – Opciones – Complementos 
 ### Carga de Imagen Externa
 
 Ir a: _Insertar --> Partes Rápidas --> Campo_\
-_**Categorías**: Enlaces y Referencias, **Nombres de campo**: includePicture, y **Nombre de archivo o URL**:_ http://\<ip>/whatever
+&#xNAN;_**Categorías**: Enlaces y Referencias, **Nombres de campo**: includePicture, y **Nombre de archivo o URL**:_ http://\<ip>/whatever
 
 ![](<../../.gitbook/assets/image (155).png>)
 
@@ -96,7 +96,7 @@ Haz esto porque **no puedes guardar macros dentro de un `.docx`** y hay un **est
 
 Un HTA es un programa de Windows que **combina HTML y lenguajes de scripting (como VBScript y JScript)**. Genera la interfaz de usuario y se ejecuta como una aplicación "totalmente confiable", sin las limitaciones del modelo de seguridad de un navegador.
 
-Un HTA se ejecuta utilizando **`mshta.exe`**, que generalmente está **instalado** junto con **Internet Explorer**, haciendo que **`mshta` dependa de IE**. Así que si se ha desinstalado, los HTA no podrán ejecutarse.
+Un HTA se ejecuta utilizando **`mshta.exe`**, que generalmente está **instalado** junto con **Internet Explorer**, haciendo que **`mshta` dependa de IE**. Así que si ha sido desinstalado, los HTA no podrán ejecutarse.
 ```html
 <--! Basic HTA Execution -->
 <html>
@@ -173,15 +173,15 @@ No olvides que no solo puedes robar el hash o la autenticación, sino también *
 * [**AD CS ESC8 (relevo NTLM a certificados)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
 
 {% hint style="success" %}
-Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprende y practica Hacking en AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprende y practica Hacking en GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Apoya a HackTricks</summary>
 
 * Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
-* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositorios de github.
 
 </details>

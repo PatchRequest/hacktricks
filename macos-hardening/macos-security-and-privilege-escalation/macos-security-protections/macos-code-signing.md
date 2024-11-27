@@ -9,20 +9,20 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-## Basic Information
+## Información Básica
 
 Los binarios Mach-o contienen un comando de carga llamado **`LC_CODE_SIGNATURE`** que indica el **offset** y el **tamaño** de las firmas dentro del binario. De hecho, utilizando la herramienta GUI MachOView, es posible encontrar al final del binario una sección llamada **Code Signature** con esta información:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 El encabezado mágico de la Code Signature es **`0xFADE0CC0`**. Luego tienes información como la longitud y el número de blobs del superBlob que los contiene.\
-Es posible encontrar esta información en el [código fuente aquí](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
+Es posible encontrar esta información en el [código fuente aquí](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L276):
 ```c
 /*
 * Structure of an embedded-signature SuperBlob
@@ -58,7 +58,7 @@ Además, las firmas pueden ser separadas de los binarios y almacenadas en `/var/
 
 ## Blob del Directorio de Código
 
-Es posible encontrar la declaración del [Blob del Directorio de Código en el código](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104):
+Es posible encontrar la declaración del [Blob del Directorio de Código en el código](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L104):
 ```c
 typedef struct __CodeDirectory {
 uint32_t magic;                                 /* magic number (CSMAGIC_CODEDIRECTORY) */
@@ -119,7 +119,7 @@ Note que hay diferentes versiones de esta estructura donde las antiguas pueden c
 ## Páginas de Firma de Código
 
 Hacer un hash del binario completo sería ineficiente e incluso inútil si solo se carga en memoria parcialmente. Por lo tanto, la firma de código es en realidad un hash de hashes donde cada página binaria se hash individualmente.\
-De hecho, en el código del **Directorio de Código** anterior, puedes ver que el **tamaño de página está especificado** en uno de sus campos. Además, si el tamaño del binario no es un múltiplo del tamaño de una página, el campo **CodeLimit** especifica dónde está el final de la firma.
+De hecho, en el anterior código de **Directorio de Código** puedes ver que el **tamaño de página está especificado** en uno de sus campos. Además, si el tamaño del binario no es un múltiplo del tamaño de una página, el campo **CodeLimit** especifica dónde está el final de la firma.
 ```bash
 # Get all hashes of /bin/ps
 codesign -d -vvvvvv /bin/ps
@@ -157,7 +157,7 @@ openssl sha256 /tmp/*.page.*
 ```
 ## Entitlements Blob
 
-Note que las aplicaciones también pueden contener un **entitlement blob** donde se definen todos los derechos. Además, algunos binarios de iOS pueden tener sus derechos específicos en el slot especial -7 (en lugar de en el slot especial -5 de derechos).
+Tenga en cuenta que las aplicaciones también pueden contener un **entitlement blob** donde se definen todos los derechos. Además, algunos binarios de iOS pueden tener sus derechos específicos en el slot especial -7 (en lugar de en el slot especial -5 de derechos).
 
 ## Special Slots
 
@@ -175,7 +175,7 @@ De hecho, es posible ver en las estructuras del Directorio de Código un paráme
 
 ## Code Signing Flags
 
-Cada proceso tiene relacionado un bitmask conocido como el `status` que es iniciado por el kernel y algunos de ellos pueden ser sobrescritos por la **firma de código**. Estas banderas que pueden incluirse en la firma de código están [definidas en el código](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
+Cada proceso tiene relacionado un bitmask conocido como el `status` que es iniciado por el kernel y algunos de ellos pueden ser anulados por la **firma de código**. Estas banderas que pueden incluirse en la firma de código están [definidas en el código](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
 ```c
 /* code signing attributes of a process */
 #define CS_VALID                    0x00000001  /* dynamically valid */
@@ -220,7 +220,7 @@ CS_RESTRICT | CS_ENFORCEMENT | CS_REQUIRE_LV | CS_RUNTIME | CS_LINKER_SIGNED)
 
 #define CS_ENTITLEMENT_FLAGS        (CS_GET_TASK_ALLOW | CS_INSTALLER | CS_DATAVAULT_CONTROLLER | CS_NVRAM_UNRESTRICTED)
 ```
-Note que la función [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern\_exec.c#L1420) también puede agregar dinámicamente las banderas `CS_EXEC_*` al iniciar la ejecución.
+Note que la función [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern_exec.c#L1420) también puede agregar dinámicamente las banderas `CS_EXEC_*` al iniciar la ejecución.
 
 ## Requisitos de Firma de Código
 
@@ -312,7 +312,7 @@ El **kernel** es el que **verifica la firma de código** antes de permitir que e
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) la estructura contiene la información sobre el derecho del proceso en ejecución sobre él. `csb_platform_binary` también informa si la aplicación es un binario de plataforma (lo cual es verificado en diferentes momentos por el OS para aplicar mecanismos de seguridad como proteger los derechos de SEND a los puertos de tarea de estos procesos).
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106) la estructura contiene la información sobre el derecho del proceso en ejecución sobre él. `csb_platform_binary` también informa si la aplicación es un binario de plataforma (lo cual es verificado en diferentes momentos por el OS para aplicar mecanismos de seguridad como proteger los derechos de SEND a los puertos de tarea de estos procesos).
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
@@ -384,7 +384,7 @@ Aprende y practica Hacking en GCP: <img src="../../../.gitbook/assets/grte.png" 
 <summary>Apoya a HackTricks</summary>
 
 * Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
-* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositorios de github.
 
 </details>

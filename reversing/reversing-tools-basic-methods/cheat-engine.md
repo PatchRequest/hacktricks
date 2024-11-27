@@ -1,15 +1,15 @@
 # Cheat Engine
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -23,7 +23,7 @@ Cuando lo descargas y lo ejecutas, se te **presenta** un **tutorial** sobre cóm
 ![](<../../.gitbook/assets/image (762).png>)
 
 Esta herramienta es muy útil para encontrar **dónde se almacena algún valor** (generalmente un número) **en la memoria** de un programa.\
-**Generalmente los números** se almacenan en forma de **4bytes**, pero también podrías encontrarlos en formatos **double** o **float**, o puede que desees buscar algo **diferente de un número**. Por esa razón, necesitas asegurarte de **seleccionar** lo que deseas **buscar**:
+**Generalmente, los números** se almacenan en forma de **4 bytes**, pero también podrías encontrarlos en formatos **double** o **float**, o puede que desees buscar algo **diferente de un número**. Por esa razón, necesitas asegurarte de **seleccionar** lo que deseas **buscar**:
 
 ![](<../../.gitbook/assets/image (324).png>)
 
@@ -68,17 +68,17 @@ Luego, haces algo para que **el valor cambie**, y **detienes** el juego y **real
 ![](<../../.gitbook/assets/image (684).png>)
 
 Cheat Engine buscará los **valores** que **pasaron de 100 al nuevo valor**. Felicitaciones, **encontraste** la **dirección** del valor que estabas buscando, ahora puedes modificarlo.\
-_Si aún tienes varios valores, haz algo para modificar nuevamente ese valor y realiza otro "siguiente escaneo" para filtrar las direcciones._
+Si aún tienes varios valores, haz algo para modificar nuevamente ese valor y realiza otro "siguiente escaneo" para filtrar las direcciones.
 
 ### Valor desconocido, cambio conocido
 
-En el escenario en que **no conoces el valor** pero sabes **cómo hacerlo cambiar** (e incluso el valor del cambio), puedes buscar tu número.
+En el escenario en el que **no conoces el valor** pero sabes **cómo hacer que cambie** (e incluso el valor del cambio), puedes buscar tu número.
 
 Así que, comienza realizando un escaneo de tipo "**Valor inicial desconocido**":
 
 ![](<../../.gitbook/assets/image (890).png>)
 
-Luego, haz que el valor cambie, indica **cómo** el **valor** **cambió** (en mi caso disminuyó en 1) y realiza un **siguiente escaneo**:
+Luego, haz que el valor cambie, indica **cómo** el **valor** **cambió** (en mi caso, disminuyó en 1) y realiza un **siguiente escaneo**:
 
 ![](<../../.gitbook/assets/image (371).png>)
 
@@ -115,7 +115,7 @@ Así que, ahora puedes modificarlo para que el código no afecte tu número, o s
 
 ### Dirección de memoria aleatoria - Encontrando el puntero
 
-Siguiendo los pasos anteriores, encuentra dónde está el valor que te interesa. Luego, usando "**Descubrir qué escribe en esta dirección**", averigua qué dirección escribe este valor y haz doble clic en ella para obtener la vista de desensamblado:
+Siguiendo los pasos anteriores, encuentra dónde está el valor que te interesa. Luego, usando "**Descubrir qué escribe en esta dirección**", averigua qué dirección escribe este valor y haz doble clic en él para obtener la vista de desensamblado:
 
 ![](<../../.gitbook/assets/image (1039).png>)
 
@@ -123,8 +123,8 @@ Luego, realiza un nuevo escaneo **buscando el valor hex entre "\[]"** (el valor 
 
 ![](<../../.gitbook/assets/image (994).png>)
 
-(_Si aparecen varios, generalmente necesitas la dirección más pequeña_)\
-Ahora, hemos **encontrado el puntero que estará modificando el valor que nos interesa**.
+(Si aparecen varios, generalmente necesitas la dirección más pequeña)\
+Ahora, hemos **encontrado el puntero que modificará el valor que nos interesa**.
 
 Haz clic en "**Agregar dirección manualmente**":
 
@@ -163,12 +163,27 @@ Se generará una plantilla:
 
 ![](<../../.gitbook/assets/image (944).png>)
 
-Así que, inserta tu nuevo código ensamblador en la sección "**newmem**" y elimina el código original de "**originalcode**" si no deseas que se ejecute. En este ejemplo, el código inyectado sumará 2 puntos en lugar de restar 1:
+Así que, inserta tu nuevo código de ensamblador en la sección "**newmem**" y elimina el código original de "**originalcode**" si no deseas que se ejecute. En este ejemplo, el código inyectado sumará 2 puntos en lugar de restar 1:
 
 ![](<../../.gitbook/assets/image (521).png>)
 
-**Haz clic en ejecutar y así tu código debería ser inyectado en el programa cambiando el comportamiento de la funcionalidad!**
+**Haz clic en ejecutar y así sucesivamente y tu código debería ser inyectado en el programa cambiando el comportamiento de la funcionalidad!**
 
 ## **Referencias**
 
-* **Tutorial de Cheat Engine, complétalo para aprender a comenzar con Cheat Engine**
+* **Tutorial de Cheat Engine, complétalo para aprender a comenzar con Cheat Engine** 
+
+{% hint style="success" %}
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+
+<details>
+
+<summary>Support HackTricks</summary>
+
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+
+</details>
+{% endhint %}

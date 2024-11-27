@@ -1,15 +1,15 @@
 # NTLM
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -17,9 +17,9 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## Información Básica
 
-En entornos donde **Windows XP y Server 2003** están en operación, se utilizan hashes LM (Lan Manager), aunque se reconoce ampliamente que estos pueden ser fácilmente comprometidos. Un hash LM particular, `AAD3B435B51404EEAAD3B435B51404EE`, indica un escenario donde no se emplea LM, representando el hash para una cadena vacía.
+En entornos donde **Windows XP y Server 2003** están en operación, se utilizan hashes LM (Lan Manager), aunque se reconoce ampliamente que estos pueden ser fácilmente comprometidos. Un hash LM particular, `AAD3B435B51404EEAAD3B435B51404EE`, indica un escenario donde LM no se emplea, representando el hash para una cadena vacía.
 
-Por defecto, el protocolo de autenticación **Kerberos** es el método principal utilizado. NTLM (NT LAN Manager) entra en acción bajo circunstancias específicas: ausencia de Active Directory, inexistencia del dominio, mal funcionamiento de Kerberos debido a una configuración incorrecta, o cuando se intentan conexiones utilizando una dirección IP en lugar de un nombre de host válido.
+Por defecto, el protocolo de autenticación **Kerberos** es el método principal utilizado. NTLM (NT LAN Manager) interviene bajo circunstancias específicas: ausencia de Active Directory, inexistencia del dominio, mal funcionamiento de Kerberos debido a una configuración incorrecta, o cuando se intentan conexiones utilizando una dirección IP en lugar de un nombre de host válido.
 
 La presencia del encabezado **"NTLMSSP"** en los paquetes de red señala un proceso de autenticación NTLM.
 
@@ -82,23 +82,23 @@ El **hash NT (16bytes)** se divide en **3 partes de 7bytes cada una** (7B + 7B +
 
 * Falta de **aleatoriedad**
 * Las 3 partes pueden ser **atacadas por separado** para encontrar el hash NT
-* **DES es crackeable**
+* **DES es quebrantable**
 * La 3ª clave está compuesta siempre por **5 ceros**.
-* Dado el **mismo reto**, la **respuesta** será la **misma**. Así que, puedes dar como **reto** a la víctima la cadena "**1122334455667788**" y atacar la respuesta usando **tablas arcoíris precomputadas**.
+* Dado el **mismo reto**, la **respuesta** será **la misma**. Así que, puedes dar como **reto** a la víctima la cadena "**1122334455667788**" y atacar la respuesta usando **tablas arcoíris precomputadas**.
 
 ### Ataque NTLMv1
 
 Hoy en día es cada vez menos común encontrar entornos con Delegación No Restringida configurada, pero esto no significa que no puedas **abusar de un servicio de Print Spooler** configurado.
 
-Podrías abusar de algunas credenciales/sesiones que ya tienes en el AD para **pedir a la impresora que se autentique** contra algún **host bajo tu control**. Luego, usando `metasploit auxiliary/server/capture/smb` o `responder` puedes **establecer el reto de autenticación a 1122334455667788**, capturar el intento de autenticación, y si se realizó usando **NTLMv1** podrás **crackearlo**.\
+Podrías abusar de algunas credenciales/sesiones que ya tienes en el AD para **pedir a la impresora que se autentique** contra algún **host bajo tu control**. Luego, usando `metasploit auxiliary/server/capture/smb` o `responder` puedes **establecer el reto de autenticación a 1122334455667788**, capturar el intento de autenticación, y si se realizó usando **NTLMv1** podrás **quebrarlo**.\
 Si estás usando `responder` podrías intentar \*\*usar la bandera `--lm` \*\* para intentar **reducir** la **autenticación**.\
-_Ten en cuenta que para esta técnica la autenticación debe realizarse usando NTLMv1 (NTLMv2 no es válido)._
+&#xNAN;_&#x4E;ote que para esta técnica la autenticación debe realizarse usando NTLMv1 (NTLMv2 no es válido)._
 
-Recuerda que la impresora utilizará la cuenta de computadora durante la autenticación, y las cuentas de computadora utilizan **contraseñas largas y aleatorias** que **probablemente no podrás crackear** usando diccionarios comunes. Pero la autenticación **NTLMv1** **usa DES** ([más información aquí](./#ntlmv1-challenge)), así que usando algunos servicios especialmente dedicados a crackear DES podrás crackearlo (podrías usar [https://crack.sh/](https://crack.sh) o [https://ntlmv1.com/](https://ntlmv1.com) por ejemplo).
+Recuerda que la impresora utilizará la cuenta de computadora durante la autenticación, y las cuentas de computadora utilizan **contraseñas largas y aleatorias** que **probablemente no podrás quebrar** usando diccionarios comunes. Pero la autenticación **NTLMv1** **usa DES** ([más información aquí](./#ntlmv1-challenge)), así que usando algunos servicios especialmente dedicados a quebrar DES podrás hacerlo (podrías usar [https://crack.sh/](https://crack.sh) o [https://ntlmv1.com/](https://ntlmv1.com) por ejemplo).
 
 ### Ataque NTLMv1 con hashcat
 
-NTLMv1 también puede ser roto con la herramienta NTLMv1 Multi [https://github.com/evilmog/ntlmv1-multi](https://github.com/evilmog/ntlmv1-multi) que formatea los mensajes NTLMv1 de una manera que puede ser rota con hashcat.
+NTLMv1 también puede ser quebrantado con la herramienta NTLMv1 Multi [https://github.com/evilmog/ntlmv1-multi](https://github.com/evilmog/ntlmv1-multi) que formatea los mensajes NTLMv1 de una manera que puede ser quebrantada con hashcat.
 
 El comando
 ```bash
@@ -133,61 +133,36 @@ NTHASH:727B4E35F947129EA52B9CDEDAE86934BB23EF89F50FC595
 ```markdown
 # NTLM Hardening
 
-NTLM (NT LAN Manager) is a suite of Microsoft security protocols that provides authentication, integrity, and confidentiality to users. However, NTLM has known vulnerabilities that can be exploited by attackers. This document outlines steps to harden NTLM in your environment.
+## Introducción
 
-## Steps to Harden NTLM
+NTLM (NT LAN Manager) es un protocolo de autenticación que se utiliza en redes de Windows. Aunque ha sido reemplazado en gran medida por Kerberos, todavía se encuentra en uso en muchas organizaciones. Este documento proporciona recomendaciones para endurecer el uso de NTLM en su entorno.
 
-1. **Disable NTLM Authentication**  
-   If possible, disable NTLM authentication entirely and switch to Kerberos.
+## Recomendaciones
 
-2. **Limit NTLM Usage**  
-   Configure your systems to limit NTLM usage to only those applications that absolutely require it.
+1. **Deshabilitar NTLM donde sea posible**  
+   Siempre que sea posible, deshabilite NTLM y utilice Kerberos en su lugar.
 
-3. **Audit NTLM Authentication**  
-   Regularly audit NTLM authentication logs to identify any unauthorized access attempts.
+2. **Limitar el uso de NTLM**  
+   Si NTLM debe ser utilizado, limite su uso a los sistemas y aplicaciones que realmente lo necesiten.
 
-4. **Implement Security Policies**  
-   Enforce security policies that restrict NTLM usage and require stronger authentication methods.
+3. **Monitorear el tráfico NTLM**  
+   Implemente herramientas de monitoreo para detectar el uso no autorizado de NTLM en su red.
 
-5. **Use Strong Passwords**  
-   Ensure that all user accounts have strong, complex passwords to reduce the risk of NTLM relay attacks.
+4. **Aplicar políticas de seguridad**  
+   Asegúrese de que las políticas de seguridad de su organización prohíban el uso de NTLM en situaciones innecesarias.
 
-## Conclusion
-
-Harden your NTLM implementation to protect against potential vulnerabilities and attacks. Regularly review and update your security measures to stay ahead of threats.
-```
-
-```markdown
-# Endurecimiento de NTLM
-
-NTLM (NT LAN Manager) es un conjunto de protocolos de seguridad de Microsoft que proporciona autenticación, integridad y confidencialidad a los usuarios. Sin embargo, NTLM tiene vulnerabilidades conocidas que pueden ser explotadas por atacantes. Este documento describe los pasos para endurecer NTLM en su entorno.
-
-## Pasos para Endurecer NTLM
-
-1. **Deshabilitar la Autenticación NTLM**  
-   Si es posible, deshabilite la autenticación NTLM por completo y cambie a Kerberos.
-
-2. **Limitar el Uso de NTLM**  
-   Configure sus sistemas para limitar el uso de NTLM solo a aquellas aplicaciones que lo requieran absolutamente.
-
-3. **Auditar la Autenticación NTLM**  
-   Audite regularmente los registros de autenticación NTLM para identificar cualquier intento de acceso no autorizado.
-
-4. **Implementar Políticas de Seguridad**  
-   Haga cumplir políticas de seguridad que restrinjan el uso de NTLM y requieran métodos de autenticación más fuertes.
-
-5. **Usar Contraseñas Fuertes**  
-   Asegúrese de que todas las cuentas de usuario tengan contraseñas fuertes y complejas para reducir el riesgo de ataques de retransmisión NTLM.
+5. **Actualizar sistemas**  
+   Mantenga todos los sistemas actualizados con los últimos parches de seguridad para mitigar vulnerabilidades relacionadas con NTLM.
 
 ## Conclusión
 
-Endurezca su implementación de NTLM para protegerse contra vulnerabilidades y ataques potenciales. Revise y actualice regularmente sus medidas de seguridad para mantenerse por delante de las amenazas.
+Endurecer el uso de NTLM es crucial para proteger su red de posibles ataques. Siga estas recomendaciones para mejorar la seguridad de su entorno.
 ```
 ```bash
 727B4E35F947129E:1122334455667788
 A52B9CDEDAE86934:1122334455667788
 ```
-Ejecuta hashcat (distribuido es mejor a través de una herramienta como hashtopolis) ya que de lo contrario tomará varios días.
+Ejecuta hashcat (distribuido es mejor a través de una herramienta como hashtopolis) ya que esto tomará varios días de otra manera.
 ```bash
 ./hashcat -m 14000 -a 3 -1 charsets/DES_full.charset --hex-charset hashes.txt ?1?1?1?1?1?1?1?1
 ```
@@ -252,9 +227,9 @@ Puedes obtener ejecución de código en máquinas Windows usando Pass-the-Hash d
 
 Puedes descargar [los binarios de impacket para Windows aquí](https://github.com/ropnop/impacket_static_binaries/releases/tag/0.9.21-dev-binaries).
 
-* **psexec_windows.exe** `C:\AD\MyTools\psexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.my.domain.local`
+* **psexec\_windows.exe** `C:\AD\MyTools\psexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.my.domain.local`
 * **wmiexec.exe** `wmiexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.dollarcorp.moneycorp.local`
-* **atexec.exe** (En este caso necesitas especificar un comando, cmd.exe y powershell.exe no son válidos para obtener un shell interactivo) `C:\AD\MyTools\atexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.dollarcorp.moneycorp.local 'whoami'`
+* **atexec.exe** (En este caso necesitas especificar un comando, cmd.exe y powershell.exe no son válidos para obtener un shell interactivo)`C:\AD\MyTools\atexec_windows.exe -hashes ":b38ff50264b74508085d82c69794a4d8" svcadmin@dcorp-mgmt.dollarcorp.moneycorp.local 'whoami'`
 * Hay varios más binarios de Impacket...
 
 ### Invoke-TheHash
@@ -303,7 +278,7 @@ wce.exe -s <username>:<domain>:<hash_lm>:<hash_nt>
 
 **Para más información sobre** [**cómo obtener credenciales de un host de Windows, deberías leer esta página**](https://github.com/carlospolop/hacktricks/blob/master/windows-hardening/ntlm/broken-reference/README.md)**.**
 
-## Reenvío NTLM y Responder
+## Relevo NTLM y Responder
 
 **Lee una guía más detallada sobre cómo realizar esos ataques aquí:**
 
@@ -316,15 +291,15 @@ wce.exe -s <username>:<domain>:<hash_lm>:<hash_nt>
 **Puedes usar** [**https://github.com/mlgualtieri/NTLMRawUnHide**](https://github.com/mlgualtieri/NTLMRawUnHide)
 
 {% hint style="success" %}
-Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprende y practica Hacking en AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprende y practica Hacking en GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Apoya a HackTricks</summary>
 
 * Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
-* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositorios de github.
 
 </details>

@@ -1,32 +1,32 @@
 # Lista de verificación - Escalación de privilegios en Linux
 
 {% hint style="success" %}
-Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprende y practica Hacking en AWS:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprende y practica Hacking en GCP: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Apoya a HackTricks</summary>
 
 * Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
-* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositorios de github.
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-Únete al [**Discord de HackenProof**](https://discord.com/invite/N3FrSbmwdy) para comunicarte con hackers experimentados y cazadores de bugs.
+Únete al [**Discord de HackenProof**](https://discord.com/invite/N3FrSbmwdy) para comunicarte con hackers experimentados y cazadores de recompensas por errores.
 
 **Perspectivas de Hacking**\
-Participa en contenido que profundiza en la emoción y los desafíos del hacking
+Involúcrate con contenido que profundiza en la emoción y los desafíos del hacking
 
-**Noticias de Hacking en Tiempo Real**\
+**Noticias de Hackeo en Tiempo Real**\
 Mantente al día con el mundo del hacking de ritmo rápido a través de noticias e información en tiempo real
 
 **Últimos Anuncios**\
-Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actualizaciones cruciales de la plataforma
+Mantente informado sobre las nuevas recompensas por errores que se lanzan y actualizaciones cruciales de la plataforma
 
 **Únete a nosotros en** [**Discord**](https://discord.com/invite/N3FrSbmwdy) y comienza a colaborar con los mejores hackers hoy mismo!
 
@@ -41,7 +41,7 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 * [ ] **Verificar** si la [**versión de sudo** es vulnerable](privilege-escalation/#sudo-version)
 * [ ] [**Dmesg** verificación de firma fallida](privilege-escalation/#dmesg-signature-verification-failed)
 * [ ] Más enumeración del sistema ([fecha, estadísticas del sistema, información de CPU, impresoras](privilege-escalation/#more-system-enumeration))
-* [ ] [**Enumerar más defensas**](privilege-escalation/#enumerate-possible-defenses)
+* [ ] [Enumerar más defensas](privilege-escalation/#enumerate-possible-defenses)
 
 ### [Unidades](privilege-escalation/#drives)
 
@@ -65,10 +65,10 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 
 ### [¿Tareas programadas/Cron?](privilege-escalation/#scheduled-jobs)
 
-* [ ] ¿Se está modificando el [**PATH**](privilege-escalation/#cron-path) por algún cron y puedes **escribir** en él?
+* [ ] ¿El [**PATH**](privilege-escalation/#cron-path) está siendo modificado por algún cron y puedes **escribir** en él?
 * [ ] ¿Algún [**comodín**](privilege-escalation/#cron-using-a-script-with-a-wildcard-wildcard-injection) en un trabajo cron?
-* [ ] ¿Algún [**script modificable**](privilege-escalation/#cron-script-overwriting-and-symlink) se está **ejecutando** o está dentro de una **carpeta modificable**?
-* [ ] ¿Has detectado que algún **script** podría estar o se está [**ejecutando** muy **frecuentemente**](privilege-escalation/#frequent-cron-jobs)? (cada 1, 2 o 5 minutos)
+* [ ] ¿Algún [**script modificable**](privilege-escalation/#cron-script-overwriting-and-symlink) está siendo **ejecutado** o está dentro de una **carpeta modificable**?
+* [ ] ¿Has detectado que algún **script** podría estar o está siendo [**ejecutado** muy **frecuentemente**](privilege-escalation/#frequent-cron-jobs)? (cada 1, 2 o 5 minutos)
 
 ### [Servicios](privilege-escalation/#services)
 
@@ -92,13 +92,13 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 
 ### [Red](privilege-escalation/#network)
 
-* [ ] Enumera la red para saber dónde estás
+* [ ] Enumerar la red para saber dónde estás
 * [ ] **¿Puertos abiertos a los que no pudiste acceder antes** de obtener una shell dentro de la máquina?
 * [ ] ¿Puedes **capturar tráfico** usando `tcpdump`?
 
 ### [Usuarios](privilege-escalation/#users)
 
-* [ ] Enumeración de usuarios/grupos **genéricos**
+* [ ] Enumeración de usuarios/grupos **genérica**
 * [ ] ¿Tienes un **UID muy grande**? ¿Es la **máquina** **vulnerable**?
 * [ ] ¿Puedes [**escalar privilegios gracias a un grupo**](privilege-escalation/interesting-groups-linux-pe/) al que perteneces?
 * [ ] ¿Datos del **portapapeles**?
@@ -116,7 +116,7 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 * [ ] ¿Los [**comandos sudo** están **limitados** por **path**? ¿Puedes **eludir** las restricciones](privilege-escalation/#sudo-execution-bypassing-paths)?
 * [ ] [**Binario Sudo/SUID sin path indicado**](privilege-escalation/#sudo-command-suid-binary-without-command-path)?
 * [ ] [**Binario SUID especificando path**](privilege-escalation/#suid-binary-with-command-path)? Eludir
-* [ ] [**Vuln de LD\_PRELOAD**](privilege-escalation/#ld\_preload)
+* [ ] [**Vuln de LD\_PRELOAD**](privilege-escalation/#ld_preload)
 * [ ] [**Falta de .so en binario SUID**](privilege-escalation/#suid-binary-so-injection) de una carpeta escribible?
 * [ ] [**Tokens SUDO disponibles**](privilege-escalation/#reusing-sudo-tokens)? [**¿Puedes crear un token SUDO**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
 * [ ] ¿Puedes [**leer o modificar archivos sudoers**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
@@ -150,7 +150,7 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 * [ ] **Modificados** en los últimos minutos
 * [ ] **Archivos de base de datos Sqlite**
 * [ ] **Archivos ocultos**
-* [ ] **Script/Binarios en PATH**
+* [ ] **Scripts/Binarios en PATH**
 * [ ] **Archivos web** (¿contraseñas?)
 * [ ] **¿Copias de seguridad?**
 * [ ] **Archivos conocidos que contienen contraseñas**: Usa **Linpeas** y **LaZagne**
@@ -168,31 +168,31 @@ Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actuali
 * [ ] ¿Puedes [**abusar de NFS para escalar privilegios**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] ¿Necesitas [**escapar de un shell restrictivo**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-Únete al [**Discord de HackenProof**](https://discord.com/invite/N3FrSbmwdy) para comunicarte con hackers experimentados y cazadores de bugs.
+Únete al [**Discord de HackenProof**](https://discord.com/invite/N3FrSbmwdy) para comunicarte con hackers experimentados y cazadores de recompensas por errores.
 
 **Perspectivas de Hacking**\
-Participa en contenido que profundiza en la emoción y los desafíos del hacking
+Involúcrate con contenido que profundiza en la emoción y los desafíos del hacking
 
-**Noticias de Hacking en Tiempo Real**\
+**Noticias de Hackeo en Tiempo Real**\
 Mantente al día con el mundo del hacking de ritmo rápido a través de noticias e información en tiempo real
 
 **Últimos Anuncios**\
-Mantente informado sobre las nuevas recompensas por bugs que se lanzan y actualizaciones cruciales de la plataforma
+Mantente informado sobre las nuevas recompensas por errores que se lanzan y actualizaciones cruciales de la plataforma
 
 **Únete a nosotros en** [**Discord**](https://discord.com/invite/N3FrSbmwdy) y comienza a colaborar con los mejores hackers hoy mismo!
 
 {% hint style="success" %}
-Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprende y practica Hacking en AWS:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprende y practica Hacking en GCP: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Apoya a HackTricks</summary>
 
 * Revisa los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
-* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositorios de github.
 
 </details>
