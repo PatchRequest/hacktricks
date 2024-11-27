@@ -15,6 +15,13 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 ### Variables de Identificación de Usuario
 
 - **`ruid`**: El **ID de usuario real** denota al usuario que inició el proceso.
@@ -26,12 +33,12 @@ Un proceso que no opera bajo root solo puede modificar su `euid` para que coinci
 
 ### Entendiendo las Funciones set*uid
 
-- **`setuid`**: Contrario a las suposiciones iniciales, `setuid` modifica principalmente `euid` en lugar de `ruid`. Específicamente, para procesos privilegiados, alinea `ruid`, `euid` y `suid` con el usuario especificado, a menudo root, solidificando efectivamente estos IDs debido al `suid` que prevalece. Se pueden encontrar detalles en la [página del manual de setuid](https://man7.org/linux/man-pages/man2/setuid.2.html).
-- **`setreuid`** y **`setresuid`**: Estas funciones permiten el ajuste matizado de `ruid`, `euid` y `suid`. Sin embargo, sus capacidades dependen del nivel de privilegio del proceso. Para procesos no root, las modificaciones están restringidas a los valores actuales de `ruid`, `euid` y `suid`. En contraste, los procesos root o aquellos con la capacidad `CAP_SETUID` pueden asignar valores arbitrarios a estos IDs. Se puede obtener más información de la [página del manual de setresuid](https://man7.org/linux/man-pages/man2/setresuid.2.html) y la [página del manual de setreuid](https://man7.org/linux/man-pages/man2/setreuid.2.html).
+- **`setuid`**: Contrario a las suposiciones iniciales, `setuid` modifica principalmente `euid` en lugar de `ruid`. Específicamente, para procesos privilegiados, alinea `ruid`, `euid` y `suid` con el usuario especificado, a menudo root, solidificando efectivamente estos IDs debido al `suid` que lo anula. Se pueden encontrar detalles en la [página del manual de setuid](https://man7.org/linux/man-pages/man2/setuid.2.html).
+- **`setreuid`** y **`setresuid`**: Estas funciones permiten el ajuste matizado de `ruid`, `euid` y `suid`. Sin embargo, sus capacidades dependen del nivel de privilegio del proceso. Para procesos que no son root, las modificaciones están restringidas a los valores actuales de `ruid`, `euid` y `suid`. En contraste, los procesos root o aquellos con la capacidad `CAP_SETUID` pueden asignar valores arbitrarios a estos IDs. Se puede obtener más información de la [página del manual de setresuid](https://man7.org/linux/man-pages/man2/setresuid.2.html) y la [página del manual de setreuid](https://man7.org/linux/man-pages/man2/setreuid.2.html).
 
 Estas funcionalidades no están diseñadas como un mecanismo de seguridad, sino para facilitar el flujo operativo previsto, como cuando un programa adopta la identidad de otro usuario al alterar su ID de usuario efectivo.
 
-Cabe destacar que, aunque `setuid` puede ser una opción común para la elevación de privilegios a root (ya que alinea todos los IDs a root), diferenciar entre estas funciones es crucial para entender y manipular los comportamientos de los IDs de usuario en diferentes escenarios.
+Notablemente, aunque `setuid` puede ser un recurso común para la elevación de privilegios a root (ya que alinea todos los IDs a root), diferenciar entre estas funciones es crucial para entender y manipular los comportamientos del ID de usuario en diversas situaciones.
 
 ### Mecanismos de Ejecución de Programas en Linux
 
@@ -39,7 +46,7 @@ Cabe destacar que, aunque `setuid` puede ser una opción común para la elevaci�
 - **Funcionalidad**: `execve` inicia un programa, determinado por el primer argumento. Toma dos argumentos de matriz, `argv` para argumentos y `envp` para el entorno.
 - **Comportamiento**: Retiene el espacio de memoria del llamador pero actualiza la pila, el montón y los segmentos de datos. El código del programa es reemplazado por el nuevo programa.
 - **Preservación del ID de Usuario**:
-- `ruid`, `euid` y los IDs de grupo adicionales permanecen sin cambios.
+- `ruid`, `euid` y los IDs de grupo suplementarios permanecen sin cambios.
 - `euid` puede tener cambios matizados si el nuevo programa tiene el bit SetUID establecido.
 - `suid` se actualiza desde `euid` después de la ejecución.
 - **Documentación**: Se puede encontrar información detallada en la [página del manual de `execve`](https://man7.org/linux/man-pages/man2/execve.2.html).
@@ -193,6 +200,13 @@ uid=99(nobody) gid=99(nobody) euid=100
 ```
 ## Referencias
 * [https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail](https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail)
+
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Profundiza tu experiencia en **Seguridad Móvil** con 8kSec Academy. Domina la seguridad de iOS y Android a través de nuestros cursos autoguiados y obtén certificación:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 
 {% hint style="success" %}
