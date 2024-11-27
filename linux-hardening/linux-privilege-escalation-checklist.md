@@ -1,21 +1,21 @@
 # 체크리스트 - 리눅스 권한 상승
 
 {% hint style="success" %}
-AWS 해킹 배우기 및 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS 해킹 배우기 및 연습하기:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP 해킹 배우기 및 연습하기: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks 지원하기</summary>
 
 * [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
-* 💬 [**디스코드 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **트위터** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
-* [**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.
+* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**를 팔로우하세요.**
+* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.**
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 경험이 풍부한 해커 및 버그 바운티 헌터와 소통하기 위해 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 서버에 참여하세요!
 
@@ -23,12 +23,12 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 해킹의 스릴과 도전에 대한 내용을 탐구하세요.
 
 **실시간 해킹 뉴스**\
-실시간 뉴스와 통찰력을 통해 빠르게 변화하는 해킹 세계의 최신 정보를 유지하세요.
+실시간 뉴스와 통찰력을 통해 빠르게 변화하는 해킹 세계를 최신 상태로 유지하세요.
 
 **최신 발표**\
 새로운 버그 바운티와 중요한 플랫폼 업데이트에 대한 정보를 유지하세요.
 
-오늘 [**디스코드**](https://discord.com/invite/N3FrSbmwdy)에 참여하여 최고의 해커들과 협업을 시작하세요!
+**[**Discord**](https://discord.com/invite/N3FrSbmwdy)에서 저희와 함께하고 오늘 최고의 해커들과 협력하세요!**
 
 ### **리눅스 로컬 권한 상승 벡터를 찾기 위한 최고의 도구:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
 
@@ -36,9 +36,9 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 
 * [ ] **OS 정보** 가져오기
 * [ ] [**PATH**](privilege-escalation/#path) 확인, **쓰기 가능한 폴더**가 있나요?
-* [ ] [**env 변수**](privilege-escalation/#env-info) 확인, 민감한 정보가 있나요?
-* [ ] [**커널 익스플로잇**](privilege-escalation/#kernel-exploits) **스크립트를 사용하여** 검색 (DirtyCow?)
-* [ ] [**sudo 버전**이 취약한지](privilege-escalation/#sudo-version) **확인**
+* [ ] [**env 변수**](privilege-escalation/#env-info) 확인, 민감한 세부정보가 있나요?
+* [ ] [**커널 익스플로잇**](privilege-escalation/#kernel-exploits) **스크립트를 사용하여 검색** (DirtyCow?)
+* [ ] [**sudo 버전**이 취약한지 확인](privilege-escalation/#sudo-version)
 * [ ] [**Dmesg** 서명 검증 실패](privilege-escalation/#dmesg-signature-verification-failed)
 * [ ] 더 많은 시스템 열거 ([날짜, 시스템 통계, CPU 정보, 프린터](privilege-escalation/#more-system-enumeration))
 * [ ] [더 많은 방어 수단 열거](privilege-escalation/#enumerate-possible-defenses)
@@ -47,7 +47,7 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 
 * [ ] **마운트된** 드라이브 목록
 * [ ] **마운트되지 않은 드라이브가 있나요?**
-* [ ] **fstab에 자격 증명**이 있나요?
+* [ ] **fstab에 자격 증명이 있나요?**
 
 ### [**설치된 소프트웨어**](privilege-escalation/#installed-software)
 
@@ -56,25 +56,25 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 
 ### [프로세스](privilege-escalation/#processes)
 
-* [ ] **알 수 없는 소프트웨어가 실행되고** 있나요?
-* [ ] **더 많은 권한을 가져야 할 소프트웨어가 실행되고** 있나요?
-* [ ] **실행 중인 프로세스의 익스플로잇** 검색 (특히 실행 중인 버전).
-* [ ] **실행 중인 프로세스의 바이너리**를 **수정**할 수 있나요?
-* [ ] **프로세스 모니터링** 및 흥미로운 프로세스가 자주 실행되는지 확인.
-* [ ] **흥미로운 프로세스 메모리**를 **읽을 수** 있나요 (비밀번호가 저장될 수 있는 곳)?
+* [ ] **알 수 없는 소프트웨어가 실행되고 있나요?**
+* [ ] **더 많은 권한을 가진 소프트웨어가 실행되고 있나요?**
+* [ ] **실행 중인 프로세스의 익스플로잇 검색** (특히 실행 중인 버전).
+* [ ] **실행 중인 프로세스의 바이너리를 수정할 수 있나요?**
+* [ ] **프로세스를 모니터링**하고 흥미로운 프로세스가 자주 실행되는지 확인하세요.
+* [ ] **흥미로운 프로세스 메모리**를 **읽을 수 있나요** (비밀번호가 저장될 수 있는 곳)?
 
 ### [예약된/크론 작업?](privilege-escalation/#scheduled-jobs)
 
-* [ ] [**PATH**](privilege-escalation/#cron-path)가 크론에 의해 수정되고 있으며, **쓰기**할 수 있나요?
+* [ ] [**PATH**](privilege-escalation/#cron-path)가 크론에 의해 수정되고 있으며 **쓰기**가 가능한가요?
 * [ ] 크론 작업에 [**와일드카드**](privilege-escalation/#cron-using-a-script-with-a-wildcard-wildcard-injection)가 있나요?
-* [ ] **수정 가능한 스크립트**가 **실행되고** 있거나 **수정 가능한 폴더**에 있나요?
-* [ ] 어떤 **스크립트**가 [**매우 자주**](privilege-escalation/#frequent-cron-jobs) **실행되고** 있는지 감지했나요? (매 1, 2 또는 5분마다)
+* [ ] **수정 가능한 스크립트**가 **실행되고 있거나 수정 가능한 폴더**에 있나요?
+* [ ] **스크립트**가 [**매우 자주 실행되고 있는지**](privilege-escalation/#frequent-cron-jobs) 감지했나요? (1, 2 또는 5분마다)
 
 ### [서비스](privilege-escalation/#services)
 
 * [ ] **쓰기 가능한 .service** 파일이 있나요?
-* [ ] **서비스에 의해 실행되는** **쓰기 가능한 바이너리**가 있나요?
-* [ ] **systemd PATH에 쓰기 가능한 폴더**가 있나요?
+* [ ] **서비스**에 의해 실행되는 **쓰기 가능한 바이너리**가 있나요?
+* [ ] **systemd PATH**에 **쓰기 가능한 폴더**가 있나요?
 
 ### [타이머](privilege-escalation/#timers)
 
@@ -83,44 +83,44 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 ### [소켓](privilege-escalation/#sockets)
 
 * [ ] **쓰기 가능한 .socket** 파일이 있나요?
-* [ ] **어떤 소켓과 통신**할 수 있나요?
+* [ ] **어떤 소켓과 통신할 수 있나요?**
 * [ ] **흥미로운 정보가 있는 HTTP 소켓**이 있나요?
 
 ### [D-Bus](privilege-escalation/#d-bus)
 
-* [ ] **어떤 D-Bus와 통신**할 수 있나요?
+* [ ] **어떤 D-Bus와 통신할 수 있나요?**
 
 ### [네트워크](privilege-escalation/#network)
 
-* [ ] 네트워크를 열거하여 당신이 어디에 있는지 알아보세요.
-* [ ] **기계 내부에서 쉘을 얻기 전에 접근할 수 없었던 열린 포트**가 있나요?
-* [ ] `tcpdump`를 사용하여 **트래픽을 스니핑**할 수 있나요?
+* [ ] 네트워크를 열거하여 현재 위치를 파악하세요.
+* [ ] **기계 내부에서 셸을 얻기 전에 접근할 수 없었던 열린 포트가 있나요?**
+* [ ] `tcpdump`를 사용하여 **트래픽을 스니핑할 수 있나요?**
 
 ### [사용자](privilege-escalation/#users)
 
 * [ ] 일반 사용자/그룹 **열거**
-* [ ] **매우 큰 UID**가 있나요? **기계가** **취약한가요**?
-* [ ] 당신이 속한 [**그룹 덕분에 권한을 상승시킬 수**](privilege-escalation/interesting-groups-linux-pe/) 있나요?
+* [ ] **매우 큰 UID**가 있나요? **기계**가 **취약한가요?**
+* [ ] **소속된 그룹 덕분에 권한을 상승시킬 수 있나요?**](privilege-escalation/interesting-groups-linux-pe/)
 * [ ] **클립보드** 데이터?
 * [ ] 비밀번호 정책?
 * [ ] 이전에 발견한 **모든 알려진 비밀번호**를 사용하여 **각 사용자**로 로그인 시도해 보세요. 비밀번호 없이도 로그인 시도해 보세요.
 
 ### [쓰기 가능한 PATH](privilege-escalation/#writable-path-abuses)
 
-* [ ] **PATH의 일부 폴더에 대한 쓰기 권한**이 있다면 권한을 상승시킬 수 있습니다.
+* [ ] **PATH의 일부 폴더에 쓰기 권한**이 있다면 권한을 상승시킬 수 있습니다.
 
 ### [SUDO 및 SUID 명령](privilege-escalation/#sudo-and-suid)
 
-* [ ] **sudo로 어떤 명령을 실행**할 수 있나요? 루트로 **READ, WRITE 또는 EXECUTE**할 수 있나요? ([**GTFOBins**](https://gtfobins.github.io))
+* [ ] **sudo로 어떤 명령을 실행할 수 있나요?** 루트로 **READ, WRITE 또는 EXECUTE**할 수 있나요? ([**GTFOBins**](https://gtfobins.github.io))
 * [ ] **악용 가능한 SUID 바이너리**가 있나요? ([**GTFOBins**](https://gtfobins.github.io))
-* [ ] [**sudo** 명령이 **경로**에 의해 **제한**되어 있나요? 제한을 **우회**할 수 있나요](privilege-escalation/#sudo-execution-bypassing-paths)?
+* [ ] [**sudo** 명령이 **경로**에 의해 **제한**되나요? 제한을 **우회**할 수 있나요?](privilege-escalation/#sudo-execution-bypassing-paths)?
 * [ ] [**경로가 표시되지 않은 Sudo/SUID 바이너리**](privilege-escalation/#sudo-command-suid-binary-without-command-path)?
 * [ ] [**경로를 지정한 SUID 바이너리**](privilege-escalation/#suid-binary-with-command-path)? 우회
-* [ ] [**LD\_PRELOAD 취약점**](privilege-escalation/#ld\_preload)
-* [ ] [**SUID 바이너리에서 쓰기 가능한 폴더의 .so 라이브러리 부족**](privilege-escalation/#suid-binary-so-injection)?
-* [ ] [**사용 가능한 SUDO 토큰**](privilege-escalation/#reusing-sudo-tokens)? [**SUDO 토큰을 생성할 수 있나요**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
-* [ ] [**sudoers 파일을 읽거나 수정할 수 있나요**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
-* [ ] [**/etc/ld.so.conf.d/**를 **수정**할 수 있나요](privilege-escalation/#etc-ld-so-conf-d)?
+* [ ] [**LD\_PRELOAD 취약점**](privilege-escalation/#ld_preload)
+* [ ] [**SUID 바이너리에서 .so 라이브러리 부족**](privilege-escalation/#suid-binary-so-injection) 쓰기 가능한 폴더에서?
+* [ ] [**사용 가능한 SUDO 토큰**](privilege-escalation/#reusing-sudo-tokens)? [**SUDO 토큰을 생성할 수 있나요?**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
+* [ ] [**sudoers 파일을 읽거나 수정할 수 있나요?**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
+* [ ] [**/etc/ld.so.conf.d/**를 수정할 수 있나요?](privilege-escalation/#etc-ld-so-conf-d)?
 * [ ] [**OpenBSD DOAS**](privilege-escalation/#doas) 명령
 
 ### [능력](privilege-escalation/#capabilities)
@@ -143,8 +143,8 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 
 ### [흥미로운 파일](privilege-escalation/#interesting-files)
 
-* [ ] **프로파일 파일** - 민감한 데이터 읽기? 권한 상승을 위한 쓰기?
-* [ ] **passwd/shadow 파일** - 민감한 데이터 읽기? 권한 상승을 위한 쓰기?
+* [ ] **프로파일 파일** - 민감한 데이터 읽기? privesc에 쓰기?
+* [ ] **passwd/shadow 파일** - 민감한 데이터 읽기? privesc에 쓰기?
 * [ ] 민감한 데이터에 대한 **일반적으로 흥미로운 폴더** 확인
 * [ ] **이상한 위치/소유 파일,** 접근하거나 실행 파일을 변경할 수 있습니다.
 * [ ] **최근 몇 분 내에 수정됨**
@@ -158,17 +158,17 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 
 ### [**쓰기 가능한 파일**](privilege-escalation/#writable-files)
 
-* [ ] **임의의 명령을 실행하기 위해 파이썬 라이브러리**를 수정할 수 있나요?
-* [ ] **로그 파일을 수정할 수 있나요**? **Logtotten** 익스플로잇
-* [ ] **/etc/sysconfig/network-scripts/**를 **수정할 수 있나요**? Centos/Redhat 익스플로잇
-* [ ] [**ini, int.d, systemd 또는 rc.d 파일에 쓸 수 있나요**](privilege-escalation/#init-init-d-systemd-and-rc-d)?
+* [ ] **임의의 명령을 실행하기 위해 파이썬 라이브러리 수정**?
+* [ ] **로그 파일을 수정할 수 있나요?** **Logtotten** 익스플로잇
+* [ ] **/etc/sysconfig/network-scripts/**를 수정할 수 있나요? Centos/Redhat 익스플로잇
+* [ ] [**ini, int.d, systemd 또는 rc.d 파일에 쓸 수 있나요?**](privilege-escalation/#init-init-d-systemd-and-rc-d)?
 
 ### [**기타 팁**](privilege-escalation/#other-tricks)
 
-* [ ] [**NFS를 악용하여 권한을 상승시킬 수 있나요**](privilege-escalation/#nfs-privilege-escalation)?
-* [ ] [**제한된 셸에서 탈출해야 하나요**](privilege-escalation/#escaping-from-restricted-shells)?
+* [ ] [**NFS를 악용하여 권한을 상승시킬 수 있나요?**](privilege-escalation/#nfs-privilege-escalation)?
+* [ ] [**제한된 셸에서 탈출해야 하나요?**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 경험이 풍부한 해커 및 버그 바운티 헌터와 소통하기 위해 [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 서버에 참여하세요!
 
@@ -176,24 +176,24 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 해킹의 스릴과 도전에 대한 내용을 탐구하세요.
 
 **실시간 해킹 뉴스**\
-실시간 뉴스와 통찰력을 통해 빠르게 변화하는 해킹 세계의 최신 정보를 유지하세요.
+실시간 뉴스와 통찰력을 통해 빠르게 변화하는 해킹 세계를 최신 상태로 유지하세요.
 
 **최신 발표**\
 새로운 버그 바운티와 중요한 플랫폼 업데이트에 대한 정보를 유지하세요.
 
-오늘 [**디스코드**](https://discord.com/invite/N3FrSbmwdy)에 참여하여 최고의 해커들과 협업을 시작하세요!
+**[**Discord**](https://discord.com/invite/N3FrSbmwdy)에서 저희와 함께하고 오늘 최고의 해커들과 협력하세요!**
 
 {% hint style="success" %}
-AWS 해킹 배우기 및 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS 해킹 배우기 및 연습하기:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP 해킹 배우기 및 연습하기: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks 지원하기</summary>
 
 * [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
-* 💬 [**디스코드 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **트위터** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
-* [**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.
+* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**를 팔로우하세요.**
+* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.**
 
 </details>
 {% endhint %}

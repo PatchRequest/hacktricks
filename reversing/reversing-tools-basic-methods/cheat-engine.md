@@ -1,22 +1,22 @@
 # Cheat Engine
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-[**Cheat Engine**](https://www.cheatengine.org/downloads.php)는 실행 중인 게임의 메모리 내에서 중요한 값이 저장된 위치를 찾고 이를 변경하는 데 유용한 프로그램입니다.\
-다운로드하여 실행하면 도구 사용 방법에 대한 **튜토리얼**이 **제공**됩니다. 도구 사용 방법을 배우고 싶다면 이를 완료하는 것이 강력히 권장됩니다.
+[**Cheat Engine**](https://www.cheatengine.org/downloads.php)는 실행 중인 게임의 메모리 내에서 중요한 값이 저장된 위치를 찾고 이를 변경하는 유용한 프로그램입니다.\
+다운로드하여 실행하면 도구 사용 방법에 대한 **튜토리얼**이 **제공**됩니다. 도구 사용법을 배우고 싶다면 이를 완료하는 것이 강력히 권장됩니다.
 
 ## 무엇을 검색하고 있나요?
 
@@ -43,7 +43,7 @@ _**Edit --> Settings --> Hotkeys**_에서 **게임**을 **중지**하는 것과 
 
 ## 값 수정하기
 
-원하는 **값**의 **위치**를 **찾은** 후(다음 단계에서 더 자세히 설명) 더블 클릭하여 **수정**할 수 있습니다. 그런 다음 그 값을 다시 더블 클릭합니다:
+원하는 **값**의 **위치**를 **찾은** 후(자세한 내용은 다음 단계에서 설명) 더블 클릭하여 **수정**할 수 있습니다. 그런 다음 해당 값을 더블 클릭합니다:
 
 ![](<../../.gitbook/assets/image (563).png>)
 
@@ -55,7 +55,7 @@ _**Edit --> Settings --> Hotkeys**_에서 **게임**을 **중지**하는 것과 
 
 ## 값 검색하기
 
-따라서, 사용자의 생명과 같은 중요한 값을 개선하고 싶다고 가정하고, 메모리에서 이 값을 찾고 있다고 가정해 보겠습니다.
+따라서, 사용자의 생명과 같은 중요한 값을 개선하고 싶다고 가정하고 이 값을 메모리에서 찾고 있습니다.
 
 ### 알려진 변경을 통한 검색
 
@@ -63,22 +63,22 @@ _**Edit --> Settings --> Hotkeys**_에서 **게임**을 **중지**하는 것과 
 
 ![](<../../.gitbook/assets/image (108).png>)
 
-그런 다음 **값이 변경되도록** 무언가를 하고, 게임을 **중지**하고 **다음 스캔**을 수행합니다:
+그런 다음 **값이 변경되도록** 무언가를 하고 게임을 **중지**한 후 **다음 스캔**을 수행합니다:
 
 ![](<../../.gitbook/assets/image (684).png>)
 
-Cheat Engine은 **100에서 새로운 값으로 변경된** **값**을 검색합니다. 축하합니다, 이제 찾고 있던 값의 **주소**를 **찾았습니다**, 이제 이를 수정할 수 있습니다.\
-_여전히 여러 값이 남아 있다면, 그 값을 다시 수정하는 작업을 수행하고 또 다른 "다음 스캔"을 수행하여 주소를 필터링하세요._
+Cheat Engine은 **100에서 새로운 값으로 변경된** **값**을 검색합니다. 축하합니다, 이제 찾고 있던 **값의 주소**를 **찾았습니다**, 이제 이를 수정할 수 있습니다.\
+_여전히 여러 값이 남아 있다면, 그 값을 다시 수정할 수 있는 작업을 수행하고 또 다른 "다음 스캔"을 수행하여 주소를 필터링합니다._
 
 ### 알 수 없는 값, 알려진 변경
 
-값을 **모르지만** 어떻게 **변경되는지** 알고 있는 경우(변경의 값도 알고 있다면) 숫자를 찾을 수 있습니다.
+값을 **모르지만** 어떻게 **변경되는지** 알고 있는 경우(변경의 값도 알고 있음) 숫자를 찾을 수 있습니다.
 
-먼저 "**알 수 없는 초기 값**" 유형의 스캔을 수행합니다:
+따라서 "**알 수 없는 초기 값**" 유형의 스캔을 수행합니다:
 
 ![](<../../.gitbook/assets/image (890).png>)
 
-그런 다음 값이 변경되도록 하고, **어떻게** **값이 변경되었는지** 표시합니다(제 경우에는 1 감소했습니다) 그리고 **다음 스캔**을 수행합니다:
+그런 다음 값을 변경하고 **값이 어떻게 변경되었는지**(제 경우에는 1 감소함) 표시한 후 **다음 스캔**을 수행합니다:
 
 ![](<../../.gitbook/assets/image (371).png>)
 
@@ -88,30 +88,30 @@ _여전히 여러 값이 남아 있다면, 그 값을 다시 수정하는 작업
 
 값을 찾으면 이를 수정할 수 있습니다.
 
-가능한 **변경이 많다는 점**에 유의하고, 결과를 필터링하기 위해 이 **단계를 원하는 만큼** 수행할 수 있습니다:
+가능한 **변경이 많으며** 결과를 필터링하기 위해 이 **단계를 원하는 만큼** 수행할 수 있습니다:
 
 ![](<../../.gitbook/assets/image (574).png>)
 
 ### 랜덤 메모리 주소 - 코드 찾기
 
-지금까지 값이 저장된 주소를 찾는 방법을 배웠지만, **게임의 다른 실행에서 그 주소가 메모리의 다른 위치에 있을 가능성이 높습니다**. 따라서 항상 그 주소를 찾는 방법을 알아봅시다.
+지금까지 값이 저장된 주소를 찾는 방법을 배웠지만, **게임의 다른 실행에서 이 주소가 메모리의 다른 위치에 있을 가능성이 높습니다**. 따라서 항상 그 주소를 찾는 방법을 알아봅시다.
 
-앞서 언급한 몇 가지 트릭을 사용하여 현재 게임이 중요한 값을 저장하고 있는 주소를 찾습니다. 그런 다음(원하는 경우 게임을 중지하고) 찾은 **주소**에서 **우클릭**하고 "**이 주소에 접근하는 것을 찾기**" 또는 "**이 주소에 쓰는 것을 찾기**"를 선택합니다:
+앞서 언급한 몇 가지 트릭을 사용하여 현재 게임이 중요한 값을 저장하고 있는 주소를 찾습니다. 그런 다음(원하는 경우 게임을 중지하고) 찾은 **주소**에서 **우클릭**하여 "**이 주소에 접근하는 것을 찾기**" 또는 "**이 주소에 쓰는 것을 찾기**"를 선택합니다:
 
 ![](<../../.gitbook/assets/image (1067).png>)
 
-**첫 번째 옵션**은 이 **주소를 사용하는** **코드의 부분**을 아는 데 유용합니다(이는 **게임의 코드를 수정할 수 있는 위치를 아는 것**과 같은 더 많은 것에 유용합니다).\
-**두 번째 옵션**은 더 **구체적**이며, 이 경우 **이 값이 어디에서 쓰이는지** 아는 데 더 도움이 됩니다.
+**첫 번째 옵션**은 이 **주소를 사용하는 코드의** **부분**을 아는 데 유용합니다(이는 게임의 코드를 수정할 수 있는 위치를 아는 데 유용합니다).\
+**두 번째 옵션**은 더 **구체적이며**, 이 경우 **이 값이 어디에서 쓰이는지** 아는 데 더 도움이 됩니다.
 
 이 옵션 중 하나를 선택하면 **디버거**가 프로그램에 **첨부**되고 새로운 **빈 창**이 나타납니다. 이제 **게임을 플레이**하고 **값을 수정**합니다(게임을 다시 시작하지 않고). **창**은 **값을 수정하는 주소**로 **채워져야** 합니다:
 
 ![](<../../.gitbook/assets/image (91).png>)
 
-이제 값을 수정하는 주소를 찾았으므로 **코드를 마음대로 수정**할 수 있습니다(Cheat Engine을 사용하면 NOPs로 빠르게 수정할 수 있습니다):
+이제 값을 수정하는 주소를 찾았으므로 **코드를 원하는 대로 수정**할 수 있습니다(Cheat Engine을 사용하면 NOPs로 빠르게 수정할 수 있습니다):
 
 ![](<../../.gitbook/assets/image (1057).png>)
 
-따라서 이제 코드를 수정하여 숫자에 영향을 주지 않거나 긍정적인 방식으로 항상 영향을 주도록 할 수 있습니다.
+따라서 이제 코드를 수정하여 숫자에 영향을 주지 않거나 항상 긍정적인 방식으로 영향을 주도록 할 수 있습니다.
 
 ### 랜덤 메모리 주소 - 포인터 찾기
 
@@ -130,7 +130,7 @@ _여전히 여러 값이 남아 있다면, 그 값을 다시 수정하는 작업
 
 ![](<../../.gitbook/assets/image (990).png>)
 
-이제 "포인터" 체크 박스를 클릭하고 텍스트 상자에 찾은 주소를 추가합니다(이 시나리오에서 이전 이미지에서 찾은 주소는 "Tutorial-i386.exe"+2426B0이었습니다):
+이제 "포인터" 체크 박스를 클릭하고 텍스트 상자에 찾은 주소를 추가합니다(이 시나리오에서 이전 이미지에서 찾은 주소는 "Tutorial-i386.exe"+2426B0입니다):
 
 ![](<../../.gitbook/assets/image (392).png>)
 
@@ -144,7 +144,7 @@ _여전히 여러 값이 남아 있다면, 그 값을 다시 수정하는 작업
 
 ### 코드 주입
 
-코드 주입은 대상 프로세스에 코드 조각을 주입한 다음, 코드 실행을 자신의 코드로 리라우팅하는 기술입니다(예: 점수를 주는 대신 빼앗는 것).
+코드 주입은 대상 프로세스에 코드 조각을 주입한 다음 코드 실행을 자신의 코드로 리라우팅하는 기술입니다(예: 점수를 주는 대신 빼앗는 것).
 
 따라서 플레이어의 생명에서 1을 빼는 주소를 찾았다고 가정해 보겠습니다:
 
@@ -171,19 +171,4 @@ _여전히 여러 값이 남아 있다면, 그 값을 다시 수정하는 작업
 
 ## **참고문헌**
 
-* **Cheat Engine 튜토리얼, Cheat Engine을 시작하는 방법을 배우기 위해 완료하세요.**
-
-{% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
-
-<details>
-
-<summary>Support HackTricks</summary>
-
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
-
-</details>
-{% endhint %}
+* **Cheat Engine 튜토리얼, Cheat Engine을 시작하는 방법을 배우기 위해 완료하세요**

@@ -9,7 +9,7 @@ GCP 해킹 배우기 및 연습하기: <img src="../../../.gitbook/assets/grte.p
 <summary>HackTricks 지원하기</summary>
 
 * [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
-* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
+* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**를 팔로우하세요.**
 * **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 트릭을 공유하세요.**
 
 </details>
@@ -19,7 +19,7 @@ GCP 해킹 배우기 및 연습하기: <img src="../../../.gitbook/assets/grte.p
 
 Mach-o 바이너리는 바이너리 내부의 서명의 **오프셋**과 **크기**를 나타내는 **`LC_CODE_SIGNATURE`**라는 로드 명령을 포함합니다. 실제로 GUI 도구인 MachOView를 사용하면 바이너리의 끝에서 이 정보를 포함하는 **Code Signature**라는 섹션을 찾을 수 있습니다:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 코드 서명의 매직 헤더는 **`0xFADE0CC0`**입니다. 그런 다음 이들을 포함하는 superBlob의 길이와 블롭 수와 같은 정보가 있습니다.\
 이 정보는 [여기에서 소스 코드](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L276)에서 찾을 수 있습니다:
@@ -54,11 +54,11 @@ __attribute__ ((aligned(1)));
 일반적으로 포함된 블롭은 코드 디렉토리, 요구 사항 및 권한, 그리고 암호화 메시지 구문(CMS)입니다.\
 또한, 블롭에 인코딩된 데이터가 **빅 엔디안**으로 인코딩되어 있음을 주목하십시오.
 
-또한, 서명은 이진 파일에서 분리되어 `/var/db/DetachedSignatures`에 저장될 수 있습니다(아이OS에서 사용됨).
+또한, 서명은 이진 파일에서 분리되어 `/var/db/DetachedSignatures`에 저장될 수 있습니다(ios에서 사용됨).
 
 ## 코드 디렉토리 블롭
 
-[코드 디렉토리 블롭의 선언을 코드에서 찾는 것이 가능합니다](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104):
+[코드 디렉토리 블롭의 선언을 코드에서 찾는 것이 가능합니다](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L104):
 ```c
 typedef struct __CodeDirectory {
 uint32_t magic;                                 /* magic number (CSMAGIC_CODEDIRECTORY) */
@@ -118,7 +118,7 @@ __attribute__ ((aligned(1)));
 
 ## 서명 코드 페이지
 
-전체 바이너리를 해싱하는 것은 비효율적이며, 메모리에 부분적으로만 로드될 경우에는 심지어 쓸모가 없습니다. 따라서 코드 서명은 실제로 각 바이너리 페이지가 개별적으로 해싱된 해시의 해시입니다.\
+전체 바이너리를 해싱하는 것은 비효율적이며, 메모리에 부분적으로만 로드될 경우에는 무의미합니다. 따라서 코드 서명은 실제로 각 바이너리 페이지가 개별적으로 해싱된 해시의 해시입니다.\
 실제로 이전 **코드 디렉토리** 코드에서 **페이지 크기가 지정된** 것을 볼 수 있습니다. 또한, 바이너리의 크기가 페이지 크기의 배수가 아닐 경우, 필드 **CodeLimit**는 서명의 끝이 어디인지 지정합니다.
 ```bash
 # Get all hashes of /bin/ps
@@ -157,15 +157,15 @@ openssl sha256 /tmp/*.page.*
 ```
 ## Entitlements Blob
 
-응용 프로그램에는 모든 권한이 정의된 **권한 블롭**이 포함될 수 있습니다. 또한 일부 iOS 바이너리는 특별 슬롯 -7에 권한이 특정되어 있을 수 있습니다(대신 -5 권한 특별 슬롯에).
+응용 프로그램에는 모든 권한이 정의된 **권한 블롭**이 포함될 수 있습니다. 또한, 일부 iOS 바이너리는 특별 슬롯 -7에 권한이 특정되어 있을 수 있습니다(대신 -5 권한 특별 슬롯에).
 
 ## Special Slots
 
 MacOS 응용 프로그램은 실행에 필요한 모든 것을 바이너리 내에 포함하지 않지만 **외부 리소스**(일반적으로 응용 프로그램의 **번들** 내)에 의존합니다. 따라서 바이너리 내에는 수정되지 않았는지 확인하기 위해 일부 흥미로운 외부 리소스의 해시를 포함하는 슬롯이 있습니다.
 
-실제로, Code Directory 구조체에서 **`nSpecialSlots`**라는 매개변수를 통해 특별 슬롯의 수를 확인할 수 있습니다. 특별 슬롯 0은 없으며 가장 일반적인 슬롯( -1에서 -6까지)은 다음과 같습니다:
+실제로, 코드 디렉토리 구조체에서 **`nSpecialSlots`**라는 매개변수를 볼 수 있으며, 이는 특별 슬롯의 수를 나타냅니다. 특별 슬롯 0은 없으며 가장 일반적인 슬롯( -1에서 -6까지)은 다음과 같습니다:
 
-* `info.plist`의 해시(또는 `__TEXT.__info__plist` 내의 해시).
+* `info.plist`의 해시(또는 `__TEXT.__info__plist` 내의 것).
 * 요구 사항의 해시
 * 리소스 디렉토리의 해시(번들 내의 `_CodeSignature/CodeResources` 파일의 해시).
 * 응용 프로그램 특정(사용되지 않음)
@@ -220,13 +220,13 @@ CS_RESTRICT | CS_ENFORCEMENT | CS_REQUIRE_LV | CS_RUNTIME | CS_LINKER_SIGNED)
 
 #define CS_ENTITLEMENT_FLAGS        (CS_GET_TASK_ALLOW | CS_INSTALLER | CS_DATAVAULT_CONTROLLER | CS_NVRAM_UNRESTRICTED)
 ```
-Note that the function [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern\_exec.c#L1420)는 실행을 시작할 때 `CS_EXEC_*` 플래그를 동적으로 추가할 수 있습니다.
+Note that the function [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern_exec.c#L1420) can also add the `CS_EXEC_*` flags dynamically when starting the execution.
 
 ## 코드 서명 요구 사항
 
-각 애플리케이션은 실행될 수 있도록 **충족해야 하는 요구 사항**을 저장합니다. 만약 **애플리케이션이 충족되지 않는 요구 사항을 포함하고 있다면**, 실행되지 않습니다(변경되었을 가능성이 높기 때문입니다).
+각 애플리케이션은 실행될 수 있도록 **충족해야 하는** **요구 사항**을 저장합니다. 만약 **애플리케이션이 충족되지 않는 요구 사항을 포함하고 있다면**, 실행되지 않습니다 (아마도 변경되었기 때문입니다).
 
-바이너리의 요구 사항은 **특별한 문법**을 사용하며, 이는 **표현식**의 흐름으로 `0xfade0c00`을 매직으로 사용하여 블롭으로 인코딩됩니다. 이 **해시**는 특별한 코드 슬롯에 저장됩니다.
+바이너리의 요구 사항은 **특별한 문법**을 사용하며, 이는 **표현식**의 흐름으로 `0xfade0c00`을 매직으로 사용하여 블롭으로 인코딩됩니다. 이 **해시는 특별한 코드 슬롯에 저장됩니다**.
 
 바이너리의 요구 사항은 다음을 실행하여 확인할 수 있습니다:
 
@@ -298,7 +298,7 @@ od -A x -t x1 /tmp/output.csreq
 * **`SecCodeCopyGuestWithAttributes`**: 특정 속성을 기반으로 하는 코드 객체를 나타내는 `SecCodeRef`를 생성하며, 샌드박싱에 유용합니다.
 * **`SecCodeCopyPath`**: `SecCodeRef`와 관련된 파일 시스템 경로를 검색합니다.
 * **`SecCodeCopySigningIdentifier`**: `SecCodeRef`에서 서명 식별자(예: 팀 ID)를 얻습니다.
-* **`SecCodeGetTypeID`**: `SecCodeRef` 객체의 유형 식별자를 반환합니다.
+* **`SecCodeGetTypeID`**: `SecCodeRef` 객체에 대한 유형 식별자를 반환합니다.
 * **`SecRequirementGetTypeID`**: `SecRequirementRef`의 CFTypeID를 가져옵니다.
 
 #### **코드 서명 플래그 및 상수**
@@ -312,7 +312,7 @@ od -A x -t x1 /tmp/output.csreq
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106) 구조체는 실행 중인 프로세스의 권한에 대한 정보를 포함합니다. `csb_platform_binary`는 애플리케이션이 플랫폼 이진 파일인지 여부를 알려줍니다(이는 보안 메커니즘을 적용하기 위해 OS에 의해 여러 순간에 확인됩니다. 예를 들어, 이러한 프로세스의 작업 포트에 대한 SEND 권한을 보호하는 것입니다).
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106) 구조체는 실행 중인 프로세스의 권한에 대한 정보를 포함합니다. `csb_platform_binary`는 애플리케이션이 플랫폼 이진 파일인지 여부도 알려줍니다(이는 보안 메커니즘을 적용하기 위해 OS에 의해 여러 순간에 확인됩니다. 예를 들어, 이러한 프로세스의 작업 포트에 대한 SEND 권한을 보호하는 것입니다).
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
@@ -384,7 +384,7 @@ GCP 해킹 배우기 및 연습하기: <img src="../../../.gitbook/assets/grte.p
 <summary>HackTricks 지원하기</summary>
 
 * [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
-* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
+* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**를 팔로우하세요.**
 * **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.**
 
 </details>
