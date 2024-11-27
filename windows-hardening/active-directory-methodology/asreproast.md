@@ -1,21 +1,21 @@
 # ASREPRoast
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Join [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server to communicate with experienced hackers and bug bounty hunters!
 
@@ -32,7 +32,7 @@ Stay informed with the newest bug bounties launching and crucial platform update
 
 ## ASREPRoast
 
-ASREPRoastは、**Kerberos事前認証必須属性**が欠如しているユーザーを悪用するセキュリティ攻撃です。本質的に、この脆弱性により攻撃者は、ユーザーのパスワードを必要とせずにドメインコントローラー（DC）からユーザーの認証を要求できます。DCは、ユーザーのパスワード派生キーで暗号化されたメッセージで応答し、攻撃者はオフラインでそれを解読してユーザーのパスワードを発見しようとします。
+ASREPRoastは、**Kerberos事前認証必須属性**を欠くユーザーを悪用するセキュリティ攻撃です。本質的に、この脆弱性により、攻撃者はユーザーのパスワードを必要とせずにドメインコントローラー（DC）からユーザーの認証を要求できます。DCは、ユーザーのパスワード派生キーで暗号化されたメッセージで応答し、攻撃者はオフラインでそれを解読してユーザーのパスワードを発見しようとします。
 
 この攻撃の主な要件は次のとおりです：
 
@@ -95,10 +95,10 @@ bloodyAD -u user -p 'totoTOTOtoto1234*' -d crash.lab --host 10.100.10.5 add uac 
 ```
 {% endcode %}
 
-## ASREProast 認証なし
+## ASREProast 認証情報なし
 
-攻撃者は、ネットワークを横断する AS-REP パケットをキャプチャするために中間者の位置を利用でき、Kerberos の事前認証が無効になっていることに依存しません。したがって、VLAN 上のすべてのユーザーに対して機能します。\
-[ASRepCatcher](https://github.com/Yaxxine7/ASRepCatcher) を使用することでこれを実現できます。さらに、このツールは Kerberos 交渉を変更することでクライアントワークステーションに RC4 を使用させることを強制します。
+攻撃者は、ネットワークを横断する AS-REP パケットをキャプチャするために中間者の位置を利用でき、Kerberos プレ認証が無効になっていることに依存しません。したがって、VLAN 上のすべてのユーザーに対して機能します。\
+[ASRepCatcher](https://github.com/Yaxxine7/ASRepCatcher) を使用することでこれを実現できます。さらに、このツールは Kerberos 交渉を変更することにより、クライアントワークステーションに RC4 を使用させることを強制します。
 ```bash
 # Actively acting as a proxy between the clients and the DC, forcing RC4 downgrade if supported
 ASRepCatcher relay -dc $DC_IP
@@ -115,7 +115,7 @@ ASRepCatcher listen
 
 ***
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 経験豊富なハッカーやバグバウンティハンターとコミュニケーションを取るために[**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy)サーバーに参加しましょう！
 
@@ -123,24 +123,24 @@ ASRepCatcher listen
 ハッキングのスリルと課題に深く掘り下げたコンテンツに参加する
 
 **リアルタイムハックニュース**\
-リアルタイムのニュースと洞察を通じて、急速に進化するハッキングの世界を最新の状態に保つ
+リアルタイムのニュースと洞察を通じて、急速に変化するハッキングの世界に遅れずについていく
 
 **最新のお知らせ**\
 新しいバグバウンティの開始や重要なプラットフォームの更新について情報を得る
 
-**私たちに参加してください** [**Discord**](https://discord.com/invite/N3FrSbmwdy)で、今日からトップハッカーとコラボレーションを始めましょう！
+**今すぐ** [**Discord**](https://discord.com/invite/N3FrSbmwdy)に参加して、トップハッカーとコラボレーションを始めましょう！
 
 {% hint style="success" %}
-AWSハッキングを学び、実践する：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWSハッキングを学び、実践する：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCPハッキングを学び、実践する：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricksをサポートする</summary>
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* 💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
-* [**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してハッキングのトリックを共有してください。
+* 💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)をフォローしてください。**
+* [**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のgithubリポジトリにPRを提出してハッキングのトリックを共有してください。
 
 </details>
 {% endhint %}

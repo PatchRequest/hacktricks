@@ -1,28 +1,28 @@
-# macOS コード署名
+# macOS Code Signing
 
 {% hint style="success" %}
-AWSハッキングを学び、実践する：<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-GCPハッキングを学び、実践する：<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>HackTricksをサポートする</summary>
+<summary>Support HackTricks</summary>
 
-* [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
-* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを送信してください。**
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
 ## 基本情報
 
-Mach-oバイナリには、バイナリ内の署名の**オフセット**と**サイズ**を示す**`LC_CODE_SIGNATURE`**というロードコマンドが含まれています。実際、GUIツールMachOViewを使用すると、バイナリの最後にこの情報を含む**コード署名**というセクションを見つけることができます：
+Mach-o バイナリには、バイナリ内の署名の **オフセット** と **サイズ** を示す **`LC_CODE_SIGNATURE`** というロードコマンドが含まれています。実際、GUIツールのMachOViewを使用すると、バイナリの最後にこの情報を含む **Code Signature** というセクションを見つけることができます：
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
-コード署名のマジックヘッダーは**`0xFADE0CC0`**です。次に、これらを含むsuperBlobの長さやブロブの数などの情報があります。\
-この情報は[こちらのソースコード](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L276)で見つけることができます：
+Code Signatureのマジックヘッダーは **`0xFADE0CC0`** です。次に、これらを含むスーパーブロブの長さやブロブの数などの情報があります。\
+この情報は、[こちらのソースコード](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L276)で見つけることができます：
 ```c
 /*
 * Structure of an embedded-signature SuperBlob
@@ -58,7 +58,7 @@ __attribute__ ((aligned(1)));
 
 ## コードディレクトリブロブ
 
-[コードディレクトリブロブの宣言をコード内で見つけることができます](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104):
+[コードディレクトリブロブの宣言をコード内で見つけることができます](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L104):
 ```c
 typedef struct __CodeDirectory {
 uint32_t magic;                                 /* magic number (CSMAGIC_CODEDIRECTORY) */
@@ -118,7 +118,7 @@ __attribute__ ((aligned(1)));
 
 ## コード署名ページ
 
-フルバイナリのハッシュを計算することは非効率的であり、部分的にメモリにロードされている場合には無意味です。したがって、コード署名は実際にはハッシュのハッシュであり、各バイナリページが個別にハッシュ化されます。\
+完全なバイナリをハッシュ化することは非効率的であり、メモリに部分的にしかロードされていない場合は無意味です。したがって、コード署名は実際にはハッシュのハッシュであり、各バイナリページが個別にハッシュ化されます。\
 実際、前の**コードディレクトリ**コードでは、**ページサイズが指定されている**のがわかります。さらに、バイナリのサイズがページのサイズの倍数でない場合、フィールド**CodeLimit**は署名の終わりがどこにあるかを指定します。
 ```bash
 # Get all hashes of /bin/ps
@@ -220,13 +220,13 @@ CS_RESTRICT | CS_ENFORCEMENT | CS_REQUIRE_LV | CS_RUNTIME | CS_LINKER_SIGNED)
 
 #define CS_ENTITLEMENT_FLAGS        (CS_GET_TASK_ALLOW | CS_INSTALLER | CS_DATAVAULT_CONTROLLER | CS_NVRAM_UNRESTRICTED)
 ```
-Note that the function [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern\_exec.c#L1420) は、実行を開始する際に `CS_EXEC_*` フラグを動的に追加することもできます。
+Note that the function [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern_exec.c#L1420) は、実行を開始する際に `CS_EXEC_*` フラグを動的に追加することもできます。
 
 ## コード署名要件
 
 各アプリケーションは、実行可能であるために満たさなければならない **要件** をいくつか **持っています**。もし **アプリケーションに満たされていない要件が含まれている場合**、それは実行されません（おそらく変更されているためです）。
 
-バイナリの要件は、**特別な文法** を使用し、**式** のストリームとして表現され、`0xfade0c00` をマジックとして使用してブロブとしてエンコードされます。その **ハッシュは特別なコードスロットに保存されます**。
+バイナリの要件は、**特別な文法** を使用し、**式** のストリームとして表現され、`0xfade0c00` をマジックとして使用してブロブとしてエンコードされ、その **ハッシュは特別なコードスロットに保存されます**。
 
 バイナリの要件は、次のコマンドを実行することで確認できます：
 
@@ -243,7 +243,7 @@ designated => identifier "org.whispersystems.signal-desktop" and anchor apple ge
 {% endcode %}
 
 {% hint style="info" %}
-この署名が認証情報、TeamID、ID、権限、その他多くのデータを確認できることに注意してください。
+この署名が認証情報、TeamID、ID、権限、およびその他のデータを確認できることに注意してください。
 {% endhint %}
 
 さらに、`csreq`ツールを使用していくつかのコンパイルされた要件を生成することが可能です：
@@ -285,8 +285,8 @@ od -A x -t x1 /tmp/output.csreq
 #### **コード要件の変更**
 
 * **`SecCodeSignerCreate`**: コード署名操作を実行するための`SecCodeSignerRef`オブジェクトを作成します。
-* **`SecCodeSignerSetRequirement`**: 署名中に適用するための新しい要件をコードサイナーに設定します。
-* **`SecCodeSignerAddSignature`**: 指定されたサイナーで署名されるコードに署名を追加します。
+* **`SecCodeSignerSetRequirement`**: 署名中に適用するための新しい要件をコード署名者に設定します。
+* **`SecCodeSignerAddSignature`**: 指定された署名者で署名されるコードに署名を追加します。
 
 #### **要件によるコードの検証**
 
@@ -295,7 +295,7 @@ od -A x -t x1 /tmp/output.csreq
 #### **追加の便利なAPI**
 
 * **`SecCodeCopy[Internal/Designated]Requirement`: SecCodeRefからSecRequirementRefを取得**
-* **`SecCodeCopyGuestWithAttributes`**: 特定の属性に基づいてコードオブジェクトを表す`SecCodeRef`を作成し、サンドボックスに役立ちます。
+* **`SecCodeCopyGuestWithAttributes`**: 特定の属性に基づいてコードオブジェクトを表す`SecCodeRef`を作成します。サンドボックスに便利です。
 * **`SecCodeCopyPath`**: `SecCodeRef`に関連付けられたファイルシステムパスを取得します。
 * **`SecCodeCopySigningIdentifier`**: `SecCodeRef`から署名識別子（例：チームID）を取得します。
 * **`SecCodeGetTypeID`**: `SecCodeRef`オブジェクトのタイプ識別子を返します。
@@ -308,7 +308,7 @@ od -A x -t x1 /tmp/output.csreq
 
 ## コード署名の強制
 
-**カーネル**は、アプリのコードを実行する前に**コード署名を確認**します。さらに、メモリ内に新しいコードを書き込み実行するための一つの方法は、`mprotect`が`MAP_JIT`フラグで呼び出されることを悪用することです。この操作を行うには、アプリケーションに特別な権限が必要です。
+**カーネル**は、アプリのコードを実行する前に**コード署名を確認**します。さらに、メモリ内に新しいコードを書き込み、実行するための一つの方法は、`mprotect`が`MAP_JIT`フラグで呼び出される場合にJITを悪用することです。この操作を行うには、アプリケーションに特別な権限が必要です。
 
 ## `cs_blobs` & `cs_blob`
 
@@ -384,7 +384,7 @@ GCPハッキングを学び、実践する：<img src="../../../.gitbook/assets/
 <summary>HackTricksをサポートする</summary>
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
+* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**をフォローしてください。**
 * **[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してハッキングトリックを共有してください。**
 
 </details>

