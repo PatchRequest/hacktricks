@@ -15,10 +15,16 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 ## **Password Spraying**
 
 Una volta trovati diversi **nomi utente validi**, puoi provare le **password più comuni** (tieni presente la politica delle password dell'ambiente) con ciascuno degli utenti scoperti.\
-Per **definizione**, la **lunghezza minima** della **password** è **7**.
+Per **default**, la **lunghezza minima** della **password** è **7**.
 
 Le liste di nomi utente comuni potrebbero essere utili: [https://github.com/insidetrust/statistically-likely-usernames](https://github.com/insidetrust/statistically-likely-usernames)
 
@@ -140,6 +146,13 @@ Per utilizzare uno di questi strumenti, hai bisogno di un elenco di utenti e di 
 * [https://www.ired.team/offensive-security/initial-access/password-spraying-outlook-web-access-remote-shell](https://www.ired.team/offensive-security/initial-access/password-spraying-outlook-web-access-remote-shell)
 * [www.blackhillsinfosec.com/?p=5296](https://www.blackhillsinfosec.com/?p=5296)
 * [https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying](https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying)
+
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Approfondisci la tua esperienza in **Mobile Security** con 8kSec Academy. Padroneggia la sicurezza di iOS e Android attraverso i nostri corsi autogestiti e ottieni una certificazione:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 {% hint style="success" %}
 Impara e pratica il hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

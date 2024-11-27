@@ -15,11 +15,18 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 ### Variabili di Identificazione Utente
 
 - **`ruid`**: Il **real user ID** indica l'utente che ha avviato il processo.
-- **`euid`**: Conosciuto come **effective user ID**, rappresenta l'identità utente utilizzata dal sistema per determinare i privilegi del processo. Generalmente, `euid` rispecchia `ruid`, tranne in casi come l'esecuzione di un binario SetUID, dove `euid` assume l'identità del proprietario del file, concedendo così specifici permessi operativi.
-- **`suid`**: Questo **saved user ID** è fondamentale quando un processo ad alto privilegio (tipicamente in esecuzione come root) deve temporaneamente rinunciare ai propri privilegi per eseguire determinate operazioni, per poi riacquistare il proprio stato elevato iniziale.
+- **`euid`**: Conosciuto come **effective user ID**, rappresenta l'identità dell'utente utilizzata dal sistema per determinare i privilegi del processo. Generalmente, `euid` rispecchia `ruid`, tranne in casi come l'esecuzione di un binario SetUID, dove `euid` assume l'identità del proprietario del file, concedendo così specifici permessi operativi.
+- **`suid`**: Questo **saved user ID** è fondamentale quando un processo ad alto privilegio (tipicamente in esecuzione come root) deve temporaneamente rinunciare ai propri privilegi per eseguire determinate operazioni, per poi riprendere successivamente il proprio stato elevato iniziale.
 
 #### Nota Importante
 Un processo che non opera sotto root può modificare il proprio `euid` solo per farlo corrispondere all'attuale `ruid`, `euid` o `suid`.
@@ -27,11 +34,11 @@ Un processo che non opera sotto root può modificare il proprio `euid` solo per 
 ### Comprendere le Funzioni set*uid
 
 - **`setuid`**: Contrariamente alle assunzioni iniziali, `setuid` modifica principalmente `euid` piuttosto che `ruid`. Specificamente, per i processi privilegiati, allinea `ruid`, `euid` e `suid` con l'utente specificato, spesso root, consolidando efficacemente questi ID a causa del `suid` sovrascritto. Informazioni dettagliate possono essere trovate nella [pagina man di setuid](https://man7.org/linux/man-pages/man2/setuid.2.html).
-- **`setreuid`** e **`setresuid`**: Queste funzioni consentono la regolazione sfumata di `ruid`, `euid` e `suid`. Tuttavia, le loro capacità dipendono dal livello di privilegio del processo. Per i processi non root, le modifiche sono limitate ai valori attuali di `ruid`, `euid` e `suid`. Al contrario, i processi root o quelli con la capacità `CAP_SETUID` possono assegnare valori arbitrari a questi ID. Maggiori informazioni possono essere ottenute dalla [pagina man di setresuid](https://man7.org/linux/man-pages/man2/setresuid.2.html) e dalla [pagina man di setreuid](https://man7.org/linux/man-pages/man2/setreuid.2.html).
+- **`setreuid`** e **`setresuid`**: Queste funzioni consentono un aggiustamento sfumato di `ruid`, `euid` e `suid`. Tuttavia, le loro capacità dipendono dal livello di privilegio del processo. Per i processi non root, le modifiche sono limitate ai valori attuali di `ruid`, `euid` e `suid`. Al contrario, i processi root o quelli con la capacità `CAP_SETUID` possono assegnare valori arbitrari a questi ID. Maggiori informazioni possono essere ottenute dalla [pagina man di setresuid](https://man7.org/linux/man-pages/man2/setresuid.2.html) e dalla [pagina man di setreuid](https://man7.org/linux/man-pages/man2/setreuid.2.html).
 
 Queste funzionalità non sono progettate come un meccanismo di sicurezza, ma per facilitare il flusso operativo previsto, come quando un programma adotta l'identità di un altro utente modificando il proprio effective user ID.
 
-È importante notare che, mentre `setuid` potrebbe essere una scelta comune per l'elevazione dei privilegi a root (poiché allinea tutti gli ID a root), differenziare tra queste funzioni è cruciale per comprendere e manipolare i comportamenti degli ID utente in vari scenari.
+È importante notare che, sebbene `setuid` possa essere una scelta comune per l'elevazione dei privilegi a root (poiché allinea tutti gli ID a root), differenziare tra queste funzioni è cruciale per comprendere e manipolare i comportamenti degli ID utente in vari scenari.
 
 ### Meccanismi di Esecuzione dei Programmi in Linux
 
@@ -40,7 +47,7 @@ Queste funzionalità non sono progettate come un meccanismo di sicurezza, ma per
 - **Comportamento**: Mantiene lo spazio di memoria del chiamante ma aggiorna lo stack, l'heap e i segmenti di dati. Il codice del programma viene sostituito dal nuovo programma.
 - **Preservazione dell'ID Utente**:
 - `ruid`, `euid` e gli ID di gruppo supplementari rimangono invariati.
-- `euid` potrebbe subire modifiche sfumate se il nuovo programma ha impostato il bit SetUID.
+- `euid` potrebbe subire cambiamenti sfumati se il nuovo programma ha impostato il bit SetUID.
 - `suid` viene aggiornato da `euid` dopo l'esecuzione.
 - **Documentazione**: Informazioni dettagliate possono essere trovate nella [pagina man di `execve`](https://man7.org/linux/man-pages/man2/execve.2.html).
 
@@ -61,7 +68,7 @@ Queste funzionalità non sono progettate come un meccanismo di sicurezza, ma per
 - Il comportamento riguardante gli ID utente non è esplicitamente menzionato, tranne che sotto l'opzione `-i`, enfatizzando la preservazione dell'uguaglianza tra `euid` e `ruid`.
 - Ulteriori informazioni sono disponibili sulla [pagina man di `sh`](https://man7.org/linux/man-pages/man1/sh.1p.html).
 
-Questi meccanismi, distinti nel loro funzionamento, offrono una gamma versatile di opzioni per eseguire e passare tra programmi, con specifiche sfumature su come vengono gestiti e preservati gli ID utente.
+Questi meccanismi, distinti nel loro funzionamento, offrono una gamma versatile di opzioni per eseguire e passare tra programmi, con specifiche sfumature su come gli ID utente vengono gestiti e preservati.
 
 ### Testare i Comportamenti degli ID Utente nelle Esecuzioni
 
@@ -98,7 +105,7 @@ uid=99(nobody) gid=99(nobody) groups=99(nobody) context=system_u:system_r:unconf
 * `ruid` ed `euid` iniziano come 99 (nobody) e 1000 (frank) rispettivamente.
 * `setuid` allinea entrambi a 1000.
 * `system` esegue `/bin/bash -c id` a causa del symlink da sh a bash.
-* `bash`, senza `-p`, regola `euid` per corrispondere a `ruid`, risultando in entrambi che sono 99 (nobody).
+* `bash`, senza `-p`, regola `euid` per corrispondere a `ruid`, risultando in entrambi a 99 (nobody).
 
 #### Caso 2: Utilizzando setreuid con system
 
@@ -195,6 +202,13 @@ uid=99(nobody) gid=99(nobody) euid=100
 * [https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail](https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail)
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Approfondisci la tua esperienza in **Mobile Security** con 8kSec Academy. Padroneggia la sicurezza di iOS e Android attraverso i nostri corsi autogestiti e ottieni una certificazione:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 {% hint style="success" %}
 Impara e pratica AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
 Impara e pratica GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
@@ -205,7 +219,7 @@ Impara e pratica GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 * Controlla i [**piani di abbonamento**](https://github.com/sponsors/carlospolop)!
 * **Unisciti al** 💬 [**gruppo Discord**](https://discord.gg/hRep4RUj7f) o al [**gruppo telegram**](https://t.me/peass) o **seguici** su **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos su github.
+* **Condividi trucchi di hacking inviando PR ai** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos di github.
 
 </details>
 {% endhint %}

