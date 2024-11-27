@@ -1,22 +1,22 @@
 # Cheat Engine
 
 {% hint style="success" %}
-Ucz się i ćwicz Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Ucz się i ćwicz Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Wsparcie dla HackTricks</summary>
+<summary>Support HackTricks</summary>
 
-* Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
-* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Podziel się sztuczkami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów github.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
 [**Cheat Engine**](https://www.cheatengine.org/downloads.php) to przydatny program do znajdowania, gdzie ważne wartości są zapisywane w pamięci działającej gry i ich zmieniania.\
-Po pobraniu i uruchomieniu, **zostaniesz zaprezentowany** z **samouczkiem** jak używać narzędzia. Jeśli chcesz nauczyć się, jak używać narzędzia, zdecydowanie zaleca się jego ukończenie.
+Po pobraniu i uruchomieniu, **zostaniesz** **przedstawiony** z **samouczkiem** jak używać narzędzia. Jeśli chcesz nauczyć się, jak używać narzędzia, zdecydowanie zaleca się jego ukończenie.
 
 ## Czego szukasz?
 
@@ -47,7 +47,7 @@ Gdy **znajdziesz**, gdzie jest **wartość**, której **szukasz** (więcej na te
 
 ![](<../../.gitbook/assets/image (563).png>)
 
-A na koniec **zaznacz pole**, aby wprowadzić modyfikację w pamięci:
+A na koniec **zaznaczając pole**, aby wprowadzić modyfikację w pamięci:
 
 ![](<../../.gitbook/assets/image (385).png>)
 
@@ -59,16 +59,16 @@ Załóżmy, że istnieje ważna wartość (jak życie twojego użytkownika), kt�
 
 ### Przez znaną zmianę
 
-Zakładając, że szukasz wartości 100, **przeprowadzasz skanowanie** w poszukiwaniu tej wartości i znajdujesz wiele zbieżności:
+Zakładając, że szukasz wartości 100, **przeprowadzasz skanowanie** w poszukiwaniu tej wartości i znajdujesz wiele trafień:
 
 ![](<../../.gitbook/assets/image (108).png>)
 
-Następnie robisz coś, aby **wartość się zmieniła**, a ty **zatrzymujesz** grę i **przeprowadzasz** **następne skanowanie**:
+Następnie robisz coś, aby **wartość się zmieniła**, a następnie **zatrzymujesz** grę i **przeprowadzasz** **następne skanowanie**:
 
 ![](<../../.gitbook/assets/image (684).png>)
 
 Cheat Engine będzie szukać **wartości**, które **zmieniły się z 100 na nową wartość**. Gratulacje, **znalazłeś** **adres** wartości, której szukałeś, teraz możesz ją zmodyfikować.\
-_Jeśli nadal masz kilka wartości, zrób coś, aby ponownie zmodyfikować tę wartość i przeprowadź kolejne "następne skanowanie", aby przefiltrować adresy._
+Jeśli nadal masz kilka wartości, zrób coś, aby ponownie zmodyfikować tę wartość i przeprowadź kolejne "następne skanowanie", aby przefiltrować adresy.
 
 ### Nieznana wartość, znana zmiana
 
@@ -78,7 +78,7 @@ Zacznij od przeprowadzenia skanowania typu "**Nieznana początkowa wartość**":
 
 ![](<../../.gitbook/assets/image (890).png>)
 
-Następnie, zmień wartość, wskaż **jak** **wartość** **się zmieniła** (w moim przypadku zmniejszyła się o 1) i przeprowadź **następne skanowanie**:
+Następnie zmień wartość, wskaź **jak** **wartość** **się zmieniła** (w moim przypadku zmniejszyła się o 1) i przeprowadź **następne skanowanie**:
 
 ![](<../../.gitbook/assets/image (371).png>)
 
@@ -107,7 +107,7 @@ Gdy wybierzesz jedną z tych opcji, **debugger** zostanie **przyłączony** do p
 
 ![](<../../.gitbook/assets/image (91).png>)
 
-Teraz, gdy znalazłeś adres, który zmienia wartość, możesz **zmodyfikować kod według własnego uznania** (Cheat Engine pozwala na szybkie modyfikowanie go na NOP-y):
+Teraz, gdy znalazłeś adres, który zmienia wartość, możesz **zmodyfikować kod według własnego uznania** (Cheat Engine pozwala na szybkie modyfikowanie go na NOP):
 
 ![](<../../.gitbook/assets/image (1057).png>)
 
@@ -124,9 +124,9 @@ Następnie przeprowadź nowe skanowanie **szukając wartości hex między "\[]"*
 ![](<../../.gitbook/assets/image (994).png>)
 
 (_Jeśli pojawi się kilka, zazwyczaj potrzebujesz najmniejszego adresu_)\
-Teraz, **znaleźliśmy wskaźnik, który będzie modyfikował wartość, która nas interesuje**.
+Teraz, znaleźliśmy **wskaźnik, który będzie modyfikował wartość, która nas interesuje**.
 
-Kliknij "**Dodaj adres ręcznie**":
+Kliknij na "**Dodaj adres ręcznie**":
 
 ![](<../../.gitbook/assets/image (990).png>)
 
@@ -140,7 +140,7 @@ Kliknij OK, a nowy wskaźnik zostanie utworzony:
 
 ![](<../../.gitbook/assets/image (308).png>)
 
-Teraz, za każdym razem, gdy modyfikujesz tę wartość, **modyfikujesz ważną wartość, nawet jeśli adres pamięci, w którym ta wartość się znajduje, jest inny.**
+Teraz, za każdym razem, gdy modyfikujesz tę wartość, **modyfikujesz ważną wartość, nawet jeśli adres pamięci, w którym znajduje się wartość, jest inny.**
 
 ### Wstrzykiwanie kodu
 
@@ -163,7 +163,7 @@ Zostanie wygenerowany szablon:
 
 ![](<../../.gitbook/assets/image (944).png>)
 
-Wstaw swój nowy kod asemblera w sekcji "**newmem**" i usuń oryginalny kod z "**originalcode**", jeśli nie chcesz, aby był wykonywany\*\*.\*\* W tym przykładzie wstrzyknięty kod doda 2 punkty zamiast odejmować 1:
+Wstaw swój nowy kod asemblera w sekcji "**newmem**" i usuń oryginalny kod z "**originalcode**", jeśli nie chcesz, aby był wykonywany. W tym przykładzie wstrzyknięty kod doda 2 punkty zamiast odejmować 1:
 
 ![](<../../.gitbook/assets/image (521).png>)
 
@@ -171,19 +171,4 @@ Wstaw swój nowy kod asemblera w sekcji "**newmem**" i usuń oryginalny kod z "*
 
 ## **Referencje**
 
-* **Samouczek Cheat Engine, ukończ go, aby nauczyć się, jak zacząć z Cheat Engine** 
-
-{% hint style="success" %}
-Ucz się i ćwicz Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Ucz się i ćwicz Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
-
-<details>
-
-<summary>Wsparcie dla HackTricks</summary>
-
-* Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
-* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Podziel się sztuczkami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów github.
-
-</details>
-{% endhint %}
+* **Samouczek Cheat Engine, ukończ go, aby nauczyć się, jak zacząć z Cheat Engine**

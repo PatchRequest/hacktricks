@@ -9,7 +9,7 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -19,10 +19,10 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 Binaries Mach-o zawierają polecenie ładujące zwane **`LC_CODE_SIGNATURE`**, które wskazuje **offset** i **rozmiar** podpisów wewnątrz binarnego pliku. W rzeczywistości, używając narzędzia GUI MachOView, można znaleźć na końcu binarnego pliku sekcję o nazwie **Code Signature** z tymi informacjami:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
-Magiczny nagłówek podpisu kodu to **`0xFADE0CC0`**. Następnie znajdują się informacje takie jak długość i liczba blobów superBlob, które je zawierają.\
-Można znaleźć te informacje w [kodzie źródłowym tutaj](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
+Magiczny nagłówek podpisu kodu to **`0xFADE0CC0`**. Następnie masz informacje takie jak długość i liczba blobów superBlob, które je zawierają.\
+Można znaleźć te informacje w [kodzie źródłowym tutaj](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L276):
 ```c
 /*
 * Structure of an embedded-signature SuperBlob
@@ -51,14 +51,14 @@ char data[];
 } CS_GenericBlob
 __attribute__ ((aligned(1)));
 ```
-Common blobs contained are Code Directory, Requirements and Entitlements and a Cryptographic Message Syntax (CMS).\
-Moreover, note how the data encoded in the blobs is encoded in **Big Endian.**
+Powszechnie zawarte bloby to Code Directory, Requirements i Entitlements oraz Cryptographic Message Syntax (CMS).\
+Ponadto, zauważ, że dane zakodowane w blobach są zakodowane w **Big Endian.**
 
-Moreover, podpisy mogą być odłączone od binarnych i przechowywane w `/var/db/DetachedSignatures` (używane przez iOS).
+Ponadto, podpisy mogą być odłączane od binarnych plików i przechowywane w `/var/db/DetachedSignatures` (używane przez iOS).
 
 ## Code Directory Blob
 
-It's possible to find the declaration of the [Code Directory Blob in the code](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104):
+Możliwe jest znalezienie deklaracji [Code Directory Blob w kodzie](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L104):
 ```c
 typedef struct __CodeDirectory {
 uint32_t magic;                                 /* magic number (CSMAGIC_CODEDIRECTORY) */
@@ -175,7 +175,7 @@ W rzeczywistości można zobaczyć w strukturach Katalogu Kodów parametr zwany 
 
 ## Code Signing Flags
 
-Każdy proces ma powiązany bitmaskę znaną jako `status`, która jest inicjowana przez jądro, a niektóre z nich mogą być nadpisane przez **podpis kodu**. Te flagi, które mogą być uwzględnione w podpisie kodu, są [zdefiniowane w kodzie](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
+Każdy proces ma powiązany bitmaskę znaną jako `status`, która jest inicjowana przez jądro, a niektóre z nich mogą być nadpisane przez **podpis kodu**. Te flagi, które mogą być zawarte w podpisie kodu, są [zdefiniowane w kodzie](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
 ```c
 /* code signing attributes of a process */
 #define CS_VALID                    0x00000001  /* dynamically valid */
@@ -220,7 +220,7 @@ CS_RESTRICT | CS_ENFORCEMENT | CS_REQUIRE_LV | CS_RUNTIME | CS_LINKER_SIGNED)
 
 #define CS_ENTITLEMENT_FLAGS        (CS_GET_TASK_ALLOW | CS_INSTALLER | CS_DATAVAULT_CONTROLLER | CS_NVRAM_UNRESTRICTED)
 ```
-Zauważ, że funkcja [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern\_exec.c#L1420) może również dynamicznie dodawać flagi `CS_EXEC_*` podczas uruchamiania.
+Zauważ, że funkcja [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern_exec.c#L1420) może również dynamicznie dodawać flagi `CS_EXEC_*` podczas uruchamiania wykonania.
 
 ## Wymagania dotyczące podpisu kodu
 
@@ -308,11 +308,11 @@ Możliwe jest uzyskanie dostępu do tych informacji oraz tworzenie lub modyfikow
 
 ## Egzekwowanie podpisu kodu
 
-**Jądro** to to, które **sprawdza podpis kodu** przed zezwoleniem na wykonanie kodu aplikacji. Co więcej, jednym ze sposobów na możliwość zapisu i wykonania nowego kodu w pamięci jest nadużycie JIT, jeśli `mprotect` jest wywoływane z flagą `MAP_JIT`. Należy zauważyć, że aplikacja potrzebuje specjalnego uprawnienia, aby móc to zrobić.
+**Jądro** to to, które **sprawdza podpis kodu** przed zezwoleniem na wykonanie kodu aplikacji. Ponadto, jednym ze sposobów na możliwość pisania i wykonywania nowego kodu w pamięci jest nadużycie JIT, jeśli `mprotect` jest wywoływane z flagą `MAP_JIT`. Należy zauważyć, że aplikacja potrzebuje specjalnego uprawnienia, aby móc to zrobić.
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) struktura zawiera informacje o uprawnieniach działającego procesu. `csb_platform_binary` informuje również, czy aplikacja jest binarną platformą (co jest sprawdzane w różnych momentach przez system operacyjny w celu zastosowania mechanizmów zabezpieczeń, takich jak ochrona praw SEND do portów zadań tych procesów).
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106) struktura zawiera informacje o uprawnieniach działającego procesu. `csb_platform_binary` informuje również, czy aplikacja jest binarną platformą (co jest sprawdzane w różnych momentach przez system operacyjny w celu zastosowania mechanizmów zabezpieczeń, takich jak ochrona praw SEND do portów zadań tych procesów).
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
@@ -371,7 +371,7 @@ bool csb_csm_managed;
 #endif
 };
 ```
-## References
+## Odniesienia
 
 * [**\*OS Internals Volume III**](https://newosxbook.com/home.html)
 
@@ -384,7 +384,7 @@ Ucz się i ćwicz Hacking GCP: <img src="../../../.gitbook/assets/grte.png" alt=
 <summary>Wsparcie dla HackTricks</summary>
 
 * Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
-* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Dziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów na githubie.
 
 </details>
