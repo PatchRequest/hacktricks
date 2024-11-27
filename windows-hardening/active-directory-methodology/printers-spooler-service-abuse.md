@@ -1,15 +1,15 @@
 # Force NTLM Privileged Authentication
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -17,22 +17,22 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## SharpSystemTriggers
 
-[**SharpSystemTriggers**](https://github.com/cube0x0/SharpSystemTriggers) ni **mkusanyiko** wa **triggers za uthibitishaji wa mbali** zilizoandikwa kwa C# kwa kutumia MIDL compiler ili kuepuka utegemezi wa wahusika wengine.
+[**SharpSystemTriggers**](https://github.com/cube0x0/SharpSystemTriggers) ni **mkusanyiko** wa **vichocheo vya uthibitishaji wa mbali** vilivyotengenezwa kwa C# kwa kutumia MIDL compiler ili kuepuka utegemezi wa wahusika wa tatu.
 
 ## Spooler Service Abuse
 
-Ikiwa huduma ya _**Print Spooler**_ ime **wezeshwa,** unaweza kutumia baadhi ya akidi za AD zinazojulikana tayari ku **omba** server ya uchapishaji ya Domain Controller **sasisho** kuhusu kazi mpya za uchapishaji na umwambie tu **atumie arifa kwa mfumo fulani**.\
-Kumbuka wakati printer inatuma arifa kwa mifumo isiyo ya kawaida, inahitaji **kujiuthibitisha dhidi** ya **mfumo** huo. Hivyo, mshambuliaji anaweza kufanya huduma ya _**Print Spooler**_ kujiuthibitisha dhidi ya mfumo wowote, na huduma hiyo itatumia **akaunti ya kompyuta** katika uthibitishaji huu.
+Ikiwa huduma ya _**Print Spooler**_ ime **wezeshwa,** unaweza kutumia baadhi ya akidi za AD ambazo tayari zinajulikana ili **kuomba** kwa seva ya uchapishaji ya Domain Controller **sasisho** kuhusu kazi mpya za uchapishaji na umwambie tu **atumie arifa kwa mfumo fulani**.\
+Kumbuka wakati printer inatuma arifa kwa mifumo isiyo ya kawaida, inahitaji **kujiandikisha dhidi** ya **mfumo** huo. Hivyo, mshambuliaji anaweza kufanya huduma ya _**Print Spooler**_ kujiandikisha dhidi ya mfumo wowote, na huduma hiyo itatumia **akaunti ya kompyuta** katika uthibitishaji huu.
 
 ### Finding Windows Servers on the domain
 
-Kwa kutumia PowerShell, pata orodha ya masanduku ya Windows. Servers kwa kawaida ni kipaumbele, hivyo hebu tuzingatie hapo:
+Kwa kutumia PowerShell, pata orodha ya masanduku ya Windows. Seva mara nyingi ni kipaumbele, hivyo hebu tuzingatie hapo:
 ```bash
 Get-ADComputer -Filter {(OperatingSystem -like "*windows*server*") -and (OperatingSystem -notlike "2016") -and (Enabled -eq "True")} -Properties * | select Name | ft -HideTableHeaders > servers.txt
 ```
-### Finding Spooler services listening
+### Kutafuta huduma za Spooler zinazot listening
 
-Tumia @mysmartlogin's (Vincent Le Toux's) [SpoolerScanner](https://github.com/NotMedic/NetNTLMtoSilverTicket) iliyobadilishwa kidogo, angalia kama Spooler Service inasikiliza:
+Kwa kutumia toleo lililobadilishwa kidogo la @mysmartlogin's (Vincent Le Toux's) [SpoolerScanner](https://github.com/NotMedic/NetNTLMtoSilverTicket), angalia kama Huduma ya Spooler inasikiliza:
 ```bash
 . .\Get-SpoolStatus.ps1
 ForEach ($server in Get-Content servers.txt) {Get-SpoolStatus $server}
@@ -54,7 +54,7 @@ printerbug.py 'domain/username:password'@<Printer IP> <RESPONDERIP>
 ```
 ### Kuunganisha na Delegation Isiyo na Kikomo
 
-Ikiwa mshambuliaji tayari ameathiri kompyuta yenye [Unconstrained Delegation](unconstrained-delegation.md), mshambuliaji anaweza **kufanya printer ithibitishe dhidi ya kompyuta hii**. Kwa sababu ya delegation isiyo na kikomo, **TGT** ya **akaunti ya kompyuta ya printer** itakuwa **imehifadhiwa katika** **kumbukumbu** ya kompyuta yenye delegation isiyo na kikomo. Kwa kuwa mshambuliaji tayari ameathiri mwenyeji huu, ataweza **kuchukua tiketi hii** na kuitumia vibaya ([Pass the Ticket](pass-the-ticket.md)).
+Ikiwa mshambuliaji tayari ameathiri kompyuta yenye [Unconstrained Delegation](unconstrained-delegation.md), mshambuliaji anaweza **kufanya printer ithibitishe dhidi ya kompyuta hii**. Kwa sababu ya delegation isiyo na kikomo, **TGT** ya **akaunti ya kompyuta ya printer** itakuwa **imehifadhiwa katika** **kumbukumbu** ya kompyuta yenye delegation isiyo na kikomo. Kwa kuwa mshambuliaji tayari ameathiri mwenyeji huu, ataweza **kurejesha tiketi hii** na kuifanya iwe na madhara ([Pass the Ticket](pass-the-ticket.md)).
 
 ## RCP Kulazimisha uthibitisho
 
@@ -62,9 +62,9 @@ Ikiwa mshambuliaji tayari ameathiri kompyuta yenye [Unconstrained Delegation](un
 
 ## PrivExchange
 
-Shambulio la `PrivExchange` ni matokeo ya kasoro iliyopatikana katika **kipengele cha `PushSubscription` cha Exchange Server**. Kipengele hiki kinaruhusu server ya Exchange kulazimishwa na mtumiaji yeyote wa kikoa mwenye sanduku la barua kuthibitisha kwa mwenyeji yeyote aliyepewa na mteja kupitia HTTP.
+Shambulio la `PrivExchange` ni matokeo ya kasoro iliyopatikana katika **kipengele cha `PushSubscription` cha Exchange Server**. Kipengele hiki kinaruhusu server ya Exchange kulazimishwa na mtumiaji yeyote wa kikoa mwenye sanduku la barua kuthibitisha kwa mwenyeji wowote uliopewa na mteja kupitia HTTP.
 
-Kwa kawaida, **huduma ya Exchange inafanya kazi kama SYSTEM** na inapewa mamlaka kupita kiasi (hasa, ina **WriteDacl privileges kwenye kikoa kabla ya Sasisho la Jumla la 2019**). Kasoro hii inaweza kutumika kuweza **kupeleka taarifa kwa LDAP na kisha kutoa hifadhidata ya NTDS ya kikoa**. Katika hali ambapo kupeleka kwa LDAP haiwezekani, kasoro hii bado inaweza kutumika kupeleka na kuthibitisha kwa wenyeji wengine ndani ya kikoa. Ufanisi wa shambulio hili unatoa ufikiaji wa haraka kwa Msimamizi wa Kikoa kwa akaunti yoyote ya mtumiaji wa kikoa iliyoidhinishwa.
+Kwa kawaida, **huduma ya Exchange inafanya kazi kama SYSTEM** na inapewa mamlaka kupita kiasi (hasa, ina **WriteDacl privileges kwenye kikoa kabla ya Sasisho la Jumla la 2019**). Kasoro hii inaweza kutumika kuwezesha **kupeleka taarifa kwa LDAP na kisha kutoa hifadhidata ya NTDS ya kikoa**. Katika hali ambapo kupeleka kwa LDAP haiwezekani, kasoro hii bado inaweza kutumika kupeleka na kuthibitisha kwa wenyeji wengine ndani ya kikoa. Ufanisi wa shambulio hili unatoa ufikiaji wa haraka kwa Msimamizi wa Kikoa kwa akaunti yoyote ya mtumiaji wa kikoa iliyoidhinishwa.
 
 ## Ndani ya Windows
 
@@ -116,18 +116,18 @@ Ikiwa unaweza kufanya shambulio la MitM kwa kompyuta na kuingiza HTML kwenye uku
 ## Cracking NTLMv1
 
 Ikiwa unaweza kukamata [NTLMv1 challenges soma hapa jinsi ya kuzivunja](../ntlm/#ntlmv1-attack).\
-_Kumbuka kwamba ili kuvunja NTLMv1 unahitaji kuweka changamoto ya Responder kuwa "1122334455667788"_
+&#xNAN;_&#x52;umbuka kwamba ili kuvunja NTLMv1 unahitaji kuweka changamoto ya Responder kuwa "1122334455667788"_
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>

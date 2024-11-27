@@ -1,23 +1,29 @@
 # Full TTYs
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 ## Full TTY
 
-Kumbuka kwamba shell unayoweka katika mabadiliko ya `SHELL` **lazima** iwe **imeorodheshwa ndani ya** _**/etc/shells**_ au `Thamani ya mabadiliko ya SHELL haikupatikana katika faili ya /etc/shells Tukio hili limeripotiwa`. Pia, kumbuka kwamba vipande vifuatavyo vinatumika tu katika bash. Ikiwa uko katika zsh, badilisha kuwa bash kabla ya kupata shell kwa kukimbia `bash`.
+Kumbuka kwamba shell uliyoweka katika mabadiliko ya `SHELL` **lazima** iwe **imeorodheshwa ndani ya** _**/etc/shells**_ au `Thamani ya mabadiliko ya SHELL haikupatikana katika faili ya /etc/shells Tukio hili limeripotiwa`. Pia, kumbuka kwamba vipande vifuatavyo vinatumika tu katika bash. Ikiwa uko katika zsh, badilisha kuwa bash kabla ya kupata shell kwa kukimbia `bash`.
 
 #### Python
 
@@ -30,7 +36,7 @@ python3 -c 'import pty; pty.spawn("/bin/bash")'
 {% endcode %}
 
 {% hint style="info" %}
-Unaweza kupata **idadi** ya **mifereji** na **safuwima** kwa kutekeleza **`stty -a`**
+Unaweza kupata **idadi** ya **mifumo** na **safu** kwa kutekeleza **`stty -a`**
 {% endhint %}
 
 #### script
@@ -114,26 +120,32 @@ sftp -P 8888 127.0.0.1
 ```
 ## Penelope
 
-[Penelope](https://github.com/brightio/penelope) inasasisha kiotomatiki Linux reverse shells kuwa TTY, inashughulikia ukubwa wa terminal, inarekodi kila kitu na mengi zaidi. Pia inatoa msaada wa readline kwa Windows shells.
+[Penelope](https://github.com/brightio/penelope) inasasisha kiotomatiki reverse shells za Linux hadi TTY, inashughulikia ukubwa wa terminal, inarekodi kila kitu na mengi zaidi. Pia inatoa msaada wa readline kwa shells za Windows.
 
 ![penelope](https://github.com/user-attachments/assets/27ab4b3a-780c-4c07-a855-fd80a194c01e)
 
 ## No TTY
 
-Ikiwa kwa sababu fulani huwezi kupata TTY kamili **bado unaweza kuingiliana na programu** zinazotarajia pembejeo za mtumiaji. Katika mfano ufuatao, nenosiri linapitishwa kwa `sudo` kusoma faili:
+Ikiwa kwa sababu fulani huwezi kupata TTY kamili unaweza **bado kuingiliana na programu** zinazotarajia pembejeo za mtumiaji. Katika mfano ufuatao, nenosiri linapitishwa kwa `sudo` ili kusoma faili:
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Panua ujuzi wako katika **Usalama wa Simu** na 8kSec Academy. Master usalama wa iOS na Android kupitia kozi zetu za kujifunza kwa kasi yako na upate cheti:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Jifunze & fanya mazoezi ya AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Jifunze & fanya mazoezi ya GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
-* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **tufuatilie** kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Shiriki mbinu za hacking kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
 
 </details>
