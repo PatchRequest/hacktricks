@@ -15,6 +15,13 @@
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+通过 8kSec 学院深化您在 **移动安全** 方面的专业知识。通过我们的自学课程掌握 iOS 和 Android 安全并获得认证：
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 ### 用户标识变量
 
 - **`ruid`**：**真实用户 ID** 表示发起该进程的用户。
@@ -45,23 +52,23 @@
 - **文档**：详细信息可以在 [`execve` 手册页](https://man7.org/linux/man-pages/man2/execve.2.html) 中找到。
 
 #### **`system` 函数**
-- **功能**：与 `execve` 不同，`system` 使用 `fork` 创建一个子进程，并在该子进程中执行命令，使用 `execl`。
+- **功能**：与 `execve` 不同，`system` 使用 `fork` 创建一个子进程，并在该子进程中使用 `execl` 执行命令。
 - **命令执行**：通过 `sh` 执行命令，使用 `execl("/bin/sh", "sh", "-c", command, (char *) NULL);`。
 - **行为**：由于 `execl` 是 `execve` 的一种形式，它在新子进程的上下文中以类似方式操作。
-- **文档**：进一步的见解可以从 [`system` 手册页](https://man7.org/linux/man-pages/man3/system.3.html) 中获取。
+- **文档**：进一步的见解可以从 [`system` 手册页](https://man7.org/linux/man-pages/man3/system.3.html) 中获得。
 
 #### **带有 SUID 的 `bash` 和 `sh` 的行为**
 - **`bash`**：
 - 有一个 `-p` 选项影响 `euid` 和 `ruid` 的处理方式。
 - 如果没有 `-p`，`bash` 会将 `euid` 设置为 `ruid`，如果它们最初不同。
-- 有了 `-p`，初始的 `euid` 会被保留。
+- 如果有 `-p`，则保留初始的 `euid`。
 - 更多细节可以在 [`bash` 手册页](https://linux.die.net/man/1/bash) 中找到。
 - **`sh`**：
 - 没有类似于 `bash` 中的 `-p` 的机制。
-- 关于用户 ID 的行为没有明确提及，除了在 `-i` 选项下，强调 `euid` 和 `ruid` 的相等性保持。
+- 关于用户 ID 的行为没有明确提及，除了在 `-i` 选项下，强调保留 `euid` 和 `ruid` 的相等性。
 - 额外信息可在 [`sh` 手册页](https://man7.org/linux/man-pages/man1/sh.1p.html) 中找到。
 
-这些机制在操作上各不相同，为执行和程序之间的转换提供了多种选择，具体细节在用户 ID 的管理和保持方面有所不同。
+这些机制在操作上各不相同，为执行和程序之间的转换提供了多种选择，具体在用户 ID 的管理和保留方面有特定的细微差别。
 
 ### 测试执行中的用户 ID 行为
 
@@ -95,7 +102,7 @@ uid=99(nobody) gid=99(nobody) groups=99(nobody) context=system_u:system_r:unconf
 ```
 **分析：**
 
-* `ruid` 和 `euid` 初始值分别为 99 (nobody) 和 1000 (frank)。
+* `ruid` 和 `euid` 最初分别为 99 (nobody) 和 1000 (frank)。
 * `setuid` 将两者都对齐到 1000。
 * `system` 执行 `/bin/bash -c id`，这是由于 sh 到 bash 的符号链接。
 * `bash` 在没有 `-p` 的情况下，将 `euid` 调整为与 `ruid` 匹配，导致两者都为 99 (nobody)。
@@ -195,17 +202,24 @@ uid=99(nobody) gid=99(nobody) euid=100
 * [https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail](https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail)
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+通过8kSec Academy深化您在**移动安全**方面的专业知识。通过我们的自学课程掌握iOS和Android安全并获得认证：
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 {% hint style="success" %}
-学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践AWS黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践GCP黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>支持 HackTricks</summary>
+<summary>支持HackTricks</summary>
 
-* 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **在** **Twitter** 🐦 **上关注我们** [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 来分享黑客技巧。
+* 查看[**订阅计划**](https://github.com/sponsors/carlospolop)!
+* **加入** 💬 [**Discord群组**](https://discord.gg/hRep4RUj7f)或[**电报群组**](https://t.me/peass)，或在**Twitter**上**关注**我们 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks)和[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub库提交PR分享黑客技巧。
 
 </details>
 {% endhint %}

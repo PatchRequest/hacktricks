@@ -1,29 +1,35 @@
-# Docker取证
+# Docker 取证
 
 {% hint style="success" %}
-学习并实践AWS Hacking：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks培训AWS红队专家（ARTE）**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习并实践GCP Hacking：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks培训GCP红队专家（GRTE）**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>支持HackTricks</summary>
+<summary>支持 HackTricks</summary>
 
-* 检查[**订阅计划**](https://github.com/sponsors/carlospolop)!
-* **加入** 💬 [**Discord群**](https://discord.gg/hRep4RUj7f) 或 [**电报群**](https://t.me/peass) 或 **关注**我们的**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* 通过向[**HackTricks**](https://github.com/carlospolop/hacktricks)和[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github仓库提交PR来分享黑客技巧。
+* 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+通过 8kSec 学院深化您在 **移动安全** 方面的专业知识。通过我们的自学课程掌握 iOS 和 Android 安全并获得认证：
+
+{% embed url="https://academy.8ksec.io/" %}
+
 ## 容器修改
 
-有人怀疑某个Docker容器已被入侵：
+有怀疑某些 docker 容器被入侵：
 ```bash
 docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 cc03e43a052a        lamp-wordpress      "./run.sh"          2 minutes ago       Up 2 minutes        80/tcp              wordpress
 ```
-您可以使用以下命令轻松**查找对此容器所做的与镜像相关的修改**：
+您可以轻松地**找到与镜像相关的对该容器所做的修改**：
 ```bash
 docker diff wordpress
 C /var
@@ -37,52 +43,52 @@ A /var/lib/mysql/mysql/time_zone_leap_second.MYI
 A /var/lib/mysql/mysql/general_log.CSV
 ...
 ```
-在上一个命令中，**C** 代表 **Changed**，**A** 代表 **Added**。\
-如果你发现一些有趣的文件，比如 `/etc/shadow` 被修改了，你可以从容器中下载它，以检查是否存在恶意活动：
+在之前的命令中，**C** 代表 **Changed**，而 **A** 代表 **Added**。\
+如果你发现某个有趣的文件，比如 `/etc/shadow` 被修改了，你可以从容器中下载它以检查恶意活动，使用：
 ```bash
 docker cp wordpress:/etc/shadow.
 ```
-你也可以通过运行一个新的容器并从中提取文件来**与原始文件进行比较**：
+您还可以**将其与原始文件进行比较**，通过运行一个新容器并从中提取文件：
 ```bash
 docker run -d lamp-wordpress
 docker cp b5d53e8b468e:/etc/shadow original_shadow #Get the file from the newly created container
 diff original_shadow shadow
 ```
-如果发现**已添加一些可疑文件**，您可以访问容器并进行检查：
+如果您发现**添加了一些可疑文件**，您可以访问容器并检查它：
 ```bash
 docker exec -it wordpress bash
 ```
-## 图像修改
+## Images modifications
 
-当您获得一个导出的 Docker 镜像（可能是 `.tar` 格式）时，您可以使用 [**container-diff**](https://github.com/GoogleContainerTools/container-diff/releases) 来**提取修改的摘要**：
+当你获得一个导出的 docker 镜像（可能是 `.tar` 格式）时，你可以使用 [**container-diff**](https://github.com/GoogleContainerTools/container-diff/releases) 来 **提取修改的摘要**：
 ```bash
 docker save <image> > image.tar #Export the image to a .tar file
 container-diff analyze -t sizelayer image.tar
 container-diff analyze -t history image.tar
 container-diff analyze -t metadata image.tar
 ```
-然后，您可以**解压**图像并**访问** blobs 以搜索您在更改历史记录中发现的可疑文件：
+然后，您可以**解压缩**映像并**访问 blobs**以搜索您可能在更改历史中发现的可疑文件：
 ```bash
 tar -xf image.tar
 ```
 ### 基本分析
 
-您可以从运行的镜像中获取**基本信息**：
+您可以通过运行以下命令获取**基本信息**：
 ```bash
 docker inspect <image>
 ```
-您还可以使用以下命令获取**更改历史摘要**：
+您还可以通过以下方式获取**更改历史**的摘要：
 ```bash
 docker history --no-trunc <image>
 ```
-您还可以使用以下命令从镜像生成**dockerfile**：
+您还可以使用以下命令从镜像生成 **dockerfile**：
 ```bash
 alias dfimage="docker run -v /var/run/docker.sock:/var/run/docker.sock --rm alpine/dfimage"
 dfimage -sV=1.36 madhuakula/k8s-goat-hidden-in-layers>
 ```
 ### Dive
 
-为了找到 Docker 镜像中添加/修改的文件，您还可以使用 [**dive**](https://github.com/wagoodman/dive)（从 [**releases**](https://github.com/wagoodman/dive/releases/tag/v0.10.0) 下载）实用程序：
+为了在docker镜像中查找添加/修改的文件，您还可以使用[**dive**](https://github.com/wagoodman/dive)（从[**releases**](https://github.com/wagoodman/dive/releases/tag/v0.10.0)下载）：
 ```bash
 #First you need to load the image in your docker repo
 sudo docker load < image.tar                                                                                                                                                                                                         1 ⨯
@@ -91,31 +97,37 @@ Loaded image: flask:latest
 #And then open it with dive:
 sudo dive flask:latest
 ```
-这使您能够**浏览 Docker 镜像的不同 blob**，并检查哪些文件已被修改/添加。**红色**表示已添加，**黄色**表示已修改。使用**tab**键切换到其他视图，使用**空格**键折叠/打开文件夹。
+这允许您**浏览不同的docker镜像的blob**并检查哪些文件被修改/添加。**红色**表示添加，**黄色**表示修改。使用**tab**键移动到其他视图，使用**space**键折叠/打开文件夹。
 
-使用 die，您将无法访问镜像不同阶段的内容。要这样做，您需要**解压缩每个层并访问它**。\
-您可以从解压缩镜像的目录中解压缩图像的所有层，执行：
+使用die，您将无法访问镜像不同阶段的内容。要做到这一点，您需要**解压每一层并访问它**。\
+您可以通过在解压镜像的目录中执行以下命令来解压镜像的所有层：
 ```bash
 tar -xf image.tar
 for d in `find * -maxdepth 0 -type d`; do cd $d; tar -xf ./layer.tar; cd ..; done
 ```
-## 从内存中获取凭据
+## 从内存中获取凭证
 
-请注意，当您在主机内运行一个 Docker 容器时，**您可以通过在主机上运行 `ps -ef` 命令来查看容器中运行的进程**
+请注意，当您在主机内运行 docker 容器时，**您可以通过运行 `ps -ef` 查看容器中运行的进程**。
 
-因此（作为 root 用户）您可以从主机中**转储进程的内存**，并搜索**凭据**，就像[**以下示例**](../../linux-hardening/privilege-escalation/#process-memory)中一样。
+因此（作为 root），您可以**从主机转储进程的内存**并搜索**凭证**，就像[**以下示例**](../../linux-hardening/privilege-escalation/#process-memory)中所示。
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+通过 8kSec Academy 深入了解 **移动安全**。通过我们的自学课程掌握 iOS 和 Android 安全并获得认证：
+
+{% embed url="https://academy.8ksec.io/" %}
 
 {% hint style="success" %}
-学习并练习 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-学习并练习 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习和实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+学习和实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>支持 HackTricks</summary>
 
-* 查看[**订阅计划**](https://github.com/sponsors/carlospolop)！
-* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**电报群组**](https://t.me/peass) 或 **关注**我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* 通过向 [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 来分享黑客技巧。
+* 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **在 Twitter 上关注** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
 
 </details>
 {% endhint %}
