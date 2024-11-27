@@ -1,16 +1,16 @@
 # macOS Potpisivanje Koda
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Učite i vežbajte AWS Hacking:<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Učite i vežbajte GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Podržite HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Podelite hakerske trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>
 {% endhint %}
@@ -19,10 +19,10 @@ Learn & practice GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="
 
 Mach-o binarni fajlovi sadrže komandu za učitavanje pod nazivom **`LC_CODE_SIGNATURE`** koja označava **offset** i **veličinu** potpisa unutar binarnog fajla. U stvari, koristeći GUI alat MachOView, moguće je pronaći na kraju binarnog fajla sekciju pod nazivom **Code Signature** sa ovim informacijama:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
-Magični zaglavlje Potpisa Koda je **`0xFADE0CC0`**. Zatim imate informacije kao što su dužina i broj blobova superBlob-a koji ih sadrži.\
-Moguće je pronaći ove informacije u [izvoru ovde](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276):
+Magični header Code Signature je **`0xFADE0CC0`**. Zatim imate informacije kao što su dužina i broj blobova superBlob-a koji ih sadrži.\
+Moguće je pronaći ove informacije u [izvoru ovde](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L276):
 ```c
 /*
 * Structure of an embedded-signature SuperBlob
@@ -51,14 +51,14 @@ char data[];
 } CS_GenericBlob
 __attribute__ ((aligned(1)));
 ```
-Uobičajeni blobovi su Code Directory, Requirements i Entitlements, kao i Cryptographic Message Syntax (CMS).\
+Uobičajeni blobovi koji se nalaze su Direktorij koda, Zahtevi i Ovlašćenja i Kriptografska poruka u sintaksi (CMS).\
 Pored toga, obratite pažnju na to kako su podaci kodirani u blobovima kodirani u **Big Endian.**
 
 Pored toga, potpisi se mogu odvojiti od binarnih datoteka i čuvati u `/var/db/DetachedSignatures` (koristi se u iOS-u).
 
-## Code Directory Blob
+## Blob direktorijuma koda
 
-Moguće je pronaći deklaraciju [Code Directory Blob u kodu](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104):
+Moguće je pronaći deklaraciju [Blob direktorijuma koda u kodu](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L104):
 ```c
 typedef struct __CodeDirectory {
 uint32_t magic;                                 /* magic number (CSMAGIC_CODEDIRECTORY) */
@@ -116,7 +116,7 @@ __attribute__ ((aligned(1)));
 ```
 Napomena da postoje različite verzije ove strukture gde starije mogu sadržati manje informacija.
 
-## Stranice potpisivanja koda
+## Stranice potpisanog koda
 
 Hashovanje celog binarnog fajla bi bilo neefikasno i čak beskorisno ako je učitan samo delimično u memoriji. Stoga, potpis koda je zapravo hash hash-eva gde je svaka binarna stranica hash-ovana pojedinačno.\
 U stvari, u prethodnom **Direktorijumu koda** možete videti da je **veličina stranice navedena** u jednom od njegovih polja. Štaviše, ako veličina binarnog fajla nije višekratnik veličine stranice, polje **CodeLimit** specificira gde je kraj potpisa.
@@ -157,11 +157,11 @@ openssl sha256 /tmp/*.page.*
 ```
 ## Entitlements Blob
 
-Napomena da aplikacije mogu sadržati **entitlement blob** gde su svi entitlements definisani. Štaviše, neki iOS binarni fajlovi mogu imati svoje entitlements specifične u posebnom slotu -7 (umesto u -5 entitlements posebnom slotu).
+Napomena da aplikacije mogu sadržati **entitlement blob** gde su svi entitlements definisani. Štaviše, neki iOS binarni fajlovi mogu imati svoje entitlements specifične u posebnom slotu -7 (umesto u -5 entitlement posebnom slotu).
 
 ## Special Slots
 
-MacOS aplikacije nemaju sve što im je potrebno za izvršavanje unutar binarnog fajla, već koriste i **spoljne resurse** (obično unutar aplikacionog **bundle**). Stoga, postoje neki slotovi unutar binarnog fajla koji će sadržati hashove nekih interesantnih spoljašnjih resursa kako bi se proverilo da nisu modifikovani.
+MacOS aplikacije nemaju sve što im je potrebno za izvršavanje unutar binarnog fajla, već takođe koriste **spoljne resurse** (obično unutar aplikacionog **bundle**). Stoga, postoje neki slotovi unutar binarnog fajla koji će sadržati hashove nekih interesantnih spoljašnjih resursa kako bi se proverilo da nisu modifikovani.
 
 U stvari, moguće je videti u strukturi Code Directory parametar nazvan **`nSpecialSlots`** koji označava broj posebnih slotova. Ne postoji poseban slot 0, a najčešći (od -1 do -6) su:
 
@@ -220,11 +220,11 @@ CS_RESTRICT | CS_ENFORCEMENT | CS_REQUIRE_LV | CS_RUNTIME | CS_LINKER_SIGNED)
 
 #define CS_ENTITLEMENT_FLAGS        (CS_GET_TASK_ALLOW | CS_INSTALLER | CS_DATAVAULT_CONTROLLER | CS_NVRAM_UNRESTRICTED)
 ```
-Napomena da funkcija [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern\_exec.c#L1420) takođe može dinamički dodati `CS_EXEC_*` zastavice prilikom pokretanja izvršenja.
+Napomena da funkcija [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern_exec.c#L1420) takođe može dinamički dodati `CS_EXEC_*` zastavice prilikom pokretanja izvršavanja.
 
 ## Zahtevi za potpisivanje koda
 
-Svaka aplikacija čuva neke **zahteve** koje mora **ispuniti** da bi mogla da se izvrši. Ako **aplikacija sadrži zahteve koji nisu ispunjeni**, neće biti izvršena (jer je verovatno izmenjena).
+Svaka aplikacija čuva neke **zahteve** koje mora **ispuniti** da bi mogla da se izvrši. Ako **aplikacija sadrži zahteve koji nisu ispunjeni od strane aplikacije**, neće biti izvršena (jer je verovatno izmenjena).
 
 Zahtevi binarnog fajla koriste **posebnu gramatiku** koja je niz **izraza** i kodirani su kao blobovi koristeći `0xfade0c00` kao magični broj čiji je **hash sačuvan u posebnom slotu za kod**.
 
@@ -279,7 +279,7 @@ Moguće je pristupiti ovim informacijama i kreirati ili modifikovati zahteve pom
 
 #### **Pristupanje Informacijama o Potpisivanju Koda**
 
-* **`SecStaticCodeCreateWithPath`**: Inicijalizuje `SecStaticCodeRef` objekat iz putanje u datotečnom sistemu za inspekciju potpisa koda.
+* **`SecStaticCodeCreateWithPath`**: Inicijalizuje `SecStaticCodeRef` objekat iz putanje u fajl sistemu za inspekciju potpisa koda.
 * **`SecCodeCopySigningInformation`**: Dobija informacije o potpisivanju iz `SecCodeRef` ili `SecStaticCodeRef`.
 
 #### **Modifikovanje Kodnih Zahteva**
@@ -296,7 +296,7 @@ Moguće je pristupiti ovim informacijama i kreirati ili modifikovati zahteve pom
 
 * **`SecCodeCopy[Internal/Designated]Requirement`: Dobija SecRequirementRef iz SecCodeRef**
 * **`SecCodeCopyGuestWithAttributes`**: Kreira `SecCodeRef` koji predstavlja kod objekat na osnovu specifičnih atributa, korisno za sandboxing.
-* **`SecCodeCopyPath`**: Preuzima putanju u datotečnom sistemu povezanu sa `SecCodeRef`.
+* **`SecCodeCopyPath`**: Preuzima putanju u fajl sistemu povezanu sa `SecCodeRef`.
 * **`SecCodeCopySigningIdentifier`**: Dobija identifikator potpisivanja (npr. Team ID) iz `SecCodeRef`.
 * **`SecCodeGetTypeID`**: Vraća identifikator tipa za `SecCodeRef` objekte.
 * **`SecRequirementGetTypeID`**: Dobija CFTypeID `SecRequirementRef`.
@@ -304,11 +304,11 @@ Moguće je pristupiti ovim informacijama i kreirati ili modifikovati zahteve pom
 #### **Zastavice i Konstantne Vrednosti za Potpisivanje Koda**
 
 * **`kSecCSDefaultFlags`**: Podrazumevane zastavice korišćene u mnogim funkcijama Security.framework za operacije potpisivanja koda.
-* **`kSecCSSigningInformation`**: Zastavica koja se koristi za specificiranje da informacije o potpisivanju treba da budu preuzete.
+* **`kSecCSSigningInformation`**: Zastavica koja se koristi za specificiranje da treba preuzeti informacije o potpisivanju.
 
 ## Sprovođenje Potpisa Koda
 
-**Kernel** je taj koji **proverava potpis koda** pre nego što dozvoli izvršavanje koda aplikacije. Štaviše, jedan od načina da se omogući pisanje i izvršavanje novog koda u memoriji je zloupotreba JIT ako je `mprotect` pozvan sa `MAP_JIT` zastavicom. Imajte na umu da aplikacija treba posebnu dozvolu da bi mogla to da uradi.
+**Kernel** je taj koji **proverava potpis koda** pre nego što dozvoli izvršavanje koda aplikacije. Štaviše, jedan od načina da se može pisati i izvršavati novi kod u memoriji je zloupotreba JIT ako je `mprotect` pozvan sa `MAP_JIT` zastavicom. Imajte na umu da aplikacija treba posebnu dozvolu da bi mogla to da uradi.
 
 ## `cs_blobs` & `cs_blob`
 
@@ -384,7 +384,7 @@ Učite i vežbajte GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt
 <summary>Podržite HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
-* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Podelite hakerske trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>

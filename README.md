@@ -2,7 +2,7 @@
 
 <figure><img src=".gitbook/assets/hacktricks.gif" alt=""><figcaption></figcaption></figure>
 
-_Hacktricks logotipi i animacija od_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
+_Hacktricks logotipi i animacija dizajnirani od_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
 
 {% hint style="success" %}
 **Dobrodošli u wiki gde ćete pronaći svaku hacking trik/tehniku/šta god da sam naučio iz CTF-ova, aplikacija iz stvarnog života, čitajući istraživanja i vesti.**
@@ -20,7 +20,7 @@ Da biste započeli, pratite ovu stranicu gde ćete pronaći **tipičan tok** koj
 
 <figure><img src=".gitbook/assets/stm (1).png" alt=""><figcaption></figcaption></figure>
 
-[**STM Cyber**](https://www.stmcyber.com) je sjajna kompanija za sajber bezbednost čiji je slogan **HACK THE UNHACKABLE**. Oni sprovode svoja istraživanja i razvijaju svoje alate za hacking kako bi **ponudili nekoliko vrednih usluga sajber bezbednosti** kao što su pentesting, Red timovi i obuke.
+[**STM Cyber**](https://www.stmcyber.com) je sjajna kompanija za sajber bezbednost čiji je slogan **HACK THE UNHACKABLE**. Oni sprovode svoja istraživanja i razvijaju svoje alate za hacking kako bi **ponudili nekoliko vrednih usluga sajber bezbednosti** kao što su pentesting, Red timovi i obuka.
 
 Možete proveriti njihov **blog** na [**https://blog.stmcyber.com**](https://blog.stmcyber.com)
 
@@ -42,7 +42,7 @@ Možete proveriti njihov **blog** na [**https://blog.stmcyber.com**](https://blo
 
 <figure><img src=".gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
 
-**Intigriti** je **broj 1** etička hacking i **bug bounty platforma u Evropi.**
+**Intigriti** je **#1** etička hacking i **bug bounty platforma u Evropi.**
 
 **Bug bounty savet**: **prijavite se** za **Intigriti**, premium **bug bounty platformu koju su kreirali hakeri, za hakere**! Pridružite nam se na [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) danas, i počnite da zarađujete nagrade do **$100,000**!
 
@@ -50,12 +50,12 @@ Možete proveriti njihov **blog** na [**https://blog.stmcyber.com**](https://blo
 
 ***
 
-### [Trickest](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks)
+### [Trickest](https://trickest.com/?utm_campaign=hacktrics\&utm_medium=banner\&utm_source=hacktricks)
 
 <figure><img src=".gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
 \
-Koristite [**Trickest**](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks) da lako izgradite i **automatizujete radne tokove** pokretane najnaprednijim **alatima zajednice**.
+Koristite [**Trickest**](https://trickest.com/?utm_campaign=hacktrics\&utm_medium=banner\&utm_source=hacktricks) da lako izgradite i **automatizujete radne tokove** pokretane najnaprednijim **alatima zajednice**.
 
 Pribavite pristup danas:
 
@@ -65,19 +65,19 @@ Pribavite pristup danas:
 
 ### [HACKENPROOF](https://bit.ly/3xrrDrL)
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Pridružite se [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serveru da komunicirate sa iskusnim hakerima i lovcima na bugove!
 
 * **Hacking uvidi:** Uključite se u sadržaj koji se bavi uzbuđenjem i izazovima hackinga
 * **Vesti o hakovanju u realnom vremenu:** Budite u toku sa brzim svetom hackinga kroz vesti i uvide u realnom vremenu
-* **Najnovija obaveštenja:** Budite informisani o najnovijim bug bounty nagradama i važnim ažuriranjima platforme
+* **Najnovija obaveštenja:** Budite informisani o najnovijim nagradama za bugove i važnim ažuriranjima platforme
 
 **Pridružite nam se na** [**Discord**](https://discord.com/invite/N3FrSbmwdy) i počnite da sarađujete sa vrhunskim hakerima danas!
 
 ***
 
-### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - Osnovni alat za penetraciono testiranje
+### [Pentest-Tools.com](https://pentest-tools.com/?utm_term=jul2024\&utm_medium=link\&utm_source=hacktricks\&utm_campaign=spons) - Osnovni alat za penetraciono testiranje
 
 <figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
@@ -93,14 +93,24 @@ Pridružite se [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) 
 
 <figure><img src=".gitbook/assets/image (1254).png" alt=""><figcaption></figcaption></figure>
 
-**SerpApi** nudi brze i lake API-je u realnom vremenu za **pristup rezultatima pretraživača**. Oni prikupljaju podatke sa pretraživača, upravljaju proxy-ima, rešavaju captcha izazove i analiziraju sve bogate strukturirane podatke za vas.
+**SerpApi** nudi brze i lake API-je u realnom vremenu za **pristup rezultatima pretraživača**. Oni sakupljaju podatke sa pretraživača, upravljaju proxy-ima, rešavaju captcha izazove i analiziraju sve bogate strukturirane podatke za vas.
 
-Pretplata na jedan od SerpApi planova uključuje pristup više od 50 različitih API-ja za prikupljanje podataka sa različitih pretraživača, uključujući Google, Bing, Baidu, Yahoo, Yandex i druge.\
-Za razliku od drugih provajdera, **SerpApi ne prikuplja samo organske rezultate**. SerpApi odgovori dosledno uključuju sve oglase, inline slike i video zapise, grafove znanja i druge elemente i funkcije prisutne u rezultatima pretrage.
+Pretplata na jedan od planova SerpApi uključuje pristup više od 50 različitih API-ja za sakupljanje podataka sa različitih pretraživača, uključujući Google, Bing, Baidu, Yahoo, Yandex i druge.\
+Za razliku od drugih provajdera, **SerpApi ne sakuplja samo organske rezultate**. Odgovori SerpApi dosledno uključuju sve oglase, inline slike i video zapise, grafove znanja i druge elemente i funkcije prisutne u rezultatima pretrage.
 
 Trenutni klijenti SerpApi uključuju **Apple, Shopify i GrubHub**.\
 Za više informacija pogledajte njihov [**blog**](https://serpapi.com/blog/)**,** ili isprobajte primer u njihovom [**playground-u**](https://serpapi.com/playground)**.**\
-Možete **napraviti besplatan nalog** [**ovde**](https://serpapi.com/users/sign\_up)**.**
+Možete **napraviti besplatan nalog** [**ovde**](https://serpapi.com/users/sign_up)**.**
+
+***
+
+### 8kSec Academy – Dubinski kursevi mobilne bezbednosti
+
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Naučite tehnologije i veštine potrebne za izvođenje istraživanja ranjivosti, penetracionog testiranja i obrnute inženjeringa kako biste zaštitili mobilne aplikacije i uređaje. **Savladajte iOS i Android bezbednost** kroz naše kurseve na zahtev i **dobijte sertifikat**:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 ***
 
@@ -110,7 +120,7 @@ Možete **napraviti besplatan nalog** [**ovde**](https://serpapi.com/users/sign\
 
 [**WebSec**](https://websec.nl) je profesionalna kompanija za sajber bezbednost sa sedištem u **Amsterdamu** koja pomaže **zaštiti** preduzeća **široko u svetu** od najnovijih pretnji u oblasti sajber bezbednosti pružajući **usluge ofanzivne bezbednosti** sa **modernim** pristupom.
 
-WebSec je **sve-u-jednom bezbednosna kompanija** što znači da rade sve; Pentesting, **Sigurnosne** revizije, Obuke o svesti, Phishing kampanje, Revizija koda, Razvoj eksploata, Outsourcing stručnjaka za bezbednost i još mnogo toga.
+WebSec je **sve-u-jednom bezbednosna kompanija** što znači da rade sve; Pentesting, **Bezbednosne** revizije, Obuke o svesti, Phishing kampanje, Revizije koda, Razvoj eksploata, Outsourcing bezbednosnih stručnjaka i još mnogo toga.
 
 Još jedna zanimljiva stvar o WebSec-u je da, za razliku od industrijskog proseka, WebSec je **veoma siguran u svoje veštine**, do te mere da **garantuje najbolje kvalitetne rezultate**, kako stoji na njihovom sajtu "**Ako ne možemo da hakujemo, ne plaćate!**". Za više informacija pogledajte njihov [**sajt**](https://websec.nl/en/) i [**blog**](https://websec.nl/blog/)!
 
@@ -131,15 +141,15 @@ Proverite ih u:
 ![HackTricks Github Stats](https://repobeats.axiom.co/api/embed/68f8746802bcf1c8462e889e6e9302d4384f164b.svg)
 
 {% hint style="success" %}
-Učite i vežbajte AWS Hacking:<img src=".gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src=".gitbook/assets/arte.png" alt="" data-size="line">\
-Učite i vežbajte GCP Hacking: <img src=".gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src=".gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Naučite i vežbajte AWS Hacking:<img src=".gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src=".gitbook/assets/arte.png" alt="" data-size="line">\
+Naučite i vežbajte GCP Hacking: <img src=".gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src=".gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Podržite HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
-* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitter-u** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitter-u** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Podelite hacking trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>

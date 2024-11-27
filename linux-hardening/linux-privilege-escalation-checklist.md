@@ -1,21 +1,21 @@
 # Lista - Linux Eskalacija Privilegija
 
 {% hint style="success" %}
-Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Učite i vežbajte AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Učite i vežbajte GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Podržite HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
-* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Podelite hakerske trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Pridružite se [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serveru da komunicirate sa iskusnim hakerima i lovcima na greške!
 
@@ -26,7 +26,7 @@ Uključite se u sadržaj koji se bavi uzbuđenjem i izazovima hakovanja
 Budite u toku sa brzim svetom hakovanja kroz vesti i uvide u realnom vremenu
 
 **Najnovija Obaveštenja**\
-Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima platforme
+Budite informisani o najnovijim nagradama za greške i ključnim ažuriranjima platforme
 
 **Pridružite nam se na** [**Discordu**](https://discord.com/invite/N3FrSbmwdy) i počnite da sarađujete sa vrhunskim hakerima danas!
 
@@ -58,7 +58,7 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 
 * [ ] Da li se pokreće neki **nepoznati softver**?
 * [ ] Da li se neki softver pokreće sa **više privilegija nego što bi trebao**?
-* [ ] Pretražite za **exploite pokrenutih procesa** (posebno verziju koja se pokreće).
+* [ ] Pretražite **exploite pokrenutih procesa** (posebno verziju koja se pokreće).
 * [ ] Možete li **modifikovati binarni** fajl nekog pokrenutog procesa?
 * [ ] **Pratite procese** i proverite da li se neki zanimljiv proces često pokreće.
 * [ ] Možete li **pročitati** neku zanimljivu **memoriju procesa** (gde bi lozinke mogle biti sačuvane)?
@@ -67,7 +67,7 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 
 * [ ] Da li se [**PATH**](privilege-escalation/#cron-path) menja od strane nekog crona i možete li **pisati** u njega?
 * [ ] Da li postoji neki [**wildcard**](privilege-escalation/#cron-using-a-script-with-a-wildcard-wildcard-injection) u cron poslu?
-* [ ] Da li se neki [**modifikovani skript**](privilege-escalation/#cron-script-overwriting-and-symlink) izvršava ili se nalazi u **modifikovanoj fascikli**?
+* [ ] Da li se neki [**modifikovani skript**](privilege-escalation/#cron-script-overwriting-and-symlink) **izvršava** ili se nalazi u **modifikovanoj fascikli**?
 * [ ] Da li ste otkrili da se neki **skript** može ili se izvršava [**veoma često**](privilege-escalation/#frequent-cron-jobs)? (svakih 1, 2 ili 5 minuta)
 
 ### [Servisi](privilege-escalation/#services)
@@ -92,7 +92,7 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 
 ### [Mreža](privilege-escalation/#network)
 
-* [ ] Enumerisanje mreže da znate gde se nalazite
+* [ ] Enumerisanje mreže da biste znali gde se nalazite
 * [ ] **Otvoreni portovi koje niste mogli da pristupite pre** nego što ste dobili shell unutar mašine?
 * [ ] Možete li **sniffovati saobraćaj** koristeći `tcpdump`?
 
@@ -101,7 +101,7 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 * [ ] Generička **enumeracija korisnika/grupa**
 * [ ] Da li imate **veoma veliki UID**? Da li je **mašina** **ranjiva**?
 * [ ] Možete li [**eskalirati privilegije zahvaljujući grupi**](privilege-escalation/interesting-groups-linux-pe/) kojoj pripadate?
-* [ ] **Clipboard** podaci?
+* [ ] **Podaci iz clipboard-a**?
 * [ ] Politika lozinki?
 * [ ] Pokušajte da **koristite** svaku **poznatu lozinku** koju ste prethodno otkrili da se prijavite **sa svakim** mogućim **korisnikom**. Pokušajte da se prijavite i bez lozinke.
 
@@ -116,7 +116,7 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 * [ ] Da li su [**sudo** komande **ograničene** po **putanji**? Možete li **obići** ograničenja](privilege-escalation/#sudo-execution-bypassing-paths)?
 * [ ] [**Sudo/SUID binarni bez naznačene putanje**](privilege-escalation/#sudo-command-suid-binary-without-command-path)?
 * [ ] [**SUID binarni koji naznačava putanju**](privilege-escalation/#suid-binary-with-command-path)? Obilaženje
-* [ ] [**LD\_PRELOAD ranjivost**](privilege-escalation/#ld\_preload)
+* [ ] [**LD\_PRELOAD ranjivost**](privilege-escalation/#ld_preload)
 * [ ] [**Nedostatak .so biblioteke u SUID binarnom**](privilege-escalation/#suid-binary-so-injection) iz pisive fascikle?
 * [ ] [**SUDO tokeni dostupni**](privilege-escalation/#reusing-sudo-tokens)? [**Možete li kreirati SUDO token**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
 * [ ] Možete li [**čitati ili modifikovati sudoers fajlove**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
@@ -129,7 +129,7 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 
 ### [ACL-ovi](privilege-escalation/#acls)
 
-* [ ] Da li neki fajl ima neki **neočekivani ACL**?
+* [ ] Da li neki fajl ima neku **neočekivanu ACL**?
 
 ### [Otvorene Shell sesije](privilege-escalation/#open-shell-sessions)
 
@@ -147,7 +147,7 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 * [ ] **passwd/shadow fajlovi** - Pročitajte osetljive podatke? Pišite za privesc?
 * [ ] **Proverite uobičajene zanimljive fascikle** za osetljive podatke
 * [ ] **Čudne Lokacije/Posedovani fajlovi,** možda imate pristup ili možete da menjate izvršne fajlove
-* [ ] **Izmenjeni** u poslednjih nekoliko minuta
+* [ ] **Izmenjeni** u poslednjih minuta
 * [ ] **Sqlite DB fajlovi**
 * [ ] **Skriveni fajlovi**
 * [ ] **Skripte/Binari u PATH-u**
@@ -168,7 +168,7 @@ Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima pla
 * [ ] Možete li [**zloupotrebiti NFS da eskalirate privilegije**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] Da li treba da [**pobegnete iz restriktivnog shell-a**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Pridružite se [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) serveru da komunicirate sa iskusnim hakerima i lovcima na greške!
 
@@ -179,20 +179,20 @@ Uključite se u sadržaj koji se bavi uzbuđenjem i izazovima hakovanja
 Budite u toku sa brzim svetom hakovanja kroz vesti i uvide u realnom vremenu
 
 **Najnovija Obaveštenja**\
-Budite informisani o najnovijim nagradama za greške i važnim ažuriranjima platforme
+Budite informisani o najnovijim nagradama za greške i ključnim ažuriranjima platforme
 
 **Pridružite nam se na** [**Discordu**](https://discord.com/invite/N3FrSbmwdy) i počnite da sarađujete sa vrhunskim hakerima danas!
 
 {% hint style="success" %}
-Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Učite i vežbajte AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Učite i vežbajte GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Podržite HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
-* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Podelite hakerske trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>

