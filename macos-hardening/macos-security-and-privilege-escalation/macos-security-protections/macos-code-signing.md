@@ -9,7 +9,7 @@ Leer & oefen GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" da
 <summary>Support HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -19,10 +19,10 @@ Leer & oefen GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" da
 
 Mach-o binêre bevat 'n laaiopdrag genaamd **`LC_CODE_SIGNATURE`** wat die **offset** en **grootte** van die handtekeninge binne die binêre aandui. Trouens, deur die GUI-gereedskap MachOView te gebruik, is dit moontlik om aan die einde van die binêre 'n afdeling genaamd **Code Signature** met hierdie inligting te vind:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="431"><figcaption></figcaption></figure>
 
 Die magiese kop van die Code Signature is **`0xFADE0CC0`**. Dan het jy inligting soos die lengte en die aantal blobs van die superBlob wat hulle bevat.\
-Dit is moontlik om hierdie inligting in die [bronkode hier](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L276) te vind:
+Dit is moontlik om hierdie inligting in die [bronkode hier](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L276) te vind:
 ```c
 /*
 * Structure of an embedded-signature SuperBlob
@@ -51,14 +51,14 @@ char data[];
 } CS_GenericBlob
 __attribute__ ((aligned(1)));
 ```
-Algemene blobs wat bevat word, is Code Directory, Requirements en Entitlements en 'n Cryptographic Message Syntax (CMS).\
+Common blobs contained are Code Directory, Requirements and Entitlements and a Cryptographic Message Syntax (CMS).\
 Boonop, let op hoe die data wat in die blobs gekodeer is, in **Big Endian** gekodeer is.
 
-Boonop kan handtekeninge van die binaries losgemaak word en gestoor word in `/var/db/DetachedSignatures` (gebruik deur iOS).
+Boonop, handtekeninge kan van die binaries losgemaak word en gestoor word in `/var/db/DetachedSignatures` (gebruik deur iOS).
 
 ## Code Directory Blob
 
-Dit is moontlik om die verklaring van die [Code Directory Blob in die kode](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs\_blobs.h#L104) te vind:
+It's possible to find the declaration of the [Code Directory Blob in the code](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L104):
 ```c
 typedef struct __CodeDirectory {
 uint32_t magic;                                 /* magic number (CSMAGIC_CODEDIRECTORY) */
@@ -119,7 +119,7 @@ Let daarop dat daar verskillende weergawes van hierdie struktuur is waar oues da
 ## Ondertekening van Kode Bladsye
 
 Hashing van die volle binêre sou ondoeltreffend en selfs nutteloos wees as dit net gedeeltelik in geheue gelaai word. Daarom is die kodehandtekening eintlik 'n hash van hashes waar elke binêre bladsy individueel gehasht word.\
-Eintlik kan jy in die vorige **Kode Gids** kode sien dat die **bladgrootte gespesifiseer is** in een van sy velde. Boonop, as die grootte van die binêre nie 'n veelvoud van die grootte van 'n bladsy is nie, spesifiseer die veld **CodeLimit** waar die einde van die handtekening is.
+Eintlik kan jy in die vorige **Kodegids** kode sien dat die **bladgrootte gespesifiseer is** in een van sy velde. Boonop, as die grootte van die binêre nie 'n veelvoud van die grootte van 'n bladsy is nie, spesifiseer die veld **CodeLimit** waar die einde van die handtekening is.
 ```bash
 # Get all hashes of /bin/ps
 codesign -d -vvvvvv /bin/ps
@@ -157,17 +157,17 @@ openssl sha256 /tmp/*.page.*
 ```
 ## Entitlements Blob
 
-Let daarop dat toepassings ook 'n **entitlement blob** kan bevat waar al die regte gedefinieer is. Boonop kan sommige iOS-binaries hul regte spesifiek in die spesiale slot -7 hê (in plaas van in die -5 regte spesiale slot).
+Let op dat toepassings ook 'n **entitlement blob** kan bevat waar al die regte gedefinieer is. Boonop kan sommige iOS-binaries hul regte spesifiek in die spesiale slot -7 hê (in plaas van in die -5 regte spesiale slot).
 
 ## Special Slots
 
-MacOS-toepassings het nie alles wat hulle nodig het om binne die binêre uit te voer nie, maar hulle gebruik ook **eksterne hulpbronne** (gewoonlik binne die toepassings **bundle**). Daarom is daar 'n paar slots binne die binêre wat die hashes van 'n paar interessante eksterne hulpbronne sal bevat om te kontroleer dat hulle nie gewysig is nie.
+MacOS-toepassings het nie alles wat hulle nodig het om binne die binêre uit te voer nie, maar hulle gebruik ook **eksterne hulpbronne** (gewoonlik binne die toepassings **bundel**). Daarom is daar 'n paar slots binne die binêre wat die hashes van sommige interessante eksterne hulpbronne sal bevat om te kontroleer dat hulle nie gewysig is nie.
 
 Werklik, dit is moontlik om in die Code Directory strukture 'n parameter genaamd **`nSpecialSlots`** te sien wat die aantal spesiale slots aandui. Daar is nie 'n spesiale slot 0 nie en die mees algemene (van -1 tot -6) is:
 
 * Hash van `info.plist` (of die een binne `__TEXT.__info__plist`).
 * Hash van die Vereistes
-* Hash van die Hulpbron Directory (hash van `_CodeSignature/CodeResources` lêer binne die bundle).
+* Hash van die Hulpbron Gids (hash van `_CodeSignature/CodeResources` lêer binne die bundel).
 * Toepassing spesifiek (onbenut)
 * Hash van die regte
 * DMG kode handtekeninge slegs
@@ -175,7 +175,7 @@ Werklik, dit is moontlik om in die Code Directory strukture 'n parameter genaamd
 
 ## Code Signing Flags
 
-Elke proses het 'n bitmasker wat bekend staan as die `status` wat deur die kernel begin word en sommige daarvan kan oorgeskryf word deur die **kodehandtekening**. Hierdie vlae wat in die kodehandtekening ingesluit kan word, is [gedefinieer in die kode](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
+Elke proses het 'n bitmasker wat bekend staan as die `status` wat deur die kernel begin word en sommige daarvan kan oorgeskryf word deur die **kodehandtekening**. Hierdie vlae wat ingesluit kan word in die kodehandtekening is [gedefinieer in die kode](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/osfmk/kern/cs_blobs.h#L36):
 ```c
 /* code signing attributes of a process */
 #define CS_VALID                    0x00000001  /* dynamically valid */
@@ -220,15 +220,15 @@ CS_RESTRICT | CS_ENFORCEMENT | CS_REQUIRE_LV | CS_RUNTIME | CS_LINKER_SIGNED)
 
 #define CS_ENTITLEMENT_FLAGS        (CS_GET_TASK_ALLOW | CS_INSTALLER | CS_DATAVAULT_CONTROLLER | CS_NVRAM_UNRESTRICTED)
 ```
-Note dat die funksie [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern\_exec.c#L1420) ook die `CS_EXEC_*` vlae dinamies kan byvoeg wanneer dit die uitvoering begin.
+Note dat die funksie [**exec\_mach\_imgact**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/kern/kern_exec.c#L1420) ook die `CS_EXEC_*` vlae dinamies kan byvoeg wanneer dit die uitvoering begin.
 
 ## Kode Handtekening Vereistes
 
-Elke toepassing stoor **vereistes** wat dit moet **tevrede stel** om uitgevoer te kan word. As die **toepassing vereistes bevat wat nie deur die toepassing tevrede gestel word nie**, sal dit nie uitgevoer word nie (soos dit waarskynlik verander is).
+Elke toepassing stoor **vereistes** wat dit moet **tevrede stel** om uitgevoer te kan word. As die **toepassing vereistes bevat wat nie deur die toepassing tevrede gestel word nie**, sal dit nie uitgevoer word nie (soos dit waarskynlik gewysig is).
 
-Die vereistes van 'n binêre gebruik 'n **spesiale grammatika** wat 'n stroom van **uitdrukkings** is en word as blobs gekodeer met `0xfade0c00` as die magiese wat se **hash in 'n spesiale kode-slot gestoor word**.
+Die vereistes van 'n binêre gebruik 'n **spesiale grammatika** wat 'n stroom van **uitdrukkings** is en word as blobs gekodeer met `0xfade0c00` as die magiese waarde waarvan die **hash in 'n spesiale kode-slot gestoor word**.
 
-Die vereistes van 'n binêre kan gesien word terwyl dit loop:
+Die vereistes van 'n binêre kan gesien word deur te loop: 
 
 {% code overflow="wrap" %}
 ```bash
@@ -312,7 +312,7 @@ Die **kernel** is die een wat **die kode handtekening nagaan** voordat dit die k
 
 ## `cs_blobs` & `cs_blob`
 
-[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc\_internal.h#L106) struktuur bevat die inligting oor die regte van die lopende proses daarop. `csb_platform_binary` dui ook aan of die toepassing 'n platform binêre is (wat op verskillende tye deur die OS nagegaan word om sekuriteitsmeganismes toe te pas soos om die SEND regte na die taakpoorte van hierdie prosesse te beskerm).
+[**cs\_blob**](https://github.com/apple-oss-distributions/xnu/blob/94d3b452840153a99b38a3a9659680b2a006908e/bsd/sys/ubc_internal.h#L106) struktuur bevat die inligting oor die regte van die lopende proses daarop. `csb_platform_binary` dui ook aan of die toepassing 'n platform binêre is (wat op verskillende tye deur die OS nagegaan word om sekuriteitsmeganismes toe te pas soos om die SEND regte na die taakpoorte van hierdie prosesse te beskerm).
 ```c
 struct cs_blob {
 struct cs_blob  *csb_next;
@@ -384,7 +384,7 @@ Leer & oefen GCP Hacking: <img src="../../../.gitbook/assets/grte.png" alt="" da
 <summary>Ondersteun HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>

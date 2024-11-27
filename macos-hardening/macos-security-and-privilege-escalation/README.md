@@ -1,4 +1,4 @@
-# macOS Sekuriteit & Privilege Escalering
+# macOS Sekuriteit & Privilege Escalation
 
 {% hint style="success" %}
 Leer & oefen AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -9,21 +9,21 @@ Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 <summary>Ondersteun HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om te kommunikeer met ervare hackers en bug bounty jagters!
 
 **Hacking Inligting**\
 Betrek met inhoud wat die opwinding en uitdagings van hacking ondersoek
 
-**Regte-Tyd Hack Nuus**\
-Bly op hoogte van die vinnig bewegende hacking wêreld deur regte-tyd nuus en insigte
+**Regte Tyd Hack Nuus**\
+Bly op hoogte van die vinnig bewegende hacking wêreld deur regte tyd nuus en insigte
 
 **Laaste Aankondigings**\
 Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike platform opdaterings
@@ -69,7 +69,7 @@ As jy nie bekend is met macOS nie, moet jy begin om die basiese beginsels van ma
 
 ### MacOS MDM
 
-In maatskappye **macOS** stelsels gaan hoogs waarskynlik **bestuur word met 'n MDM**. Daarom is dit vanuit die perspektief van 'n aanvaller interessant om te weet **hoe dit werk**:
+In maatskappye gaan **macOS** stelsels hoogs waarskynlik **bestuur word met 'n MDM**. Daarom is dit vanuit die perspektief van 'n aanvaller interessant om te weet **hoe dit werk**:
 
 {% content-ref url="../macos-red-teaming/macos-mdm/" %}
 [macos-mdm](../macos-red-teaming/macos-mdm/)
@@ -89,9 +89,9 @@ In maatskappye **macOS** stelsels gaan hoogs waarskynlik **bestuur word met 'n M
 
 ## Aanvaloppervlak
 
-### Lêer Toestemmings
+### Lêertoestemmings
 
-As 'n **proses wat as root loop 'n** lêer skryf wat deur 'n gebruiker beheer kan word, kan die gebruiker dit misbruik om **privileges te verhoog**.\
+As 'n **proses wat as root loop 'n lêer skryf** wat deur 'n gebruiker beheer kan word, kan die gebruiker dit misbruik om **privileges te verhoog**.\
 Dit kan in die volgende situasies gebeur:
 
 * Lêer wat gebruik is, is reeds deur 'n gebruiker geskep (besit deur die gebruiker)
@@ -99,7 +99,7 @@ Dit kan in die volgende situasies gebeur:
 * Lêer wat gebruik is, is binne 'n gids besit deur die gebruiker (die gebruiker kan die lêer skep)
 * Lêer wat gebruik is, is binne 'n gids besit deur root, maar die gebruiker het skryftoegang daaroor as gevolg van 'n groep (die gebruiker kan die lêer skep)
 
-In staat wees om 'n **lêer te skep** wat gaan wees **gebruik deur root**, laat 'n gebruiker toe om **voordeel te trek uit sy inhoud** of selfs **symlinks/hardlinks** te skep om dit na 'n ander plek te wys.
+In staat wees om 'n **lêer te skep** wat gaan **gebruik word deur root**, laat 'n gebruiker toe om **voordeel te trek uit sy inhoud** of selfs **symlinks/hardlinks** te skep om dit na 'n ander plek te wys.
 
 Vir hierdie soort kwesbaarhede, moenie vergeet om **kwesbare `.pkg` installers** te kontroleer nie:
 
@@ -107,9 +107,9 @@ Vir hierdie soort kwesbaarhede, moenie vergeet om **kwesbare `.pkg` installers**
 [macos-installers-abuse.md](macos-files-folders-and-binaries/macos-installers-abuse.md)
 {% endcontent-ref %}
 
-### Lêer Uitbreiding & URL skema app hanteerders
+### Lêeruitbreiding & URL skema app handlers
 
-Vreemde apps geregistreer deur lêer uitbreidings kan misbruik word en verskillende toepassings kan geregistreer word om spesifieke protokolle te open
+Vreemde apps geregistreer deur lêeruitbreidings kan misbruik word en verskillende toepassings kan geregistreer word om spesifieke protokolle te open
 
 {% content-ref url="macos-file-extension-apps.md" %}
 [macos-file-extension-apps.md](macos-file-extension-apps.md)
@@ -117,9 +117,9 @@ Vreemde apps geregistreer deur lêer uitbreidings kan misbruik word en verskille
 
 ## macOS TCC / SIP Privilege Escalation
 
-In macOS **toepassings en binaries kan toestemmings hê** om toegang te verkry tot gidsen of instellings wat hulle meer bevoorregte maak as ander.
+In macOS **toepassings en lêers kan toestemmings hê** om toegang te verkry tot gidsen of instellings wat hulle meer bevoorreg maak as ander.
 
-Daarom, 'n aanvaller wat 'n macOS masjien suksesvol wil kompromitteer, sal moet **sy TCC privileges verhoog** (of selfs **SIP omseil**, afhangende van sy behoeftes).
+Daarom, 'n aanvaller wat suksesvol 'n macOS masjien wil kompromitteer, sal moet **sy TCC privileges verhoog** (of selfs **SIP omseil**, afhangende van sy behoeftes).
 
 Hierdie privileges word gewoonlik gegee in die vorm van **entitlements** waarmee die toepassing onderteken is, of die toepassing mag sekere toegang versoek het en nadat die **gebruiker dit goedgekeur het**, kan dit in die **TCC databasisse** gevind word. 'n Ander manier waarop 'n proses hierdie privileges kan verkry, is deur 'n **kind van 'n proses** met daardie **privileges** te wees, aangesien dit gewoonlik **geërf** word.
 
@@ -135,7 +135,7 @@ Natuurlik, vanuit 'n rooi span perspektief, moet jy ook belangstel om na root te
 
 ## macOS Nakoming
 
-* [https://github.com/usnistgov/macos\_security](https://github.com/usnistgov/macos\_security)
+* [https://github.com/usnistgov/macos\_security](https://github.com/usnistgov/macos_security)
 
 ## Verwysings
 
@@ -145,15 +145,15 @@ Natuurlik, vanuit 'n rooi span perspektief, moet jy ook belangstel om na root te
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om te kommunikeer met ervare hackers en bug bounty jagters!
 
 **Hacking Inligting**\
 Betrek met inhoud wat die opwinding en uitdagings van hacking ondersoek
 
-**Regte-Tyd Hack Nuus**\
-Bly op hoogte van die vinnig bewegende hacking wêreld deur regte-tyd nuus en insigte
+**Regte Tyd Hack Nuus**\
+Bly op hoogte van die vinnig bewegende hacking wêreld deur regte tyd nuus en insigte
 
 **Laaste Aankondigings**\
 Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike platform opdaterings
@@ -169,7 +169,7 @@ Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 <summary>Ondersteun HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>

@@ -1,15 +1,15 @@
 # Phishing Files & Documents
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -17,11 +17,11 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## Office Dokumente
 
-Microsoft Word voer lêerdata-validasie uit voordat dit 'n lêer oopmaak. Data-validasie word uitgevoer in die vorm van data-struktuuridentifikasie, teen die OfficeOpenXML-standaard. As enige fout tydens die data-struktuuridentifikasie voorkom, sal die lêer wat geanaliseer word nie oopgemaak word nie.
+Microsoft Word voer lêerdata-validasie uit voordat 'n lêer geopen word. Data-validasie word uitgevoer in die vorm van data-struktuuridentifikasie, teen die OfficeOpenXML-standaard. As enige fout tydens die data-struktuuridentifikasie voorkom, sal die lêer wat geanaliseer word nie geopen word nie.
 
 Gewoonlik gebruik Word-lêers wat makros bevat die `.docm` uitbreiding. Dit is egter moontlik om die lêer te hernoem deur die lêeruitbreiding te verander en steeds hul makro-uitvoeringsvermoëns te behou.\
 Byvoorbeeld, 'n RTF-lêer ondersteun nie makros nie, volgens ontwerp, maar 'n DOCM-lêer wat na RTF hernoem is, sal deur Microsoft Word hanteer word en sal in staat wees tot makro-uitvoering.\
-Die same interne en meganismes geld vir alle sagteware van die Microsoft Office Suite (Excel, PowerPoint, ens.).
+Die dieselfde interne meganismes geld vir alle sagteware van die Microsoft Office Suite (Excel, PowerPoint, ens.).
 
 Jy kan die volgende opdrag gebruik om te kyk watter uitbreidings deur sommige Office-programme uitgevoer gaan word:
 ```bash
@@ -31,8 +31,8 @@ DOCX-lêers wat 'n eksterne sjabloon verwys (Lêer – Opsies – Byvoegsels –
 
 ### Eksterne Beeld Laai
 
-Gaan na: _Voeg in --> Vinne Onderdeel --> Veld_\
-_**Kategoriewe**: Skakels en Verwysings, **Veldname**: includePicture, en **Lêernaam of URL**:_ http://\<ip>/whatever
+Gaan na: _Invoeg --> Vinne Onderdeel --> Veld_\
+&#xNAN;_**Kategoriewe**: Skakels en Verwysings, **Veldname**: includePicture, en **Lêernaam of URL**:_ http://\<ip>/whatever
 
 ![](<../../.gitbook/assets/image (155).png>)
 
@@ -96,7 +96,7 @@ Doen dit omdat jy **nie makro's binne 'n `.docx` kan stoor nie** en daar is 'n *
 
 'n HTA is 'n Windows-program wat **HTML en skriptaal (soos VBScript en JScript)** kombineer. Dit genereer die gebruikerskoppelvlak en voer uit as 'n "volledig vertroude" toepassing, sonder die beperkings van 'n blaaiers se sekuriteitsmodel.
 
-'n HTA word uitgevoer met **`mshta.exe`**, wat tipies **geïnstalleer** word saam met **Internet Explorer**, wat **`mshta` afhanklik maak van IE**. So as dit verwyder is, sal HTA's nie in staat wees om uit te voer nie.
+'n HTA word uitgevoer met **`mshta.exe`**, wat tipies **geïnstalleer** word saam met **Internet Explorer**, wat **`mshta` afhanklik van IE** maak. So as dit verwyder is, sal HTA's nie in staat wees om uit te voer nie.
 ```html
 <--! Basic HTA Execution -->
 <html>
@@ -151,9 +151,9 @@ var_func
 self.close
 </script>
 ```
-## Dwing NTLM-outeentrekking
+## Dwing NTLM-outeenteking
 
-Daar is verskeie maniere om **NTLM-outeentrekking "afgeleë"** te **dwing**, byvoorbeeld, jy kan **on sigbare beelde** by e-posse of HTML voeg wat die gebruiker sal toegang hê tot (selfs HTTP MitM?). Of stuur die slagoffer die **adres van lêers** wat 'n **outeentrekking** net vir **die oopmaak van die gids** sal **aktiveer**.
+Daar is verskeie maniere om **NTLM-outeenteking "afgeleë"** te **dwing**, byvoorbeeld, jy kan **on sigbare beelde** by e-posse of HTML voeg wat die gebruiker sal toegang hê tot (selfs HTTP MitM?). Of stuur die slagoffer die **adres van lêers** wat 'n **outeenteking** net vir **die oopmaak van die gids** sal **aktiveer**.
 
 **Kyk na hierdie idees en meer op die volgende bladsye:**
 
@@ -167,21 +167,21 @@ Daar is verskeie maniere om **NTLM-outeentrekking "afgeleë"** te **dwing**, byv
 
 ### NTLM Relay
 
-Moet nie vergeet dat jy nie net die hash of die outeentrekking kan steel nie, maar ook **NTLM relay-aanvalle** kan **uitvoer**:
+Moet nie vergeet dat jy nie net die hash of die outeenteking kan steel nie, maar ook **NTLM relay-aanvalle** kan **uitvoer**:
 
 * [**NTLM Relay-aanvalle**](../pentesting-network/spoofing-llmnr-nbt-ns-mdns-dns-and-wpad-and-relay-attacks.md#ntml-relay-attack)
 * [**AD CS ESC8 (NTLM relay na sertifikate)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
 
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Ondersteun HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord-groep**](https://discord.gg/hRep4RUj7f) of die [**telegram-groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Sluit aan by die** 💬 [**Discord-groep**](https://discord.gg/hRep4RUj7f) of die [**telegram-groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>

