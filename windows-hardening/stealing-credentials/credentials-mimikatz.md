@@ -15,6 +15,13 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 **이 페이지는 [adsecurity.org](https://adsecurity.org/?page\_id=1821)의 내용을 기반으로 합니다**. 추가 정보는 원본을 확인하세요!
 
 ## LM 및 메모리의 평문
@@ -23,7 +30,7 @@ Windows 8.1 및 Windows Server 2012 R2 이후로, 자격 증명 도난 방지를
 
 - **LM 해시 및 평문 비밀번호**는 보안을 강화하기 위해 더 이상 메모리에 저장되지 않습니다. 특정 레지스트리 설정인 _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_을 DWORD 값 `0`으로 설정하여 Digest Authentication을 비활성화해야 하며, 이를 통해 "평문" 비밀번호가 LSASS에 캐시되지 않도록 합니다.
 
-- **LSA 보호**는 무단 메모리 읽기 및 코드 주입으로부터 로컬 보안 권한(LSA) 프로세스를 보호하기 위해 도입되었습니다. 이는 LSASS를 보호된 프로세스로 표시함으로써 달성됩니다. LSA 보호를 활성화하려면:
+- **LSA 보호**는 로컬 보안 권한(LSA) 프로세스를 무단 메모리 읽기 및 코드 주입으로부터 보호하기 위해 도입되었습니다. 이는 LSASS를 보호된 프로세스로 표시하여 달성됩니다. LSA 보호를 활성화하려면:
 1. _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_에서 레지스트리를 수정하여 `RunAsPPL`을 `dword:00000001`로 설정합니다.
 2. 관리되는 장치에서 이 레지스트리 변경을 시행하는 그룹 정책 개체(GPO)를 구현합니다.
 
@@ -196,13 +203,19 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### 금고
 
-- Windows Vault에서 비밀번호를 추출합니다.
+- Windows 금고에서 비밀번호를 추출합니다.
 - `mimikatz "vault::cred /patch" exit`
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+**모바일 보안**에 대한 전문성을 심화하세요. 8kSec 아카데미에서 iOS 및 Android 보안을 마스터하고 인증을 받으세요:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-AWS 해킹 배우기 및 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS 해킹을 배우고 연습하세요:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP 해킹을 배우고 연습하세요: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -210,7 +223,7 @@ GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt=
 
 * [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
 * **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter**에서 **팔로우**하세요** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.**
+* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 리포지토리에 PR을 제출하여 해킹 팁을 공유하세요.**
 
 </details>
 {% endhint %}
