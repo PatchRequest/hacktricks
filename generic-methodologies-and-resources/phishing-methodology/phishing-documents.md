@@ -1,15 +1,15 @@
 # Phishing Files & Documents
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -17,11 +17,11 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## Office Documents
 
-Microsoft Word виконує валідацію даних файлу перед його відкриттям. Валідація даних виконується у формі ідентифікації структури даних відповідно до стандарту OfficeOpenXML. Якщо під час ідентифікації структури даних виникає помилка, файл, що аналізується, не буде відкрито.
+Microsoft Word виконує валідацію даних файлу перед його відкриттям. Валідація даних виконується у формі ідентифікації структури даних, відповідно до стандарту OfficeOpenXML. Якщо під час ідентифікації структури даних виникає помилка, файл, що аналізується, не буде відкритий.
 
 Зазвичай файли Word, що містять макроси, використовують розширення `.docm`. Однак можливо перейменувати файл, змінивши розширення файлу, і все ще зберегти їх можливості виконання макросів.\
 Наприклад, файл RTF за замовчуванням не підтримує макроси, але файл DOCM, перейменований в RTF, буде оброблений Microsoft Word і зможе виконувати макроси.\
-Ті ж внутрішні механізми застосовуються до всього програмного забезпечення Microsoft Office Suite (Excel, PowerPoint тощо).
+Ті ж самі внутрішні механізми застосовуються до всього програмного забезпечення Microsoft Office Suite (Excel, PowerPoint тощо).
 
 Ви можете використовувати наступну команду, щоб перевірити, які розширення будуть виконані деякими програмами Office:
 ```bash
@@ -32,7 +32,7 @@ DOCX файли, що посилаються на віддалений шабл�
 ### Завантаження зовнішніх зображень
 
 Перейдіть до: _Вставка --> Швидкі елементи --> Поле_\
-_**Категорії**: Посилання та довідки, **Імена полів**: includePicture, та **Ім'я файлу або URL**:_ http://\<ip>/whatever
+&#xNAN;_**Категорії**: Посилання та довідки, **Імена полів**: includePicture, і **Ім'я файлу або URL**:_ http://\<ip>/whatever
 
 ![](<../../.gitbook/assets/image (155).png>)
 
@@ -84,7 +84,7 @@ proc.Create "powershell <beacon line generated>
 #### Розширення документа
 
 Коли закінчите, виберіть випадаюче меню **Save as type**, змініть формат з **`.docx`** на **Word 97-2003 `.doc`**.\
-Зробіть це, тому що ви **не можете зберегти макроси всередині `.docx`** і є **стигма** **навколо** розширення, що підтримує макроси **`.docm`** (наприклад, значок ескізу має величезний `!`, і деякі веб/електронні шлюзи блокують їх повністю). Тому це **спадкове розширення `.doc` є найкращим компромісом**.
+Зробіть це, тому що ви **не можете зберігати макроси всередині `.docx`** і є **стигма** **навколо** розширення, що підтримує макроси **`.docm`** (наприклад, значок ескізу має величезний `!`, і деякі веб/електронні шлюзи блокують їх повністю). Тому це **спадкове розширення `.doc` є найкращим компромісом**.
 
 #### Генератори шкідливих макросів
 
@@ -151,7 +151,7 @@ var_func
 self.close
 </script>
 ```
-## Примусова аутентифікація NTLM
+## Примус NTLM аутентифікації
 
 Існує кілька способів **примусити NTLM аутентифікацію "віддалено"**, наприклад, ви можете додати **невидимі зображення** до електронних листів або HTML, до яких отримувач отримуватиме доступ (навіть HTTP MitM?). Або надіслати жертві **адресу файлів**, які **запустять** **аутентифікацію** лише для **відкриття папки.**
 
@@ -165,24 +165,24 @@ self.close
 [places-to-steal-ntlm-creds.md](../../windows-hardening/ntlm/places-to-steal-ntlm-creds.md)
 {% endcontent-ref %}
 
-### Реле NTLM
+### NTLM Реле
 
-Не забувайте, що ви можете не лише вкрасти хеш або аутентифікацію, але й **виконувати атаки реле NTLM**:
+Не забувайте, що ви можете не лише вкрасти хеш або аутентифікацію, але й **виконувати атаки NTLM реле**:
 
-* [**Атаки реле NTLM**](../pentesting-network/spoofing-llmnr-nbt-ns-mdns-dns-and-wpad-and-relay-attacks.md#ntml-relay-attack)
-* [**AD CS ESC8 (реле NTLM до сертифікатів)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
+* [**Атаки NTLM реле**](../pentesting-network/spoofing-llmnr-nbt-ns-mdns-dns-and-wpad-and-relay-attacks.md#ntml-relay-attack)
+* [**AD CS ESC8 (NTLM реле до сертифікатів)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
 
 {% hint style="success" %}
-Вивчайте та практикуйте Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Вивчайте та практикуйте Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вчіться та практикуйте AWS Хакінг:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Вчіться та практикуйте GCP Хакінг: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Підтримка HackTricks</summary>
+<summary>Підтримати HackTricks</summary>
 
 * Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
-* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на GitHub.
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на github.
 
 </details>
 {% endhint %}

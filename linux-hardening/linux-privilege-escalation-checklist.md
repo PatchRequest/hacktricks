@@ -1,21 +1,21 @@
-# Чеклист - Підвищення привілеїв в Linux
+# Чек-лист - Підвищення привілеїв в Linux
 
 {% hint style="success" %}
-Вивчайте та практикуйте AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Вивчайте та практикуйте GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вивчайте та практикуйте AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Вивчайте та практикуйте GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Підтримайте HackTricks</summary>
+<summary>Підтримати HackTricks</summary>
 
 * Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
-* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи в телеграмі**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на GitHub.
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Приєднуйтесь до [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) сервера, щоб спілкуватися з досвідченими хакерами та шукачами вразливостей!
 
@@ -37,9 +37,9 @@
 * [ ] Отримати **інформацію про ОС**
 * [ ] Перевірити [**PATH**](privilege-escalation/#path), чи є **записувана папка**?
 * [ ] Перевірити [**змінні середовища**](privilege-escalation/#env-info), чи є чутливі дані?
-* [ ] Шукати [**вразливості ядра**](privilege-escalation/#kernel-exploits) **за допомогою скриптів** (DirtyCow?)
+* [ ] Шукати [**експлойти ядра**](privilege-escalation/#kernel-exploits) **за допомогою скриптів** (DirtyCow?)
 * [ ] **Перевірити**, чи [**версія sudo** вразлива](privilege-escalation/#sudo-version)
-* [ ] [**Dmesg** перевірка підпису не вдалася](privilege-escalation/#dmesg-signature-verification-failed)
+* [ ] [**Перевірка підпису Dmesg** не вдалася](privilege-escalation/#dmesg-signature-verification-failed)
 * [ ] Більше системної енумерації ([дата, статистика системи, інформація про процесор, принтери](privilege-escalation/#more-system-enumeration))
 * [ ] [**Перерахувати більше захистів**](privilege-escalation/#enumerate-possible-defenses)
 
@@ -58,7 +58,7 @@
 
 * [ ] Чи є **невідоме програмне забезпечення, що працює**?
 * [ ] Чи працює якесь програмне забезпечення з **більшими привілеями, ніж повинно**?
-* [ ] Шукати **вразливості працюючих процесів** (особливо версії, що працює).
+* [ ] Шукати **експлойти працюючих процесів** (особливо версії, що працюють).
 * [ ] Чи можете ви **модифікувати бінарний файл** будь-якого працюючого процесу?
 * [ ] **Моніторити процеси** і перевірити, чи працює якийсь цікавий процес часто.
 * [ ] Чи можете ви **читати** деяку цікаву **пам'ять процесу** (де можуть зберігатися паролі)?
@@ -107,18 +107,18 @@
 
 ### [Записуваний PATH](privilege-escalation/#writable-path-abuses)
 
-* [ ] Якщо у вас є **права на запис у деяку папку в PATH**, ви можете підвищити привілеї
+* [ ] Якщо у вас є **права запису над якоюсь папкою в PATH**, ви можете підвищити привілеї
 
 ### [Команди SUDO та SUID](privilege-escalation/#sudo-and-suid)
 
-* [ ] Чи можете ви виконати **будь-яку команду з sudo**? Чи можете ви використовувати його для ЧИТАННЯ, ЗАПИСУ або ВИКОНАННЯ чогось як root? ([**GTFOBins**](https://gtfobins.github.io))
-* [ ] Чи є якийсь **вразливий SUID бінарний файл**? ([**GTFOBins**](https://gtfobins.github.io))
+* [ ] Чи можете ви виконати **будь-яку команду з sudo**? Чи можете ви використовувати це, щоб ЧИТАТИ, ЗАПИСУВАТИ або ВИКОНУВАТИ що-небудь як root? ([**GTFOBins**](https://gtfobins.github.io))
+* [ ] Чи є якийсь **експлуатований SUID бінарний файл**? ([**GTFOBins**](https://gtfobins.github.io))
 * [ ] Чи [**обмежені** команди **sudo** **шляхом**? Чи можете ви **обійти** обмеження](privilege-escalation/#sudo-execution-bypassing-paths)?
 * [ ] [**Sudo/SUID бінарний файл без вказаного шляху**](privilege-escalation/#sudo-command-suid-binary-without-command-path)?
 * [ ] [**SUID бінарний файл з вказаним шляхом**](privilege-escalation/#suid-binary-with-command-path)? Обійти
-* [ ] [**LD\_PRELOAD вразливість**](privilege-escalation/#ld\_preload)
+* [ ] [**LD\_PRELOAD вразливість**](privilege-escalation/#ld_preload)
 * [ ] [**Відсутність .so бібліотеки в SUID бінарному файлі**](privilege-escalation/#suid-binary-so-injection) з записуваної папки?
-* [ ] [**Доступні токени SUDO**](privilege-escalation/#reusing-sudo-tokens)? [**Чи можете ви створити токен SUDO**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
+* [ ] [**Токени SUDO доступні**](privilege-escalation/#reusing-sudo-tokens)? [**Чи можете ви створити SUDO токен**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than)?
 * [ ] Чи можете ви [**читати або модифікувати файли sudoers**](privilege-escalation/#etc-sudoers-etc-sudoers-d)?
 * [ ] Чи можете ви [**модифікувати /etc/ld.so.conf.d/**](privilege-escalation/#etc-ld-so-conf-d)?
 * [ ] [**OpenBSD DOAS**](privilege-escalation/#doas) команда
@@ -143,14 +143,14 @@
 
 ### [Цікаві файли](privilege-escalation/#interesting-files)
 
-* [ ] **Файли профілю** - Чи можна прочитати чутливі дані? Записати для підвищення привілеїв?
-* [ ] **Файли passwd/shadow** - Чи можна прочитати чутливі дані? Записати для підвищення привілеїв?
+* [ ] **Файли профілю** - Читати чутливі дані? Записувати для privesc?
+* [ ] **passwd/shadow файли** - Читати чутливі дані? Записувати для privesc?
 * [ ] **Перевірити загально цікаві папки** на наявність чутливих даних
-* [ ] **Дивні місця/власні файли**, до яких ви можете отримати доступ або змінити виконувані файли
-* [ ] **Змінено** за останні хвилини
-* [ ] **Файли Sqlite DB**
+* [ ] **Дивні місця/власні файли,** до яких ви можете отримати доступ або змінити виконувані файли
+* [ ] **Змінені** за останні хвилини
+* [ ] **Sqlite DB файли**
 * [ ] **Сховані файли**
-* [ ] **Скрипти/бінарники в PATH**
+* [ ] **Скрипти/Бінарники в PATH**
 * [ ] **Веб файли** (паролі?)
 * [ ] **Резервні копії**?
 * [ ] **Відомі файли, що містять паролі**: Використовуйте **Linpeas** та **LaZagne**
@@ -159,8 +159,8 @@
 ### [**Записувані файли**](privilege-escalation/#writable-files)
 
 * [ ] **Модифікувати бібліотеку python** для виконання довільних команд?
-* [ ] Чи можете ви **модифікувати журнали**? **Logtotten** експлуатація
-* [ ] Чи можете ви **модифікувати /etc/sysconfig/network-scripts/**? Centos/Redhat експлуатація
+* [ ] Чи можете ви **модифікувати журнали**? **Logtotten** експлойт
+* [ ] Чи можете ви **модифікувати /etc/sysconfig/network-scripts/**? Centos/Redhat експлойт
 * [ ] Чи можете ви [**записувати в ini, int.d, systemd або rc.d файли**](privilege-escalation/#init-init-d-systemd-and-rc-d)?
 
 ### [**Інші трюки**](privilege-escalation/#other-tricks)
@@ -168,7 +168,7 @@
 * [ ] Чи можете ви [**зловживати NFS для підвищення привілеїв**](privilege-escalation/#nfs-privilege-escalation)?
 * [ ] Чи потрібно вам [**втекти з обмеженої оболонки**](privilege-escalation/#escaping-from-restricted-shells)?
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Приєднуйтесь до [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) сервера, щоб спілкуватися з досвідченими хакерами та шукачами вразливостей!
 
@@ -184,15 +184,15 @@
 **Приєднуйтесь до нас на** [**Discord**](https://discord.com/invite/N3FrSbmwdy) і почніть співпрацювати з провідними хакерами вже сьогодні!
 
 {% hint style="success" %}
-Вивчайте та практикуйте AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Вивчайте та практикуйте GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вивчайте та практикуйте AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Вивчайте та практикуйте GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Підтримайте HackTricks</summary>
+<summary>Підтримати HackTricks</summary>
 
 * Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
-* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи в телеграмі**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на GitHub.
 
 </details>

