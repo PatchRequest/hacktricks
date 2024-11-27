@@ -1,42 +1,55 @@
 {% hint style="success" %}
-Naučite i vežbajte hakovanje AWS-a:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks obuka AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Naučite i vežbajte hakovanje GCP-a: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks obuka GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Podržite HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
-* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili nas **pratite** na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Delite hakovanje trikova slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **nas pratite na** **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Podelite hakerske trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>
 {% endhint %}
 
-**Manipulacija audio i video fajlovima** je osnovna tehnika u **CTF forenzičkim izazovima**, koristeći **steganografiju** i analizu metapodataka za skrivanje ili otkrivanje tajnih poruka. Alati poput **[mediainfo](https://mediaarea.net/en/MediaInfo)** i **`exiftool`** su neophodni za pregledanje metapodataka fajlova i identifikaciju vrsta sadržaja.
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
-Za audio izazove, **[Audacity](http://www.audacityteam.org/)** se ističe kao vodeći alat za pregled talasnih oblika i analizu spektrograma, neophodnih za otkrivanje teksta kodiranog u audio formatu. **[Sonic Visualiser](http://www.sonicvisualiser.org/)** se visoko preporučuje za detaljnu analizu spektrograma. **Audacity** omogućava manipulaciju zvuka poput usporavanja ili obrtanja traka radi otkrivanja skrivenih poruka. **[Sox](http://sox.sourceforge.net/)**, alat za komandnu liniju, odličan je za konvertovanje i uređivanje audio fajlova.
+Produbite svoje znanje u **Mobilnoj Bezbednosti** sa 8kSec Akademijom. Savladajte iOS i Android bezbednost kroz naše kurseve po vašem tempu i dobijte sertifikat:
 
-**Manipulacija najmanje značajnim bitovima (LSB)** je česta tehnika u audio i video steganografiji, iskorišćavajući fiksne delove fajlova medija za skriveno ugrađivanje podataka. **[Multimon-ng](http://tools.kali.org/wireless-attacks/multimon-ng)** je koristan za dekodiranje poruka skrivenih kao **DTMF tonovi** ili **Morseov kod**.
+{% embed url="https://academy.8ksec.io/" %}
 
-Video izazovi često uključuju kontejnerske formate koji grupišu audio i video tokove. **[FFmpeg](http://ffmpeg.org/)** je osnovni alat za analizu i manipulaciju ovih formata, sposoban za demultipleksiranje i reprodukciju sadržaja. Za programere, **[ffmpy](http://ffmpy.readthedocs.io/en/latest/examples.html)** integriše mogućnosti FFmpeg-a u Python za napredne skriptne interakcije.
+**Manipulacija audio i video fajlovima** je osnovna komponenta u **CTF forenzičkim izazovima**, koristeći **steganografiju** i analizu metapodataka za skrivanje ili otkrivanje tajnih poruka. Alati kao što su **[mediainfo](https://mediaarea.net/en/MediaInfo)** i **`exiftool`** su neophodni za inspekciju metapodataka fajlova i identifikaciju tipova sadržaja.
 
-Ovaj niz alata ističe potrebnu raznovrsnost u CTF izazovima, gde učesnici moraju primeniti širok spektar tehnika analize i manipulacije kako bi otkrili skrivene podatke unutar audio i video fajlova.
+Za audio izazove, **[Audacity](http://www.audacityteam.org/)** se ističe kao vrhunski alat za pregled talasnih oblika i analizu spektrograma, što je ključno za otkrivanje teksta kodiranog u audio. **[Sonic Visualiser](http://www.sonicvisualiser.org/)** se snažno preporučuje za detaljnu analizu spektrograma. **Audacity** omogućava manipulaciju audio sadržajem kao što su usporavanje ili preokretanje pesama kako bi se otkrile skrivene poruke. **[Sox](http://sox.sourceforge.net/)**, alat za komandnu liniju, odlično se snalazi u konvertovanju i uređivanju audio fajlova.
+
+**Manipulacija najmanje značajnim bitovima (LSB)** je uobičajena tehnika u audio i video steganografiji, koristeći fiksne veličine delova medijskih fajlova za diskretno umetanje podataka. **[Multimon-ng](http://tools.kali.org/wireless-attacks/multimon-ng)** je koristan za dekodiranje poruka skrivenih kao **DTMF tonovi** ili **Morseova šifra**.
+
+Video izazovi često uključuju kontejnerske formate koji kombinuju audio i video tokove. **[FFmpeg](http://ffmpeg.org/)** je alat koji se koristi za analizu i manipulaciju ovim formatima, sposoban za de-multiplexing i reprodukciju sadržaja. Za programere, **[ffmpy](http://ffmpy.readthedocs.io/en/latest/examples.html)** integriše FFmpeg-ove mogućnosti u Python za napredne skriptabilne interakcije.
+
+Ova paleta alata naglašava svestranost potrebnu u CTF izazovima, gde učesnici moraju koristiti širok spektar tehnika analize i manipulacije kako bi otkrili skrivene podatke unutar audio i video fajlova.
 
 ## Reference
 * [https://trailofbits.github.io/ctf/forensics/](https://trailofbits.github.io/ctf/forensics/)
-  
+
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Produbite svoje znanje u **Mobilnoj Bezbednosti** sa 8kSec Akademijom. Savladajte iOS i Android bezbednost kroz naše kurseve po vašem tempu i dobijte sertifikat:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-Naučite i vežbajte hakovanje AWS-a:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks obuka AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Naučite i vežbajte hakovanje GCP-a: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks obuka GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Podržite HackTricks</summary>
 
 * Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
-* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili nas **pratite** na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Delite hakovanje trikova slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **nas pratite na** **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Podelite hakerske trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>
 {% endhint %}

