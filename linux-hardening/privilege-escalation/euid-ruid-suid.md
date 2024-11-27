@@ -1,19 +1,26 @@
 # euid, ruid, suid
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le piratage AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Formation Expert Red Team AWS (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le piratage GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Formation Expert Red Team GCP (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Soutenir HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Partagez des astuces de piratage en soumettant des PR au** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Approfondissez votre expertise en **Sécurité Mobile** avec 8kSec Academy. Maîtrisez la sécurité iOS et Android grâce à nos cours à votre rythme et obtenez une certification :
+
+{% embed url="https://academy.8ksec.io/" %}
+
 
 ### Variables d'Identification de l'Utilisateur
 
@@ -26,12 +33,12 @@ Un processus ne fonctionnant pas sous root ne peut modifier son `euid` que pour 
 
 ### Comprendre les Fonctions set*uid
 
-- **`setuid`** : Contrairement aux hypothèses initiales, `setuid` modifie principalement `euid` plutôt que `ruid`. Plus précisément, pour les processus privilégiés, il aligne `ruid`, `euid` et `suid` avec l'utilisateur spécifié, souvent root, solidifiant ainsi ces IDs en raison du `suid` prévalent. Des informations détaillées peuvent être trouvées dans la [page de manuel setuid](https://man7.org/linux/man-pages/man2/setuid.2.html).
-- **`setreuid`** et **`setresuid`** : Ces fonctions permettent l'ajustement nuancé de `ruid`, `euid` et `suid`. Cependant, leurs capacités dépendent du niveau de privilège du processus. Pour les processus non-root, les modifications sont limitées aux valeurs actuelles de `ruid`, `euid` et `suid`. En revanche, les processus root ou ceux ayant la capacité `CAP_SETUID` peuvent attribuer des valeurs arbitraires à ces IDs. Plus d'informations peuvent être obtenues à partir de la [page de manuel setresuid](https://man7.org/linux/man-pages/man2/setresuid.2.html) et de la [page de manuel setreuid](https://man7.org/linux/man-pages/man2/setreuid.2.html).
+- **`setuid`** : Contrairement aux hypothèses initiales, `setuid` modifie principalement `euid` plutôt que `ruid`. Plus précisément, pour les processus privilégiés, il aligne `ruid`, `euid` et `suid` avec l'utilisateur spécifié, souvent root, solidifiant ainsi ces ID en raison du `suid` prévalent. Des informations détaillées peuvent être trouvées dans la [page de manuel setuid](https://man7.org/linux/man-pages/man2/setuid.2.html).
+- **`setreuid`** et **`setresuid`** : Ces fonctions permettent l'ajustement nuancé de `ruid`, `euid` et `suid`. Cependant, leurs capacités dépendent du niveau de privilège du processus. Pour les processus non-root, les modifications sont limitées aux valeurs actuelles de `ruid`, `euid` et `suid`. En revanche, les processus root ou ceux ayant la capacité `CAP_SETUID` peuvent attribuer des valeurs arbitraires à ces ID. Plus d'informations peuvent être obtenues à partir de la [page de manuel setresuid](https://man7.org/linux/man-pages/man2/setresuid.2.html) et de la [page de manuel setreuid](https://man7.org/linux/man-pages/man2/setreuid.2.html).
 
-Ces fonctionnalités ne sont pas conçues comme un mécanisme de sécurité, mais pour faciliter le flux opérationnel prévu, comme lorsqu'un programme adopte l'identité d'un autre utilisateur en modifiant son ID utilisateur effectif.
+Ces fonctionnalités ne sont pas conçues comme un mécanisme de sécurité mais pour faciliter le flux opérationnel prévu, comme lorsqu'un programme adopte l'identité d'un autre utilisateur en modifiant son ID utilisateur effectif.
 
-Il est à noter que, bien que `setuid` puisse être un recours courant pour l'élévation de privilèges à root (puisqu'il aligne tous les IDs sur root), il est crucial de différencier ces fonctions pour comprendre et manipuler les comportements des IDs utilisateurs dans divers scénarios.
+Il est à noter que, bien que `setuid` puisse être un recours courant pour l'élévation de privilèges à root (puisqu'il aligne tous les ID sur root), il est crucial de différencier ces fonctions pour comprendre et manipuler les comportements des ID utilisateur dans divers scénarios.
 
 ### Mécanismes d'Exécution de Programmes sous Linux
 
@@ -39,7 +46,7 @@ Il est à noter que, bien que `setuid` puisse être un recours courant pour l'é
 - **Fonctionnalité** : `execve` initie un programme, déterminé par le premier argument. Il prend deux arguments de tableau, `argv` pour les arguments et `envp` pour l'environnement.
 - **Comportement** : Il conserve l'espace mémoire de l'appelant mais rafraîchit la pile, le tas et les segments de données. Le code du programme est remplacé par le nouveau programme.
 - **Préservation de l'ID Utilisateur** :
-- `ruid`, `euid` et les IDs de groupe supplémentaires restent inchangés.
+- `ruid`, `euid` et les ID de groupe supplémentaires restent inchangés.
 - `euid` peut avoir des changements nuancés si le nouveau programme a le bit SetUID activé.
 - `suid` est mis à jour à partir de `euid` après l'exécution.
 - **Documentation** : Des informations détaillées peuvent être trouvées sur la [page de manuel `execve`](https://man7.org/linux/man-pages/man2/execve.2.html).
@@ -53,17 +60,17 @@ Il est à noter que, bien que `setuid` puisse être un recours courant pour l'é
 #### **Comportement de `bash` et `sh` avec SUID**
 - **`bash`** :
 - A une option `-p` influençant la manière dont `euid` et `ruid` sont traités.
-- Sans `-p`, `bash` définit `euid` à `ruid` s'ils diffèrent initialement.
+- Sans `-p`, `bash` définit `euid` sur `ruid` s'ils diffèrent initialement.
 - Avec `-p`, l'`euid` initial est préservé.
 - Plus de détails peuvent être trouvés sur la [page de manuel `bash`](https://linux.die.net/man/1/bash).
 - **`sh`** :
 - Ne possède pas de mécanisme similaire à `-p` dans `bash`.
-- Le comportement concernant les IDs utilisateurs n'est pas explicitement mentionné, sauf sous l'option `-i`, soulignant la préservation de l'égalité entre `euid` et `ruid`.
+- Le comportement concernant les ID utilisateur n'est pas explicitement mentionné, sauf sous l'option `-i`, soulignant la préservation de l'égalité entre `euid` et `ruid`.
 - Des informations supplémentaires sont disponibles sur la [page de manuel `sh`](https://man7.org/linux/man-pages/man1/sh.1p.html).
 
-Ces mécanismes, distincts dans leur fonctionnement, offrent une gamme polyvalente d'options pour exécuter et passer d'un programme à un autre, avec des nuances spécifiques dans la gestion et la préservation des IDs utilisateurs.
+Ces mécanismes, distincts dans leur fonctionnement, offrent une gamme polyvalente d'options pour exécuter et passer d'un programme à un autre, avec des nuances spécifiques dans la gestion et la préservation des ID utilisateur.
 
-### Tester les Comportements des IDs Utilisateurs dans les Exécutions
+### Tester les Comportements des ID Utilisateur dans les Exécutions
 
 Exemples tirés de https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail, consultez-le pour plus d'informations
 
@@ -95,8 +102,8 @@ uid=99(nobody) gid=99(nobody) groups=99(nobody) context=system_u:system_r:unconf
 ```
 **Analyse :**
 
-* `ruid` et `euid` commencent à 99 (nobody) et 1000 (frank) respectivement.
-* `setuid` aligne les deux à 1000.
+* `ruid` et `euid` commencent respectivement à 99 (nobody) et 1000 (frank).
+* `setuid` les aligne tous deux à 1000.
 * `system` exécute `/bin/bash -c id` en raison du symlink de sh à bash.
 * `bash`, sans `-p`, ajuste `euid` pour correspondre à `ruid`, ce qui fait que les deux deviennent 99 (nobody).
 
@@ -170,7 +177,7 @@ uid=99(nobody) gid=99(nobody) groups=99(nobody) context=system_u:system_r:unconf
 ```
 **Analyse :**
 
-* Bien que `euid` soit défini à 1000 par `setuid`, `bash` réinitialise euid à `ruid` (99) en raison de l'absence de `-p`.
+* Bien que `euid` soit défini sur 1000 par `setuid`, `bash` réinitialise euid à `ruid` (99) en raison de l'absence de `-p`.
 
 **Exemple de code C 3 (Utilisation de bash -p) :**
 ```bash
@@ -195,9 +202,16 @@ uid=99(nobody) gid=99(nobody) euid=100
 * [https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail](https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html#testing-on-jail)
 
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Approfondissez votre expertise en **Sécurité Mobile** avec 8kSec Academy. Maîtrisez la sécurité iOS et Android grâce à nos cours à votre rythme et obtenez une certification :
+
+{% embed url="https://academy.8ksec.io/" %}
+
+
 {% hint style="success" %}
-Apprenez et pratiquez le hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Formation Expert Red Team AWS (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Formation Expert Red Team GCP (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Apprenez et pratiquez le Hacking AWS :<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Apprenez et pratiquez le Hacking GCP : <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
@@ -205,7 +219,7 @@ Apprenez et pratiquez le hacking GCP : <img src="/.gitbook/assets/grte.png" alt=
 
 * Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
 * **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Partagez des astuces de hacking en soumettant des PR au** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
+* **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
 {% endhint %}
