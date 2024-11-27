@@ -1,23 +1,23 @@
 # Λίστα Ελέγχου - Ανύψωση Δικαιωμάτων Linux
 
 {% hint style="success" %}
-Μάθετε & εξασκηθείτε στο Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Μάθετε & εξασκηθείτε στο Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε και εξασκηθείτε στο AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε και εξασκηθείτε στο GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Υποστήριξη HackTricks</summary>
 
 * Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
-* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-Εγγραφείτε στον [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server για να επικοινωνήσετε με έμπειρους hackers και κυνηγούς bug bounty!
+Εγγραφείτε στον [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server για να επικοινωνήσετε με έμπειρους hackers και hunters bug bounty!
 
 **Ενημερώσεις Hacking**\
 Ασχοληθείτε με περιεχόμενο που εμβαθύνει στην αδρεναλίνη και τις προκλήσεις του hacking
@@ -36,18 +36,18 @@
 
 * [ ] Λάβετε **πληροφορίες OS**
 * [ ] Ελέγξτε το [**PATH**](privilege-escalation/#path), υπάρχει **γραφείο που μπορεί να γραφτεί**;
-* [ ] Ελέγξτε [**μεταβλητές env**](privilege-escalation/#env-info), υπάρχει κάποια ευαίσθητη λεπτομέρεια;
+* [ ] Ελέγξτε [**μεταβλητές περιβάλλοντος**](privilege-escalation/#env-info), υπάρχει κάποια ευαίσθητη λεπτομέρεια;
 * [ ] Αναζητήστε [**εκμεταλλεύσεις πυρήνα**](privilege-escalation/#kernel-exploits) **χρησιμοποιώντας scripts** (DirtyCow?)
 * [ ] **Ελέγξτε** αν η [**έκδοση sudo** είναι ευάλωτη](privilege-escalation/#sudo-version)
 * [ ] [**Η επαλήθευση υπογραφής Dmesg απέτυχε**](privilege-escalation/#dmesg-signature-verification-failed)
-* [ ] Περισσότερη αναγνώριση συστήματος ([ημερομηνία, στατιστικά συστήματος, πληροφορίες cpu, εκτυπωτές](privilege-escalation/#more-system-enumeration))
+* [ ] Περισσότερη αναγνώριση συστήματος ([ημερομηνία, στατιστικά συστήματος, πληροφορίες CPU, εκτυπωτές](privilege-escalation/#more-system-enumeration))
 * [ ] [**Αναγνωρίστε περισσότερες άμυνες**](privilege-escalation/#enumerate-possible-defenses)
 
 ### [Δίσκοι](privilege-escalation/#drives)
 
-* [ ] **Λίστα των προσαρτημένων** δίσκων
+* [ ] **Λίστα με τους προσαρτημένους** δίσκους
 * [ ] **Κάποιος μη προσαρτημένος δίσκος;**
-* [ ] **Κάποια creds στο fstab;**
+* [ ] **Κάποια διαπιστευτήρια στο fstab;**
 
 ### [**Εγκατεστημένο Λογισμικό**](privilege-escalation/#installed-software)
 
@@ -56,8 +56,8 @@
 
 ### [Διεργασίες](privilege-escalation/#processes)
 
-* [ ] Υπάρχει κάποιο **άγνωστο λογισμικό που εκτελείται**;
-* [ ] Υπάρχει κάποιο λογισμικό που εκτελείται με **περισσότερα δικαιώματα από όσα θα έπρεπε**;
+* [ ] Υπάρχει κάποια **άγνωστη εφαρμογή που εκτελείται**;
+* [ ] Υπάρχει κάποια εφαρμογή που εκτελείται με **περισσότερα δικαιώματα από όσα θα έπρεπε**;
 * [ ] Αναζητήστε **εκμεταλλεύσεις εκτελούμενων διεργασιών** (ιδιαίτερα την έκδοση που εκτελείται).
 * [ ] Μπορείτε να **τροποποιήσετε το δυαδικό** οποιασδήποτε εκτελούμενης διεργασίας;
 * [ ] **Παρακολουθήστε διεργασίες** και ελέγξτε αν κάποια ενδιαφέρουσα διεργασία εκτελείται συχνά.
@@ -73,12 +73,12 @@
 ### [Υπηρεσίες](privilege-escalation/#services)
 
 * [ ] Κάποιο **γραφείο .service** που μπορεί να γραφτεί;
-* [ ] Κάποιο **δυαδικό που μπορεί να γραφτεί** εκτελείται από μια **υπηρεσία**;
+* [ ] Κάποιο **δυαδικό αρχείο** που εκτελείται από μια **υπηρεσία**;
 * [ ] Κάποιο **γραφείο που μπορεί να γραφτεί στο systemd PATH**;
 
 ### [Χρονοδιακόπτες](privilege-escalation/#timers)
 
-* [ ] Κάποιο **χρονοδιακόπτης που μπορεί να γραφτεί**;
+* [ ] Κάποιο **γραμμένο χρονοδιακόπτη**;
 
 ### [Υποδοχές](privilege-escalation/#sockets)
 
@@ -116,22 +116,22 @@
 * [ ] Είναι οι [**εντολές sudo** **περιορισμένες** από **path**; μπορείτε να **παρακάμψετε** τους περιορισμούς](privilege-escalation/#sudo-execution-bypassing-paths);
 * [ ] [**Εντολή Sudo/SUID χωρίς καθορισμένο path**](privilege-escalation/#sudo-command-suid-binary-without-command-path);
 * [ ] [**SUID δυαδικό που καθορίζει path**](privilege-escalation/#suid-binary-with-command-path); Παράκαμψη
-* [ ] [**LD\_PRELOAD vuln**](privilege-escalation/#ld\_preload)
+* [ ] [**LD\_PRELOAD vuln**](privilege-escalation/#ld_preload)
 * [ ] [**Έλλειψη .so βιβλιοθήκης σε SUID δυαδικό**](privilege-escalation/#suid-binary-so-injection) από έναν φάκελο που μπορεί να γραφτεί;
 * [ ] [**Διαθέσιμα SUDO tokens**](privilege-escalation/#reusing-sudo-tokens); [**Μπορείτε να δημιουργήσετε ένα SUDO token**](privilege-escalation/#var-run-sudo-ts-less-than-username-greater-than);
 * [ ] Μπορείτε να [**διαβάσετε ή να τροποποιήσετε τα αρχεία sudoers**](privilege-escalation/#etc-sudoers-etc-sudoers-d);
 * [ ] Μπορείτε να [**τροποποιήσετε το /etc/ld.so.conf.d/**](privilege-escalation/#etc-ld-so-conf-d);
-* [ ] [**OpenBSD DOAS**](privilege-escalation/#doas) εντολή
+* [ ] [**Εντολή OpenBSD DOAS**](privilege-escalation/#doas)
 
 ### [Δυνατότητες](privilege-escalation/#capabilities)
 
-* [ ] Έχει κάποιο δυαδικό κάποια **αναμενόμενη δυνατότητα**;
+* [ ] Έχει κάποιο δυαδικό **αναπάντεχη δυνατότητα**;
 
 ### [ACLs](privilege-escalation/#acls)
 
-* [ ] Έχει κάποιο αρχείο κάποια **αναμενόμενη ACL**;
+* [ ] Έχει κάποιο αρχείο **αναπάντεχη ACL**;
 
-### [Ανοιχτές συνεδρίες Shell](privilege-escalation/#open-shell-sessions)
+### [Ανοιχτές συνεδρίες shell](privilege-escalation/#open-shell-sessions)
 
 * [ ] **screen**
 * [ ] **tmux**
@@ -139,18 +139,18 @@
 ### [SSH](privilege-escalation/#ssh)
 
 * [ ] **Debian** [**OpenSSL Predictable PRNG - CVE-2008-0166**](privilege-escalation/#debian-openssl-predictable-prng-cve-2008-0166)
-* [ ] [**Ενδιαφέροντα παραμετροποιημένα SSH**](privilege-escalation/#ssh-interesting-configuration-values)
+* [ ] [**Ενδιαφέροντα διαρθρωτικά στοιχεία SSH**](privilege-escalation/#ssh-interesting-configuration-values)
 
 ### [Ενδιαφέροντα Αρχεία](privilege-escalation/#interesting-files)
 
 * [ ] **Αρχεία προφίλ** - Διαβάστε ευαίσθητα δεδομένα; Γράψτε σε privesc;
-* [ ] **αρχεία passwd/shadow** - Διαβάστε ευαίσθητα δεδομένα; Γράψτε σε privesc;
+* [ ] **Αρχεία passwd/shadow** - Διαβάστε ευαίσθητα δεδομένα; Γράψτε σε privesc;
 * [ ] **Ελέγξτε κοινά ενδιαφέροντα φακέλους** για ευαίσθητα δεδομένα
 * [ ] **Περίεργη τοποθεσία/Αρχεία που ανήκουν,** μπορεί να έχετε πρόσβαση ή να τροποποιήσετε εκτελέσιμα αρχεία
 * [ ] **Τροποποιημένα** στα τελευταία λεπτά
 * [ ] **Αρχεία Sqlite DB**
 * [ ] **Κρυφά αρχεία**
-* [ ] **Script/Δυαδικά στο PATH**
+* [ ] **Script/Δυαδικά αρχεία στο PATH**
 * [ ] **Web αρχεία** (κωδικοί πρόσβασης;)
 * [ ] **Αντίγραφα ασφαλείας**;
 * [ ] **Γνωστά αρχεία που περιέχουν κωδικούς πρόσβασης**: Χρησιμοποιήστε **Linpeas** και **LaZagne**
@@ -168,9 +168,9 @@
 * [ ] Μπορείτε να [**καταχραστείτε το NFS για να ανυψώσετε δικαιώματα**](privilege-escalation/#nfs-privilege-escalation);
 * [ ] Χρειάζεστε να [**ξεφύγετε από μια περιοριστική shell**](privilege-escalation/#escaping-from-restricted-shells);
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-Εγγραφείτε στον [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server για να επικοινωνήσετε με έμπειρους hackers και κυνηγούς bug bounty!
+Εγγραφείτε στον [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server για να επικοινωνήσετε με έμπειρους hackers και hunters bug bounty!
 
 **Ενημερώσεις Hacking**\
 Ασχοληθείτε με περιεχόμενο που εμβαθύνει στην αδρεναλίνη και τις προκλήσεις του hacking
@@ -184,15 +184,15 @@
 **Εγγραφείτε μαζί μας στο** [**Discord**](https://discord.com/invite/N3FrSbmwdy) και ξεκινήστε να συνεργάζεστε με κορυφαίους hackers σήμερα!
 
 {% hint style="success" %}
-Μάθετε & εξασκηθείτε στο Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Μάθετε & εξασκηθείτε στο Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε και εξασκηθείτε στο AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε και εξασκηθείτε στο GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Υποστήριξη HackTricks</summary>
 
 * Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
-* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>

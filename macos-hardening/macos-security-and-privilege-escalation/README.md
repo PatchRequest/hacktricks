@@ -9,13 +9,13 @@
 <summary>Υποστήριξη HackTricks</summary>
 
 * Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
-* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Εγγραφείτε στον [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server για να επικοινωνήσετε με έμπειρους hackers και hunters bug bounty!
 
@@ -30,7 +30,7 @@
 
 **Εγγραφείτε μαζί μας στο** [**Discord**](https://discord.com/invite/N3FrSbmwdy) και ξεκινήστε να συνεργάζεστε με κορυφαίους hackers σήμερα!
 
-## Basic MacOS
+## Βασικά MacOS
 
 Αν δεν είστε εξοικειωμένοι με το macOS, θα πρέπει να ξεκινήσετε να μαθαίνετε τα βασικά του macOS:
 
@@ -81,23 +81,23 @@
 [macos-apps-inspecting-debugging-and-fuzzing](macos-apps-inspecting-debugging-and-fuzzing/)
 {% endcontent-ref %}
 
-## MacOS Security Protections
+## Προστασίες Ασφαλείας MacOS
 
 {% content-ref url="macos-security-protections/" %}
 [macos-security-protections](macos-security-protections/)
 {% endcontent-ref %}
 
-## Attack Surface
+## Επιφάνεια Επίθεσης
 
-### File Permissions
+### Δικαιώματα Αρχείων
 
-Αν μια **διαδικασία που εκτελείται ως root γράφει** ένα αρχείο που μπορεί να ελεγχθεί από έναν χρήστη, ο χρήστης θα μπορούσε να το εκμεταλλευτεί για να **κλιμακώσει τα δικαιώματα**.\
+Αν μια **διαδικασία που εκτελείται ως root γράφει** ένα αρχείο που μπορεί να ελεγχθεί από έναν χρήστη, ο χρήστης θα μπορούσε να το εκμεταλλευτεί για να **κάνει κλιμάκωση δικαιωμάτων**.\
 Αυτό θα μπορούσε να συμβεί στις παρακάτω καταστάσεις:
 
 * Το αρχείο που χρησιμοποιήθηκε είχε ήδη δημιουργηθεί από έναν χρήστη (ανήκει στον χρήστη)
-* Το αρχείο που χρησιμοποιήθηκε είναι εγγράψιμο από τον χρήστη λόγω μιας ομάδας
+* Το αρχείο που χρησιμοποιήθηκε είναι εγγράψιμο από τον χρήστη λόγω ομάδας
 * Το αρχείο που χρησιμοποιήθηκε είναι μέσα σε έναν φάκελο που ανήκει στον χρήστη (ο χρήστης θα μπορούσε να δημιουργήσει το αρχείο)
-* Το αρχείο που χρησιμοποιήθηκε είναι μέσα σε έναν φάκελο που ανήκει στον root αλλά ο χρήστης έχει δικαίωμα εγγραφής σε αυτόν λόγω μιας ομάδας (ο χρήστης θα μπορούσε να δημιουργήσει το αρχείο)
+* Το αρχείο που χρησιμοποιήθηκε είναι μέσα σε έναν φάκελο που ανήκει στον root αλλά ο χρήστης έχει δικαίωμα εγγραφής σε αυτόν λόγω ομάδας (ο χρήστης θα μπορούσε να δημιουργήσει το αρχείο)
 
 Η δυνατότητα **δημιουργίας ενός αρχείου** που θα χρησιμοποιηθεί από τον **root**, επιτρέπει σε έναν χρήστη να **εκμεταλλευτεί το περιεχόμενό του** ή ακόμα και να δημιουργήσει **symlinks/hardlinks** για να το δείξει σε άλλη τοποθεσία.
 
@@ -107,7 +107,7 @@
 [macos-installers-abuse.md](macos-files-folders-and-binaries/macos-installers-abuse.md)
 {% endcontent-ref %}
 
-### File Extension & URL scheme app handlers
+### Χειριστές Εφαρμογών Επέκτασης Αρχείων & Σχεδίου URL
 
 Περίεργες εφαρμογές που έχουν καταχωρηθεί από επεκτάσεις αρχείων θα μπορούσαν να εκμεταλλευτούν και διαφορετικές εφαρμογές μπορούν να καταχωρηθούν για να ανοίξουν συγκεκριμένα πρωτόκολλα
 
@@ -115,17 +115,17 @@
 [macos-file-extension-apps.md](macos-file-extension-apps.md)
 {% endcontent-ref %}
 
-## macOS TCC / SIP Privilege Escalation
+## macOS TCC / SIP Κλιμάκωση Δικαιωμάτων
 
-Στο macOS **οι εφαρμογές και τα δυαδικά αρχεία μπορούν να έχουν δικαιώματα** για πρόσβαση σε φακέλους ή ρυθμίσεις που τους καθιστούν πιο προνομιούχους από άλλους.
+Στο macOS, οι **εφαρμογές και τα αρχεία εκτελέσιμα μπορούν να έχουν δικαιώματα** για πρόσβαση σε φακέλους ή ρυθμίσεις που τους καθιστούν πιο προνομιούχες από άλλες.
 
 Επομένως, ένας επιτιθέμενος που θέλει να συμβιβάσει επιτυχώς μια μηχανή macOS θα χρειαστεί να **κλιμακώσει τα δικαιώματα TCC** του (ή ακόμα και **να παρακάμψει το SIP**, ανάλογα με τις ανάγκες του).
 
-Αυτά τα δικαιώματα δίνονται συνήθως με τη μορφή **entitlements** με τις οποίες είναι υπογεγραμμένη η εφαρμογή, ή η εφαρμογή μπορεί να ζητήσει κάποιες προσβάσεις και μετά την **έγκριση τους από τον χρήστη** μπορούν να βρεθούν στις **βάσεις δεδομένων TCC**. Ένας άλλος τρόπος με τον οποίο μια διαδικασία μπορεί να αποκτήσει αυτά τα δικαιώματα είναι να είναι **παιδί μιας διαδικασίας** με αυτά τα **δικαιώματα** καθώς συνήθως **κληρονομούνται**.
+Αυτά τα δικαιώματα δίνονται συνήθως με τη μορφή **entitlements** με τα οποία είναι υπογεγραμμένη η εφαρμογή, ή η εφαρμογή μπορεί να ζητήσει κάποιες προσβάσεις και μετά την **έγκριση τους από τον χρήστη** μπορούν να βρεθούν στις **βάσεις δεδομένων TCC**. Ένας άλλος τρόπος με τον οποίο μια διαδικασία μπορεί να αποκτήσει αυτά τα δικαιώματα είναι να είναι **παιδί μιας διαδικασίας** με αυτά τα **δικαιώματα** καθώς συνήθως **κληρονομούνται**.
 
 Ακολουθήστε αυτούς τους συνδέσμους για να βρείτε διαφορετικούς τρόπους για [**να κλιμακώσετε δικαιώματα στο TCC**](macos-security-protections/macos-tcc/#tcc-privesc-and-bypasses), για [**να παρακάμψετε το TCC**](macos-security-protections/macos-tcc/macos-tcc-bypasses/) και πώς στο παρελθόν [**έχει παρακαμφθεί το SIP**](macos-security-protections/macos-sip.md#sip-bypasses).
 
-## macOS Traditional Privilege Escalation
+## macOS Παραδοσιακή Κλιμάκωση Δικαιωμάτων
 
 Φυσικά από την προοπτική των κόκκινων ομάδων θα πρέπει επίσης να ενδιαφέρεστε να κλιμακώσετε σε root. Ελέγξτε την παρακάτω ανάρτηση για μερικές συμβουλές:
 
@@ -133,11 +133,11 @@
 [macos-privilege-escalation.md](macos-privilege-escalation.md)
 {% endcontent-ref %}
 
-## macOS Compliance
+## Συμμόρφωση macOS
 
-* [https://github.com/usnistgov/macos\_security](https://github.com/usnistgov/macos\_security)
+* [https://github.com/usnistgov/macos\_security](https://github.com/usnistgov/macos_security)
 
-## References
+## Αναφορές
 
 * [**OS X Incident Response: Scripting and Analysis**](https://www.amazon.com/OS-Incident-Response-Scripting-Analysis-ebook/dp/B01FHOHHVS)
 * [**https://taomm.org/vol1/analysis.html**](https://taomm.org/vol1/analysis.html)
@@ -145,7 +145,7 @@
 * [**https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ**](https://assets.sentinelone.com/c/sentinal-one-mac-os-?x=FvGtLJ)
 * [**https://www.youtube.com/watch?v=vMGiplQtjTY**](https://www.youtube.com/watch?v=vMGiplQtjTY)
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Εγγραφείτε στον [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server για να επικοινωνήσετε με έμπειρους hackers και hunters bug bounty!
 
@@ -169,7 +169,7 @@
 <summary>Υποστήριξη HackTricks</summary>
 
 * Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
-* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>

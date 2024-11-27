@@ -5,7 +5,7 @@
 _Hacktricks logos & motion design by_ [_@ppiernacho_](https://www.instagram.com/ppieranacho/)_._
 
 {% hint style="success" %}
-**Καλώς ήρθατε στο wiki όπου θα βρείτε κάθε κόλπο/τεχνική/οτιδήποτε έχω μάθει από CTFs, εφαρμογές της πραγματικής ζωής, διαβάζοντας έρευνες και ειδήσεις.**
+**Καλώς ήρθατε στη wiki όπου θα βρείτε κάθε κόλπο/τεχνική/οτιδήποτε έχω μάθει από CTFs, πραγματικές εφαρμογές, διαβάζοντας έρευνες και ειδήσεις.**
 {% endhint %}
 
 Για να ξεκινήσετε, ακολουθήστε αυτή τη σελίδα όπου θα βρείτε τη **τυπική ροή** που **πρέπει να ακολουθήσετε όταν κάνετε pentesting** σε μία ή περισσότερες **μηχανές:**
@@ -32,7 +32,7 @@ _Hacktricks logos & motion design by_ [_@ppiernacho_](https://www.instagram.com/
 
 <figure><img src=".gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
 
-[**RootedCON**](https://www.rootedcon.com) είναι η πιο σχετική εκδήλωση κυβερνοασφάλειας στην **Ισπανία** και μία από τις πιο σημαντικές στην **Ευρώπη**. Με **αποστολή την προώθηση της τεχνικής γνώσης**, αυτό το συνέδριο είναι ένα καυτό σημείο συνάντησης για επαγγελματίες της τεχνολογίας και της κυβερνοασφάλειας σε κάθε πειθαρχία.
+[**RootedCON**](https://www.rootedcon.com) είναι η πιο σχετική εκδήλωση κυβερνοασφάλειας στην **Ισπανία** και μία από τις πιο σημαντικές στην **Ευρώπη**. Με **αποστολή την προώθηση της τεχνικής γνώσης**, αυτό το συνέδριο είναι ένα καυτό σημείο συνάντησης για επαγγελματίες τεχνολογίας και κυβερνοασφάλειας σε κάθε πειθαρχία.
 
 {% embed url="https://www.rootedcon.com/" %}
 
@@ -42,20 +42,20 @@ _Hacktricks logos & motion design by_ [_@ppiernacho_](https://www.instagram.com/
 
 <figure><img src=".gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
 
-**Intigriti** είναι η **#1** ηθική hacking και **bug bounty platform** στην **Ευρώπη**.
+**Intigriti** είναι η **#1** ηθική πλατφόρμα hacking και **bug bounty στην Ευρώπη.**
 
-**Tip για bug bounty**: **εγγραφείτε** στο **Intigriti**, μια premium **bug bounty platform που δημιουργήθηκε από hackers, για hackers**! Ελάτε μαζί μας στο [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) σήμερα και αρχίστε να κερδίζετε βραβεία έως **$100,000**!
+**Tip για bug bounty**: **εγγραφείτε** στο **Intigriti**, μια premium **πλατφόρμα bug bounty που δημιουργήθηκε από hackers, για hackers**! Ελάτε μαζί μας στο [**https://go.intigriti.com/hacktricks**](https://go.intigriti.com/hacktricks) σήμερα και αρχίστε να κερδίζετε βραβεία έως **$100,000**!
 
 {% embed url="https://go.intigriti.com/hacktricks" %}
 
 ***
 
-### [Trickest](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks)
+### [Trickest](https://trickest.com/?utm_campaign=hacktrics\&utm_medium=banner\&utm_source=hacktricks)
 
 <figure><img src=".gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
 \
-Χρησιμοποιήστε [**Trickest**](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks) για να δημιουργήσετε και να **αυτοματοποιήσετε ροές εργασίας** με τη βοήθεια των **πιο προηγμένων** εργαλείων της κοινότητας.
+Χρησιμοποιήστε [**Trickest**](https://trickest.com/?utm_campaign=hacktrics\&utm_medium=banner\&utm_source=hacktricks) για να δημιουργήσετε εύκολα και να **αυτοματοποιήσετε ροές εργασίας** που υποστηρίζονται από τα **πιο προηγμένα** εργαλεία της κοινότητας.
 
 Αποκτήστε πρόσβαση σήμερα:
 
@@ -65,25 +65,25 @@ _Hacktricks logos & motion design by_ [_@ppiernacho_](https://www.instagram.com/
 
 ### [HACKENPROOF](https://bit.ly/3xrrDrL)
 
-<figure><img src="/.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-Ελάτε στον [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server για να επικοινωνήσετε με έμπειρους hackers και κυνηγούς bug bounty!
+Εγγραφείτε στον [**HackenProof Discord**](https://discord.com/invite/N3FrSbmwdy) server για να επικοινωνήσετε με έμπειρους hackers και κυνηγούς bug bounty!
 
 * **Insights για Hacking:** Συμμετοχή σε περιεχόμενο που εμβαθύνει στην αδρεναλίνη και τις προκλήσεις του hacking
 * **Ειδήσεις Hack σε Πραγματικό Χρόνο:** Μείνετε ενημερωμένοι με τον ταχύτατο κόσμο του hacking μέσω ειδήσεων και insights σε πραγματικό χρόνο
-* **Τελευταίες Ανακοινώσεις:** Μείνετε ενημερωμένοι με τις πιο πρόσφατες βραβεύσεις bug που ξεκινούν και κρίσιμες ενημερώσεις πλατφόρμας
+* **Τελευταίες Ανακοινώσεις:** Μείνετε ενημερωμένοι με τις πιο πρόσφατες εκκινήσεις bug bounty και κρίσιμες ενημερώσεις πλατφόρμας
 
 **Ελάτε μαζί μας στο** [**Discord**](https://discord.com/invite/N3FrSbmwdy) και αρχίστε να συνεργάζεστε με κορυφαίους hackers σήμερα!
 
 ***
 
-### [Pentest-Tools.com](https://pentest-tools.com/?utm\_term=jul2024\&utm\_medium=link\&utm\_source=hacktricks\&utm\_campaign=spons) - Το απαραίτητο εργαλείο για penetration testing
+### [Pentest-Tools.com](https://pentest-tools.com/?utm_term=jul2024\&utm_medium=link\&utm_source=hacktricks\&utm_campaign=spons) - Το απαραίτητο εργαλείο για penetration testing
 
 <figure><img src=".gitbook/assets/pentest-tools.svg" alt=""><figcaption></figcaption></figure>
 
-**Αποκτήστε την προοπτική ενός hacker για τις εφαρμογές σας στο διαδίκτυο, το δίκτυο και το cloud**
+**Αποκτήστε την προοπτική ενός hacker για τις διαδικτυακές σας εφαρμογές, το δίκτυο και το cloud**
 
-**Βρείτε και αναφέρετε κρίσιμες, εκμεταλλεύσιμες ευπάθειες με πραγματικό επιχειρηματικό αντίκτυπο.** Χρησιμοποιήστε τα 20+ προσαρμοσμένα εργαλεία μας για να χαρτογραφήσετε την επιφάνεια επίθεσης, να βρείτε ζητήματα ασφαλείας που σας επιτρέπουν να κλιμακώσετε προνόμια και να χρησιμοποιήσετε αυτοματοποιημένα exploits για να συλλέξετε βασικά αποδεικτικά στοιχεία, μετατρέποντας τη σκληρή δουλειά σας σε πειστικές αναφορές.
+**Βρείτε και αναφέρετε κρίσιμες, εκμεταλλεύσιμες ευπάθειες με πραγματικό επιχειρηματικό αντίκτυπο.** Χρησιμοποιήστε τα 20+ προσαρμοσμένα εργαλεία μας για να χαρτογραφήσετε την επιφάνεια επίθεσης, να βρείτε ζητήματα ασφαλείας που σας επιτρέπουν να κλιμακώσετε προνόμια και να χρησιμοποιήσετε αυτοματοποιημένα exploits για να συλλέξετε βασικά αποδεικτικά στοιχεία, μετατρέποντας τη σκληρή σας δουλειά σε πειστικές αναφορές.
 
 {% embed url="https://pentest-tools.com/?utm_term=jul2024&utm_medium=link&utm_source=hacktricks&utm_campaign=spons" %}
 
@@ -100,7 +100,17 @@ _Hacktricks logos & motion design by_ [_@ppiernacho_](https://www.instagram.com/
 
 Οι τρέχοντες πελάτες του SerpApi περιλαμβάνουν **Apple, Shopify και GrubHub**.\
 Για περισσότερες πληροφορίες, ελέγξτε το [**blog**](https://serpapi.com/blog/)**,** ή δοκιμάστε ένα παράδειγμα στο [**playground**](https://serpapi.com/playground)**.**\
-Μπορείτε να **δημιουργήσετε έναν δωρεάν λογαριασμό** [**εδώ**](https://serpapi.com/users/sign\_up)**.**
+Μπορείτε να **δημιουργήσετε έναν δωρεάν λογαριασμό** [**εδώ**](https://serpapi.com/users/sign_up)**.**
+
+***
+
+### 8kSec Academy – Σε βάθος μαθήματα ασφάλειας κινητών
+
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Μάθετε τις τεχνολογίες και τις δεξιότητες που απαιτούνται για να εκτελέσετε έρευνα ευπαθειών, penetration testing και reverse engineering για να προστατεύσετε τις κινητές εφαρμογές και συσκευές. **Κατακτήστε την ασφάλεια iOS και Android** μέσω των on-demand μαθημάτων μας και **αποκτήστε πιστοποίηση**:
+
+{% embed url="https://academy.8ksec.io/" %}
 
 ***
 
@@ -108,13 +118,13 @@ _Hacktricks logos & motion design by_ [_@ppiernacho_](https://www.instagram.com/
 
 <figure><img src=".gitbook/assets/websec (1).svg" alt=""><figcaption></figcaption></figure>
 
-[**WebSec**](https://websec.nl) είναι μια επαγγελματική εταιρεία κυβερνοασφάλειας με έδρα το **Άμστερνταμ** που βοηθά **να προστατεύει** επιχειρήσεις **σε όλο τον κόσμο** από τις τελευταίες απειλές κυβερνοασφάλειας παρέχοντας **υπηρεσίες επιθετικής ασφάλειας** με μια **σύγχρονη** προσέγγιση.
+[**WebSec**](https://websec.nl) είναι μια επαγγελματική εταιρεία κυβερνοασφάλειας με έδρα το **Άμστερνταμ** που βοηθά **στην προστασία** επιχειρήσεων **σε όλο τον κόσμο** από τις τελευταίες απειλές κυβερνοασφάλειας παρέχοντας **υπηρεσίες επιθετικής ασφάλειας** με **σύγχρονη** προσέγγιση.
 
-Η WebSec είναι μια **all-in-one εταιρεία ασφάλειας** που σημαίνει ότι τα κάνει όλα; Pentesting, **Security** Audits, Awareness Trainings, Phishing Campagnes, Code Review, Exploit Development, Outsourcing Security Experts και πολλά άλλα.
+Η WebSec είναι μια **all-in-one εταιρεία ασφάλειας** που σημαίνει ότι τα κάνει όλα; Pentesting, **Ασφάλεια** Ελέγχοι, Εκπαιδεύσεις Ευαισθητοποίησης, Καμπάνιες Phishing, Έλεγχος Κώδικα, Ανάπτυξη Exploit, Εξωτερική Ανάθεση Ειδικών Ασφαλείας και πολλά άλλα.
 
-Ένα άλλο ενδιαφέρον πράγμα σχετικά με την WebSec είναι ότι σε αντίθεση με τον μέσο όρο της βιομηχανίας, η WebSec είναι **πολύ σίγουρη για τις ικανότητές της**, σε τέτοιο βαθμό που **εγγυάται τα καλύτερα ποιοτικά αποτελέσματα**, αναφέρει στην ιστοσελίδα της "**Αν δεν μπορούμε να το χακάρουμε, δεν το πληρώνετε!**". Για περισσότερες πληροφορίες, ρίξτε μια ματιά στην [**ιστοσελίδα**](https://websec.nl/en/) και το [**blog**](https://websec.nl/blog/) τους!
+Ένα άλλο ενδιαφέρον πράγμα σχετικά με την WebSec είναι ότι σε αντίθεση με τον μέσο όρο της βιομηχανίας, η WebSec είναι **πολύ σίγουρη για τις δεξιότητές της**, σε τέτοιο βαθμό που **εγγυάται τα καλύτερα ποιοτικά αποτελέσματα**, αναφέρει στην ιστοσελίδα της "**Αν δεν μπορούμε να το χακάρουμε, δεν το πληρώνετε!**". Για περισσότερες πληροφορίες, ρίξτε μια ματιά στην [**ιστοσελίδα**](https://websec.nl/en/) και το [**blog**](https://websec.nl/blog/) τους!
 
-Επιπλέον, η WebSec είναι επίσης ένας **δεσμευμένος υποστηρικτής του HackTricks.**
+Επιπλέον, η WebSec είναι επίσης **δεσμευμένος υποστηρικτής του HackTricks.**
 
 {% embed url="https://www.youtube.com/watch?v=Zq2JycGDCPM" %}
 
@@ -139,7 +149,7 @@ _Hacktricks logos & motion design by_ [_@ppiernacho_](https://www.instagram.com/
 <summary>Υποστηρίξτε το HackTricks</summary>
 
 * Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
-* **Ελάτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Ελάτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
