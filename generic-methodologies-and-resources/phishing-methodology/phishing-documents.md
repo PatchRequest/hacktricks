@@ -1,15 +1,15 @@
 # Phishing Files & Documents
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
@@ -17,7 +17,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## Office Documents
 
-Microsoft Word एक फ़ाइल खोलने से पहले फ़ाइल डेटा मान्यता करता है। डेटा मान्यता OfficeOpenXML मानक के खिलाफ डेटा संरचना पहचान के रूप में की जाती है। यदि डेटा संरचना पहचान के दौरान कोई त्रुटि होती है, तो विश्लेषण की जा रही फ़ाइल नहीं खोली जाएगी।
+Microsoft Word एक फ़ाइल खोलने से पहले फ़ाइल डेटा मान्यता करता है। डेटा मान्यता डेटा संरचना पहचान के रूप में OfficeOpenXML मानक के खिलाफ की जाती है। यदि डेटा संरचना पहचान के दौरान कोई त्रुटि होती है, तो विश्लेषण की जा रही फ़ाइल नहीं खोली जाएगी।
 
 आमतौर पर, मैक्रोज़ वाले Word फ़ाइलें `.docm` एक्सटेंशन का उपयोग करती हैं। हालाँकि, फ़ाइल एक्सटेंशन बदलकर फ़ाइल का नाम बदलना संभव है और फिर भी उनके मैक्रो निष्पादन क्षमताओं को बनाए रखना संभव है।\
 उदाहरण के लिए, एक RTF फ़ाइल डिज़ाइन द्वारा मैक्रोज़ का समर्थन नहीं करती है, लेकिन RTF में नाम बदली गई DOCM फ़ाइल Microsoft Word द्वारा संभाली जाएगी और मैक्रो निष्पादन के लिए सक्षम होगी।\
@@ -32,7 +32,7 @@ DOCX फ़ाइलें एक दूरस्थ टेम्पलेट (F
 ### बाहरी छवि लोड
 
 जाएँ: _Insert --> Quick Parts --> Field_\
-_**श्रेणियाँ**: लिंक और संदर्भ, **फ़ाइल नाम**: includePicture, और **फ़ाइल नाम या URL**:_ http://\<ip>/whatever
+&#xNAN;_**श्रेणियाँ**: लिंक और संदर्भ, **फ़ाइल नाम**: includePicture, और **फ़ाइल नाम या URL**:_ http://\<ip>/whatever
 
 ![](<../../.gitbook/assets/image (155).png>)
 
@@ -40,7 +40,7 @@ _**श्रेणियाँ**: लिंक और संदर्भ, **फ�
 
 यह संभव है कि मैक्रोज़ का उपयोग दस्तावेज़ से मनमाना कोड चलाने के लिए किया जाए।
 
-#### ऑटोलोड फ़ंक्शन
+#### ऑटो लोड फ़ंक्शन
 
 जितना सामान्य होगा, उतना ही अधिक संभावना है कि AV उन्हें पहचान लेगा।
 
@@ -96,7 +96,7 @@ proc.Create "powershell <beacon line generated>
 
 HTA एक Windows प्रोग्राम है जो **HTML और स्क्रिप्टिंग भाषाओं (जैसे VBScript और JScript)** को **संयोजित** करता है। यह उपयोगकर्ता इंटरफ़ेस उत्पन्न करता है और "पूर्ण रूप से विश्वसनीय" एप्लिकेशन के रूप में निष्पादित होता है, बिना ब्राउज़र की सुरक्षा मॉडल की सीमाओं के।
 
-HTA को **`mshta.exe`** का उपयोग करके निष्पादित किया जाता है, जो आमतौर पर **Internet Explorer** के साथ **स्थापित** होता है, जिससे **`mshta` IE पर निर्भर होता है**। इसलिए, यदि इसे अनइंस्टॉल कर दिया गया है, तो HTA निष्पादित नहीं हो पाएंगे।
+HTA को **`mshta.exe`** का उपयोग करके निष्पादित किया जाता है, जो आमतौर पर **Internet Explorer** के साथ **स्थापित** होता है, जिससे **`mshta` IE पर निर्भर होता है**। इसलिए यदि इसे अनइंस्टॉल कर दिया गया है, तो HTA निष्पादित नहीं हो पाएंगे।
 ```html
 <--! Basic HTA Execution -->
 <html>
@@ -173,16 +173,16 @@ self.close
 * [**AD CS ESC8 (NTLM रिले से प्रमाणपत्र)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
 
 {% hint style="success" %}
-AWS हैकिंग सीखें और अभ्यास करें:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP हैकिंग सीखें और अभ्यास करें: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS हैकिंग सीखें और अभ्यास करें:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP हैकिंग सीखें और अभ्यास करें: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks का समर्थन करें</summary>
 
 * [**सदस्यता योजनाओं**](https://github.com/sponsors/carlospolop) की जांच करें!
-* **💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) में शामिल हों या **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** पर हमें **फॉलो** करें।**
-* **हैकिंग ट्रिक्स साझा करें और [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपोजिटरी में PR सबमिट करें।**
+* **हमारे** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**telegram समूह**](https://t.me/peass) में शामिल हों या **Twitter** 🐦 पर हमें **फॉलो** करें [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* **हैकिंग ट्रिक्स साझा करें और** [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपोजिटरी में PR सबमिट करें।
 
 </details>
 {% endhint %}

