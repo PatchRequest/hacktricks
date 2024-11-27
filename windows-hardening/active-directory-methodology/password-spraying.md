@@ -15,16 +15,22 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+Deepen your expertise in **Mobile Security** with 8kSec Academy. Master iOS and Android security through our self-paced courses and get certified:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 ## **Password Spraying**
 
-एक बार जब आप कई **मान्य उपयोगकर्ता नाम** ढूंढ लेते हैं, तो आप प्रत्येक खोजे गए उपयोगकर्ता के साथ सबसे **सामान्य पासवर्ड** आजमा सकते हैं (पर्यावरण की पासवर्ड नीति को ध्यान में रखें)।\
+एक बार जब आप कई **मान्य उपयोगकर्ता नाम** ढूंढ लेते हैं, तो आप प्रत्येक खोजे गए उपयोगकर्ता के साथ सबसे **सामान्य पासवर्ड** (पर्यावरण की पासवर्ड नीति को ध्यान में रखते हुए) आजमा सकते हैं।\
 **डिफ़ॉल्ट** रूप से **न्यूनतम** **पासवर्ड** **लंबाई** **7** है।
 
 सामान्य उपयोगकर्ता नामों की सूचियाँ भी उपयोगी हो सकती हैं: [https://github.com/insidetrust/statistically-likely-usernames](https://github.com/insidetrust/statistically-likely-usernames)
 
-ध्यान दें कि यदि आप कई गलत पासवर्ड आजमाते हैं तो आप **कुछ खातों को लॉकआउट कर सकते हैं** (डिफ़ॉल्ट रूप से 10 से अधिक)।
+ध्यान दें कि यदि आप कई गलत पासवर्ड आजमाते हैं तो आप **कुछ खातों को लॉक कर सकते हैं** (डिफ़ॉल्ट रूप से 10 से अधिक)।
 
-### Get password policy
+### पासवर्ड नीति प्राप्त करें
 
 यदि आपके पास कुछ उपयोगकर्ता क्रेडेंशियल्स या एक डोमेन उपयोगकर्ता के रूप में एक शेल है, तो आप **पासवर्ड नीति प्राप्त कर सकते हैं**:
 ```bash
@@ -63,16 +69,16 @@ crackmapexec smb --local-auth 10.10.10.10/23 -u administrator -H 10298e182387f9c
 ```bash
 spray.sh -smb <targetIP> <usernameList> <passwordList> <AttemptsPerLockoutPeriod> <LockoutPeriodInMinutes> <DOMAIN>
 ```
-* [**kerbrute**](https://github.com/TarlogicSecurity/kerbrute) (python) का उपयोग करना - अनुशंसित नहीं है कभी-कभी काम नहीं करता
+* Using [**kerbrute**](https://github.com/TarlogicSecurity/kerbrute) (python) - अनुशंसित नहीं है कभी-कभी काम नहीं करता
 ```bash
 python kerbrute.py -domain jurassic.park -users users.txt -passwords passwords.txt -outputfile jurassic_passwords.txt
 python kerbrute.py -domain jurassic.park -users users.txt -password Password123 -outputfile jurassic_passwords.txt
 ```
-* With the `scanner/smb/smb_login` module of **Metasploit**:
+* `scanner/smb/smb_login` मॉड्यूल के साथ **Metasploit**:
 
 ![](<../../.gitbook/assets/image (745).png>)
 
-* Using **rpcclient**:
+* **rpcclient** का उपयोग करते हुए:
 ```bash
 # https://www.blackhillsinfosec.com/password-spraying-other-fun-with-rpcclient/
 for u in $(cat users.txt); do
@@ -134,24 +140,31 @@ p**assword spraying outlook** के लिए कई उपकरण हैं�
 * [https://github.com/Rhynorater/Okta-Password-Sprayer](https://github.com/Rhynorater/Okta-Password-Sprayer)
 * [https://github.com/knavesec/CredMaster](https://github.com/knavesec/CredMaster)
 
-## संदर्भ
+## References
 
 * [https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-password-spraying](https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-password-spraying)
 * [https://www.ired.team/offensive-security/initial-access/password-spraying-outlook-web-access-remote-shell](https://www.ired.team/offensive-security/initial-access/password-spraying-outlook-web-access-remote-shell)
 * [www.blackhillsinfosec.com/?p=5296](https://www.blackhillsinfosec.com/?p=5296)
 * [https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying](https://hunter2.gitbook.io/darthsidious/initial-access/password-spraying)
 
+
+<figure><img src="/.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+अपने **मोबाइल सुरक्षा** में विशेषज्ञता को 8kSec अकादमी के साथ गहरा करें। हमारे आत्म-गति पाठ्यक्रमों के माध्यम से iOS और Android सुरक्षा में महारत हासिल करें और प्रमाणित हों:
+
+{% embed url="https://academy.8ksec.io/" %}
+
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS हैकिंग सीखें और अभ्यास करें:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP हैकिंग सीखें और अभ्यास करें: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>HackTricks का समर्थन करें</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* [**सदस्यता योजनाएँ**](https://github.com/sponsors/carlospolop) देखें!
+* **💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) में शामिल हों या **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)** पर हमें फॉलो करें।**
+* **हैकिंग ट्रिक्स साझा करें और [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपोजिटरी में PR सबमिट करें।**
 
 </details>
 {% endhint %}
