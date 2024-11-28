@@ -25,7 +25,7 @@ Leer & oefen GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size=
 
 ## Basiese Inligting
 
-Die tyd namespace in Linux laat per-namespace offsets toe vir die stelsel monotonic en opstart-tyd kloks. Dit word algemeen gebruik in Linux houers om die datum/tyd binne 'n houer te verander en kloks aan te pas na herstel vanaf 'n kontrolepunt of snapshot.
+Die tyd namespace in Linux laat per-namespace offsets toe tot die stelsels monotonic en opstart-tyd kloks. Dit word algemeen gebruik in Linux houers om die datum/tyd binne 'n houer te verander en kloks aan te pas na herstel vanaf 'n kontrolepunt of snapshot.
 
 ## Laboratorium:
 
@@ -44,8 +44,8 @@ Deur 'n nuwe instansie van die `/proc` lêerstelsel te monteer as jy die paramet
 Wanneer `unshare` sonder die `-f` opsie uitgevoer word, word 'n fout ondervind weens die manier waarop Linux nuwe PID (Proses ID) naamruimtes hanteer. Die sleutelbesonderhede en die oplossing word hieronder uiteengesit:
 
 1. **Probleemverklaring**:
-- Die Linux-kern laat 'n proses toe om nuwe naamruimtes te skep met die `unshare` stelselaanroep. Die proses wat die skepping van 'n nuwe PID naamruimte inisieer (genoem die "unshare" proses) betree egter nie die nuwe naamruimte nie; slegs sy kindproses doen.
-- Om `%unshare -p /bin/bash%` te loop, begin `/bin/bash` in dieselfde proses as `unshare`. Gevolglik is `/bin/bash` en sy kindproses in die oorspronklike PID naamruimte.
+- Die Linux-kern laat 'n proses toe om nuwe naamruimtes te skep met die `unshare` stelselaanroep. Die proses wat die skepping van 'n nuwe PID naamruimte inisieer (genoem die "unshare" proses) gaan egter nie in die nuwe naamruimte in nie; slegs sy kindproses gaan.
+- Om `%unshare -p /bin/bash%` uit te voer, begin `/bin/bash` in dieselfde proses as `unshare`. Gevolglik is `/bin/bash` en sy kindproses in die oorspronklike PID naamruimte.
 - Die eerste kindproses van `/bin/bash` in die nuwe naamruimte word PID 1. Wanneer hierdie proses verlaat, aktiveer dit die opruiming van die naamruimte as daar geen ander prosesse is nie, aangesien PID 1 die spesiale rol het om weesprosesse aan te neem. Die Linux-kern sal dan PID-toewysing in daardie naamruimte deaktiveer.
 
 2. **Gevolg**:
@@ -55,7 +55,7 @@ Wanneer `unshare` sonder die `-f` opsie uitgevoer word, word 'n fout ondervind w
 - Die probleem kan opgelos word deur die `-f` opsie saam met `unshare` te gebruik. Hierdie opsie maak dat `unshare` 'n nuwe proses fork nadat die nuwe PID naamruimte geskep is.
 - Om `%unshare -fp /bin/bash%` uit te voer, verseker dat die `unshare` opdrag self PID 1 in die nuwe naamruimte word. `/bin/bash` en sy kindproses is dan veilig binne hierdie nuwe naamruimte, wat die voortydige uitgang van PID 1 voorkom en normale PID-toewysing toelaat.
 
-Deur te verseker dat `unshare` met die `-f` vlag loop, word die nuwe PID naamruimte korrek gehandhaaf, wat toelaat dat `/bin/bash` en sy sub-prosesse funksioneer sonder om die geheue toewysing fout te ondervind.
+Deur te verseker dat `unshare` met die `-f` vlag loop, word die nuwe PID naamruimte korrek gehandhaaf, wat toelaat dat `/bin/bash` en sy sub-prosesse kan werk sonder om die geheue toewysing fout te ondervind.
 
 </details>
 
