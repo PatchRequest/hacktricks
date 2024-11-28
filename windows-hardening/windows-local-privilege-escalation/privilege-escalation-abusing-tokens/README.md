@@ -10,7 +10,7 @@
 
 ### SeImpersonatePrivilege
 
-यह विशेषाधिकार किसी भी प्रक्रिया द्वारा धारण किया जाता है जो किसी भी टोकन का अनुकरण (लेकिन निर्माण नहीं) करने की अनुमति देता है, बशर्ते कि इसके लिए एक हैंडल प्राप्त किया जा सके। एक विशेषाधिकार प्राप्त टोकन को Windows सेवा (DCOM) से NTLM प्रमाणीकरण को एक शोषण के खिलाफ प्रेरित करके प्राप्त किया जा सकता है, जिसके बाद SYSTEM विशेषाधिकारों के साथ एक प्रक्रिया के निष्पादन की अनुमति मिलती है। इस भेद्यता का शोषण विभिन्न उपकरणों का उपयोग करके किया जा सकता है, जैसे [juicy-potato](https://github.com/ohpe/juicy-potato), [RogueWinRM](https://github.com/antonioCoco/RogueWinRM) (जिसके लिए winrm को बंद करना आवश्यक है), [SweetPotato](https://github.com/CCob/SweetPotato), [EfsPotato](https://github.com/zcgonvh/EfsPotato), [DCOMPotato](https://github.com/zcgonvh/DCOMPotato) और [PrintSpoofer](https://github.com/itm4n/PrintSpoofer)।
+यह विशेषाधिकार किसी भी प्रक्रिया द्वारा धारण किया जाता है जो किसी भी टोकन का अनुकरण (लेकिन निर्माण नहीं) करने की अनुमति देता है, बशर्ते कि इसके लिए एक हैंडल प्राप्त किया जा सके। एक विशेषाधिकार प्राप्त टोकन को Windows सेवा (DCOM) से NTLM प्रमाणीकरण को एक शोषण के खिलाफ प्रेरित करके प्राप्त किया जा सकता है, जिसके बाद SYSTEM विशेषाधिकारों के साथ एक प्रक्रिया के निष्पादन की अनुमति मिलती है। इस भेद्यता का शोषण विभिन्न उपकरणों का उपयोग करके किया जा सकता है, जैसे [juicy-potato](https://github.com/ohpe/juicy-potato), [RogueWinRM](https://github.com/antonioCoco/RogueWinRM) (जिसके लिए winrm को बंद करना आवश्यक है), [SweetPotato](https://github.com/CCob/SweetPotato), [EfsPotato](https://github.com/zcgonvh/EfsPotato), [DCOMPotato](https://github.com/zcgonvh/DCOMPotato) और [PrintSpoofer](https://github.com/itm4n/PrintSpoofer).
 
 {% content-ref url="../roguepotato-and-printspoofer.md" %}
 [roguepotato-and-printspoofer.md](../roguepotato-and-printspoofer.md)
@@ -32,7 +32,7 @@
 
 ### SeBackupPrivilege
 
-यह विशेषाधिकार किसी भी फ़ाइल (पढ़ने के संचालन तक सीमित) को **सभी पढ़ने की पहुंच** नियंत्रण देने के लिए प्रणाली को प्रेरित करता है। इसका उपयोग **स्थानीय व्यवस्थापक** खातों के पासवर्ड हैश को रजिस्ट्री से पढ़ने के लिए किया जाता है, जिसके बाद, "**psexec**" या "**wmiexec**" जैसे उपकरणों का उपयोग हैश के साथ किया जा सकता है (Pass-the-Hash तकनीक)। हालाँकि, यह तकनीक दो स्थितियों में विफल होती है: जब स्थानीय व्यवस्थापक खाता अक्षम होता है, या जब एक नीति लागू होती है जो दूरस्थ रूप से कनेक्ट करने वाले स्थानीय व्यवस्थापकों से प्रशासनिक अधिकार हटा देती है।\
+यह विशेषाधिकार किसी भी फ़ाइल (पढ़ने के संचालन तक सीमित) को **सभी पढ़ने की पहुंच** नियंत्रण देने का कारण बनता है। इसका उपयोग **स्थानीय व्यवस्थापक** खातों के पासवर्ड हैश को रजिस्ट्री से पढ़ने के लिए किया जाता है, जिसके बाद, "**psexec**" या "**wmiexec**" जैसे उपकरणों का उपयोग हैश के साथ किया जा सकता है (Pass-the-Hash तकनीक)। हालाँकि, यह तकनीक दो स्थितियों में विफल होती है: जब स्थानीय व्यवस्थापक खाता अक्षम होता है, या जब एक नीति लागू होती है जो दूरस्थ रूप से कनेक्ट करने वाले स्थानीय व्यवस्थापकों से प्रशासनिक अधिकार हटा देती है।\
 आप इस विशेषाधिकार का **दुरुपयोग** कर सकते हैं:
 
 * [https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1](https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1)
@@ -46,22 +46,22 @@
 
 ### SeRestorePrivilege
 
-किसी भी सिस्टम फ़ाइल के लिए **लिखने की पहुंच** की अनुमति इस विशेषाधिकार द्वारा प्रदान की जाती है, चाहे फ़ाइल की एक्सेस कंट्रोल लिस्ट (ACL) कुछ भी हो। यह कई संभावनाओं को खोलता है, जिसमें **सेवाओं को संशोधित करना**, DLL Hijacking करना, और विभिन्न अन्य तकनीकों के बीच इमेज फ़ाइल निष्पादन विकल्पों के माध्यम से **डिबगर** सेट करना शामिल है।
+यह विशेषाधिकार किसी भी सिस्टम फ़ाइल के लिए **लिखने की पहुंच** की अनुमति देता है, चाहे फ़ाइल की एक्सेस कंट्रोल लिस्ट (ACL) कुछ भी हो। यह विशेषाधिकार कई संभावनाओं को खोलता है, जिसमें **सेवाओं को संशोधित करना**, DLL Hijacking करना, और विभिन्न अन्य तकनीकों के बीच इमेज फ़ाइल निष्पादन विकल्पों के माध्यम से **डीबगर्स** सेट करना शामिल है।
 
 ### SeCreateTokenPrivilege
 
-SeCreateTokenPrivilege एक शक्तिशाली अनुमति है, विशेष रूप से तब उपयोगी होती है जब एक उपयोगकर्ता के पास टोकनों का अनुकरण करने की क्षमता होती है, लेकिन SeImpersonatePrivilege की अनुपस्थिति में भी। यह क्षमता उस टोकन के अनुकरण की क्षमता पर निर्भर करती है जो उसी उपयोगकर्ता का प्रतिनिधित्व करता है और जिसका अखंडता स्तर वर्तमान प्रक्रिया के स्तर से अधिक नहीं होता है।
+SeCreateTokenPrivilege एक शक्तिशाली अनुमति है, विशेष रूप से तब उपयोगी होती है जब एक उपयोगकर्ता के पास टोकनों का अनुकरण करने की क्षमता होती है, लेकिन SeImpersonatePrivilege की अनुपस्थिति में भी। यह क्षमता उस टोकन के अनुकरण करने की क्षमता पर निर्भर करती है जो उसी उपयोगकर्ता का प्रतिनिधित्व करता है और जिसका अखंडता स्तर वर्तमान प्रक्रिया के स्तर से अधिक नहीं होता है।
 
 **मुख्य बिंदु:**
-- **SeImpersonatePrivilege के बिना अनुकरण:** विशेष परिस्थितियों में टोकनों का अनुकरण करने के लिए SeCreateTokenPrivilege का उपयोग करके EoP प्राप्त करना संभव है।
+- **SeImpersonatePrivilege के बिना अनुकरण:** विशेष परिस्थितियों में टोकनों का अनुकरण करके EoP के लिए SeCreateTokenPrivilege का लाभ उठाना संभव है।
 - **टोकन अनुकरण के लिए शर्तें:** सफल अनुकरण के लिए लक्षित टोकन को उसी उपयोगकर्ता का होना चाहिए और इसका अखंडता स्तर उस प्रक्रिया के अखंडता स्तर के बराबर या कम होना चाहिए जो अनुकरण करने का प्रयास कर रही है।
 - **अनुकरण टोकनों का निर्माण और संशोधन:** उपयोगकर्ता एक अनुकरण टोकन बना सकते हैं और इसे एक विशेषाधिकार प्राप्त समूह के SID (सुरक्षा पहचानकर्ता) को जोड़कर बढ़ा सकते हैं।
 
 ### SeLoadDriverPrivilege
 
-यह विशेषाधिकार **डिवाइस ड्राइवरों को लोड और अनलोड** करने की अनुमति देता है, जिसमें `ImagePath` और `Type` के लिए विशिष्ट मानों के साथ रजिस्ट्री प्रविष्टि का निर्माण शामिल है। चूंकि `HKLM` (HKEY_LOCAL_MACHINE) पर सीधे लिखने की पहुंच प्रतिबंधित है, इसलिए `HKCU` (HKEY_CURRENT_USER) का उपयोग किया जाना चाहिए। हालाँकि, ड्राइवर कॉन्फ़िगरेशन के लिए `HKCU` को कर्नेल द्वारा मान्यता प्राप्त करने के लिए, एक विशिष्ट पथ का पालन करना आवश्यक है।
+यह विशेषाधिकार **डिवाइस ड्राइवरों को लोड और अनलोड** करने की अनुमति देता है, जिसमें `ImagePath` और `Type` के लिए विशिष्ट मानों के साथ एक रजिस्ट्री प्रविष्टि का निर्माण शामिल है। चूंकि `HKLM` (HKEY_LOCAL_MACHINE) पर सीधे लिखने की पहुंच प्रतिबंधित है, इसलिए `HKCU` (HKEY_CURRENT_USER) का उपयोग किया जाना चाहिए। हालाँकि, ड्राइवर कॉन्फ़िगरेशन के लिए `HKCU` को कर्नेल द्वारा मान्यता प्राप्त कराने के लिए एक विशिष्ट पथ का पालन करना आवश्यक है।
 
-यह पथ `\Registry\User\<RID>\System\CurrentControlSet\Services\DriverName` है, जहाँ `<RID>` वर्तमान उपयोगकर्ता का सापेक्ष पहचानकर्ता है। `HKCU` के अंदर, इस पूरे पथ को बनाना होगा, और दो मान सेट करने होंगे:
+यह पथ `\Registry\User\<RID>\System\CurrentControlSet\Services\DriverName` है, जहाँ `<RID>` वर्तमान उपयोगकर्ता का सापेक्ष पहचानकर्ता है। `HKCU` के भीतर, इस पूरे पथ को बनाना होगा, और दो मान सेट करने होंगे:
 - `ImagePath`, जो निष्पादित होने वाले बाइनरी का पथ है
 - `Type`, जिसका मान `SERVICE_KERNEL_DRIVER` (`0x00000001`) है।
 
@@ -107,7 +107,7 @@ c:\inetpub\wwwwroot\web.config
 
 #### Dump memory
 
-आप [ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump) का उपयोग [SysInternals Suite](https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite) से **एक प्रक्रिया की मेमोरी कैप्चर करने** के लिए कर सकते हैं। विशेष रूप से, यह **स्थानीय सुरक्षा प्राधिकरण उपप्रणाली सेवा ([LSASS](https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service))** प्रक्रिया पर लागू हो सकता है, जो एक बार उपयोगकर्ता के सफलतापूर्वक सिस्टम में लॉग इन करने के बाद उपयोगकर्ता क्रेडेंशियल्स को संग्रहीत करने के लिए जिम्मेदार है।
+आप [ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump) का उपयोग [SysInternals Suite](https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite) से **एक प्रक्रिया की मेमोरी कैप्चर करने** के लिए कर सकते हैं। विशेष रूप से, यह **स्थानीय सुरक्षा प्राधिकरण उपप्रणाली सेवा ([LSASS](https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service))** प्रक्रिया पर लागू हो सकता है, जो एक उपयोगकर्ता के सफलतापूर्वक सिस्टम में लॉग इन करने के बाद उपयोगकर्ता क्रेडेंशियल्स को संग्रहीत करने के लिए जिम्मेदार है।
 
 आप फिर इस डंप को mimikatz में लोड कर सकते हैं ताकि पासवर्ड प्राप्त कर सकें:
 ```
@@ -118,7 +118,7 @@ mimikatz # sekurlsa::logonpasswords
 ```
 #### RCE
 
-यदि आप `NT SYSTEM` शेल प्राप्त करना चाहते हैं तो आप उपयोग कर सकते हैं:
+यदि आप `NT SYSTEM` शेल प्राप्त करना चाहते हैं, तो आप उपयोग कर सकते हैं:
 
 * ****[**SeDebugPrivilege-Exploit (C++)**](https://github.com/bruno-1337/SeDebugPrivilege-Exploit)****
 * ****[**SeDebugPrivilegePoC (C#)**](https://github.com/daem0nc0re/PrivFu/tree/main/PrivilegedOperations/SeDebugPrivilegePoC)****
@@ -127,7 +127,15 @@ mimikatz # sekurlsa::logonpasswords
 # Get the PID of a process running as NT SYSTEM
 import-module psgetsys.ps1; [MyProcess]::CreateProcessFromParent(<system_pid>,<command_to_execute>)
 ```
-## विशेषाधिकार जांचें
+### SeManageVolumePrivilege
+
+`SeManageVolumePrivilege` एक Windows उपयोगकर्ता अधिकार है जो उपयोगकर्ताओं को डिस्क वॉल्यूम प्रबंधित करने की अनुमति देता है, जिसमें उन्हें बनाना और हटाना शामिल है। जबकि यह प्रशासकों के लिए निर्धारित है, यदि इसे गैर-प्रशासक उपयोगकर्ताओं को दिया जाता है, तो इसका उपयोग विशेषाधिकार वृद्धि के लिए किया जा सकता है।
+
+इस विशेषाधिकार का उपयोग वॉल्यूम को हेरफेर करने के लिए किया जा सकता है, जिससे पूर्ण वॉल्यूम पहुंच प्राप्त होती है। [SeManageVolumeExploit](https://github.com/CsEnox/SeManageVolumeExploit) का उपयोग सभी उपयोगकर्ताओं को C:\ के लिए पूर्ण पहुंच देने के लिए किया जा सकता है।
+
+इसके अतिरिक्त, [इस Medium लेख](https://medium.com/@raphaeltzy13/exploiting-semanagevolumeprivilege-with-dll-hijacking-windows-privilege-escalation-1a4f28372d37) में वर्णित प्रक्रिया `SeManageVolumePrivilege` के साथ DLL हाइजैकिंग का उपयोग करके विशेषाधिकार बढ़ाने का वर्णन करती है। एक पेलोड DLL `C:\Windows\System32\wbem\tzres.dll` रखकर और `systeminfo` को कॉल करके DLL निष्पादित होती है।
+
+## Check privileges
 ```
 whoami /priv
 ```
