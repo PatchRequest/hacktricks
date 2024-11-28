@@ -30,7 +30,7 @@ Namespaces de usuário são particularmente úteis na containerização, onde ca
 ### How it works:
 
 1. Quando um novo namespace de usuário é criado, ele **começa com um conjunto vazio de mapeamentos de ID de usuário e grupo**. Isso significa que qualquer processo executando no novo namespace de usuário **inicialmente não terá privilégios fora do namespace**.
-2. Mapeamentos de ID podem ser estabelecidos entre os IDs de usuário e grupo no novo namespace e aqueles no namespace pai (ou host). Isso **permite que processos no novo namespace tenham privilégios e propriedade correspondentes aos IDs de usuário e grupo no namespace pai**. No entanto, os mapeamentos de ID podem ser restritos a intervalos e subconjuntos específicos de IDs, permitindo um controle detalhado sobre os privilégios concedidos aos processos no novo namespace.
+2. Mapeamentos de ID podem ser estabelecidos entre os IDs de usuário e grupo no novo namespace e aqueles no namespace pai (ou host). Isso **permite que processos no novo namespace tenham privilégios e propriedade correspondentes aos IDs de usuário e grupo no namespace pai**. No entanto, os mapeamentos de ID podem ser restritos a intervalos e subconjuntos específicos de IDs, permitindo um controle mais detalhado sobre os privilégios concedidos aos processos no novo namespace.
 3. Dentro de um namespace de usuário, **processos podem ter privilégios de root completos (UID 0) para operações dentro do namespace**, enquanto ainda têm privilégios limitados fora do namespace. Isso permite que **contêineres sejam executados com capacidades semelhantes a root dentro de seu próprio namespace sem ter privilégios de root completos no sistema host**.
 4. Processos podem se mover entre namespaces usando a chamada de sistema `setns()` ou criar novos namespaces usando as chamadas de sistema `unshare()` ou `clone()` com a flag `CLONE_NEWUSER`. Quando um processo se move para um novo namespace ou cria um, ele começará a usar os mapeamentos de ID de usuário e grupo associados a esse namespace.
 
@@ -48,10 +48,10 @@ Ao montar uma nova instância do sistema de arquivos `/proc` se você usar o par
 
 <summary>Erro: bash: fork: Não é possível alocar memória</summary>
 
-Quando `unshare` é executado sem a opção `-f`, um erro é encontrado devido à forma como o Linux lida com novos namespaces de PID (ID do Processo). Os detalhes principais e a solução estão descritos abaixo:
+Quando `unshare` é executado sem a opção `-f`, um erro é encontrado devido à forma como o Linux lida com novos namespaces de PID (Identificação de Processo). Os detalhes principais e a solução estão descritos abaixo:
 
 1. **Explicação do Problema**:
-- O kernel do Linux permite que um processo crie novos namespaces usando a chamada de sistema `unshare`. No entanto, o processo que inicia a criação de um novo namespace de PID (referido como o processo "unshare") não entra no novo namespace; apenas seus processos filhos entram.
+- O kernel do Linux permite que um processo crie novos namespaces usando a chamada de sistema `unshare`. No entanto, o processo que inicia a criação de um novo namespace de PID (referido como o processo "unshare") não entra no novo namespace; apenas seus processos filhos o fazem.
 - Executar `%unshare -p /bin/bash%` inicia `/bin/bash` no mesmo processo que `unshare`. Consequentemente, `/bin/bash` e seus processos filhos estão no namespace de PID original.
 - O primeiro processo filho de `/bin/bash` no novo namespace se torna PID 1. Quando esse processo sai, ele aciona a limpeza do namespace se não houver outros processos, já que PID 1 tem o papel especial de adotar processos órfãos. O kernel do Linux então desabilitará a alocação de PID nesse namespace.
 
@@ -60,7 +60,7 @@ Quando `unshare` é executado sem a opção `-f`, um erro é encontrado devido �
 
 3. **Solução**:
 - O problema pode ser resolvido usando a opção `-f` com `unshare`. Esta opção faz com que `unshare` fork um novo processo após criar o novo namespace de PID.
-- Executar `%unshare -fp /bin/bash%` garante que o comando `unshare` se torne PID 1 no novo namespace. `/bin/bash` e seus processos filhos são então contidos com segurança dentro deste novo namespace, prevenindo a saída prematura de PID 1 e permitindo a alocação normal de PID.
+- Executar `%unshare -fp /bin/bash%` garante que o comando `unshare` em si se torne PID 1 no novo namespace. `/bin/bash` e seus processos filhos são então contidos com segurança dentro deste novo namespace, prevenindo a saída prematura de PID 1 e permitindo a alocação normal de PID.
 
 Ao garantir que `unshare` seja executado com a flag `-f`, o novo namespace de PID é mantido corretamente, permitindo que `/bin/bash` e seus subprocessos operem sem encontrar o erro de alocação de memória.
 
@@ -70,7 +70,7 @@ Ao garantir que `unshare` seja executado com a flag `-f`, o novo namespace de PI
 ```bash
 docker run -ti --name ubuntu1 -v /usr:/ubuntu1 ubuntu bash
 ```
-Para usar o namespace de usuário, o daemon do Docker precisa ser iniciado com **`--userns-remap=default`** (No ubuntu 14.04, isso pode ser feito modificando `/etc/default/docker` e depois executando `sudo service docker restart`)
+Para usar o user namespace, o daemon do Docker precisa ser iniciado com **`--userns-remap=default`** (No ubuntu 14.04, isso pode ser feito modificando `/etc/default/docker` e depois executando `sudo service docker restart`)
 
 ### &#x20;Verifique em qual namespace seu processo está
 ```bash
@@ -121,12 +121,12 @@ root       27756   27755  0 21:11 pts/10   00:00:00 /bin/bash
 ```
 ### Recuperando Capacidades
 
-No caso de namespaces de usuário, **quando um novo namespace de usuário é criado, o processo que entra no namespace recebe um conjunto completo de capacidades dentro desse namespace**. Essas capacidades permitem que o processo execute operações privilegiadas, como **montar** **sistemas de arquivos**, criar dispositivos ou alterar a propriedade de arquivos, mas **apenas dentro do contexto do seu namespace de usuário**.
+No caso de namespaces de usuário, **quando um novo namespace de usuário é criado, o processo que entra no namespace recebe um conjunto completo de capacidades dentro desse namespace**. Essas capacidades permitem que o processo realize operações privilegiadas, como **montar** **sistemas de arquivos**, criar dispositivos ou alterar a propriedade de arquivos, mas **apenas dentro do contexto de seu namespace de usuário**.
 
 Por exemplo, quando você tem a capacidade `CAP_SYS_ADMIN` dentro de um namespace de usuário, pode realizar operações que normalmente exigem essa capacidade, como montar sistemas de arquivos, mas apenas dentro do contexto do seu namespace de usuário. Quaisquer operações que você realizar com essa capacidade não afetarão o sistema host ou outros namespaces.
 
 {% hint style="warning" %}
-Portanto, mesmo que obter um novo processo dentro de um novo namespace de usuário **te dará todas as capacidades de volta** (CapEff: 000001ffffffffff), você na verdade **só pode usar as relacionadas ao namespace** (montar, por exemplo), mas não todas. Assim, isso por si só não é suficiente para escapar de um contêiner Docker.
+Portanto, mesmo que obter um novo processo dentro de um novo namespace de usuário **lhe dará todas as capacidades de volta** (CapEff: 000001ffffffffff), você na verdade **só pode usar as relacionadas ao namespace** (montar, por exemplo), mas não todas. Assim, isso por si só não é suficiente para escapar de um contêiner Docker.
 {% endhint %}
 ```bash
 # There are the syscalls that are filtered after changing User namespace with:
@@ -150,17 +150,18 @@ Probando: 0x130 . . . Error
 Probando: 0x139 . . . Error
 Probando: 0x140 . . . Error
 Probando: 0x141 . . . Error
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Aprenda e pratique Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Aprenda e pratique Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
 <summary>Support HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
+* **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
