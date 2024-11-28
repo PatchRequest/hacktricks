@@ -35,9 +35,9 @@ UTS (UNIX Time-Sharing System) простір імен є функцією яд�
 
 ### How it works:
 
-1. Коли створюється новий UTS простір імен, він починається з **копії імені хоста та імені домену NIS з його батьківського простору імен**. Це означає, що при створенні новий простір імен **ділить ті ж ідентифікатори, що й його батько**. Однак будь-які подальші зміни в імені хоста або імені домену NIS в межах простору імен не вплинуть на інші простори імен.
+1. Коли новий UTS простір імен створюється, він починається з **копії імені хоста та імені домену NIS з його батьківського простору імен**. Це означає, що при створенні новий простір імен **ділить ті ж ідентифікатори, що й його батько**. Однак будь-які подальші зміни в імені хоста або імені домену NIS в межах простору імен не вплинуть на інші простори імен.
 2. Процеси в межах UTS простору імен **можуть змінювати ім'я хоста та ім'я домену NIS** за допомогою системних викликів `sethostname()` та `setdomainname()`, відповідно. Ці зміни є локальними для простору імен і не впливають на інші простори імен або хост-систему.
-3. Процеси можуть переміщатися між просторами імен, використовуючи системний виклик `setns()`, або створювати нові простори імен за допомогою системних викликів `unshare()` або `clone()` з прапором `CLONE_NEWUTS`. Коли процес переходить до нового простору імен або створює його, він почне використовувати ім'я хоста та ім'я домену NIS, пов'язані з цим простором імен.
+3. Процеси можуть переміщатися між просторами імен, використовуючи системний виклик `setns()`, або створювати нові простори імен, використовуючи системні виклики `unshare()` або `clone()` з прапором `CLONE_NEWUTS`. Коли процес переміщується в новий простір імен або створює його, він почне використовувати ім'я хоста та ім'я домену NIS, пов'язані з цим простором імен.
 
 ## Lab:
 
@@ -92,20 +92,20 @@ sudo find /proc -maxdepth 3 -type l -name uts -exec ls -l  {} \; 2>/dev/null | g
 
 ### Увійти в UTS простір імен
 ```bash
+nsenter -u TARGET_PID --pid /bin/bash
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Вивчайте та практикуйте AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Вивчайте та практикуйте GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Підтримайте HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Перевірте [**плани підписки**](https://github.com/sponsors/carlospolop)!
+* **Приєднуйтесь до** 💬 [**групи Discord**](https://discord.gg/hRep4RUj7f) або [**групи Telegram**](https://t.me/peass) або **слідкуйте** за нами в **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Діліться хакерськими трюками, надсилаючи PR до** [**HackTricks**](https://github.com/carlospolop/hacktricks) та [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) репозиторіїв на github.
 
-</details>
-{% endhint %}
 </details>
 {% endhint %}
 </details>
