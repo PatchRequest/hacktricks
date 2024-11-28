@@ -40,7 +40,7 @@ Questo è un privilegio detenuto da qualsiasi processo che consente l'impersonif
 ### SeAssignPrimaryPrivilege
 
 È molto simile a **SeImpersonatePrivilege**, utilizzerà il **stesso metodo** per ottenere un token privilegiato.\
-Quindi, questo privilegio consente **di assegnare un token primario** a un processo nuovo/sospeso. Con il token di impersonificazione privilegiato puoi derivare un token primario (DuplicateTokenEx).\
+Quindi, questo privilegio consente **di assegnare un token primario** a un nuovo processo/sospeso. Con il token di impersonificazione privilegiato puoi derivare un token primario (DuplicateTokenEx).\
 Con il token, puoi creare un **nuovo processo** con 'CreateProcessAsUser' o creare un processo sospeso e **impostare il token** (in generale, non puoi modificare il token primario di un processo in esecuzione).
 
 ### SeTcbPrivilege
@@ -55,7 +55,7 @@ Puoi **abusare di questo privilegio** con:
 * [https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1](https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1)
 * [https://github.com/giuliano108/SeBackupPrivilege/tree/master/SeBackupPrivilegeCmdLets/bin/Debug](https://github.com/giuliano108/SeBackupPrivilege/tree/master/SeBackupPrivilegeCmdLets/bin/Debug)
 * seguendo **IppSec** in [https://www.youtube.com/watch?v=IfCysW0Od8w\&t=2610\&ab\_channel=IppSec](https://www.youtube.com/watch?v=IfCysW0Od8w\&t=2610\&ab\_channel=IppSec)
-* O come spiegato nella sezione **elevare i privilegi con gli Operatori di Backup** di:
+* O come spiegato nella sezione **elevare i privilegi con Backup Operators** di:
 
 {% content-ref url="../../active-directory-methodology/privileged-groups-and-token-privileges.md" %}
 [privileged-groups-and-token-privileges.md](../../active-directory-methodology/privileged-groups-and-token-privileges.md)
@@ -63,7 +63,7 @@ Puoi **abusare di questo privilegio** con:
 
 ### SeRestorePrivilege
 
-Il permesso per **l'accesso in scrittura** a qualsiasi file di sistema, indipendentemente dalla Access Control List (ACL) del file, è fornito da questo privilegio. Apre numerose possibilità di elevazione, inclusa la capacità di **modificare i servizi**, eseguire DLL Hijacking e impostare **debugger** tramite le Opzioni di Esecuzione del File Immagine tra varie altre tecniche.
+Il permesso per **l'accesso in scrittura** a qualsiasi file di sistema, indipendentemente dall'Access Control List (ACL) del file, è fornito da questo privilegio. Apre numerose possibilità di elevazione, inclusa la capacità di **modificare i servizi**, eseguire DLL Hijacking e impostare **debugger** tramite le Opzioni di Esecuzione del File Immagine tra varie altre tecniche.
 
 ### SeCreateTokenPrivilege
 
@@ -76,14 +76,14 @@ SeCreateTokenPrivilege è un permesso potente, particolarmente utile quando un u
 
 ### SeLoadDriverPrivilege
 
-Questo privilegio consente di **caricare e scaricare driver di dispositivo** con la creazione di una voce di registro con valori specifici per `ImagePath` e `Type`. Poiché l'accesso in scrittura diretto a `HKLM` (HKEY_LOCAL_MACHINE) è ristretto, deve essere utilizzato `HKCU` (HKEY_CURRENT_USER). Tuttavia, per rendere `HKCU` riconoscibile dal kernel per la configurazione del driver, deve essere seguita una specifica strada.
+Questo privilegio consente di **caricare e scaricare driver di dispositivo** con la creazione di una voce di registro con valori specifici per `ImagePath` e `Type`. Poiché l'accesso in scrittura diretto a `HKLM` (HKEY_LOCAL_MACHINE) è limitato, deve essere utilizzato `HKCU` (HKEY_CURRENT_USER). Tuttavia, per rendere `HKCU` riconoscibile dal kernel per la configurazione del driver, deve essere seguita una specifica path.
 
 Questo percorso è `\Registry\User\<RID>\System\CurrentControlSet\Services\DriverName`, dove `<RID>` è l'Identificatore Relativo dell'utente corrente. All'interno di `HKCU`, deve essere creato l'intero percorso e devono essere impostati due valori:
 - `ImagePath`, che è il percorso del binario da eseguire
 - `Type`, con un valore di `SERVICE_KERNEL_DRIVER` (`0x00000001`).
 
 **Passaggi da Seguire:**
-1. Accedi a `HKCU` invece di `HKLM` a causa dell'accesso in scrittura ristretto.
+1. Accedi a `HKCU` invece di `HKLM` a causa dell'accesso in scrittura limitato.
 2. Crea il percorso `\Registry\User\<RID>\System\CurrentControlSet\Services\DriverName` all'interno di `HKCU`, dove `<RID>` rappresenta l'Identificatore Relativo dell'utente corrente.
 3. Imposta `ImagePath` sul percorso di esecuzione del binario.
 4. Assegna `Type` come `SERVICE_KERNEL_DRIVER` (`0x00000001`).
@@ -144,6 +144,14 @@ Se vuoi ottenere una shell `NT SYSTEM` puoi usare:
 # Get the PID of a process running as NT SYSTEM
 import-module psgetsys.ps1; [MyProcess]::CreateProcessFromParent(<system_pid>,<command_to_execute>)
 ```
+### SeManageVolumePrivilege
+
+Il `SeManageVolumePrivilege` è un diritto utente di Windows che consente agli utenti di gestire i volumi disco, inclusa la creazione e la cancellazione degli stessi. Sebbene sia destinato agli amministratori, se concesso a utenti non amministratori, può essere sfruttato per l'escalation dei privilegi.
+
+È possibile sfruttare questo privilegio per manipolare i volumi, portando a un accesso completo ai volumi. L'[SeManageVolumeExploit](https://github.com/CsEnox/SeManageVolumeExploit) può essere utilizzato per dare accesso completo a tutti gli utenti per C:\
+
+Inoltre, il processo descritto in [questo articolo di Medium](https://medium.com/@raphaeltzy13/exploiting-semanagevolumeprivilege-with-dll-hijacking-windows-privilege-escalation-1a4f28372d37) descrive l'uso del DLL hijacking in combinazione con `SeManageVolumePrivilege` per escalare i privilegi. Posizionando un payload DLL `C:\Windows\System32\wbem\tzres.dll` e chiamando `systeminfo`, la dll viene eseguita.
+
 ## Controlla i privilegi
 ```
 whoami /priv
@@ -152,7 +160,7 @@ I **token che appaiono come Disabilitati** possono essere abilitati, puoi effett
 
 ### Abilita tutti i token
 
-Se hai token disabilitati, puoi usare lo script [**EnableAllTokenPrivs.ps1**](https://raw.githubusercontent.com/fashionproof/EnableAllTokenPrivs/master/EnableAllTokenPrivs.ps1) per abilitare tutti i token:
+Se hai token disabilitati, puoi utilizzare lo script [**EnableAllTokenPrivs.ps1**](https://raw.githubusercontent.com/fashionproof/EnableAllTokenPrivs/master/EnableAllTokenPrivs.ps1) per abilitare tutti i token:
 ```powershell
 .\EnableAllTokenPrivs.ps1
 whoami /priv
