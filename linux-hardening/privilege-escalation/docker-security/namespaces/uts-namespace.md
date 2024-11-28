@@ -28,26 +28,27 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 {% endhint %}
 {% endhint %}
 {% endhint %}
+{% endhint %}
 
-## Basic Information
+## 기본 정보
 
-UTS(유닉스 시간 공유 시스템) 네임스페이스는 두 개의 시스템 식별자, 즉 **호스트 이름**과 **NIS**(네트워크 정보 서비스) 도메인 이름의 **격리를 제공하는 리눅스 커널 기능**입니다. 이 격리는 각 UTS 네임스페이스가 **자신의 독립적인 호스트 이름과 NIS 도메인 이름**을 가질 수 있게 하며, 이는 각 컨테이너가 자신의 호스트 이름을 가진 별도의 시스템처럼 보이도록 해야 하는 컨테이너화 시나리오에서 특히 유용합니다.
+UTS (UNIX Time-Sharing System) 네임스페이스는 두 개의 시스템 식별자, 즉 **호스트 이름**과 **NIS** (Network Information Service) 도메인 이름의 **격리를 제공하는 리눅스 커널 기능**입니다. 이 격리는 각 UTS 네임스페이스가 **자신의 독립적인 호스트 이름과 NIS 도메인 이름**을 가질 수 있게 하며, 이는 각 컨테이너가 자신의 호스트 이름을 가진 별도의 시스템처럼 보이도록 해야 하는 컨테이너화 시나리오에서 특히 유용합니다.
 
-### How it works:
+### 작동 방식:
 
 1. 새로운 UTS 네임스페이스가 생성되면, **부모 네임스페이스의 호스트 이름과 NIS 도메인 이름의 복사본**으로 시작합니다. 이는 생성 시 새로운 네임스페이스가 **부모와 동일한 식별자를 공유**함을 의미합니다. 그러나 네임스페이스 내에서 호스트 이름이나 NIS 도메인 이름에 대한 이후의 변경은 다른 네임스페이스에 영향을 미치지 않습니다.
 2. UTS 네임스페이스 내의 프로세스는 각각 `sethostname()` 및 `setdomainname()` 시스템 호출을 사용하여 **호스트 이름과 NIS 도메인 이름을 변경할 수 있습니다**. 이러한 변경은 네임스페이스에 국한되며 다른 네임스페이스나 호스트 시스템에 영향을 미치지 않습니다.
-3. 프로세스는 `setns()` 시스템 호출을 사용하여 네임스페이스 간에 이동하거나 `unshare()` 또는 `clone()` 시스템 호출을 사용하여 `CLONE_NEWUTS` 플래그와 함께 새로운 네임스페이스를 생성할 수 있습니다. 프로세스가 새로운 네임스페이스로 이동하거나 생성할 때, 해당 네임스페이스와 연결된 호스트 이름과 NIS 도메인 이름을 사용하기 시작합니다.
+3. 프로세스는 `setns()` 시스템 호출을 사용하여 네임스페이스 간에 이동하거나, `unshare()` 또는 `clone()` 시스템 호출을 사용하여 `CLONE_NEWUTS` 플래그와 함께 새로운 네임스페이스를 생성할 수 있습니다. 프로세스가 새로운 네임스페이스로 이동하거나 생성할 때, 해당 네임스페이스와 연결된 호스트 이름과 NIS 도메인 이름을 사용하기 시작합니다.
 
-## Lab:
+## 실습:
 
-### Create different Namespaces
+### 다양한 네임스페이스 생성
 
 #### CLI
 ```bash
 sudo unshare -u [--mount-proc] /bin/bash
 ```
-새로운 인스턴스의 `/proc` 파일 시스템을 `--mount-proc` 매개변수를 사용하여 마운트하면, 새로운 마운트 네임스페이스가 **해당 네임스페이스에 특정한 프로세스 정보에 대한 정확하고 격리된 뷰를 갖도록 보장합니다**.
+새로운 `/proc` 파일 시스템 인스턴스를 `--mount-proc` 매개변수를 사용하여 마운트하면, 새로운 마운트 네임스페이스가 **해당 네임스페이스에 특정한 프로세스 정보에 대한 정확하고 격리된 뷰를 갖도록 보장합니다**.
 
 <details>
 
@@ -92,20 +93,20 @@ sudo find /proc -maxdepth 3 -type l -name uts -exec ls -l  {} \; 2>/dev/null | g
 
 ### UTS 네임스페이스 내부로 들어가기
 ```bash
+nsenter -u TARGET_PID --pid /bin/bash
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+AWS 해킹 배우기 및 연습하기:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+GCP 해킹 배우기 및 연습하기: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>HackTricks 지원하기</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* [**구독 계획**](https://github.com/sponsors/carlospolop) 확인하기!
+* **💬 [**Discord 그룹**](https://discord.gg/hRep4RUj7f) 또는 [**텔레그램 그룹**](https://t.me/peass)에 참여하거나 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**를 팔로우하세요.**
+* **[**HackTricks**](https://github.com/carlospolop/hacktricks) 및 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) 깃허브 리포지토리에 PR을 제출하여 해킹 트릭을 공유하세요.**
 
-</details>
-{% endhint %}
 </details>
 {% endhint %}
 </details>
