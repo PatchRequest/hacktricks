@@ -27,7 +27,7 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 
 ### SeImpersonatePrivilege
 
-これは、ハンドルを取得できる限り、任意のトークンの偽装（ただし作成は不可）を許可するプロセスが保持する特権です。特権トークンは、Windowsサービス（DCOM）からNTLM認証を行うように誘導することで取得でき、その後、SYSTEM特権でプロセスを実行することが可能になります。この脆弱性は、[juicy-potato](https://github.com/ohpe/juicy-potato)、[RogueWinRM](https://github.com/antonioCoco/RogueWinRM)（winrmが無効である必要があります）、[SweetPotato](https://github.com/CCob/SweetPotato)、[EfsPotato](https://github.com/zcgonvh/EfsPotato)、[DCOMPotato](https://github.com/zcgonvh/DCOMPotato)、および[PrintSpoofer](https://github.com/itm4n/PrintSpoofer)などのさまざまなツールを使用して悪用できます。
+これは、ハンドルを取得できる場合に、任意のトークンの偽装（作成は不可）を許可するプロセスが保持する特権です。特権トークンは、Windowsサービス（DCOM）からNTLM認証を行うように誘導することで取得でき、その後、SYSTEM特権でプロセスを実行することが可能になります。この脆弱性は、[juicy-potato](https://github.com/ohpe/juicy-potato)、[RogueWinRM](https://github.com/antonioCoco/RogueWinRM)（winrmが無効である必要があります）、[SweetPotato](https://github.com/CCob/SweetPotato)、[EfsPotato](https://github.com/zcgonvh/EfsPotato)、[DCOMPotato](https://github.com/zcgonvh/DCOMPotato)、および[PrintSpoofer](https://github.com/itm4n/PrintSpoofer)などのさまざまなツールを使用して悪用できます。
 
 {% content-ref url="../roguepotato-and-printspoofer.md" %}
 [roguepotato-and-printspoofer.md](../roguepotato-and-printspoofer.md)
@@ -63,7 +63,7 @@ GCPハッキングを学び、実践する：<img src="/.gitbook/assets/grte.png
 
 ### SeRestorePrivilege
 
-この特権により、ファイルのアクセス制御リスト（ACL）に関係なく、任意のシステムファイルへの**書き込みアクセス**が許可されます。これにより、サービスの**変更**、DLLハイジャックの実行、さまざまな技術の中でイメージファイル実行オプションを介して**デバッガ**を設定するなど、特権昇格のための多くの可能性が開かれます。
+この特権により、ファイルのアクセス制御リスト（ACL）に関係なく、任意のシステムファイルへの**書き込みアクセス**が許可されます。これにより、特権昇格のための多くの可能性が開かれ、**サービスの変更**、DLLハイジャックの実行、さまざまな技術の中でイメージファイル実行オプションを介して**デバッガ**を設定することができます。
 
 ### SeCreateTokenPrivilege
 
@@ -76,7 +76,7 @@ SeCreateTokenPrivilegeは強力な権限であり、特にユーザーがトー�
 
 ### SeLoadDriverPrivilege
 
-この特権は、特定の値を持つレジストリエントリを作成することで**デバイスドライバをロードおよびアンロード**することを許可します。`HKLM`（HKEY_LOCAL_MACHINE）への直接書き込みアクセスが制限されているため、`HKCU`（HKEY_CURRENT_USER）を代わりに使用する必要があります。ただし、ドライバ設定のために`HKCU`をカーネルに認識させるには、特定のパスに従う必要があります。
+この特権は、特定の値を持つレジストリエントリを作成することで**デバイスドライバをロードおよびアンロード**することを許可します。`HKLM`（HKEY_LOCAL_MACHINE）への直接書き込みアクセスが制限されているため、`HKCU`（HKEY_CURRENT_USER）を代わりに利用する必要があります。ただし、ドライバ設定のために`HKCU`をカーネルに認識させるには、特定のパスに従う必要があります。
 
 このパスは`\Registry\User\<RID>\System\CurrentControlSet\Services\DriverName`であり、`<RID>`は現在のユーザーの相対識別子です。`HKCU`内にこの全パスを作成し、2つの値を設定する必要があります：
 - `ImagePath`、実行されるバイナリへのパス
@@ -120,11 +120,11 @@ c:\inetpub\wwwwroot\web.config
 ```
 ### SeDebugPrivilege
 
-この特権は**他のプロセスをデバッグする**ことを許可し、メモリの読み書きが可能です。この特権を使用して、ほとんどのアンチウイルスおよびホスト侵入防止ソリューションを回避できるメモリ注入のさまざまな戦略を実行できます。
+この特権は、**他のプロセスをデバッグする**ことを許可し、メモリの読み書きが可能です。この特権を使用して、ほとんどのアンチウイルスおよびホスト侵入防止ソリューションを回避できるメモリ注入のさまざまな戦略を実行できます。
 
 #### メモリのダンプ
 
-[ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump)を使用して、[SysInternals Suite](https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite)から**プロセスのメモリをキャプチャ**できます。具体的には、ユーザーがシステムに正常にログインした後にユーザーの資格情報を保存する**ローカルセキュリティ認証サブシステムサービス（[LSASS](https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service)）**プロセスに適用できます。
+[ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump)を使用して、[SysInternals Suite](https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite)から**プロセスのメモリをキャプチャ**できます。具体的には、ユーザーがシステムに正常にログインした後にユーザーの資格情報を保存する**ローカルセキュリティ機関サブシステムサービス（[LSASS](https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service)）**プロセスに適用できます。
 
 その後、このダンプをmimikatzにロードしてパスワードを取得できます：
 ```
@@ -144,7 +144,15 @@ mimikatz # sekurlsa::logonpasswords
 # Get the PID of a process running as NT SYSTEM
 import-module psgetsys.ps1; [MyProcess]::CreateProcessFromParent(<system_pid>,<command_to_execute>)
 ```
-## 権限を確認する
+### SeManageVolumePrivilege
+
+`SeManageVolumePrivilege`は、ユーザーがディスクボリュームを管理することを許可するWindowsのユーザー権限であり、ボリュームの作成や削除を含みます。管理者向けに設計されていますが、非管理者ユーザーに付与されると、特権昇格に悪用される可能性があります。
+
+この特権を利用してボリュームを操作し、完全なボリュームアクセスを得ることが可能です。[SeManageVolumeExploit](https://github.com/CsEnox/SeManageVolumeExploit)を使用すると、C:\のすべてのユーザーに完全なアクセスを付与できます。
+
+さらに、[このMediumの記事](https://medium.com/@raphaeltzy13/exploiting-semanagevolumeprivilege-with-dll-hijacking-windows-privilege-escalation-1a4f28372d37)に記載されているプロセスでは、`SeManageVolumePrivilege`とDLLハイジャックを組み合わせて特権を昇格させる方法が説明されています。ペイロードDLL `C:\Windows\System32\wbem\tzres.dll`を配置し、`systeminfo`を呼び出すことでDLLが実行されます。
+
+## Check privileges
 ```
 whoami /priv
 ```
@@ -152,7 +160,7 @@ whoami /priv
 
 ### すべてのトークンを有効にする
 
-無効なトークンがある場合は、スクリプト[**EnableAllTokenPrivs.ps1**](https://raw.githubusercontent.com/fashionproof/EnableAllTokenPrivs/master/EnableAllTokenPrivs.ps1)を使用してすべてのトークンを有効にできます：
+トークンが無効になっている場合は、スクリプト[**EnableAllTokenPrivs.ps1**](https://raw.githubusercontent.com/fashionproof/EnableAllTokenPrivs/master/EnableAllTokenPrivs.ps1)を使用してすべてのトークンを有効にできます：
 ```powershell
 .\EnableAllTokenPrivs.ps1
 whoami /priv
@@ -165,14 +173,14 @@ Full token privileges cheatsheet at [https://github.com/gtworek/Priv2Admin](http
 
 | Privilege                  | Impact      | Tool                    | Execution path                                                                                                                                                                                                                                                                                                                                     | Remarks                                                                                                                                                                                                                                                                                                                        |
 | -------------------------- | ----------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`SeAssignPrimaryToken`** | _**Admin**_ | 3rd party tool          | _"ユーザーがトークンを偽装し、potato.exe、rottenpotato.exe、juicypotato.exeなどのツールを使用してntシステムに昇格することを可能にします"_                                                                                                                                                                                                      | Thank you [Aurélien Chalot](https://twitter.com/Defte\_) for the update. I will try to re-phrase it to something more recipe-like soon.                                                                                                                                                                                        |
-| **`SeBackup`**             | **Threat**  | _**Built-in commands**_ | `robocopy /b`を使用して機密ファイルを読み取る                                                                                                                                                                                                                                                                                                             | <p>- %WINDIR%\MEMORY.DMPを読み取ることができる場合、より興味深いかもしれません<br><br>- <code>SeBackupPrivilege</code>（およびrobocopy）は、オープンファイルに関しては役に立ちません。<br><br>- Robocopyは、/bパラメータで動作するためにSeBackupとSeRestoreの両方を必要とします。</p>                                                                      |
+| **`SeAssignPrimaryToken`** | _**Admin**_ | 3rd party tool          | _"ユーザーがトークンを偽装し、potato.exe、rottenpotato.exe、juicypotato.exeなどのツールを使用してntシステムに昇格することを許可します"_                                                                                                                                                                                                      | Thank you [Aurélien Chalot](https://twitter.com/Defte\_) for the update. I will try to re-phrase it to something more recipe-like soon.                                                                                                                                                                                        |
+| **`SeBackup`**             | **Threat**  | _**Built-in commands**_ | `robocopy /b`を使用して機密ファイルを読み取る                                                                                                                                                                                                                                                                                                             | <p>- %WINDIR%\MEMORY.DMPを読み取ることができる場合、より興味深いかもしれません。<br><br>- <code>SeBackupPrivilege</code>（およびrobocopy）は、オープンファイルに関しては役に立ちません。<br><br>- Robocopyは、/bパラメータで動作するためにSeBackupとSeRestoreの両方を必要とします。</p>                                                                      |
 | **`SeCreateToken`**        | _**Admin**_ | 3rd party tool          | `NtCreateToken`を使用してローカル管理者権限を含む任意のトークンを作成します。                                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                                                |
 | **`SeDebug`**              | _**Admin**_ | **PowerShell**          | `lsass.exe`トークンを複製します。                                                                                                                                                                                                                                                                                                                   | Script to be found at [FuzzySecurity](https://github.com/FuzzySecurity/PowerShell-Suite/blob/master/Conjure-LSASS.ps1)                                                                                                                                                                                                         |
-| **`SeLoadDriver`**         | _**Admin**_ | 3rd party tool          | <p>1. <code>szkg64.sys</code>のようなバグのあるカーネルドライバをロードします。<br>2. ドライバの脆弱性を悪用します。<br><br>または、この特権を使用して、<code>ftlMC</code>ビルトインコマンドでセキュリティ関連のドライバをアンロードすることができます。例：<code>fltMC sysmondrv</code></p>                                                                           | <p>1. <code>szkg64</code>の脆弱性は<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-15732">CVE-2018-15732</a>としてリストされています。<br>2. <code>szkg64</code>の<a href="https://www.greyhathacker.net/?p=1025">エクスプロイトコード</a>は<a href="https://twitter.com/parvezghh">Parvez Anwar</a>によって作成されました。</p> |
+| **`SeLoadDriver`**         | _**Admin**_ | 3rd party tool          | <p>1. <code>szkg64.sys</code>のようなバグのあるカーネルドライバをロードします。<br>2. ドライバの脆弱性を悪用します。<br><br>または、<code>ftlMC</code>ビルトインコマンドを使用してセキュリティ関連のドライバをアンロードするためにこの特権を使用できます。例：<code>fltMC sysmondrv</code></p>                                                                           | <p>1. <code>szkg64</code>の脆弱性は<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-15732">CVE-2018-15732</a>としてリストされています。<br>2. <code>szkg64</code>の<a href="https://www.greyhathacker.net/?p=1025">エクスプロイトコード</a>は<a href="https://twitter.com/parvezghh">Parvez Anwar</a>によって作成されました。</p> |
 | **`SeRestore`**            | _**Admin**_ | **PowerShell**          | <p>1. SeRestore特権を持つ状態でPowerShell/ISEを起動します。<br>2. <a href="https://github.com/gtworek/PSBits/blob/master/Misc/EnableSeRestorePrivilege.ps1">Enable-SeRestorePrivilege</a>で特権を有効にします。<br>3. utilman.exeをutilman.oldに名前変更します。<br>4. cmd.exeをutilman.exeに名前変更します。<br>5. コンソールをロックし、Win+Uを押します。</p> | <p>攻撃は一部のAVソフトウェアによって検出される可能性があります。</p><p>代替方法は、同じ特権を使用して「Program Files」に保存されたサービスバイナリを置き換えることに依存します。</p>                                                                                                                                                            |
 | **`SeTakeOwnership`**      | _**Admin**_ | _**Built-in commands**_ | <p>1. <code>takeown.exe /f "%windir%\system32"</code><br>2. <code>icalcs.exe "%windir%\system32" /grant "%username%":F</code><br>3. cmd.exeをutilman.exeに名前変更します。<br>4. コンソールをロックし、Win+Uを押します。</p>                                                                                                                                       | <p>攻撃は一部のAVソフトウェアによって検出される可能性があります。</p><p>代替方法は、同じ特権を使用して「Program Files」に保存されたサービスバイナリを置き換えることに依存します。</p>                                                                                                                                                           |
-| **`SeTcb`**                | _**Admin**_ | 3rd party tool          | <p>トークンを操作してローカル管理者権限を含めます。SeImpersonateが必要な場合があります。</p><p>確認が必要です。</p>                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                                                |
+| **`SeTcb`**                | _**Admin**_ | 3rd party tool          | <p>トークンを操作してローカル管理者権限を含めることができます。SeImpersonateが必要な場合があります。</p><p>確認が必要です。</p>                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                                                |
 
 ## Reference
 
