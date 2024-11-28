@@ -1,33 +1,33 @@
-# Abusing Tokens
+# Κατάχρηση Διακριτικών
 
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Υποστήριξη HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
+* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}
 
-## Tokens
+## Διακριτικά
 
-If you **δεν ξέρετε τι είναι τα Windows Access Tokens** διαβάστε αυτή τη σελίδα πριν συνεχίσετε:
+Αν **δεν ξέρετε τι είναι τα Windows Access Tokens** διαβάστε αυτή τη σελίδα πριν συνεχίσετε:
 
 {% content-ref url="../access-tokens.md" %}
 [access-tokens.md](../access-tokens.md)
 {% endcontent-ref %}
 
-**Ίσως να μπορείτε να ανεβάσετε δικαιώματα εκμεταλλευόμενοι τα tokens που ήδη έχετε**
+**Ίσως να μπορείτε να αναβαθμίσετε τα προνόμιά σας καταχρώντας τα διακριτικά που ήδη έχετε**
 
 ### SeImpersonatePrivilege
 
-Αυτή είναι η άδεια που κατέχει οποιαδήποτε διαδικασία που επιτρέπει την προσωποποίηση (αλλά όχι τη δημιουργία) οποιουδήποτε token, εφόσον μπορεί να αποκτηθεί ένα handle σε αυτό. Ένα προνομιακό token μπορεί να αποκτηθεί από μια υπηρεσία Windows (DCOM) προκαλώντας την να εκτελέσει NTLM authentication κατά ενός exploit, επιτρέποντας στη συνέχεια την εκτέλεση μιας διαδικασίας με δικαιώματα SYSTEM. Αυτή η ευπάθεια μπορεί να εκμεταλλευτεί χρησιμοποιώντας διάφορα εργαλεία, όπως [juicy-potato](https://github.com/ohpe/juicy-potato), [RogueWinRM](https://github.com/antonioCoco/RogueWinRM) (το οποίο απαιτεί να είναι απενεργοποιημένο το winrm), [SweetPotato](https://github.com/CCob/SweetPotato), [EfsPotato](https://github.com/zcgonvh/EfsPotato), [DCOMPotato](https://github.com/zcgonvh/DCOMPotato) και [PrintSpoofer](https://github.com/itm4n/PrintSpoofer).
+Αυτό είναι το προνόμιο που κατέχει οποιαδήποτε διαδικασία που επιτρέπει την προσποίηση (αλλά όχι τη δημιουργία) οποιουδήποτε διακριτικού, εφόσον μπορεί να αποκτηθεί μια αναφορά σε αυτό. Ένα προνομιακό διακριτικό μπορεί να αποκτηθεί από μια υπηρεσία Windows (DCOM) προκαλώντας την να εκτελέσει NTLM authentication κατά ενός exploit, επιτρέποντας στη συνέχεια την εκτέλεση μιας διαδικασίας με προνόμια SYSTEM. Αυτή η ευπάθεια μπορεί να εκμεταλλευτεί χρησιμοποιώντας διάφορα εργαλεία, όπως [juicy-potato](https://github.com/ohpe/juicy-potato), [RogueWinRM](https://github.com/antonioCoco/RogueWinRM) (το οποίο απαιτεί να είναι απενεργοποιημένο το winrm), [SweetPotato](https://github.com/CCob/SweetPotato), [EfsPotato](https://github.com/zcgonvh/EfsPotato), [DCOMPotato](https://github.com/zcgonvh/DCOMPotato) και [PrintSpoofer](https://github.com/itm4n/PrintSpoofer).
 
 {% content-ref url="../roguepotato-and-printspoofer.md" %}
 [roguepotato-and-printspoofer.md](../roguepotato-and-printspoofer.md)
@@ -39,23 +39,23 @@ If you **δεν ξέρετε τι είναι τα Windows Access Tokens** δια
 
 ### SeAssignPrimaryPrivilege
 
-Είναι πολύ παρόμοιο με το **SeImpersonatePrivilege**, θα χρησιμοποιήσει την **ίδια μέθοδο** για να αποκτήσει ένα προνομιακό token.\
-Στη συνέχεια, αυτή η άδεια επιτρέπει **να αναθέσει ένα πρωτεύον token** σε μια νέα/ανασταλμένη διαδικασία. Με το προνομιακό token προσωποποίησης μπορείτε να παράγετε ένα πρωτεύον token (DuplicateTokenEx).\
-Με το token, μπορείτε να δημιουργήσετε μια **νέα διαδικασία** με 'CreateProcessAsUser' ή να δημιουργήσετε μια διαδικασία ανασταλμένη και **να ορίσετε το token** (γενικά, δεν μπορείτε να τροποποιήσετε το πρωτεύον token μιας εκτελούμενης διαδικασίας).
+Είναι πολύ παρόμοιο με το **SeImpersonatePrivilege**, θα χρησιμοποιήσει την **ίδια μέθοδο** για να αποκτήσει ένα προνομιακό διακριτικό.\
+Στη συνέχεια, αυτό το προνόμιο επιτρέπει **να αναθέσει ένα πρωτεύον διακριτικό** σε μια νέα/ανασταλμένη διαδικασία. Με το προνομιακό διακριτικό προσποίησης μπορείτε να παράγετε ένα πρωτεύον διακριτικό (DuplicateTokenEx).\
+Με το διακριτικό, μπορείτε να δημιουργήσετε μια **νέα διαδικασία** με 'CreateProcessAsUser' ή να δημιουργήσετε μια διαδικασία ανασταλμένη και **να ορίσετε το διακριτικό** (γενικά, δεν μπορείτε να τροποποιήσετε το πρωτεύον διακριτικό μιας εκτελούμενης διαδικασίας).
 
 ### SeTcbPrivilege
 
-Αν έχετε ενεργοποιήσει αυτό το token μπορείτε να χρησιμοποιήσετε **KERB\_S4U\_LOGON** για να αποκτήσετε ένα **token προσωποποίησης** για οποιονδήποτε άλλο χρήστη χωρίς να γνωρίζετε τα διαπιστευτήρια, **να προσθέσετε μια αυθαίρετη ομάδα** (admins) στο token, να ορίσετε το **επίπεδο ακεραιότητας** του token σε "**medium**", και να αναθέσετε αυτό το token στο **τρέχον νήμα** (SetThreadToken).
+Αν έχετε ενεργοποιήσει αυτό το διακριτικό μπορείτε να χρησιμοποιήσετε **KERB\_S4U\_LOGON** για να αποκτήσετε ένα **διακριτικό προσποίησης** για οποιονδήποτε άλλο χρήστη χωρίς να γνωρίζετε τα διαπιστευτήρια, **να προσθέσετε μια αυθαίρετη ομάδα** (admins) στο διακριτικό, να ορίσετε το **επίπεδο ακεραιότητας** του διακριτικού σε "**medium**", και να αναθέσετε αυτό το διακριτικό στο **τρέχον νήμα** (SetThreadToken).
 
 ### SeBackupPrivilege
 
-Το σύστημα προκαλεί να **παρέχει πλήρη πρόσβαση** ανάγνωσης σε οποιοδήποτε αρχείο (περιορισμένο σε λειτουργίες ανάγνωσης) μέσω αυτής της άδειας. Χρησιμοποιείται για **ανάγνωση των hash κωδικών πρόσβασης των τοπικών λογαριασμών Διαχειριστή** από το μητρώο, μετά από το οποίο, εργαλεία όπως το "**psexec**" ή το "**wmiexec**" μπορούν να χρησιμοποιηθούν με το hash (τεχνική Pass-the-Hash). Ωστόσο, αυτή η τεχνική αποτυγχάνει υπό δύο συνθήκες: όταν ο λογαριασμός τοπικού διαχειριστή είναι απενεργοποιημένος, ή όταν υπάρχει πολιτική που αφαιρεί τα διοικητικά δικαιώματα από τους τοπικούς διαχειριστές που συνδέονται απομακρυσμένα.\
-Μπορείτε να **εκμεταλλευτείτε αυτή την άδεια** με:
+Το σύστημα προκαλεί να **παρέχει πλήρη πρόσβαση** ανάγνωσης σε οποιοδήποτε αρχείο (περιορισμένο σε λειτουργίες ανάγνωσης) μέσω αυτού του προνομίου. Χρησιμοποιείται για **ανάγνωση των κατακερματισμών κωδικών πρόσβασης των τοπικών λογαριασμών Διαχειριστή** από τη μητρώο, ακολουθούμενη από τη χρήση εργαλείων όπως το "**psexec**" ή το "**wmiexec**" με τον κατακερματισμό (τεχνική Pass-the-Hash). Ωστόσο, αυτή η τεχνική αποτυγχάνει υπό δύο συνθήκες: όταν ο λογαριασμός Τοπικού Διαχειριστή είναι απενεργοποιημένος, ή όταν υπάρχει πολιτική που αφαιρεί τα διοικητικά δικαιώματα από τους Τοπικούς Διαχειριστές που συνδέονται απομακρυσμένα.\
+Μπορείτε να **καταχραστείτε αυτό το προνόμιο** με:
 
 * [https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1](https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1)
 * [https://github.com/giuliano108/SeBackupPrivilege/tree/master/SeBackupPrivilegeCmdLets/bin/Debug](https://github.com/giuliano108/SeBackupPrivilege/tree/master/SeBackupPrivilegeCmdLets/bin/Debug)
 * ακολουθώντας τον **IppSec** στο [https://www.youtube.com/watch?v=IfCysW0Od8w\&t=2610\&ab\_channel=IppSec](https://www.youtube.com/watch?v=IfCysW0Od8w\&t=2610\&ab\_channel=IppSec)
-* Ή όπως εξηγείται στην ενότητα **ανύψωσης δικαιωμάτων με Backup Operators**:
+* Ή όπως εξηγείται στην ενότητα **αναβάθμιση προνομίων με Backup Operators**:
 
 {% content-ref url="../../active-directory-methodology/privileged-groups-and-token-privileges.md" %}
 [privileged-groups-and-token-privileges.md](../../active-directory-methodology/privileged-groups-and-token-privileges.md)
@@ -63,29 +63,29 @@ If you **δεν ξέρετε τι είναι τα Windows Access Tokens** δια
 
 ### SeRestorePrivilege
 
-Η άδεια για **πρόσβαση εγγραφής** σε οποιοδήποτε αρχείο συστήματος, ανεξαρτήτως της Λίστας Ελέγχου Πρόσβασης (ACL) του αρχείου, παρέχεται από αυτή την άδεια. Ανοίγει πολλές δυνατότητες για ανύψωση, συμπεριλαμβανομένης της δυνατότητας **τροποποίησης υπηρεσιών**, εκτέλεσης DLL Hijacking, και ρύθμισης **debuggers** μέσω των Επιλογών Εκτέλεσης Αρχείων Εικόνας μεταξύ άλλων τεχνικών.
+Η άδεια για **πρόσβαση εγγραφής** σε οποιοδήποτε αρχείο συστήματος, ανεξαρτήτως της Λίστας Ελέγχου Πρόσβασης (ACL) του αρχείου, παρέχεται από αυτό το προνόμιο. Ανοίγει πολλές δυνατότητες για αναβάθμιση, συμπεριλαμβανομένης της δυνατότητας **τροποποίησης υπηρεσιών**, εκτέλεσης DLL Hijacking και ρύθμισης **debuggers** μέσω των Επιλογών Εκτέλεσης Αρχείων Εικόνας μεταξύ άλλων τεχνικών.
 
 ### SeCreateTokenPrivilege
 
-Το SeCreateTokenPrivilege είναι μια ισχυρή άδεια, ιδιαίτερα χρήσιμη όταν ένας χρήστης έχει τη δυνατότητα να προσωποποιεί tokens, αλλά και στην απουσία του SeImpersonatePrivilege. Αυτή η ικανότητα εξαρτάται από την ικανότητα να προσωποποιεί ένα token που αντιπροσωπεύει τον ίδιο χρήστη και του οποίου το επίπεδο ακεραιότητας δεν υπερβαίνει αυτό της τρέχουσας διαδικασίας.
+Το SeCreateTokenPrivilege είναι μια ισχυρή άδεια, ιδιαίτερα χρήσιμη όταν ένας χρήστης έχει τη δυνατότητα να προσποιείται διακριτικά, αλλά και στην απουσία του SeImpersonatePrivilege. Αυτή η ικανότητα εξαρτάται από την ικανότητα να προσποιείται ένα διακριτικό που αντιπροσωπεύει τον ίδιο χρήστη και του οποίου το επίπεδο ακεραιότητας δεν υπερβαίνει αυτό της τρέχουσας διαδικασίας.
 
 **Κύρια Σημεία:**
-- **Προσωποποίηση χωρίς SeImpersonatePrivilege:** Είναι δυνατόν να εκμεταλλευτείτε το SeCreateTokenPrivilege για EoP προσωποποιώντας tokens υπό συγκεκριμένες συνθήκες.
-- **Συνθήκες για Προσωποποίηση Token:** Η επιτυχής προσωποποίηση απαιτεί το στοχευμένο token να ανήκει στον ίδιο χρήστη και να έχει επίπεδο ακεραιότητας που είναι μικρότερο ή ίσο με το επίπεδο ακεραιότητας της διαδικασίας που προσπαθεί να προσωποποιήσει.
-- **Δημιουργία και Τροποποίηση Προσωποποιημένων Tokens:** Οι χρήστες μπορούν να δημιουργήσουν ένα token προσωποποίησης και να το ενισχύσουν προσθέτοντας ένα SID (Αναγνωριστικό Ασφαλείας) προνομιακής ομάδας.
+- **Προσποίηση χωρίς SeImpersonatePrivilege:** Είναι δυνατόν να αξιοποιηθεί το SeCreateTokenPrivilege για EoP προσποιούμενοι διακριτικά υπό συγκεκριμένες συνθήκες.
+- **Συνθήκες για Προσποίηση Διακριτικών:** Η επιτυχής προσποίηση απαιτεί το διακριτικό στόχο να ανήκει στον ίδιο χρήστη και να έχει επίπεδο ακεραιότητας που είναι μικρότερο ή ίσο με το επίπεδο ακεραιότητας της διαδικασίας που προσπαθεί να προσποιηθεί.
+- **Δημιουργία και Τροποποίηση Διακριτικών Προσποίησης:** Οι χρήστες μπορούν να δημιουργήσουν ένα διακριτικό προσποίησης και να το ενισχύσουν προσθέτοντας ένα SID (Αναγνωριστικό Ασφαλείας) προνομιακής ομάδας.
 
 ### SeLoadDriverPrivilege
 
-Αυτή η άδεια επιτρέπει να **φορτώνει και να ξεφορτώνει οδηγούς συσκευών** με τη δημιουργία μιας εγγραφής μητρώου με συγκεκριμένες τιμές για το `ImagePath` και `Type`. Δεδομένου ότι η άμεση πρόσβαση εγγραφής στο `HKLM` (HKEY_LOCAL_MACHINE) είναι περιορισμένη, πρέπει να χρησιμοποιηθεί το `HKCU` (HKEY_CURRENT_USER). Ωστόσο, για να γίνει το `HKCU` αναγνωρίσιμο από τον πυρήνα για τη ρύθμιση του οδηγού, πρέπει να ακολουθηθεί μια συγκεκριμένη διαδρομή.
+Αυτό το προνόμιο επιτρέπει τη **φόρτωση και εκφόρτωση οδηγών συσκευών** με τη δημιουργία μιας καταχώρισης μητρώου με συγκεκριμένες τιμές για το `ImagePath` και το `Type`. Δεδομένου ότι η άμεση πρόσβαση εγγραφής στο `HKLM` (HKEY_LOCAL_MACHINE) είναι περιορισμένη, πρέπει να χρησιμοποιηθεί το `HKCU` (HKEY_CURRENT_USER). Ωστόσο, για να γίνει το `HKCU` αναγνωρίσιμο από τον πυρήνα για τη ρύθμιση του οδηγού, πρέπει να ακολουθηθεί μια συγκεκριμένη διαδρομή.
 
 Αυτή η διαδρομή είναι `\Registry\User\<RID>\System\CurrentControlSet\Services\DriverName`, όπου `<RID>` είναι ο Σχετικός Αναγνωριστής του τρέχοντος χρήστη. Μέσα στο `HKCU`, πρέπει να δημιουργηθεί αυτή η ολόκληρη διαδρομή και να οριστούν δύο τιμές:
-- `ImagePath`, που είναι η διαδρομή προς το δυαδικό αρχείο που θα εκτελεστεί
+- `ImagePath`, που είναι η διαδρομή προς το δυαδικό που θα εκτελεστεί
 - `Type`, με τιμή `SERVICE_KERNEL_DRIVER` (`0x00000001`).
 
 **Βήματα που πρέπει να ακολουθηθούν:**
-1. Πρόσβαση στο `HKCU` αντί για το `HKLM` λόγω περιορισμένης πρόσβασης εγγραφής.
+1. Πρόσβαση στο `HKCU` αντί για `HKLM` λόγω περιορισμένης πρόσβασης εγγραφής.
 2. Δημιουργία της διαδρομής `\Registry\User\<RID>\System\CurrentControlSet\Services\DriverName` εντός του `HKCU`, όπου `<RID>` αντιπροσωπεύει τον Σχετικό Αναγνωριστή του τρέχοντος χρήστη.
-3. Ορισμός του `ImagePath` στη διαδρομή εκτέλεσης του δυαδικού αρχείου.
+3. Ορισμός του `ImagePath` στη διαδρομή εκτέλεσης του δυαδικού.
 4. Ανάθεση του `Type` ως `SERVICE_KERNEL_DRIVER` (`0x00000001`).
 ```python
 # Example Python code to set the registry values
@@ -98,7 +98,7 @@ reg.SetValueEx(key, "ImagePath", 0, reg.REG_SZ, "path_to_binary")
 reg.SetValueEx(key, "Type", 0, reg.REG_DWORD, 0x00000001)
 reg.CloseKey(key)
 ```
-Περισσότεροι τρόποι για να καταχραστεί αυτή η εξουσία στο [https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/privileged-accounts-and-token-privileges#seloaddriverprivilege](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/privileged-accounts-and-token-privileges#seloaddriverprivilege)
+Περισσότεροι τρόποι για να καταχραστεί αυτή η προνομία στο [https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/privileged-accounts-and-token-privileges#seloaddriverprivilege](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/privileged-accounts-and-token-privileges#seloaddriverprivilege)
 
 ### SeTakeOwnershipPrivilege
 
@@ -135,7 +135,7 @@ mimikatz # sekurlsa::logonpasswords
 ```
 #### RCE
 
-Αν θέλεις να αποκτήσεις ένα `NT SYSTEM` shell μπορείς να χρησιμοποιήσεις:
+Αν θέλετε να αποκτήσετε ένα `NT SYSTEM` shell μπορείτε να χρησιμοποιήσετε:
 
 * ****[**SeDebugPrivilege-Exploit (C++)**](https://github.com/bruno-1337/SeDebugPrivilege-Exploit)****
 * ****[**SeDebugPrivilegePoC (C#)**](https://github.com/daem0nc0re/PrivFu/tree/main/PrivilegedOperations/SeDebugPrivilegePoC)****
@@ -144,7 +144,15 @@ mimikatz # sekurlsa::logonpasswords
 # Get the PID of a process running as NT SYSTEM
 import-module psgetsys.ps1; [MyProcess]::CreateProcessFromParent(<system_pid>,<command_to_execute>)
 ```
-## Έλεγχος δικαιωμάτων
+### SeManageVolumePrivilege
+
+Το `SeManageVolumePrivilege` είναι ένα δικαίωμα χρήστη των Windows που επιτρέπει στους χρήστες να διαχειρίζονται δίσκους, συμπεριλαμβανομένης της δημιουργίας και διαγραφής τους. Ενώ προορίζεται για διαχειριστές, αν παραχωρηθεί σε μη διαχειριστές χρήστες, μπορεί να εκμεταλλευτεί για αναβάθμιση δικαιωμάτων.
+
+Είναι δυνατόν να εκμεταλλευτεί αυτό το δικαίωμα για να χειριστεί δίσκους, οδηγώντας σε πλήρη πρόσβαση σε δίσκους. Το [SeManageVolumeExploit](https://github.com/CsEnox/SeManageVolumeExploit) μπορεί να χρησιμοποιηθεί για να δώσει πλήρη πρόσβαση σε όλους τους χρήστες για το C:\
+
+Επιπλέον, η διαδικασία που περιγράφεται σε [αυτό το άρθρο του Medium](https://medium.com/@raphaeltzy13/exploiting-semanagevolumeprivilege-with-dll-hijacking-windows-privilege-escalation-1a4f28372d37) περιγράφει τη χρήση DLL hijacking σε συνδυασμό με το `SeManageVolumePrivilege` για την αναβάθμιση δικαιωμάτων. Τοποθετώντας ένα payload DLL `C:\Windows\System32\wbem\tzres.dll` και καλώντας το `systeminfo`, η dll εκτελείται.
+
+## Check privileges
 ```
 whoami /priv
 ```
@@ -167,11 +175,11 @@ Full token privileges cheatsheet at [https://github.com/gtworek/Priv2Admin](http
 | -------------------------- | ----------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **`SeAssignPrimaryToken`** | _**Admin**_ | 3rd party tool          | _"Θα επέτρεπε σε έναν χρήστη να προσποιείται tokens και να αποκτά δικαιώματα στο nt system χρησιμοποιώντας εργαλεία όπως το potato.exe, rottenpotato.exe και juicypotato.exe"_                                                                                                                                                                   | Ευχαριστώ [Aurélien Chalot](https://twitter.com/Defte\_) για την ενημέρωση. Θα προσπαθήσω να το ξαναδιατυπώσω σε κάτι πιο συνταγές σύντομα.                                                                                                                                                                                        |
 | **`SeBackup`**             | **Threat**  | _**Built-in commands**_ | Διαβάστε ευαίσθητα αρχεία με `robocopy /b`                                                                                                                                                                                                                                                                                                             | <p>- Μπορεί να είναι πιο ενδιαφέρον αν μπορείτε να διαβάσετε το %WINDIR%\MEMORY.DMP<br><br>- <code>SeBackupPrivilege</code> (και robocopy) δεν είναι χρήσιμο όταν πρόκειται για ανοιχτά αρχεία.<br><br>- Το Robocopy απαιτεί τόσο το SeBackup όσο και το SeRestore για να λειτουργήσει με την παράμετρο /b.</p>                                                                      |
-| **`SeCreateToken`**        | _**Admin**_ | 3rd party tool          | Δημιουργήστε αυθαίρετο token συμπεριλαμβανομένων των δικαιωμάτων τοπικού διαχειριστή με `NtCreateToken`.                                                                                                                                                                                                                                           |                                                                                                                                                                                                                                                                                                                                |
-| **`SeDebug`**              | _**Admin**_ | **PowerShell**          | Διπλασιάστε το token του `lsass.exe`.                                                                                                                                                                                                                                                                                                                   | Το script μπορεί να βρεθεί στο [FuzzySecurity](https://github.com/FuzzySecurity/PowerShell-Suite/blob/master/Conjure-LSASS.ps1)                                                                                                                                                                                                         |
-| **`SeLoadDriver`**         | _**Admin**_ | 3rd party tool          | <p>1. Φορτώστε ελαττωματικό kernel driver όπως το <code>szkg64.sys</code><br>2. Εκμεταλλευτείτε την ευπάθεια του driver<br><br>Εναλλακτικά, το δικαίωμα μπορεί να χρησιμοποιηθεί για να ξεφορτωθείτε drivers που σχετίζονται με την ασφάλεια με την εντολή <code>ftlMC</code>.<br>π.χ.: <code>fltMC sysmondrv</code></p> | <p>1. Η ευπάθεια <code>szkg64</code> αναφέρεται ως <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-15732">CVE-2018-15732</a><br>2. Ο κώδικας εκμετάλλευσης <code>szkg64</code> <a href="https://www.greyhathacker.net/?p=1025">δημιουργήθηκε από</a> <a href="https://twitter.com/parvezghh">Parvez Anwar</a></p> |
-| **`SeRestore`**            | _**Admin**_ | **PowerShell**          | <p>1. Εκκινήστε το PowerShell/ISE με το δικαίωμα SeRestore παρόν.<br>2. Ενεργοποιήστε το δικαίωμα με <a href="https://github.com/gtworek/PSBits/blob/master/Misc/EnableSeRestorePrivilege.ps1">Enable-SeRestorePrivilege</a>.<br>3. Μετονομάστε το utilman.exe σε utilman.old<br>4. Μετονομάστε το cmd.exe σε utilman.exe<br>5. Κλειδώστε την κονσόλα και πατήστε Win+U</p> | <p>Η επίθεση μπορεί να ανιχνευθεί από κάποιο λογισμικό AV.</p><p>Η εναλλακτική μέθοδος βασίζεται στην αντικατάσταση των δυαδικών αρχείων υπηρεσίας που αποθηκεύονται στα "Program Files" χρησιμοποιώντας το ίδιο δικαίωμα.</p>                                                                                                                                                            |
-| **`SeTakeOwnership`**      | _**Admin**_ | _**Built-in commands**_ | <p>1. <code>takeown.exe /f "%windir%\system32"</code><br>2. <code>icalcs.exe "%windir%\system32" /grant "%username%":F</code><br>3. Μετονομάστε το cmd.exe σε utilman.exe<br>4. Κλειδώστε την κονσόλα και πατήστε Win+U</p>                                                                                                                                       | <p>Η επίθεση μπορεί να ανιχνευθεί από κάποιο λογισμικό AV.</p><p>Η εναλλακτική μέθοδος βασίζεται στην αντικατάσταση των δυαδικών αρχείων υπηρεσίας που αποθηκεύονται στα "Program Files" χρησιμοποιώντας το ίδιο δικαίωμα.</p>                                                                                                                                                           |
+| **`SeCreateToken`**        | _**Admin**_ | 3rd party tool          | Δημιουργήστε αυθαίρετο token που περιλαμβάνει δικαιώματα τοπικού διαχειριστή με `NtCreateToken`.                                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                                                |
+| **`SeDebug`**              | _**Admin**_ | **PowerShell**          | Διπλασιάστε το token του `lsass.exe`.                                                                                                                                                                                                                                                                                                                   | Το σενάριο μπορεί να βρεθεί στο [FuzzySecurity](https://github.com/FuzzySecurity/PowerShell-Suite/blob/master/Conjure-LSASS.ps1)                                                                                                                                                                                                         |
+| **`SeLoadDriver`**         | _**Admin**_ | 3rd party tool          | <p>1. Φορτώστε ελαττωματικό kernel driver όπως το <code>szkg64.sys</code><br>2. Εκμεταλλευτείτε την ευπάθεια του driver<br><br>Εναλλακτικά, το δικαίωμα μπορεί να χρησιμοποιηθεί για να ξεφορτωθείτε drivers που σχετίζονται με την ασφάλεια με την εντολή <code>ftlMC</code> builtin. δηλαδή: <code>fltMC sysmondrv</code></p>                                                                           | <p>1. Η ευπάθεια του <code>szkg64</code> αναφέρεται ως <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-15732">CVE-2018-15732</a><br>2. Ο <code>szkg64</code> <a href="https://www.greyhathacker.net/?p=1025">κωδικός εκμετάλλευσης</a> δημιουργήθηκε από <a href="https://twitter.com/parvezghh">Parvez Anwar</a></p> |
+| **`SeRestore`**            | _**Admin**_ | **PowerShell**          | <p>1. Εκκινήστε το PowerShell/ISE με το δικαίωμα SeRestore παρόν.<br>2. Ενεργοποιήστε το δικαίωμα με <a href="https://github.com/gtworek/PSBits/blob/master/Misc/EnableSeRestorePrivilege.ps1">Enable-SeRestorePrivilege</a>).<br>3. Μετονομάστε το utilman.exe σε utilman.old<br>4. Μετονομάστε το cmd.exe σε utilman.exe<br>5. Κλειδώστε την κονσόλα και πατήστε Win+U</p> | <p>Η επίθεση μπορεί να ανιχνευθεί από κάποιο λογισμικό AV.</p><p>Η εναλλακτική μέθοδος βασίζεται στην αντικατάσταση των δυαδικών αρχείων υπηρεσιών που αποθηκεύονται στα "Program Files" χρησιμοποιώντας το ίδιο δικαίωμα</p>                                                                                                                                                            |
+| **`SeTakeOwnership`**      | _**Admin**_ | _**Built-in commands**_ | <p>1. <code>takeown.exe /f "%windir%\system32"</code><br>2. <code>icalcs.exe "%windir%\system32" /grant "%username%":F</code><br>3. Μετονομάστε το cmd.exe σε utilman.exe<br>4. Κλειδώστε την κονσόλα και πατήστε Win+U</p>                                                                                                                                       | <p>Η επίθεση μπορεί να ανιχνευθεί από κάποιο λογισμικό AV.</p><p>Η εναλλακτική μέθοδος βασίζεται στην αντικατάσταση των δυαδικών αρχείων υπηρεσιών που αποθηκεύονται στα "Program Files" χρησιμοποιώντας το ίδιο δικαίωμα.</p>                                                                                                                                                           |
 | **`SeTcb`**                | _**Admin**_ | 3rd party tool          | <p>Manipulate tokens to have local admin rights included. May require SeImpersonate.</p><p>To be verified.</p>                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                                                |
 
 ## Reference
