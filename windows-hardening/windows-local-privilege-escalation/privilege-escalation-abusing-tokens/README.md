@@ -23,7 +23,7 @@ If you **nie wiesz, czym są tokeny dostępu w systemie Windows**, przeczytaj t�
 [access-tokens.md](../access-tokens.md)
 {% endcontent-ref %}
 
-**Możesz być w stanie podnieść uprawnienia, wykorzystując tokeny, które już masz**
+**Możesz być w stanie podnieść uprawnienia, wykorzystując tokeny, które już posiadasz**
 
 ### SeImpersonatePrivilege
 
@@ -40,16 +40,16 @@ To uprawnienie, które posiada każdy proces, pozwala na impersonację (ale nie 
 ### SeAssignPrimaryPrivilege
 
 Jest bardzo podobne do **SeImpersonatePrivilege**, wykorzysta **tę samą metodę** do uzyskania tokena z uprawnieniami.\
-Następnie to uprawnienie pozwala **przypisać token główny** do nowego/zawieszonego procesu. Z tokenem impersonacyjnym z uprawnieniami możesz uzyskać token główny (DuplicateTokenEx).\
-Z tym tokenem możesz stworzyć **nowy proces** za pomocą 'CreateProcessAsUser' lub stworzyć proces zawieszony i **ustawić token** (ogólnie nie możesz modyfikować głównego tokena działającego procesu).
+Następnie to uprawnienie pozwala **przypisać token główny** do nowego/zawieszonego procesu. Dzięki tokenowi z uprawnieniami możesz uzyskać token główny (DuplicateTokenEx).\
+Z tym tokenem możesz utworzyć **nowy proces** za pomocą 'CreateProcessAsUser' lub utworzyć proces zawieszony i **ustawić token** (ogólnie nie możesz modyfikować głównego tokena działającego procesu).
 
 ### SeTcbPrivilege
 
-Jeśli masz włączony ten token, możesz użyć **KERB\_S4U\_LOGON**, aby uzyskać **token impersonacyjny** dla dowolnego innego użytkownika bez znajomości poświadczeń, **dodać dowolną grupę** (administratorów) do tokena, ustawić **poziom integralności** tokena na "**średni**" i przypisać ten token do **bieżącego wątku** (SetThreadToken).
+Jeśli masz włączony ten token, możesz użyć **KERB\_S4U\_LOGON**, aby uzyskać **token impersonacji** dla dowolnego innego użytkownika bez znajomości poświadczeń, **dodać dowolną grupę** (administratorów) do tokena, ustawić **poziom integralności** tokena na "**średni**" i przypisać ten token do **bieżącego wątku** (SetThreadToken).
 
 ### SeBackupPrivilege
 
-System jest zmuszony do **przyznania pełnego dostępu do odczytu** do dowolnego pliku (ograniczonego do operacji odczytu) przez to uprawnienie. Jest wykorzystywane do **odczytywania skrótów haseł lokalnych kont administratora** z rejestru, po czym narzędzia takie jak "**psexec**" lub "**wmiexec**" mogą być używane z hasłem (technika Pass-the-Hash). Jednak ta technika zawodzi w dwóch warunkach: gdy konto lokalnego administratora jest wyłączone lub gdy obowiązuje polityka, która odbiera prawa administracyjne lokalnym administratorom łączącym się zdalnie.\
+System jest zmuszony do **przyznania pełnego dostępu do odczytu** do dowolnego pliku (ograniczonego do operacji odczytu) przez to uprawnienie. Jest wykorzystywane do **odczytywania skrótów haseł lokalnych kont administratorów** z rejestru, po czym narzędzia takie jak "**psexec**" lub "**wmiexec**" mogą być używane z hasłem (technika Pass-the-Hash). Jednak ta technika zawodzi w dwóch warunkach: gdy konto lokalnego administratora jest wyłączone lub gdy obowiązuje polityka, która odbiera prawa administracyjne lokalnym administratorom łączącym się zdalnie.\
 Możesz **wykorzystać to uprawnienie** za pomocą:
 
 * [https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1](https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1)
@@ -63,7 +63,7 @@ Możesz **wykorzystać to uprawnienie** za pomocą:
 
 ### SeRestorePrivilege
 
-Uprawnienie do **dostępu do zapisu** do dowolnego pliku systemowego, niezależnie od listy kontroli dostępu (ACL) pliku, jest zapewniane przez to uprawnienie. Otwiera to wiele możliwości podnoszenia uprawnień, w tym możliwość **modyfikacji usług**, przeprowadzania DLL Hijacking oraz ustawiania **debuggerów** za pomocą opcji wykonania pliku obrazu, wśród różnych innych technik.
+Uprawnienie do **zapisu** do dowolnego pliku systemowego, niezależnie od listy kontroli dostępu (ACL) pliku, jest zapewniane przez to uprawnienie. Otwiera to liczne możliwości podnoszenia uprawnień, w tym możliwość **modyfikacji usług**, przeprowadzania DLL Hijacking oraz ustawiania **debuggerów** za pomocą opcji wykonania pliku obrazu, wśród różnych innych technik.
 
 ### SeCreateTokenPrivilege
 
@@ -72,11 +72,12 @@ SeCreateTokenPrivilege to potężne uprawnienie, szczególnie przydatne, gdy uż
 **Kluczowe punkty:**
 - **Impersonacja bez SeImpersonatePrivilege:** Możliwe jest wykorzystanie SeCreateTokenPrivilege do EoP poprzez impersonację tokenów w określonych warunkach.
 - **Warunki dla impersonacji tokenów:** Udana impersonacja wymaga, aby docelowy token należał do tego samego użytkownika i miał poziom integralności mniejszy lub równy poziomowi integralności procesu próbującego impersonacji.
-- **Tworzenie i modyfikacja tokenów impersonacyjnych:** Użytkownicy mogą tworzyć token impersonacyjny i wzbogacać go, dodając SID grupy z uprawnieniami (Security Identifier).
+- **Tworzenie i modyfikacja tokenów impersonacji:** Użytkownicy mogą tworzyć token impersonacji i wzbogacać go, dodając SID (identyfikator zabezpieczeń) grupy z uprawnieniami.
+
 
 ### SeLoadDriverPrivilege
 
-To uprawnienie pozwala na **ładowanie i odładowywanie sterowników urządzeń** poprzez utworzenie wpisu w rejestrze z określonymi wartościami dla `ImagePath` i `Type`. Ponieważ bezpośredni dostęp do zapisu w `HKLM` (HKEY_LOCAL_MACHINE) jest ograniczony, należy zamiast tego wykorzystać `HKCU` (HKEY_CURRENT_USER). Jednak aby `HKCU` było rozpoznawane przez jądro do konfiguracji sterowników, należy przestrzegać określonej ścieżki.
+To uprawnienie pozwala na **ładowanie i odładowywanie sterowników urządzeń** poprzez utworzenie wpisu w rejestrze z określonymi wartościami dla `ImagePath` i `Type`. Ponieważ bezpośredni dostęp do zapisu w `HKLM` (HKEY_LOCAL_MACHINE) jest ograniczony, należy zamiast tego wykorzystać `HKCU` (HKEY_CURRENT_USER). Jednak aby `HKCU` był rozpoznawany przez jądro do konfiguracji sterowników, należy przestrzegać określonej ścieżki.
 
 Ta ścieżka to `\Registry\User\<RID>\System\CurrentControlSet\Services\DriverName`, gdzie `<RID>` to identyfikator względny bieżącego użytkownika. Wewnątrz `HKCU` należy utworzyć całą tę ścieżkę i ustawić dwie wartości:
 - `ImagePath`, która jest ścieżką do wykonywanego pliku binarnego
@@ -120,7 +121,7 @@ c:\inetpub\wwwwroot\web.config
 ```
 ### SeDebugPrivilege
 
-Ten przywilej pozwala na **debugowanie innych procesów**, w tym na odczyt i zapis w pamięci. Można stosować różne strategie wstrzykiwania pamięci, zdolne do omijania większości rozwiązań antywirusowych i zapobiegających włamaniom na hoście, z tym przywilejem.
+Ten przywilej pozwala na **debugowanie innych procesów**, w tym na odczyt i zapis w pamięci. Można stosować różne strategie wstrzykiwania pamięci, które są w stanie unikać większości rozwiązań antywirusowych i zapobiegających włamaniom na hoście, korzystając z tego przywileju.
 
 #### Zrzut pamięci
 
@@ -144,11 +145,19 @@ Jeśli chcesz uzyskać powłokę `NT SYSTEM`, możesz użyć:
 # Get the PID of a process running as NT SYSTEM
 import-module psgetsys.ps1; [MyProcess]::CreateProcessFromParent(<system_pid>,<command_to_execute>)
 ```
+### SeManageVolumePrivilege
+
+`SeManageVolumePrivilege` to prawo użytkownika w systemie Windows, które pozwala użytkownikom zarządzać woluminami dyskowymi, w tym je tworzyć i usuwać. Chociaż jest przeznaczone dla administratorów, jeśli zostanie przyznane użytkownikom niebędącym administratorami, może być wykorzystane do eskalacji uprawnień.
+
+Możliwe jest wykorzystanie tego przywileju do manipulacji woluminami, co prowadzi do pełnego dostępu do woluminu. [SeManageVolumeExploit](https://github.com/CsEnox/SeManageVolumeExploit) może być użyty do nadania pełnego dostępu wszystkim użytkownikom do C:\
+
+Dodatkowo, proces opisany w [tym artykule na Medium](https://medium.com/@raphaeltzy13/exploiting-semanagevolumeprivilege-with-dll-hijacking-windows-privilege-escalation-1a4f28372d37) opisuje wykorzystanie hijackingu DLL w połączeniu z `SeManageVolumePrivilege` do eskalacji uprawnień. Umieszczając ładunek DLL `C:\Windows\System32\wbem\tzres.dll` i wywołując `systeminfo`, dll jest wykonywany.
+
 ## Sprawdź uprawnienia
 ```
 whoami /priv
 ```
-**Tokeny, które pojawiają się jako Wyłączone**, mogą być włączone, możesz faktycznie wykorzystać _Włączone_ i _Wyłączone_ tokeny.
+**Tokeny, które pojawiają się jako Wyłączone**, mogą być włączone, możesz faktycznie nadużyć _Włączonych_ i _Wyłączonych_ tokenów.
 
 ### Włącz wszystkie tokeny
 
