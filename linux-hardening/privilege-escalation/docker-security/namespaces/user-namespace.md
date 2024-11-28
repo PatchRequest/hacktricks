@@ -23,15 +23,15 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ## Basic Information
 
-Przestrzeń nazw użytkownika to funkcja jądra Linux, która **zapewnia izolację mapowań identyfikatorów użytkowników i grup**, pozwalając każdej przestrzeni nazw użytkownika na posiadanie **własnego zestawu identyfikatorów użytkowników i grup**. Ta izolacja umożliwia procesom działającym w różnych przestrzeniach nazw użytkownika **posiadanie różnych uprawnień i własności**, nawet jeśli dzielą te same identyfikatory użytkowników i grup numerycznie.
+Przestrzeń nazw użytkowników to funkcja jądra Linux, która **zapewnia izolację mapowań identyfikatorów użytkowników i grup**, pozwalając każdej przestrzeni nazw użytkowników na posiadanie **własnego zestawu identyfikatorów użytkowników i grup**. Ta izolacja umożliwia procesom działającym w różnych przestrzeniach nazw użytkowników **posiadanie różnych uprawnień i własności**, nawet jeśli dzielą te same identyfikatory użytkowników i grup numerycznie.
 
-Przestrzenie nazw użytkownika są szczególnie przydatne w konteneryzacji, gdzie każdy kontener powinien mieć swój niezależny zestaw identyfikatorów użytkowników i grup, co pozwala na lepsze bezpieczeństwo i izolację między kontenerami a systemem gospodarza.
+Przestrzenie nazw użytkowników są szczególnie przydatne w konteneryzacji, gdzie każdy kontener powinien mieć swój niezależny zestaw identyfikatorów użytkowników i grup, co pozwala na lepsze bezpieczeństwo i izolację między kontenerami a systemem gospodarza.
 
 ### How it works:
 
-1. Gdy tworzona jest nowa przestrzeń nazw użytkownika, **zaczyna się od pustego zestawu mapowań identyfikatorów użytkowników i grup**. Oznacza to, że każdy proces działający w nowej przestrzeni nazw użytkownika **początkowo nie będzie miał uprawnień poza tą przestrzenią**.
+1. Gdy tworzona jest nowa przestrzeń nazw użytkowników, **zaczyna się od pustego zestawu mapowań identyfikatorów użytkowników i grup**. Oznacza to, że każdy proces działający w nowej przestrzeni nazw użytkowników **początkowo nie będzie miał uprawnień poza tą przestrzenią**.
 2. Mapowania identyfikatorów mogą być ustalane między identyfikatorami użytkowników i grup w nowej przestrzeni a tymi w przestrzeni nadrzędnej (lub gospodarza). To **pozwala procesom w nowej przestrzeni na posiadanie uprawnień i własności odpowiadających identyfikatorom użytkowników i grup w przestrzeni nadrzędnej**. Jednak mapowania identyfikatorów mogą być ograniczone do określonych zakresów i podzbiorów identyfikatorów, co pozwala na precyzyjną kontrolę nad uprawnieniami przyznawanymi procesom w nowej przestrzeni.
-3. W obrębie przestrzeni nazw użytkownika **procesy mogą mieć pełne uprawnienia roota (UID 0) do operacji wewnątrz przestrzeni**, jednocześnie mając ograniczone uprawnienia poza tą przestrzenią. To pozwala **kontenerom działać z możliwościami podobnymi do roota w ich własnej przestrzeni, nie mając pełnych uprawnień roota w systemie gospodarza**.
+3. W obrębie przestrzeni nazw użytkowników **procesy mogą mieć pełne uprawnienia roota (UID 0) do operacji wewnątrz przestrzeni**, jednocześnie mając ograniczone uprawnienia poza tą przestrzenią. To pozwala **kontenerom działać z możliwościami podobnymi do roota w ich własnej przestrzeni, nie mając pełnych uprawnień roota w systemie gospodarza**.
 4. Procesy mogą przemieszczać się między przestrzeniami nazw, używając wywołania systemowego `setns()` lub tworzyć nowe przestrzenie nazw, używając wywołań systemowych `unshare()` lub `clone()` z flagą `CLONE_NEWUSER`. Gdy proces przemieszcza się do nowej przestrzeni lub ją tworzy, zacznie używać mapowań identyfikatorów użytkowników i grup związanych z tą przestrzenią.
 
 ## Lab:
@@ -56,7 +56,7 @@ Gdy `unshare` jest wykonywane bez opcji `-f`, napotykany jest błąd z powodu sp
 - Pierwszy proces potomny `/bin/bash` w nowej przestrzeni staje się PID 1. Gdy ten proces kończy działanie, uruchamia czyszczenie przestrzeni nazw, jeśli nie ma innych procesów, ponieważ PID 1 ma specjalną rolę przyjmowania osieroconych procesów. Jądro Linuxa wyłączy wtedy przydzielanie PID w tej przestrzeni.
 
 2. **Konsekwencja**:
-- Zakończenie PID 1 w nowej przestrzeni prowadzi do usunięcia flagi `PIDNS_HASH_ADDING`. Skutkuje to niepowodzeniem funkcji `alloc_pid` w przydzieleniu nowego PID podczas tworzenia nowego procesu, co skutkuje błędem "Nie można przydzielić pamięci".
+- Zakończenie PID 1 w nowej przestrzeni prowadzi do wyczyszczenia flagi `PIDNS_HASH_ADDING`. Skutkuje to niepowodzeniem funkcji `alloc_pid` w przydzieleniu nowego PID podczas tworzenia nowego procesu, co skutkuje błędem "Nie można przydzielić pamięci".
 
 3. **Rozwiązanie**:
 - Problem można rozwiązać, używając opcji `-f` z `unshare`. Ta opcja sprawia, że `unshare` fork'uje nowy proces po utworzeniu nowej przestrzeni nazw PID.
@@ -150,17 +150,18 @@ Probando: 0x130 . . . Error
 Probando: 0x139 . . . Error
 Probando: 0x140 . . . Error
 Probando: 0x141 . . . Error
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Ucz się i ćwicz Hacking AWS:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Ucz się i ćwicz Hacking GCP: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Wsparcie dla HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Sprawdź [**plany subskrypcyjne**](https://github.com/sponsors/carlospolop)!
+* **Dołącz do** 💬 [**grupy Discord**](https://discord.gg/hRep4RUj7f) lub [**grupy telegramowej**](https://t.me/peass) lub **śledź** nas na **Twitterze** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Podziel się trikami hackingowymi, przesyłając PR-y do** [**HackTricks**](https://github.com/carlospolop/hacktricks) i [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repozytoriów github.
 
 </details>
 {% endhint %}hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
