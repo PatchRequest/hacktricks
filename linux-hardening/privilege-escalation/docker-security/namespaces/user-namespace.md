@@ -30,9 +30,9 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 ### How it works:
 
 1. Όταν δημιουργείται ένα νέο user namespace, **ξεκινά με ένα κενό σύνολο αναγνωριστικών χρηστών και ομάδων**. Αυτό σημαίνει ότι οποιαδήποτε διαδικασία εκτελείται στο νέο user namespace θα **έχει αρχικά κανένα προνόμιο εκτός του namespace**.
-2. Τα αναγνωριστικά μπορούν να καθοριστούν μεταξύ των αναγνωριστικών χρηστών και ομάδων στο νέο namespace και εκείνων στο γονικό (ή κεντρικό) namespace. Αυτό **επιτρέπει στις διαδικασίες στο νέο namespace να έχουν προνόμια και ιδιοκτησία που αντιστοιχούν σε αναγνωριστικά χρηστών και ομάδων στο γονικό namespace**. Ωστόσο, τα αναγνωριστικά μπορούν να περιοριστούν σε συγκεκριμένα εύρη και υποσύνολα αναγνωριστικών, επιτρέποντας λεπτομερή έλεγχο των προνομίων που χορηγούνται σε διαδικασίες στο νέο namespace.
+2. Τα αναγνωριστικά μπορούν να καθοριστούν μεταξύ των αναγνωριστικών χρηστών και ομάδων στο νέο namespace και εκείνων στο γονικό (ή κεντρικό) namespace. Αυτό **επιτρέπει στις διαδικασίες στο νέο namespace να έχουν προνόμια και ιδιοκτησία που αντιστοιχούν σε αναγνωριστικά χρηστών και ομάδων στο γονικό namespace**. Ωστόσο, τα αναγνωριστικά μπορούν να περιοριστούν σε συγκεκριμένα εύρη και υποσύνολα αναγνωριστικών, επιτρέποντας λεπτομερή έλεγχο των προνομίων που χορηγούνται στις διαδικασίες στο νέο namespace.
 3. Μέσα σε ένα user namespace, **οι διαδικασίες μπορούν να έχουν πλήρη προνόμια root (UID 0) για λειτουργίες μέσα στο namespace**, ενώ εξακολουθούν να έχουν περιορισμένα προνόμια εκτός του namespace. Αυτό επιτρέπει **στα κοντέινερ να εκτελούνται με δυνατότητες παρόμοιες με του root μέσα στο δικό τους namespace χωρίς να έχουν πλήρη προνόμια root στο σύστημα φιλοξενίας**.
-4. Οι διαδικασίες μπορούν να μετακινηθούν μεταξύ namespaces χρησιμοποιώντας την κλήση συστήματος `setns()` ή να δημιουργήσουν νέα namespaces χρησιμοποιώντας τις κλήσεις συστήματος `unshare()` ή `clone()` με την σημαία `CLONE_NEWUSER`. Όταν μια διαδικασία μετακινείται σε ένα νέο namespace ή δημιουργεί ένα, θα αρχίσει να χρησιμοποιεί τα αναγνωριστικά χρηστών και ομάδων που σχετίζονται με αυτό το namespace.
+4. Οι διαδικασίες μπορούν να μετακινούνται μεταξύ namespaces χρησιμοποιώντας την κλήση συστήματος `setns()` ή να δημιουργούν νέα namespaces χρησιμοποιώντας τις κλήσεις συστήματος `unshare()` ή `clone()` με την σημαία `CLONE_NEWUSER`. Όταν μια διαδικασία μετακινείται σε ένα νέο namespace ή δημιουργεί ένα, θα αρχίσει να χρησιμοποιεί τα αναγνωριστικά χρηστών και ομάδων που σχετίζονται με αυτό το namespace.
 
 ## Lab:
 
@@ -42,27 +42,27 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 ```bash
 sudo unshare -U [--mount-proc] /bin/bash
 ```
-Με την τοποθέτηση μιας νέας παρουσίας του συστήματος αρχείων `/proc` αν χρησιμοποιήσετε την παράμετρο `--mount-proc`, διασφαλίζετε ότι η νέα namespace τοποθέτησης έχει μια **ακριβή και απομονωμένη άποψη των πληροφοριών διαδικασίας που είναι συγκεκριμένες για αυτή τη namespace**.
+Με την τοποθέτηση μιας νέας παρουσίας του συστήματος αρχείων `/proc` αν χρησιμοποιήσετε την παράμετρο `--mount-proc`, διασφαλίζετε ότι το νέο mount namespace έχει μια **ακριβή και απομονωμένη άποψη των πληροφοριών διαδικασίας που είναι συγκεκριμένες για αυτό το namespace**.
 
 <details>
 
 <summary>Σφάλμα: bash: fork: Cannot allocate memory</summary>
 
-Όταν εκτελείται το `unshare` χωρίς την επιλογή `-f`, προκύπτει ένα σφάλμα λόγω του τρόπου που το Linux διαχειρίζεται τις νέες namespaces PID (Process ID). Οι βασικές λεπτομέρειες και η λύση περιγράφονται παρακάτω:
+Όταν εκτελείται το `unshare` χωρίς την επιλογή `-f`, προκύπτει ένα σφάλμα λόγω του τρόπου που το Linux χειρίζεται τα νέα PID (Process ID) namespaces. Οι βασικές λεπτομέρειες και η λύση περιγράφονται παρακάτω:
 
 1. **Εξήγηση Προβλήματος**:
-- Ο πυρήνας του Linux επιτρέπει σε μια διαδικασία να δημιουργήσει νέες namespaces χρησιμοποιώντας την κλήση συστήματος `unshare`. Ωστόσο, η διαδικασία που ξεκινά τη δημιουργία μιας νέας namespace PID (αναφερόμενη ως η διαδικασία "unshare") δεν εισέρχεται στη νέα namespace; μόνο οι παιδικές της διαδικασίες το κάνουν.
-- Η εκτέλεση `%unshare -p /bin/bash%` ξεκινά το `/bin/bash` στην ίδια διαδικασία με το `unshare`. Ως εκ τούτου, το `/bin/bash` και οι παιδικές του διαδικασίες βρίσκονται στην αρχική namespace PID.
-- Η πρώτη παιδική διαδικασία του `/bin/bash` στη νέα namespace γίνεται PID 1. Όταν αυτή η διαδικασία τερματίσει, ενεργοποιεί την καθαριότητα της namespace αν δεν υπάρχουν άλλες διαδικασίες, καθώς το PID 1 έχει τον ειδικό ρόλο της υιοθέτησης ορφανών διαδικασιών. Ο πυρήνας του Linux θα απενεργοποιήσει στη συνέχεια την κατανομή PID σε αυτή τη namespace.
+- Ο πυρήνας του Linux επιτρέπει σε μια διαδικασία να δημιουργεί νέα namespaces χρησιμοποιώντας την κλήση συστήματος `unshare`. Ωστόσο, η διαδικασία που ξεκινά τη δημιουργία ενός νέου PID namespace (αναφερόμενη ως η διαδικασία "unshare") δεν εισέρχεται στο νέο namespace; μόνο οι παιδικές της διαδικασίες το κάνουν.
+- Η εκτέλεση `%unshare -p /bin/bash%` ξεκινά το `/bin/bash` στην ίδια διαδικασία με το `unshare`. Ως εκ τούτου, το `/bin/bash` και οι παιδικές του διαδικασίες βρίσκονται στο αρχικό PID namespace.
+- Η πρώτη παιδική διαδικασία του `/bin/bash` στο νέο namespace γίνεται PID 1. Όταν αυτή η διαδικασία τερματίσει, ενεργοποιεί την καθαριότητα του namespace αν δεν υπάρχουν άλλες διαδικασίες, καθώς το PID 1 έχει τον ειδικό ρόλο της υιοθέτησης ορφανών διαδικασιών. Ο πυρήνας του Linux θα απενεργοποιήσει στη συνέχεια την κατανομή PID σε αυτό το namespace.
 
 2. **Συνέπεια**:
-- Η έξοδος του PID 1 σε μια νέα namespace οδηγεί στον καθαρισμό της σημαίας `PIDNS_HASH_ADDING`. Αυτό έχει ως αποτέλεσμα τη αποτυχία της συνάρτησης `alloc_pid` να κατανεμηθεί ένα νέο PID κατά τη δημιουργία μιας νέας διαδικασίας, παράγοντας το σφάλμα "Cannot allocate memory".
+- Η έξοδος του PID 1 σε ένα νέο namespace οδηγεί στον καθαρισμό της σημαίας `PIDNS_HASH_ADDING`. Αυτό έχει ως αποτέλεσμα τη αποτυχία της συνάρτησης `alloc_pid` να κατανεμηθεί ένα νέο PID κατά τη δημιουργία μιας νέας διαδικασίας, παράγοντας το σφάλμα "Cannot allocate memory".
 
 3. **Λύση**:
-- Το πρόβλημα μπορεί να επιλυθεί χρησιμοποιώντας την επιλογή `-f` με το `unshare`. Αυτή η επιλογή κάνει το `unshare` να δημιουργήσει μια νέα διαδικασία μετά τη δημιουργία της νέας namespace PID.
-- Η εκτέλεση `%unshare -fp /bin/bash%` διασφαλίζει ότι η εντολή `unshare` γίνεται PID 1 στη νέα namespace. Το `/bin/bash` και οι παιδικές του διαδικασίες είναι τότε ασφαλώς περιορισμένες μέσα σε αυτή τη νέα namespace, αποτρέποντας την πρόωρη έξοδο του PID 1 και επιτρέποντας την κανονική κατανομή PID.
+- Το πρόβλημα μπορεί να επιλυθεί χρησιμοποιώντας την επιλογή `-f` με το `unshare`. Αυτή η επιλογή κάνει το `unshare` να δημιουργήσει μια νέα διαδικασία μετά τη δημιουργία του νέου PID namespace.
+- Η εκτέλεση `%unshare -fp /bin/bash%` διασφαλίζει ότι η εντολή `unshare` γίνεται PID 1 στο νέο namespace. Το `/bin/bash` και οι παιδικές του διαδικασίες είναι τότε ασφαλώς περιορισμένες μέσα σε αυτό το νέο namespace, αποτρέποντας την πρόωρη έξοδο του PID 1 και επιτρέποντας την κανονική κατανομή PID.
 
-Διασφαλίζοντας ότι το `unshare` εκτελείται με την επιλογή `-f`, η νέα namespace PID διατηρείται σωστά, επιτρέποντας στο `/bin/bash` και τις υπο-διαδικασίες του να λειτουργούν χωρίς να αντιμετωπίζουν το σφάλμα κατανομής μνήμης.
+Διασφαλίζοντας ότι το `unshare` εκτελείται με την επιλογή `-f`, το νέο PID namespace διατηρείται σωστά, επιτρέποντας στο `/bin/bash` και τις υπο-διαδικασίες του να λειτουργούν χωρίς να συναντούν το σφάλμα κατανομής μνήμης.
 
 </details>
 
@@ -126,7 +126,7 @@ root       27756   27755  0 21:11 pts/10   00:00:00 /bin/bash
 Για παράδειγμα, όταν έχετε τη δυνατότητα `CAP_SYS_ADMIN` εντός ενός namespace χρηστών, μπορείτε να εκτελείτε λειτουργίες που συνήθως απαιτούν αυτή τη δυνατότητα, όπως το mounting filesystems, αλλά μόνο εντός του πλαισίου του namespace χρηστών σας. Οποιεσδήποτε λειτουργίες εκτελείτε με αυτή τη δυνατότητα δεν θα επηρεάσουν το σύστημα host ή άλλα namespaces.
 
 {% hint style="warning" %}
-Επομένως, ακόμη και αν η απόκτηση μιας νέας διαδικασίας μέσα σε ένα νέο namespace χρηστών **θα σας δώσει όλες τις δυνατότητες πίσω** (CapEff: 000001ffffffffff), στην πραγματικότητα μπορείτε **μόνο να χρησιμοποιήσετε αυτές που σχετίζονται με το namespace** (mount για παράδειγμα) αλλά όχι όλες. Έτσι, αυτό από μόνο του δεν είναι αρκετό για να ξεφύγετε από ένα Docker container.
+Επομένως, ακόμη και αν η απόκτηση μιας νέας διαδικασίας μέσα σε ένα νέο namespace χρηστών **θα σας δώσει όλες τις δυνατότητες πίσω** (CapEff: 000001ffffffffff), στην πραγματικότητα μπορείτε **μόνο να χρησιμοποιήσετε αυτές που σχετίζονται με το namespace** (mount για παράδειγμα) αλλά όχι όλες. Έτσι, αυτό από μόνο του δεν είναι αρκετό για να διαφύγετε από ένα κοντέινερ Docker.
 {% endhint %}
 ```bash
 # There are the syscalls that are filtered after changing User namespace with:
@@ -150,17 +150,18 @@ Probando: 0x130 . . . Error
 Probando: 0x139 . . . Error
 Probando: 0x140 . . . Error
 Probando: 0x141 . . . Error
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Μάθετε & εξασκηθείτε στο AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Μάθετε & εξασκηθείτε στο GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Υποστήριξη HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Ελέγξτε τα [**σχέδια συνδρομής**](https://github.com/sponsors/carlospolop)!
+* **Εγγραφείτε στην** 💬 [**ομάδα Discord**](https://discord.gg/hRep4RUj7f) ή στην [**ομάδα telegram**](https://t.me/peass) ή **ακολουθήστε** μας στο **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Μοιραστείτε κόλπα hacking υποβάλλοντας PRs στα** [**HackTricks**](https://github.com/carlospolop/hacktricks) και [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
 {% endhint %}hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
