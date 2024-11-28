@@ -30,9 +30,9 @@ Benutzer-Namespaces sind besonders nützlich in der Containerisierung, wo jeder 
 ### So funktioniert es:
 
 1. Wenn ein neuer Benutzer-Namespace erstellt wird, **beginnt er mit einem leeren Set von Benutzer- und Gruppen-ID-Zuordnungen**. Das bedeutet, dass jeder Prozess, der im neuen Benutzer-Namespace ausgeführt wird, **anfänglich keine Berechtigungen außerhalb des Namespaces hat**.
-2. ID-Zuordnungen können zwischen den Benutzer- und Gruppen-IDs im neuen Namespace und denen im übergeordneten (oder Host-)Namespace hergestellt werden. Dies **ermöglicht es Prozessen im neuen Namespace, Berechtigungen und Eigentum zu haben, die den Benutzer- und Gruppen-IDs im übergeordneten Namespace entsprechen**. Die ID-Zuordnungen können jedoch auf bestimmte Bereiche und Teilmengen von IDs beschränkt werden, was eine feinkörnige Kontrolle über die den Prozessen im neuen Namespace gewährten Berechtigungen ermöglicht.
+2. ID-Zuordnungen können zwischen den Benutzer- und Gruppen-IDs im neuen Namespace und denen im übergeordneten (oder Host-) Namespace hergestellt werden. Dies **ermöglicht es Prozessen im neuen Namespace, Berechtigungen und Eigentum zu haben, die den Benutzer- und Gruppen-IDs im übergeordneten Namespace entsprechen**. Die ID-Zuordnungen können jedoch auf bestimmte Bereiche und Teilmengen von IDs beschränkt werden, was eine feinkörnige Kontrolle über die Berechtigungen ermöglicht, die Prozessen im neuen Namespace gewährt werden.
 3. Innerhalb eines Benutzer-Namespace können **Prozesse volle Root-Berechtigungen (UID 0) für Operationen innerhalb des Namespaces haben**, während sie außerhalb des Namespaces weiterhin eingeschränkte Berechtigungen haben. Dies ermöglicht es, **Container mit root-ähnlichen Fähigkeiten innerhalb ihres eigenen Namespaces auszuführen, ohne volle Root-Berechtigungen auf dem Host-System zu haben**.
-4. Prozesse können zwischen Namespaces mit dem Systemaufruf `setns()` wechseln oder neue Namespaces mit den Systemaufrufen `unshare()` oder `clone()` mit dem `CLONE_NEWUSER`-Flag erstellen. Wenn ein Prozess zu einem neuen Namespace wechselt oder einen erstellt, beginnt er, die Benutzer- und Gruppen-ID-Zuordnungen zu verwenden, die mit diesem Namespace verbunden sind.
+4. Prozesse können zwischen Namespaces mit dem `setns()` Systemaufruf wechseln oder neue Namespaces mit den Systemaufrufen `unshare()` oder `clone()` mit dem `CLONE_NEWUSER`-Flag erstellen. Wenn ein Prozess zu einem neuen Namespace wechselt oder einen erstellt, beginnt er, die Benutzer- und Gruppen-ID-Zuordnungen zu verwenden, die mit diesem Namespace verbunden sind.
 
 ## Labor:
 
@@ -42,27 +42,27 @@ Benutzer-Namespaces sind besonders nützlich in der Containerisierung, wo jeder 
 ```bash
 sudo unshare -U [--mount-proc] /bin/bash
 ```
-Durch das Einhängen einer neuen Instanz des `/proc`-Dateisystems, wenn Sie den Parameter `--mount-proc` verwenden, stellen Sie sicher, dass der neue Mount-Namespace eine **genaue und isolierte Sicht auf die prozessspezifischen Informationen dieses Namensraums** hat.
+Durch das Einhängen einer neuen Instanz des `/proc`-Dateisystems, wenn Sie den Parameter `--mount-proc` verwenden, stellen Sie sicher, dass der neue Mount-Namespace eine **genaue und isolierte Sicht auf die prozessspezifischen Informationen hat, die für diesen Namespace spezifisch sind**.
 
 <details>
 
 <summary>Fehler: bash: fork: Kann Speicher nicht zuweisen</summary>
 
-Wenn `unshare` ohne die Option `-f` ausgeführt wird, tritt ein Fehler auf, der auf die Art und Weise zurückzuführen ist, wie Linux neue PID (Prozess-ID) Namensräume behandelt. Die wichtigsten Details und die Lösung sind unten aufgeführt:
+Wenn `unshare` ohne die Option `-f` ausgeführt wird, tritt ein Fehler auf, der auf die Art und Weise zurückzuführen ist, wie Linux neue PID (Prozess-ID) Namespaces behandelt. Die wichtigsten Details und die Lösung sind unten aufgeführt:
 
 1. **Problemerklärung**:
-- Der Linux-Kernel erlaubt es einem Prozess, neue Namensräume mit dem Systemaufruf `unshare` zu erstellen. Der Prozess, der die Erstellung eines neuen PID-Namensraums initiiert (als "unshare"-Prozess bezeichnet), tritt jedoch nicht in den neuen Namensraum ein; nur seine Kindprozesse tun dies.
-- Das Ausführen von `%unshare -p /bin/bash%` startet `/bin/bash` im selben Prozess wie `unshare`. Folglich befinden sich `/bin/bash` und seine Kindprozesse im ursprünglichen PID-Namensraum.
-- Der erste Kindprozess von `/bin/bash` im neuen Namensraum wird PID 1. Wenn dieser Prozess beendet wird, wird die Bereinigung des Namensraums ausgelöst, wenn keine anderen Prozesse vorhanden sind, da PID 1 die besondere Rolle hat, verwaiste Prozesse zu übernehmen. Der Linux-Kernel deaktiviert dann die PID-Zuweisung in diesem Namensraum.
+- Der Linux-Kernel erlaubt es einem Prozess, neue Namespaces mit dem Systemaufruf `unshare` zu erstellen. Der Prozess, der die Erstellung eines neuen PID-Namespace initiiert (als "unshare"-Prozess bezeichnet), tritt jedoch nicht in den neuen Namespace ein; nur seine Kindprozesse tun dies.
+- Das Ausführen von `%unshare -p /bin/bash%` startet `/bin/bash` im selben Prozess wie `unshare`. Folglich befinden sich `/bin/bash` und seine Kindprozesse im ursprünglichen PID-Namespace.
+- Der erste Kindprozess von `/bin/bash` im neuen Namespace wird zu PID 1. Wenn dieser Prozess beendet wird, wird die Bereinigung des Namespaces ausgelöst, wenn keine anderen Prozesse vorhanden sind, da PID 1 die besondere Rolle hat, verwaiste Prozesse zu übernehmen. Der Linux-Kernel deaktiviert dann die PID-Zuweisung in diesem Namespace.
 
 2. **Folge**:
-- Das Beenden von PID 1 in einem neuen Namensraum führt zur Bereinigung des `PIDNS_HASH_ADDING`-Flags. Dies führt dazu, dass die Funktion `alloc_pid` fehlschlägt, wenn versucht wird, eine neue PID zuzuweisen, was den Fehler "Kann Speicher nicht zuweisen" erzeugt.
+- Das Beenden von PID 1 in einem neuen Namespace führt zur Bereinigung des `PIDNS_HASH_ADDING`-Flags. Dies führt dazu, dass die Funktion `alloc_pid` fehlschlägt, wenn versucht wird, eine neue PID zuzuweisen, was den Fehler "Kann Speicher nicht zuweisen" erzeugt.
 
 3. **Lösung**:
-- Das Problem kann gelöst werden, indem die Option `-f` mit `unshare` verwendet wird. Diese Option bewirkt, dass `unshare` einen neuen Prozess nach der Erstellung des neuen PID-Namensraums forked.
-- Das Ausführen von `%unshare -fp /bin/bash%` stellt sicher, dass der `unshare`-Befehl selbst PID 1 im neuen Namensraum wird. `/bin/bash` und seine Kindprozesse sind dann sicher in diesem neuen Namensraum enthalten, wodurch das vorzeitige Beenden von PID 1 verhindert wird und eine normale PID-Zuweisung ermöglicht wird.
+- Das Problem kann gelöst werden, indem die Option `-f` mit `unshare` verwendet wird. Diese Option bewirkt, dass `unshare` einen neuen Prozess nach der Erstellung des neuen PID-Namespace forked.
+- Das Ausführen von `%unshare -fp /bin/bash%` stellt sicher, dass der `unshare`-Befehl selbst PID 1 im neuen Namespace wird. `/bin/bash` und seine Kindprozesse sind dann sicher in diesem neuen Namespace enthalten, wodurch das vorzeitige Beenden von PID 1 verhindert wird und eine normale PID-Zuweisung ermöglicht wird.
 
-Durch die Sicherstellung, dass `unshare` mit dem `-f`-Flag ausgeführt wird, wird der neue PID-Namensraum korrekt aufrechterhalten, sodass `/bin/bash` und seine Unterprozesse ohne den Speicherzuweisungsfehler arbeiten können.
+Durch die Sicherstellung, dass `unshare` mit dem `-f`-Flag ausgeführt wird, wird der neue PID-Namespace korrekt aufrechterhalten, sodass `/bin/bash` und seine Unterprozesse ohne den Speicherzuweisungsfehler arbeiten können.
 
 </details>
 
@@ -126,7 +126,7 @@ Im Fall von Benutzer-Namensräumen gilt: **Wenn ein neuer Benutzer-Namensraum er
 Zum Beispiel, wenn Sie die Fähigkeit `CAP_SYS_ADMIN` innerhalb eines Benutzer-Namensraums haben, können Sie Operationen durchführen, die typischerweise diese Fähigkeit erfordern, wie das Einhängen von Dateisystemen, jedoch nur im Kontext Ihres Benutzer-Namensraums. Alle Operationen, die Sie mit dieser Fähigkeit durchführen, haben keine Auswirkungen auf das Host-System oder andere Namensräume.
 
 {% hint style="warning" %}
-Daher, selbst wenn das Erhalten eines neuen Prozesses in einem neuen Benutzer-Namensraum **Ihnen alle Fähigkeiten zurückgibt** (CapEff: 000001ffffffffff), können Sie tatsächlich **nur die verwenden, die mit dem Namensraum verbunden sind** (zum Beispiel Einhängen), aber nicht jede. Daher ist dies für sich genommen nicht ausreichend, um aus einem Docker-Container zu entkommen.
+Daher, selbst wenn das Erhalten eines neuen Prozesses in einem neuen Benutzer-Namensraum **Ihnen alle Fähigkeiten zurückgibt** (CapEff: 000001ffffffffff), können Sie tatsächlich **nur die verwenden, die mit dem Namensraum verbunden sind** (zum Beispiel mount), aber nicht jede. Daher ist dies für sich genommen nicht ausreichend, um aus einem Docker-Container zu entkommen.
 {% endhint %}
 ```bash
 # There are the syscalls that are filtered after changing User namespace with:
@@ -150,17 +150,18 @@ Probando: 0x130 . . . Error
 Probando: 0x139 . . . Error
 Probando: 0x140 . . . Error
 Probando: 0x141 . . . Error
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+Lernen & üben Sie AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+Lernen & üben Sie GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>Unterstützen Sie HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* Überprüfen Sie die [**Abonnementpläne**](https://github.com/sponsors/carlospolop)!
+* **Treten Sie der** 💬 [**Discord-Gruppe**](https://discord.gg/hRep4RUj7f) oder der [**Telegram-Gruppe**](https://t.me/peass) bei oder **folgen** Sie uns auf **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **Teilen Sie Hacking-Tricks, indem Sie PRs an die** [**HackTricks**](https://github.com/carlospolop/hacktricks) und [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub-Repos senden.
 
 </details>
 {% endhint %}hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
