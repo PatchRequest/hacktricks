@@ -10,7 +10,7 @@
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
 * **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
 
 </details>
 {% endhint %}
@@ -30,7 +30,7 @@
 ### 工作原理：
 
 1. 当创建一个新的用户命名空间时，它**以一个空的用户和组 ID 映射集开始**。这意味着在新的用户命名空间中运行的任何进程**最初在命名空间外没有权限**。
-2. 可以在新命名空间中的用户和组 ID 与父（或主机）命名空间中的 ID 之间建立 ID 映射。这**允许新命名空间中的进程拥有与父命名空间中的用户和组 ID 对应的权限和所有权**。然而，ID 映射可以限制在特定范围和子集的 ID 上，从而对新命名空间中进程所授予的权限进行细粒度控制。
+2. 可以在新命名空间中的用户和组 ID 与父（或主机）命名空间中的 ID 之间建立 ID 映射。这**允许新命名空间中的进程拥有与父命名空间中的用户和组 ID 对应的权限和所有权**。然而，ID 映射可以限制在特定范围和子集的 ID 上，从而对新命名空间中授予进程的权限进行细粒度控制。
 3. 在用户命名空间内，**进程可以在命名空间内拥有完全的根权限（UID 0）**，同时在命名空间外仍然拥有有限的权限。这允许**容器在其自己的命名空间内以类似根的能力运行，而不在主机系统上拥有完全的根权限**。
 4. 进程可以使用 `setns()` 系统调用在命名空间之间移动，或使用带有 `CLONE_NEWUSER` 标志的 `unshare()` 或 `clone()` 系统调用创建新的命名空间。当进程移动到新命名空间或创建一个新命名空间时，它将开始使用与该命名空间关联的用户和组 ID 映射。
 
@@ -48,7 +48,7 @@ sudo unshare -U [--mount-proc] /bin/bash
 
 <summary>错误：bash: fork: 无法分配内存</summary>
 
-当 `unshare` 在没有 `-f` 选项的情况下执行时，由于 Linux 处理新的 PID（进程 ID）命名空间的方式，会遇到错误。关键细节和解决方案如下：
+当 `unshare` 在没有 `-f` 选项的情况下执行时，由于 Linux 处理新 PID（进程 ID）命名空间的方式，会遇到错误。关键细节和解决方案如下：
 
 1. **问题解释**：
 - Linux 内核允许进程使用 `unshare` 系统调用创建新的命名空间。然而，启动新 PID 命名空间创建的进程（称为 "unshare" 进程）并不会进入新的命名空间；只有它的子进程会进入。
@@ -59,8 +59,8 @@ sudo unshare -U [--mount-proc] /bin/bash
 - 新命名空间中 PID 1 的退出导致 `PIDNS_HASH_ADDING` 标志的清理。这导致 `alloc_pid` 函数在创建新进程时无法分配新的 PID，从而产生 "无法分配内存" 的错误。
 
 3. **解决方案**：
-- 通过在 `unshare` 中使用 `-f` 选项可以解决此问题。此选项使 `unshare` 在创建新的 PID 命名空间后分叉一个新进程。
-- 执行 `%unshare -fp /bin/bash%` 确保 `unshare` 命令本身在新命名空间中成为 PID 1。然后，`/bin/bash` 及其子进程安全地包含在这个新命名空间中，防止 PID 1 的过早退出，并允许正常的 PID 分配。
+- 通过在 `unshare` 中使用 `-f` 选项可以解决此问题。此选项使 `unshare` 在创建新 PID 命名空间后分叉一个新进程。
+- 执行 `%unshare -fp /bin/bash%` 确保 `unshare` 命令本身在新命名空间中成为 PID 1。然后，`/bin/bash` 及其子进程安全地包含在这个新命名空间中，防止 PID 1 提前退出，并允许正常的 PID 分配。
 
 通过确保 `unshare` 以 `-f` 标志运行，新的 PID 命名空间得以正确维护，允许 `/bin/bash` 及其子进程在不遇到内存分配错误的情况下运行。
 
@@ -101,7 +101,7 @@ sudo find /proc -maxdepth 3 -type l -name user -exec ls -l  {} \; 2>/dev/null | 
 ```bash
 nsenter -U TARGET_PID --pid /bin/bash
 ```
-也就是说，您只能**以 root 身份进入另一个进程命名空间**。并且您**不能**在没有指向它的描述符的情况下**进入**其他命名空间（例如 `/proc/self/ns/user`）。
+也就是说，您只能在**您是root时进入另一个进程命名空间**。并且您**不能**在没有指向它的**描述符**（如`/proc/self/ns/user`）的情况下**进入**其他命名空间。
 
 ### 创建新的用户命名空间（带映射）
 
@@ -123,10 +123,10 @@ root       27756   27755  0 21:11 pts/10   00:00:00 /bin/bash
 
 在用户命名空间的情况下，**当创建一个新的用户命名空间时，进入该命名空间的进程会被授予该命名空间内的完整能力集**。这些能力允许进程执行特权操作，例如**挂载** **文件系统**、创建设备或更改文件的所有权，但**仅在其用户命名空间的上下文中**。
 
-例如，当你在用户命名空间内拥有 `CAP_SYS_ADMIN` 能力时，你可以执行通常需要此能力的操作，如挂载文件系统，但仅在你的用户命名空间的上下文中。你使用此能力执行的任何操作都不会影响主机系统或其他命名空间。
+例如，当您在用户命名空间内拥有 `CAP_SYS_ADMIN` 能力时，您可以执行通常需要此能力的操作，如挂载文件系统，但仅在您的用户命名空间的上下文中。您使用此能力执行的任何操作都不会影响主机系统或其他命名空间。
 
 {% hint style="warning" %}
-因此，即使在新的用户命名空间内获取一个新进程**会让你恢复所有能力**（CapEff: 000001ffffffffff），你实际上**只能使用与命名空间相关的能力**（例如挂载），而不是所有能力。因此，仅凭这一点不足以逃离 Docker 容器。
+因此，即使在新的用户命名空间内获取一个新进程**会让您恢复所有能力**（CapEff: 000001ffffffffff），您实际上**只能使用与命名空间相关的能力**（例如挂载），而不是每一个。因此，仅凭这一点不足以逃离 Docker 容器。
 {% endhint %}
 ```bash
 # There are the syscalls that are filtered after changing User namespace with:
@@ -150,17 +150,18 @@ Probando: 0x130 . . . Error
 Probando: 0x139 . . . Error
 Probando: 0x140 . . . Error
 Probando: 0x141 . . . Error
+```
 {% hint style="success" %}
-Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
-Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks Training GCP Red Team Expert (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
+学习与实践 AWS 黑客技术：<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks 培训 AWS 红队专家 (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
+学习与实践 GCP 黑客技术：<img src="/.gitbook/assets/grte.png" alt="" data-size="line">[**HackTricks 培训 GCP 红队专家 (GRTE)**<img src="/.gitbook/assets/grte.png" alt="" data-size="line">](https://training.hacktricks.xyz/courses/grte)
 
 <details>
 
-<summary>Support HackTricks</summary>
+<summary>支持 HackTricks</summary>
 
-* Check the [**subscription plans**](https://github.com/sponsors/carlospolop)!
-* **Join the** 💬 [**Discord group**](https://discord.gg/hRep4RUj7f) or the [**telegram group**](https://t.me/peass) or **follow** us on **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
-* **Share hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
+* 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
+* **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks\_live)**.**
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}hacking tricks by submitting PRs to the** [**HackTricks**](https://github.com/carlospolop/hacktricks) and [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
