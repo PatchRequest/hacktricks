@@ -21,7 +21,7 @@ GCP 해킹 배우기 및 연습하기: <img src="../../.gitbook/assets/grte.png"
 
 [https://serveo.net/](https://serveo.net/)에서, 여러 HTTP 및 포트 포워딩 기능을 **무료로** 제공합니다.
 ```bash
-# Get a random port from serveo.net to expose a local port
+# Get a random port from serveo.net to expose local port 4444
 ssh -R 0:localhost:4444 serveo.net
 
 # Expose a web listening in localhost:300 in a random https URL
@@ -69,7 +69,7 @@ loclx tunnel tcp --port 4545
 ```
 ## Expose
 
-From [https://expose.dev/](https://expose.dev/) http 및 tcp 포트를 노출할 수 있습니다:
+[https://expose.dev/](https://expose.dev/)에서 http 및 tcp 포트를 노출할 수 있습니다:
 ```bash
 # Expose web in 3000
 ./expose share http://localhost:3000
