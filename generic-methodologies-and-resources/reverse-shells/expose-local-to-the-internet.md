@@ -10,7 +10,7 @@ GCP हैकिंग सीखें और अभ्यास करें: <
 
 * [**सदस्यता योजनाएँ**](https://github.com/sponsors/carlospolop) देखें!
 * **हमारे** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) में शामिल हों या **हमें** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)** पर फॉलो करें।**
-* हैकिंग ट्रिक्स साझा करें और [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपोजिटरी में PR सबमिट करें।
+* **हैकिंग ट्रिक्स साझा करें और** [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपोजिटरी में PRs सबमिट करें।
 
 </details>
 {% endhint %}
@@ -21,7 +21,7 @@ GCP हैकिंग सीखें और अभ्यास करें: <
 
 [https://serveo.net/](https://serveo.net/) से, यह कई HTTP और पोर्ट फॉरवर्डिंग सुविधाएँ **मुफ्त** में प्रदान करता है।
 ```bash
-# Get a random port from serveo.net to expose a local port
+# Get a random port from serveo.net to expose local port 4444
 ssh -R 0:localhost:4444 serveo.net
 
 # Expose a web listening in localhost:300 in a random https URL
@@ -79,7 +79,7 @@ From [https://expose.dev/](https://expose.dev/) यह http और tcp पोर
 ```
 ## Localtunnel
 
-From [https://github.com/localtunnel/localtunnel](https://github.com/localtunnel/localtunnel) यह मुफ्त में http को एक्सपोज़ करने की अनुमति देता है:
+[https://github.com/localtunnel/localtunnel](https://github.com/localtunnel/localtunnel) से यह http को मुफ्त में एक्सपोज़ करने की अनुमति देता है:
 ```bash
 # Expose web in port 8000
 npx localtunnel --port 8000
@@ -93,7 +93,7 @@ npx localtunnel --port 8000
 <summary>HackTricks का समर्थन करें</summary>
 
 * [**सदस्यता योजनाएँ**](https://github.com/sponsors/carlospolop) देखें!
-* **हमारे साथ जुड़ें** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) या **हमें** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)** पर **फॉलो** करें।**
+* **हमारे** 💬 [**Discord समूह**](https://discord.gg/hRep4RUj7f) या [**टेलीग्राम समूह**](https://t.me/peass) में शामिल हों या **हमें** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)** पर फॉलो करें।**
 * **हैकिंग ट्रिक्स साझा करें और** [**HackTricks**](https://github.com/carlospolop/hacktricks) और [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) गिटहब रिपोजिटरी में PR सबमिट करें।
 
 </details>
