@@ -21,7 +21,7 @@
 
 来自 [https://serveo.net/](https://serveo.net/)，它允许多种 HTTP 和端口转发功能 **免费**。
 ```bash
-# Get a random port from serveo.net to expose a local port
+# Get a random port from serveo.net to expose local port 4444
 ssh -R 0:localhost:4444 serveo.net
 
 # Expose a web listening in localhost:300 in a random https URL
@@ -29,7 +29,7 @@ ssh -R 80:localhost:3000 serveo.net
 ```
 ## SocketXP
 
-从 [https://www.socketxp.com/download](https://www.socketxp.com/download) ，它允许暴露 tcp 和 http：
+从 [https://www.socketxp.com/download](https://www.socketxp.com/download) 可以将 tcp 和 http 暴露到互联网。
 ```bash
 # Expose tcp port 22
 socketxp connect tcp://localhost:22
@@ -69,7 +69,7 @@ loclx tunnel tcp --port 4545
 ```
 ## Expose
 
-从 [https://expose.dev/](https://expose.dev/) 它允许暴露 http 和 tcp 端口：
+来自 [https://expose.dev/](https://expose.dev/) 的信息，它允许暴露 http 和 tcp 端口：
 ```bash
 # Expose web in 3000
 ./expose share http://localhost:3000
@@ -94,7 +94,7 @@ npx localtunnel --port 8000
 
 * 查看 [**订阅计划**](https://github.com/sponsors/carlospolop)!
 * **加入** 💬 [**Discord 群组**](https://discord.gg/hRep4RUj7f) 或 [**Telegram 群组**](https://t.me/peass) 或 **关注** 我们的 **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
-* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 来分享黑客技巧。
+* **通过向** [**HackTricks**](https://github.com/carlospolop/hacktricks) 和 [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) GitHub 仓库提交 PR 分享黑客技巧。
 
 </details>
 {% endhint %}
