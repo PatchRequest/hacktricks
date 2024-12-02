@@ -15,13 +15,13 @@ GCPハッキングを学び、実践する：<img src="../../.gitbook/assets/grt
 </details>
 {% endhint %}
 
-**このページの目的は、他のサーバーに何もインストールすることなく（必要に応じてローカルにのみ）、ローカルの生TCPポートとローカルウェブ（HTTP）をインターネットに公開するための代替手段を提案することです。**
+**このページの目的は、他のサーバーに何もインストールすることなく（必要に応じてローカルにのみ）、少なくともローカルの生TCPポートとローカルウェブ（HTTP）をインターネットに公開する代替手段を提案することです。**
 
 ## **Serveo**
 
 [https://serveo.net/](https://serveo.net/)から、いくつかのHTTPおよびポートフォワーディング機能を**無料で**提供しています。
 ```bash
-# Get a random port from serveo.net to expose a local port
+# Get a random port from serveo.net to expose local port 4444
 ssh -R 0:localhost:4444 serveo.net
 
 # Expose a web listening in localhost:300 in a random https URL
@@ -39,7 +39,7 @@ socketxp connect http://localhost:8080
 ```
 ## Ngrok
 
-[https://ngrok.com/](https://ngrok.com/) から、http および tcp ポートを公開することができます：
+[https://ngrok.com/](https://ngrok.com/) から、http および tcp ポートを公開することができます:
 ```bash
 # Expose web in 3000
 ngrok http 8000
@@ -49,7 +49,7 @@ ngrok tcp 9000
 ```
 ## Telebit
 
-[https://telebit.cloud/](https://telebit.cloud/) から、http および tcp ポートを公開することができます：
+[https://telebit.cloud/](https://telebit.cloud/) から、http および tcp ポートを公開することができます:
 ```bash
 # Expose web in 3000
 /Users/username/Applications/telebit/bin/telebit http 3000
@@ -94,7 +94,7 @@ GCPハッキングを学び、実践する：<img src="../../.gitbook/assets/grt
 
 * [**サブスクリプションプラン**](https://github.com/sponsors/carlospolop)を確認してください！
 * **💬 [**Discordグループ**](https://discord.gg/hRep4RUj7f)または[**Telegramグループ**](https://t.me/peass)に参加するか、**Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**をフォローしてください。**
-* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを送信してください。**
+* **ハッキングのトリックを共有するには、[**HackTricks**](https://github.com/carlospolop/hacktricks)と[**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud)のGitHubリポジトリにPRを提出してください。**
 
 </details>
 {% endhint %}
