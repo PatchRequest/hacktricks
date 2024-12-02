@@ -15,13 +15,13 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 </details>
 {% endhint %}
 
-**Мета цієї сторінки - запропонувати альтернативи, які дозволяють ПРИНАЙМНІШЕ відкрити локальні сирі TCP порти та локальні веб-сайти (HTTP) для Інтернету БЕЗ необхідності встановлювати щось на іншому сервері (тільки локально, якщо це потрібно).**
+**Мета цієї сторінки - запропонувати альтернативи, які дозволяють ПРИНАЙМНІ експонувати локальні сирі TCP порти та локальні веб-сайти (HTTP) в інтернет БЕЗ необхідності встановлювати щось на іншому сервері (тільки локально, якщо потрібно).**
 
 ## **Serveo**
 
-З [https://serveo.net/](https://serveo.net/) це дозволяє кілька функцій перенаправлення http та портів **безкоштовно**.
+З [https://serveo.net/](https://serveo.net/), він дозволяє кілька функцій перенаправлення http та портів **безкоштовно**.
 ```bash
-# Get a random port from serveo.net to expose a local port
+# Get a random port from serveo.net to expose local port 4444
 ssh -R 0:localhost:4444 serveo.net
 
 # Expose a web listening in localhost:300 in a random https URL
@@ -39,7 +39,7 @@ socketxp connect http://localhost:8080
 ```
 ## Ngrok
 
-З [https://ngrok.com/](https://ngrok.com/) він дозволяє відкрити http та tcp порти:
+З [https://ngrok.com/](https://ngrok.com/) він дозволяє відкривати http та tcp порти:
 ```bash
 # Expose web in 3000
 ngrok http 8000
@@ -59,7 +59,7 @@ ngrok tcp 9000
 ```
 ## LocalXpose
 
-З [https://localxpose.io/](https://localxpose.io/) він дозволяє кілька функцій http та переадресації портів **безкоштовно**.
+З [https://localxpose.io/](https://localxpose.io/) це дозволяє кілька функцій http та переадресації портів **безкоштовно**.
 ```bash
 # Expose web in port 8989
 loclx tunnel http -t 8989
@@ -69,7 +69,7 @@ loclx tunnel tcp --port 4545
 ```
 ## Expose
 
-З [https://expose.dev/](https://expose.dev/) це дозволяє відкрити http та tcp порти:
+З [https://expose.dev/](https://expose.dev/) можна відкрити http та tcp порти:
 ```bash
 # Expose web in 3000
 ./expose share http://localhost:3000
