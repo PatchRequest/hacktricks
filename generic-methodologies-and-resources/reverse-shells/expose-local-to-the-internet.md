@@ -15,13 +15,13 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 </details>
 {% endhint %}
 
-**L'objectif de cette page est de proposer des alternatives qui permettent AU MOINS d'exposer des ports TCP bruts locaux et des sites web locaux (HTTP) à Internet SANS avoir besoin d'installer quoi que ce soit sur l'autre serveur (uniquement en local si nécessaire).**
+**L'objectif de cette page est de proposer des alternatives qui permettent AU MOINS d'exposer des ports TCP bruts locaux et des sites locaux (HTTP) à Internet SANS avoir besoin d'installer quoi que ce soit sur l'autre serveur (uniquement en local si nécessaire).**
 
 ## **Serveo**
 
 Depuis [https://serveo.net/](https://serveo.net/), il permet plusieurs fonctionnalités de redirection http et de ports **gratuitement**.
 ```bash
-# Get a random port from serveo.net to expose a local port
+# Get a random port from serveo.net to expose local port 4444
 ssh -R 0:localhost:4444 serveo.net
 
 # Expose a web listening in localhost:300 in a random https URL
@@ -59,7 +59,7 @@ Depuis [https://telebit.cloud/](https://telebit.cloud/) il permet d'exposer des 
 ```
 ## LocalXpose
 
-De [https://localxpose.io/](https://localxpose.io/), il permet plusieurs fonctionnalités de redirection http et de port **gratuitement**.
+De [https://localxpose.io/](https://localxpose.io/), il permet plusieurs fonctionnalités de redirection http et de ports **gratuitement**.
 ```bash
 # Expose web in port 8989
 loclx tunnel http -t 8989
@@ -69,7 +69,7 @@ loclx tunnel tcp --port 4545
 ```
 ## Expose
 
-De [https://expose.dev/](https://expose.dev/), il permet d'exposer des ports http et tcp :
+De [https://expose.dev/](https://expose.dev/), cela permet d'exposer des ports http et tcp :
 ```bash
 # Expose web in 3000
 ./expose share http://localhost:3000
@@ -92,8 +92,8 @@ Apprenez et pratiquez le hacking GCP : <img src="../../.gitbook/assets/grte.png"
 
 <summary>Soutenir HackTricks</summary>
 
-* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop)!
-* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez** nous sur **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* Consultez les [**plans d'abonnement**](https://github.com/sponsors/carlospolop) !
+* **Rejoignez le** 💬 [**groupe Discord**](https://discord.gg/hRep4RUj7f) ou le [**groupe telegram**](https://t.me/peass) ou **suivez-nous sur** **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Partagez des astuces de hacking en soumettant des PRs aux** [**HackTricks**](https://github.com/carlospolop/hacktricks) et [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) dépôts github.
 
 </details>
