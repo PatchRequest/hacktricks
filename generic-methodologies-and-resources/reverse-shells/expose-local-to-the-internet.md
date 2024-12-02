@@ -21,7 +21,7 @@ Aprende y practica Hacking en GCP: <img src="../../.gitbook/assets/grte.png" alt
 
 Desde [https://serveo.net/](https://serveo.net/), permite varias características de reenvío de http y puertos **de forma gratuita**.
 ```bash
-# Get a random port from serveo.net to expose a local port
+# Get a random port from serveo.net to expose local port 4444
 ssh -R 0:localhost:4444 serveo.net
 
 # Expose a web listening in localhost:300 in a random https URL
