@@ -15,13 +15,13 @@ Learn & practice GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" d
 </details>
 {% endhint %}
 
-**Lengo la ukurasa huu ni kupendekeza mbadala ambazo zinaruhusu KIASI CHA ANGALAU kufichua bandari za TCP za ndani na wavuti za ndani (HTTP) kwa mtandao BILA kuhitaji kufunga chochote kwenye seva nyingine (tu kwenye ndani ikiwa inahitajika).**
+**Lengo la ukurasa huu ni kupendekeza mbadala ambazo zinaruhusu KIASI CHA KUPUNGUZA kufichua bandari za TCP za ndani na wavuti za ndani (HTTP) kwa mtandao BILA kuhitaji kufunga chochote kwenye seva nyingine (tu kwenye ndani ikiwa inahitajika).**
 
 ## **Serveo**
 
-Kutoka [https://serveo.net/](https://serveo.net/), inaruhusu vipengele kadhaa vya uhamasishaji wa http na bandari **bila malipo**.
+Kutoka [https://serveo.net/](https://serveo.net/), inaruhusu vipengele kadhaa vya http na uhamasishaji wa bandari **bila malipo**.
 ```bash
-# Get a random port from serveo.net to expose a local port
+# Get a random port from serveo.net to expose local port 4444
 ssh -R 0:localhost:4444 serveo.net
 
 # Expose a web listening in localhost:300 in a random https URL
@@ -69,7 +69,7 @@ loclx tunnel tcp --port 4545
 ```
 ## Expose
 
-Kutoka [https://expose.dev/](https://expose.dev/) inaruhusu kufichua port za http na tcp:
+From [https://expose.dev/](https://expose.dev/) inaruhusu kufichua port za http na tcp:
 ```bash
 # Expose web in 3000
 ./expose share http://localhost:3000
