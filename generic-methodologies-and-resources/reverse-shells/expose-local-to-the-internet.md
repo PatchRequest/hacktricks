@@ -21,7 +21,7 @@ Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 
 Van [https://serveo.net/](https://serveo.net/), dit laat verskeie http en poort deurstuur funksies **gratis** toe.
 ```bash
-# Get a random port from serveo.net to expose a local port
+# Get a random port from serveo.net to expose local port 4444
 ssh -R 0:localhost:4444 serveo.net
 
 # Expose a web listening in localhost:300 in a random https URL
@@ -29,7 +29,7 @@ ssh -R 80:localhost:3000 serveo.net
 ```
 ## SocketXP
 
-Van [https://www.socketxp.com/download](https://www.socketxp.com/download), dit stel jou in staat om tcp en http bloot te stel:
+Van [https://www.socketxp.com/download](https://www.socketxp.com/download), dit stel in staat om tcp en http bloot te stel:
 ```bash
 # Expose tcp port 22
 socketxp connect tcp://localhost:22
@@ -92,8 +92,8 @@ Leer & oefen GCP Hacking: <img src="../../.gitbook/assets/grte.png" alt="" data-
 
 <summary>Ondersteun HackTricks</summary>
 
-* Kyk na die [**subskripsie planne**](https://github.com/sponsors/carlospolop)!
-* **Sluit aan by die** 💬 [**Discord groep**](https://discord.gg/hRep4RUj7f) of die [**telegram groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
+* Kyk na die [**subskripsieplanne**](https://github.com/sponsors/carlospolop)!
+* **Sluit aan by die** 💬 [**Discord-groep**](https://discord.gg/hRep4RUj7f) of die [**telegram-groep**](https://t.me/peass) of **volg** ons op **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
 * **Deel hacking truuks deur PRs in te dien na die** [**HackTricks**](https://github.com/carlospolop/hacktricks) en [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) github repos.
 
 </details>
