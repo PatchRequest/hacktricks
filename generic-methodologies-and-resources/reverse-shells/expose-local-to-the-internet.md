@@ -10,7 +10,7 @@ Aprenda e pratique Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt=""
 
 * Confira os [**planos de assinatura**](https://github.com/sponsors/carlospolop)!
 * **Junte-se ao** 💬 [**grupo do Discord**](https://discord.gg/hRep4RUj7f) ou ao [**grupo do telegram**](https://t.me/peass) ou **siga**-nos no **Twitter** 🐦 [**@hacktricks\_live**](https://twitter.com/hacktricks_live)**.**
-* **Compartilhe truques de hacking enviando PRs para os repositórios do** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud).
+* **Compartilhe truques de hacking enviando PRs para o** [**HackTricks**](https://github.com/carlospolop/hacktricks) e [**HackTricks Cloud**](https://github.com/carlospolop/hacktricks-cloud) repositórios do github.
 
 </details>
 {% endhint %}
@@ -21,7 +21,7 @@ Aprenda e pratique Hacking GCP: <img src="../../.gitbook/assets/grte.png" alt=""
 
 De [https://serveo.net/](https://serveo.net/), permite várias funcionalidades de encaminhamento http e de portas **gratuitamente**.
 ```bash
-# Get a random port from serveo.net to expose a local port
+# Get a random port from serveo.net to expose local port 4444
 ssh -R 0:localhost:4444 serveo.net
 
 # Expose a web listening in localhost:300 in a random https URL
@@ -29,7 +29,7 @@ ssh -R 80:localhost:3000 serveo.net
 ```
 ## SocketXP
 
-De [https://www.socketxp.com/download](https://www.socketxp.com/download), permite expor tcp e http:
+Do [https://www.socketxp.com/download](https://www.socketxp.com/download), permite expor tcp e http:
 ```bash
 # Expose tcp port 22
 socketxp connect tcp://localhost:22
