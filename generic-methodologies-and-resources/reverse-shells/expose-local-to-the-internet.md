@@ -21,7 +21,7 @@
 
 Από [https://serveo.net/](https://serveo.net/), επιτρέπει πολλές δυνατότητες http και προώθησης θυρών **δωρεάν**.
 ```bash
-# Get a random port from serveo.net to expose a local port
+# Get a random port from serveo.net to expose local port 4444
 ssh -R 0:localhost:4444 serveo.net
 
 # Expose a web listening in localhost:300 in a random https URL
@@ -59,7 +59,7 @@ ngrok tcp 9000
 ```
 ## LocalXpose
 
-Από [https://localxpose.io/](https://localxpose.io/), επιτρέπει πολλές δυνατότητες http και προώθησης θυρών **χωρίς κόστος**.
+Από [https://localxpose.io/](https://localxpose.io/), επιτρέπει πολλές δυνατότητες http και προώθησης θύρας **χωρίς κόστος**.
 ```bash
 # Expose web in port 8989
 loclx tunnel http -t 8989
